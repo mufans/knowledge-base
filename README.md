@@ -29,6 +29,7 @@
 
 - AI Agent 与多智能体系统
 - LLM 与大模型应用
+- 移动端开发（Android / HarmonyOS）
 - 云原生与后端架构
 - 开源项目与开发者工具
 
