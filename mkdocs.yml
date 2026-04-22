@@ -19,10 +19,3 @@ plugins:
 markdown_extensions:
   - toc:
       permalink: true
-
-nav:
-  - 2026-04-22-GitHub项目: 2026-04-22-GitHub项目.md
-  - 2026-04-22-技术动态: 2026-04-22-技术动态.md
-  - 2026-04-22-生产力工具: 2026-04-22-生产力工具.md
-  - 2026-04-22-社交媒体AI动态: 2026-04-22-社交媒体AI动态.md
-  - index: index.md
