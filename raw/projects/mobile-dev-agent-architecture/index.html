@@ -8,29 +8,31 @@
       
       
       
-        <link rel="canonical" href="https://mufans.github.io/knowledge-base/">
+        <link rel="canonical" href="https://mufans.github.io/knowledge-base/raw/projects/mobile-dev-agent-architecture/">
       
       
+        <link rel="prev" href="../career-transition-plan/">
       
-        <link rel="next" href="CLAUDE/">
+      
+        <link rel="next" href="../openclaw-source-study/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Knowledge Base</title>
+        <title>Mobile Dev Agent - 架构设计文档 - Knowledge Base</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#mobile-dev-agent-" class="md-skip">
           跳转至
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              知识库索引
+              Mobile Dev Agent - 架构设计文档
             
           </span>
         </div>
@@ -200,7 +202,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -227,37 +229,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    知识库索引
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -273,103 +248,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#wiki" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 概念
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wiki_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 实体
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wiki_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 来源摘要
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wiki_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 综合分析
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 原始采集
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 归档日报
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 项目文档
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -381,7 +259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="CLAUDE/" class="md-nav__link">
+      <a href="../../../CLAUDE/" class="md-nav__link">
         
   
   
@@ -408,7 +286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="log/" class="md-nav__link">
+      <a href="../../../log/" class="md-nav__link">
         
   
   
@@ -432,18 +310,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -464,7 +344,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -529,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-GitHub%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-GitHub%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
         
   
   
@@ -557,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E6%8A%80%E6%9C%AF%E5%8A%A8%E6%80%81/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E6%8A%80%E6%9C%AF%E5%8A%A8%E6%80%81/" class="md-nav__link">
         
   
   
@@ -585,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9/" class="md-nav__link">
         
   
   
@@ -613,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -641,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E7%94%9F%E4%BA%A7%E5%8A%9B%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E7%94%9F%E4%BA%A7%E5%8A%9B%E5%B7%A5%E5%85%B7/" class="md-nav__link">
         
   
   
@@ -669,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93AI%E5%8A%A8%E6%80%81/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93AI%E5%8A%A8%E6%80%81/" class="md-nav__link">
         
   
   
@@ -697,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-23-Hermes%20Agent%20Self-Improving%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../inbox/2026-04-23-Hermes%20Agent%20Self-Improving%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -772,7 +652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-19/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-19/" class="md-nav__link">
         
   
   
@@ -800,7 +680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-20-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-20-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -828,7 +708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-27-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-27-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -856,7 +736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-29-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-29-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -884,7 +764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -912,7 +792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-02-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-02-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -940,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-10-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-10-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -968,7 +848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-12-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-12-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -996,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-13-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-13-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1024,7 +904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-14-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-14-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1052,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-15-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-15-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1080,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-16-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-16-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1108,7 +988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-17-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-17-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1136,7 +1016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-18-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-18-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1164,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-21-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-21-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1205,18 +1085,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -1237,7 +1119,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1255,7 +1137,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/career-transition-plan/" class="md-nav__link">
+      <a href="../career-transition-plan/" class="md-nav__link">
         
   
   
@@ -1280,10 +1162,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="raw/projects/mobile-dev-agent-architecture/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile Dev Agent - 架构设计文档
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1299,6 +1208,214 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 项目概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 系统架构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 核心组件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 核心组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 LangGraph 工作流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-agent-agentstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Agent 状态（AgentState）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Agent 职责
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 数据流
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 目录结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 技术栈
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 分阶段实施
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 分阶段实施">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1：基础设施（当前）✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2：完善代码生成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3：反馈循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4：MCP 工具集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5：产品化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 使用方式
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1311,7 +1428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/openclaw-source-study/" class="md-nav__link">
+      <a href="../openclaw-source-study/" class="md-nav__link">
         
   
   
@@ -1386,7 +1503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-07-55-%E6%B5%8B%E8%AF%95MD%E6%96%87%E4%BB%B6/" class="md-nav__link">
+      <a href="../reports/2026-03-19-07-55-%E6%B5%8B%E8%AF%95MD%E6%96%87%E4%BB%B6/" class="md-nav__link">
         
   
   
@@ -1414,7 +1531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-19-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1442,7 +1559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-19-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1470,7 +1587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-08-53-Claude-Code%E6%A3%80%E6%9F%A5%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+      <a href="../reports/2026-03-19-08-53-Claude-Code%E6%A3%80%E6%9F%A5%E6%8A%A5%E5%91%8A/" class="md-nav__link">
         
   
   
@@ -1498,7 +1615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-09-41-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-19-09-41-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1526,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-19-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -1554,7 +1671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-22-00-AI%E9%A1%B9%E7%9B%AE%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../reports/2026-03-19-22-00-AI%E9%A1%B9%E7%9B%AE%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -1582,7 +1699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-20-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-20-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1610,7 +1727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-20-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-20-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1638,7 +1755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-20-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-20-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -1666,7 +1783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-21-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-21-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1694,7 +1811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-21-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-21-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1722,7 +1839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-21-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-21-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -1750,7 +1867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-22-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-22-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1778,7 +1895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-22-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-22-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1806,7 +1923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-22-20-00-%E6%AF%8F%E5%91%A8%E5%AD%A6%E4%B9%A0%E6%B1%87%E6%80%BB/" class="md-nav__link">
+      <a href="../reports/2026-03-22-20-00-%E6%AF%8F%E5%91%A8%E5%AD%A6%E4%B9%A0%E6%B1%87%E6%80%BB/" class="md-nav__link">
         
   
   
@@ -1834,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-23-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-23-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1862,7 +1979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-23-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-23-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1890,7 +2007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-24-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1918,7 +2035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-24-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1946,7 +2063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-24-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -1974,7 +2091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-24-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -2002,7 +2119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-25-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-25-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2030,7 +2147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-25-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-25-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2058,7 +2175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-26-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-26-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2086,7 +2203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-27-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2114,7 +2231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-27-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2142,7 +2259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-27-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -2170,7 +2287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-27-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -2198,7 +2315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-22-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../reports/2026-03-27-22-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -2226,7 +2343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-28-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-28-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2254,7 +2371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-28-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-28-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2282,7 +2399,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-29-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-29-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2310,7 +2427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-29-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-29-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2338,7 +2455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-29-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-29-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -2366,7 +2483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-30-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-30-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2394,7 +2511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-30-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-30-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2465,10 +2582,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#wiki" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wiki 概念
+        1. 项目概述
       
     </span>
   </a>
@@ -2476,10 +2593,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wiki_1" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wiki 实体
+        2. 系统架构
       
     </span>
   </a>
@@ -2487,10 +2604,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wiki_2" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wiki 来源摘要
+        3. 核心组件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 核心组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 LangGraph 工作流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-agent-agentstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Agent 状态（AgentState）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Agent 职责
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 数据流
       
     </span>
   </a>
@@ -2498,10 +2665,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wiki_3" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wiki 综合分析
+        5. 目录结构
       
     </span>
   </a>
@@ -2509,10 +2676,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#raw" class="md-nav__link">
+  <a href="#6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Raw 原始采集
+        6. 技术栈
       
     </span>
   </a>
@@ -2520,21 +2687,82 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#raw_1" class="md-nav__link">
+  <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Raw 归档日报
+        7. 分阶段实施
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 分阶段实施">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1：基础设施（当前）✅
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#raw_2" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#phase-2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Raw 项目文档
+        Phase 2：完善代码生成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3：反馈循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4：MCP 工具集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5：产品化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 使用方式
       
     </span>
   </a>
@@ -2561,48 +2789,296 @@
   
 
 
-<h1 id="_1">知识库索引<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>AI搜索时先扫此文件，精准定位到需要深度阅读的页面。</p>
-</blockquote>
-<h2 id="wiki">Wiki 概念<a class="headerlink" href="#wiki" title="Permanent link">&para;</a></h2>
-<h2 id="wiki_1">Wiki 实体<a class="headerlink" href="#wiki_1" title="Permanent link">&para;</a></h2>
-<h2 id="wiki_2">Wiki 来源摘要<a class="headerlink" href="#wiki_2" title="Permanent link">&para;</a></h2>
-<h2 id="wiki_3">Wiki 综合分析<a class="headerlink" href="#wiki_3" title="Permanent link">&para;</a></h2>
-<h2 id="raw">Raw 原始采集<a class="headerlink" href="#raw" title="Permanent link">&para;</a></h2>
+<h1 id="mobile-dev-agent-">Mobile Dev Agent - 架构设计文档<a class="headerlink" href="#mobile-dev-agent-" title="Permanent link">&para;</a></h1>
+<h2 id="1">1. 项目概述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p><strong>名称</strong>：Mobile Dev Agent（移动端智能开发助手）
+<strong>定位</strong>：多 Agent 协作系统，输入产品需求 → 输出可运行的移动端代码
+<strong>支持平台</strong>：Android (Kotlin) / HarmonyOS (ArkTS) / iOS (Swift)</p>
+<hr />
+<h2 id="2">2. 系统架构<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    用户交互层                              │
+│            CLI (Typer) / Web UI (未来)                    │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────┐
+│                 LangGraph 编排层                          │
+│                                                          │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐           │
+│  │  需求分析  │───▶│  架构设计  │───▶│  代码生成  │──┐      │
+│  │  Agent   │    │  Agent   │    │  Agent   │  │      │
+│  └──────────┘    └──────────┘    └──────────┘  │      │
+│                                       ▲          │      │
+│  ┌──────────┐                         │          │      │
+│  │  代码审查  │─────────────────────────┘ (不通过) │      │
+│  │  Agent   │                                    │      │
+│  └────┬─────┘                                    │      │
+│       │ (通过)                                   │      │
+│       ▼                                          │      │
+│  ┌──────────┐                                    │      │
+│  │  测试生成  │                                    │      │
+│  │  Agent   │                                    │      │
+│  └──────────┘                                    │      │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────┐
+│                  MCP 工具层                               │
+│                                                          │
+│  ┌────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ │
+│  │ Context7   │ │ GitHub   │ │ 文件系统  │ │ Figma    │ │
+│  │ 文档查询   │ │ 仓库操作  │ │ 读写     │ │ 设计稿   │ │
+│  └────────────┘ └──────────┘ └──────────┘ └──────────┘ │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="3">3. 核心组件<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31-langgraph">3.1 LangGraph 工作流<a class="headerlink" href="#31-langgraph" title="Permanent link">&para;</a></h3>
+<p>使用 <code>StateGraph</code> 定义有向图，节点是 Agent，边是数据流和控制流。</p>
+<pre><code class="language-python">workflow = StateGraph(AgentState)
+
+# 节点
+workflow.add_node(&quot;requirement_analyst&quot;, ...)
+workflow.add_node(&quot;architect&quot;, ...)
+workflow.add_node(&quot;coder&quot;, ...)
+workflow.add_node(&quot;reviewer&quot;, ...)
+
+# 边
+workflow.set_entry_point(&quot;requirement_analyst&quot;)
+workflow.add_edge(&quot;requirement_analyst&quot;, &quot;architect&quot;)
+workflow.add_edge(&quot;architect&quot;, &quot;coder&quot;)
+workflow.add_edge(&quot;coder&quot;, &quot;reviewer&quot;)
+
+# 条件边（反馈循环）
+workflow.add_conditional_edges(&quot;reviewer&quot;, should_continue, {
+    &quot;coder&quot;: &quot;coder&quot;,   # 审查不通过 → 重新生成
+    END: END,            # 审查通过 → 结束
+})
+</code></pre>
+<h3 id="32-agent-agentstate">3.2 Agent 状态（AgentState）<a class="headerlink" href="#32-agent-agentstate" title="Permanent link">&para;</a></h3>
+<p>所有 Agent 共享一个 TypedDict 状态，通过 LangGraph 的 reducer 机制自动合并更新。</p>
+<pre><code class="language-python">class AgentState(TypedDict):
+    user_input: str                    # 原始需求
+    platform: str                      # 目标平台
+    requirement: dict                  # 需求分析结果
+    architecture: dict                 # 架构设计
+    generated_files: list[dict]        # 生成的代码文件
+    review_result: dict                # 审查结果
+    test_files: list[dict]             # 测试文件
+    iteration_count: int               # 迭代次数（控制循环）
+    messages: list[dict]               # 消息历史
+    errors: list[str]                  # 错误记录
+    status: str                        # 状态
+</code></pre>
+<h3 id="33-agent">3.3 Agent 职责<a class="headerlink" href="#33-agent" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>输入</th>
+<th>输出</th>
+<th>关键能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>需求分析</strong></td>
+<td>自然语言需求</td>
+<td>结构化需求 JSON</td>
+<td>需求拆解、完整性检查、隐式需求推断</td>
+</tr>
+<tr>
+<td><strong>架构设计</strong></td>
+<td>结构化需求</td>
+<td>架构方案 JSON</td>
+<td>模块划分、分层设计、依赖管理</td>
+</tr>
+<tr>
+<td><strong>代码生成</strong></td>
+<td>架构方案</td>
+<td>代码文件列表</td>
+<td>多文件生成、平台适配、最佳实践</td>
+</tr>
+<tr>
+<td><strong>代码审查</strong></td>
+<td>代码文件</td>
+<td>审查结果 JSON</td>
+<td>静态分析、质量评分、修改建议</td>
+</tr>
+<tr>
+<td><strong>测试生成</strong></td>
+<td>代码文件</td>
+<td>测试文件</td>
+<td>单元测试、边界用例</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 数据流<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<pre><code>用户输入 &quot;做一个登录页面&quot;
+    │
+    ▼
+[需求分析 Agent]
+    → summary: &quot;实现用户登录注册功能&quot;
+    → features: [&quot;手机号登录&quot;, &quot;验证码&quot;, &quot;密码登录&quot;, &quot;第三方登录&quot;]
+    → screens: [登录页, 注册页, 验证码页]
+    │
+    ▼
+[架构设计 Agent]
+    → pattern: MVVM
+    → modules: [auth/ui, auth/viewmodel, auth/repository, auth/model]
+    → directory_structure: {完整项目结构}
+    │
+    ▼
+[代码生成 Agent]
+    → files: [
+        LoginScreen.kt,
+        LoginViewModel.kt,
+        AuthRepository.kt,
+        ...
+      ]
+    │
+    ▼
+[代码审查 Agent]
+    → passed: true/false
+    → score: 85
+    → issues: [...]
+    │
+    ├── 通过 → 输出最终代码
+    └── 不通过 → 回到代码生成（带上审查建议），最多重试3次
+</code></pre>
+<hr />
+<h2 id="5">5. 目录结构<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<pre><code>mobile-dev-agent/
+├── src/
+│   ├── __init__.py
+│   ├── workflow.py              # LangGraph 工作流定义（核心入口）
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── state.py             # AgentState 定义 + 数据模型
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   ├── requirement_analyst.py  # 需求分析 Agent
+│   │   ├── architect.py            # 架构设计 Agent
+│   │   ├── coder.py                # 代码生成 Agent
+│   │   └── reviewer.py             # 代码审查 Agent
+│   ├── tools/                   # 工具函数（Phase 4）
+│   ├── mcp_server/              # MCP Server（Phase 4）
+│   ├── utils/                   # 通用工具
+│   └── templates/               # 代码模板
+├── config/                      # 配置文件
+├── tests/                       # 测试
+├── docs/                        # 文档
+├── scripts/
+│   └── cli.py                   # CLI 入口
+├── output/                      # 生成的代码输出
+├── pyproject.toml               # 项目配置
+├── .env.example                 # 环境变量模板
+├── .gitignore
+└── README.md
+</code></pre>
+<hr />
+<h2 id="6">6. 技术栈<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>技术</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent 编排</td>
+<td><strong>LangGraph</strong></td>
+<td>工作流图、条件路由、状态管理</td>
+</tr>
+<tr>
+<td>LLM 调用</td>
+<td><strong>LangChain + ChatOpenAI</strong></td>
+<td>统一 LLM 接口</td>
+</tr>
+<tr>
+<td>LLM 模型</td>
+<td><strong>GLM-5</strong></td>
+<td>主要模型（免费）</td>
+</tr>
+<tr>
+<td>工具协议</td>
+<td><strong>MCP</strong></td>
+<td>外部工具调用（Phase 4）</td>
+</tr>
+<tr>
+<td>CLI</td>
+<td><strong>Typer + Rich</strong></td>
+<td>命令行界面</td>
+</tr>
+<tr>
+<td>数据验证</td>
+<td><strong>Pydantic</strong></td>
+<td>结构化输出验证</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7">7. 分阶段实施<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1">Phase 1：基础设施（当前）✅<a class="headerlink" href="#phase-1" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="raw/inbox/2026-04-22-GitHub项目">2026-04-22-GitHub项目</a></li>
-<li><a href="raw/inbox/2026-04-22-技术动态">2026-04-22-技术动态</a></li>
-<li><a href="raw/inbox/2026-04-22-新闻热点">2026-04-22-新闻热点</a></li>
-<li><a href="raw/inbox/2026-04-22-晚间总结">2026-04-22-晚间总结</a></li>
-<li><a href="raw/inbox/2026-04-22-生产力工具">2026-04-22-生产力工具</a></li>
-<li><a href="raw/inbox/2026-04-22-社交媒体AI动态">2026-04-22-社交媒体AI动态</a></li>
-<li><a href="raw/inbox/2026-04-23-Hermes Agent Self-Improving源码分析">2026-04-23-Hermes Agent Self-Improving源码分析</a></li>
+<li>[x] 项目骨架搭建</li>
+<li>[x] LangGraph StateGraph 基础 workflow</li>
+<li>[x] AgentState Schema 定义</li>
+<li>[x] 4 个核心 Agent 框架</li>
+<li>[ ] 跑通最小链路（输入需求 → 输出代码）</li>
 </ul>
-<h2 id="raw_1">Raw 归档日报<a class="headerlink" href="#raw_1" title="Permanent link">&para;</a></h2>
+<h3 id="phase-2">Phase 2：完善代码生成<a class="headerlink" href="#phase-2" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="raw/inbox/archive/2026-03-19">2026-03-19</a></li>
-<li><a href="raw/inbox/archive/2026-03-20-技术日报">2026-03-20-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-03-27-技术日报">2026-03-27-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-03-29-技术日报">2026-03-29-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-03-30-技术日报">2026-03-30-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-02-技术日报">2026-04-02-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-10-技术日报">2026-04-10-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-12-技术日报">2026-04-12-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-13-技术日报">2026-04-13-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-14-技术日报">2026-04-14-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-15-技术日报">2026-04-15-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-16-技术日报">2026-04-16-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-17-技术日报">2026-04-17-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-18-技术日报">2026-04-18-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-21-技术日报">2026-04-21-技术日报</a></li>
+<li>[ ] Few-shot 示例（你的移动端经验沉淀）</li>
+<li>[ ] 平台特定模板（Android/鸿蒙/iOS）</li>
+<li>[ ] 条件路由（按平台选择不同策略）</li>
+<li>[ ] 代码文件保存到磁盘</li>
 </ul>
-<h2 id="raw_2">Raw 项目文档<a class="headerlink" href="#raw_2" title="Permanent link">&para;</a></h2>
+<h3 id="phase-3">Phase 3：反馈循环<a class="headerlink" href="#phase-3" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="raw/projects/career-transition-plan">career-transition-plan</a></li>
-<li><a href="raw/projects/mobile-dev-agent-architecture">mobile-dev-agent-architecture</a></li>
-<li><a href="raw/projects/openclaw-source-study">openclaw-source-study</a></li>
+<li>[ ] 代码审查 Agent 完善</li>
+<li>[ ] 审查不通过 → 重新生成的循环</li>
+<li>[ ] 迭代次数控制</li>
+<li>[ ] 测试生成 Agent</li>
 </ul>
+<h3 id="phase-4mcp">Phase 4：MCP 工具集成<a class="headerlink" href="#phase-4mcp" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 开发 MCP Server（移动端工具集）</li>
+<li>[ ] 接入 Context7（实时文档查询）</li>
+<li>[ ] Human-in-the-Loop（人工审核节点）</li>
+</ul>
+<h3 id="phase-5">Phase 5：产品化<a class="headerlink" href="#phase-5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] CLI 完善（mdev 命令）</li>
+<li>[ ] Web UI（可视化 workflow）</li>
+<li>[ ] 项目模板系统</li>
+<li>[ ] 开源发布</li>
+</ul>
+<hr />
+<h2 id="8">8. 使用方式<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash"># 环境准备
+cd ~/projects/mobile-dev-agent
+cp .env.example .env
+# 编辑 .env 填入 API Key
+
+# 安装依赖
+pip install -e &quot;.[dev]&quot;
+
+# 生成代码
+mdev &quot;做一个用户列表页，支持下拉刷新&quot; -p harmony
+
+# 审查项目
+mdev review ./my-app -p android
+
+# 查看配置
+mdev info
+</code></pre>
+<hr />
+<p><em>文档版本: 0.1.0 | 创建时间: 2026-03-27</em></p>
 
 
 
@@ -2652,10 +3128,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["search", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

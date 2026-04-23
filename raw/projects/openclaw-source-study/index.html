@@ -8,29 +8,31 @@
       
       
       
-        <link rel="canonical" href="https://mufans.github.io/knowledge-base/">
+        <link rel="canonical" href="https://mufans.github.io/knowledge-base/raw/projects/openclaw-source-study/">
       
       
+        <link rel="prev" href="../mobile-dev-agent-architecture/">
       
-        <link rel="next" href="CLAUDE/">
+      
+        <link rel="next" href="../reports/2026-03-19-07-55-%E6%B5%8B%E8%AF%95MD%E6%96%87%E4%BB%B6/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Knowledge Base</title>
+        <title>OpenClaw 源码学习路径 - Knowledge Base</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#openclaw" class="md-skip">
           跳转至
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              知识库索引
+              OpenClaw 源码学习路径
             
           </span>
         </div>
@@ -200,7 +202,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -227,37 +229,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    知识库索引
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -273,103 +248,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#wiki" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 概念
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wiki_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 实体
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wiki_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 来源摘要
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wiki_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 综合分析
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 原始采集
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 归档日报
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 项目文档
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -381,7 +259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="CLAUDE/" class="md-nav__link">
+      <a href="../../../CLAUDE/" class="md-nav__link">
         
   
   
@@ -408,7 +286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="log/" class="md-nav__link">
+      <a href="../../../log/" class="md-nav__link">
         
   
   
@@ -432,18 +310,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -464,7 +344,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -529,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-GitHub%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-GitHub%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
         
   
   
@@ -557,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E6%8A%80%E6%9C%AF%E5%8A%A8%E6%80%81/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E6%8A%80%E6%9C%AF%E5%8A%A8%E6%80%81/" class="md-nav__link">
         
   
   
@@ -585,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9/" class="md-nav__link">
         
   
   
@@ -613,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -641,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E7%94%9F%E4%BA%A7%E5%8A%9B%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E7%94%9F%E4%BA%A7%E5%8A%9B%E5%B7%A5%E5%85%B7/" class="md-nav__link">
         
   
   
@@ -669,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-22-%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93AI%E5%8A%A8%E6%80%81/" class="md-nav__link">
+      <a href="../../inbox/2026-04-22-%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93AI%E5%8A%A8%E6%80%81/" class="md-nav__link">
         
   
   
@@ -697,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/2026-04-23-Hermes%20Agent%20Self-Improving%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../../inbox/2026-04-23-Hermes%20Agent%20Self-Improving%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -772,7 +652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-19/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-19/" class="md-nav__link">
         
   
   
@@ -800,7 +680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-20-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-20-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -828,7 +708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-27-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-27-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -856,7 +736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-29-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-29-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -884,7 +764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-03-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-03-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -912,7 +792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-02-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-02-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -940,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-10-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-10-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -968,7 +848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-12-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-12-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -996,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-13-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-13-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1024,7 +904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-14-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-14-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1052,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-15-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-15-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1080,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-16-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-16-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1108,7 +988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-17-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-17-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1136,7 +1016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-18-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-18-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1164,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/inbox/archive/2026-04-21-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../../inbox/archive/2026-04-21-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -1205,18 +1085,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -1237,7 +1119,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1255,7 +1137,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/career-transition-plan/" class="md-nav__link">
+      <a href="../career-transition-plan/" class="md-nav__link">
         
   
   
@@ -1283,7 +1165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/mobile-dev-agent-architecture/" class="md-nav__link">
+      <a href="../mobile-dev-agent-architecture/" class="md-nav__link">
         
   
   
@@ -1308,10 +1190,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="raw/projects/openclaw-source-study/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw 源码学习路径
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1327,6 +1236,181 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        源码核心目录结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习路线（4周计划）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习路线（4周计划）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第1周：整体架构 + Gateway 入口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2周：会话管理 + 上下文压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3周：工具系统 + MCP 集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4周：定时任务 + 多Agent路由 + 渠道
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习技巧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-deepwiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 用 DeepWiki 辅助阅读
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-claude-code-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 用 Claude Code / Cursor 辅助
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 从你踩过的坑出发
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 不要试图全部看懂
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对你 AI Agent 转型的价值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        补充资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1386,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-07-55-%E6%B5%8B%E8%AF%95MD%E6%96%87%E4%BB%B6/" class="md-nav__link">
+      <a href="../reports/2026-03-19-07-55-%E6%B5%8B%E8%AF%95MD%E6%96%87%E4%BB%B6/" class="md-nav__link">
         
   
   
@@ -1414,7 +1498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-19-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1442,7 +1526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-19-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1470,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-08-53-Claude-Code%E6%A3%80%E6%9F%A5%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+      <a href="../reports/2026-03-19-08-53-Claude-Code%E6%A3%80%E6%9F%A5%E6%8A%A5%E5%91%8A/" class="md-nav__link">
         
   
   
@@ -1498,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-09-41-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-19-09-41-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1526,7 +1610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-19-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -1554,7 +1638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-19-22-00-AI%E9%A1%B9%E7%9B%AE%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../reports/2026-03-19-22-00-AI%E9%A1%B9%E7%9B%AE%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -1582,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-20-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-20-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1610,7 +1694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-20-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-20-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1638,7 +1722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-20-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-20-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -1666,7 +1750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-21-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-21-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1694,7 +1778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-21-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-21-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1722,7 +1806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-21-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-21-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -1750,7 +1834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-22-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-22-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1778,7 +1862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-22-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-22-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1806,7 +1890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-22-20-00-%E6%AF%8F%E5%91%A8%E5%AD%A6%E4%B9%A0%E6%B1%87%E6%80%BB/" class="md-nav__link">
+      <a href="../reports/2026-03-22-20-00-%E6%AF%8F%E5%91%A8%E5%AD%A6%E4%B9%A0%E6%B1%87%E6%80%BB/" class="md-nav__link">
         
   
   
@@ -1834,7 +1918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-23-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-23-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1862,7 +1946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-23-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-23-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1890,7 +1974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-24-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -1918,7 +2002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-24-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -1946,7 +2030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-24-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -1974,7 +2058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-24-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-24-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -2002,7 +2086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-25-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-25-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2030,7 +2114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-25-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-25-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2058,7 +2142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-26-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-26-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2086,7 +2170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-27-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2114,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-27-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2142,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../reports/2026-03-27-20-00-%E6%99%9A%E9%97%B4%E6%80%BB%E7%BB%93/" class="md-nav__link">
         
   
   
@@ -2170,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-27-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -2198,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-27-22-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
+      <a href="../reports/2026-03-27-22-30-%E6%8A%80%E6%9C%AF%E6%97%A5%E6%8A%A5/" class="md-nav__link">
         
   
   
@@ -2226,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-28-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-28-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2254,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-28-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-28-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2282,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-29-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-29-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2310,7 +2394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-29-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-29-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2338,7 +2422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-29-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
+      <a href="../reports/2026-03-29-21-00-AI%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8F%90%E7%82%BC/" class="md-nav__link">
         
   
   
@@ -2366,7 +2450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-30-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
+      <a href="../reports/2026-03-30-08-00-%E6%96%B0%E9%97%BB%E7%83%AD%E7%82%B9%E6%8E%A8%E9%80%81/" class="md-nav__link">
         
   
   
@@ -2394,7 +2478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raw/projects/reports/2026-03-30-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+      <a href="../reports/2026-03-30-08-30-OpenClaw%E5%8A%9F%E8%83%BD%E6%8E%A8%E8%8D%90/" class="md-nav__link">
         
   
   
@@ -2465,10 +2549,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#wiki" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wiki 概念
+        源码核心目录结构
       
     </span>
   </a>
@@ -2476,10 +2560,132 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wiki_1" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wiki 实体
+        学习路线（4周计划）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习路线（4周计划）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第1周：整体架构 + Gateway 入口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2周：会话管理 + 上下文压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3周：工具系统 + MCP 集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4周：定时任务 + 多Agent路由 + 渠道
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习技巧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-deepwiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 用 DeepWiki 辅助阅读
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-claude-code-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 用 Claude Code / Cursor 辅助
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 从你踩过的坑出发
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 不要试图全部看懂
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对你 AI Agent 转型的价值
       
     </span>
   </a>
@@ -2487,54 +2693,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wiki_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Wiki 来源摘要
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wiki_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wiki 综合分析
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 原始采集
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 归档日报
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#raw_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Raw 项目文档
+        补充资源
       
     </span>
   </a>
@@ -2561,48 +2723,148 @@
   
 
 
-<h1 id="_1">知识库索引<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="openclaw">OpenClaw 源码学习路径<a class="headerlink" href="#openclaw" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>AI搜索时先扫此文件，精准定位到需要深度阅读的页面。</p>
+<p>针对 mufans 的背景（12年移动端开发、转型 AI Agent）定制
+源码：https://github.com/openclaw/openclaw
+技术栈：TypeScript / Node.js
+AI 辅助阅读：https://deepwiki.com/openclaw/openclaw</p>
 </blockquote>
-<h2 id="wiki">Wiki 概念<a class="headerlink" href="#wiki" title="Permanent link">&para;</a></h2>
-<h2 id="wiki_1">Wiki 实体<a class="headerlink" href="#wiki_1" title="Permanent link">&para;</a></h2>
-<h2 id="wiki_2">Wiki 来源摘要<a class="headerlink" href="#wiki_2" title="Permanent link">&para;</a></h2>
-<h2 id="wiki_3">Wiki 综合分析<a class="headerlink" href="#wiki_3" title="Permanent link">&para;</a></h2>
-<h2 id="raw">Raw 原始采集<a class="headerlink" href="#raw" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="_1">源码核心目录结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code>src/
+├── agents/          # 🎯 Agent 核心（session、state、workspace 管理）
+├── bindings/        # 多渠道路由（消息如何分发到不同 agent）
+├── bootstrap/       # 首次启动流程（SOUL.md、IDENTITY.md 生成）
+├── gateway/         # 🎯 Gateway 核心（启动、配置、生命周期）
+├── sessions/        # 🎯 会话管理（历史、压缩、状态）
+├── cron/            # 🎯 定时任务系统
+├── tools/           # 🎯 工具系统（browser、exec、web_search 等）
+├── channels/        # 渠道接入（钉钉、WhatsApp、Telegram 等）
+├── mcp/             # MCP 客户端实现
+├── models/          # LLM 模型抽象（provider、failover）
+├── nodes/           # iOS/Android/macOS Node 通信
+├── canvas-host/     # Canvas 可视化面板
+├── plugins/         # 插件系统
+├── acp/             # ACP（Agent Communication Protocol）编码代理
+├── chat/            # 对话处理核心
+├── cli/             # CLI 命令行
+└── auto-reply/      # 自动回复逻辑
+</code></pre>
+<hr />
+<h2 id="4">学习路线（4周计划）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="1-gateway">第1周：整体架构 + Gateway 入口<a class="headerlink" href="#1-gateway" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 OpenClaw 的整体设计和启动流程</p>
+<p><strong>阅读顺序</strong>：
+1. <code>package.json</code> → 了解依赖和脚本入口
+2. <code>src/gateway/</code> → Gateway 启动流程、配置加载
+3. <code>src/agents/</code> → Agent 定义、workspace 管理、SOUL.md 加载
+4. <code>src/bootstrap/</code> → 首次启动 Q&amp;A 流程（你刚体验过的）</p>
+<p><strong>重点关注</strong>：
+- Gateway 如何加载 <code>openclaw.json</code> 配置
+- Agent 的 workspace、agentDir、session store 三层隔离
+- SOUL.md / AGENTS.md 是如何被注入到 system prompt 的</p>
+<p><strong>产出</strong>：画出 OpenClaw 的启动流程图</p>
+<hr />
+<h3 id="2">第2周：会话管理 + 上下文压缩<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 Agent 的"记忆"是怎么工作的</p>
+<p><strong>阅读顺序</strong>：
+1. <code>src/sessions/</code> → 会话创建、存储、查询
+2. <code>src/sessions/</code> 中的 compaction 相关代码 → 上下文压缩机制
+3. <code>src/models/</code> → LLM 调用抽象、provider 管理</p>
+<p><strong>重点关注</strong>：
+- 会话历史存储格式（messages、tool calls）
+- compaction 触发条件和压缩策略（你经历过的"会话压缩"）
+- 模型 failover 机制（主模型挂了怎么切换）
+- token 计数和预算控制</p>
+<p><strong>产出</strong>：理解为什么你经常遇到 compaction，以及 token 消耗的控制策略</p>
+<hr />
+<h3 id="3-mcp">第3周：工具系统 + MCP 集成<a class="headerlink" href="#3-mcp" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 Agent 如何调用外部工具</p>
+<p><strong>阅读顺序</strong>：
+1. <code>src/tools/</code> → 工具注册、执行、结果返回
+2. <code>src/mcp/</code> → MCP 客户端实现
+3. <code>src/tools/browser/</code> → 浏览器自动化（最复杂的工具之一）</p>
+<p><strong>重点关注</strong>：
+- 工具定义格式（function calling schema）
+- MCP server 的发现、连接、工具注册流程
+- 工具执行结果如何注入回对话上下文
+- 并发工具调用（streaming tool results）</p>
+<p><strong>产出</strong>：能自己写一个简单的 MCP Server 并接入 OpenClaw</p>
+<hr />
+<h3 id="4-agent">第4周：定时任务 + 多Agent路由 + 渠道<a class="headerlink" href="#4-agent" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 OpenClaw 的自动化和多租户能力</p>
+<p><strong>阅读顺序</strong>：
+1. <code>src/cron/</code> → 定时任务调度、isolated session 创建
+2. <code>src/bindings/</code> → 消息路由规则（你最常遇到的问题）
+3. <code>src/channels/</code> → 渠道接入抽象层
+4. 钉钉插件代码 → 你用的钉钉渠道</p>
+<p><strong>重点关注</strong>：
+- cron 任务如何创建 isolated session、执行、推送结果
+- bindings 的优先级匹配逻辑（most-specific wins）
+- 钉钉 Stream 连接的心跳和重连机制（你踩过的坑）
+- delivery 失败的根因（channel vs last 的区别）</p>
+<p><strong>产出</strong>：理解你之前遇到的 delivery failed、模型 not allowed 等问题的根因</p>
+<hr />
+<h2 id="_2">学习技巧<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-deepwiki">1. 用 DeepWiki 辅助阅读<a class="headerlink" href="#1-deepwiki" title="Permanent link">&para;</a></h3>
+<p><code>https://deepwiki.com/openclaw/openclaw</code> — AI 生成的代码解读，比硬读快很多</p>
+<h3 id="2-claude-code-cursor">2. 用 Claude Code / Cursor 辅助<a class="headerlink" href="#2-claude-code-cursor" title="Permanent link">&para;</a></h3>
+<p>在项目目录里直接问：
+- "这个文件是做什么的？"
+- "这个函数的调用链是什么？"
+- "从入口到这条消息被处理，经过了哪些文件？"</p>
+<h3 id="3">3. 从你踩过的坑出发<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>你已经踩过很多坑，带着问题看源码理解会深很多：
+- 模型 "not allowed" → 看 <code>src/agents/</code> 和 <code>src/models/</code>
+- delivery failed → 看 <code>src/cron/</code> 和 <code>src/channels/</code>
+- compaction → 看 <code>src/sessions/</code>
+- 钉钉重连循环 → 看钉钉插件的心跳机制</p>
+<h3 id="4_1">4. 不要试图全部看懂<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
+<p>OpenClaw 是几万行代码的成熟项目。聚焦标 🎯 的 5 个核心模块就够了。</p>
+<hr />
+<h2 id="ai-agent">对你 AI Agent 转型的价值<a class="headerlink" href="#ai-agent" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>学到的能力</th>
+<th>直接应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会话管理和上下文压缩</td>
+<td>做自己的 Agent 系统时管理对话状态</td>
+</tr>
+<tr>
+<td>工具系统（function calling）</td>
+<td>LangGraph 中的 tool use 是同一套逻辑</td>
+</tr>
+<tr>
+<td>MCP 协议实现</td>
+<td>开发自己的 MCP Server</td>
+</tr>
+<tr>
+<td>多 Agent 路由</td>
+<td>multi-agent 架构设计参考</td>
+</tr>
+<tr>
+<td>定时任务编排</td>
+<td>Agent 自动化执行流程</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">补充资源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="raw/inbox/2026-04-22-GitHub项目">2026-04-22-GitHub项目</a></li>
-<li><a href="raw/inbox/2026-04-22-技术动态">2026-04-22-技术动态</a></li>
-<li><a href="raw/inbox/2026-04-22-新闻热点">2026-04-22-新闻热点</a></li>
-<li><a href="raw/inbox/2026-04-22-晚间总结">2026-04-22-晚间总结</a></li>
-<li><a href="raw/inbox/2026-04-22-生产力工具">2026-04-22-生产力工具</a></li>
-<li><a href="raw/inbox/2026-04-22-社交媒体AI动态">2026-04-22-社交媒体AI动态</a></li>
-<li><a href="raw/inbox/2026-04-23-Hermes Agent Self-Improving源码分析">2026-04-23-Hermes Agent Self-Improving源码分析</a></li>
+<li>官方文档：https://docs.openclaw.ai</li>
+<li>DeepWiki：https://deepwiki.com/openclaw/openclaw</li>
+<li>Discord 社区：https://discord.com/invite/clawd</li>
+<li>GitHub：https://github.com/openclaw/openclaw</li>
 </ul>
-<h2 id="raw_1">Raw 归档日报<a class="headerlink" href="#raw_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="raw/inbox/archive/2026-03-19">2026-03-19</a></li>
-<li><a href="raw/inbox/archive/2026-03-20-技术日报">2026-03-20-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-03-27-技术日报">2026-03-27-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-03-29-技术日报">2026-03-29-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-03-30-技术日报">2026-03-30-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-02-技术日报">2026-04-02-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-10-技术日报">2026-04-10-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-12-技术日报">2026-04-12-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-13-技术日报">2026-04-13-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-14-技术日报">2026-04-14-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-15-技术日报">2026-04-15-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-16-技术日报">2026-04-16-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-17-技术日报">2026-04-17-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-18-技术日报">2026-04-18-技术日报</a></li>
-<li><a href="raw/inbox/archive/2026-04-21-技术日报">2026-04-21-技术日报</a></li>
-</ul>
-<h2 id="raw_2">Raw 项目文档<a class="headerlink" href="#raw_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="raw/projects/career-transition-plan">career-transition-plan</a></li>
-<li><a href="raw/projects/mobile-dev-agent-architecture">mobile-dev-agent-architecture</a></li>
-<li><a href="raw/projects/openclaw-source-study">openclaw-source-study</a></li>
-</ul>
+<hr />
+<p><em>创建时间: 2026-03-30</em>
+<em>作者: Claw 🦞</em></p>
 
 
 
@@ -2652,10 +2914,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["search", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
