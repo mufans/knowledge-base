@@ -11,10 +11,12 @@
 
 ## Wiki 实体
 - [[Hermes-Agent]] - Nous Research 开发的自改进 AI Agent 框架，内置 Memory/Skill/Nudge 学习闭环
+- [[OpenClaw]] - 多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施
 
 
 ## Wiki 来源摘要
 - [[Hermes-Agent-源码分析]] - Hermes Agent v0.11.0 源码级技术分析（MemoryStore、SkillManager、NudgeEngine）
+- [[OpenClaw-源码分析]] - OpenClaw v2026.4.9 源码级技术分析（Gateway、Agent Runtime、Skill、Cron、MCP、Channel）
 
 ## Wiki 综合分析
 - [[Hermes-vs-OpenClaw对比分析]] - 架构、能力、设计哲学的全面对比
