@@ -3,26 +3,33 @@
 > AI搜索时先扫此文件，精准定位到需要深度阅读的页面。
 
 ## Wiki 概念
-
+- [[AI Agent Self-Improving]] - Agent系统从工作中自动学习并持续改进的能力机制
+- [[Memory Management]] - AI系统中记忆资源的有效管理和优化策略
+- [[Skill Auto-Creation]] - AI Agent从工作经验中自动提炼和创建可复用技能的机制
+- [[Real-world AI Applications]] - AI技术在实际业务场景中的成功应用案例和验证结果
+- [[Claude Ecosystem Tools]] - 围绕Claude AI开发的工具生态和开发环境
 
 ## Wiki 实体
+- [[Hermes-Agent]] - Nous Research 开发的自改进 AI Agent 框架，内置 Memory/Skill/Nudge 学习闭环
 
 
 ## Wiki 来源摘要
-
+- [[Hermes-Agent-源码分析]] - Hermes Agent v0.11.0 源码级技术分析（MemoryStore、SkillManager、NudgeEngine）
 
 ## Wiki 综合分析
+- [[Hermes-vs-OpenClaw对比分析]] - 架构、能力、设计哲学的全面对比
 
 
 ## Raw 原始采集
-
+- [2026-04-23-晚间总结](raw/inbox/2026-04-23-晚间总结)
+- [2026-04-23-Hermes Agent Self-Improving源码分析](raw/inbox/2026-04-23-Hermes Agent Self-Improving源码分析)
+- [2026-04-23-GitHub项目](raw/inbox/2026-04-23-GitHub项目)
 - [2026-04-22-GitHub项目](raw/inbox/2026-04-22-GitHub项目)
 - [2026-04-22-技术动态](raw/inbox/2026-04-22-技术动态)
 - [2026-04-22-新闻热点](raw/inbox/2026-04-22-新闻热点)
 - [2026-04-22-晚间总结](raw/inbox/2026-04-22-晚间总结)
 - [2026-04-22-生产力工具](raw/inbox/2026-04-22-生产力工具)
 - [2026-04-22-社交媒体AI动态](raw/inbox/2026-04-22-社交媒体AI动态)
-- [2026-04-23-Hermes Agent Self-Improving源码分析](raw/inbox/2026-04-23-Hermes Agent Self-Improving源码分析)
 
 ## Raw 归档日报
 
