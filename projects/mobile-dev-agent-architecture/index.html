@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Mobile Dev Agent - 架构设计文档 - Knowledge Base</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Mobile Dev Agent - \u67b6\u6784\u8bbe\u8ba1\u6587\u6863";
+        var mkdocs_page_input_path = "projects/mobile-dev-agent-architecture.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Knowledge Base
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Inbox</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../inbox/">None</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Projects</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../">None</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Topics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../topics/">None</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CLAUDE/">CLAUDE</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../log/">Log</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Knowledge Base</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Mobile Dev Agent - 架构设计文档</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="mobile-dev-agent-">Mobile Dev Agent - 架构设计文档</h1>
+<h2 id="1">1. 项目概述</h2>
+<p><strong>名称</strong>：Mobile Dev Agent（移动端智能开发助手）
+<strong>定位</strong>：多 Agent 协作系统，输入产品需求 → 输出可运行的移动端代码
+<strong>支持平台</strong>：Android (Kotlin) / HarmonyOS (ArkTS) / iOS (Swift)</p>
+<hr />
+<h2 id="2">2. 系统架构</h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    用户交互层                              │
+│            CLI (Typer) / Web UI (未来)                    │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────┐
+│                 LangGraph 编排层                          │
+│                                                          │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐           │
+│  │  需求分析  │───▶│  架构设计  │───▶│  代码生成  │──┐      │
+│  │  Agent   │    │  Agent   │    │  Agent   │  │      │
+│  └──────────┘    └──────────┘    └──────────┘  │      │
+│                                       ▲          │      │
+│  ┌──────────┐                         │          │      │
+│  │  代码审查  │─────────────────────────┘ (不通过) │      │
+│  │  Agent   │                                    │      │
+│  └────┬─────┘                                    │      │
+│       │ (通过)                                   │      │
+│       ▼                                          │      │
+│  ┌──────────┐                                    │      │
+│  │  测试生成  │                                    │      │
+│  │  Agent   │                                    │      │
+│  └──────────┘                                    │      │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────┐
+│                  MCP 工具层                               │
+│                                                          │
+│  ┌────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ │
+│  │ Context7   │ │ GitHub   │ │ 文件系统  │ │ Figma    │ │
+│  │ 文档查询   │ │ 仓库操作  │ │ 读写     │ │ 设计稿   │ │
+│  └────────────┘ └──────────┘ └──────────┘ └──────────┘ │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="3">3. 核心组件</h2>
+<h3 id="31-langgraph">3.1 LangGraph 工作流</h3>
+<p>使用 <code>StateGraph</code> 定义有向图，节点是 Agent，边是数据流和控制流。</p>
+<pre><code class="language-python">workflow = StateGraph(AgentState)
+
+# 节点
+workflow.add_node(&quot;requirement_analyst&quot;, ...)
+workflow.add_node(&quot;architect&quot;, ...)
+workflow.add_node(&quot;coder&quot;, ...)
+workflow.add_node(&quot;reviewer&quot;, ...)
+
+# 边
+workflow.set_entry_point(&quot;requirement_analyst&quot;)
+workflow.add_edge(&quot;requirement_analyst&quot;, &quot;architect&quot;)
+workflow.add_edge(&quot;architect&quot;, &quot;coder&quot;)
+workflow.add_edge(&quot;coder&quot;, &quot;reviewer&quot;)
+
+# 条件边（反馈循环）
+workflow.add_conditional_edges(&quot;reviewer&quot;, should_continue, {
+    &quot;coder&quot;: &quot;coder&quot;,   # 审查不通过 → 重新生成
+    END: END,            # 审查通过 → 结束
+})
+</code></pre>
+<h3 id="32-agent-agentstate">3.2 Agent 状态（AgentState）</h3>
+<p>所有 Agent 共享一个 TypedDict 状态，通过 LangGraph 的 reducer 机制自动合并更新。</p>
+<pre><code class="language-python">class AgentState(TypedDict):
+    user_input: str                    # 原始需求
+    platform: str                      # 目标平台
+    requirement: dict                  # 需求分析结果
+    architecture: dict                 # 架构设计
+    generated_files: list[dict]        # 生成的代码文件
+    review_result: dict                # 审查结果
+    test_files: list[dict]             # 测试文件
+    iteration_count: int               # 迭代次数（控制循环）
+    messages: list[dict]               # 消息历史
+    errors: list[str]                  # 错误记录
+    status: str                        # 状态
+</code></pre>
+<h3 id="33-agent">3.3 Agent 职责</h3>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>输入</th>
+<th>输出</th>
+<th>关键能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>需求分析</strong></td>
+<td>自然语言需求</td>
+<td>结构化需求 JSON</td>
+<td>需求拆解、完整性检查、隐式需求推断</td>
+</tr>
+<tr>
+<td><strong>架构设计</strong></td>
+<td>结构化需求</td>
+<td>架构方案 JSON</td>
+<td>模块划分、分层设计、依赖管理</td>
+</tr>
+<tr>
+<td><strong>代码生成</strong></td>
+<td>架构方案</td>
+<td>代码文件列表</td>
+<td>多文件生成、平台适配、最佳实践</td>
+</tr>
+<tr>
+<td><strong>代码审查</strong></td>
+<td>代码文件</td>
+<td>审查结果 JSON</td>
+<td>静态分析、质量评分、修改建议</td>
+</tr>
+<tr>
+<td><strong>测试生成</strong></td>
+<td>代码文件</td>
+<td>测试文件</td>
+<td>单元测试、边界用例</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 数据流</h2>
+<pre><code>用户输入 &quot;做一个登录页面&quot;
+    │
+    ▼
+[需求分析 Agent]
+    → summary: &quot;实现用户登录注册功能&quot;
+    → features: [&quot;手机号登录&quot;, &quot;验证码&quot;, &quot;密码登录&quot;, &quot;第三方登录&quot;]
+    → screens: [登录页, 注册页, 验证码页]
+    │
+    ▼
+[架构设计 Agent]
+    → pattern: MVVM
+    → modules: [auth/ui, auth/viewmodel, auth/repository, auth/model]
+    → directory_structure: {完整项目结构}
+    │
+    ▼
+[代码生成 Agent]
+    → files: [
+        LoginScreen.kt,
+        LoginViewModel.kt,
+        AuthRepository.kt,
+        ...
+      ]
+    │
+    ▼
+[代码审查 Agent]
+    → passed: true/false
+    → score: 85
+    → issues: [...]
+    │
+    ├── 通过 → 输出最终代码
+    └── 不通过 → 回到代码生成（带上审查建议），最多重试3次
+</code></pre>
+<hr />
+<h2 id="5">5. 目录结构</h2>
+<pre><code>mobile-dev-agent/
+├── src/
+│   ├── __init__.py
+│   ├── workflow.py              # LangGraph 工作流定义（核心入口）
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── state.py             # AgentState 定义 + 数据模型
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   ├── requirement_analyst.py  # 需求分析 Agent
+│   │   ├── architect.py            # 架构设计 Agent
+│   │   ├── coder.py                # 代码生成 Agent
+│   │   └── reviewer.py             # 代码审查 Agent
+│   ├── tools/                   # 工具函数（Phase 4）
+│   ├── mcp_server/              # MCP Server（Phase 4）
+│   ├── utils/                   # 通用工具
+│   └── templates/               # 代码模板
+├── config/                      # 配置文件
+├── tests/                       # 测试
+├── docs/                        # 文档
+├── scripts/
+│   └── cli.py                   # CLI 入口
+├── output/                      # 生成的代码输出
+├── pyproject.toml               # 项目配置
+├── .env.example                 # 环境变量模板
+├── .gitignore
+└── README.md
+</code></pre>
+<hr />
+<h2 id="6">6. 技术栈</h2>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>技术</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent 编排</td>
+<td><strong>LangGraph</strong></td>
+<td>工作流图、条件路由、状态管理</td>
+</tr>
+<tr>
+<td>LLM 调用</td>
+<td><strong>LangChain + ChatOpenAI</strong></td>
+<td>统一 LLM 接口</td>
+</tr>
+<tr>
+<td>LLM 模型</td>
+<td><strong>GLM-5</strong></td>
+<td>主要模型（免费）</td>
+</tr>
+<tr>
+<td>工具协议</td>
+<td><strong>MCP</strong></td>
+<td>外部工具调用（Phase 4）</td>
+</tr>
+<tr>
+<td>CLI</td>
+<td><strong>Typer + Rich</strong></td>
+<td>命令行界面</td>
+</tr>
+<tr>
+<td>数据验证</td>
+<td><strong>Pydantic</strong></td>
+<td>结构化输出验证</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7">7. 分阶段实施</h2>
+<h3 id="phase-1">Phase 1：基础设施（当前）✅</h3>
+<ul>
+<li>[x] 项目骨架搭建</li>
+<li>[x] LangGraph StateGraph 基础 workflow</li>
+<li>[x] AgentState Schema 定义</li>
+<li>[x] 4 个核心 Agent 框架</li>
+<li>[ ] 跑通最小链路（输入需求 → 输出代码）</li>
+</ul>
+<h3 id="phase-2">Phase 2：完善代码生成</h3>
+<ul>
+<li>[ ] Few-shot 示例（你的移动端经验沉淀）</li>
+<li>[ ] 平台特定模板（Android/鸿蒙/iOS）</li>
+<li>[ ] 条件路由（按平台选择不同策略）</li>
+<li>[ ] 代码文件保存到磁盘</li>
+</ul>
+<h3 id="phase-3">Phase 3：反馈循环</h3>
+<ul>
+<li>[ ] 代码审查 Agent 完善</li>
+<li>[ ] 审查不通过 → 重新生成的循环</li>
+<li>[ ] 迭代次数控制</li>
+<li>[ ] 测试生成 Agent</li>
+</ul>
+<h3 id="phase-4mcp">Phase 4：MCP 工具集成</h3>
+<ul>
+<li>[ ] 开发 MCP Server（移动端工具集）</li>
+<li>[ ] 接入 Context7（实时文档查询）</li>
+<li>[ ] Human-in-the-Loop（人工审核节点）</li>
+</ul>
+<h3 id="phase-5">Phase 5：产品化</h3>
+<ul>
+<li>[ ] CLI 完善（mdev 命令）</li>
+<li>[ ] Web UI（可视化 workflow）</li>
+<li>[ ] 项目模板系统</li>
+<li>[ ] 开源发布</li>
+</ul>
+<hr />
+<h2 id="8">8. 使用方式</h2>
+<pre><code class="language-bash"># 环境准备
+cd ~/projects/mobile-dev-agent
+cp .env.example .env
+# 编辑 .env 填入 API Key
+
+# 安装依赖
+pip install -e &quot;.[dev]&quot;
+
+# 生成代码
+mdev &quot;做一个用户列表页，支持下拉刷新&quot; -p harmony
+
+# 审查项目
+mdev review ./my-app -p android
+
+# 查看配置
+mdev info
+</code></pre>
+<hr />
+<p><em>文档版本: 0.1.0 | 创建时间: 2026-03-27</em></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
