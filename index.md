@@ -3,6 +3,9 @@
 > AI搜索时先扫此文件，精准定位到需要深度阅读的页面。
 
 ## Wiki 概念
+- [[Self-RAG]] - 自反思检索增强生成框架，让 LLM 自主决定何时检索、检索结果是否相关
+- [[Pretext-js]] - 15KB 文本排版库，绕过 DOM reflow 实现 120FPS 布局计算
+- [[Context-Window-Optimization]] - AI Coding Agent 的 context 窗口优化策略，98% 工具输出压缩
 - [[AI Agent Self-Improving]] - Agent系统从工作中自动学习并持续改进的能力机制
 - [[Memory Management]] - AI系统中记忆资源的有效管理和优化策略
 - [[Skill Auto-Creation]] - AI Agent从工作经验中自动提炼和创建可复用技能的机制

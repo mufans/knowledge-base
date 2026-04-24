@@ -8,4 +8,7 @@
 
 ## 2026-04-24
 - 新增 wiki/sources/推荐书单-2026年4月.md（9本书的深度分析）
+- 新增 wiki/concepts/Self-RAG.md（自反思RAG框架深度分析）
+- 新增 wiki/concepts/Pretext-js.md（DOM-less文本排版库分析）
+- 新增 wiki/concepts/Context-Window-Optimization.md（AI编码Agent上下文优化策略）
 
