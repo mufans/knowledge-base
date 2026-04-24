@@ -51,6 +51,14 @@
 - [2026-04-18-技术日报](raw/inbox/archive/2026-04-18-技术日报)
 - [2026-04-21-技术日报](raw/inbox/archive/2026-04-21-技术日报)
 
+## Wiki 实体
+
+- [claude-context](wiki/entities/claude-context) - Zilliz语义代码搜索MCP工具
+
+## Wiki 来源分析
+
+- [claude-context-源码分析](wiki/sources/claude-context-源码分析)
+
 ## Raw 项目文档
 
 - [career-transition-plan](raw/projects/career-transition-plan)

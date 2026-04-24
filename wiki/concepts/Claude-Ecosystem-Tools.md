@@ -17,11 +17,17 @@
 - **价值**：免费的Claude Code实现，支持终端、VSCode、Discord
 
 #### Claude Context
-- **功能**：代码搜索和上下文管理
-- **技术栈**：TypeScript, MCP协议
+- **功能**：语义代码搜索MCP工具，为AI编码代理提供整个代码库的上下文检索
+- **技术栈**：TypeScript, MCP协议, tree-sitter(AST分块), Milvus/Zilliz Cloud(向量数据库)
 - **GitHub**：zilliztech/claude-context (8,079 stars)
-- **核心价值**：整个代码库作为Claude Code的上下文
-- **技术亮点**：智能代码搜索、MCP协议集成
+- **核心价值**：用自然语言一次检索相关代码，官方评测减少约40% token消耗
+- **搜索机制**：BM25 + Dense Vector 混合搜索
+- **索引机制**：Merkle Tree 增量索引，只重建变更文件
+- **代码分块**：AST splitter（tree-sitter，14种语言）+ LangChain 字符级 fallback
+- **Embedding支持**：OpenAI / VoyageAI（代码专用） / Ollama（本地） / Gemini
+- **Trade-off**：需要外部向量数据库和embedding API，部署成本高于本地方案
+- **适用场景**：大型代码库（百万行级）的AI辅助开发
+- **详细分析**：[claude-context](../entities/claude-context.md) | [源码分析](../sources/claude-context-源码分析.md)
 
 ### 2. AI代理工具
 
