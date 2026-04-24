@@ -18,6 +18,9 @@
 - [[Hermes-Agent-源码分析]] - Hermes Agent v0.11.0 源码级技术分析（MemoryStore、SkillManager、NudgeEngine）
 - [[OpenClaw-源码分析]] - OpenClaw v2026.4.9 源码级技术分析（Gateway、Agent Runtime、Skill、Cron、MCP、Channel）
 
+## Wiki 来源摘要
+- [[推荐书单-2026年4月]] - 针对35岁移动端开发者AI转型期的9本精选书籍深度分析
+
 ## Wiki 综合分析
 - [[Hermes-vs-OpenClaw对比分析]] - 架构、能力、设计哲学的全面对比
 
