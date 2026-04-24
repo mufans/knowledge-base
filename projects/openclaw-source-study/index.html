@@ -12,13 +12,9 @@
         <meta name="author" content="mufans">
       
       
-        <link rel="canonical" href="https://mufans.github.io/knowledge-base/wiki/sources/">
+        <link rel="canonical" href="https://mufans.github.io/knowledge-base/projects/openclaw-source-study/">
       
       
-        <link rel="prev" href="../entities/">
-      
-      
-        <link rel="next" href="../syntheses/">
       
       
         
@@ -29,7 +25,7 @@
     
     
       
-        <title>来源摘要 - Knowledge Base</title>
+        <title>OpenClaw 源码学习路径 - Knowledge Base</title>
       
     
     
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#openclaw" class="md-skip">
           跳转至
         </a>
       
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              来源摘要
+              OpenClaw 源码学习路径
             
           </span>
         </div>
@@ -443,8 +439,6 @@
       
   
   
-    
-  
   
   
     
@@ -464,15 +458,15 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../concepts/" class="md-nav__link ">
+            <a href="../../wiki/concepts/" class="md-nav__link ">
               
   
   
@@ -496,7 +490,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -516,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../entities/" class="md-nav__link">
+      <a href="../../wiki/entities/" class="md-nav__link">
         
   
   
@@ -541,19 +535,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../wiki/sources/" class="md-nav__link">
         
   
   
@@ -569,7 +554,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -582,7 +566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../syntheses/" class="md-nav__link">
+      <a href="../../wiki/syntheses/" class="md-nav__link">
         
   
   
@@ -630,6 +614,169 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        源码核心目录结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习路线（4周计划）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习路线（4周计划）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第1周：整体架构 + Gateway 入口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第2周：会话管理 + 上下文压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第3周：工具系统 + MCP 集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第4周：定时任务 + 多Agent路由 + 渠道
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习技巧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="学习技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-deepwiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 用 DeepWiki 辅助阅读
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-claude-code-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 用 Claude Code / Cursor 辅助
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 从你踩过的坑出发
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 不要试图全部看懂
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对你 AI Agent 转型的价值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        补充资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -648,13 +795,148 @@
   
 
 
-<h1 id="_1">来源摘要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="openclaw">OpenClaw 源码学习路径<a class="headerlink" href="#openclaw" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>针对 mufans 的背景（12年移动端开发、转型 AI Agent）定制
+源码：https://github.com/openclaw/openclaw
+技术栈：TypeScript / Node.js
+AI 辅助阅读：https://deepwiki.com/openclaw/openclaw</p>
+</blockquote>
+<hr />
+<h2 id="_1">源码核心目录结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code>src/
+├── agents/          # 🎯 Agent 核心（session、state、workspace 管理）
+├── bindings/        # 多渠道路由（消息如何分发到不同 agent）
+├── bootstrap/       # 首次启动流程（SOUL.md、IDENTITY.md 生成）
+├── gateway/         # 🎯 Gateway 核心（启动、配置、生命周期）
+├── sessions/        # 🎯 会话管理（历史、压缩、状态）
+├── cron/            # 🎯 定时任务系统
+├── tools/           # 🎯 工具系统（browser、exec、web_search 等）
+├── channels/        # 渠道接入（钉钉、WhatsApp、Telegram 等）
+├── mcp/             # MCP 客户端实现
+├── models/          # LLM 模型抽象（provider、failover）
+├── nodes/           # iOS/Android/macOS Node 通信
+├── canvas-host/     # Canvas 可视化面板
+├── plugins/         # 插件系统
+├── acp/             # ACP（Agent Communication Protocol）编码代理
+├── chat/            # 对话处理核心
+├── cli/             # CLI 命令行
+└── auto-reply/      # 自动回复逻辑
+</code></pre>
+<hr />
+<h2 id="4">学习路线（4周计划）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="1-gateway">第1周：整体架构 + Gateway 入口<a class="headerlink" href="#1-gateway" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 OpenClaw 的整体设计和启动流程</p>
+<p><strong>阅读顺序</strong>：
+1. <code>package.json</code> → 了解依赖和脚本入口
+2. <code>src/gateway/</code> → Gateway 启动流程、配置加载
+3. <code>src/agents/</code> → Agent 定义、workspace 管理、SOUL.md 加载
+4. <code>src/bootstrap/</code> → 首次启动 Q&amp;A 流程（你刚体验过的）</p>
+<p><strong>重点关注</strong>：
+- Gateway 如何加载 <code>openclaw.json</code> 配置
+- Agent 的 workspace、agentDir、session store 三层隔离
+- SOUL.md / AGENTS.md 是如何被注入到 system prompt 的</p>
+<p><strong>产出</strong>：画出 OpenClaw 的启动流程图</p>
+<hr />
+<h3 id="2">第2周：会话管理 + 上下文压缩<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 Agent 的"记忆"是怎么工作的</p>
+<p><strong>阅读顺序</strong>：
+1. <code>src/sessions/</code> → 会话创建、存储、查询
+2. <code>src/sessions/</code> 中的 compaction 相关代码 → 上下文压缩机制
+3. <code>src/models/</code> → LLM 调用抽象、provider 管理</p>
+<p><strong>重点关注</strong>：
+- 会话历史存储格式（messages、tool calls）
+- compaction 触发条件和压缩策略（你经历过的"会话压缩"）
+- 模型 failover 机制（主模型挂了怎么切换）
+- token 计数和预算控制</p>
+<p><strong>产出</strong>：理解为什么你经常遇到 compaction，以及 token 消耗的控制策略</p>
+<hr />
+<h3 id="3-mcp">第3周：工具系统 + MCP 集成<a class="headerlink" href="#3-mcp" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 Agent 如何调用外部工具</p>
+<p><strong>阅读顺序</strong>：
+1. <code>src/tools/</code> → 工具注册、执行、结果返回
+2. <code>src/mcp/</code> → MCP 客户端实现
+3. <code>src/tools/browser/</code> → 浏览器自动化（最复杂的工具之一）</p>
+<p><strong>重点关注</strong>：
+- 工具定义格式（function calling schema）
+- MCP server 的发现、连接、工具注册流程
+- 工具执行结果如何注入回对话上下文
+- 并发工具调用（streaming tool results）</p>
+<p><strong>产出</strong>：能自己写一个简单的 MCP Server 并接入 OpenClaw</p>
+<hr />
+<h3 id="4-agent">第4周：定时任务 + 多Agent路由 + 渠道<a class="headerlink" href="#4-agent" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：理解 OpenClaw 的自动化和多租户能力</p>
+<p><strong>阅读顺序</strong>：
+1. <code>src/cron/</code> → 定时任务调度、isolated session 创建
+2. <code>src/bindings/</code> → 消息路由规则（你最常遇到的问题）
+3. <code>src/channels/</code> → 渠道接入抽象层
+4. 钉钉插件代码 → 你用的钉钉渠道</p>
+<p><strong>重点关注</strong>：
+- cron 任务如何创建 isolated session、执行、推送结果
+- bindings 的优先级匹配逻辑（most-specific wins）
+- 钉钉 Stream 连接的心跳和重连机制（你踩过的坑）
+- delivery 失败的根因（channel vs last 的区别）</p>
+<p><strong>产出</strong>：理解你之前遇到的 delivery failed、模型 not allowed 等问题的根因</p>
+<hr />
+<h2 id="_2">学习技巧<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-deepwiki">1. 用 DeepWiki 辅助阅读<a class="headerlink" href="#1-deepwiki" title="Permanent link">&para;</a></h3>
+<p><code>https://deepwiki.com/openclaw/openclaw</code> — AI 生成的代码解读，比硬读快很多</p>
+<h3 id="2-claude-code-cursor">2. 用 Claude Code / Cursor 辅助<a class="headerlink" href="#2-claude-code-cursor" title="Permanent link">&para;</a></h3>
+<p>在项目目录里直接问：
+- "这个文件是做什么的？"
+- "这个函数的调用链是什么？"
+- "从入口到这条消息被处理，经过了哪些文件？"</p>
+<h3 id="3">3. 从你踩过的坑出发<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>你已经踩过很多坑，带着问题看源码理解会深很多：
+- 模型 "not allowed" → 看 <code>src/agents/</code> 和 <code>src/models/</code>
+- delivery failed → 看 <code>src/cron/</code> 和 <code>src/channels/</code>
+- compaction → 看 <code>src/sessions/</code>
+- 钉钉重连循环 → 看钉钉插件的心跳机制</p>
+<h3 id="4_1">4. 不要试图全部看懂<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
+<p>OpenClaw 是几万行代码的成熟项目。聚焦标 🎯 的 5 个核心模块就够了。</p>
+<hr />
+<h2 id="ai-agent">对你 AI Agent 转型的价值<a class="headerlink" href="#ai-agent" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>学到的能力</th>
+<th>直接应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会话管理和上下文压缩</td>
+<td>做自己的 Agent 系统时管理对话状态</td>
+</tr>
+<tr>
+<td>工具系统（function calling）</td>
+<td>LangGraph 中的 tool use 是同一套逻辑</td>
+</tr>
+<tr>
+<td>MCP 协议实现</td>
+<td>开发自己的 MCP Server</td>
+</tr>
+<tr>
+<td>多 Agent 路由</td>
+<td>multi-agent 架构设计参考</td>
+</tr>
+<tr>
+<td>定时任务编排</td>
+<td>Agent 自动化执行流程</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">补充资源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="Hermes-Agent-源码分析">Hermes-Agent-源码分析</a></li>
-<li><a href="OpenClaw-源码分析">OpenClaw-源码分析</a></li>
-<li><a href="claude-context-源码分析">claude-context-源码分析</a></li>
-<li><a href="推荐书单-2026年4月">推荐书单-2026年4月</a></li>
+<li>官方文档：https://docs.openclaw.ai</li>
+<li>DeepWiki：https://deepwiki.com/openclaw/openclaw</li>
+<li>Discord 社区：https://discord.com/invite/clawd</li>
+<li>GitHub：https://github.com/openclaw/openclaw</li>
 </ul>
+<hr />
+<p><em>创建时间: 2026-03-30</em>
+<em>作者: Claw 🦞</em></p>
 
 
 
