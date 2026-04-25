@@ -1,0 +1,1282 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="个人技术知识库">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+        <link rel="canonical" href="https://mufans.github.io/knowledge-base/wiki/concepts/andrej-karpathy-skills/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>andrej-karpathy-skills 深度分析报告 - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#andrej-karpathy-skills" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              andrej-karpathy-skills 深度分析报告
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mufans/knowledge-base" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mufans/knowledge-base" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作日志
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../raw/inbox/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原始采集
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    原始采集
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/inbox/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档日报
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识提炼
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识提炼
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    实体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    来源摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syntheses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    综合分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        项目概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 架构分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 架构分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整体架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据流
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 核心实现
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 核心实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claudemd-claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLAUDE.md 全文解读（CLAUDE.md）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skillmd-yaml-frontmatterskillskarpathy-guidelinesskillmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SKILL.md 的 YAML Frontmatter（skills/karpathy-guidelines/SKILL.md）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-claude-pluginpluginjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugin 配置（.claude-plugin/plugin.json）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#marketplace-claude-pluginmarketplacejson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Marketplace 注册（.claude-plugin/marketplace.json）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 设计决策的 Trade-off 分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 设计决策的 Trade-off 分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        决策一：纯文本 vs 代码实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        决策二：四条准则 vs 更细的规则集
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#goal-driven-execution-stepverify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        决策三："Goal-Driven Execution" 中的 step→verify 模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        决策四：支持 Cursor 格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 竞品对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 竞品对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-openclaw-skills-skill-creator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vs OpenClaw Skills（如 skill-creator）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs-clawhub-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vs ClawHub 上的 skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs-cursor-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vs Cursor Rules 社区规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 可借鉴模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 可借鉴模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slogan-bullets-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式一：Slogan + Bullets + Verification 的三段式结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imperative-declarative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式二：Imperative → Declarative 任务转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-file-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式三：One File Distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caution-over-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式四：Caution over Speed 的显式声明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 质量评估
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 质量评估">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#na" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码质量：N/A
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-910" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt 质量：9/10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1010" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实用性：10/10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#710" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        创新性：7/10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总评
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="andrej-karpathy-skills">andrej-karpathy-skills 深度分析报告<a class="headerlink" href="#andrej-karpathy-skills" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>项目地址：https://github.com/forrestchang/andrej-karpathy-skills
+Stars: 85,523 | Forks: 8,176 | License: MIT</p>
+</blockquote>
+<h2 id="_1">项目概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>这是一个极其极简的项目——整个仓库只有 11 个文件，核心就是一个 <code>CLAUDE.md</code> 文件。它的价值不在代码，而在<strong>洞察的提炼和分发机制</strong>。作者 forrestchang 从 Andrej Karpathy 对 LLM 编码缺陷的观察中，提炼出四条行为准则，打包成 Claude Code 的 skill/plugin，让 Claude Code 在编码时自动遵循这些准则。</p>
+<hr />
+<h2 id="1">1. 架构分析<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">整体架构<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>这个项目的"架构"本质上是<strong>一个 Markdown 文件的多格式分发策略</strong>：</p>
+<pre><code>andrej-karpathy-skills/
+├── CLAUDE.md                          # 核心内容（独立使用）
+├── README.md                          # 项目说明
+├── README.zh.md                       # 中文版说明
+├── EXAMPLES.md                        # 使用示例
+├── CURSOR.md                          # Cursor 适配说明
+├── .claude-plugin/
+│   ├── plugin.json                    # Claude Code 插件元数据
+│   └── marketplace.json               # 插件市场注册信息
+├── .cursor/rules/
+│   └── karpathy-guidelines.mdc        # Cursor rules 格式
+└── skills/
+    └── karpathy-guidelines/
+        └── SKILL.md                   # Claude Code skill 格式（含 YAML frontmatter）
+</code></pre>
+<p><strong>设计模式：Write Once, Distribute Everywhere</strong></p>
+<p>同一个核心内容（四条准则）被适配到三种不同格式：
+1. <strong>CLAUDE.md</strong> — Claude Code 项目级指令，放到项目根目录即生效
+2. <strong>SKILL.md</strong> — Claude Code skill 格式，带 YAML frontmatter（name、description、license），可通过 <code>/plugin</code> 命令安装
+3. <strong>Cursor rules (.mdc)</strong> — Cursor IDE 的项目规则格式</p>
+<p>这种架构选择的 trade-off 很清晰：
+- <strong>优势</strong>：零依赖、零运行时、零维护成本。一个 Markdown 文件就是全部，任何 LLM 都能理解和遵循
+- <strong>劣势</strong>：没有版本化验证机制，没有 metrics 来衡量准则的实际效果，没有自动化测试确保准则之间不矛盾</p>
+<h3 id="_3">数据流<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<pre><code>Karpathy 的 Twitter 观察 → 提炼为 4 条准则 → 多格式分发 → LLM 编码时作为 system/context 注入 → 影响输出质量
+</code></pre>
+<p>没有运行时数据流。这是一个纯静态的 prompt engineering 项目，通过改变 LLM 的 context 来改变行为。</p>
+<hr />
+<h2 id="2">2. 核心实现<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="claudemd-claudemd">CLAUDE.md 全文解读（<code>CLAUDE.md</code>）<a class="headerlink" href="#claudemd-claudemd" title="Permanent link">&para;</a></h3>
+<p>整个文件只有 ~60 行，分为四个 section，每个 section 结构统一：<strong>标题 → 口号 → bullet points → 验证标准</strong>。</p>
+<pre><code class="language-markdown">## 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+</code></pre>
+<p><strong>关键设计</strong>：
+- 每条准则以一句加粗的 slogan 开头，便于 LLM 快速抓住要点（LLM 对加粗文本的注意力权重更高）
+- 使用祈使句（"State"、"Present"、"Push back"、"Stop"），这是 prompt engineering 中已被验证有效的指令风格
+- 最后一条准则附带验证模板（step → verify pattern），直接给 LLM 一个可执行的思维框架</p>
+<h3 id="skillmd-yaml-frontmatterskillskarpathy-guidelinesskillmd">SKILL.md 的 YAML Frontmatter（<code>skills/karpathy-guidelines/SKILL.md</code>）<a class="headerlink" href="#skillmd-yaml-frontmatterskillskarpathy-guidelinesskillmd" title="Permanent link">&para;</a></h3>
+<pre><code class="language-yaml">---
+name: karpathy-guidelines
+description: Behavioral guidelines to reduce common LLM coding mistakes.
+  Use when writing, reviewing, or refactoring code to avoid overcomplication,
+  make surgical changes, surface assumptions, and define verifiable success criteria.
+license: MIT
+---
+</code></pre>
+<p><code>description</code> 字段是 Claude Code 的 skill 匹配触发器——当用户的任务涉及"writing, reviewing, or refactoring code"时，Claude Code 会自动加载这个 skill。这个 description 的写法值得学习：它不描述 skill 是什么，而是描述<strong>什么时候该用</strong>。</p>
+<h3 id="plugin-claude-pluginpluginjson">Plugin 配置（<code>.claude-plugin/plugin.json</code>）<a class="headerlink" href="#plugin-claude-pluginpluginjson" title="Permanent link">&para;</a></h3>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;andrej-karpathy-skills&quot;,
+  &quot;skills&quot;: [&quot;./skills/karpathy-guidelines&quot;]
+}
+</code></pre>
+<p><code>skills</code> 数组指向 skill 目录的相对路径。Claude Code 通过这个字段发现和加载 skill。</p>
+<h3 id="marketplace-claude-pluginmarketplacejson">Marketplace 注册（<code>.claude-plugin/marketplace.json</code>）<a class="headerlink" href="#marketplace-claude-pluginmarketplacejson" title="Permanent link">&para;</a></h3>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;karpathy-skills&quot;,
+  &quot;plugins&quot;: [{
+    &quot;name&quot;: &quot;andrej-karpathy-skills&quot;,
+    &quot;category&quot;: &quot;workflow&quot;
+  }]
+}
+</code></pre>
+<p><code>category: "workflow"</code> 将这个 skill 归类为工作流类而非工具类，这是一个准确的分类——它不提供新能力，只改变已有能力的使用方式。</p>
+<hr />
+<h2 id="3-trade-off">3. 设计决策的 Trade-off 分析<a class="headerlink" href="#3-trade-off" title="Permanent link">&para;</a></h2>
+<h3 id="vs">决策一：纯文本 vs 代码实现<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h3>
+<p><strong>选择</strong>：全部用 Markdown 文本，没有任何代码逻辑。</p>
+<p><strong>Trade-off</strong>：
+- 选择文本意味着无法做运行时校验（比如"这次改动是否真的只涉及用户请求的代码"）
+- 但 LLM 对自然语言指令的遵循能力已经足够好，代码实现的边际收益低
+- 文本的另一个优势是<strong>跨模型通用</strong>——不依赖 Claude Code 特有的 API</p>
+<p><strong>为什么这是对的</strong>：Karpathy 说的核心问题是"behavior"而非"capability"，用行为准则（文本）解决行为问题（behavior）是最直接的路径。</p>
+<h3 id="vs_1">决策二：四条准则 vs 更细的规则集<a class="headerlink" href="#vs_1" title="Permanent link">&para;</a></h3>
+<p><strong>选择</strong>：只有 4 条高层准则，没有细化为 20+ 条具体规则。</p>
+<p><strong>Trade-off</strong>：
+- 4 条准则占用 token 少（~500 tokens），不会挤占 coding context
+- 但抽象度高意味着 LLM 需要自行判断如何应用，可能因模型能力差异导致效果不一致
+- 对比 OpenClaw 的 AGENTS.md，后者有几十条具体规则（heartbeat 间隔、回复格式、安全边界等），粒度差异明显</p>
+<p><strong>为什么这是对的</strong>：作为通用 skill，高抽象度保证了适用范围。细化规则应该由项目级的 CLAUDE.md 补充，而不是在一个通用 skill 里做。</p>
+<h3 id="goal-driven-execution-stepverify">决策三："Goal-Driven Execution" 中的 step→verify 模式<a class="headerlink" href="#goal-driven-execution-stepverify" title="Permanent link">&para;</a></h3>
+<p><strong>选择</strong>：提供一个结构化的计划模板，强制每步附带验证条件。</p>
+<pre><code class="language-markdown">1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+</code></pre>
+<p><strong>Trade-off</strong>：
+- 强制验证增加了思考步骤，对简单任务来说可能过度
+- 但 Karpathy 的核心洞察就是"LLM 擅长 loop until goal met"，verify 条件就是 loop 的终止条件
+- 这是整个 skill 中<strong>最有技术含量</strong>的设计决策——它不只是给 LLM 一个建议，而是给了一个可执行的算法模式</p>
+<h3 id="cursor">决策四：支持 Cursor 格式<a class="headerlink" href="#cursor" title="Permanent link">&para;</a></h3>
+<p><strong>选择</strong>：额外维护 <code>.cursor/rules/karpathy-guidelines.mdc</code>。</p>
+<p><strong>Trade-off</strong>：
+- 增加了维护负担（两份内容要同步）
+- 但 Cursor 和 Claude Code 是目前最主流的 AI coding 工具，覆盖两个平台 = 覆盖绝大多数用户
+- .mdc 格式本质上也是 Markdown，内容完全相同，同步成本极低</p>
+<hr />
+<h2 id="4">4. 竞品对比<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="vs-openclaw-skills-skill-creator">vs OpenClaw Skills（如 skill-creator）<a class="headerlink" href="#vs-openclaw-skills-skill-creator" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>andrej-karpathy-skills</th>
+<th>OpenClaw skill-creator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>格式</strong></td>
+<td>SKILL.md + YAML frontmatter</td>
+<td>SKILL.md + YAML frontmatter</td>
+</tr>
+<tr>
+<td><strong>内容</strong></td>
+<td>纯行为准则，无工具调用</td>
+<td>包含工具调用指令（read/write/exec）</td>
+</tr>
+<tr>
+<td><strong>触发机制</strong></td>
+<td>description 字段语义匹配</td>
+<td>description + available_skills 列表</td>
+</tr>
+<tr>
+<td><strong>作用域</strong></td>
+<td>通用，跨项目</td>
+<td>通用或项目级</td>
+</tr>
+<tr>
+<td><strong>复杂度</strong></td>
+<td>~60 行</td>
+<td>通常 100-500 行</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心差异</strong>：OpenClaw 的 skill 是<strong>能力扩展</strong>（教 agent 做新事），而 karpathy-skills 是<strong>行为约束</strong>（约束 agent 的做事方式）。前者是 "how to do X"，后者是 "how to think before doing anything"。</p>
+<h3 id="vs-clawhub-skill">vs ClawHub 上的 skill<a class="headerlink" href="#vs-clawhub-skill" title="Permanent link">&para;</a></h3>
+<p>ClawHub 上的 skill（如 weather、openhue）都是<strong>工具型 skill</strong>——定义如何调用外部 API。karpathy-skills 没有任何工具调用，它是<strong>纯 prompt skill</strong>。</p>
+<p>这说明 AI coding agent 的 skill 生态至少有两种范式：
+1. <strong>Tool Skill</strong>：教 agent 使用新工具（API、CLI、设备）
+2. <strong>Behavior Skill</strong>：改变 agent 的行为模式（编码风格、思考方式）</p>
+<p>karpathy-skills 属于后者，且目前是这一类中最成功的例子（85k stars）。</p>
+<h3 id="vs-cursor-rules">vs Cursor Rules 社区规则<a class="headerlink" href="#vs-cursor-rules" title="Permanent link">&para;</a></h3>
+<p>Cursor 社区有大量 rules（如 cursor.directory），但大多聚焦于特定技术栈（React、Python、Rust）。karpathy-skills 的独特性在于它是<strong>语言/框架无关的元规则</strong>——不管你用什么技术栈，这四条准则都适用。</p>
+<hr />
+<h2 id="5">5. 可借鉴模式<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="slogan-bullets-verification">模式一：Slogan + Bullets + Verification 的三段式结构<a class="headerlink" href="#slogan-bullets-verification" title="Permanent link">&para;</a></h3>
+<pre><code class="language-markdown">## [Number]. [Slogan]
+
+**[One-line motto]**
+
+[Context]:
+- [Action 1]
+- [Action 2]
+- [Action 3]
+
+**The test:** [Verification criterion]
+</code></pre>
+<p>这个结构可以直接复用到任何行为约束类 prompt 中。关键要素：
+- <strong>Slogan</strong>：让 LLM 快速定位记忆锚点
+- <strong>Bullets</strong>：具体可执行的行为指令
+- <strong>Verification</strong>：让 LLM 能自我检查</p>
+<h3 id="imperative-declarative">模式二：Imperative → Declarative 任务转换<a class="headerlink" href="#imperative-declarative" title="Permanent link">&para;</a></h3>
+<pre><code>&quot;Add validation&quot; → &quot;Write tests for invalid inputs, then make them pass&quot;
+</code></pre>
+<p>这个模式不仅适用于 coding，任何 delegative task（给 agent 下任务）都可以用：
+- 不要说"帮我分析这个项目"
+- 要说"分析这个项目的架构、列出核心模块、给出可改进点，最终输出一份包含代码引用的报告"</p>
+<p><strong>把"做什么"变成"什么算做好了"</strong>，这是让 LLM 自主 loop 的关键。</p>
+<h3 id="one-file-distribution">模式三：One File Distribution<a class="headerlink" href="#one-file-distribution" title="Permanent link">&para;</a></h3>
+<p>同一个 Markdown 文件适配多个平台：
+- 放到项目根目录 → Claude Code 自动加载
+- 包装成 SKILL.md → Claude Code plugin 安装
+- 复制到 .cursor/rules/ → Cursor 自动加载
+- 放到 .github/copilot-instructions.md → GitHub Copilot 加载</p>
+<p><strong>一次编写，四处生效</strong>。对于 prompt engineering 项目来说，这是最低成本的分发策略。</p>
+<h3 id="caution-over-speed">模式四：Caution over Speed 的显式声明<a class="headerlink" href="#caution-over-speed" title="Permanent link">&para;</a></h3>
+<pre><code class="language-markdown">**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+</code></pre>
+<p>在 prompt 里显式声明 trade-off 是一种高级技巧——它让 LLM 知道什么时候该遵循规则、什么时候该灵活处理，避免了"规则太死导致简单任务也过度思考"的问题。</p>
+<hr />
+<h2 id="6">6. 质量评估<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="na">代码质量：N/A<a class="headerlink" href="#na" title="Permanent link">&para;</a></h3>
+<p>这不是一个代码项目。评估对象是 <strong>prompt writing quality</strong>。</p>
+<h3 id="prompt-910">Prompt 质量：9/10<a class="headerlink" href="#prompt-910" title="Permanent link">&para;</a></h3>
+<p><strong>优点</strong>：
+- 极其精炼，60 行覆盖了 LLM 编码的核心痛点
+- 每条准则都有明确的验证标准，不只是空泛的建议
+- "Goal-Driven Execution" 的 step→verify 模式是原创性的、可操作的设计
+- 显式声明了 trade-off（caution vs speed），体现了对边界条件的思考</p>
+<p><strong>扣分点</strong>：
+- 缺少具体的 bad/good 示例对比（只有原则没有 case）
+- 四条准则之间的优先级没有定义（当 Simplicity 和 Surgical Changes 冲突时怎么办？）
+- 没有 metrics 或评估方法——怎么知道准则真的起作用了？README 里只给了定性描述</p>
+<h3 id="1010">实用性：10/10<a class="headerlink" href="#1010" title="Permanent link">&para;</a></h3>
+<p>85k stars 说明了一切。一个 curl 命令就能安装，零配置零依赖，效果立竿见影（至少在主观感受上）。这是 prompt engineering 项目能达到的最高实用性——<strong>安装成本为零，潜在收益极高</strong>。</p>
+<h3 id="710">创新性：7/10<a class="headerlink" href="#710" title="Permanent link">&para;</a></h3>
+<p>核心洞察来自 Karpathy，作者的贡献是<strong>提炼 + 分发</strong>。创新不在于内容本身，而在于：
+- 识别出这四条准则恰好覆盖了 Karpathy 描述的四个痛点
+- 设计了跨平台的分发机制
+- 用 slogan + verification 的结构让准则可执行</p>
+<h3 id="_4">总评<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>这是一个"少即是多"的典范。85k stars 的项目，核心文件只有 60 行 Markdown，没有一行代码。它证明了在 AI agent 时代，<strong>最有价值的东西可能不是代码，而是对行为模式的精确描述</strong>。</p>
+<p>对于 mufans 来说，这个项目最大的启发是：如果你在 AI Agent 领域找差异化定位，<strong>行为准则类 skill</strong> 是一个被验证有需求但供给不足的方向。大多数人都在做"教 agent 用新工具"，很少有人在做"教 agent 怎么思考"。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["search", "search.suggest", "search.highlight", "navigation.indexes", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
