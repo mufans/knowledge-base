@@ -12,31 +12,27 @@
         <meta name="author" content="mufans">
       
       
-        <link rel="canonical" href="https://mufans.github.io/knowledge-base/log/">
+        <link rel="canonical" href="https://mufans.github.io/knowledge-base/wiki/Pretext-js/">
       
       
-        <link rel="prev" href="../CLAUDE/">
-      
-      
-        <link rel="next" href="../raw/inbox/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>操作日志 - Knowledge Base</title>
+        <title>Pretext.js: 绕过 DOM 布局重排的高性能文本排版 - Knowledge Base</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#knowledge-base-log" class="md-skip">
+        <a href="#pretextjs-dom" class="md-skip">
           跳转至
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href="../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              操作日志
+              Pretext.js: 绕过 DOM 布局重排的高性能文本排版
             
           </span>
         </div>
@@ -206,7 +202,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href="../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -236,7 +232,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -263,7 +259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CLAUDE/" class="md-nav__link">
+      <a href="../../CLAUDE/" class="md-nav__link">
         
   
   
@@ -287,37 +283,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    操作日志
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../log/" class="md-nav__link">
         
   
   
@@ -333,65 +302,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#2026425" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2026年4月25日
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2026年4月25日">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#github" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GitHub项目采集任务
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        其他任务
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -425,7 +335,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../raw/inbox/" class="md-nav__link ">
+            <a href="../../raw/inbox/" class="md-nav__link ">
               
   
   
@@ -469,7 +379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raw/inbox/archive/" class="md-nav__link">
+      <a href="../../raw/inbox/archive/" class="md-nav__link">
         
   
   
@@ -497,7 +407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raw/projects/" class="md-nav__link">
+      <a href="../../raw/projects/" class="md-nav__link">
         
   
   
@@ -556,7 +466,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../wiki/concepts/" class="md-nav__link ">
+            <a href="../concepts/" class="md-nav__link ">
               
   
   
@@ -600,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wiki/entities/" class="md-nav__link">
+      <a href="../entities/" class="md-nav__link">
         
   
   
@@ -628,7 +538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wiki/sources/" class="md-nav__link">
+      <a href="../sources/" class="md-nav__link">
         
   
   
@@ -656,7 +566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wiki/syntheses/" class="md-nav__link">
+      <a href="../syntheses/" class="md-nav__link">
         
   
   
@@ -711,22 +621,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#2026425" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2026年4月25日
+        核心问题
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2026年4月25日">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="设计原理">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#github" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        GitHub项目采集任务
+        两阶段架构
       
     </span>
   </a>
@@ -734,10 +655,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#canvasmeasuretext-reflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        其他任务
+        为什么 Canvas.measureText() 不触发 reflow？
       
     </span>
   </a>
@@ -746,6 +667,139 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能数据
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术实现要点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="技术实现要点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本用法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        虚拟列表中的应用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与 CSS 方案的对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI 辅助开发的典范
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对移动端开发的启示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对移动端开发的启示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-react-native" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. React Native 的类似痛点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 性能优化的新层级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 鸿蒙场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参见
+      
+    </span>
+  </a>
   
 </li>
       
@@ -769,26 +823,127 @@
   
 
 
-<h1 id="knowledge-base-log">Knowledge Base Log<a class="headerlink" href="#knowledge-base-log" title="Permanent link">&para;</a></h1>
-<h2 id="2026425">2026年4月25日<a class="headerlink" href="#2026425" title="Permanent link">&para;</a></h2>
-<h3 id="github">GitHub项目采集任务<a class="headerlink" href="#github" title="Permanent link">&para;</a></h3>
+<h1 id="pretextjs-dom">Pretext.js: 绕过 DOM 布局重排的高性能文本排版<a class="headerlink" href="#pretextjs-dom" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>作者：Cheng Lou（Midjourney 工程师、前 React 核心团队成员）
+仓库：https://github.com/chenglou/pretext
+大小：仅 15KB | 许可：开源</p>
+</blockquote>
+<h2 id="_1">核心问题<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Web 应用中，以下场景需要计算文本高度：
+- <strong>虚拟列表</strong>：动态计算每行高度以实现虚拟滚动
+- <strong>瀑布流布局</strong>：不同宽度的卡片需要精确的高度
+- <strong>AI 聊天界面</strong>：气泡高度动态变化，需要锚定滚动位置</p>
+<p>传统做法调用 <code>getBoundingClientRect()</code> 或 <code>offsetHeight</code>，这会触发浏览器的<strong>布局重排（reflow）</strong>——渲染引擎被迫重新计算所有元素的几何信息。在复杂页面或高频操作下，帧率直接崩到 30fps 以下。</p>
+<h2 id="_2">设计原理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Pretext 的核心洞察：<strong>文本测量可以完全脱离 DOM，用纯数学完成</strong>。</p>
+<h3 id="_3">两阶段架构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<pre><code>prepare() 阶段（一次性成本）：
+  Canvas.measureText() → 逐段文本像素宽度 → 缓存到内存
+
+layout() 阶段（高频调用）：
+  缓存宽度 + 容器尺寸 → 纯数学计算 → 行数 + 最终高度
+</code></pre>
+<p><strong>关键</strong>：两个阶段都不读 DOM，零 reflow。</p>
+<h3 id="canvasmeasuretext-reflow">为什么 Canvas.measureText() 不触发 reflow？<a class="headerlink" href="#canvasmeasuretext-reflow" title="Permanent link">&para;</a></h3>
+<p>Canvas 是一个离屏绘制 API，<code>measureText()</code> 只查询字体度量信息（glyph advance width、ascent、descent），不涉及 DOM 树的布局计算。浏览器的字体缓存保证了这个操作的开销极低。</p>
+<h2 id="_4">性能数据<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>时间</strong>: 2026-04-25 16:53 CST</li>
-<li><strong>任务</strong>: GitHub项目精选采集</li>
-<li><strong>结果</strong>: 成功采集15个trending项目</li>
-<li><strong>重点关注项目</strong>:</li>
-<li>Alishahryar1/free-claude-code (Claude Code免费使用方案)</li>
-<li>huggingface/ml-intern (开源ML工程师助手)</li>
-<li>zilliztech/claude-context (Claude代码搜索MCP)</li>
-<li><strong>文件位置</strong>: /Users/liujun/Nutstore Files/我的坚果云/knowledge/raw/inbox/2026-04-25-GitHub项目.md</li>
-<li><strong>推送状态</strong>: 已推送Top 3项目到钉钉</li>
+<li>500 个文本块布局计算：<strong>0.09ms</strong>（Pretext）vs ~55ms（传统 DOM 方法）</li>
+<li><strong>最高 600 倍性能提升</strong></li>
+<li>在实时文本换行场景下稳定维持 <strong>120 FPS</strong></li>
 </ul>
-<h3 id="_1">其他任务<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h2 id="_5">技术实现要点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">基本用法<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<pre><code class="language-typescript">import { prepare, layout } from 'pretext';
+
+// 1. 准备阶段：测量文本（只需一次）
+const blocks = [
+  { id: 1, text: '这是一段需要测量高度的文本', font: '14px sans-serif' },
+  { id: 2, text: '另一段文本，可能换行', font: '14px sans-serif' },
+];
+await prepare(blocks);
+
+// 2. 布局阶段：根据容器宽度计算高度（可反复调用）
+const containerWidth = 300;
+const results = layout(blocks, containerWidth);
+// results: [{ id: 1, height: 38, lines: 2 }, { id: 2, height: 19, lines: 1 }]
+</code></pre>
+<h3 id="_7">虚拟列表中的应用<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<pre><code class="language-typescript">// 关键：resize 时无需重新 prepare，只需重新 layout
+useEffect(() =&gt; {
+  const observer = new ResizeObserver(entries =&gt; {
+    const width = entries[0].contentRect.width;
+    const heights = layout(cachedBlocks, width);  // 0.09ms 级别
+    updateVirtualList(heights);
+  });
+  observer.observe(containerRef.current);
+  return () =&gt; observer.disconnect();
+}, []);
+</code></pre>
+<h3 id="css">与 CSS 方案的对比<a class="headerlink" href="#css" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>多语言支持</th>
+<th>RTL</th>
+<th>性能</th>
+<th>容器自适应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSS Grid Masonry</td>
+<td>部分</td>
+<td>部分</td>
+<td>好（原生）</td>
+<td>需要 resize 重算</td>
+</tr>
+<tr>
+<td>CSS overflow-anchor</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>好</td>
+<td>有限</td>
+</tr>
+<tr>
+<td>JS + getBoundingClientRect</td>
+<td>完整</td>
+<td>完整</td>
+<td>差（reflow）</td>
+<td>灵活但慢</td>
+</tr>
+<tr>
+<td><strong>Pretext.js</strong></td>
+<td><strong>完整</strong></td>
+<td><strong>完整</strong></td>
+<td><strong>极好</strong></td>
+<td><strong>灵活且快</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="ai">AI 辅助开发的典范<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h2>
+<p>Pretext 的多语言支持（韩语、阿拉伯语 RTL、emoji 混排）是通过 <strong>AI 循环</strong> 完成的：</p>
+<blockquote>
+<p>将浏览器的真实渲染结果作为基准，交给 Claude 和 Codex，在不同容器宽度下反复测量与迭代，持续数周。</p>
+</blockquote>
+<p>这是一个"以现有软件行为为 ground truth"的 AI 开发范式——不是让 AI 凭空生成代码，而是用真实浏览器渲染结果作为验证标准，让 AI 通过试错逼近正确实现。</p>
+<h2 id="_8">对移动端开发的启示<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="1-react-native">1. React Native 的类似痛点<a class="headerlink" href="#1-react-native" title="Permanent link">&para;</a></h3>
+<p>RN 中的 <code>onLayout</code> 回调本质上和 DOM reflow 类似——需要等原生渲染完成才能拿到尺寸。Pretext 的思路启发了一个方向：<strong>能否在 JS 层用文本度量预计算布局，减少原生测量次数？</strong></p>
+<h3 id="2">2. 性能优化的新层级<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>传统前端性能优化聚焦在：
+- 减少 DOM 操作（虚拟 DOM）
+- 减少重排重绘（批量更新、will-change）
+- 虚拟滚动（只渲染可见区域）</p>
+<p>Pretext 开辟了第四个层级：<strong>绕过布局引擎本身</strong>。这对追求极致性能的移动端 Web 应用（PWA、小程序 WebView）有直接参考价值。</p>
+<h3 id="3">3. 鸿蒙场景<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>鸿蒙的声明式 UI 也有类似的布局测量机制。如果能在 ArkUI 中实现类似的文本预计算，可以显著提升长列表场景的帧率。</p>
+<h2 id="_9">参见<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
-<li>无</li>
+<li>[[Real-world AI Applications]] — AI 辅助开发的实际案例</li>
 </ul>
-<hr />
-<p><em>最后更新: 2026-04-25 16:53 CST</em></p>
 
 
 
@@ -844,10 +999,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["search", "search.suggest", "search.highlight", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["search", "search.suggest", "search.highlight", "navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
