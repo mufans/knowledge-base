@@ -1,6 +1,6 @@
 # andrej-karpathy-skills 深度分析报告
 
-> 项目地址：https://github.com/forrestchang/andrej-karpathy-skills
+> 项目地址：[andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
 > Stars: 85,523 | Forks: 8,176 | License: MIT
 
 ## 项目概述

@@ -1,7 +1,7 @@
 # Pretext.js: 绕过 DOM 布局重排的高性能文本排版
 
 > 作者：Cheng Lou（Midjourney 工程师、前 React 核心团队成员）
-> 仓库：https://github.com/chenglou/pretext
+> 仓库：[pretext](https://github.com/chenglou/pretext)
 > 大小：仅 15KB | 许可：开源
 
 ## 核心问题
