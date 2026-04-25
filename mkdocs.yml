@@ -23,7 +23,7 @@ plugins:
 
 markdown_extensions:
   - toc:
-    permalink: true
+      permalink: true
   - admonition
 
 nav:
