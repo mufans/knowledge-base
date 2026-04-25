@@ -57,9 +57,9 @@
 
 ## 关联概念
 
-- [[Memory Management]] - 容量限制与信息压缩
-- [[Skill Auto-Creation]] - 自动创建技能的机制
-- [[Real-world AI Applications]] - 实际应用价值验证
+- [Memory Management](#Memory Management) - 容量限制与信息压缩
+- [Skill Auto-Creation](#Skill Auto-Creation) - 自动创建技能的机制
+- [Real-world AI Applications](#Real-world AI Applications) - 实际应用价值验证
 
 ---
 

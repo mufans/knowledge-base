@@ -18,3 +18,8 @@
 
 ---
 *最后更新: 2026-04-25 16:53 CST*
+## 2026-04-26 00:00 知识提炼
+- 新建 wiki/entities/ml-intern.md — HuggingFace开源ML工程师Agent
+- 新建 wiki/concepts/DeepEP.md — DeepSeek MoE专家并行通信库
+- 更新 index.md — 新增2条索引
+- 04-25采集内容已提炼完成，ml-intern和DeepEP为新增主题

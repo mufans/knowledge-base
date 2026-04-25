@@ -86,6 +86,6 @@ class ContextManager:
 4. **监控 context 使用率**：记录每次 turn 的 token 消耗，识别"吞 token"的工具
 
 ## 参见
-- [[claude-context]] — 代码搜索 MCP，解决"找什么代码"的问题
-- [[AI Agent Self-Improving]] — Agent 的自改进能力
-- [[Memory Management]] — Agent 记忆与上下文管理
+- [claude-context](../entities/claude-context.md) — 代码搜索 MCP，解决"找什么代码"的问题
+- [AI Agent Self-Improving](#AI Agent Self-Improving) — Agent 的自改进能力
+- [Memory Management](#Memory Management) — Agent 记忆与上下文管理

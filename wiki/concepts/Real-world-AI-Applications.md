@@ -112,9 +112,9 @@
 
 ## 关联概念
 
-- [[AI Agent Self-Improving]] - 自改进系统的应用验证
-- [[Memory Management]] - 应用中的资源管理
-- [[Skill Auto-Creation]] - 应用中的技能创建机制
+- [AI Agent Self-Improving](#AI Agent Self-Improving) - 自改进系统的应用验证
+- [Memory Management](#Memory Management) - 应用中的资源管理
+- [Skill Auto-Creation](#Skill Auto-Creation) - 应用中的技能创建机制
 
 ---
 

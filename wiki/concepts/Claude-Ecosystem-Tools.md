@@ -119,9 +119,9 @@
 
 ## 关联概念
 
-- [[AI Agent Self-Improving]] - 代理工具的自改进能力
-- [[Real-world AI Applications]] - 实际应用场景
-- [[Memory Management]] - 工具中的记忆管理
+- [AI Agent Self-Improving](#AI Agent Self-Improving) - 代理工具的自改进能力
+- [Real-world AI Applications](#Real-world AI Applications) - 实际应用场景
+- [Memory Management](#Memory Management) - 工具中的记忆管理
 
 ---
 

@@ -58,8 +58,8 @@
 - 常见错误2：描述+解决方案
 
 ## 关联技能
-- [[相关技能1]]
-- [[相关技能2]]
+- [相关技能1](#相关技能1)
+- [相关技能2](#相关技能2)
 ```
 
 ## 关键特性
@@ -118,9 +118,9 @@
 
 ## 关联概念
 
-- [[AI Agent Self-Improving]] - 自改进系统的技能机制
-- [[Memory Management]] - 技能创建的记忆基础
-- [[Real-world AI Applications]] - 实际应用中的技能价值
+- [AI Agent Self-Improving](#AI Agent Self-Improving) - 自改进系统的技能机制
+- [Memory Management](#Memory Management) - 技能创建的记忆基础
+- [Real-world AI Applications](#Real-world AI Applications) - 实际应用中的技能价值
 
 ---
 

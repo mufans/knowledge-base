@@ -87,6 +87,6 @@ def agent_step(query, history):
 对移动端 Agent 应用特别重要：按需检索意味着不需要时完全不消耗检索 token，大幅降低运行成本。
 
 ## 参见
-- [[AI Agent Self-Improving]] — Agent 的自改进能力
-- [[claude-context]] — 代码场景的上下文检索工具
-- [[Memory Management]] — Agent 记忆管理策略
+- [AI Agent Self-Improving](#AI Agent Self-Improving) — Agent 的自改进能力
+- [claude-context](../entities/claude-context.md) — 代码场景的上下文检索工具
+- [Memory Management](#Memory Management) — Agent 记忆管理策略

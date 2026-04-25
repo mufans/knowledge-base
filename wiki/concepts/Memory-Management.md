@@ -86,9 +86,9 @@
 
 ## 关联概念
 
-- [[AI Agent Self-Improving]] - 自改进系统的记忆机制
-- [[Skill Auto-Creation]] - 基于记忆自动创建技能
-- [[Real-world AI Applications]] - 实际应用中的记忆管理
+- [AI Agent Self-Improving](#AI Agent Self-Improving) - 自改进系统的记忆机制
+- [Skill Auto-Creation](#Skill Auto-Creation) - 基于记忆自动创建技能
+- [Real-world AI Applications](#Real-world AI Applications) - 实际应用中的记忆管理
 
 ---
 

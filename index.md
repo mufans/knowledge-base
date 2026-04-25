@@ -11,10 +11,13 @@
 - [[Skill Auto-Creation]] - AI Agent从工作经验中自动提炼和创建可复用技能的机制
 - [[Real-world AI Applications]] - AI技术在实际业务场景中的成功应用案例和验证结果
 - [[Claude Ecosystem Tools]] - 围绕Claude AI开发的工具生态和开发环境
+- [[DeepEP]] - DeepSeek开源的MoE专家并行通信库，优化分布式训练中的all-to-all通信瓶颈
 
 ## Wiki 实体
 - [[Hermes-Agent]] - Nous Research 开发的自改进 AI Agent 框架，内置 Memory/Skill/Nudge 学习闭环
 - [[OpenClaw]] - 多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施
+- [[ml-intern]] - HuggingFace开源ML工程师Agent，自动化读论文→训练→部署全流程
+- [[claude-mem]] - Claude Code持久化记忆压缩系统，Plugin+Worker+Database三层架构
 
 
 ## Wiki 来源摘要
