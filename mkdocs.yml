@@ -23,7 +23,7 @@ plugins:
 
 markdown_extensions:
   - toc:
-      permalink: true
+    permalink: true
   - admonition
 
 nav:
@@ -39,14 +39,3 @@ nav:
     - 实体: wiki/entities/index.md
     - 来源摘要: wiki/sources/index.md
     - 综合分析: wiki/syntheses/index.md
-  # 以下页面不在导航中显示，但可被搜索到
-  - '!raw/inbox/*.md'
-  - '!raw/projects/*.md'
-  - '!wiki/concepts/*.md'
-  - '!wiki/entities/*.md'
-  - '!wiki/sources/*.md'
-  - '!wiki/syntheses/*.md'
-
-plugins:
-  - search:
-      lang: zh
