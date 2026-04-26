@@ -162,8 +162,12 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
 - `CLAUDE.md` → `docs/CLAUDE.md`
 - `log.md` → `docs/log.md`
 
-### 部署前检查
-- 每个 `index.md` 列出所有实际文件
-- 链接格式正确（`.md`后缀）
-- `mkdocs.yml` 未被覆盖（被覆盖则 `git checkout mkdocs.yml`）
-- `mkdocs build` 无 ERROR
+### 部署前检查（历史踩坑清单）
+
+1. **`docs/raw/` 是否存在**：sync脚本必须同步raw/目录，否则采集文件不显示
+2. **所有 `index.md` 是否列出所有实际文件**：包括raw/inbox/index.md和wiki各子目录的index.md
+3. **链接格式正确**：`.md`后缀、无裸URL、无`[[]]`Obsidian格式
+4. **`mkdocs.yml` 未被覆盖**：被覆盖则 `git checkout mkdocs.yml`
+5. **`mkdocs build` 无 ERROR**
+6. **subagent创建的wiki页面是否同步到docs/**：subagent不会自动同步，必须执行sync脚本
+7. **新创建的md文件是否出现在Pages上**：文件必须先cp到docs/目录，mkdocs才会渲染
