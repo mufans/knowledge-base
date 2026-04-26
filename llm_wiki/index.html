@@ -1,0 +1,1327 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="个人技术知识库">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+        <link rel="canonical" href="https://mufans.github.io/knowledge-base/llm_wiki/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>LLM Wiki - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#llm-wiki" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LLM Wiki
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mufans/knowledge-base" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mufans/knowledge-base" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作日志
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../raw/inbox/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原始采集
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    原始采集
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raw/inbox/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档日报
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raw/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../wiki/concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识提炼
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识提炼
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wiki/entities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    实体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wiki/sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    来源摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wiki/syntheses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    综合分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本信息
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心定位
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        架构设计（深度分析）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="架构设计（深度分析）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三层架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analysis-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        两步摄入流程（Analysis → Generation）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四信号知识图谱关联度模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心实现
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        持久化摄入队列
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sha256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SHA256 增量缓存
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#louvain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Louvain 社区检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多阶段检索管线
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计决策分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="设计决策分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tauri-vs-electron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tauri vs Electron
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lancedb-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LanceDB vs 其他向量库
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与同类方案对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="与同类方案对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-karpathy-gist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vs 纯 Karpathy 方案（Gist 文档级）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs-obsidian-ai-copilotsmart-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vs Obsidian + AI 插件（如 Copilot、Smart Connections）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vs RAG 方案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可借鉴模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可借鉴模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openclaw-mkdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对个人自动化知识库（OpenClaw + mkdocs）的具体借鉴
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python 低成本复现的设计思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        质量评估
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关链接
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="llm-wiki">LLM Wiki<a class="headerlink" href="#llm-wiki" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>基于 Karpathy LLM Wiki 方法论的桌面端个人知识库，LLM 自动将文档转化为结构化、可互联的 wiki</p>
+</blockquote>
+<h2 id="_1">基本信息<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名称</td>
+<td>LLM Wiki</td>
+</tr>
+<tr>
+<td>作者</td>
+<td>nashsu</td>
+</tr>
+<tr>
+<td>仓库</td>
+<td><a href="https://github.com/nashsu/llm_wiki">nashsu/llm_wiki</a></td>
+</tr>
+<tr>
+<td>技术栈</td>
+<td>Tauri v2 + React 19 + TypeScript + sigma.js + LanceDB</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>桌面应用</td>
+</tr>
+<tr>
+<td>许可证</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td>灵感来源</td>
+<td><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy LLM Wiki Gist</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">核心定位<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>LLM Wiki 是 Karpathy 的 LLM Wiki 方法论的<strong>完整桌面实现</strong>。核心理念：知识是<strong>编译一次、持续维护</strong>的持久 wiki，而非传统 RAG 的"每次查询从头检索"模式。</p>
+<h2 id="_3">架构设计（深度分析）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">三层架构<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>忠实实现 Karpathy 的三层设计：</p>
+<ol>
+<li><strong>raw/</strong> — 不可变原始文档（PDF、网页、论文等），作为知识源</li>
+<li><strong>wiki/</strong> — LLM 生成的结构化 wiki 页面，含 YAML frontmatter、<code>[[wikilinks]]</code> 交叉引用</li>
+<li><strong>schema/</strong> — 结构规则（schema.md 定义页面类型、格式规范）+ purpose.md（新增，定义知识库目标和方向）</li>
+</ol>
+<p><strong>设计决策</strong>：新增 <code>purpose.md</code> 是此项目对原版最值得注意的扩展。schema 管"怎么组织"，purpose 管"为什么存在"——LLM 在每次 ingest/query 时都会读取 purpose，确保生成内容不偏离知识库目标。</p>
+<h3 id="analysis-generation">两步摄入流程（Analysis → Generation）<a class="headerlink" href="#analysis-generation" title="Permanent link">&para;</a></h3>
+<p>原版是单步 ingest（读+写同时进行），此项目拆分为两个串行 LLM 调用：</p>
+<p><strong>Step 1 — Analysis</strong>：LLM 读取原始文档 → 输出结构化分析
+- 提取关键实体、概念、论点
+- 建立与现有 wiki 内容的关联
+- 识别与已有知识的矛盾和张力
+- 输出 wiki 结构建议</p>
+<p><strong>Step 2 — Generation</strong>：基于分析结果生成 wiki 文件
+- 含 frontmatter 的源摘要页（type、title、sources[]）
+- 实体页、概念页，含交叉引用
+- 更新 index.md、log.md、overview.md
+- 生成 review items（需人工判断的条目）
+- 预生成 Deep Research 搜索查询</p>
+<p><strong>Trade-off 分析</strong>：token 消耗翻倍，但质量提升显著——Analysis 阶段让 LLM 先"理解"再"写作"，避免单步模式下边读边写导致的信息遗漏和结构混乱。对于个人知识库这种"质量优先、成本次要"的场景，这个 trade-off 合理。</p>
+<h3 id="_5">四信号知识图谱关联度模型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>这是项目最有技术深度的设计：</p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>权重</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct link</td>
+<td>×3.0</td>
+<td>通过 <code>[[wikilink]]</code> 直接链接的页面</td>
+</tr>
+<tr>
+<td>Source overlap</td>
+<td>×4.0</td>
+<td>frontmatter 中 sources[] 共享同一原始文档</td>
+</tr>
+<tr>
+<td>Adamic-Adar</td>
+<td>×1.5</td>
+<td>共享邻居的关联强度（按邻居度数加权）</td>
+</tr>
+<tr>
+<td>Type affinity</td>
+<td>×1.0</td>
+<td>同类型页面加分（entity↔entity）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么用 Adamic-Adar 而不是 Jaccard/余弦？</strong> Adamic-Adar 对"共享稀有邻居"赋予更高权重——如果两个页面共享一个连接很少的邻居，说明这个关联更独特、更有意义。Jaccard 只看交集比例，会淹没在高度连接的 hub 节点中。</p>
+<h2 id="_6">核心实现<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">持久化摄入队列<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>串行处理</strong>：防止并发 LLM 调用导致状态冲突</li>
+<li><strong>磁盘持久化</strong>：队列写入磁盘，应用崩溃/重启后可恢复</li>
+<li><strong>自动重试</strong>：失败任务最多重试 3 次</li>
+<li><strong>进度可视化</strong>：Activity Panel 实时显示 pending/processing/failed 状态</li>
+<li><strong>可取消</strong>：用户可随时取消队列中的任务</li>
+</ul>
+<h3 id="sha256">SHA256 增量缓存<a class="headerlink" href="#sha256" title="Permanent link">&para;</a></h3>
+<p>对每个原始文档计算 SHA256 哈希，存储在 <code>.llm-wiki/cache/</code> 中。摄入前检查哈希，未变化的文件自动跳过。这是"编译一次"理念的工程实现——与增量编译类似，只处理变化的部分。</p>
+<h3 id="louvain">Louvain 社区检测<a class="headerlink" href="#louvain" title="Permanent link">&para;</a></h3>
+<p>使用 <code>graphology-communities-louvain</code> 库实现：
+- 基于链接拓扑自动发现知识聚类（不依赖预定义类型）
+- 每个社区计算内聚度得分（实际边数 / 可能边数）
+- 低内聚度社区（&lt; 0.3）标记为"松散"，提示用户可能需要重新组织
+- 支持按类型/社区切换节点着色模式</p>
+<h3 id="_8">多阶段检索管线<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<pre><code>Phase 1: 分词搜索（英文词分割 / CJK bigram + 标题匹配加分）
+    ↓
+Phase 1.5: 向量语义搜索（可选，LanceDB + OpenAI兼容endpoint）
+    ↓
+Phase 2: 图谱扩展（4信号模型，2跳遍历 + 衰减）
+    ↓
+Phase 3: 预算控制（可配上下文窗口 4K-1M，60% wiki / 20% 历史 / 5% index / 15% system）
+    ↓
+Phase 4: 上下文组装（编号引用，指示LLM用[1][2]格式引用）
+</code></pre>
+<p><strong>向量搜索可选的设计理由</strong>：默认关闭，开启后 recall 从 58.2% 提升到 71.4%。可选意味着零配置可用——不需要额外的 embedding API，降低了入门门槛。同时保留了高质量用户的升级路径。</p>
+<h2 id="_9">设计决策分析<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="tauri-vs-electron">Tauri vs Electron<a class="headerlink" href="#tauri-vs-electron" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Tauri v2</th>
+<th>Electron</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打包体积</td>
+<td>~10MB</td>
+<td>~150MB+</td>
+</tr>
+<tr>
+<td>内存占用</td>
+<td>Rust 后端，显著更低</td>
+<td>Chromium 全套</td>
+</tr>
+<tr>
+<td>安全模型</td>
+<td>权限白名单，细粒度 IPC</td>
+<td>全 Node.js 能力</td>
+</tr>
+<tr>
+<td>原生能力</td>
+<td>直接调用系统 API</td>
+<td>需 Node addons</td>
+</tr>
+</tbody>
+</table>
+<p><strong>对于知识库工具</strong>：Tauri 的低资源占用是关键优势——用户可能长时间运行此应用。且 Rust 后端处理文件 I/O、SHA256 计算、向量索引等计算密集任务更高效。</p>
+<h3 id="lancedb-vs">LanceDB vs 其他向量库<a class="headerlink" href="#lancedb-vs" title="Permanent link">&para;</a></h3>
+<p>选择 LanceDB 的理由：
+- <strong>嵌入式</strong>：无需独立服务进程（vs Qdrant/Milvus）
+- <strong>Rust 原生</strong>：与 Tauri 后端同生态，IPC 成本低
+- <strong>ONNX Runtime</strong>：embedding 推理本地运行，不依赖外部 API
+- <strong>列式存储</strong>：适合知识库的"一次写入、多次读取"模式</p>
+<p>对比 Chroma（Python 生态首选）和 Faiss（Meta，纯索引库无持久化），LanceDB 在 Tauri+TypeScript 生态中是最自然的选择。</p>
+<h2 id="_10">与同类方案对比<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="vs-karpathy-gist">vs 纯 Karpathy 方案（Gist 文档级）<a class="headerlink" href="#vs-karpathy-gist" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Karpathy Gist</th>
+<th>LLM Wiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>形态</td>
+<td>方法论文档，复制给 LLM agent 用</td>
+<td>完整桌面应用</td>
+</tr>
+<tr>
+<td>摄入</td>
+<td>单步</td>
+<td>两步（质量更高）</td>
+</tr>
+<tr>
+<td>图谱</td>
+<td>仅 [[wikilinks]]</td>
+<td>完整4信号图谱 + 可视化</td>
+</tr>
+<tr>
+<td>检索</td>
+<td>简单读取相关页面</td>
+<td>多阶段管线 + 预算控制</td>
+</tr>
+<tr>
+<td>用户体验</td>
+<td>需要自己搭建 agent 流程</td>
+<td>开箱即用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vs-obsidian-ai-copilotsmart-connections">vs Obsidian + AI 插件（如 Copilot、Smart Connections）<a class="headerlink" href="#vs-obsidian-ai-copilotsmart-connections" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Obsidian 方案</th>
+<th>LLM Wiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>知识生成</td>
+<td>手动或半自动</td>
+<td>全自动两步摄入</td>
+</tr>
+<tr>
+<td>图谱分析</td>
+<td>Smart Connections 插件</td>
+<td>内置4信号模型 + 社区检测</td>
+</tr>
+<tr>
+<td>原始文档管理</td>
+<td>需手动整理</td>
+<td>raw/ 目录自动管理</td>
+</tr>
+<tr>
+<td>Obsidian 兼容</td>
+<td>原生</td>
+<td>wiki/ 目录可直接作为 Obsidian vault</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键区别</strong>：LLM Wiki 的 wiki/ 目录本身就是 Obsidian vault 兼容的——你可以在 Obsidian 中打开 wiki/ 目录直接浏览和编辑，同时享受 LLM Wiki 的自动化能力。</p>
+<h3 id="vs-rag">vs RAG 方案<a class="headerlink" href="#vs-rag" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统 RAG</th>
+<th>LLM Wiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>知识形态</td>
+<td>每次查询实时检索</td>
+<td>持久化 wiki，编译一次</td>
+</tr>
+<tr>
+<td>Token 消耗</td>
+<td>每次查询都要处理原始文档</td>
+<td>摄入时消耗，查询时只读 wiki</td>
+</tr>
+<tr>
+<td>知识积累</td>
+<td>无状态</td>
+<td>有状态，知识随时间增长</td>
+</tr>
+<tr>
+<td>可解释性</td>
+<td>黑盒检索</td>
+<td>wiki 页面可人工审核</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_11">可借鉴模式<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="openclaw-mkdocs">对个人自动化知识库（OpenClaw + mkdocs）的具体借鉴<a class="headerlink" href="#openclaw-mkdocs" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>两步摄入模式</strong>：当前 cron 任务是单步（LLM 直接生成），可改为先分析再生成，提升 wiki 页面质量</li>
+<li><strong>SHA256 增量缓存</strong>：对已分析的文档/URL 计算哈希，避免重复处理</li>
+<li><strong>Source traceability</strong>：每个 wiki 页面的 frontmatter 记录 sources[]，建立原始素材到知识页面的追溯链</li>
+<li><strong>4信号关联模型</strong>：当前知识库的交叉链接靠手动，可引入 Adamic-Adar 等算法自动发现隐含关联</li>
+<li><strong>Graph Insights</strong>：自动检测"知识孤岛"（degree ≤ 1 的页面）和"意外连接"，提示需要补充或关联的内容</li>
+</ol>
+<h3 id="python">Python 低成本复现的设计思想<a class="headerlink" href="#python" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Louvain 社区检测</strong>：<code>python-louvain</code> 库，几行代码即可实现知识聚类</li>
+<li><strong>Adamic-Adar</strong>：<code>networkx</code> 内置 <code>adamic_adar_index()</code>，直接调用</li>
+<li><strong>CJK bigram 分词</strong>：简单实现即可覆盖中文检索场景</li>
+<li><strong>预算控制</strong>：按 token 比例分配上下文窗口，纯逻辑无需额外依赖</li>
+<li><strong>两步摄入</strong>：两个 LLM 调用串联，第一个输出 JSON 作为第二个的输入，任何框架都支持</li>
+</ol>
+<h2 id="_12">质量评估<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>评分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码质量</td>
+<td>★★★★☆</td>
+<td>TypeScript + Rust 双后端，类型系统完善，结构清晰</td>
+</tr>
+<tr>
+<td>架构成熟度</td>
+<td>★★★★☆</td>
+<td>对 Karpathy 方法论的实现非常忠实，扩展有理有据</td>
+</tr>
+<tr>
+<td>实用性</td>
+<td>★★★★★</td>
+<td>开箱即用的桌面应用，解决了个人知识库的核心痛点</td>
+</tr>
+<tr>
+<td>创新性</td>
+<td>★★★☆☆</td>
+<td>核心方法论来自 Karpathy，但在工程实现上有多个原创设计（4信号模型、社区检测集成）</td>
+</tr>
+<tr>
+<td>可维护性</td>
+<td>★★★☆☆</td>
+<td>单人项目，功能密集，长期维护存在风险</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总评</strong>：这是一个 Karpathy 方法论的<strong>教科书级实现</strong>。不是简单的"照抄 Gist"，而是在忠实于核心理念的基础上做了大量有价值的工程扩展。两步摄入、4信号图谱、社区检测、可选向量搜索——每个设计都有清晰的动机和合理的 trade-off。对于正在搭建个人知识库自动化流程的开发者来说，这个项目的设计思想值得深入研究。</p>
+<h2 id="_13">相关链接<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy LLM Wiki 原始 Gist</a></li>
+<li><a href="https://www.sigmajs.org/">sigma.js 图谱可视化库</a></li>
+<li><a href="https://lancedb.github.io/lancedb/">LanceDB 向量数据库</a></li>
+<li><a href="https://v2.tauri.app/">Tauri v2</a></li>
+<li><a href="https://graphology.github.io/">graphology 图论库</a></li>
+<li><a href="../entities/OpenClaw.md">OpenClaw</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["search", "search.suggest", "search.highlight", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
