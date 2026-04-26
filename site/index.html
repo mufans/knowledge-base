@@ -313,13 +313,41 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="知识库结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        质量标准
+        目录说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分类判断标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采集流程
       
     </span>
   </a>
@@ -327,10 +355,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        更新频率
+        提炼流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        质量规范
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="质量规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        每篇wiki页面必须包含
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心约束
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术栈
       
     </span>
   </a>
@@ -733,13 +811,41 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="知识库结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        质量标准
+        目录说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分类判断标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采集流程
       
     </span>
   </a>
@@ -747,10 +853,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        更新频率
+        提炼流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        质量规范
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="质量规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        每篇wiki页面必须包含
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心约束
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        技术栈
       
     </span>
   </a>
@@ -782,29 +938,179 @@
 <p>AI Agent · 移动端开发 · 开源项目分析</p>
 </blockquote>
 <h2 id="_2">关于<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>这个知识库记录了我在AI Agent、移动端开发、开源项目分析等方面的技术积累。通过每日自动化采集→分析→提炼的流程，持续构建结构化的个人知识图谱。</p>
+<p>这个知识库通过 <strong>采集 → 分析 → 提炼</strong> 的自动化流水线，持续构建结构化的个人技术知识图谱。由 OpenClaw Agent 自动维护，每日从多个信息源采集、筛选、提炼高价值技术内容。</p>
 <h2 id="_3">知识库结构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<pre><code>knowledge/
+├── CLAUDE.md          ← 规则配置（AI操作知识库时必须遵守）
+├── log.md             ← 操作日志（append-only）
+├── raw/               ← 原始资源层（只读不改）
+│   ├── inbox/         ← 每日自动采集的原始内容
+│   └── projects/      ← 项目相关文档
+└── wiki/              ← 知识提炼层（结构化知识）
+    ├── concepts/      ← 概念：抽象的技术思想和方法论
+    ├── entities/      ← 实体：具体的项目、工具、产品
+    ├── sources/       ← 来源：文章和论文的详细摘要
+    └── syntheses/     ← 综合：跨源对比分析
+</code></pre>
+<h3 id="_4">目录说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>权限</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>raw/inbox/</code></td>
+<td>只读</td>
+<td>每日采集的原始新闻、论文、GitHub项目</td>
+<td><code>2026-04-26-AI论文.md</code></td>
+</tr>
+<tr>
+<td><code>raw/projects/</code></td>
+<td>只读</td>
+<td>项目相关原始文档</td>
+<td>OpenClaw功能推荐报告</td>
+</tr>
+<tr>
+<td><code>wiki/concepts/</code></td>
+<td>可写</td>
+<td>技术概念、设计模式、方法论</td>
+<td><a href="wiki/concepts/Self-RAG/">Self-RAG</a>、<a href="wiki/concepts/Context-Window-Optimization/">Context-Window-Optimization</a></td>
+</tr>
+<tr>
+<td><code>wiki/entities/</code></td>
+<td>可写</td>
+<td>具体项目、工具、产品</td>
+<td><a href="wiki/entities/OpenClaw/">OpenClaw</a>、<a href="wiki/entities/claude-mem/">claude-mem</a></td>
+</tr>
+<tr>
+<td><code>wiki/sources/</code></td>
+<td>可写</td>
+<td>文章/论文的深度摘要</td>
+<td><a href="wiki/sources/OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">OpenClaw-源码分析</a></td>
+</tr>
+<tr>
+<td><code>wiki/syntheses/</code></td>
+<td>可写</td>
+<td>跨源对比、趋势分析</td>
+<td><a href="wiki/syntheses/Hermes-vs-OpenClaw%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/">Hermes-vs-OpenClaw对比分析</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">分类判断标准<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>原始采集</strong>（raw/inbox）— 每日自动采集的技术新闻、论文、GitHub项目、技术动态</li>
-<li><strong>知识提炼</strong>（wiki/）— 从原始数据中提炼的深度分析页面</li>
-<li>概念：抽象的技术思想和方法论</li>
-<li>实体：具体的项目、工具、产品</li>
-<li>来源摘要：文章和论文的详细摘要</li>
-<li>综合分析：跨源对比分析</li>
+<li><strong>概念</strong>（concepts/）— "这是什么思想/方法"，抽象的、通用的</li>
+<li><strong>实体</strong>（entities/）— "这是什么东西"，具体的、有明确边界的</li>
+<li><strong>来源</strong>（sources/）— "这篇文章/论文说了什么"，对原始内容的精炼</li>
+<li><strong>综合</strong>（syntheses/）— "A和B比怎么样"，跨源对比分析</li>
 </ul>
-<h2 id="_4">质量标准<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>每篇知识页面遵循统一规范：
-- 包含标签、评分、出处链接
-- 避免泛泛而谈，体现具体技术细节
-- 与其他知识页面建立交叉引用</p>
-<h2 id="_5">更新频率<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_6">采集流程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>每日自动从以下信息源采集：</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>时间</th>
+<th>模型</th>
+<th>方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新闻热点</td>
+<td>08:00</td>
+<td>glm-4.7-flash</td>
+<td>LLM</td>
+<td>AI/大模型、编程工具、移动端、云原生、开源</td>
+</tr>
+<tr>
+<td>技术动态</td>
+<td>09:30</td>
+<td>glm-4.7-flash</td>
+<td>LLM</td>
+<td>InfoQ、OSChina等技术社区</td>
+</tr>
+<tr>
+<td>AI论文</td>
+<td>10:00</td>
+<td>-</td>
+<td><strong>Python脚本</strong></td>
+<td>HuggingFace Daily Papers（0 token消耗）</td>
+</tr>
+<tr>
+<td>GitHub项目</td>
+<td>10:30</td>
+<td>-</td>
+<td><strong>Python脚本</strong></td>
+<td>GitHub Search API（0 token消耗）</td>
+</tr>
+<tr>
+<td>社交媒体</td>
+<td>11:00</td>
+<td>glm-4.7-flash</td>
+<td>LLM</td>
+<td>AI技术动态筛选</td>
+</tr>
+<tr>
+<td>晚间总结</td>
+<td>21:00</td>
+<td>glm-4.7-flash</td>
+<td>LLM</td>
+<td>当日采集内容回顾</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">提炼流程<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>每日00:00由 glm-5.1 执行深度知识提炼：</p>
+<ol>
+<li><strong>读取</strong> — 加载当日采集文件 + 已有wiki内容</li>
+<li><strong>筛选</strong> — 评估每条内容的价值（技术深度、实用价值、时效性、领域匹配）</li>
+<li><strong>提炼</strong> — 高价值内容生成wiki页面（5个维度：概念→原理→实现→关联→建议）</li>
+<li><strong>质量检查</strong> — 覆盖度、摘要质量、评分合理性、链接格式、信息真实性</li>
+<li><strong>输出</strong> — 保存到wiki/ + 更新index.md + 同步GitHub Pages</li>
+</ol>
+<h2 id="_8">质量规范<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="wiki">每篇wiki页面必须包含<a class="headerlink" href="#wiki" title="Permanent link">&para;</a></h3>
+<pre><code class="language-markdown"># 标题
+
+&gt; tags: #tag1 #tag2 #tag3
+&gt; source: [采集文件名](链接)
+&gt; project: [项目名](GitHub URL)（如有）
+&gt; score: 技术深度X/10 | 实用价值X/10 | 时效性X/10 | 领域匹配X/10 | 综合 X.X/10
+
+## 核心概念
+## 设计原理
+## 关键实现
+## 关联分析
+## 可执行建议
+</code></pre>
+<h3 id="_9">核心约束<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <ul>
-<li>每日自动采集 5-6 个信息源</li>
-<li>每日自动提炼高价值内容</li>
-<li>知识页面持续迭代更新</li>
+<li>✅ 避免泛泛而谈，必须体现具体技术细节（算法名、参数值、代码行、性能数据）</li>
+<li>✅ 所有链接使用 <code>[名称](URL)</code> 格式，禁止裸URL</li>
+<li>✅ 提到已有wiki条目时使用交叉链接 <code>[Self-RAG](Self-RAG.md)</code></li>
+<li>✅ 禁止 <code>[[]]</code> Obsidian格式，mkdocs不支持</li>
+<li>✅ 技术术语使用英文原文作为标签</li>
+<li>✅ 每个页面2-5个分类标签 + 多维度评分</li>
+<li>❌ 禁止百科式描述（"XX是一种XX技术"）</li>
+<li>❌ 禁止功能罗列（"XX有A、B、C功能"）</li>
+<li>❌ 禁止编造信息，所有技术声明必须有据可查</li>
+</ul>
+<h2 id="_10">技术栈<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>自动化平台</strong>: <a href="https://github.com/openclaw/openclaw">OpenClaw</a> — AI Agent网关</li>
+<li><strong>采集脚本</strong>: Python 3（GitHub API + HuggingFace API）</li>
+<li><strong>知识提炼</strong>: GLM-5.1（深度分析）+ GLM-4.7-Flash（采集）</li>
+<li><strong>静态站点</strong>: MkDocs Material（GitHub Pages部署）</li>
+<li><strong>知识库地址</strong>: <a href="https://mufans.github.io/knowledge-base/">mufans.github.io/knowledge-base</a></li>
 </ul>
 <hr />
-<p><em>由 OpenClaw + 每日自动化流水线维护</em></p>
+<p><em>由 OpenClaw 每日自动化流水线维护 · 最后更新：2026-04-26</em></p>
 
 
 
