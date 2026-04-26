@@ -308,6 +308,17 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
+        设计理念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         知识库结构
       
     </span>
@@ -317,7 +328,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         目录说明
@@ -328,7 +339,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         分类判断标准
@@ -344,7 +355,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         采集流程
@@ -355,7 +366,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         提炼流程
@@ -366,7 +377,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         质量规范
@@ -389,7 +400,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         核心约束
@@ -405,7 +416,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         技术栈
@@ -806,6 +817,17 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
+        设计理念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         知识库结构
       
     </span>
@@ -815,7 +837,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         目录说明
@@ -826,7 +848,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         分类判断标准
@@ -842,7 +864,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         采集流程
@@ -853,7 +875,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         提炼流程
@@ -864,7 +886,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         质量规范
@@ -887,7 +909,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         核心约束
@@ -903,7 +925,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         技术栈
@@ -939,7 +961,46 @@
 </blockquote>
 <h2 id="_2">关于<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>这个知识库通过 <strong>采集 → 分析 → 提炼</strong> 的自动化流水线，持续构建结构化的个人技术知识图谱。由 OpenClaw Agent 自动维护，每日从多个信息源采集、筛选、提炼高价值技术内容。</p>
-<h2 id="_3">知识库结构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">设计理念<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>基于 <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy LLM Wiki 方法论</a> 构建，参考 <a href="https://github.com/nashsu/llm_wiki">nashsu/llm_wiki</a> 桌面应用的增强设计。</p>
+<p><strong>核心理念</strong>：
+- <strong>编译一次，持续复用</strong> — 知识提炼一次，永久累积，而非每次查询从头检索（vs 传统RAG）
+- <strong>Raw只读，Wiki可写</strong> — 原始数据不可篡改，提炼层自由演进
+- <strong>人策展，AI维护</strong> — 方向由人决定，整理和维护由AI自动完成
+- <strong>结构化积累</strong> — 通过分类、标签、评分、交叉链接，让知识自然形成图谱</p>
+<p><strong>与RAG的区别</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RAG</th>
+<th>LLM Wiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>知识存储</td>
+<td>向量数据库</td>
+<td>结构化Markdown文件</td>
+</tr>
+<tr>
+<td>查询方式</td>
+<td>每次检索+拼凑</td>
+<td>直接读取已有页面</td>
+</tr>
+<tr>
+<td>知识演进</td>
+<td>无累积</td>
+<td>持续增长+关联</td>
+</tr>
+<tr>
+<td>Token消耗</td>
+<td>每次查询大量消耗</td>
+<td>提炼一次，查询低消耗</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">知识库结构<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <pre><code>knowledge/
 ├── CLAUDE.md          ← 规则配置（AI操作知识库时必须遵守）
 ├── log.md             ← 操作日志（append-only）
@@ -952,7 +1013,7 @@
     ├── sources/       ← 来源：文章和论文的详细摘要
     └── syntheses/     ← 综合：跨源对比分析
 </code></pre>
-<h3 id="_4">目录说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_5">目录说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1001,14 +1062,14 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_5">分类判断标准<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_6">分类判断标准<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>概念</strong>（concepts/）— "这是什么思想/方法"，抽象的、通用的</li>
 <li><strong>实体</strong>（entities/）— "这是什么东西"，具体的、有明确边界的</li>
 <li><strong>来源</strong>（sources/）— "这篇文章/论文说了什么"，对原始内容的精炼</li>
 <li><strong>综合</strong>（syntheses/）— "A和B比怎么样"，跨源对比分析</li>
 </ul>
-<h2 id="_6">采集流程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_7">采集流程<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>每日自动从以下信息源采集：</p>
 <table>
 <thead>
@@ -1065,7 +1126,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_7">提炼流程<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_8">提炼流程<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>每日00:00由 glm-5.1 执行深度知识提炼：</p>
 <ol>
 <li><strong>读取</strong> — 加载当日采集文件 + 已有wiki内容</li>
@@ -1074,7 +1135,7 @@
 <li><strong>质量检查</strong> — 覆盖度、摘要质量、评分合理性、链接格式、信息真实性</li>
 <li><strong>输出</strong> — 保存到wiki/ + 更新index.md + 同步GitHub Pages</li>
 </ol>
-<h2 id="_8">质量规范<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="_9">质量规范<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <h3 id="wiki">每篇wiki页面必须包含<a class="headerlink" href="#wiki" title="Permanent link">&para;</a></h3>
 <pre><code class="language-markdown"># 标题
 
@@ -1089,7 +1150,7 @@
 ## 关联分析
 ## 可执行建议
 </code></pre>
-<h3 id="_9">核心约束<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<h3 id="_10">核心约束<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li>✅ 避免泛泛而谈，必须体现具体技术细节（算法名、参数值、代码行、性能数据）</li>
 <li>✅ 所有链接使用 <code>[名称](URL)</code> 格式，禁止裸URL</li>
@@ -1101,7 +1162,7 @@
 <li>❌ 禁止功能罗列（"XX有A、B、C功能"）</li>
 <li>❌ 禁止编造信息，所有技术声明必须有据可查</li>
 </ul>
-<h2 id="_10">技术栈<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_11">技术栈<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>自动化平台</strong>: <a href="https://github.com/openclaw/openclaw">OpenClaw</a> — AI Agent网关</li>
 <li><strong>采集脚本</strong>: Python 3（GitHub API + HuggingFace API）</li>

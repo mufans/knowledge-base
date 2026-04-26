@@ -1,6 +1,8 @@
 # CLAUDE.md — 知识库规则配置
 
 > 知识库的"大脑"，AI操作知识库时必须遵守的规则。
+>
+> **架构出处**：基于 [Karpathy LLM Wiki 方法论](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) 构建，参考 [nashsu/llm_wiki](https://github.com/nashsu/llm_wiki) 增强设计。
 
 ## 目录结构
 
