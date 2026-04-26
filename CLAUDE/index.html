@@ -515,7 +515,7 @@
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        部署前检查
+        部署前检查（历史踩坑清单）
       
     </span>
   </a>
@@ -1069,7 +1069,7 @@
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        部署前检查
+        部署前检查（历史踩坑清单）
       
     </span>
   </a>
@@ -1279,13 +1279,16 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
 <li><code>CLAUDE.md</code> → <code>docs/CLAUDE.md</code></li>
 <li><code>log.md</code> → <code>docs/log.md</code></li>
 </ul>
-<h3 id="_8">部署前检查<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<ul>
-<li>每个 <code>index.md</code> 列出所有实际文件</li>
-<li>链接格式正确（<code>.md</code>后缀）</li>
-<li><code>mkdocs.yml</code> 未被覆盖（被覆盖则 <code>git checkout mkdocs.yml</code>）</li>
-<li><code>mkdocs build</code> 无 ERROR</li>
-</ul>
+<h3 id="_8">部署前检查（历史踩坑清单）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong><code>docs/raw/</code> 是否存在</strong>：sync脚本必须同步raw/目录，否则采集文件不显示</li>
+<li><strong>所有 <code>index.md</code> 是否列出所有实际文件</strong>：包括raw/inbox/index.md和wiki各子目录的index.md</li>
+<li><strong>链接格式正确</strong>：<code>.md</code>后缀、无裸URL、无<code>[[]]</code>Obsidian格式</li>
+<li><strong><code>mkdocs.yml</code> 未被覆盖</strong>：被覆盖则 <code>git checkout mkdocs.yml</code></li>
+<li><strong><code>mkdocs build</code> 无 ERROR</strong></li>
+<li><strong>subagent创建的wiki页面是否同步到docs/</strong>：subagent不会自动同步，必须执行sync脚本</li>
+<li><strong>新创建的md文件是否出现在Pages上</strong>：文件必须先cp到docs/目录，mkdocs才会渲染</li>
+</ol>
 
 
 
