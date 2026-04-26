@@ -3,32 +3,32 @@
 > AI搜索时先扫此文件，精准定位到需要深度阅读的页面。
 
 ## Wiki 概念
-- [[Self-RAG]] - 自反思检索增强生成框架，让 LLM 自主决定何时检索、检索结果是否相关
-- [[Pretext-js]] - 15KB 文本排版库，绕过 DOM reflow 实现 120FPS 布局计算
-- [[Context-Window-Optimization]] - AI Coding Agent 的 context 窗口优化策略，98% 工具输出压缩
-- [[AI Agent Self-Improving]] - Agent系统从工作中自动学习并持续改进的能力机制
-- [[Memory Management]] - AI系统中记忆资源的有效管理和优化策略
-- [[Skill Auto-Creation]] - AI Agent从工作经验中自动提炼和创建可复用技能的机制
-- [[Real-world AI Applications]] - AI技术在实际业务场景中的成功应用案例和验证结果
-- [[Claude Ecosystem Tools]] - 围绕Claude AI开发的工具生态和开发环境
-- [[DeepEP]] - DeepSeek开源的MoE专家并行通信库，优化分布式训练中的all-to-all通信瓶颈
+- [Self-RAG](Self-RAG.md) - 自反思检索增强生成框架，让 LLM 自主决定何时检索、检索结果是否相关
+- [Pretext-js](Pretext-js.md) - 15KB 文本排版库，绕过 DOM reflow 实现 120FPS 布局计算
+- [Context-Window-Optimization](Context-Window-Optimization.md) - AI Coding Agent 的 context 窗口优化策略，98% 工具输出压缩
+- [AI Agent Self-Improving](AI Agent Self-Improving.md) - Agent系统从工作中自动学习并持续改进的能力机制
+- [Memory Management](Memory Management.md) - AI系统中记忆资源的有效管理和优化策略
+- [Skill Auto-Creation](Skill Auto-Creation.md) - AI Agent从工作经验中自动提炼和创建可复用技能的机制
+- [Real-world AI Applications](Real-world AI Applications.md) - AI技术在实际业务场景中的成功应用案例和验证结果
+- [Claude Ecosystem Tools](Claude Ecosystem Tools.md) - 围绕Claude AI开发的工具生态和开发环境
+- [DeepEP](DeepEP.md) - DeepSeek开源的MoE专家并行通信库，优化分布式训练中的all-to-all通信瓶颈
 
 ## Wiki 实体
-- [[Hermes-Agent]] - Nous Research 开发的自改进 AI Agent 框架，内置 Memory/Skill/Nudge 学习闭环
-- [[OpenClaw]] - 多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施
-- [[ml-intern]] - HuggingFace开源ML工程师Agent，自动化读论文→训练→部署全流程
-- [[claude-mem]] - Claude Code持久化记忆压缩系统，Plugin+Worker+Database三层架构
+- [Hermes-Agent](Hermes-Agent.md) - Nous Research 开发的自改进 AI Agent 框架，内置 Memory/Skill/Nudge 学习闭环
+- [OpenClaw](OpenClaw.md) - 多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施
+- [ml-intern](ml-intern.md) - HuggingFace开源ML工程师Agent，自动化读论文→训练→部署全流程
+- [claude-mem](claude-mem.md) - Claude Code持久化记忆压缩系统，Plugin+Worker+Database三层架构
 
 
 ## Wiki 来源摘要
-- [[Hermes-Agent-源码分析]] - Hermes Agent v0.11.0 源码级技术分析（MemoryStore、SkillManager、NudgeEngine）
-- [[OpenClaw-源码分析]] - OpenClaw v2026.4.9 源码级技术分析（Gateway、Agent Runtime、Skill、Cron、MCP、Channel）
+- [Hermes-Agent-源码分析](Hermes-Agent-源码分析.md) - Hermes Agent v0.11.0 源码级技术分析（MemoryStore、SkillManager、NudgeEngine）
+- [OpenClaw-源码分析](OpenClaw-源码分析.md) - OpenClaw v2026.4.9 源码级技术分析（Gateway、Agent Runtime、Skill、Cron、MCP、Channel）
 
 ## Wiki 来源摘要
-- [[推荐书单-2026年4月]] - 针对35岁移动端开发者AI转型期的9本精选书籍深度分析
+- [推荐书单-2026年4月](推荐书单-2026年4月.md) - 针对35岁移动端开发者AI转型期的9本精选书籍深度分析
 
 ## Wiki 综合分析
-- [[Hermes-vs-OpenClaw对比分析]] - 架构、能力、设计哲学的全面对比
+- [Hermes-vs-OpenClaw对比分析](Hermes-vs-OpenClaw对比分析.md) - 架构、能力、设计哲学的全面对比
 
 
 ## Raw 原始采集
