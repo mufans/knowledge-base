@@ -80,3 +80,36 @@
   5. 部分页面内容深度不足
 - **文件位置**: /Users/liujun/Nutstore Files/我的坚果云/knowledge/raw/inbox/2026-04-26-知识库Lint审查.md
 - **下一步**: 修复索引格式，处理积压资源，补充内容深度
+
+## 2026-04-27 00:01 知识提炼
+- 处理文件：
+  - raw/inbox/2026-04-26-AI论文.md
+  - raw/inbox/2026-04-26-GitHub项目.md
+  - raw/inbox/2026-04-26-技术动态.md
+  - raw/inbox/2026-04-26-新闻热点.md
+  - raw/inbox/2026-04-25-AI论文.md
+  - raw/inbox/2026-04-25-GitHub项目.md
+  - raw/inbox/2026-04-25-技术动态.md
+  - raw/inbox/2026-04-25-新闻热点.md
+- 新建wiki页面（6个）：
+  - wiki/sources/OpenMobile-Paper.md（9.0/10，移动端Agent，领域完美匹配）
+  - wiki/entities/mattpocock-skills.md（8.5/10，Claude Code技能生态）
+  - wiki/concepts/PersonalAI-KG-Retrieval.md（8.0/10，KG+个性化LLM）
+  - wiki/concepts/Skill-Evaluation-Framework.md（8.0/10，Skill质量评估）
+  - wiki/entities/GPT-5.5.md（7.8/10，旗舰模型Agent能力）
+  - wiki/entities/trycua-cua.md（7.8/10，Computer-Use Agent基础设施）
+- 更新index.md：concepts/entities/sources三个目录
+- 跳过内容：
+  - LLaTiSA（时序推理，领域不匹配，6.0）
+  - WebGen-R1（网站生成RL，泛用性一般，6.5）
+  - Co-Evolving LLM（Agent技能库协同进化，已过时效窗口，6.5）
+  - claude-image（Claude Code image skill，星数低内容浅，6.5）
+  - ppt-image-first（Codex PPT skill，实用性有限，6.0）
+  - Rspack 2.0（构建工具，与Agent方向关联弱，5.5）
+  - 腾讯混元Hy3（已有多次提及，无需单独页面，6.5）
+  - DeepSeek-V4（已有DeepEP页面覆盖核心通信技术，6.5）
+  - 04-25论文大部分（科研自动化/高能物理/热舒适度等偏离核心领域，<6.5）
+  - free-claude-code（工具包装，无技术深度，5.0）
+  - Electron 41.3 / Zotero 9 / Vue3 Ease UI（非核心领域，<6.0）
+  - typescript-go（编译器项目，与Agent方向弱关联，6.0）
+  - Kubernetes 1.30 / AWS Lambda（后端运维，偏离核心，5.5）

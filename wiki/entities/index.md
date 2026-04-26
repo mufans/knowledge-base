@@ -7,4 +7,7 @@
 - [OpenClaw](OpenClaw.md)
 - [claude-context](claude-context.md)
 - [claude-mem](claude-mem.md)
+- [GPT-5.5](GPT-5.5.md)
+- [mattpocock-skills](mattpocock-skills.md)
 - [ml-intern](ml-intern.md)
+- [trycua-cua](trycua-cua.md)
