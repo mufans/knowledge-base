@@ -149,20 +149,43 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
 - 检查链接格式是否正确（`.md`后缀、无裸URL、无`[[]]`）
 - 标记过时的内容
 
+## 采集任务规范
+
+### 脚本采集（GitHub项目、AI论文）
+- 使用Python脚本抓取，不消耗LLM token
+- 脚本输出原始数据（名称、链接、描述）
+- LLM在脚本执行后补充中文点评（💡 标注），追加到文件对应条目下方
+- 点评不超过30字，说明「为什么值得关注」「对用户有什么价值」
+- 推送到钉钉时包含点评
+
+### LLM采集（新闻热点、技术动态、社交媒体）
+- 使用web_fetch抓取网页，LLM整理格式
+- 遇到429/rate limit错误，等待30分钟后重试
+- X/Twitter抓取失败时用browser(host)模式重试，再失败通知用户登录
+
+### Rate Limit处理
+- 所有LLM采集任务遇到429错误时，等待30分钟后重试
+- 脚本采集不涉及LLM，不会触发rate limit
+
 ## GitHub Pages同步
 
-### 同步范围
-- `raw/inbox/` → `docs/raw/inbox/`
-- `raw/projects/` → `docs/raw/projects/`
-- `wiki/concepts/` → `docs/wiki/concepts/`
-- `wiki/entities/` → `docs/wiki/entities/`
-- `wiki/sources/` → `docs/wiki/sources/`
-- `wiki/syntheses/` → `docs/wiki/syntheses/`
-- `README.md` → `docs/index.md`
-- `CLAUDE.md` → `docs/CLAUDE.md`
-- `log.md` → `docs/log.md`
+### 同步方式
+⛔ **禁止手动cp/git/mkdocs操作**，统一使用同步脚本：
+```
+bash /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh "commit message"
+```
 
-### 部署前检查（历史踩坑清单）
+脚本自动完成：
+1. wiki/ → docs/wiki/
+2. raw/ → docs/raw/（⚠️ 必须同步，否则采集文件不显示）
+3. 根文件 → docs/（CLAUDE.md、README.md、log.md、purpose.md）
+4. 重建所有 index.md（wiki子目录 + raw/inbox + raw/projects）
+5. mkdocs.yml篡改检测与自动恢复
+6. `[[]]`格式检测与警告
+7. mkdocs build错误拦截
+8. git push + mkdocs gh-deploy
+
+### 部署前检查（脚本自动执行，以下供参考）
 
 1. **`docs/raw/` 是否存在**：sync脚本必须同步raw/目录，否则采集文件不显示
 2. **所有 `index.md` 是否列出所有实际文件**：包括raw/inbox/index.md和wiki各子目录的index.md
