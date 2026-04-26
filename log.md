@@ -55,3 +55,13 @@
 ## 2026-04-26 GitHub项目精选（补采）
 - 采集15个热门项目，3个【值得关注】：53AI/53AIHub、MoonshotAI/Kimi-Audio、Tencent-TDS/KuiklyUI
 - 保存至 knowledge/raw/inbox/2026-04-26-GitHub项目.md
+
+### 深度分析：LLM Wiki 项目
+
+- **项目**：[nashsu/llm_wiki](https://github.com/nashsu/llm_wiki) — Karpathy LLM Wiki 方法论的桌面应用实现
+- **技术栈**：Tauri v2 + React 19 + TypeScript + sigma.js + LanceDB
+- **核心亮点**：两步摄入（Analysis→Generation）、4信号知识图谱（Direct link/Source overlap/Adamic-Adar/Type affinity）、Louvain社区检测、多阶段检索管线、可选向量搜索
+- **关键设计决策**：Tauri低资源占用适合长运行、LanceDB嵌入式无外部依赖、向量搜索可选降低入门门槛
+- **可借鉴点**：SHA256增量缓存、Source traceability、Graph Insights自动发现知识孤岛、两步摄入提升质量
+- **评分**：实用性★★★★★ | 代码质量★★★★☆ | 架构成熟度★★★★☆
+- **Wiki页面**：[llm_wiki.md](wiki/entities/llm_wiki.md)
