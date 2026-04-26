@@ -489,6 +489,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采集任务规范
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="采集任务规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#githubai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        脚本采集（GitHub项目、AI论文）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM采集（新闻热点、技术动态、社交媒体）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate Limit处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#github-pages" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -501,10 +551,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        同步范围
+        同步方式
       
     </span>
   </a>
@@ -512,10 +562,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
-        部署前检查（历史踩坑清单）
+        部署前检查（脚本自动执行，以下供参考）
       
     </span>
   </a>
@@ -1043,6 +1093,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采集任务规范
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="采集任务规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#githubai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        脚本采集（GitHub项目、AI论文）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM采集（新闻热点、技术动态、社交媒体）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate Limit处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#github-pages" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1055,10 +1155,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        同步范围
+        同步方式
       
     </span>
   </a>
@@ -1066,10 +1166,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
-        部署前检查（历史踩坑清单）
+        部署前检查（脚本自动执行，以下供参考）
       
     </span>
   </a>
@@ -1266,20 +1366,41 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
 <li>检查链接格式是否正确（<code>.md</code>后缀、无裸URL、无<code>[[]]</code>）</li>
 <li>标记过时的内容</li>
 </ul>
-<h2 id="github-pages">GitHub Pages同步<a class="headerlink" href="#github-pages" title="Permanent link">&para;</a></h2>
-<h3 id="_7">同步范围<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h2 id="_7">采集任务规范<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="githubai">脚本采集（GitHub项目、AI论文）<a class="headerlink" href="#githubai" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>raw/inbox/</code> → <code>docs/raw/inbox/</code></li>
-<li><code>raw/projects/</code> → <code>docs/raw/projects/</code></li>
-<li><code>wiki/concepts/</code> → <code>docs/wiki/concepts/</code></li>
-<li><code>wiki/entities/</code> → <code>docs/wiki/entities/</code></li>
-<li><code>wiki/sources/</code> → <code>docs/wiki/sources/</code></li>
-<li><code>wiki/syntheses/</code> → <code>docs/wiki/syntheses/</code></li>
-<li><code>README.md</code> → <code>docs/index.md</code></li>
-<li><code>CLAUDE.md</code> → <code>docs/CLAUDE.md</code></li>
-<li><code>log.md</code> → <code>docs/log.md</code></li>
+<li>使用Python脚本抓取，不消耗LLM token</li>
+<li>脚本输出原始数据（名称、链接、描述）</li>
+<li>LLM在脚本执行后补充中文点评（💡 标注），追加到文件对应条目下方</li>
+<li>点评不超过30字，说明「为什么值得关注」「对用户有什么价值」</li>
+<li>推送到钉钉时包含点评</li>
 </ul>
-<h3 id="_8">部署前检查（历史踩坑清单）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h3 id="llm">LLM采集（新闻热点、技术动态、社交媒体）<a class="headerlink" href="#llm" title="Permanent link">&para;</a></h3>
+<ul>
+<li>使用web_fetch抓取网页，LLM整理格式</li>
+<li>遇到429/rate limit错误，等待30分钟后重试</li>
+<li>X/Twitter抓取失败时用browser(host)模式重试，再失败通知用户登录</li>
+</ul>
+<h3 id="rate-limit">Rate Limit处理<a class="headerlink" href="#rate-limit" title="Permanent link">&para;</a></h3>
+<ul>
+<li>所有LLM采集任务遇到429错误时，等待30分钟后重试</li>
+<li>脚本采集不涉及LLM，不会触发rate limit</li>
+</ul>
+<h2 id="github-pages">GitHub Pages同步<a class="headerlink" href="#github-pages" title="Permanent link">&para;</a></h2>
+<h3 id="_8">同步方式<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>⛔ <strong>禁止手动cp/git/mkdocs操作</strong>，统一使用同步脚本：</p>
+<pre><code>bash /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh &quot;commit message&quot;
+</code></pre>
+<p>脚本自动完成：
+1. wiki/ → docs/wiki/
+2. raw/ → docs/raw/（⚠️ 必须同步，否则采集文件不显示）
+3. 根文件 → docs/（CLAUDE.md、README.md、log.md、purpose.md）
+4. 重建所有 index.md（wiki子目录 + raw/inbox + raw/projects）
+5. mkdocs.yml篡改检测与自动恢复
+6. <code>[[]]</code>格式检测与警告
+7. mkdocs build错误拦截
+8. git push + mkdocs gh-deploy</p>
+<h3 id="_9">部署前检查（脚本自动执行，以下供参考）<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong><code>docs/raw/</code> 是否存在</strong>：sync脚本必须同步raw/目录，否则采集文件不显示</li>
 <li><strong>所有 <code>index.md</code> 是否列出所有实际文件</strong>：包括raw/inbox/index.md和wiki各子目录的index.md</li>
