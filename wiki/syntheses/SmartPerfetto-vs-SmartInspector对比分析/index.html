@@ -1,0 +1,1288 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="个人技术知识库">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+        <link rel="canonical" href="https://mufans.github.io/knowledge-base/wiki/syntheses/SmartPerfetto-vs-SmartInspector%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SmartPerfetto vs SmartInspector 对比分析 - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#smartperfetto-vs-smartinspector" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SmartPerfetto vs SmartInspector 对比分析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mufans/knowledge-base" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mufans/knowledge-base" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CLAUDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库规则
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作日志
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../raw/inbox/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原始采集
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    原始采集
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/inbox/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档日报
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目文档
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识提炼
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识提炼
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    实体
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    来源摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    综合分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心差异定位
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        功能覆盖度详细对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="功能覆盖度详细对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分析能力
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采集与流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        架构设计差异分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="架构设计差异分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent 编排方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill 系统对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Engineering 对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可借鉴功能 (按优先级)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可借鉴功能 (按优先级)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P0 — 高优先级，直接提升分析质量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P1 — 中优先级，扩展分析能力
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P2 — 低优先级，锦上添花
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smartinspector-sp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SmartInspector 独有优势 (SP 不具备)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        质量评估
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结论
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="smartperfetto-vs-smartinspector">SmartPerfetto vs SmartInspector 对比分析<a class="headerlink" href="#smartperfetto-vs-smartinspector" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>tags: #Perfetto #AI-Performance #Architecture-Comparison #Android #Agent
+source: <a href="https://github.com/Gracker/SmartPerfetto">SmartPerfetto</a> + SmartInspector 项目源码
+score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配10/10 | 综合 9.0/10</p>
+</blockquote>
+<h2 id="_1">核心差异定位<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>SmartPerfetto 是 <strong>纯分析工具</strong>（只分析已有 trace），SmartInspector 是 <strong>全流程工具</strong>（采集→分析→源码归因→报告）。两者在分析环节高度重叠，但在定位和架构选择上有本质差异。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>SmartPerfetto</th>
+<th>SmartInspector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心定位</strong></td>
+<td>Trace 深度分析专家</td>
+<td>全流程性能分析 CLI</td>
+</tr>
+<tr>
+<td><strong>技术栈</strong></td>
+<td>TypeScript + Claude Agent SDK</td>
+<td>Python + LangGraph</td>
+</tr>
+<tr>
+<td><strong>Agent 框架</strong></td>
+<td>Claude Agent SDK (MCP 协议)</td>
+<td>LangGraph (图编排)</td>
+</tr>
+<tr>
+<td><strong>Trace 获取</strong></td>
+<td>用户手动上传</td>
+<td>自动采集 (adb + Perfetto)</td>
+</tr>
+<tr>
+<td><strong>源码归因</strong></td>
+<td>❌ 无</td>
+<td>✅ SI$ TraceHook → Pine AOP</td>
+</tr>
+<tr>
+<td><strong>IO 追踪</strong></td>
+<td>❌ 无</td>
+<td>✅ 网络/数据库/图片加载 Hook</td>
+</tr>
+<tr>
+<td><strong>CI/CD 集成</strong></td>
+<td>❌ 无</td>
+<td>✅ Headless/JSON 模式</td>
+</tr>
+<tr>
+<td><strong>HarmonyOS</strong></td>
+<td>❌ 无</td>
+<td>📋 规划中</td>
+</tr>
+<tr>
+<td><strong>Skill 系统</strong></td>
+<td>146 个 YAML 声明式 Skill</td>
+<td>硬编码在 Agent 中</td>
+</tr>
+<tr>
+<td><strong>场景策略</strong></td>
+<td>12 种场景 playbook</td>
+<td>orchestrator 路由 + 专用 agent</td>
+</tr>
+<tr>
+<td><strong>Token 优化</strong></td>
+<td>SQL Summarizer (~85%) + Artifact Store</td>
+<td>消息窗口裁剪 + 路由 token 限制</td>
+</tr>
+<tr>
+<td><strong>验证机制</strong></td>
+<td>4 层 Verifier + 反思纠错</td>
+<td>单次 LLM 调用，无验证</td>
+</tr>
+<tr>
+<td><strong>多 LLM</strong></td>
+<td>✅ 10+ LLM 通过 API Proxy</td>
+<td>✅ 可配置任意 LLM</td>
+</tr>
+<tr>
+<td><strong>测试覆盖</strong></td>
+<td>1029 个单元测试</td>
+<td>有基础测试</td>
+</tr>
+<tr>
+<td><strong>部署方式</strong></td>
+<td>Docker Compose (Web UI)</td>
+<td>CLI 工具 (uv)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">功能覆盖度详细对比<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">分析能力<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th style="text-align: center;">SmartPerfetto</th>
+<th style="text-align: center;">SmartInspector</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>滑动卡顿分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td>SP 有 21 种 Jank 根因编码</td>
+</tr>
+<tr>
+<td>冷启动分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td>SI 自动识别启动阶段</td>
+</tr>
+<tr>
+<td>ANR 分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td>SP 有专用 ANR 策略</td>
+</tr>
+<tr>
+<td>CPU 调度分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td></td>
+</tr>
+<tr>
+<td>内存分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 memory 场景策略</td>
+</tr>
+<tr>
+<td>GPU 分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 支持 GPU 负载分析</td>
+</tr>
+<tr>
+<td>Binder 分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 Binder tracing skill</td>
+</tr>
+<tr>
+<td>GC 分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 GC 背景知识</td>
+</tr>
+<tr>
+<td>游戏性能分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 game 场景策略</td>
+</tr>
+<tr>
+<td>交互响应分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 interaction 场景</td>
+</tr>
+<tr>
+<td>温控分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 thermal 背景知识</td>
+</tr>
+<tr>
+<td>锁竞争分析</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 lock contention 知识</td>
+</tr>
+<tr>
+<td>多架构支持</td>
+<td style="text-align: center;">✅ 4种</td>
+<td style="text-align: center;">✅ Standard</td>
+<td>SP: HWUI/Flutter/Compose/WebView</td>
+</tr>
+<tr>
+<td>厂商定制</td>
+<td style="text-align: center;">✅ 8家</td>
+<td style="text-align: center;">❌</td>
+<td>SP: Pixel/Samsung/Xiaomi/OPPO/vivo/Honor/QC/MTK</td>
+</tr>
+<tr>
+<td>Trace 对比</td>
+<td style="text-align: center;">✅ 双 trace</td>
+<td style="text-align: center;">❌</td>
+<td>SP 有 compare_skill 工具</td>
+</tr>
+<tr>
+<td>帧分析 (Perfetto UI)</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td>都支持 UI 插件集成</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">采集与流程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th style="text-align: center;">SmartPerfetto</th>
+<th style="text-align: center;">SmartInspector</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自动采集</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td>SI 通过 adb 自动采集</td>
+</tr>
+<tr>
+<td>源码归因</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅ SI$</td>
+<td>SI 独有核心能力</td>
+</tr>
+<tr>
+<td>IO 追踪</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td>SI 独有</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅ Headless</td>
+<td>SI 独有</td>
+</tr>
+<tr>
+<td>WebSocket 通信</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td>SI CLI↔App</td>
+</tr>
+<tr>
+<td>多轮追问</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td></td>
+</tr>
+<tr>
+<td>流式输出</td>
+<td style="text-align: center;">✅ SSE</td>
+<td style="text-align: center;">✅ streaming</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">架构设计差异分析<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="agent">Agent 编排方式<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h3>
+<p><strong>SmartPerfetto</strong>: Claude Agent SDK + MCP 协议
+- 优势: LLM 自主决定工具调用顺序，灵活应对复杂分析
+- 代价: 强依赖 Claude SDK，MCP 工具定义较重
+- 安全: Watchdog + Circuit Breaker + 4 层验证</p>
+<p><strong>SmartInspector</strong>: LangGraph 图编排
+- 优势: 流程可控、可预测，LangGraph 原生支持状态管理和节点重试
+- 代价: 灵活性较低，新增分析类型需修改图结构
+- 安全: node_error_handler + 全局 try/except</p>
+<h3 id="skill">Skill 系统对比<a class="headerlink" href="#skill" title="Permanent link">&para;</a></h3>
+<p><strong>SmartPerfetto YAML DSL</strong>:</p>
+<pre><code class="language-yaml"># 声明式定义分析 pipeline
+skill:
+  id: scrolling_analysis
+  level: L2
+  steps:
+    - query: &quot;SELECT frame_no, dur FROM frame_timeline WHERE dur &gt; 16ms&quot;
+    - transform: classify_jank_root_cause
+    - output: { format: table, columns: [frame_no, dur, root_cause] }
+</code></pre>
+<ul>
+<li>优势: 非开发者可维护、可扩展、可测试</li>
+<li>代价: 需要构建 YAML DSL 引擎</li>
+</ul>
+<p><strong>SmartInspector 硬编码</strong>:</p>
+<pre><code class="language-python"># perf_analyzer.py 中直接编写 SQL + prompt
+async def analyze_frame(ctx, state):
+    result = await run_sql(ctx, &quot;SELECT ... FROM frame_timeline&quot;)
+    prompt = f&quot;分析以下帧数据: {result}&quot;
+    return await llm.invoke(prompt)
+</code></pre>
+<ul>
+<li>优势: 简单直接，开发速度快</li>
+<li>代价: 难以维护和扩展，SQL 逻辑分散在各 agent 中</li>
+</ul>
+<h3 id="context-engineering">Context Engineering 对比<a class="headerlink" href="#context-engineering" title="Permanent link">&para;</a></h3>
+<p><strong>SmartPerfetto 的深度优化</strong>:
+- SQL Summarizer: 返回统计值 + 采样行，而非全量数据
+- Artifact Store: Skill 结果按 summary/rows/full 三级缓存
+- System Prompt: 4500 token 精确预算，按场景动态组装
+- Complexity Classifier: 简单查询走 Lightweight Mode</p>
+<p><strong>SmartInspector 的基础优化</strong>:
+- 消息窗口裁剪: 保留最近 N 条消息
+- 路由 token 限制: 不同 agent 不同 token 预算
+- 缺少: SQL 结果压缩、分级缓存</p>
+<h2 id="_6">可借鉴功能 (按优先级)<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="p0">P0 — 高优先级，直接提升分析质量<a class="headerlink" href="#p0" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>SQL Summarizer 机制</strong>: SI 的 perf_analyzer 和 frame_analyzer 都直接把 SQL 结果丢给 LLM。实现一个统计值+采样的压缩函数，可节省 80%+ token，同时减少幻觉。</p>
+</li>
+<li>
+<p><strong>4 层验证 + 反思纠错</strong>: SI 目前单次 LLM 调用无验证。至少引入: (1) 结果是否包含具体数据 (heuristic check), (2) 根因是否追溯到具体原因 (depth check)。</p>
+</li>
+<li>
+<p><strong>厂商定制层</strong>: 国内 Android 碎片化严重，SI 的 analyze 场景应考虑不同厂商的 trace 差异。</p>
+</li>
+</ol>
+<h3 id="p1">P1 — 中优先级，扩展分析能力<a class="headerlink" href="#p1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>YAML Skill DSL</strong>: 将 SI 中散落的 SQL 查询和 prompt 模板抽取为 YAML skill。初期可用 Python dict 替代 YAML，逐步演进。</p>
+</li>
+<li>
+<p><strong>内存/GPU/Binder 分析场景</strong>: SI 目前只有帧性能和启动分析，缺少系统级分析维度。</p>
+</li>
+<li>
+<p><strong>Trace 对比功能</strong>: 对比优化前后的 trace 是性能回归分析的核心需求。</p>
+</li>
+</ol>
+<h3 id="p2">P2 — 低优先级，锦上添花<a class="headerlink" href="#p2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>背景知识库</strong>: SP 的 lookup_knowledge 工具提供渲染管线/Binder/GC 等领域知识，SI 可内嵌类似的 RAG。</p>
+</li>
+<li>
+<p><strong>Jank 根因编码</strong>: SP 的 21 种 Jank 根因优先级决策树，可标准化 SI 的卡顿分类输出。</p>
+</li>
+<li>
+<p><strong>跨会话模式记忆</strong>: SP 的 recall_patterns 用加权 Jaccard 匹配历史分析模式，避免重复犯错。</p>
+</li>
+</ol>
+<h2 id="smartinspector-sp">SmartInspector 独有优势 (SP 不具备)<a class="headerlink" href="#smartinspector-sp" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>源码归因 (SI$)</strong>: 通过 TraceHook + Pine AOP 将性能热点精确到源码行，这是 SI 的核心差异化能力</li>
+<li><strong>IO 追踪</strong>: 网络/数据库/图片加载的独立 Hook 和归因</li>
+<li><strong>自动采集</strong>: CLI 一键完成设备 trace 采集，无需手动操作</li>
+<li><strong>CI/CD 集成</strong>: Headless 模式 + JSON 输出，可直接集成到构建流水线</li>
+<li><strong>HarmonyOS 规划</strong>: 面向鸿蒙生态的扩展计划</li>
+<li><strong>轻量部署</strong>: CLI 工具 vs Docker + Web 服务的重量级部署</li>
+</ol>
+<h2 id="_7">质量评估<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th style="text-align: center;">SmartPerfetto</th>
+<th style="text-align: center;">SmartInspector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码质量</td>
+<td style="text-align: center;">9/10 (1029 tests, TypeScript 严格模式)</td>
+<td style="text-align: center;">7/10 (有测试但覆盖不足)</td>
+</tr>
+<tr>
+<td>架构成熟度</td>
+<td style="text-align: center;">9/10 (清晰的分层和抽象)</td>
+<td style="text-align: center;">7/10 (LangGraph 结构合理但 skill 硬编码)</td>
+</tr>
+<tr>
+<td>分析深度</td>
+<td style="text-align: center;">9/10 (L1-L4 分层, 21 种根因)</td>
+<td style="text-align: center;">7/10 (LLM 直接分析，深度依赖 prompt)</td>
+</tr>
+<tr>
+<td>易用性</td>
+<td style="text-align: center;">8/10 (Docker 一键, Web UI)</td>
+<td style="text-align: center;">8/10 (CLI + Tab 补全)</td>
+</tr>
+<tr>
+<td>可扩展性</td>
+<td style="text-align: center;">9/10 (YAML skill + vendor override)</td>
+<td style="text-align: center;">6/10 (新场景需改代码)</td>
+</tr>
+<tr>
+<td>Token 效率</td>
+<td style="text-align: center;">9/10 (Summarizer + Artifact Store)</td>
+<td style="text-align: center;">6/10 (基础裁剪)</td>
+</tr>
+<tr>
+<td>实用性</td>
+<td style="text-align: center;">9/10 (生产级, 多厂商支持)</td>
+<td style="text-align: center;">8/10 (源码归因是杀手级功能)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">结论<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>SmartPerfetto 在 <strong>分析深度和工程成熟度</strong> 上领先（146 skill、4 层验证、Context Engineering），SmartInspector 在 <strong>全流程集成和源码归因</strong> 上有独特优势。最关键的借鉴点: <strong>SQL Summarizer</strong> (立竿见影的 token 优化) 和 <strong>验证纠错机制</strong> (提升分析可靠性)。YAML Skill DSL 是中期值得投入的方向，可以将 SI 从"硬编码分析"升级为"可配置分析平台"。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["search", "search.suggest", "search.highlight", "navigation.indexes", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
