@@ -194,3 +194,4 @@ bash /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh "commit message"
 5. **`mkdocs build` 无 ERROR**
 6. **subagent创建的wiki页面是否同步到docs/**：subagent不会自动同步，必须执行sync脚本
 7. **新创建的md文件是否出现在Pages上**：文件必须先cp到docs/目录，mkdocs才会渲染
+8. **docs/index.md禁止直接修改**：始终等于README.md，sync脚本末尾会强制cp覆盖

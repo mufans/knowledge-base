@@ -11,3 +11,4 @@
 - [mattpocock-skills](mattpocock-skills.md)
 - [ml-intern](ml-intern.md)
 - [trycua-cua](trycua-cua.md)
+- [SmartPerfetto](SmartPerfetto.md)

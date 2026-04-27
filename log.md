@@ -113,3 +113,4 @@
   - Electron 41.3 / Zotero 9 / Vue3 Ease UI（非核心领域，<6.0）
   - typescript-go（编译器项目，与Agent方向弱关联，6.0）
   - Kubernetes 1.30 / AWS Lambda（后端运维，偏离核心，5.5）
+2026-04-27 | ingest | SmartPerfetto GitHub repo | 新建 entities/SmartPerfetto.md + syntheses/SmartPerfetto-vs-SmartInspector对比分析.md，6维度深度分析，与SI项目对比
