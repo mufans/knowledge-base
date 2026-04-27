@@ -114,3 +114,33 @@
   - typescript-go（编译器项目，与Agent方向弱关联，6.0）
   - Kubernetes 1.30 / AWS Lambda（后端运维，偏离核心，5.5）
 2026-04-27 | ingest | SmartPerfetto GitHub repo | 新建 entities/SmartPerfetto.md + syntheses/SmartPerfetto-vs-SmartInspector对比分析.md，6维度深度分析，与SI项目对比
+
+### 2026年4月27日 每日技术新闻热点
+- **来源**：Hacker News、Solidot、InfoQ、36氪
+- **分类**：AI/大模型(2)、编程/开发工具(2)、移动端(2)、云原生/后端(2)、开源/硬件(2)
+- **Top 5新闻**：
+  1. [France's Mistral Built a $14B AI Empire](https://www.forbes.com/sites/iainmartin/2026/04/16/how-frances-mistral-built-a-14-billion-ai-empire-by-not-being-american/) - 法国Mistral AI估值140亿美元
+  2. [AI should elevate your thinking, not replace it](https://www.koshyjohn.com/blog/ai-should-elevate-your-thinking-not-replace-it/) - AI应增强思考而非替代
+  3. [The Prompt API](https://developer.chrome.com/docs/ai/prompt-api) - Chrome推出AI提示词API
+  4. [SWE-bench Verified no longer measures frontier coding capabilities](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/) - OpenAI停止SWE-bench评估
+  5. [Fully Featured Audio DSP Firmware for Raspberry Pi Pico](https://github.com/WeebLabs/DSPi) - Pico音频DSP固件发布
+- **保存路径**：raw/inbox/2026-04-27-新闻热点.md
+- **推送状态**：已推送至钉钉
+
+## 2026年4月27日 每日技术动态采集
+- **来源**：InfoQ、Solidot（Reddit/OSChina抓取失败）
+- **条数**：7条
+- **采集内容**：
+  1. [当云区域失效：地缘动荡环境下的高可用重构](https://www.infoq.cn/article/5qXyqHdrXhaT7iEr24l6) - 地缘政治风险下分布式系统高可用架构重构
+  2. [Slack 重构通知系统，设置参与度提升 5 倍](https://www.infoq.cn/article/aXF7ssED9phrUVg3ipMQ) - 引入统一架构提升跨平台一致性和用户可控性
+  3. 那些没空写的小需求，龙虾真能做吗？（AI编程助手实战测试，InfoQ） - 火山引擎ArkFlow、阿里云QwenPop、博云BoCloud对比
+  4. [稳定版内核维护者使用 AI 工具发现内核 Bug](https://www.solidot.org/story?sid=84160) - Greg Kroah-Hartman使用AI工具gkh_clanker_t1000运行本地大模型
+  5. [多家企业 AI 支出超过员工薪资](https://www.solidot.org/story?sid=84159) - Uber CTO 2026年AI预算因token费用超支，Gartner预测全球IT支出6.31万亿美元
+  6. [Linux 7.1-rc1 发布](https://www.solidot.org/story?sid=84157) - 移除i486/Baikal CPU支持，新增12种SoC、联想Legion Go驱动、AMD Zen 6等
+  7. [台积电机密外泄案判决](https://www.solidot.org/story?sid=84158) - Tokyo Electron子公司缓刑3年+1.5亿新台币罚款，前员工陈力铭10年有期徒刑
+- **文件路径**：raw/inbox/2026-04-27-技术动态.md
+- **推送状态**：已推送Top 8技术动态到钉钉
+- **失败源**：Reddit ML、OSChina（网络问题，稍后重试）
+
+---
+*最后更新: 2026-04-27 20:43 CST*

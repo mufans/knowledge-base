@@ -1,41 +1,42 @@
 site_name: Knowledge Base
-site_url: https://mufans.github.io/knowledge-base
-repo_url: https://github.com/mufans/knowledge-base
-docs_dir: docs
-site_description: 个人技术知识库
+site_description: Personal knowledge repository and project analysis
 site_author: mufans
+
+nav:
+  - Home: index.md
+  - Projects:
+    - Project Index: projects/
+    - $(find docs/projects/ -name "*.md" -type f | sed 's|docs/projects/||' | sed 's|.md||' | sed 's|^|- |' | sort)
+  - Topics:
+    - Topic Index: topics/
+    - $(find docs/topics/ -name "*.md" -type f | sed 's|docs/topics/||' | sed 's|.md||' | sed 's|^|- |' | sort)
+  - Inbox:
+    - Daily Logs: inbox/
+    - Archives: inbox/archive/
 
 theme:
   name: material
-  language: zh
-  features:
-    - search
-    - search.suggest
-    - search.highlight
-    - navigation.indexes
-    - navigation.top
   palette:
-    primary: indigo
+    primary: blue
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - search.share
 
 plugins:
-  - search:
-      lang: zh
+  - search
+  - git-revision-date-localized:
+      type: date
+      locale: zh
+      fallback_to_build_date: true
 
 markdown_extensions:
   - toc:
       permalink: true
+  - meta
   - admonition
-
-nav:
-  - 首页: index.md
-  - 知识库规则: CLAUDE.md
-  - 操作日志: log.md
-  - 原始采集:
-    - 每日采集: raw/inbox/index.md
-    - 归档日报: raw/inbox/archive/index.md
-    - 项目文档: raw/projects/index.md
-  - 知识提炼:
-    - 概念: wiki/concepts/index.md
-    - 实体: wiki/entities/index.md
-    - 来源摘要: wiki/sources/index.md
-    - 综合分析: wiki/syntheses/index.md
+  - attr_list
+  - md_in_html
