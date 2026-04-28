@@ -144,3 +144,14 @@
 
 ---
 *最后更新: 2026-04-27 20:43 CST*
+
+## 2026-04-28 新闻热点采集
+- 来源：HN/Solidot/InfoQ/36氪/GitHub Trending
+- 共采集10条技术新闻，覆盖AI、开发工具、移动端、云原生、开源硬件5个分类
+- 文件：raw/inbox/2026-04-28-新闻热点.md
+
+## 2026-04-28 每日技术动态
+- 来源：InfoQ、Solidot
+- 采集数量：17条
+- 文件：raw/inbox/2026-04-28-技术动态.md
+- 重点：OpenAI发布GPT-5.5、开源智能体编排器Symphony、Google Agents CLI、Cursor 3.2多任务并行、Linux 7.1-rc1
