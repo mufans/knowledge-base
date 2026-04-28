@@ -14,3 +14,4 @@
 - [Skill-Auto-Creation](Skill-Auto-Creation.md)
 - [Skill-Evaluation-Framework](Skill-Evaluation-Framework.md)
 - [andrej-karpathy-skills](andrej-karpathy-skills.md)
+- [PersonalAI-KG-Comparison](PersonalAI-KG-Comparison.md)

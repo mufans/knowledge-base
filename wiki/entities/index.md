@@ -12,3 +12,6 @@
 - [ml-intern](ml-intern.md)
 - [trycua-cua](trycua-cua.md)
 - [SmartPerfetto](SmartPerfetto.md)
+- [Operit](Operit.md)
+- [deer-flow](deer-flow.md)
+- [everything-claude-code](everything-claude-code.md)

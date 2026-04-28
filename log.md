@@ -155,3 +155,16 @@
 - 采集数量：17条
 - 文件：raw/inbox/2026-04-28-技术动态.md
 - 重点：OpenAI发布GPT-5.5、开源智能体编排器Symphony、Google Agents CLI、Cursor 3.2多任务并行、Linux 7.1-rc1
+
+## 2026-04-29 00:04 知识提炼
+- 处理 raw/inbox/2026-04-28-AI论文.md — 提炼2篇wiki页面
+- 处理 raw/inbox/2026-04-28-GitHub项目.md — 提炼2篇wiki页面
+- 处理 raw/inbox/2026-04-28-技术动态.md — 提炼1篇综合分析
+- 处理 raw/inbox/2026-04-28-新闻热点.md — 评分均<7.0，保留在raw层
+- 新建 wiki/sources/OpenMobile-Paper-V2.md — 移动Agent训练数据合成
+- 新建 wiki/entities/Operit.md — Android最强AI Agent应用
+- 新建 wiki/entities/deer-flow.md — 字节跳动长周期SuperAgent框架
+- 新建 wiki/concepts/PersonalAI-KG-Comparison.md — KG个性化检索对比
+- 新建 wiki/syntheses/Agent-Dev-Tools-2026-04.md — Agent开发工具生态分析
+- 更新 entities/sources/concepts/syntheses 的 index.md
+- 评分未达标项（GitHub Copilot计费、pgbackrest、Easyduino等）：保留raw层不提炼

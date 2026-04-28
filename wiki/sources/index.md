@@ -7,3 +7,4 @@
 - [OpenMobile-Paper](OpenMobile-Paper.md)
 - [claude-context-源码分析](claude-context-源码分析.md)
 - [推荐书单-2026年4月](推荐书单-2026年4月.md)
+- [OpenMobile-Paper-V2](OpenMobile-Paper-V2.md)
