@@ -168,3 +168,4 @@
 - 新建 wiki/syntheses/Agent-Dev-Tools-2026-04.md — Agent开发工具生态分析
 - 更新 entities/sources/concepts/syntheses 的 index.md
 - 评分未达标项（GitHub Copilot计费、pgbackrest、Easyduino等）：保留raw层不提炼
+2026-04-29 | analyze | wiki/entities/Claude-Code-Source-Analysis.md | 深入分析Claude Code v2.1.88反编译源码，覆盖架构、Agent Loop、Tool System、MCP、权限、Hook、子agent、上下文压缩、SI对比借鉴
