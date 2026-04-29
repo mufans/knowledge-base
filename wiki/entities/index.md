@@ -17,3 +17,7 @@
 - [everything-claude-code](everything-claude-code.md)
 - [Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md)
 - [Warp-Terminal-Analysis](Warp-Terminal-Analysis.md)
+- [harmonist](harmonist.md)
+- [open-design](open-design.md)
+- [DeepSeek-V4](DeepSeek-V4.md)
+- [Ghostty-Leaving-GitHub](Ghostty-Leaving-GitHub.md)

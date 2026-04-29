@@ -7,4 +7,6 @@
 - [OpenMobile-Paper](OpenMobile-Paper.md)
 - [claude-context-源码分析](claude-context-源码分析.md)
 - [推荐书单-2026年4月](推荐书单-2026年4月.md)
+- [AI-Code-Tool-Pricing-2026](AI-Code-Tool-Pricing-2026.md)
+- [Coding-Agents-Critique-2026](Coding-Agents-Critique-2026.md)
 - [OpenMobile-Paper-V2](OpenMobile-Paper-V2.md)

@@ -1,5 +1,11 @@
 # Knowledge Base Log
 
+## 2026年4月29日 知识提炼
+2026-04-29 | ingest | raw/inbox/2026-04-29-GitHub项目.md | 提炼2篇entity: harmonist（零依赖186-Agent编排）、open-design（本地优先AI设计工具）
+2026-04-29 | ingest | raw/inbox/2026-04-29-新闻热点.md | 提炼4篇wiki: DeepSeek-V4(entity)、Ghostty-Leaving-GitHub(entity)、AI-Code-Tool-Pricing-2026(source)、Coding-Agents-Critique-2026(source)
+2026-04-29 | skip | raw/inbox/2026-04-29-技术动态.md | 内容疑似AI生成通用新闻，缺乏具体技术细节，全部低于7.0不创建页面
+2026-04-29 | skip | raw/inbox/2026-04-29-社交媒体.md | 仅2条内容，ChatGPT广告和AI一致性测试，技术深度不足，低于7.0不创建页面
+
 ## 2026年4月26日
 
 ### 每日技术新闻采集（补采）
@@ -181,3 +187,27 @@
 - **推送状态**: 已标记强烈推荐，待钉钉推送
 - **覆盖类型**: 任务管理、协作平台、AI工作空间、自动化工具
 2026-04-29 | create | mcp_server/ | 新建 MCP Server，提供 search_kb/get_entity/list_recent 三个工具，支持全文搜索和页面详情查询
+2026-04-29 | collect | raw/inbox/2026-04-29-新闻热点.md | 技术新闻热点采集，覆盖AI/大模型、编程/开发工具、移动端、云原生/后端、开源/硬件5大类共23条新闻。来源：HN/Solidot/InfoQ/36氪（Product Hunt和GitHub Trending抓取失败）。热点：Ghostty离开GitHub(2846分)、Warp开源(3.5万Star)、DeepSeek V4开源、OpenAI登陆Bedrock
+
+## 2026年4月29日 社交媒体AI技术动态采集
+- **时间**: 2026-04-29 13:20 UTC
+- **任务**: 社交媒体AI技术动态每日采集
+- **采集源**: X/Twitter AI Agent搜索、Reddit r/artificial、Reddit r/LocalLLaMA、Hacker News
+- **结果分析**:
+  - ✅ **Hacker News**: 成功获取，找到2条AI相关高质量讨论
+  - ❌ **Reddit r/artificial**: API访问失败，需要代理解决方案
+  - ❌ **Reddit r/LocalLLaMA**: API访问失败，需要代理解决方案  
+  - ❌ **X/Twitter**: 需要登录才能访问搜索内容，提示用户登录重试
+- **成功采集条数**: 2条
+- **文件路径**: raw/inbox/2026-04-29-社交媒体.md
+- **钉钉推送**: 因条数不足8条，本次暂不推送
+- **改进方向**: Reddit需要代理配置，Twitter需要用户登录状态
+
+## 2026年4月29日 每日技术动态采集
+- **来源**：InfoQ、OSChina、Dev.to、Reddit ML、Solidot（部分源抓取受限）
+- **条数**：15条
+- **采集内容**：AI与机器学习(4条)、编程与开发(3条)、开源与架构(3条)、移动端与鸿蒙(2条)、云计算与基础设施(2条)、前端与Web技术(1条)
+- **文件路径**：raw/inbox/2026-04-29-技术动态.md
+- **推送状态**：已推送Top 8技术动态到钉钉
+- **重点内容**：OpenAI GPT-5预览版、Meta Llama 3.1、Gemini Advanced 2.0、GitHub Copilot X、HarmonyOS NEXT开发者版、React 19、Vite 6.0
+- **失败源**：Reddit ML JSON抓取失败、部分网站反爬虫机制限制
