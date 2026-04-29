@@ -27,15 +27,19 @@ uv run python server.py
   "mcpServers": {
     "knowledge": {
       "command": "uv",
-      "args": ["run", "python", "server.py"],
-      "cwd": "/Users/liujun/Nutstore Files/我的坚果云/knowledge/mcp_server",
-      "env": {
-        "KNOWLEDGE_BASE_PATH": "/Users/liujun/Nutstore Files/我的坚果云/knowledge"
-      }
+      "args": [
+        "run",
+        "--directory",
+        "/Users/liujun/Nutstore Files/我的坚果云/knowledge/mcp_server",
+        "python",
+        "server.py"
+      ]
     }
   }
 }
 ```
+
+> **注意**: Claude Code 的 stdio MCP 不支持 `cwd` 字段，需使用 `uv run --directory` 来指定工作目录。
 
 ### OpenClaw (`mcporter`)
 ```bash
@@ -49,8 +53,13 @@ mcporter add knowledge -s stdio -- uv run python server.py \
   "mcpServers": {
     "knowledge": {
       "command": "uv",
-      "args": ["run", "python", "server.py"],
-      "cwd": "/Users/liujun/Nutstore Files/我的坚果云/knowledge/mcp_server"
+      "args": [
+        "run",
+        "--directory",
+        "/Users/liujun/Nutstore Files/我的坚果云/knowledge/mcp_server",
+        "python",
+        "server.py"
+      ]
     }
   }
 }
