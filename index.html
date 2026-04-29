@@ -465,13 +465,52 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCP Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工具列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         技术栈
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -938,13 +977,52 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCP Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工具列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         技术栈
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1172,13 +1250,59 @@
 <li>❌ 禁止功能罗列（"XX有A、B、C功能"）</li>
 <li>❌ 禁止编造信息，所有技术声明必须有据可查</li>
 </ul>
-<h2 id="_11">技术栈<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h2 id="mcp-server">MCP Server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h2>
+<p>知识库提供了一个 MCP Server，支持通过 MCP 协议查询知识库内容，可接入 Claude Code、OpenCode、Cursor 等工具。</p>
+<h3 id="_11">工具列表<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search_kb</code></td>
+<td>全文搜索知识库（支持分类过滤、评分阈值）</td>
+</tr>
+<tr>
+<td><code>get_entity</code></td>
+<td>获取指定知识页面的完整内容</td>
+</tr>
+<tr>
+<td><code>list_recent</code></td>
+<td>列出最近更新的知识页面</td>
+</tr>
+</tbody>
+</table>
+<h3 id="claude-code">Claude Code 配置<a class="headerlink" href="#claude-code" title="Permanent link">&para;</a></h3>
+<p>在 <code>~/.claude/settings.json</code> 中添加：</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;knowledge&quot;: {
+      &quot;command&quot;: &quot;uv&quot;,
+      &quot;args&quot;: [
+        &quot;run&quot;,
+        &quot;--directory&quot;,
+        &quot;/path/to/knowledge/mcp_server&quot;,
+        &quot;python&quot;,
+        &quot;server.py&quot;
+      ]
+    }
+  }
+}
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>: Claude Code 的 stdio MCP 不支持 <code>cwd</code> 字段，需使用 <code>uv run --directory</code> 指定工作目录。</p>
+</blockquote>
+<h3 id="_12">技术栈<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>自动化平台</strong>: <a href="https://github.com/openclaw/openclaw">OpenClaw</a> — AI Agent网关</li>
 <li><strong>采集脚本</strong>: Python 3（GitHub API + HuggingFace API）</li>
 <li><strong>知识提炼</strong>: GLM-5.1（深度分析）+ GLM-4.7-Flash（采集）</li>
 <li><strong>静态站点</strong>: MkDocs Material（GitHub Pages部署）</li>
 <li><strong>知识库地址</strong>: <a href="https://mufans.github.io/knowledge-base/">mufans.github.io/knowledge-base</a></li>
+<li><strong>MCP Server</strong>: Python stdio（支持 Claude Code / OpenCode / Cursor）</li>
 </ul>
 <hr />
 <p><em>由 OpenClaw 每日自动化流水线维护 · 最后更新：2026-04-26</em></p>
