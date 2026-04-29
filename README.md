@@ -113,13 +113,49 @@ knowledge/
 - ❌ 禁止功能罗列（"XX有A、B、C功能"）
 - ❌ 禁止编造信息，所有技术声明必须有据可查
 
-## 技术栈
+## MCP Server
+
+知识库提供了一个 MCP Server，支持通过 MCP 协议查询知识库内容，可接入 Claude Code、OpenCode、Cursor 等工具。
+
+### 工具列表
+
+| 工具 | 说明 |
+|------|------|
+| `search_kb` | 全文搜索知识库（支持分类过滤、评分阈值） |
+| `get_entity` | 获取指定知识页面的完整内容 |
+| `list_recent` | 列出最近更新的知识页面 |
+
+### Claude Code 配置
+
+在 `~/.claude/settings.json` 中添加：
+
+```json
+{
+  "mcpServers": {
+    "knowledge": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/path/to/knowledge/mcp_server",
+        "python",
+        "server.py"
+      ]
+    }
+  }
+}
+```
+
+> **注意**: Claude Code 的 stdio MCP 不支持 `cwd` 字段，需使用 `uv run --directory` 指定工作目录。
+
+### 技术栈
 
 - **自动化平台**: [OpenClaw](https://github.com/openclaw/openclaw) — AI Agent网关
 - **采集脚本**: Python 3（GitHub API + HuggingFace API）
 - **知识提炼**: GLM-5.1（深度分析）+ GLM-4.7-Flash（采集）
 - **静态站点**: MkDocs Material（GitHub Pages部署）
 - **知识库地址**: [mufans.github.io/knowledge-base](https://mufans.github.io/knowledge-base/)
+- **MCP Server**: Python stdio（支持 Claude Code / OpenCode / Cursor）
 
 ---
 
