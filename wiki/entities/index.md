@@ -16,3 +16,4 @@
 - [deer-flow](deer-flow.md)
 - [everything-claude-code](everything-claude-code.md)
 - [Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md)
+- [Warp-Terminal-Analysis](Warp-Terminal-Analysis.md)
