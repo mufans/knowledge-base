@@ -170,3 +170,14 @@
 - 评分未达标项（GitHub Copilot计费、pgbackrest、Easyduino等）：保留raw层不提炼
 2026-04-29 | analyze | wiki/entities/Claude-Code-Source-Analysis.md | 深入分析Claude Code v2.1.88反编译源码，覆盖架构、Agent Loop、Tool System、MCP、权限、Hook、子agent、上下文压缩、SI对比借鉴
 2026-04-29 | analyze | wiki/entities/Warp-Terminal-Analysis.md | 深入分析Warp终端源码（124万行Rust），覆盖架构、Block系统、GPU渲染、LSP、WASM插件、AI Agent、sum_tree数据结构
+
+## 2026年4月29日 每周生产力工具推荐
+- **时间**: 2026-04-29 16:00 CST (周三)
+- **任务**: 每周生产力工具采编
+- **采集数量**: 10个工具
+- **强烈推荐(3个)**: Notion、Todoist、Airtable
+- **采集来源**: 各官方网站实时内容采集
+- **文件路径**: raw/inbox/2026-04-29-生产力工具.md
+- **推送状态**: 已标记强烈推荐，待钉钉推送
+- **覆盖类型**: 任务管理、协作平台、AI工作空间、自动化工具
+2026-04-29 | create | mcp_server/ | 新建 MCP Server，提供 search_kb/get_entity/list_recent 三个工具，支持全文搜索和页面详情查询
