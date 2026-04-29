@@ -1,0 +1,1375 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal knowledge repository and project analysis">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Warp Terminal 源码深度分析 - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#warp-terminal" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Warp Terminal 源码深度分析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Wiki
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../raw/inbox/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Raw
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syntheses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syntheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Raw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Raw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/inbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="设计原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rust-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么选 Rust + 自研 UI 框架？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sum_tree-btreeroaring-bitmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么自研 sum_tree 而不用 BTree/Roaring Bitmap？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整体架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="整体架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        启动流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        依赖关系图（简化）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心模块深度分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心模块深度分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 终端渲染引擎
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Block 系统 — 终端的核心抽象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 输入处理系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tabwindowpane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 多路复用 — Tab/Window/Pane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. LSP 集成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-wasm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. WASM 插件系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. AI Agent 系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键技术实现
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="关键技术实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU 渲染管线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        虚拟化滚动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        异步架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        跨平台抽象
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#si" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与 SI 项目的关联
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="与 SI 项目的关联">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block-si" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 抽象对 SI 的启发
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#si-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        终端渲染优化对 SI CLI 的借鉴
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码质量评估
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码质量评估">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust 代码组织
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        值得注意的不足
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="warp-terminal">Warp Terminal 源码深度分析<a class="headerlink" href="#warp-terminal" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>tags: #Terminal #Rust #GPU-Rendering #WASM #LSP #MCP #Block-System
+source: <a href="https://github.com/warpdotdev/warp">warpdotdev/warp</a>
+project: <a href="https://github.com/warpdotdev/warp">Warp</a>
+score: 技术深度9/10 | 实用价值8/10 | 时效性9/10 | 领域匹配7/10 | 综合 8.3/10</p>
+</blockquote>
+<h2 id="_1">核心概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Warp 是一个用 Rust 编写的现代终端模拟器，约 124 万行代码。核心创新在于将传统终端的"字符流"模型重构为"Block"模型——每条命令及其输出构成一个结构化的 Block，使终端内容可搜索、可导航、可组合。底层通过自研 UI 框架 <code>warpui</code>（基于 wgpu）实现 GPU 加速渲染，上层通过 WASM 插件系统支持 AI 功能扩展。</p>
+<h2 id="_2">设计原理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="rust-ui">为什么选 Rust + 自研 UI 框架？<a class="headerlink" href="#rust-ui" title="Permanent link">&para;</a></h3>
+<p>传统终端（iTerm2、Alacritty）要么用 ObjC/Swift 绑定 AppKit，要么用 Rust 但依赖系统 GUI 框架。Warp 选择全栈 Rust + 自研 <code>warpui</code> 框架，trade-off 如下：</p>
+<ul>
+<li><strong>获得</strong>：跨平台一致性（macOS/Linux/Windows/WASM）、GPU 渲染的完全控制、与终端模型的无缝集成</li>
+<li><strong>放弃</strong>：系统原生控件的外观、利用系统 UI 框架的成熟生态</li>
+<li><strong>关键决策</strong>：<code>warpui</code> 分为 <code>warpui</code>（平台相关）和 <code>warpui_core</code>（平台无关）两层，跨平台抽象在 <code>platform/</code> 下分 mac/linux/windows/wasm/headless 实现</li>
+</ul>
+<h3 id="sum_tree-btreeroaring-bitmap">为什么自研 sum_tree 而不用 BTree/Roaring Bitmap？<a class="headerlink" href="#sum_tree-btreeroaring-bitmap" title="Permanent link">&para;</a></h3>
+<p><code>crates/sum_tree</code> 是整个 Block 系统的基石。它是一个 <strong>带摘要的前缀和树（Prefix Sum Tree）</strong>，O(log n) 时间内可以：
+- 根据"第 N 行"定位到对应 Block（虚拟化滚动的基础）
+- 查询任意行范围的高度总和（视口裁剪的基础）
+- 增量插入/删除 Block 并维护摘要</p>
+<p>这比 BTree 的关键优势是支持 <strong>范围查询</strong>（range sum），比 Roaring Bitmap 的优势是支持 <strong>异构数据</strong>（不同 Block 有不同高度和类型）。</p>
+<h2 id="_3">整体架构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="workspace">Workspace 结构<a class="headerlink" href="#workspace" title="Permanent link">&para;</a></h3>
+<pre><code>warp/
+├── app/                    # 主应用（~2786行 lib.rs + 数百模块）
+├── crates/
+│   ├── warpui/             # UI框架（wgpu渲染、字体、平台抽象）
+│   ├── warpui_core/        # UI框架核心（scene、元素系统）
+│   ├── warp_core/          # 核心工具（channel、features、errors）
+│   ├── warp_terminal/      # 终端模型抽象层（shell、shared_session）
+│   ├── warp_completer/     # 命令补全
+│   ├── sum_tree/           # 前缀和树数据结构
+│   ├── lsp/                # LSP 客户端
+│   ├── ai/                 # AI 服务（请求构建）
+│   ├── languages/          # 语言检测
+│   ├── command/            # 命令签名
+│   ├── editor/             # 文本编辑器组件
+│   ├── vim/                # Vim 模式
+│   ├── settings/           # 设置系统
+│   ├── persistence/        # 持久化
+│   ├── node_runtime/       # Node.js WASM 运行时
+│   └── ...（50+ crates）
+</code></pre>
+<h3 id="_4">启动流程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>入口在 <code>app/src/bin/oss.rs</code>：</p>
+<pre><code class="language-rust">fn main() -&gt; Result&lt;()&gt; {
+    let mut state = ChannelState::new(
+        Channel::Oss,
+        ChannelConfig {
+            app_id: AppId::new(&quot;dev&quot;, &quot;warp&quot;, &quot;WarpOss&quot;),
+            server_config: WarpServerConfig::production(),
+            // ... cloud, telemetry, autoupdate configs
+        },
+    );
+    ChannelState::set(state);
+    warp::run()  // app/src/lib.rs
+}
+</code></pre>
+<p>关键设计：通过 <code>Channel</code>（Oss/Dev/Preview/Stable）区分不同发布渠道，每个渠道有独立的二进制目标（<code>bin/oss.rs</code>, <code>bin/dev.rs</code> 等），但共享同一套 <code>lib.rs</code> 代码。<code>ChannelState</code> 是全局单例，控制 feature flags、服务器配置、遥测等。</p>
+<h3 id="_5">依赖关系图（简化）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<pre><code>app (warp)
+ ├─── warpui ─── warpui_core (scene, elements, rendering)
+ ├─── warp_terminal (terminal model)
+ │    └─── sum_tree (Block list data structure)
+ ├─── lsp (language server protocol)
+ ├─── ai (Warp AI, agent)
+ │    └─── node_runtime (WASM execution)
+ ├─── command (command signatures/autocomplete)
+ ├─── editor (text editing)
+ ├─── vim (vim emulation)
+ ├─── settings (configuration)
+ └─── persistence (state persistence)
+</code></pre>
+<h2 id="_6">核心模块深度分析<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 终端渲染引擎<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><strong>文件位置</strong>：<code>app/src/terminal/grid_renderer.rs</code>（~2000+ 行）、<code>app/src/terminal/blockgrid_renderer.rs</code></p>
+<p><strong>GPU 渲染管线</strong>（<code>crates/warpui/src/rendering/</code>）：</p>
+<p>Warp 不直接调用 Metal/Vulkan，而是通过 <strong>wgpu</strong>（WebGPU 抽象层）统一跨平台 GPU 渲染：</p>
+<pre><code>warpui_core/rendering/ → 场景构建（Scene、Element、Layout）
+warpui/rendering/wgpu/  → GPU 后端（shader 编译、资源管理、绘制调度）
+warpui/rendering/atlas/ → 字形图集（GlyphAtlas，批量渲染文字）
+warpui/rendering/glyph_cache.rs → 字形缓存
+</code></pre>
+<p><strong>渲染流程</strong>：
+1. <code>PaintContext</code> 收集当前帧所有可见的 <code>Element</code>
+2. 每个 Grid（命令输出区域）调用 <code>grid_renderer.rs</code> 的渲染方法
+3. <code>CellGlyphCache</code> 查找字形缓存（<code>HashMap&lt;(char, FontId), Option&lt;(GlyphId, FontId)&gt;&gt;</code>），避免重复光栅化
+4. 字形通过 <code>GlyphAtlas</code>（atlas allocator）批量上传到 GPU 纹理
+5. wgpu shader 执行最终绘制</p>
+<p><strong>性能关键优化</strong>：
+- <strong>字形缓存</strong>（<code>cell_glyph_cache.rs</code>）：每个 Cell 只缓存字形 ID，渲染时查 atlas 纹理，避免每帧光栅化
+- <strong>颜色采样器</strong>（<code>ColorSampler</code>）：每 8 个 Cell 采样一次背景色（<code>total_samples.is_multiple_of(8)</code>），用于 UI 元素颜色匹配，减少采样开销
+- <strong>低功耗 GPU 检测</strong>（<code>rendering/mod.rs</code>）：macOS 通过 <code>is_low_power_gpu_available()</code> 检测双 GPU 环境，自动选择集成 GPU 渲染终端（省电）</p>
+<p><strong>布局系统</strong>：基于 <code>warpui_core</code> 的 Element 系统（类似 Flutter 的约束布局），每个 UI 组件实现 <code>Element</code> trait，通过 <code>Layout</code> 计算 <code>RectF</code> 边界。</p>
+<h3 id="2-block">2. Block 系统 — 终端的核心抽象<a class="headerlink" href="#2-block" title="Permanent link">&para;</a></h3>
+<p><strong>文件位置</strong>：<code>app/src/terminal/model/block.rs</code>（Block 定义）、<code>app/src/terminal/model/blocks.rs</code>（BlockList）、<code>app/src/terminal/block_list_viewport.rs</code>（视口管理）</p>
+<p>这是 Warp 最核心的设计创新。传统终端将所有输出视为连续字符流，Warp 将其结构化为 Block：</p>
+<pre><code class="language-rust">// app/src/terminal/model/block.rs
+pub struct Block {
+    pub id: BlockId,
+    pub state: BlockState,          // Visible/Truncated/Collapsed
+    pub block_section: BlockSection, // Command | Output
+    // ... ANSI 输出 → BlockGrid
+    // ... AI metadata, agent view state
+    // ... 命令执行时间、退出码
+}
+</code></pre>
+<p><strong>BlockList</strong>（<code>blocks.rs</code>）是核心数据结构：</p>
+<pre><code class="language-rust">pub struct BlockList {
+    items: SumTree&lt;BlockItem&gt;,  // 前缀和树，支持 O(log n) 范围查询
+    // ...
+}
+</code></pre>
+<p>每个 <code>BlockItem</code> 的 Summary 包含：
+- <code>BlockHeightSummary</code>：Block 的高度信息（行数、像素）
+- <code>SelectionRange</code>：选区范围
+- <code>TotalIndex</code>：全局索引</p>
+<p><strong>为什么用 SumTree 而不是 Vec</strong>：终端可能积累数万个 Block，虚拟化滚动需要频繁查询"从第 N 行到第 M 行跨越了哪些 Block"。SumTree 的前缀和特性让这类查询从 O(n) 降到 O(log n)。</p>
+<p><strong>视口虚拟化</strong>（<code>block_list_viewport.rs</code>，2060 行）：</p>
+<pre><code class="language-rust">pub enum InputMode {
+    PinnedToBottom,  // 输入在底部，传统模式
+    Waterfall,       // 瀑布流，新块从上往下
+    PinnedToTop,     // 输入在顶部，反转模式
+}
+</code></pre>
+<p><code>ViewportState</code> 通过 SumTree 的 Cursor 定位可见区域的 Block，只渲染视口内的 Block，实现 O(1) 渲染复杂度（与总 Block 数无关）。</p>
+<h3 id="3">3. 输入处理系统<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p><strong>文件位置</strong>：<code>app/src/terminal/input/</code>（~30 个文件）、<code>app/src/keyboard.rs</code>（1695 行）</p>
+<p>输入系统采用 <strong>模式分层</strong> 设计：</p>
+<pre><code>input/
+├── terminal.rs        # 终端模式输入渲染
+├── universal.rs       # 通用输入（跨模式）
+├── agent.rs           # AI Agent 模式
+├── classic.rs         # 经典终端模式
+├── buffer_model.rs    # 输入缓冲区模型
+├── slash_commands/    # 斜杠命令系统
+├── inline_menu/       # 内联菜单（补全、历史）
+└── conversations/     # AI 对话输入
+</code></pre>
+<p><strong>关键设计</strong>：
+- 输入不是一个简单文本框，而是一个 <strong>状态机</strong>，根据当前模式（终端/Agent/命令面板）切换渲染和逻辑
+- <code>slash_commands/</code> 实现了类似 VS Code Command Palette 的命令系统
+- <code>inline_menu/</code> 支持命令补全、历史搜索的弹出菜单
+- Vim 模式通过 <code>crates/vim/</code> 独立 crate 实现，与编辑器解耦</p>
+<h3 id="4-tabwindowpane">4. 多路复用 — Tab/Window/Pane<a class="headerlink" href="#4-tabwindowpane" title="Permanent link">&para;</a></h3>
+<p><strong>文件位置</strong>：<code>app/src/tab.rs</code>（1695 行）、<code>app/src/pane_group/</code>（tree.rs、pane/）</p>
+<p><strong>PaneGroup Tree</strong>（<code>pane_group/tree.rs</code>）采用 <strong>二叉树分割模型</strong>：</p>
+<pre><code class="language-rust">pub struct PaneData {
+    pub root: PaneNode,
+    len: usize,
+    hidden_panes: Vec&lt;HiddenPane&gt;,
+}
+</code></pre>
+<p>每个 <code>PaneNode</code> 要么是叶子（Pane），要么是分割节点（水平/垂直分割）。Pane 拖放时通过 <code>hidden_panes</code> 暂存被替换的 Pane。</p>
+<p><strong>Tab 管理</strong>（<code>tab.rs</code>）：每个 Tab 持有独立的 <code>PaneGroup</code>，Tab 级别维护 <code>TabSnapshot</code>（<code>app_state.rs</code>）用于窗口恢复。</p>
+<p><strong>App State</strong>（<code>app_state.rs</code>）是全窗口状态的序列化快照：</p>
+<pre><code class="language-rust">pub struct AppState {
+    pub windows: Vec&lt;WindowSnapshot&gt;,
+    pub active_window_index: Option&lt;usize&gt;,
+    pub block_lists: Arc&lt;HashMap&lt;PaneUuid, Vec&lt;SerializedBlockListItem&gt;&gt;&gt;,
+    // ...
+}
+</code></pre>
+<p>这个设计使得整个窗口布局（多窗口、多Tab、多Pane及其内容）可以被完整序列化和恢复。</p>
+<h3 id="5-lsp">5. LSP 集成<a class="headerlink" href="#5-lsp" title="Permanent link">&para;</a></h3>
+<p><strong>文件位置</strong>：<code>crates/lsp/</code></p>
+<p>LSP 集成架构：</p>
+<pre><code>lsp/
+├── manager.rs           # LspManagerModel — 管理 workspace → servers 映射
+├── model.rs             # LspServerModel — 单个 LSP server 的状态机
+├── service.rs           # LspService — JSON-RPC 服务层
+├── transport.rs         # 进程间通信（stdin/stdout）
+├── command_builder.rs   # LSP 命令构建
+├── supported_servers.rs # 支持的语言服务器列表
+└── servers/             # 各语言服务器的具体配置
+</code></pre>
+<p><strong>关键设计</strong>：
+- <code>LspManagerModel</code> 用 <code>HashMap&lt;PathBuf, Vec&lt;ModelHandle&lt;LspServerModel&gt;&gt;&gt;</code> 管理 workspace → 多个 LSP server 的映射
+- 一个 workspace 可以同时运行多个 LSP server（如 TypeScript 项目同时有 tsserver 和 eslint）
+- <code>external_file_servers</code> 支持跨 workspace 的定义跳转（当文件不在当前 workspace 时）
+- <code>server_repo_watcher.rs</code> 监控文件变化，自动重启/重连 LSP server</p>
+<h3 id="6-wasm">6. WASM 插件系统<a class="headerlink" href="#6-wasm" title="Permanent link">&para;</a></h3>
+<p><strong>文件位置</strong>：<code>app/src/plugin/</code></p>
+<pre><code>plugin/
+├── mod.rs
+├── host/
+│   ├── native/           # 原生插件（Node.js 进程）
+│   │   ├── runner.rs     # 插件运行器
+│   │   ├── service_impl.rs
+│   │   └── js_api/       # 暴露给插件的 JS API
+│   └── wasm/             # WASM 插件
+│       └── mod.rs
+└── app/                  # 插件应用层
+</code></pre>
+<p><strong>架构决策</strong>：Warp 的插件系统支持两种模式：
+1. <strong>Native 模式</strong>：通过 <code>node_runtime</code> crate 启动 Node.js 进程运行插件，通过 JS API 暴露终端能力
+2. <strong>WASM 模式</strong>：直接在终端进程内运行 WASM 模块，更低延迟但功能受限</p>
+<p>Warp AI 本身就作为插件运行，MCP（Model Context Protocol）服务器管理也在 <code>app/src/ai/mcp/</code> 中实现，包含 <code>file_based_manager.rs</code>（基于文件配置）、<code>templatable_manager.rs</code>（模板化 MCP 服务器）等。</p>
+<h3 id="7-ai-agent">7. AI Agent 系统<a class="headerlink" href="#7-ai-agent" title="Permanent link">&para;</a></h3>
+<p><strong>文件位置</strong>：<code>app/src/ai/</code>（~80+ 文件）</p>
+<pre><code>ai/
+├── agent/
+│   ├── mod.rs            # AIAgent 主模型
+│   ├── conversation.rs   # 对话管理
+│   ├── task.rs           # 任务执行
+│   ├── task_store.rs     # 任务持久化
+│   └── api.rs            # AI API 调用
+├── mcp/                  # MCP 集成
+├── blocklist/            # Block 列表的 AI 视图
+├── agent_conversations_model.rs  # 对话列表管理
+├── llms.rs               # LLM 提供商抽象
+└── skills/               # AI Skills
+</code></pre>
+<p>AI Agent 与终端的集成点在 <code>blocklist/agent_view.rs</code>：Agent 可以读取当前终端的 Block 内容（命令历史和输出），作为上下文来理解用户意图。<code>block_context.rs</code> 负责将 Block 内容格式化为 AI 可理解的上下文。</p>
+<h2 id="_7">关键技术实现<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="gpu">GPU 渲染管线<a class="headerlink" href="#gpu" title="Permanent link">&para;</a></h3>
+<pre><code>Text Element → CellGlyphCache (字形查找) → GlyphAtlas (纹理批量)
+     → Scene Builder → wgpu Pipeline → GPU Draw Call
+</code></pre>
+<ul>
+<li><strong>字形图集</strong>（<code>rendering/atlas/manager.rs</code>）：将多个字形打包到一张大纹理中，减少纹理切换和 draw call</li>
+<li><strong>Shader</strong>（<code>rendering/wgpu/shaders/</code>）：自定义 WGSL/WebGL shader 处理文字渲染、圆角、渐变等</li>
+<li><strong>双 GPU 策略</strong>：macOS 上检测 <code>is_low_power_gpu_available()</code>，终端渲染使用集成 GPU，节省电量</li>
+</ul>
+<h3 id="_8">虚拟化滚动<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><code>block_list_viewport.rs</code> 中的 <code>ViewportState</code>：
+1. SumTree Cursor 定位到 scroll position 对应的 Block
+2. 向下遍历直到累积高度超过视口高度
+3. 只对可见 Block 调用 <code>render()</code>
+4. 滚动时只重新计算增量变化的 Block</p>
+<h3 id="_9">异步架构<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>Warp 使用自研的 <code>warpui::r#async::executor::Background</code>（而非直接用 tokio），但底层通道用 <code>async_channel</code>：</p>
+<pre><code class="language-rust">// terminal/model/session.rs
+use async_channel::Sender;
+</code></pre>
+<p>设计选择：UI 框架自带 executor，避免与 tokio 的 runtime 冲突。PTY I/O、LSP 通信、AI 请求等异步任务通过 <code>Background</code> executor 调度。</p>
+<h3 id="_10">跨平台抽象<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<pre><code>warpui/platform/
+├── mac/       # macOS (AppKit)
+├── linux/     # Linux (Wayland/X11 via winit)
+├── windows/   # Windows
+├── wasm/      # WebAssembly
+└── headless/  # 无头模式（测试/CI）
+</code></pre>
+<p><code>warp_terminal/src/shell/</code> 处理跨平台 shell 检测（bash/zsh/fish/powershell/cmd），<code>warp_util/src/path/</code> 处理路径转换（MSYS2、WSL）。</p>
+<h2 id="si">与 SI 项目的关联<a class="headerlink" href="#si" title="Permanent link">&para;</a></h2>
+<h3 id="block-si">Block 抽象对 SI 的启发<a class="headerlink" href="#block-si" title="Permanent link">&para;</a></h3>
+<p>Warp 的 Block 模型本质上是一个 <strong>结构化日志展示系统</strong>：</p>
+<ul>
+<li>每个 Block = 一条命令 + 其输出，有 ID、状态、元数据</li>
+<li>BlockList = SumTree 管理的有序 Block 集合，支持高效的范围查询</li>
+<li>Viewport = 只渲染可见区域</li>
+</ul>
+<p><strong>SI 可借鉴的点</strong>：
+1. <strong>分析结果 Block 化</strong>：SI 的代码分析结果可以参考 Warp 的 Block 抽象，每个分析维度（如架构、性能、安全）作为一个 Block，支持折叠/展开/搜索
+2. <strong>虚拟化长输出</strong>：SI 的 CLI 输出可能很长（特别是代码片段），用 SumTree + Viewport 模式实现虚拟化滚动，避免一次性渲染所有内容
+3. <strong>富文本 Block</strong>：Warp 的 Block 支持 ANSI 颜色、图片、链接，SI 的输出也可以支持 Markdown 渲染、代码高亮、图表</p>
+<h3 id="si-cli">终端渲染优化对 SI CLI 的借鉴<a class="headerlink" href="#si-cli" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>字形缓存策略</strong>：SI 的 CLI 如果有自定义渲染（如 TUI），可以用类似的 <code>CellGlyphCache</code> 模式</li>
+<li><strong>增量渲染</strong>：只重绘变化的区域，而非全屏刷新</li>
+<li><strong>颜色采样器</strong>：自动检测输出主色调，用于 UI 元素颜色匹配</li>
+</ul>
+<h2 id="_11">代码质量评估<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="rust">Rust 代码组织<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>模块化极强</strong>：50+ crates，每个职责明确。<code>sum_tree</code>、<code>lsp</code>、<code>vim</code>、<code>command</code> 等都可以独立复用</li>
+<li><strong>条件编译密集</strong>：大量 <code>#[cfg(target_os = "macos")]</code>、<code>#[cfg(feature = "plugin_host")]</code>，跨平台和功能开关控制精细</li>
+<li><strong>513 个测试文件</strong>：测试覆盖面广，包括单元测试、集成测试、参考测试（<code>ref_tests/</code>）</li>
+</ul>
+<h3 id="_12">错误处理<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>采用 <strong>分层错误处理</strong>：
+1. <code>warp_core::errors</code> 定义了 <code>report_error!</code> 宏，区分 actionable 和 non-actionable 错误
+2. <code>ErrorRegistration</code> + <code>inventory</code> crate 实现编译时错误注册
+3. 业务层用 <code>anyhow::Result</code> 传播错误</p>
+<h3 id="_13">测试策略<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>单元测试：<code>*_test.rs</code> 和 <code>*_tests.rs</code> 并存</li>
+<li>参考测试：<code>terminal/ref_tests/</code> — 快照测试终端渲染结果</li>
+<li>集成测试：<code>crates/integration/</code></li>
+<li>Mock 支持：<code>terminal/mock_terminal_manager.rs</code></li>
+</ul>
+<h3 id="_14">值得注意的不足<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>代码量巨大</strong>（124 万行），模块间依赖复杂，新贡献者上手成本高</li>
+<li><strong><code>lib.rs</code> 2786 行</strong>的模块声明列表，说明 <code>app</code> crate 职责过重，可进一步拆分</li>
+<li>部分 <code>#[allow(dead_code)]</code> 和 <code>#[allow(unused_imports)]</code>，说明代码在活跃重构中</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月29日 05:29:47 UTC">2026年4月29日</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
