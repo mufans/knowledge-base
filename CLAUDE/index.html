@@ -974,6 +974,18 @@
 
 ## 可执行建议
 （结合用户背景的具体行动项）
+
+## 自评
+| 维度 | 分数 | 权重 | 加权 |
+|------|------|------|------|
+| 摘要质量 | X | 0.25 | X.XX |
+| 技术深度 | X | 0.25 | X.XX |
+| 相关性 | X | 0.20 | X.XX |
+| 原创性 | X | 0.15 | X.XX |
+| 格式规范 | X | 0.15 | X.XX |
+| **加权总分** | | | **X.XX** |
+
+&gt; 评分标准：摘要质量（具体技术细节）| 技术深度（trade-off分析）| 相关性（purpose匹配）| 原创性（独立见解）| 格式规范（标签/链接/评分）
 </code></pre>
 <h3 id="_4">内容质量标准<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p><strong>必须做到</strong>：
@@ -981,13 +993,15 @@
 - ✅ 每个页面2-5个分类标签（英文技术术语，如 <code>#RAG #BM25 #LangGraph</code>）
 - ✅ 底部包含多维度评分（技术深度/实用价值/时效性/领域匹配/综合）
 - ✅ 每个维度至少包含一个具体数据或引用
-- ✅ 中文输出，技术术语保留英文原文</p>
+- ✅ 中文输出，技术术语保留英文原文
+- ✅ 每个页面底部包含五维度自评表（加权总分 ≥ 7.0 才算合格）</p>
 <p><strong>禁止行为</strong>：
 - ❌ 百科式描述（"XX是一种XX技术，由XX公司开发"）
 - ❌ 功能罗列（"XX有A、B、C功能"）
 - ❌ 编造信息（所有技术声明必须有据可查）
 - ❌ 裸URL（<code>https://github.com/xxx</code>）
-- ❌ Obsidian格式（<code>[[wikilink]]</code>）</p>
+- ❌ Obsidian格式（<code>[[wikilink]]</code>）
+- ❌ 自评加权总分低于 7.0 仍创建页面</p>
 <h3 id="_5">分类判断标准<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1049,7 +1063,12 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
 <ol>
 <li>读取 <code>purpose.md</code> 确认方向匹配</li>
 <li>读取新内容 → 判断是否有提炼价值（评分≥7.0/10）</li>
-<li><strong>增量检查</strong>：在 <code>log.md</code> 中搜索文件名，已处理过则跳过</li>
+<li><strong>增量检查</strong>：在 <code>log.md</code> 中搜索文件名，已处理过则跳过
+3.5. <strong>自评 + 弱项改进</strong>（审核循环）</li>
+<li>AI 按五维度标准（摘要质量0.25、技术深度0.25、相关性0.20、原创性0.15、格式规范0.15）对页面内容自评</li>
+<li>如果加权总分 &lt; 7.0，识别弱项维度，定向改进后重新自评</li>
+<li>最多改进 2 次，如果仍 &lt; 7.0 则放弃创建该页面</li>
+<li>改进重点：补充具体技术细节、增加 trade-off 分析、添加数据支撑</li>
 <li>检查wiki中是否已有相关页面 → 避免重复</li>
 <li>不存在则新建，存在则补充新观点（标注更新日期）</li>
 <li>在相关页面之间建立交叉链接</li>
@@ -1069,6 +1088,7 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
 <li>检查 <code>index.md</code> 是否列出所有实际文件</li>
 <li>检查链接格式是否正确（<code>.md</code>后缀、无裸URL、无<code>[[]]</code>）</li>
 <li>标记过时的内容</li>
+<li>运行 <code>python scripts/check_quality.py</code> 检查所有 wiki 页面质量</li>
 </ul>
 <h2 id="_7">采集任务规范<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <h3 id="githubai">脚本采集（GitHub项目、AI论文）<a class="headerlink" href="#githubai" title="Permanent link">&para;</a></h3>
@@ -1135,7 +1155,7 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 05:20:35 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 16:55:43 UTC">2026年4月30日</span>
   </span>
 
     
