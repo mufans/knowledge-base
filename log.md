@@ -260,3 +260,27 @@
 - **文件位置**：raw/inbox/2026-04-30-知识库Lint审查.md
 - **改进建议**：修复索引错误、处理积压资源、补充内容深度
 - **下次审查**：2026-05-07 22:00 UTC
+## 2026-04-30 知识提炼（补跑）
+- **提炼时间**：2026-05-01 07:15 CST
+- **处理文件**：5个inbox文件（知识库Lint审查文件不存在）
+- **创建wiki页面**：
+  - entities/GoClick.md — 230M参数GUI元素定位模型，移动端AI交互（自评8.90）
+  - entities/GKE-Agent-Sandbox.md — GKE Agent代码执行隔离方案（自评8.65）
+  - concepts/Weak-Model-Orchestration.md — 多弱模型协作降Token成本架构（自评8.45）
+  - concepts/Prompt-Caching-Pitfalls.md — $37,901 prompt caching失败教训（自评8.30）
+  - entities/Hy-MT-Offline-Translation.md — 腾讯混元440MB离线翻译模型（自评8.00）
+  - entities/Fewshell.md — 拒绝自动执行的终端Agent（自评7.60）
+- **跳过内容**：
+  - DeepSeek V4 — 已有wiki页面
+  - Warp开源 — 已有wiki页面
+  - Ghostty离开GitHub — 已有wiki页面
+  - Zed 1.0 — 信息量不足（评分6.0）
+  - BARRED安全护栏 — 偏学术实用价值低（评分6.5）
+  - Opus 4.7 tokenizer — 无法获取详细内容（评分6.0）
+  - 小米万亿模型 — 信息有限（评分6.0）
+  - HERMES.md计费 — 偏bug事故技术深度不足（评分6.5）
+  - IBM Granite 4.1 — 企业级LLM与用户方向匹配度低（评分6.0）
+  - Zig反AI贡献政策 — 社区讨论非技术方案（评分5.5）
+  - Ramp Sheets AI泄露 — 安全案例但技术细节不足（评分6.0）
+  - Codex vs Claude Code对比 — 有价值但数据不够支撑独立页面（评分6.5）
+  - Claude Code使用策略 — 最佳实践但已部分覆盖（评分6.5）

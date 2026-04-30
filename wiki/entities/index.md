@@ -21,3 +21,7 @@
 - [open-design](open-design.md) (2026-04-29)
 - [DeepSeek-V4](DeepSeek-V4.md) (2026-04-29)
 - [Ghostty-Leaving-GitHub](Ghostty-Leaving-GitHub.md) (2026-04-29)
+- [GoClick](GoClick.md) (2026-04-30)
+- [GKE-Agent-Sandbox](GKE-Agent-Sandbox.md) (2026-04-30)
+- [Fewshell](Fewshell.md) (2026-04-30)
+- [Hy-MT-Offline-Translation](Hy-MT-Offline-Translation.md) (2026-04-30)

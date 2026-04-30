@@ -15,3 +15,5 @@
 - [Skill-Evaluation-Framework](Skill-Evaluation-Framework.md) (2026-04-27)
 - [andrej-karpathy-skills](andrej-karpathy-skills.md) (2026-04-26)
 - [PersonalAI-KG-Comparison](PersonalAI-KG-Comparison.md) (2026-04-29)
+- [Weak-Model-Orchestration](Weak-Model-Orchestration.md) (2026-04-30)
+- [Prompt-Caching-Pitfalls](Prompt-Caching-Pitfalls.md) (2026-04-30)
