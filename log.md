@@ -1,5 +1,9 @@
 # Knowledge Base Log
 
+## 2026年4月30日
+- 新闻热点采集 | 10条 | 来源：HN/Solidot/InfoQ/36氪 | 保存 raw/inbox/2026-04-30-新闻热点.md
+- 社交媒体AI动态采集 | 15条 | 来源：HN首页+API（Reddit/X被封锁） | 保存 raw/inbox/2026-04-30-社交媒体.md
+
 ## 2026年4月29日 知识提炼
 2026-04-29 | ingest | raw/inbox/2026-04-29-GitHub项目.md | 提炼2篇entity: harmonist（零依赖186-Agent编排）、open-design（本地优先AI设计工具）
 2026-04-29 | ingest | raw/inbox/2026-04-29-新闻热点.md | 提炼4篇wiki: DeepSeek-V4(entity)、Ghostty-Leaving-GitHub(entity)、AI-Code-Tool-Pricing-2026(source)、Coding-Agents-Critique-2026(source)
@@ -211,3 +215,15 @@
 - **推送状态**：已推送Top 8技术动态到钉钉
 - **重点内容**：OpenAI GPT-5预览版、Meta Llama 3.1、Gemini Advanced 2.0、GitHub Copilot X、HarmonyOS NEXT开发者版、React 19、Vite 6.0
 - **失败源**：Reddit ML JSON抓取失败、部分网站反爬虫机制限制
+
+---
+
+## 2026-04-30 技术动态采集
+
+- **采集时间**：2026-04-30 10:05 CST
+- **采集来源**：InfoQ、OSCHINA、dev.to、Solidot（Reddit ML JSON超时跳过）
+- **采集内容**：AI/大模型(6条)、AI Agent/编程工具(5条)、云原生/基础设施(3条)、开源/开发者(2条)
+- **文件路径**：raw/inbox/2026-04-30-技术动态.md
+- **推送状态**：已推送Top 8技术动态到钉钉
+- **重点内容**：DeepSeek V4开源(华为Ascend+百万上下文)、DeepSeek识图模式灰度、Warp终端开源、Zed 1.0发布、GitHub AI流量暴增30倍扩容、GKE Agent Sandbox
+- **失败源**：Reddit ML JSON抓取超时
