@@ -1063,16 +1063,25 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
 <ol>
 <li>读取 <code>purpose.md</code> 确认方向匹配</li>
 <li>读取新内容 → 判断是否有提炼价值（评分≥7.0/10）</li>
-<li><strong>增量检查</strong>：在 <code>log.md</code> 中搜索文件名，已处理过则跳过
-3.5. <strong>自评 + 弱项改进</strong>（审核循环）</li>
+<li><strong>增量检查</strong>：在 <code>log.md</code> 中搜索文件名，已处理的整个文件跳过（但步骤4的更新逻辑仍需执行）</li>
+<li><strong>已有页面匹配与更新</strong>（重要：不再简单跳过）：</li>
+<li>对inbox中每条内容，扫描 <code>wiki/</code> 目录检查是否已有相关页面（匹配方式：项目名/概念名/工具名）</li>
+<li><strong>匹配到已有页面</strong>：读取已有页面，判断新内容是否有实质性更新（新特性、新版本、新数据、新事件等）<ul>
+<li>有实质性更新 → 合并到已有页面，在对应章节追加新内容，标注更新日期（如 <code>### 2026-05-01 更新</code>）</li>
+<li>无实质性更新（只是重复提及） → 跳过，记录"已覆盖，无新内容"</li>
+</ul>
+</li>
+<li><strong>未匹配到已有页面</strong>：评估内容价值（评分≥7.0）则创建新页面</li>
+<li><strong>自评 + 弱项改进</strong>（审核循环，仅新页面）</li>
 <li>AI 按五维度标准（摘要质量0.25、技术深度0.25、相关性0.20、原创性0.15、格式规范0.15）对页面内容自评</li>
 <li>如果加权总分 &lt; 7.0，识别弱项维度，定向改进后重新自评</li>
 <li>最多改进 2 次，如果仍 &lt; 7.0 则放弃创建该页面</li>
 <li>改进重点：补充具体技术细节、增加 trade-off 分析、添加数据支撑</li>
-<li>检查wiki中是否已有相关页面 → 避免重复</li>
-<li>不存在则新建，存在则补充新观点（标注更新日期）</li>
+<li>注：更新的已有页面不需要重新自评（原自评已达标）</li>
 <li>在相关页面之间建立交叉链接</li>
 <li>更新对应目录的 <code>index.md</code> 和根 <code>log.md</code></li>
+<li>新建页面：<code>YYYY-MM-DD | ingest | raw/inbox/文件名 | 创建wiki页面名（自评X.XX）</code></li>
+<li>更新页面：<code>YYYY-MM-DD | update | raw/inbox/文件名 | 更新wiki页面名（合并了XX新内容）</code></li>
 </ol>
 <h2 id="_6">增量缓存（避免重复处理）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1155,7 +1164,7 @@ AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月30日 23:17:25 UTC">2026年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月1日 05:07:30 UTC">2026年5月1日</span>
   </span>
 
     
