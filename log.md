@@ -14,6 +14,19 @@
 2026-04-29 | skip | raw/inbox/2026-04-29-技术动态.md | 内容疑似AI生成通用新闻，缺乏具体技术细节，全部低于7.0不创建页面
 2026-04-29 | skip | raw/inbox/2026-04-29-社交媒体.md | 仅2条内容，ChatGPT广告和AI一致性测试，技术深度不足，低于7.0不创建页面
 
+## 2026-05-01 每日技术新闻热点
+- **来源**：Hacker News、Solidot、InfoQ、36氪（Product Hunt抓取失败）
+- **分类**：AI/大模型(2)、编程/开发工具(2)、移动端(2)、云原生/后端(2)、开源/硬件(2)
+- **Top 5新闻**：
+  1. [Opus 4.7 知道真正的 Kelsey](https://www.theargumentmag.com/p/i-can-never-talk-to-an-ai-anonymously) - 大模型身份识别技术深入探讨
+  2. [我把所有模型都换成了DeepSeek V4](https://www.infoq.cn/article/e4UXTsCToLXsRVEWNUqW) - AI模型成本优化案例，月账单降90%
+  3. [Zed 编辑器发布 1.0 版本](https://www.solidot.org/story?sid=84187) - 新一代高性能代码编辑器正式发布
+  4. [LinkedIn 扫描 6,278 个浏览器扩展](https://404privacy.com/blog/linkedin-is-scanning-your-browser-extensions-this-is-how-they-use-the-data/) - 移动应用隐私安全问题
+  5. [5.5万 Star 开源项目 Ghostty 被迫出走](https://www.infoq.cn/article/mOXNlB1fzANrPZIrNfsK) - GitHub平台政策影响开源社区
+- **文件路径**：raw/inbox/2026-05-01-新闻热点.md
+- **推送状态**：已推送至钉钉
+- **采集问题**：Product Hunt返回403错误，GitHub Trending抓取失败
+
 ## 2026年4月26日
 
 ### 每日技术新闻采集（补采）
@@ -284,3 +297,4 @@
   - Ramp Sheets AI泄露 — 安全案例但技术细节不足（评分6.0）
   - Codex vs Claude Code对比 — 有价值但数据不够支撑独立页面（评分6.5）
   - Claude Code使用策略 — 最佳实践但已部分覆盖（评分6.5）
+2026-05-01 | collect | raw/inbox/2026-05-01-社交媒体.md | 社交媒体AI技术动态采集（12条，来源：HN+TechCrunch，Reddit/X不可达）
