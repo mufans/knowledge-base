@@ -5,10 +5,62 @@ site_author: mufans
 nav:
   - Home: index.md
   - Wiki:
-    - Concepts: wiki/concepts/
-    - Entities: wiki/entities/
-    - Sources: wiki/sources/
-    - Syntheses: wiki/syntheses/
+    - Concepts:
+        - Overview: wiki/concepts/index.md
+        - AI-Agent-Self-Improving: wiki/concepts/AI-Agent-Self-Improving.md
+        - Claude-Ecosystem-Tools: wiki/concepts/Claude-Ecosystem-Tools.md
+        - Context-Window-Optimization: wiki/concepts/Context-Window-Optimization.md
+        - DeepEP: wiki/concepts/DeepEP.md
+        - Memory-Management: wiki/concepts/Memory-Management.md
+        - PersonalAI-KG-Comparison: wiki/concepts/PersonalAI-KG-Comparison.md
+        - PersonalAI-KG-Retrieval: wiki/concepts/PersonalAI-KG-Retrieval.md
+        - Pretext-js: wiki/concepts/Pretext-js.md
+        - Prompt-Caching-Pitfalls: wiki/concepts/Prompt-Caching-Pitfalls.md
+        - Real-world-AI-Applications: wiki/concepts/Real-world-AI-Applications.md
+        - Self-RAG: wiki/concepts/Self-RAG.md
+        - Skill-Auto-Creation: wiki/concepts/Skill-Auto-Creation.md
+        - Skill-Evaluation-Framework: wiki/concepts/Skill-Evaluation-Framework.md
+        - Weak-Model-Orchestration: wiki/concepts/Weak-Model-Orchestration.md
+        - andrej-karpathy-skills: wiki/concepts/andrej-karpathy-skills.md
+    - Entities:
+        - Overview: wiki/entities/index.md
+        - Claude-Code-Source-Analysis: wiki/entities/Claude-Code-Source-Analysis.md
+        - DeepSeek-V4: wiki/entities/DeepSeek-V4.md
+        - Fewshell: wiki/entities/Fewshell.md
+        - GKE-Agent-Sandbox: wiki/entities/GKE-Agent-Sandbox.md
+        - GPT-5.5: wiki/entities/GPT-5.5.md
+        - Ghostty-Leaving-GitHub: wiki/entities/Ghostty-Leaving-GitHub.md
+        - GoClick: wiki/entities/GoClick.md
+        - Hermes-Agent: wiki/entities/Hermes-Agent.md
+        - Hy-MT-Offline-Translation: wiki/entities/Hy-MT-Offline-Translation.md
+        - OpenClaw: wiki/entities/OpenClaw.md
+        - Operit: wiki/entities/Operit.md
+        - SmartPerfetto: wiki/entities/SmartPerfetto.md
+        - Warp-Terminal-Analysis: wiki/entities/Warp-Terminal-Analysis.md
+        - claude-context: wiki/entities/claude-context.md
+        - claude-mem: wiki/entities/claude-mem.md
+        - deer-flow: wiki/entities/deer-flow.md
+        - harmonist: wiki/entities/harmonist.md
+        - llm_wiki: wiki/entities/llm_wiki.md
+        - mattpocock-skills: wiki/entities/mattpocock-skills.md
+        - ml-intern: wiki/entities/ml-intern.md
+        - open-design: wiki/entities/open-design.md
+        - trycua-cua: wiki/entities/trycua-cua.md
+    - Sources:
+        - Overview: wiki/sources/index.md
+        - AI-Code-Tool-Pricing-2026: wiki/sources/AI-Code-Tool-Pricing-2026.md
+        - Coding-Agents-Critique-2026: wiki/sources/Coding-Agents-Critique-2026.md
+        - Hermes-Agent-源码分析: wiki/sources/Hermes-Agent-源码分析.md
+        - OpenClaw-源码分析: wiki/sources/OpenClaw-源码分析.md
+        - OpenMobile-Paper-V2: wiki/sources/OpenMobile-Paper-V2.md
+        - OpenMobile-Paper: wiki/sources/OpenMobile-Paper.md
+        - claude-context-源码分析: wiki/sources/claude-context-源码分析.md
+        - 推荐书单-2026年4月: wiki/sources/推荐书单-2026年4月.md
+    - Syntheses:
+        - Overview: wiki/syntheses/index.md
+        - Agent-Dev-Tools-2026-04: wiki/syntheses/Agent-Dev-Tools-2026-04.md
+        - Hermes-vs-OpenClaw对比分析: wiki/syntheses/Hermes-vs-OpenClaw对比分析.md
+        - SmartPerfetto-vs-SmartInspector对比分析: wiki/syntheses/SmartPerfetto-vs-SmartInspector对比分析.md
   - Raw:
     - Inbox: raw/inbox/
     - Projects: raw/projects/
