@@ -17,3 +17,6 @@
 - [PersonalAI-KG-Comparison](PersonalAI-KG-Comparison.md) (2026-04-29)
 - [Weak-Model-Orchestration](Weak-Model-Orchestration.md) (2026-04-30)
 - [Prompt-Caching-Pitfalls](Prompt-Caching-Pitfalls.md) (2026-04-30)
+- [Client-Side-Tool-Calling](Client-Side-Tool-Calling.md) (2026-05-03)
+- [TNL-Persistent-Plan-Mode](TNL-Persistent-Plan-Mode.md) (2026-05-03)
+- [AST-Driven-AI-Editing](AST-Driven-AI-Editing.md) (2026-05-03)

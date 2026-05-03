@@ -10,3 +10,6 @@
 - [AI-Code-Tool-Pricing-2026](AI-Code-Tool-Pricing-2026.md) (2026-04-29)
 - [Coding-Agents-Critique-2026](Coding-Agents-Critique-2026.md) (2026-04-29)
 - [OpenMobile-Paper-V2](OpenMobile-Paper-V2.md) (2026-04-29)
+- [CISA-NSA-Agent-Security](CISA-NSA-Agent-Security.md) (2026-05-03)
+- [Apple-Foundation-Models-Practice](Apple-Foundation-Models-Practice.md) (2026-05-03)
+- [Claude-Code-Linux-Kernel-Vuln](Claude-Code-Linux-Kernel-Vuln.md) (2026-05-03)

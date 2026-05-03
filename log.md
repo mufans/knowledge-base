@@ -1,5 +1,14 @@
 # Knowledge Base Log
 
+## 2026年5月3日
+- 社交媒体AI技术动态采集 | 12条 | 来源：Hacker News API（Reddit/X超时失败） | 保存 raw/inbox/2026-05-03-社交媒体.md | 重点：CISA/NSA Agent安全指南、客户端Tool Calling、TNL持久化Plan Mode、Apple Foundation Models实战、Kora AI原生OS、AST精确编辑
+- 知识库Lint审查 | 健康度评分4.2/10（较05-01下降1.3） | 发现46个索引断链、17个积压文件、46个浅显内容页、19个缺评分页面、16个缺建议页面 | 保存 raw/inbox/2026-05-03-知识库Lint审查.md
+
+## 2026年5月2日
+- 社交媒体AI技术动态采集 | 8条 | 来源：Hacker News（成功）、Reddit/X（失败） | 保存 raw/inbox/2026-05-02-社交媒体.md | 重点：Governor Claude插件、Eka机器人爪技术、桌面应用Playwright
+- 技术动态采集 | 20条 | 来源：InfoQ、开源中国、Dev.to、Solidot（Reddit ML超时跳过） | 保存 raw/inbox/2026-05-02-技术动态.md | 重点：Claude Code发现Linux内核23年漏洞、谷歌Agent Skill工具箱开源、Ghostty被迫出走GitHub、Meta收购Manus被禁、@ttsc/lint 20x更快TS Lint
+- 周度成长报告 | SI代码7提交、知识库新增42页面、采集27素材、掘金1篇 | Top技术：PersonalAI知识图谱、Agent技能自进化、Self-RAG、DeepSeek V4、移动端Agent | 保存 reports/weekly-growth-2026-05-02.md
+
 ## 2026年5月1日
 - 知识库Lint审查 | 健康度评分5.5/10（较04-30下降1.3） | 19个积压文件、1个根索引断链、21个孤立页面、15个缺评分页面、7个浅显内容页 | 保存 raw/inbox/2026-05-01-知识库Lint审查.md
 
@@ -298,3 +307,30 @@
   - Codex vs Claude Code对比 — 有价值但数据不够支撑独立页面（评分6.5）
   - Claude Code使用策略 — 最佳实践但已部分覆盖（评分6.5）
 2026-05-01 | collect | raw/inbox/2026-05-01-社交媒体.md | 社交媒体AI技术动态采集（12条，来源：HN+TechCrunch，Reddit/X不可达）
+
+## 2026-05-03 技术动态采集
+
+- **采集时间**：2026-05-03 10:00 CST
+- **采集来源**：InfoQ（成功）、OSChina（仅返回基本信息）、Dev.to（部分成功）、Reddit ML（JSON请求超时）、Solidot（成功）
+- **采集数量**：15条
+- **分类统计**：AI与大模型(5)、开源项目(2)、技术架构(2)、云计算与基础设施(2)、开发工具(1)、移动端技术(1)、行业分析(1)、技术应用(1)
+- **文件路径**：raw/inbox/2026-05-03-技术动态.md
+- **推送状态**：已推送Top 8技术动态到钉钉
+- **重点内容**：国产大模型企业落地障碍、AI编程工具成本上涨、小米万亿模型开源、Mistral AI Workflows、Ghostty离开GitHub、多智能体系统构建
+- **失败源**：Reddit ML JSON请求超时、OSChina抓取内容不完整、GitHub Trending内容受限
+- **备注**：已跳过429错误处理（暂未遇到）
+
+## 2026-05-03 每日知识提炼
+
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-社交媒体.md | 创建wiki/concepts/Client-Side-Tool-Calling.md（自评8.20）
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-社交媒体.md | 创建wiki/concepts/TNL-Persistent-Plan-Mode.md（自评8.85）
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-社交媒体.md | 创建wiki/concepts/AST-Driven-AI-Editing.md（自评8.00）
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-社交媒体.md | 创建wiki/sources/CISA-NSA-Agent-Security.md（自评7.95）
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-社交媒体.md | 创建wiki/sources/Apple-Foundation-Models-Practice.md（自评8.20）
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-社交媒体.md | 创建wiki/entities/Kora-AI-Native-OS.md（自评8.10）
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-新闻热点.md | 创建wiki/entities/Zed-1.0.md（自评8.35）
+- 2026-05-03 | ingest | raw/inbox/2026-05-03-新闻热点.md | 创建wiki/sources/Claude-Code-Linux-Kernel-Vuln.md（自评7.35）
+- 2026-05-03 | skip | raw/inbox/2026-05-03-GitHub项目.md | 已覆盖：dify/OpenHands/AutoGPT/deer-flow/langchain/open-design等已有wiki页面，无实质性更新
+- 2026-05-03 | skip | raw/inbox/2026-05-03-AI论文.md | FlashRT/InteractWeb-Bench/GLM-5V-Turbo等论文信息量不足以创建高质量wiki页面（多为摘要级别描述），信息已在inbox保留
+- 2026-05-03 | skip | raw/inbox/2026-05-03-技术动态.md | 小米万亿模型/Mistral Workflows/布隆过滤器等——小米模型未超越竞品无深度分析价值；Mistral Workflows为产品发布非技术分析；布隆过滤器为基础知识非前沿
+- 2026-05-03 | skip | raw/inbox/2026-05-03-知识库Lint审查.md | 元数据文件，不提炼为wiki页面。审查发现的问题（46个索引断链、浅显内容）需后续专项修复
