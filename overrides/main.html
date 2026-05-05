@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const isHome = document.location.pathname === '/' ||
                  document.location.pathname === '/index.html' ||
                  document.location.pathname.endsWith('/knowledge/') ||
-                 document.location.pathname.endsWith('/knowledge/index.html');
+                 document.location.pathname.endsWith('/knowledge/index.html') ||
+                 document.location.pathname.endsWith('/knowledge-base/') ||
+                 document.location.pathname.endsWith('/knowledge-base/index.html');
   if (!isHome) return;
 
   // 从 site.data 或页面数据构建文章列表
