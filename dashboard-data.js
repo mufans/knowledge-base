@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-05 19:52:03
-// Total articles: 56
-// Updated files this run: 43
+// Generated: 2026-05-05 22:06:59
+// Total articles: 60
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Claude Code v2.1.88 源码深度分析",
@@ -277,6 +277,20 @@ window.__kb_articles = [
     "url": "wiki/entities/Zed-1.0"
   },
   {
+    "title": "Agent 技能架构设计方法论",
+    "category": "sources",
+    "tags": [
+      "Agent",
+      "Skills",
+      "Architecture",
+      "Dynamic-Loading"
+    ],
+    "rating": 8.5,
+    "description": "Addy Osmani对Agent系统技能架构的深度分析，涵盖技能组合、动态加载和上下文管理的工程实践",
+    "date": "2026-05-05",
+    "url": "wiki/sources/Agent-Skills-Architecture"
+  },
+  {
     "title": "CISA/NSA AI Agent 安全部署指南",
     "category": "sources",
     "tags": [
@@ -349,10 +363,11 @@ window.__kb_articles = [
     "tags": [
       "Memory",
       "AI-Agent",
-      "记忆"
+      "Cloudflare",
+      "Agent-Memory"
     ],
     "rating": 8.0,
-    "description": "AI Agent 记忆管理方案，包括短期记忆、长期记忆和检索策略",
+    "description": "AI Agent 记忆管理方案，包括短期记忆、长期记忆、检索策略和托管服务",
     "date": "2026-04-26",
     "url": "wiki/concepts/Memory-Management"
   },
@@ -422,6 +437,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/TNL-Persistent-Plan-Mode"
   },
   {
+    "title": "CopilotKit: Agent前端栈与AG-UI协议",
+    "category": "entities",
+    "tags": [
+      "CopilotKit",
+      "AG-UI",
+      "Agent-Frontend",
+      "React"
+    ],
+    "rating": 8.0,
+    "description": "Agent应用的前端框架，提出AG-UI协议标准化Agent与UI的通信，支持React和Angular",
+    "date": "2026-05-05",
+    "url": "wiki/entities/CopilotKit"
+  },
+  {
     "title": "Hy-MT手机端离线翻译模型",
     "category": "entities",
     "tags": [
@@ -446,6 +475,20 @@ window.__kb_articles = [
     "description": "Claude Context 上下文管理工具",
     "date": "2026-04-24",
     "url": "wiki/entities/claude-context"
+  },
+  {
+    "title": "AI正在掏空初级开发者培养渠道",
+    "category": "sources",
+    "tags": [
+      "AI-Programming",
+      "Career",
+      "Junior-Developer",
+      "Skill-Gap"
+    ],
+    "rating": 8.0,
+    "description": "微软研究警告AI编程工具压缩初级开发者成长路径，对12年经验移动端开发者转型的启示",
+    "date": "2026-05-05",
+    "url": "wiki/sources/AI-Junior-Developer-Crisis"
   },
   {
     "title": "Apple Foundation Models Framework 实战",
@@ -473,6 +516,20 @@ window.__kb_articles = [
     "description": "Claude Code 发现 Linux 内核 23 年历史漏洞",
     "date": "2026-05-03",
     "url": "wiki/sources/Claude-Code-Linux-Kernel-Vuln"
+  },
+  {
+    "title": "OpenAI 大规模低延迟语音AI实现方案",
+    "category": "sources",
+    "tags": [
+      "OpenAI",
+      "Voice-AI",
+      "Edge-Computing",
+      "LLM-Inference"
+    ],
+    "rating": 8.0,
+    "description": "OpenAI揭秘生产级语音AI的低延迟架构，涵盖音频流处理、边缘推理和智能路由的关键技术决策",
+    "date": "2026-05-05",
+    "url": "wiki/sources/OpenAI-Low-Latency-Voice-AI"
   },
   {
     "title": "AI Agent Self-Improving",

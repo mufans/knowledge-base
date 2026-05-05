@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Personal knowledge repository and project analysis">
+        <meta name="description" content="AI Agent 记忆管理方案，包括短期记忆、长期记忆、检索策略和托管服务">
       
       
         <meta name="author" content="mufans">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Memory-Management - Knowledge Base</title>
+        <title>Memory Management - Knowledge Base</title>
       
     
     
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Memory-Management
+              Memory Management
             
           </span>
         </div>
@@ -824,6 +824,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloudflare-agent-memory2026-05-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloudflare Agent Memory（2026-05-05 更新）
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2728,6 +2739,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cloudflare-agent-memory2026-05-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloudflare Agent Memory（2026-05-05 更新）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2868,6 +2890,14 @@
 <li><strong>智能检索</strong>：根据场景筛选相关记忆</li>
 <li><strong>并行处理</strong>：记忆操作与其他任务并发执行</li>
 </ul>
+<h2 id="cloudflare-agent-memory2026-05-05">Cloudflare Agent Memory（2026-05-05 更新）<a class="headerlink" href="#cloudflare-agent-memory2026-05-05" title="Permanent link">&para;</a></h2>
+<p>Cloudflare 发布 Agent Memory 私测版，提供<strong>Agent记忆的托管服务</strong>：
+- <strong>结构化记忆提取</strong>：从Agent对话中自动提取关键信息（偏好、事实、事件），而非存储原始对话
+- <strong>五通道并行检索</strong>：语义搜索 + 关键词匹配 + 时间排序 + 实体关联 + 上下文联想，同时查询五个通道取最优结果
+- <strong>Agent团队共享</strong>：多个Agent可共享同一个知识库，解决多Agent场景下的记忆孤岛问题
+- <strong>边缘部署</strong>：基于Cloudflare Workers，记忆检索延迟&lt;10ms</p>
+<p>Trade-off：托管服务降低了实现复杂度，但引入了<strong>供应商锁定</strong>和<strong>数据隐私</strong>问题。适合快速原型验证，长期方案仍需考虑自建。</p>
+<p>InfoQ热度2930，说明市场对Agent记忆基础设施的需求正在快速增长。这与mem0ai/mem0（⭐54,770，Universal memory layer）的定位类似，但Cloudflare提供了边缘计算层面的差异化。</p>
 <h2 id="_9">对比分析<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2887,6 +2917,16 @@
 <td>OpenClaw纯追加</td>
 <td>实现简单、无丢失风险</td>
 <td>长期膨胀、检索效率低</td>
+</tr>
+<tr>
+<td>Cloudflare Agent Memory</td>
+<td>开箱即用、边缘低延迟</td>
+<td>供应商锁定、数据隐私</td>
+</tr>
+<tr>
+<td>mem0 Universal Memory</td>
+<td>框架无关、自托管选项</td>
+<td>需要额外的部署和维护</td>
 </tr>
 <tr>
 <td>混合模式</td>
@@ -2910,9 +2950,10 @@
 </ul>
 <h2 id="_13">关联概念<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#AI Agent Self-Improving">AI Agent Self-Improving</a> - 自改进系统的记忆机制</li>
-<li><a href="#Skill Auto-Creation">Skill Auto-Creation</a> - 基于记忆自动创建技能</li>
-<li><a href="#Real-world AI Applications">Real-world AI Applications</a> - 实际应用中的记忆管理</li>
+<li><a href="../AI-Agent-Self-Improving/">AI-Agent-Self-Improving</a> - 自改进系统的记忆机制</li>
+<li><a href="../Skill-Auto-Creation/">Skill-Auto-Creation</a> - 基于记忆自动创建技能</li>
+<li><a href="../Real-world-AI-Applications/">Real-world-AI-Applications</a> - 实际应用中的记忆管理</li>
+<li><a href="../../entities/CopilotKit/">CopilotKit</a> - Agent前端框架，UI状态也是一种记忆管理</li>
 </ul>
 <hr />
 <p><em>创建时间：2026-04-23</em><br />
@@ -2938,7 +2979,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月5日 11:52:12 UTC">2026年5月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月5日 14:07:10 UTC">2026年5月5日</span>
   </span>
 
     
