@@ -1,10 +1,10 @@
 ---
 title: "OpenMobile: 开放移动Agent框架"
-category: sources
-tags: [OpenMobile, 移动端, Agent, 论文]
-rating: 8.0
+category: "sources"
+tags: ["OpenMobile", "移动端", "Agent", "论文"]
+rating: 7.0
 description: "OpenMobile 开放移动 Agent 框架论文 V2"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # OpenMobile: 开放移动Agent框架

@@ -1,10 +1,10 @@
 ---
 title: "Real-world AI Applications"
-category: concepts
-tags: [AI, 应用, 落地]
-rating: 7.5
+category: "concepts"
+tags: ["AI", "应用", "落地"]
+rating: 8.0
 description: "AI 在真实场景中的应用案例分析"
-date: 2026-04-26
+date: "2026-04-26"
 ---
 
 # Real-world AI Applications

@@ -1,10 +1,10 @@
 ---
 title: "PersonalAI: LLM Agent个性化中的知识图谱存储与检索"
-category: concepts
-tags: [知识图谱, LLM, 个性化]
-rating: 8.0
+category: "concepts"
+tags: ["知识图谱", "LLM", "个性化"]
+rating: 7.0
 description: "PersonalAI 方案中知识图谱存储与检索方案的对比分析"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # PersonalAI: LLM Agent个性化中的知识图谱存储与检索

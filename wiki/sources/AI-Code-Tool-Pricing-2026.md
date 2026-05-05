@@ -1,10 +1,10 @@
 ---
 title: "AI 代码工具涨价潮: Copilot、Claude 成本分析"
-category: sources
-tags: [定价, Copilot, Claude, 成本]
-rating: 8.0
+category: "sources"
+tags: ["定价", "Copilot", "Claude", "成本"]
+rating: 7.5
 description: "2026年 AI 代码工具涨价潮分析，Copilot 和 Claude 成本对比"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # AI 代码工具涨价潮: Copilot、Claude 成本分析

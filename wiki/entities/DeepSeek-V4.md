@@ -1,10 +1,10 @@
 ---
 title: "DeepSeek V4: 百万上下文窗口的开源模型"
-category: entities
-tags: [DeepSeek, 开源模型, 长上下文]
-rating: 8.5
+category: "entities"
+tags: ["DeepSeek", "开源模型", "长上下文"]
+rating: 7.5
 description: "DeepSeek V4 百万上下文窗口开源模型分析"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # DeepSeek V4: 百万上下文窗口的开源模型

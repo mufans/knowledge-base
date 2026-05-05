@@ -1,10 +1,10 @@
 ---
 title: "HuggingFace ml-intern"
-category: entities
-tags: [HuggingFace, ML, 实习]
-rating: 7.0
+category: "entities"
+tags: ["HuggingFace", "ML", "实习"]
+rating: 7.5
 description: "HuggingFace ml-intern 机器学习实习项目"
-date: 2026-04-26
+date: "2026-04-26"
 ---
 
 # HuggingFace ml-intern

@@ -1,10 +1,10 @@
 ---
 title: "Open Design: 本地优先的AI设计工具"
-category: entities
-tags: [设计, 本地优先, AI]
-rating: 8.0
+category: "entities"
+tags: ["设计", "本地优先", "AI"]
+rating: 7.5
 description: "Open Design 本地优先的 AI 设计工具"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # Open Design: 本地优先的AI设计工具

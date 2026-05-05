@@ -1,10 +1,10 @@
 ---
 title: "Context Window 优化：AI Coding Agent 的核心效率问题"
-category: concepts
-tags: [Context-Window, 优化, Coding-Agent]
-rating: 9.0
+category: "concepts"
+tags: ["Context-Window", "优化", "Coding-Agent"]
+rating: 8.0
 description: "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析"
-date: 2026-04-26
+date: "2026-04-26"
 ---
 
 # Context Window 优化：AI Coding Agent 的核心效率问题

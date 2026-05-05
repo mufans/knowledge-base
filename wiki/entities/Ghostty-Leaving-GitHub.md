@@ -1,10 +1,10 @@
 ---
 title: "Ghostty 离开 GitHub: 开源基础设施的信任危机"
-category: entities
-tags: [Ghostty, 开源, GitHub]
-rating: 8.0
+category: "entities"
+tags: ["Ghostty", "开源", "GitHub"]
+rating: 6.5
 description: "Ghostty 离开 GitHub 事件，开源基础设施信任危机分析"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # Ghostty 离开 GitHub: 开源基础设施的信任危机

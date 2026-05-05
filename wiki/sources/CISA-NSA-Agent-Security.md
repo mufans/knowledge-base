@@ -1,10 +1,10 @@
 ---
 title: "CISA/NSA AI Agent 安全部署指南"
-category: sources
-tags: [CISA, NSA, 安全, Agent]
-rating: 7.5
+category: "sources"
+tags: ["CISA", "NSA", "安全", "Agent"]
+rating: 8.5
 description: "CISA/NSA 发布的 AI Agent 安全部署指南"
-date: 2026-05-03
+date: "2026-05-03"
 ---
 
 # CISA/NSA AI Agent 安全部署指南

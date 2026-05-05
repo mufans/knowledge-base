@@ -1,10 +1,10 @@
 ---
 title: "Claude-Mem 深度分析报告"
-category: entities
-tags: [Claude, Memory, 持久化]
-rating: 8.0
+category: "entities"
+tags: ["Claude", "Memory", "持久化"]
+rating: 9.0
 description: "Claude-Mem 持久化记忆方案深度分析"
-date: 2026-04-25
+date: "2026-04-25"
 ---
 
 # Claude-Mem 深度分析报告

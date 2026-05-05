@@ -1,10 +1,10 @@
 ---
 title: "LLM Wiki"
-category: entities
-tags: [LLM, Wiki, 知识库]
-rating: 7.0
+category: "entities"
+tags: ["LLM", "Wiki", "知识库"]
+rating: 9.5
 description: "LLM Wiki 大语言模型知识库"
-date: 2026-04-26
+date: "2026-04-26"
 ---
 
 # LLM Wiki

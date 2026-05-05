@@ -1,10 +1,10 @@
 ---
 title: "Pretext.js: 绕过 DOM 布局重排的高性能文本排版"
-category: concepts
-tags: [JavaScript, 排版, 性能]
-rating: 7.5
+category: "concepts"
+tags: ["JavaScript", "排版", "性能"]
+rating: 8.0
 description: "Pretext.js 绕过 DOM 布局重排的高性能文本排版方案"
-date: 2026-04-26
+date: "2026-04-26"
 ---
 
 # Pretext.js: 绕过 DOM 布局重排的高性能文本排版

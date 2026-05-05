@@ -1,10 +1,10 @@
 ---
 title: "Warp Terminal 源码深度分析"
-category: entities
-tags: [Warp, 终端, 源码分析]
-rating: 8.5
+category: "entities"
+tags: ["Warp", "终端", "源码分析"]
+rating: 9.0
 description: "Warp Terminal 源码深度分析，现代终端设计"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # Warp Terminal 源码深度分析
