@@ -1,0 +1,362 @@
+/* ===== Dashboard 风格知识库 ===== */
+
+/* 全局 */
+:root {
+  --kb-primary: #1976D2;
+  --kb-primary-light: #42A5F5;
+  --kb-primary-dark: #1565C0;
+  --kb-bg: #f5f5f5;
+  --kb-card-bg: #ffffff;
+  --kb-text: #333333;
+  --kb-text-secondary: #666666;
+  --kb-border: #e0e0e0;
+  --kb-radius: 12px;
+  --kb-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --kb-shadow-hover: 0 6px 20px rgba(0,0,0,0.12);
+  --kb-tag-concepts: #1976D2;
+  --kb-tag-entities: #388E3C;
+  --kb-tag-sources: #F57C00;
+  --kb-tag-syntheses: #7B1FA2;
+}
+
+/* 首页容器 */
+.kb-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 问候语区域 */
+.kb-greeting {
+  margin-bottom: 28px;
+}
+
+.kb-greeting h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--kb-text);
+  margin: 0 0 8px 0;
+}
+
+.kb-greeting p {
+  font-size: 15px;
+  color: var(--kb-text-secondary);
+  margin: 0;
+}
+
+/* 搜索框 */
+.kb-search {
+  margin-bottom: 24px;
+}
+
+.kb-search input {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 20px;
+  border: 2px solid var(--kb-border);
+  border-radius: 24px;
+  font-size: 15px;
+  background: var(--kb-card-bg);
+  color: var(--kb-text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.kb-search input:focus {
+  border-color: var(--kb-primary);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+}
+
+.kb-search input::placeholder {
+  color: #999;
+}
+
+/* 筛选标签 */
+.kb-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.kb-filter-btn {
+  padding: 6px 16px;
+  border: 1.5px solid var(--kb-border);
+  border-radius: 20px;
+  background: var(--kb-card-bg);
+  color: var(--kb-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.kb-filter-btn:hover {
+  border-color: var(--kb-primary);
+  color: var(--kb-primary);
+}
+
+.kb-filter-btn.active {
+  background: var(--kb-primary);
+  color: #fff;
+  border-color: var(--kb-primary);
+}
+
+/* 卡片网格 */
+.kb-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* 卡片 */
+.kb-card {
+  background: var(--kb-card-bg);
+  border-radius: var(--kb-radius);
+  box-shadow: var(--kb-shadow);
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid transparent;
+}
+
+.kb-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--kb-shadow-hover);
+  border-color: var(--kb-primary-light);
+}
+
+.kb-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.kb-card-category {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.kb-card-category.concepts { background: var(--kb-tag-concepts); }
+.kb-card-category.entities { background: var(--kb-tag-entities); }
+.kb-card-category.sources { background: var(--kb-tag-sources); }
+.kb-card-category.syntheses { background: var(--kb-tag-syntheses); }
+
+.kb-card-rating {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--kb-primary);
+  background: rgba(25, 118, 210, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.kb-card-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--kb-text);
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.kb-card-desc {
+  font-size: 13px;
+  color: var(--kb-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 14px;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.kb-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.kb-card-tag {
+  font-size: 11px;
+  color: var(--kb-text-secondary);
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.kb-card-date {
+  font-size: 11px;
+  color: #999;
+  margin-top: 8px;
+}
+
+/* 统计栏 */
+.kb-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.kb-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--kb-text-secondary);
+}
+
+.kb-stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--kb-text);
+}
+
+/* 侧边栏标签云 */
+.kb-sidebar-tags {
+  padding: 8px 0;
+}
+
+.kb-sidebar-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  margin: 3px;
+  border-radius: 12px;
+  font-size: 12px;
+  background: #f0f0f0;
+  color: var(--kb-text-secondary);
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.kb-sidebar-tag:hover {
+  background: var(--kb-primary);
+  color: #fff;
+}
+
+/* 无结果 */
+.kb-no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--kb-text-secondary);
+  font-size: 16px;
+  grid-column: 1 / -1;
+}
+
+/* ===== 响应式 ===== */
+
+/* 平板 ≤1024px */
+@media (max-width: 1024px) {
+  .kb-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 手机 ≤768px */
+@media (max-width: 768px) {
+  .kb-dashboard {
+    padding: 12px;
+  }
+
+  .kb-greeting h1 {
+    font-size: 22px;
+  }
+
+  .kb-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .kb-card {
+    padding: 16px;
+  }
+
+  .kb-card-title {
+    font-size: 15px;
+  }
+
+  .kb-card-desc {
+    -webkit-line-clamp: 2;
+  }
+
+  .kb-stats {
+    gap: 16px;
+  }
+
+  .kb-filter-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+}
+
+/* 小手机 ≤480px */
+@media (max-width: 480px) {
+  .kb-greeting h1 {
+    font-size: 20px;
+  }
+
+  .kb-card-tag {
+    font-size: 10px;
+    padding: 1px 6px;
+  }
+
+  .kb-stats {
+    gap: 12px;
+  }
+
+  .kb-stat-num {
+    font-size: 18px;
+  }
+}
+
+/* 隐藏首页默认内容 */
+.kb-dashboard ~ .md-content__inner {
+  display: none;
+}
+
+/* 排序按钮 */
+.kb-sort-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--kb-text-secondary);
+}
+
+.kb-sort-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--kb-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--kb-text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.kb-sort-btn:hover,
+.kb-sort-btn.active {
+  background: var(--kb-primary);
+  color: #fff;
+  border-color: var(--kb-primary);
+}

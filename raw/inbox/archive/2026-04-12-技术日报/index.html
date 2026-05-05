@@ -37,8 +37,11 @@
 
     
     
+
       
     
+<script src="../../../../overrides/dashboard-data.js"></script>
+
     
       
         
@@ -55,6 +58,8 @@
 
     
     
+  <link rel="stylesheet" href="../../../../overrides/styles/dashboard.css">
+
   </head>
   
   
@@ -2691,6 +2696,9 @@
               
               <article class="md-content__inner md-typeset">
                 
+
+
+
                   
 
 
@@ -3077,7 +3085,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月4日 14:42:19 UTC">2026年5月4日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月5日 11:42:35 UTC">2026年5月5日</span>
   </span>
 
     
@@ -3091,6 +3099,7 @@
 
 
                 
+
               </article>
             </div>
           
@@ -3130,8 +3139,166 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
+
       <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 只在首页生效
+  const contentEl = document.querySelector('.md-content__inner');
+  if (!contentEl) return;
+
+  // 检查是否是首页（Home）
+  const isHome = document.location.pathname === '/' ||
+                 document.location.pathname === '/index.html' ||
+                 document.location.pathname.endsWith('/knowledge/') ||
+                 document.location.pathname.endsWith('/knowledge/index.html');
+  if (!isHome) return;
+
+  // 从 site.data 或页面数据构建文章列表
+  // MkDocs Material 不会自动暴露所有页面的 frontmatter，
+  // 所以我们用一个内联的数据对象
+  const articles = window.__kb_articles || [];
+  if (articles.length === 0) return;
+
+  // 构建分类数据
+  const categories = {
+    all: { label: '全部', count: articles.length },
+    concepts: { label: 'Concepts', count: 0 },
+    entities: { label: 'Entities', count: 0 },
+    sources: { label: 'Sources', count: 0 },
+    syntheses: { label: 'Syntheses', count: 0 }
+  };
+
+  const tagSet = new Set();
+  articles.forEach(a => {
+    if (categories[a.category]) categories[a.category].count++;
+    (a.tags || []).forEach(t => tagSet.add(t));
+  });
+
+  // 问候语
+  const hour = new Date().getHours();
+  let greeting = '晚上好';
+  if (hour >= 5 && hour < 12) greeting = '早上好';
+  else if (hour >= 12 && hour < 18) greeting = '下午好';
+
+  // 构建统计 HTML
+  const statsHtml = Object.entries(categories).map(([key, val]) =>
+    `<div class="kb-stat"><span class="kb-stat-num">${val.count}</span><span>${val.label}</span></div>`
+  ).join('');
+
+  // 构建筛选按钮
+  const filtersHtml = Object.entries(categories).map(([key, val]) =>
+    `<button class="kb-filter-btn${key === 'all' ? ' active' : ''}" data-filter="${key}">${val.label} (${val.count})</button>`
+  ).join('');
+
+  // 构建排序按钮
+  const sortHtml = `
+    <div class="kb-sort-bar">
+      <span>排序：</span>
+      <button class="kb-sort-btn active" data-sort="rating">评分 ↓</button>
+      <button class="kb-sort-btn" data-sort="date">最新</button>
+      <button class="kb-sort-btn" data-sort="name">名称</button>
+    </div>
+  `;
+
+  // 构建卡片
+  function renderCards(items) {
+    if (items.length === 0) {
+      return '<div class="kb-no-results">没有找到匹配的文章</div>';
+    }
+    return items.map(a => `
+      <a class="kb-card" href="${a.url}">
+        <div class="kb-card-header">
+          <span class="kb-card-category ${a.category}">${categories[a.category]?.label || a.category}</span>
+          <span class="kb-card-rating">★ ${a.rating || '-'}</span>
+        </div>
+        <h3 class="kb-card-title">${a.title}</h3>
+        <p class="kb-card-desc">${a.description || ''}</p>
+        <div class="kb-card-tags">
+          ${(a.tags || []).map(t => `<span class="kb-card-tag">${t}</span>`).join('')}
+        </div>
+        ${a.date ? `<div class="kb-card-date">${a.date}</div>` : ''}
+      </a>
+    `).join('');
+  }
+
+  // 组装 Dashboard
+  const dashboardHtml = `
+    <div class="kb-dashboard">
+      <div class="kb-greeting">
+        <h1>${greeting}，知识探索者！</h1>
+        <p>共收录 ${articles.length} 篇知识文章，持续更新中</p>
+      </div>
+      <div class="kb-search">
+        <input type="text" id="kb-search-input" placeholder="搜索文章标题、描述或标签...">
+      </div>
+      <div class="kb-filters" id="kb-filters">${filtersHtml}</div>
+      ${sortHtml}
+      <div class="kb-cards" id="kb-cards">${renderCards(articles)}</div>
+    </div>
+  `;
+
+  // 替换首页内容
+  contentEl.innerHTML = dashboardHtml;
+
+  // 筛选逻辑
+  let currentFilter = 'all';
+  let currentSort = 'rating';
+  let searchTerm = '';
+
+  function getFiltered() {
+    let items = articles;
+    if (currentFilter !== 'all') {
+      items = items.filter(a => a.category === currentFilter);
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      items = items.filter(a =>
+        (a.title || '').toLowerCase().includes(q) ||
+        (a.description || '').toLowerCase().includes(q) ||
+        (a.tags || []).some(t => t.toLowerCase().includes(q))
+      );
+    }
+    // 排序
+    if (currentSort === 'rating') {
+      items.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (currentSort === 'date') {
+      items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    } else if (currentSort === 'name') {
+      items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    }
+    return items;
+  }
+
+  function refresh() {
+    document.getElementById('kb-cards').innerHTML = renderCards(getFiltered());
+  }
+
+  // 事件绑定
+  document.getElementById('kb-filters').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-filter-btn')) return;
+    this.querySelectorAll('.kb-filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    refresh();
+  });
+
+  document.getElementById('kb-search-input').addEventListener('input', function(e) {
+    searchTerm = e.target.value;
+    refresh();
+  });
+
+  document.querySelector('.kb-sort-bar').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-sort-btn')) return;
+    this.querySelectorAll('.kb-sort-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentSort = e.target.dataset.sort;
+    refresh();
+  });
+});
+</script>
+
   </body>
 </html>
