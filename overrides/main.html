@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // MkDocs Material 会把 YAML frontmatter 的 date 放在 article 标签的 data-date 属性
   // 或者我们可以从 page.meta 中获取
-  {% if page and page.meta and page.meta.date %}
+  {%- if page and page.meta and page.meta.date -%}
   const dateEl = document.querySelector('.md-source-date');
   if (dateEl) {
     dateEl.style.display = '';
     dateEl.textContent = '{{ page.meta.date }}';
   }
-  {% endif %}
+  {%- endif -%}
 });
 </script>
 {% endblock %}
