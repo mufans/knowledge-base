@@ -1,9 +1,9 @@
 ---
 title: "Memory Management"
 category: concepts
-tags: [Memory, AI-Agent, 记忆]
+tags: [Memory, AI-Agent, Cloudflare, Agent-Memory]
 rating: 8.0
-description: "AI Agent 记忆管理方案，包括短期记忆、长期记忆和检索策略"
+description: "AI Agent 记忆管理方案，包括短期记忆、长期记忆、检索策略和托管服务"
 date: 2026-04-26
 ---
 
@@ -73,12 +73,26 @@ date: 2026-04-26
 - **智能检索**：根据场景筛选相关记忆
 - **并行处理**：记忆操作与其他任务并发执行
 
+## Cloudflare Agent Memory（2026-05-05 更新）
+
+Cloudflare 发布 Agent Memory 私测版，提供**Agent记忆的托管服务**：
+- **结构化记忆提取**：从Agent对话中自动提取关键信息（偏好、事实、事件），而非存储原始对话
+- **五通道并行检索**：语义搜索 + 关键词匹配 + 时间排序 + 实体关联 + 上下文联想，同时查询五个通道取最优结果
+- **Agent团队共享**：多个Agent可共享同一个知识库，解决多Agent场景下的记忆孤岛问题
+- **边缘部署**：基于Cloudflare Workers，记忆检索延迟<10ms
+
+Trade-off：托管服务降低了实现复杂度，但引入了**供应商锁定**和**数据隐私**问题。适合快速原型验证，长期方案仍需考虑自建。
+
+InfoQ热度2930，说明市场对Agent记忆基础设施的需求正在快速增长。这与mem0ai/mem0（⭐54,770，Universal memory layer）的定位类似，但Cloudflare提供了边缘计算层面的差异化。
+
 ## 对比分析
 
 | 系统设计 | 优点 | 缺点 |
 |---------|------|------|
 | Hermes容量限制 | 信息质量高、避免膨胀 | 需要额外的决策逻辑 |
 | OpenClaw纯追加 | 实现简单、无丢失风险 | 长期膨胀、检索效率低 |
+| Cloudflare Agent Memory | 开箱即用、边缘低延迟 | 供应商锁定、数据隐私 |
+| mem0 Universal Memory | 框架无关、自托管选项 | 需要额外的部署和维护 |
 | 混合模式 | 平衡灵活性和稳定性 | 实现复杂度高 |
 
 ## 应用场景
@@ -95,9 +109,10 @@ date: 2026-04-26
 
 ## 关联概念
 
-- [AI Agent Self-Improving](#AI Agent Self-Improving) - 自改进系统的记忆机制
-- [Skill Auto-Creation](#Skill Auto-Creation) - 基于记忆自动创建技能
-- [Real-world AI Applications](#Real-world AI Applications) - 实际应用中的记忆管理
+- [AI-Agent-Self-Improving](AI-Agent-Self-Improving.md) - 自改进系统的记忆机制
+- [Skill-Auto-Creation](Skill-Auto-Creation.md) - 基于记忆自动创建技能
+- [Real-world-AI-Applications](Real-world-AI-Applications.md) - 实际应用中的记忆管理
+- [CopilotKit](../entities/CopilotKit.md) - Agent前端框架，UI状态也是一种记忆管理
 
 ---
 

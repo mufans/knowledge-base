@@ -27,3 +27,4 @@
 - [Hy-MT-Offline-Translation](Hy-MT-Offline-Translation.md) (2026-04-30)
 - [Zed-1.0](Zed-1.0.md) (2026-05-03)
 - [Kora-AI-Native-OS](Kora-AI-Native-OS.md) (2026-05-03)
+- [CopilotKit](CopilotKit.md) (2026-05-05)

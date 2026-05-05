@@ -367,3 +367,13 @@
   1. Reddit的JSON API和web抓取都失败，可能需要代理配置
   2. X/Twitter需要用户登录状态才能访问搜索内容
   3. 已启用proxy_on代理，但部分源仍受限
+
+## 2026-05-05 知识提炼
+
+2026-05-05 | ingest | raw/inbox/2026-05-05-社交媒体.md | 创建wiki/sources/Agent-Skills-Architecture.md（自评8.80）
+2026-05-05 | ingest | raw/inbox/2026-05-05-新闻热点.md | 创建wiki/sources/OpenAI-Low-Latency-Voice-AI.md（自评8.05）— 新闻热点已采集，提炼其中一个深度技术主题
+2026-05-05 | ingest | raw/inbox/2026-05-05-新闻热点.md | 创建wiki/sources/AI-Junior-Developer-Crisis.md（自评8.05）
+2026-05-05 | ingest | raw/inbox/2026-05-05-GitHub项目.md | 创建wiki/entities/CopilotKit.md（自评8.00）
+2026-05-05 | update | raw/inbox/2026-05-05-新闻热点.md | 更新wiki/concepts/Memory-Management.md（合并了Cloudflare Agent Memory新内容）
+2026-05-05 | skip | raw/inbox/2026-05-05-GitHub项目.md | dify/langchain/AutoGPT等成熟项目已有大量公开资料，无新版本/新特性值得单独建页面；deer-flow/hermes-agent已有wiki页面且无实质性更新
+2026-05-05 | skip | raw/inbox/2026-05-05-技术动态.md | 国产模型企业落地障碍（泛政策讨论无技术深度）/Ghostty出走GitHub（已有wiki页面）/AICon大会资讯（会议预告非技术内容）/Ask.com关闭（非技术内容）/OpenAI系统提示词限制Goblins（安全话题无技术细节）
