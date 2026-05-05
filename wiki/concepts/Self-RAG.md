@@ -1,3 +1,12 @@
+---
+title: "Self-RAG: 自反思检索增强生成"
+category: concepts
+tags: [RAG, Self-Reflection, 检索]
+rating: 9.0
+description: "自反思检索增强生成，解决传统 RAG 盲目检索和无差别注入问题"
+date: 2026-04-26
+---
+
 # Self-RAG: 自反思检索增强生成
 
 > 论文：*Learning to Retrieve, Generate, and Critique through Self-Reflection* (arXiv:2310.11511, 2023)

@@ -1,3 +1,12 @@
+---
+title: "Claude Code 发现 Linux 内核 23 年漏洞"
+category: sources
+tags: [Claude-Code, Linux, 安全, 漏洞]
+rating: 8.5
+description: "Claude Code 发现 Linux 内核 23 年历史漏洞"
+date: 2026-05-03
+---
+
 # Claude Code 发现 Linux 内核 23 年漏洞
 
 > tags: #AI-Security #Linux-Kernel #Claude-Code #Vulnerability #Code-Audit

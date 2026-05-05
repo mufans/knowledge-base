@@ -1,3 +1,12 @@
+---
+title: "Prompt Caching陷阱"
+category: concepts
+tags: [Prompt-Caching, 成本优化, LLM]
+rating: 9.0
+description: "Prompt Caching 的常见陷阱和最佳实践，避免缓存失效"
+date: 2026-05-01
+---
+
 # Prompt Caching陷阱
 
 > tags: #Token-Cost #Prompt-Caching #AWS-Bedrock #LLM-Infrastructure #Cost-Optimization

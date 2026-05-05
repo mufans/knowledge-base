@@ -1,3 +1,12 @@
+---
+title: "andrej-karpathy-skills 深度分析报告"
+category: concepts
+tags: [Karpathy, Skill, 教程]
+rating: 8.0
+description: "Andrej Karpathy 的 AI 技能体系深度分析报告"
+date: 2026-04-26
+---
+
 # andrej-karpathy-skills 深度分析报告
 
 > 项目地址：[andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)

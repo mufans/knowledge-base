@@ -1,3 +1,12 @@
+---
+title: "Claude Ecosystem Tools"
+category: concepts
+tags: [Claude, Ecosystem, Tool]
+rating: 8.5
+description: "Claude 生态工具全景分析，包括 Claude Code、MCP、Skills 等"
+date: 2026-04-26
+---
+
 # Claude Ecosystem Tools
 
 > 围绕Claude AI开发的工具生态和开发环境

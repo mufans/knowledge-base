@@ -1,3 +1,12 @@
+---
+title: "Skill Auto-Creation"
+category: concepts
+tags: [Skill, 自动化, AI-Agent]
+rating: 8.5
+description: "AI Agent Skill 自动创建机制，从使用中学习生成新技能"
+date: 2026-04-26
+---
+
 # Skill Auto-Creation
 
 > AI Agent从工作经验中自动提炼和创建可复用技能的机制

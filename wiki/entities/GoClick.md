@@ -1,3 +1,12 @@
+---
+title: "GoClick"
+category: entities
+tags: [Go, AI, Agent]
+rating: 7.0
+description: "GoClick Go 语言 AI Agent 框架"
+date: 2026-05-01
+---
+
 # GoClick
 
 > tags: #GUI-Agent #Mobile-AI #VLM #On-Device #Element-Grounding

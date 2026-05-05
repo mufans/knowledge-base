@@ -1,3 +1,12 @@
+---
+title: "DeepSeek DeepEP"
+category: concepts
+tags: [DeepSeek, EP, 专家并行]
+rating: 7.5
+description: "DeepSeek DeepEP 专家并行通信机制"
+date: 2026-04-26
+---
+
 # DeepSeek DeepEP
 
 > tags: #MoE #expert-parallelism #DeepSeek #CUDA #distributed-training

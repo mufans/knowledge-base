@@ -1,3 +1,12 @@
+---
+title: "Pretext.js: 绕过 DOM 布局重排的高性能文本排版"
+category: concepts
+tags: [JavaScript, 排版, 性能]
+rating: 7.5
+description: "Pretext.js 绕过 DOM 布局重排的高性能文本排版方案"
+date: 2026-04-26
+---
+
 # Pretext.js: 绕过 DOM 布局重排的高性能文本排版
 
 > 作者：Cheng Lou（Midjourney 工程师、前 React 核心团队成员）

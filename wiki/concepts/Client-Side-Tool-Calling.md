@@ -1,3 +1,12 @@
+---
+title: "Client-Side Tool Calling"
+category: concepts
+tags: [Tool-Calling, Client-Side, LLM]
+rating: 7.5
+description: "客户端 Tool Calling 方案，在浏览器端直接调用 LLM 工具"
+date: 2026-05-03
+---
+
 # Client-Side Tool Calling
 
 > tags: #Tool-Calling #Privacy #Edge-AI #BYOK #Client-Server

@@ -1,3 +1,12 @@
+---
+title: "Fewshell"
+category: entities
+tags: [Shell, AI, 终端]
+rating: 7.0
+description: "Fewshell AI 驱动的终端工具"
+date: 2026-05-01
+---
+
 # Fewshell
 
 > tags: #Terminal-Agent #AI-Safety #Human-in-the-Loop #Agent-Guardrails

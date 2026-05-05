@@ -1,3 +1,12 @@
+---
+title: "Memory Management"
+category: concepts
+tags: [Memory, AI-Agent, 记忆]
+rating: 8.0
+description: "AI Agent 记忆管理方案，包括短期记忆、长期记忆和检索策略"
+date: 2026-04-26
+---
+
 # Memory Management
 
 > AI系统中记忆资源的有效管理和优化策略

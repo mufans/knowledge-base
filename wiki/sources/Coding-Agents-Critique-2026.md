@@ -1,3 +1,12 @@
+---
+title: "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼"
+category: sources
+tags: [Coding-Agent, 批评, 开源]
+rating: 8.0
+description: "17年开源老兵对 Coding Agents 堆功能现象的深度批评"
+date: 2026-04-29
+---
+
 # 17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼
 
 > tags: #Coding-Agent #Agent-Design #Critique #OpenSource #Context-Management

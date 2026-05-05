@@ -1,3 +1,12 @@
+---
+title: "Kora: AI原生OS层"
+category: entities
+tags: [AI-OS, 操作系统, 原生]
+rating: 8.0
+description: "Kora AI 原生操作系统层设计"
+date: 2026-05-03
+---
+
 # Kora: AI原生OS层
 
 > tags: #AI-OS #Rust #MCP #Voice-Agent #Skills-System

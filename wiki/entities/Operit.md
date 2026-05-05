@@ -1,3 +1,12 @@
+---
+title: "Operit: Android最强AI Agent应用"
+category: entities
+tags: [Operit, Android, AI-Agent]
+rating: 8.5
+description: "Operit Android 平台最强 AI Agent 应用分析"
+date: 2026-04-29
+---
+
 # Operit: Android最强AI Agent应用
 
 > tags: #Android #AIAgent #Kotlin #Compose #MobileAI

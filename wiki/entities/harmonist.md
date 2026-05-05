@@ -1,3 +1,12 @@
+---
+title: "Harmonist: 零依赖Agent编排框架"
+category: entities
+tags: [Agent, 编排, 零依赖]
+rating: 7.5
+description: "Harmonist 零依赖 Agent 编排框架"
+date: 2026-04-29
+---
+
 # Harmonist: 零依赖Agent编排框架
 
 > tags: #Agent-Orchestration #Zero-Dependency #Protocol-Enforcement #Python

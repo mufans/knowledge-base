@@ -1,3 +1,12 @@
+---
+title: "mattpocock/skills"
+category: entities
+tags: [Skill, TypeScript, 教程]
+rating: 7.5
+description: "Matt Pocock 的 TypeScript 技能集合"
+date: 2026-04-27
+---
+
 # mattpocock/skills
 
 > tags: #Claude-Code #Skills #Agent #Prompt-Engineering

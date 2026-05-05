@@ -1,3 +1,12 @@
+---
+title: "SmartPerfetto vs SmartInspector 对比分析"
+category: syntheses
+tags: [SmartPerfetto, 对比, 性能分析]
+rating: 8.5
+description: "SmartPerfetto vs SmartInspector 性能分析工具对比"
+date: 2026-04-27
+---
+
 # SmartPerfetto vs SmartInspector 对比分析
 
 > tags: #Perfetto #AI-Performance #Architecture-Comparison #Android #Agent

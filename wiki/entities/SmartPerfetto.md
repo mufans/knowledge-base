@@ -1,3 +1,12 @@
+---
+title: "SmartPerfetto"
+category: entities
+tags: [SmartPerfetto, 性能分析, Android]
+rating: 8.0
+description: "SmartPerfetto 性能分析工具"
+date: 2026-04-27
+---
+
 # SmartPerfetto
 
 > tags: #Perfetto #AI-Performance #MCP #Agent #Android

@@ -1,3 +1,12 @@
+---
+title: "trycua/cua — Computer-Use Agent 基础设施"
+category: entities
+tags: [CUA, Computer-Use, Agent]
+rating: 8.5
+description: "trycua/cua Computer-Use Agent 基础设施"
+date: 2026-04-27
+---
+
 # trycua/cua — Computer-Use Agent 基础设施
 
 > tags: #Computer-Use #Agent #Sandbox #Desktop-Automation

@@ -1,3 +1,12 @@
+---
+title: "Claude Context 源码分析"
+category: sources
+tags: [claude-context, 源码分析, 记忆]
+rating: 8.5
+description: "claude-context 源码分析，上下文管理实现"
+date: 2026-04-24
+---
+
 # Claude Context 源码分析
 
 > 基于 zilliztech/claude-context 仓库的源码级技术分析

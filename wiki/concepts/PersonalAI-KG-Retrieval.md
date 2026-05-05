@@ -1,3 +1,12 @@
+---
+title: "PersonalAI：知识图谱存储与检索的个性化 LLM 方案"
+category: concepts
+tags: [知识图谱, 检索, LLM]
+rating: 8.0
+description: "个性化 LLM 中的知识图谱存储与检索方案"
+date: 2026-04-27
+---
+
 # PersonalAI：知识图谱存储与检索的个性化 LLM 方案
 
 > tags: #Knowledge-Graph #Personalization #LLM-Agent #RAG

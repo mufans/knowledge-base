@@ -1,3 +1,12 @@
+---
+title: "AST驱动的AI代码编辑"
+category: concepts
+tags: [AST, 代码编辑, AI]
+rating: 8.0
+description: "基于 AST 的 AI 代码编辑技术，绕过 DOM 实现精准代码操作"
+date: 2026-05-03
+---
+
 # AST驱动的AI代码编辑
 
 > tags: #AST #Coding-Agent #Code-Edit #Precision #Developer-Tools

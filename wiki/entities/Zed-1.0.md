@@ -1,3 +1,12 @@
+---
+title: "Zed 1.0"
+category: entities
+tags: [Zed, 编辑器, Rust]
+rating: 7.5
+description: "Zed 1.0 编辑器分析"
+date: 2026-05-03
+---
+
 # Zed 1.0
 
 > tags: #AI-Editor #Rust #Multi-Agent #Vibe-Coding #IDE

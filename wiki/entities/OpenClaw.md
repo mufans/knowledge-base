@@ -1,3 +1,12 @@
+---
+title: "OpenClaw"
+category: entities
+tags: [OpenClaw, Agent, 网关]
+rating: 9.5
+description: "多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施"
+date: 2026-04-24
+---
+
 # OpenClaw
 
 > 多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施

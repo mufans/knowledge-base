@@ -1,3 +1,12 @@
+---
+title: "LLM Wiki"
+category: entities
+tags: [LLM, Wiki, 知识库]
+rating: 7.0
+description: "LLM Wiki 大语言模型知识库"
+date: 2026-04-26
+---
+
 # LLM Wiki
 
 > 基于 Karpathy LLM Wiki 方法论的桌面端个人知识库，LLM 自动将文档转化为结构化、可互联的 wiki

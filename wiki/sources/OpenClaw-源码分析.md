@@ -1,3 +1,12 @@
+---
+title: "OpenClaw 源码分析"
+category: sources
+tags: [OpenClaw, 源码分析, Agent]
+rating: 9.5
+description: "OpenClaw 源码级深度分析，多通道 Agent 网关实现"
+date: 2026-04-24
+---
+
 # OpenClaw 源码分析
 
 > 基于 v2026.4.9 本地安装路径 `/opt/homebrew/lib/node_modules/openclaw/` 的源码级分析

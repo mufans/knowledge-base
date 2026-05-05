@@ -1,3 +1,12 @@
+---
+title: "Deer-Flow: 字节跳动长周期SuperAgent框架"
+category: entities
+tags: [字节跳动, Agent, 框架]
+rating: 8.5
+description: "字节跳动 Deer-Flow 长周期 SuperAgent 框架"
+date: 2026-04-29
+---
+
 # Deer-Flow: 字节跳动长周期SuperAgent框架
 
 > tags: #SuperAgent #MultiAgent #Sandbox #Memory #ByteDance
