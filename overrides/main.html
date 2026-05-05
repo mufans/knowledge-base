@@ -2,11 +2,38 @@
 
 {% block extrahead %}
   <link rel="stylesheet" href="{{ 'overrides/styles/dashboard.css' | url }}">
+  <style>
+    /* 显示 frontmatter date 替代 git date */
+    .md-source-date { display: none !important; }
+    .kb-frontmatter-date {
+      font-size: 0.8rem;
+      color: var(--md-default-fg-color--light);
+      margin-left: 0.5rem;
+    }
+  </style>
 {% endblock %}
 
 {% block libs %}
 {{ super() }}
 <script src="{{ 'overrides/dashboard-data.js' | url }}"></script>
+<script>
+// 在页面加载后，用 frontmatter date 替换/补充日期显示
+document.addEventListener('DOMContentLoaded', function() {
+  // 从页面 meta 标签或 frontmatter data 获取 date
+  const pageContent = document.querySelector('.md-content__inner');
+  if (!pageContent) return;
+  
+  // MkDocs Material 会把 YAML frontmatter 的 date 放在 article 标签的 data-date 属性
+  // 或者我们可以从 page.meta 中获取
+  {% if page and page.meta and page.meta.date %}
+  const dateEl = document.querySelector('.md-source-date');
+  if (dateEl) {
+    dateEl.style.display = '';
+    dateEl.textContent = '{{ page.meta.date }}';
+  }
+  {% endif %}
+});
+</script>
 {% endblock %}
 
 {% block content %}

@@ -41,6 +41,24 @@
       
     
 <script src="../../../overrides/dashboard-data.js"></script>
+<script>
+// 在页面加载后，用 frontmatter date 替换/补充日期显示
+document.addEventListener('DOMContentLoaded', function() {
+  // 从页面 meta 标签或 frontmatter data 获取 date
+  const pageContent = document.querySelector('.md-content__inner');
+  if (!pageContent) return;
+  
+  // MkDocs Material 会把 YAML frontmatter 的 date 放在 article 标签的 data-date 属性
+  // 或者我们可以从 page.meta 中获取
+  
+  const dateEl = document.querySelector('.md-source-date');
+  if (dateEl) {
+    dateEl.style.display = '';
+    dateEl.textContent = '2026-05-05';
+  }
+  
+});
+</script>
 
     
       
@@ -59,6 +77,15 @@
     
     
   <link rel="stylesheet" href="../../../overrides/styles/dashboard.css">
+  <style>
+    /* 显示 frontmatter date 替代 git date */
+    .md-source-date { display: none !important; }
+    .kb-frontmatter-date {
+      font-size: 0.8rem;
+      color: var(--md-default-fg-color--light);
+      margin-left: 0.5rem;
+    }
+  </style>
 
   </head>
   
@@ -2533,7 +2560,7 @@ score: 技术深度9/10 | 实用价值7/10 | 时效性9/10 | 领域匹配7/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月5日 14:28:23 UTC">2026年5月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月5日 14:31:07 UTC">2026年5月5日</span>
   </span>
 
     
