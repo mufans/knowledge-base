@@ -16,3 +16,4 @@
 - [Agent-Skills-Architecture](Agent-Skills-Architecture.md) (2026-05-05)
 - [OpenAI-Low-Latency-Voice-AI](OpenAI-Low-Latency-Voice-AI.md) (2026-05-05)
 - [AI-Junior-Developer-Crisis](AI-Junior-Developer-Crisis.md) (2026-05-05)
+- [Computer-Use-Cost-Analysis](Computer-Use-Cost-Analysis.md) (2026-05-06)

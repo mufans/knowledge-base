@@ -447,3 +447,14 @@
 - **跳过**: 1篇（原因：score < 7）
 - **质量检查**: 61篇总计，14通过，13警告，34失败（历史遗留问题）
 - **Dashboard**: 已更新
+
+## 2026-05-06
+
+- 2026-05-06 | ingest | raw/inbox/2026-05-06-新闻热点.md + raw/inbox/2026-05-06-社交媒体.md | 创建wiki/entities/GLM-5V-Turbo.md（自评8.10）
+- 2026-05-06 | ingest | raw/inbox/2026-05-06-新闻热点.md | 创建wiki/sources/Computer-Use-Cost-Analysis.md（自评8.85）
+- 2026-05-06 | ingest | raw/inbox/2026-05-06-新闻热点.md | 创建wiki/entities/Room-3.md（自评8.00）
+- 2026-05-06 | update | raw/inbox/2026-05-06-技术动态.md | 更新wiki/sources/AI-Code-Tool-Pricing-2026.md（合并了AI编程成本新文章）
+- 2026-05-06 | skip | raw/inbox/2026-05-06-GitHub项目.md | 已有页面覆盖（deer-flow、CopilotKit等），其余项目信息量不足<7.0
+- 2026-05-06 | skip | raw/inbox/2026-05-06-新闻热点.md | Chrome隐私/iOS Wallet/内核漏洞等超出研究范围或技术深度不足
+- 2026-05-06 | skip | raw/inbox/2026-05-06-技术动态.md | Ghostty已有页面且无实质更新、VS Code Copilot等功能罗列无深度
+- 2026-05-06 | skip | raw/inbox/2026-05-06-社交媒体.md | Gemma 4/Airbyte Agents等仅标题提及无技术细节，<7.0

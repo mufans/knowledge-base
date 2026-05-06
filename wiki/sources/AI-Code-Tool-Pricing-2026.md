@@ -2,7 +2,7 @@
 title: "AI 代码工具涨价潮: Copilot、Claude 成本分析"
 category: "sources"
 tags: ["定价", "Copilot", "Claude", "成本"]
-rating: 7.5
+rating: 8.5
 description: "2026年 AI 代码工具涨价潮分析，Copilot 和 Claude 成本对比"
 date: "2026-04-29"
 ---
@@ -51,3 +51,9 @@ date: "2026-04-29"
    - Claude Code → DeepSeek V4 + 本地Agent
    - 关注开源替代方案的成本优势
 4. **团队规范**: 制定AI工具使用规范，避免"什么都问AI"的低效模式
+
+### 2026-05-06 更新
+
+InfoQ发布后续报道[《AI 写代码太烧钱了》](https://www.infoq.cn/article/ai-coding-cost-analysis)，进一步验证了AI编程成本持续上涨的趋势。文章核心观点：Copilot和Claude同步涨价后，部分企业开始重新评估"AI替代程序员"的经济性——当AI工具账单接近甚至超过程序员薪资的一定比例时，"不如把程序员请回来"不再是笑话。
+
+这与[Computer-Use-Cost-Analysis](Computer-Use-Cost-Analysis.md)的实测数据形成互证：视觉Agent方案的成本是结构化方案的45倍。两篇文章共同指向2026年AI应用的核心矛盾——**能力在涨，成本也在涨，ROI计算不再是可选项而是必选项**。
