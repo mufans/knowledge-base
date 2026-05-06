@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-06 21:02:51
-// Total articles: 61
+// Generated: 2026-05-06 22:06:04
+// Total articles: 64
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -279,6 +279,21 @@ window.__kb_articles = [
     "url": "wiki/entities/OpenClaw"
   },
   {
+    "title": "Room 3.0：Kotlin优先、异步、多平台持久化库",
+    "category": "entities",
+    "tags": [
+      "Room",
+      "Android",
+      "KMP",
+      "SQLite",
+      "Kotlin"
+    ],
+    "rating": 8.5,
+    "description": "Google发布Room 3.0重大更新，全面转向Kotlin-only代码生成、KSP、协程优先模型，并扩展到JS/WASM平台",
+    "date": "2026-05-06",
+    "url": "wiki/entities/Room-3"
+  },
+  {
     "title": "Zed 1.0",
     "category": "entities",
     "tags": [
@@ -290,6 +305,20 @@ window.__kb_articles = [
     "description": "Zed 1.0 编辑器分析",
     "date": "2026-05-03",
     "url": "wiki/entities/Zed-1.0"
+  },
+  {
+    "title": "AI 代码工具涨价潮: Copilot、Claude 成本分析",
+    "category": "sources",
+    "tags": [
+      "定价",
+      "Copilot",
+      "Claude",
+      "成本"
+    ],
+    "rating": 8.5,
+    "description": "2026年 AI 代码工具涨价潮分析，Copilot 和 Claude 成本对比",
+    "date": "2026-04-29",
+    "url": "wiki/sources/AI-Code-Tool-Pricing-2026"
   },
   {
     "title": "Agent 技能架构设计方法论",
@@ -318,6 +347,20 @@ window.__kb_articles = [
     "description": "CISA/NSA 发布的 AI Agent 安全部署指南",
     "date": "2026-05-03",
     "url": "wiki/sources/CISA-NSA-Agent-Security"
+  },
+  {
+    "title": "Computer Use成本分析：视觉Agent比结构化API贵45倍",
+    "category": "sources",
+    "tags": [
+      "Computer-Use",
+      "Vision-Agent",
+      "Cost-Analysis",
+      "API-Agent"
+    ],
+    "rating": 8.5,
+    "description": "Reflex实测对比发现，视觉Agent（browser-use）完成同一任务消耗551k token/53步，而API Agent仅需12k token/8步，成本差距45倍",
+    "date": "2026-05-06",
+    "url": "wiki/sources/Computer-Use-Cost-Analysis"
   },
   {
     "title": "Claude Context 源码分析",
@@ -464,6 +507,20 @@ window.__kb_articles = [
     "description": "Agent应用的前端框架，提出AG-UI协议标准化Agent与UI的通信，支持React和Angular",
     "date": "2026-05-05",
     "url": "wiki/entities/CopilotKit"
+  },
+  {
+    "title": "GLM-5V-Turbo：面向多模态Agent的原生基础模型",
+    "category": "entities",
+    "tags": [
+      "GLM-5V",
+      "Multimodal-Agent",
+      "Vision-Language-Model",
+      "智谱AI"
+    ],
+    "rating": 8.0,
+    "description": "智谱AI发布面向多模态Agent场景的原生视觉语言模型，突破传统VLM在Agent任务中的能力瓶颈",
+    "date": "2026-05-06",
+    "url": "wiki/entities/GLM-5V-Turbo"
   },
   {
     "title": "Hy-MT手机端离线翻译模型",
@@ -662,20 +719,6 @@ window.__kb_articles = [
     "description": "Open Design 本地优先的 AI 设计工具",
     "date": "2026-04-29",
     "url": "wiki/entities/open-design"
-  },
-  {
-    "title": "AI 代码工具涨价潮: Copilot、Claude 成本分析",
-    "category": "sources",
-    "tags": [
-      "定价",
-      "Copilot",
-      "Claude",
-      "成本"
-    ],
-    "rating": 7.5,
-    "description": "2026年 AI 代码工具涨价潮分析，Copilot 和 Claude 成本对比",
-    "date": "2026-04-29",
-    "url": "wiki/sources/AI-Code-Tool-Pricing-2026"
   },
   {
     "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
