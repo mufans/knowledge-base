@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-05 22:34:39
-// Total articles: 60
+// Generated: 2026-05-06 20:02:28
+// Total articles: 61
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -158,6 +158,21 @@ window.__kb_articles = [
     "description": "基于 AST 的 AI 代码编辑技术，绕过 DOM 实现精准代码操作",
     "date": "2026-05-03",
     "url": "wiki/concepts/AST-Driven-AI-Editing"
+  },
+  {
+    "title": "Agent MetaSKILLs",
+    "category": "concepts",
+    "tags": [
+      "agent",
+      "工作流",
+      "skill系统",
+      "starlark",
+      "可重复任务"
+    ],
+    "rating": 8.5,
+    "description": "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题",
+    "date": "2026-05-06",
+    "url": "wiki/concepts/Agent-MetaSKILLs"
   },
   {
     "title": "Claude Ecosystem Tools",
