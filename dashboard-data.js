@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-06 22:30:27
-// Total articles: 64
+// Generated: 2026-05-07 20:02:18
+// Total articles: 65
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -277,6 +277,22 @@ window.__kb_articles = [
     "description": "多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施",
     "date": "2026-04-24",
     "url": "wiki/entities/OpenClaw"
+  },
+  {
+    "title": "RAGFlow",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS",
+      "RAG",
+      "工具",
+      "框架",
+      "检索增强"
+    ],
+    "rating": 8.5,
+    "description": "tags: #RAG #Agent #OpenSource #RetrievalAugmented #KnowledgeManagement",
+    "date": "2026-05-07",
+    "url": "wiki/entities/RAGFlow"
   },
   {
     "title": "Room 3.0：Kotlin优先、异步、多平台持久化库",
