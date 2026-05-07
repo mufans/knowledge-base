@@ -17,3 +17,6 @@
 - [OpenAI-Low-Latency-Voice-AI](OpenAI-Low-Latency-Voice-AI.md) (2026-05-05)
 - [AI-Junior-Developer-Crisis](AI-Junior-Developer-Crisis.md) (2026-05-05)
 - [Computer-Use-Cost-Analysis](Computer-Use-Cost-Analysis.md) (2026-05-06)
+- [AI生成代码的知识产权归属](AI生成代码的知识产权归属.md) (2026-05-07)
+- [AI-Agent沙箱方案讨论](AI-Agent沙箱方案讨论.md) (2026-05-07)
+- [GLM-5-Scaling-Pain](GLM-5-Scaling-Pain.md) (2026-05-07)

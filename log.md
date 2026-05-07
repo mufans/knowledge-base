@@ -1,5 +1,17 @@
 # Knowledge Base Log
 
+## 2026年5月7日
+- 历史知识提炼（第3批，21篇）
+  - 创建: sources/GLM-5-Scaling-Pain(9.28)、entities/Goose-Agent(7.53)、entities/Google-TPU-8t-8i(7.10)
+  - 跳过(已有覆盖): deer-flow、trycua-cua、Hermes-Agent、mattpocock-skills、Agent-MetaSKILLs
+  - 跳过(领域不匹配/技术深度不足): gemini-31-flash-tts(TTS非核心)、LlamaFactory(微调框架非Agent核心)、JeecgBoot(低代码平台)、Khoj(第二大脑偏工具)、OpenHands(已有提及无新内容)、AgentGPT(较老项目)、数学方法论文(偏学术)、Transformers简洁性(纯理论)、Blender AI政策(非技术)、Gemini Webhooks(小众API)、光子深度学习(2021年过时)
+  - 跳过(信息不足): awesome-codex-skills(与mattpocock-skills重叠)、claude-code-templates(配置工具技术深度有限)
+  - 更新: sources/index.md、entities/index.md
+- 历史知识提炼（第1批） | 21篇处理 | 创建8个wiki页面，跳过13篇
+  - 创建 entities: mem0(7.95)、nanobot(7.50)、pi-mono(8.00)、GitNexus(8.15)、fabrica(7.50)、Mirror-AI(7.65)
+  - 创建 sources: AI生成代码的知识产权归属(7.90)、AI-Agent沙箱方案讨论(7.45)
+  - 跳过（与研究范围无关/价值不足）: google-translate-20年、claude-creative-work、talkie-13b、trading-agents-cn、chrome-skills、daily-stock-analysis、porting-microgpt、sectorllm、nvidia-personaplex、langchain、patchy631-ai-engineering-hub、git-submodules-approach、vibe-coding-course
+
 ## 2026年5月6日
 - 技术新闻热点采集 | 10条（5类各2条） | 来源：Hacker News、Solidot、InfoQ、36氪快讯 | 保存 raw/inbox/2026-05-06-新闻热点.md | 重点：GLM-5V-Turbo多模态Agent、Anthropic金融AI Agent、Chrome静默安装4GB模型、iOS 27 Wallet开放、Copy Fail内核提权漏洞
 
@@ -500,3 +512,39 @@
 
 - 2026-05-07 | ingest | ai-knowledge-base/articles/2026-05-07-infiniflowragflow.json | 创建 wiki/entities/RAGFlow.md（自评8.35）
 - 2026-05-07 | skip | ai-knowledge-base/articles/2026-05-07-5-gardening-tips-you-can-try-right-in-search.json | 低分跳过（score 5 < 7，Google园艺搜索，与研究方向无关）
+
+## 2026-05-07 | 知识提炼（第2批，21篇）
+
+### 创建页面（8篇）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-browser-usebrowser-use.json | 创建 wiki/entities/browser-use.md（自评7.95）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-langgeniusdify.json | 创建 wiki/entities/Dify.md（自评8.35）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-foundationagentsmetagpt.json | 创建 wiki/entities/MetaGPT.md（自评7.85）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-the-design-of-ai-memory-systems.json | 创建 wiki/concepts/AI-Memory-Systems.md（自评8.70）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-continuedevcontinue.json | 创建 wiki/entities/Continue.md（自评7.50）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-shubhamsabooawesome-llm-apps.json | 创建 wiki/entities/awesome-llm-apps.md（自评7.10）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-cherryhqcherry-studio.json | 创建 wiki/entities/Cherry-Studio.md（自评7.15）
+- 2026-05-07 | ingest | ai-knowledge-base/articles/2026-04-29-zhayujiecowagent.json | 创建 wiki/entities/CowAgent.md（自评7.35）
+
+### 跳过（13篇）
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-a-new-way-to-explore-the-web-with-ai-mode-in-chrome.json | Chrome AI Mode产品功能，低技术深度
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-auto-architecture-karpathy-loop.json | AI for CPU硬件设计，非核心研究方向
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-heres-how-our-tpus-power-increasingly-demanding-ai-workloads.json | Google TPU营销博客，无实质技术内容
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-how-chatgpt-serves-ads.json | ChatGPT广告归因分析，非技术架构
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-keep-aiops-alert-management.json | AIOps运维平台，与研究方向关联度低
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-new-ways-to-create-personalized-images-in-the-gemini-app.json | Gemini产品功能，低技术深度
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-openai-models-amazon-bedrock.json | 商业新闻，无技术架构细节
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-project-glasswing-securing-critical-software-for-the-ai-era.json | 软件安全项目，边际相关性
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-trading-agents-framework.json | 金融交易领域，与研究方向无关
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-04-29-vibevoice-open-source-voice-ai.json | 语音AI，无移动端/Agent核心关联
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-05-01-supersimple-lightweight-opencode-profile-for-routine-dev-wor.json | 低分跳过（自评6.65 < 7.0）
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-05-05-openmythos-a-theoretical-reconstruction-of-the-claude-mythos.json | Claude架构推测性重建，非实用技术内容
+- 2026-05-07 | skip | ai-knowledge-base/articles/2026-05-05-the-latest-ai-news-we-announced-in-april-2026.json | Google AI月度新闻汇总，无深度内容
+
+## 2026-05-07 | 知识提炼（每日inbox）
+
+- 2026-05-07 | ingest | raw/inbox/2026-05-07-新闻热点.md + raw/inbox/2026-05-07-社交媒体.md | 创建 wiki/concepts/Vibe-Coding-Agent-Engineering-Convergence.md（自评8.60）
+- 2026-05-07 | ingest | raw/inbox/2026-05-07-新闻热点.md + raw/inbox/2026-05-07-社交媒体.md | 创建 wiki/entities/Tilde-run.md（自评7.65）
+- 2026-05-07 | update | raw/inbox/2026-05-07-新闻热点.md | 更新 wiki/sources/AI-Agent沙箱方案讨论.md（合并Tilde.run事务性FS新内容）
+- 2026-05-07 | update | raw/inbox/2026-05-07-技术动态.md | 更新 wiki/sources/AI-Code-Tool-Pricing-2026.md（合并42%AI代码数据+图灵奖SQL观点）
+- 2026-05-07 | skip | raw/inbox/2026-05-07-GitHub项目.md | 低分跳过（thunderbit ⭐12太小/LifeManga不匹配/AIEden概念性太强/wafkiller不匹配/wallet-recovery不匹配）
+- 2026-05-07 | skip | raw/inbox/2026-05-07-AI论文.md | 低分跳过（论文摘要信息不足，ESARBench~6.5/BlenderRAG~6/Chain-of-Evidence~7但缺乏实现细节/T²PO~6.5）

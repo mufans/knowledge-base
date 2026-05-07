@@ -20,3 +20,5 @@
 - [Client-Side-Tool-Calling](Client-Side-Tool-Calling.md) (2026-05-03)
 - [TNL-Persistent-Plan-Mode](TNL-Persistent-Plan-Mode.md) (2026-05-03)
 - [AST-Driven-AI-Editing](AST-Driven-AI-Editing.md) (2026-05-03)
+- [AI-Memory-Systems](AI-Memory-Systems.md) (2026-05-07)
+- [Vibe-Coding-Agent-Engineering-Convergence](Vibe-Coding-Agent-Engineering-Convergence.md) (2026-05-07)
