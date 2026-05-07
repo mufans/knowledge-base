@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-07 20:02:18
-// Total articles: 65
+// Generated: 2026-05-07 22:04:47
+// Total articles: 86
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -28,6 +28,22 @@ window.__kb_articles = [
     "description": "LLM Wiki 大语言模型知识库",
     "date": "2026-04-26",
     "url": "wiki/entities/llm_wiki"
+  },
+  {
+    "title": "AI Memory Systems",
+    "category": "concepts",
+    "tags": [
+      "Agent",
+      "Context",
+      "Memory",
+      "Prompt",
+      "RAG",
+      "记忆管理"
+    ],
+    "rating": 9.0,
+    "description": "tags: #AgentMemory #LongTermMemory #RAG #MemoryArchitecture",
+    "date": "2026-05-07",
+    "url": "wiki/concepts/AI-Memory-Systems"
   },
   {
     "title": "andrej-karpathy-skills 深度分析报告",
@@ -201,6 +217,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Skill-Auto-Creation"
   },
   {
+    "title": "Vibe Coding与Agent工程融合：开发者角色的重新定义",
+    "category": "concepts",
+    "tags": [
+      "Vibe-Coding",
+      "Agentic-Engineering",
+      "AI-Development",
+      "Developer-Experience"
+    ],
+    "rating": 8.5,
+    "description": "Simon Willison分析Vibe Coding与Agent工程正在融合，开发者需要同时掌握直觉式AI编程和系统化Agent设计",
+    "date": "2026-05-07",
+    "url": "wiki/concepts/Vibe-Coding-Agent-Engineering-Convergence"
+  },
+  {
     "title": "弱模型协作架构",
     "category": "concepts",
     "tags": [
@@ -212,6 +242,45 @@ window.__kb_articles = [
     "description": "弱模型协作架构，低成本实现复杂任务的模型编排策略",
     "date": "2026-05-01",
     "url": "wiki/concepts/Weak-Model-Orchestration"
+  },
+  {
+    "title": "Continue",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "开源项目"
+    ],
+    "rating": 8.5,
+    "description": "tags: #AICodeReview #CI-CD #TypeScript #DeveloperTools",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Continue"
+  },
+  {
+    "title": "CowAgent",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "开源项目"
+    ],
+    "rating": 8.5,
+    "description": "tags: #AIAssistant #MultiPlatform #AgentSkills #DeepSeek",
+    "date": "2026-05-07",
+    "url": "wiki/entities/CowAgent"
+  },
+  {
+    "title": "Dify",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS",
+      "工具"
+    ],
+    "rating": 8.5,
+    "description": "tags: #AgentPlatform #RAG #Workflow #TypeScript #VisualProgramming",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Dify"
   },
   {
     "title": "Fewshell",
@@ -253,6 +322,19 @@ window.__kb_articles = [
     "url": "wiki/entities/GoClick"
   },
   {
+    "title": "Goose Agent",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS",
+      "工具"
+    ],
+    "rating": 8.5,
+    "description": "tags: #AI-Agent #MCP #Rust #Open-Source",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Goose-Agent"
+  },
+  {
     "title": "Kora: AI原生OS层",
     "category": "entities",
     "tags": [
@@ -264,6 +346,20 @@ window.__kb_articles = [
     "description": "Kora AI 原生操作系统层设计",
     "date": "2026-05-03",
     "url": "wiki/entities/Kora-AI-Native-OS"
+  },
+  {
+    "title": "MetaGPT",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "GitHub",
+      "OpenAI",
+      "框架"
+    ],
+    "rating": 8.5,
+    "description": "tags: #MultiAgent #SoftwareDevelopment #SOP #Python",
+    "date": "2026-05-07",
+    "url": "wiki/entities/MetaGPT"
   },
   {
     "title": "OpenClaw",
@@ -310,6 +406,20 @@ window.__kb_articles = [
     "url": "wiki/entities/Room-3"
   },
   {
+    "title": "Tilde.run：事务性版本化文件系统的Agent沙箱",
+    "category": "entities",
+    "tags": [
+      "Agent-Sandbox",
+      "Transactional-FS",
+      "Version-Control",
+      "AI-Safety"
+    ],
+    "rating": 8.5,
+    "description": "面向AI Agent的沙箱环境，提供事务性版本化文件系统，支持代码变更的原子提交和回滚",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Tilde-run"
+  },
+  {
     "title": "Zed 1.0",
     "category": "entities",
     "tags": [
@@ -321,6 +431,19 @@ window.__kb_articles = [
     "description": "Zed 1.0 编辑器分析",
     "date": "2026-05-03",
     "url": "wiki/entities/Zed-1.0"
+  },
+  {
+    "title": "AI Agent沙箱方案讨论",
+    "category": "sources",
+    "tags": [
+      "安全",
+      "源码分析",
+      "论文"
+    ],
+    "rating": 8.5,
+    "description": "tags: #Agent-Security #Sandbox #Docker #VM",
+    "date": "2026-05-07",
+    "url": "wiki/sources/AI-Agent沙箱方案讨论"
   },
   {
     "title": "AI 代码工具涨价潮: Copilot、Claude 成本分析",
@@ -377,6 +500,19 @@ window.__kb_articles = [
     "description": "Reflex实测对比发现，视觉Agent（browser-use）完成同一任务消耗551k token/53步，而API Agent仅需12k token/8步，成本差距45倍",
     "date": "2026-05-06",
     "url": "wiki/sources/Computer-Use-Cost-Analysis"
+  },
+  {
+    "title": "GLM 5 Scaling Pain",
+    "category": "sources",
+    "tags": [
+      "书单",
+      "源码分析",
+      "论文"
+    ],
+    "rating": 8.5,
+    "description": "tags: #LLM-Inference #KV-Cache #Race-Condition #Coding-Agent #Speculative-Decoding",
+    "date": "2026-05-07",
+    "url": "wiki/sources/GLM-5-Scaling-Pain"
   },
   {
     "title": "Claude Context 源码分析",
@@ -511,6 +647,18 @@ window.__kb_articles = [
     "url": "wiki/concepts/TNL-Persistent-Plan-Mode"
   },
   {
+    "title": "Cherry Studio",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具"
+    ],
+    "rating": 8.0,
+    "description": "tags: #AIClient #MultiModel #TypeScript #DesktopApp",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Cherry-Studio"
+  },
+  {
     "title": "CopilotKit: Agent前端栈与AG-UI协议",
     "category": "entities",
     "tags": [
@@ -552,6 +700,31 @@ window.__kb_articles = [
     "url": "wiki/entities/Hy-MT-Offline-Translation"
   },
   {
+    "title": "awesome llm apps",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "框架"
+    ],
+    "rating": 8.0,
+    "description": "tags: #LLMApps #AgentExamples #RAG #Python #ReferenceCollection",
+    "date": "2026-05-07",
+    "url": "wiki/entities/awesome-llm-apps"
+  },
+  {
+    "title": "browser use",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "框架"
+    ],
+    "rating": 8.0,
+    "description": "tags: #BrowserAgent #ComputerUse #Playwright #Python",
+    "date": "2026-05-07",
+    "url": "wiki/entities/browser-use"
+  },
+  {
     "title": "Claude Context",
     "category": "entities",
     "tags": [
@@ -563,6 +736,32 @@ window.__kb_articles = [
     "description": "Claude Context 上下文管理工具",
     "date": "2026-04-24",
     "url": "wiki/entities/claude-context"
+  },
+  {
+    "title": "mem0",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "开源项目"
+    ],
+    "rating": 8.0,
+    "description": "tags: #Agent-Memory #RAG #Personalization",
+    "date": "2026-05-07",
+    "url": "wiki/entities/mem0"
+  },
+  {
+    "title": "pi mono",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "终端"
+    ],
+    "rating": 8.0,
+    "description": "tags: #AI-Agent #TypeScript #LLM-API #Coding-Agent",
+    "date": "2026-05-07",
+    "url": "wiki/entities/pi-mono"
   },
   {
     "title": "AI正在掏空初级开发者培养渠道",
@@ -672,6 +871,45 @@ window.__kb_articles = [
     "url": "wiki/entities/DeepSeek-V4"
   },
   {
+    "title": "GitNexus",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "开源项目"
+    ],
+    "rating": 7.5,
+    "description": "tags: #Code-Intelligence #Graph-RAG #Zero-Server #Knowledge-Graph",
+    "date": "2026-05-07",
+    "url": "wiki/entities/GitNexus"
+  },
+  {
+    "title": "Google TPU 8t 8i",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "开源项目"
+    ],
+    "rating": 7.5,
+    "description": "tags: #TPU #AI-Infrastructure #Agentic-AI #Google-Cloud",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Google-TPU-8t-8i"
+  },
+  {
+    "title": "Mirror AI",
+    "category": "entities",
+    "tags": [
+      "安全",
+      "工具",
+      "终端"
+    ],
+    "rating": 7.5,
+    "description": "tags: #AI-Agent #Desktop-Agent #MCP #Tool-Use",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Mirror-AI"
+  },
+  {
     "title": "Deer-Flow: 字节跳动长周期SuperAgent框架",
     "category": "entities",
     "tags": [
@@ -683,6 +921,20 @@ window.__kb_articles = [
     "description": "字节跳动 Deer-Flow 长周期 SuperAgent 框架",
     "date": "2026-04-29",
     "url": "wiki/entities/deer-flow"
+  },
+  {
+    "title": "fabrica",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "框架",
+      "终端"
+    ],
+    "rating": 7.5,
+    "description": "tags: #Coding-Agent #Terminal #Minimal #Vibe-Coding",
+    "date": "2026-05-07",
+    "url": "wiki/entities/fabrica"
   },
   {
     "title": "Harmonist: 零依赖Agent编排框架",
@@ -724,6 +976,19 @@ window.__kb_articles = [
     "url": "wiki/entities/ml-intern"
   },
   {
+    "title": "nanobot",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具",
+      "框架"
+    ],
+    "rating": 7.5,
+    "description": "tags: #AI-Agent #Lightweight #Multi-LLM",
+    "date": "2026-05-07",
+    "url": "wiki/entities/nanobot"
+  },
+  {
     "title": "Open Design: 本地优先的AI设计工具",
     "category": "entities",
     "tags": [
@@ -735,6 +1000,19 @@ window.__kb_articles = [
     "description": "Open Design 本地优先的 AI 设计工具",
     "date": "2026-04-29",
     "url": "wiki/entities/open-design"
+  },
+  {
+    "title": "AI生成代码的知识产权归属",
+    "category": "sources",
+    "tags": [
+      "书单",
+      "源码分析",
+      "论文"
+    ],
+    "rating": 7.5,
+    "description": "tags: #AI-Code #Copyright #Legal #Coding-Agent",
+    "date": "2026-05-07",
+    "url": "wiki/sources/AI生成代码的知识产权归属"
   },
   {
     "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
