@@ -3,6 +3,7 @@
 知识库中的实体条目索引。
 
 - [Hermes-Agent](Hermes-Agent.md) (2026-04-25)
+- [RAGFlow](RAGFlow.md) (2026-05-07)
 - [LLM Wiki](llm_wiki.md) (2026-04-26)
 - [OpenClaw](OpenClaw.md) (2026-04-24)
 - [claude-context](claude-context.md) (2026-04-24)
