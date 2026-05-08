@@ -1,5 +1,10 @@
 # Knowledge Base Log
 
+## 2026年5月8日
+- ai-knowledge-base 同步 | 2篇新文章
+  - 入库(1篇): entities/Pi-Agent-Toolkit（earendil-works/pi，46k星AI Agent工具包，score 8）
+  - 跳过(1篇): jlearn（J语言ML库，score 6 < 7阈值；且与AI Agent研究方向无关）
+
 ## 2026年5月7日
 - 历史知识提炼（第3批，21篇）
   - 创建: sources/GLM-5-Scaling-Pain(9.28)、entities/Goose-Agent(7.53)、entities/Google-TPU-8t-8i(7.10)
@@ -540,6 +545,21 @@
 - 2026-05-07 | skip | ai-knowledge-base/articles/2026-05-05-openmythos-a-theoretical-reconstruction-of-the-claude-mythos.json | Claude架构推测性重建，非实用技术内容
 - 2026-05-07 | skip | ai-knowledge-base/articles/2026-05-05-the-latest-ai-news-we-announced-in-april-2026.json | Google AI月度新闻汇总，无深度内容
 
+## 2026年5月8日 每日技术新闻热点
+- **采集时间**: 2026-05-08 08:00 CST
+- **采集来源**: Hacker News（成功）、Solidot（成功）、InfoQ（成功）、36氪快讯（成功）、GitHub Trending脚本（失败，API限流）
+- **分类统计**: AI/大模型(2条)、编程/开发工具(2条)、移动端(2条)、云原生/后端(2条)、开源/硬件(2条)
+- **文件路径**: raw/inbox/2026-05-08-新闻热点.md
+- **推送状态**: 已准备Top 5新闻，等待钉钉推送
+- **重点内容**: 
+  1. [AI slop is killing online communities](https://rmoff.net/2026/05/06/ai-slop-is-killing-online-communities/) - AI内容泛滥正在摧毁在线社区生态，引发技术圈对AI内容质量的深度反思
+  2. [第一个全职AI CEO来了！29岁前编程神童正让AI替他管理千人公司](https://www.infoq.cn/article/F7cOsyYyhcBaHUYD5kYx) - 29岁编程天才创立的公司任命AI担任全职CEO，标志AI管理实践的突破性进展
+  3. [Agents need control flow, not more prompts](https://bsuh.bearblog.dev/agents-need-control-flow/) - AI Agent需要真正的控制流而非简单的prompt工程，重新定义AI开发范式
+  4. [AI 写代码太烧钱了：Copilot、Claude 一起涨价，不如把程序员请回来？](https://www.infoq.cn/article/XkAoNsINYJhsvJeKcZSa) - AI编程工具成本激增引发行业思考，程序员价值回归的信号
+  5. [软银与英伟达和鸿海磋商，拟开发"日本制造"的AI服务器](https://36kr.com/newsflashes/3799866133536003) - 日本科技巨头联手打造本土AI服务器产业链，移动端AI基础设施迎来新机遇
+- **采集问题**: GitHub Trending脚本遇到API限流失败，已跳过不阻塞其他采集源
+- **备注**: 已尝试proxy_on代理（命令未找到），其他源采集正常
+
 ## 2026-05-07 | 知识提炼（每日inbox）
 
 - 2026-05-07 | ingest | raw/inbox/2026-05-07-新闻热点.md + raw/inbox/2026-05-07-社交媒体.md | 创建 wiki/concepts/Vibe-Coding-Agent-Engineering-Convergence.md（自评8.60）
@@ -548,3 +568,27 @@
 - 2026-05-07 | update | raw/inbox/2026-05-07-技术动态.md | 更新 wiki/sources/AI-Code-Tool-Pricing-2026.md（合并42%AI代码数据+图灵奖SQL观点）
 - 2026-05-07 | skip | raw/inbox/2026-05-07-GitHub项目.md | 低分跳过（thunderbit ⭐12太小/LifeManga不匹配/AIEden概念性太强/wafkiller不匹配/wallet-recovery不匹配）
 - 2026-05-07 | skip | raw/inbox/2026-05-07-AI论文.md | 低分跳过（论文摘要信息不足，ESARBench~6.5/BlenderRAG~6/Chain-of-Evidence~7但缺乏实现细节/T²PO~6.5）
+
+## 2026年5月8日 技术动态采集
+- **采集时间**: 2026-05-08 09:30 CST
+- **采集来源**: InfoQ（成功）、OSChina（内容获取失败）、Dev.to（部分成功）、Reddit ML（JSON请求失败）、Solidot（成功）
+- **采集数量**: 15条
+- **分类统计**: AI与机器学习(5条)、开源项目(2条)、技术架构(2条)、云计算与基础设施(2条)、开发工具(2条)、移动端技术(1条)、硬件与系统(1条)、活动与会议(1条)
+- **文件路径**: raw/inbox/2026-05-08-技术动态.md
+- **推送状态**: 已准备Top 8技术动态，等待钉钉推送
+- **重点内容**: AI数据库安全风险、大模型SQL编写能力、AI编程工具成本上涨、国产模型企业落地障碍、AI管理公司案例、开源项目迁移、开发者大会、GPU厂商活动
+- **失败源**: Reddit ML JSON请求失败、OSChina内容获取不完整、Dev.to内容截断
+- **备注**: proxy_on命令未找到，暂未遇到429错误
+
+## 2026-05-08 社交媒体采集
+
+- **来源**: Hacker News 首页热榜 + HN Algolia API
+- **数量**: 15 条
+- **状态**: Reddit/Twitter 抓取失败（超时/429），HN 数据充足
+- **重点**:
+  - Anthropic NLA：将模型内部激活转译为自然语言，已发现 Claude 安全测试中的隐藏行为
+  - antirez 开源 DeepSeek 4 Flash Metal 推理引擎
+  - Mozilla 用 Claude Mythos 发现 Firefox 大量安全漏洞
+  - Agent 控制流 vs prompt chain 的工程实践讨论
+  - SSE 流式传输的可恢复/可取消/多设备方案
+- **文件**: `raw/inbox/2026-05-08-社交媒体.md`
