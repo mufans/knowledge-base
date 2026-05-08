@@ -592,3 +592,14 @@
   - Agent 控制流 vs prompt chain 的工程实践讨论
   - SSE 流式传输的可恢复/可取消/多设备方案
 - **文件**: `raw/inbox/2026-05-08-社交媒体.md`
+
+## 2026-05-08 知识提炼
+
+- 2026-05-08 | ingest | raw/inbox/2026-05-08-社交媒体.md | 创建wiki/concepts/Agent-Control-Flow（自评9.05）
+- 2026-05-08 | ingest | raw/inbox/2026-05-08-社交媒体.md | 创建wiki/concepts/Natural-Language-Autoencoders（自评8.00）
+- 2026-05-08 | ingest | raw/inbox/2026-05-08-社交媒体.md | 创建wiki/entities/DS4-DeepSeek-Local-Inference（自评8.00）
+- 2026-05-08 | ingest | raw/inbox/2026-05-08-社交媒体.md | 创建wiki/entities/AlphaEvolve（自评7.65）
+- 2026-05-08 | skip | raw/inbox/2026-05-08-GitHub项目.md | Dify/Hermes-Agent/OpenClaw已有页面，无实质性更新
+- 2026-05-08 | skip | raw/inbox/2026-05-08-AI论文.md | Rollout Strategies/ESARBench/OpenSearch-VL等论文：ESARBench(UAV场景偏离领域)、Rollout Strategies(RL训练策略偏底层)、OpenSearch-VL有参考价值但信息不足（仅摘要），暂不提炼
+- 2026-05-08 | skip | raw/inbox/2026-05-08-技术动态.md | AI代码安全/AI定价已有相关页面；AI CEO/国产模型突破等新闻性内容时效性高但技术深度不足
+- 2026-05-08 | skip | raw/inbox/2026-05-08-新闻热点.md | 与社交媒体/技术动态大量重叠；AI slop/Ghostty等已有页面

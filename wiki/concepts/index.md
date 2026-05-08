@@ -22,3 +22,5 @@
 - [AST-Driven-AI-Editing](AST-Driven-AI-Editing.md) (2026-05-03)
 - [AI-Memory-Systems](AI-Memory-Systems.md) (2026-05-07)
 - [Vibe-Coding-Agent-Engineering-Convergence](Vibe-Coding-Agent-Engineering-Convergence.md) (2026-05-07)
+- [Agent-Control-Flow](Agent-Control-Flow.md) (2026-05-08)
+- [Natural-Language-Autoencoders](Natural-Language-Autoencoders.md) (2026-05-08)

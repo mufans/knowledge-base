@@ -47,3 +47,5 @@
 - [Goose-Agent](Goose-Agent.md) (2026-05-07)
 - [Google-TPU-8t-8i](Google-TPU-8t-8i.md) (2026-05-07)
 - [Tilde-run](Tilde-run.md) (2026-05-07)
+- [DS4-DeepSeek-Local-Inference](DS4-DeepSeek-Local-Inference.md) (2026-05-08)
+- [AlphaEvolve](AlphaEvolve.md) (2026-05-08)
