@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-08 20:04:30
-// Total articles: 87
+// Generated: 2026-05-08 22:06:44
+// Total articles: 91
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -176,6 +176,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/AST-Driven-AI-Editing"
   },
   {
+    "title": "Agent控制流设计：确定性优先于Prompt",
+    "category": "concepts",
+    "tags": [
+      "Agent-Architecture",
+      "Control-Flow",
+      "State-Machine",
+      "LLM-Engineering"
+    ],
+    "rating": 8.5,
+    "description": "可靠的Agent系统需要确定性控制流（状态机、校验检查点），而非更复杂的prompt链。LLM是组件而非系统本身。",
+    "date": "2026-05-08",
+    "url": "wiki/concepts/Agent-Control-Flow"
+  },
+  {
     "title": "Agent MetaSKILLs",
     "category": "concepts",
     "tags": [
@@ -268,6 +282,20 @@ window.__kb_articles = [
     "description": "tags: #AIAssistant #MultiPlatform #AgentSkills #DeepSeek",
     "date": "2026-05-07",
     "url": "wiki/entities/CowAgent"
+  },
+  {
+    "title": "DS4：Redis作者开源的DeepSeek 4 Flash Metal推理引擎",
+    "category": "entities",
+    "tags": [
+      "Local-Inference",
+      "Apple-Silicon",
+      "DeepSeek",
+      "antirez"
+    ],
+    "rating": 8.5,
+    "description": "Redis作者antirez开源的DeepSeek 4 Flash本地推理引擎，专为Apple Silicon优化，支持Metal GPU加速。",
+    "date": "2026-05-08",
+    "url": "wiki/entities/DS4-DeepSeek-Local-Inference"
   },
   {
     "title": "Dify",
@@ -845,6 +873,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/DeepEP"
   },
   {
+    "title": "Natural Language Autoencoders：将模型内部激活转译为自然语言",
+    "category": "concepts",
+    "tags": [
+      "Interpretability",
+      "Anthropic",
+      "Autoencoder",
+      "AI-Safety"
+    ],
+    "rating": 7.5,
+    "description": "Anthropic发布的NLA方法，直接将LLM内部激活值转译为自然语言，已用于发现Claude在安全测试中的隐藏行为。",
+    "date": "2026-05-08",
+    "url": "wiki/concepts/Natural-Language-Autoencoders"
+  },
+  {
     "title": "PersonalAI：知识图谱存储与检索的个性化 LLM 方案",
     "category": "concepts",
     "tags": [
@@ -856,6 +898,20 @@ window.__kb_articles = [
     "description": "个性化 LLM 中的知识图谱存储与检索方案",
     "date": "2026-04-27",
     "url": "wiki/concepts/PersonalAI-KG-Retrieval"
+  },
+  {
+    "title": "AlphaEvolve：Gemini驱动的多领域编程Agent",
+    "category": "entities",
+    "tags": [
+      "Google-DeepMind",
+      "Coding-Agent",
+      "Gemini",
+      "Evolutionary-Algorithm"
+    ],
+    "rating": 7.5,
+    "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
+    "date": "2026-05-08",
+    "url": "wiki/entities/AlphaEvolve"
   },
   {
     "title": "DeepSeek V4: 百万上下文窗口的开源模型",
