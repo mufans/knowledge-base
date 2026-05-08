@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-07 22:30:38
-// Total articles: 86
+// Generated: 2026-05-08 20:04:30
+// Total articles: 87
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -908,6 +908,20 @@ window.__kb_articles = [
     "description": "tags: #AI-Agent #Desktop-Agent #MCP #Tool-Use",
     "date": "2026-05-07",
     "url": "wiki/entities/Mirror-AI"
+  },
+  {
+    "title": "Pi Agent Toolkit",
+    "category": "entities",
+    "tags": [
+      "AI Agent",
+      "编码工具",
+      "TypeScript",
+      "开源"
+    ],
+    "rating": 7.5,
+    "description": "46k星的AI Agent工具包，提供编码Agent CLI、统一LLM API、TUI/Web UI、Slack机器人等全家桶方案",
+    "date": "2026-05-08",
+    "url": "wiki/entities/Pi-Agent-Toolkit"
   },
   {
     "title": "Deer-Flow: 字节跳动长周期SuperAgent框架",
