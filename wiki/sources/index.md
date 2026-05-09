@@ -20,3 +20,4 @@
 - [AI生成代码的知识产权归属](AI生成代码的知识产权归属.md) (2026-05-07)
 - [AI-Agent沙箱方案讨论](AI-Agent沙箱方案讨论.md) (2026-05-07)
 - [GLM-5-Scaling-Pain](GLM-5-Scaling-Pain.md) (2026-05-07)
+- [Teaching-Claude-Why](Teaching-Claude-Why.md) (2026-05-09)

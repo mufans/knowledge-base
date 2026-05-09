@@ -24,3 +24,4 @@
 - [Vibe-Coding-Agent-Engineering-Convergence](Vibe-Coding-Agent-Engineering-Convergence.md) (2026-05-07)
 - [Agent-Control-Flow](Agent-Control-Flow.md) (2026-05-08)
 - [Natural-Language-Autoencoders](Natural-Language-Autoencoders.md) (2026-05-08)
+- [Agentic-Search-Retrieval](Agentic-Search-Retrieval.md) (2026-05-09)
