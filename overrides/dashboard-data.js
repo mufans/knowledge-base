@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-08 22:30:24
-// Total articles: 91
+// Generated: 2026-05-09 22:04:27
+// Total articles: 94
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -860,6 +860,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/AI-Agent-Self-Improving"
   },
   {
+    "title": "Agentic Search 检索范式",
+    "category": "concepts",
+    "tags": [
+      "RAG",
+      "Agentic-Search",
+      "Retrieval",
+      "Information-Extraction"
+    ],
+    "rating": 7.5,
+    "description": "论文提出超越语义相似度的Agent检索新范式，通过直接语料交互替代传统向量匹配",
+    "date": "2026-05-09",
+    "url": "wiki/concepts/Agentic-Search-Retrieval"
+  },
+  {
     "title": "DeepSeek DeepEP",
     "category": "concepts",
     "tags": [
@@ -927,6 +941,19 @@ window.__kb_articles = [
     "url": "wiki/entities/DeepSeek-V4"
   },
   {
+    "title": "GPT-5.5",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "OpenAI",
+      "大模型"
+    ],
+    "rating": 7.5,
+    "description": "GPT-5.5 模型分析",
+    "date": "2026-04-27",
+    "url": "wiki/entities/GPT-5.5"
+  },
+  {
     "title": "GitNexus",
     "category": "entities",
     "tags": [
@@ -964,6 +991,20 @@ window.__kb_articles = [
     "description": "tags: #AI-Agent #Desktop-Agent #MCP #Tool-Use",
     "date": "2026-05-07",
     "url": "wiki/entities/Mirror-AI"
+  },
+  {
+    "title": "Mojo 1.0",
+    "category": "entities",
+    "tags": [
+      "Mojo",
+      "Programming-Language",
+      "AI-Inference",
+      "Performance"
+    ],
+    "rating": 7.5,
+    "description": "Mojo语言发布1.0 Beta，主打AI场景下Python兼容+系统级性能的统一",
+    "date": "2026-05-09",
+    "url": "wiki/entities/Mojo-1.0"
   },
   {
     "title": "Pi Agent Toolkit",
@@ -1098,6 +1139,20 @@ window.__kb_articles = [
     "url": "wiki/sources/Coding-Agents-Critique-2026"
   },
   {
+    "title": "Teaching Claude Why — Anthropic推理透明性研究",
+    "category": "sources",
+    "tags": [
+      "Anthropic",
+      "Interpretability",
+      "Chain-of-Thought",
+      "AI-Safety"
+    ],
+    "rating": 7.5,
+    "description": "Anthropic研究如何让Claude理解并表达推理过程中的因果关系，提升AI决策透明度",
+    "date": "2026-05-09",
+    "url": "wiki/sources/Teaching-Claude-Why"
+  },
+  {
     "title": "PersonalAI: LLM Agent个性化中的知识图谱存储与检索",
     "category": "concepts",
     "tags": [
@@ -1122,19 +1177,6 @@ window.__kb_articles = [
     "description": "8 维度 Skill 量化评估框架，系统化衡量 Agent 技能质量",
     "date": "2026-04-27",
     "url": "wiki/concepts/Skill-Evaluation-Framework"
-  },
-  {
-    "title": "GPT-5.5",
-    "category": "entities",
-    "tags": [
-      "GPT",
-      "OpenAI",
-      "大模型"
-    ],
-    "rating": 7.0,
-    "description": "GPT-5.5 模型分析",
-    "date": "2026-04-27",
-    "url": "wiki/entities/GPT-5.5"
   },
   {
     "title": "Operit: Android最强AI Agent应用",
