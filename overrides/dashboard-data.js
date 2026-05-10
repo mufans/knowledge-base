@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-09 22:04:27
-// Total articles: 94
-// Updated files this run: 0
+// Generated: 2026-05-10 18:39:40
+// Total articles: 95
+// Updated files this run: 1
 window.__kb_articles = [
   {
     "title": "Claude Code v2.1.88 源码深度分析",
@@ -135,6 +135,18 @@ window.__kb_articles = [
     "description": "OpenClaw 源码级深度分析，多通道 Agent 网关实现",
     "date": "2026-04-24",
     "url": "wiki/sources/OpenClaw-源码分析"
+  },
+  {
+    "title": "pi agent rust analysis",
+    "category": "sources",
+    "tags": [
+      "安全",
+      "对比"
+    ],
+    "rating": 9.0,
+    "description": "tags: #Rust #AI-Coding-Agent #Extension-System #Hostcall-Optimization #Structured-Concurrency",
+    "date": "2026-05-10",
+    "url": "wiki/sources/pi-agent-rust-analysis"
   },
   {
     "title": "推荐书单 — 2026年4月",
