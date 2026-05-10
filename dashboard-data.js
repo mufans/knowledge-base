@@ -1,8 +1,23 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-10 18:39:40
-// Total articles: 95
+// Generated: 2026-05-10 18:46:07
+// Total articles: 96
 // Updated files this run: 1
 window.__kb_articles = [
+  {
+    "title": "Pi Agent TypeScript 源码分析",
+    "category": "sources",
+    "tags": [
+      "#AI-Coding-Agent",
+      "#Extension-System",
+      "#Context-Compaction",
+      "#Agent-Architecture",
+      "#TypeScript"
+    ],
+    "rating": 9.8,
+    "description": "tags: #AI-Coding-Agent #Extension-System #Context-Compaction #Agent-Architecture #TypeScript",
+    "date": "2026-05-10",
+    "url": "wiki/sources/pi-agent-ts-analysis"
+  },
   {
     "title": "Claude Code v2.1.88 源码深度分析",
     "category": "entities",

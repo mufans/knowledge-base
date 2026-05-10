@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Reflex实测对比发现，视觉Agent（browser-use）完成同一任务消耗551k token/53步，而API Agent仅需12k token/8步，成本差距45倍">
+        <meta name="description" content="tags: #AI-Coding-Agent #Extension-System #Context-Compaction #Agent-Architecture #TypeScript">
       
       
         <meta name="author" content="mufans">
@@ -23,7 +23,7 @@
     
     
       
-        <title>Computer Use成本分析：视觉Agent比结构化API贵45倍 - Knowledge Base</title>
+        <title>Pi Agent TypeScript 源码分析 - Knowledge Base</title>
       
     
     
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 或者我们可以从 page.meta 中获取const dateEl = document.querySelector('.md-source-date');
   if (dateEl) {
     dateEl.style.display = '';
-    dateEl.textContent = '2026-05-06';
+    dateEl.textContent = '2026-05-10';
   }});
 </script>
 
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div data-md-component="skip">
       
         
-        <a href="#computer-useagentapi45" class="md-skip">
+        <a href="#pi-agent-typescript" class="md-skip">
           Skip to content
         </a>
       
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Computer Use成本分析：视觉Agent比结构化API贵45倍
+              Pi Agent TypeScript 源码分析
             
           </span>
         </div>
@@ -2327,6 +2327,67 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="设计原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 四层分离架构：每层可独立替换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-extension-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Extension 系统：Agent 的"插件架构"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agent-loop-steering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Agent Loop：双循环 + Steering 消息机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-context-compaction-turn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Context Compaction：基于 turn 边界的智能截断
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tree-structured-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tree-Structured Session：非线性对话历史
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2337,6 +2398,67 @@ document.addEventListener('DOMContentLoaded', function() {
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="关键实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 工具系统：Bash 工具的可插拔执行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-system-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. System Prompt 构建：最小化 + 按需组装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-provider-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 多 Provider 支持：15+ 提供商的统一抽象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-session-managerjsonl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Session Manager：JSONL 持久化 + 树结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-skill-agent-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Skill 系统：兼容 Agent Skills 标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2349,10 +2471,60 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="关联分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与 Claude Code 的对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与 Aider 的对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codex-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与 Codex CLI 的对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与已有分析的关联
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         可执行建议
@@ -2360,10 +2532,71 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="可执行建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-extension-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 学习 Extension 模式用于你的 Agent 工具开发
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tree-structured-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tree-Structured Session 模式值得借鉴
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-context-compaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Context Compaction 的文件追踪机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-steering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Steering 消息模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-pi-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Pi Packages 生态
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         自评
@@ -2393,44 +2626,237 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<h1 id="computer-useagentapi45">Computer Use成本分析：视觉Agent比结构化API贵45倍<a class="headerlink" href="#computer-useagentapi45" title="Permanent link">&para;</a></h1>
+<h1 id="pi-agent-typescript">Pi Agent TypeScript 源码分析<a class="headerlink" href="#pi-agent-typescript" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>tags: #Computer-Use #Vision-Agent #Cost-Analysis #API-Agent
-source: <a href="https://reflex.dev/blog/computer-use-is-45x-more-expensive-than-structured-apis/">Reflex Blog</a>
-score: 技术深度9/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 综合 8.8/10</p>
+<p>tags: #AI-Coding-Agent #Extension-System #Context-Compaction #Agent-Architecture #TypeScript
+source: <a href="https://github.com/earendil-works/pi">pi-mono</a> (原任务URL BillSchumacher/pi-agent 已失效，实际仓库为 earendil-works/pi)
+project: <a href="https://github.com/earendil-works/pi">pi</a>
+score: 技术深度9/10 | 实用价值8/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.75/10</p>
+<p>⚠️ 注意：本分析基于 TypeScript 原版（v0.74.0），与已有的 <a href="../pi-agent-rust-analysis/">pi-agent-rust-analysis</a>（Rust 移植版）互为补充。Rust 版聚焦底层性能与安全模型，本文聚焦架构设计和可扩展性。</p>
 </blockquote>
 <h2 id="_1">核心概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>Reflex团队对同一管理后台任务做了严格的A/B测试：Claude Sonnet通过browser-use（截图+点击）完成 vs 通过结构化API完成。结果：<strong>视觉Agent需要53步、551k token，API Agent仅需8步、12k token</strong>，成本差距45倍。更关键的是，视觉Agent在默认prompt下<strong>无法完成任务</strong>——它不会翻页，遗漏了折叠区域下方的数据。</p>
+<p>Pi Agent 是 Mario Zechner（badlogic）开发的<strong>终端 AI 编码 Agent 工具包</strong>，定位为"minimal terminal coding harness"——不是一个封闭产品，而是一个<strong>可自扩展的 Agent 底座</strong>。它采用 monorepo 架构，分为四个核心包：<code>pi-ai</code>（统一 LLM API 层）、<code>pi-agent-core</code>（Agent 运行时）、<code>pi-coding-agent</code>（编码 Agent CLI）、<code>pi-tui</code>（终端 UI 库）。核心设计理念是"让 Agent 适应你的工作流，而不是反过来"——通过 Extension 系统，用户可以注册工具、命令、快捷键、UI 组件、Provider，甚至让 Agent 在运行时自我修改。</p>
 <h2 id="_2">设计原理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>这个 benchmark 揭示了视觉Agent的根本性trade-off：</p>
-<p><strong>为什么团队选视觉Agent？</strong> 不是因为它更好，而是因为给20+内部工具逐一写API/MCP surface的工程成本太高。视觉Agent是"零集成成本"的默认选项。</p>
-<p><strong>视觉Agent的隐性成本：</strong>
-1. <strong>Token消耗爆炸</strong>：每次截图→推理→点击循环都要处理完整视觉信息，而API只传结构化数据
-2. <strong>准确率缺陷</strong>：Agent无法感知"页面没有显示全部数据"，需要详细的14步walkthrough才能完成
-3. <strong>非确定性</strong>：视觉理解存在幻觉风险，同一任务可能需要不同步数</p>
-<p><strong>API Agent的优势</strong>：直接读取分页信息（"page 1 of 4 with 50 results per page"），无需从像素推断。</p>
+<h3 id="1">1. 四层分离架构：每层可独立替换<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<pre><code>┌──────────────────────────────────────┐
+│  pi-coding-agent (CLI + Session)     │  ← 用户交互层
+├──────────────────────────────────────┤
+│  pi-agent-core (Agent Loop + State)  │  ← Agent 运行时
+├──────────────────────────────────────┤
+│  pi-ai (Multi-Provider LLM API)      │  ← LLM 抽象层
+├──────────────────────────────────────┤
+│  pi-tui (Terminal UI)               │  ← 渲染层
+└──────────────────────────────────────┘
+</code></pre>
+<p>这种分离不是过度设计——每一层都有明确的替换场景：
+- <code>pi-ai</code> 支持换 Provider 而不改上层代码（<code>packages/ai/src/providers/</code> 下有 15+ provider 实现）
+- <code>pi-agent-core</code> 可以被嵌入到非终端环境（如 Web UI、chat automation）
+- <code>pi-coding-agent</code> 的 Extension 系统可以在运行时替换任何层的部分行为</p>
+<h3 id="2-extension-agent">2. Extension 系统：Agent 的"插件架构"<a class="headerlink" href="#2-extension-agent" title="Permanent link">&para;</a></h3>
+<p>Pi 的 Extension 系统是其最核心的设计决策。与 Claude Code 的 hooks 或 Aider 的 <code>--commands</code> 不同，Pi 的 Extension 是<strong>一等公民</strong>：</p>
+<pre><code class="language-typescript">// packages/coding-agent/src/core/extensions/types.ts
+export interface ExtensionAPI {
+  on(event: string, handler: ExtensionHandler): void;
+  registerTool&lt;TParams&gt;(tool: ToolDefinition&lt;TParams&gt;): void;
+  registerCommand(name: string, options: ...): void;
+  registerShortcut(shortcut: KeyId, options: ...): void;
+  registerProvider(name: string, config: ProviderConfig): void;
+  sendMessage&lt;T&gt;(message: ...): void;
+  sendUserMessage(content: string, options?: ...): void;
+  // ... 30+ API 方法
+}
+</code></pre>
+<p>Extension 能做什么：
+1. <strong>订阅 30+ 生命周期事件</strong>（<code>session_start</code>, <code>context</code>, <code>tool_call</code>, <code>tool_result</code>, <code>before_provider_request</code> 等）
+2. <strong>注册 LLM 工具</strong>（带 TypeBox schema 验证、自定义渲染、并行/串行执行模式）
+3. <strong>拦截和修改工具调用</strong>（<code>tool_call</code> 事件可以 <code>block</code> 或 mutate <code>input</code>）
+4. <strong>注册 Provider</strong>（运行时动态添加 LLM 提供商，支持 OAuth）
+5. <strong>自定义 UI</strong>（header、footer、widget、overlay、editor 组件）
+6. <strong>注入上下文消息</strong>（<code>before_agent_start</code> 返回 <code>systemPrompt</code> 可以替换每轮的 system prompt）</p>
+<p>关键实现细节：Extension 通过 <code>ExtensionRunner</code> 管理（<code>packages/coding-agent/src/core/extensions/runner.ts</code>），加载时先注册后绑定——<code>loader.ts</code> 负责 JIT 加载和 schema 校验，<code>runner.ts</code> 在绑定后将 stub actions 替换为真实实现。这种两阶段初始化确保 Extension 加载顺序无关。</p>
+<h3 id="3-agent-loop-steering">3. Agent Loop：双循环 + Steering 消息机制<a class="headerlink" href="#3-agent-loop-steering" title="Permanent link">&para;</a></h3>
+<p><code>packages/agent/src/agent-loop.ts</code> 实现了核心 Agent 循环，采用<strong>外循环（follow-up）+ 内循环（tool call + steering）</strong>的双层结构：</p>
+<pre><code class="language-typescript">// 简化后的核心循环结构
+while (true) {  // 外循环：follow-up 消息
+  while (hasMoreToolCalls || pendingMessages.length &gt; 0) {  // 内循环
+    // 1. 注入 steering 消息
+    // 2. 流式调用 LLM
+    // 3. 执行工具调用（支持并行）
+    // 4. 检查是否应该停止
+  }
+  // 等待 follow-up 消息
+  pendingMessages = await getFollowUpMessages();
+  if (!pendingMessages.length) break;
+}
+</code></pre>
+<p>Steering vs Follow-up 的区分是 Pi 的独特设计：
+- <strong>Steering</strong>（<code>QueueMode</code>）：Agent 流式输出时用户提交的消息，会<strong>中断当前响应</strong>并注入上下文
+- <strong>Follow-up</strong>：Agent 完成一轮后用户提交的消息，会作为新的用户消息开始下一轮</p>
+<p>这让用户可以在 Agent 思考时纠正方向，而不是等它跑完。</p>
+<h3 id="4-context-compaction-turn">4. Context Compaction：基于 turn 边界的智能截断<a class="headerlink" href="#4-context-compaction-turn" title="Permanent link">&para;</a></h3>
+<p><code>packages/coding-agent/src/core/compaction/compaction.ts</code> 实现了上下文压缩，核心算法：</p>
+<pre><code class="language-typescript">// 默认参数
+export const DEFAULT_COMPACTION_SETTINGS: CompactionSettings = {
+  enabled: true,
+  reserveTokens: 16384,    // 距离上下文窗口上限 16K tokens 触发
+  keepRecentTokens: 20000, // 保留最近 20K tokens 不压缩
+};
+</code></pre>
+<p><strong>Cut Point 检测算法</strong>（<code>findCutPoint</code>）：
+1. 从最新消息<strong>向前遍历</strong>，累积估算 token 数
+2. 只在<strong>合法切点</strong>截断：user、assistant、bashExecution、custom 消息（绝不在 toolResult 处切断）
+3. 如果切点落在 assistant 消息（带 tool calls），则该轮的 toolResults 会被保留（因为它们紧跟 assistant 消息）
+4. 截断前后的消息序列化为对话摘要，由 LLM 生成 summary</p>
+<p><strong>文件操作追踪</strong>：压缩时自动提取 <code>read</code>/<code>write</code>/<code>edit</code> 工具的文件路径，生成 <code>&lt;read-files&gt;</code> 和 <code>&lt;modified-files&gt;</code> XML 标签附加到摘要中，确保压缩后 Agent 仍然知道哪些文件被操作过。</p>
+<h3 id="5-tree-structured-session">5. Tree-Structured Session：非线性对话历史<a class="headerlink" href="#5-tree-structured-session" title="Permanent link">&para;</a></h3>
+<p>与 Claude Code 的线性 session 不同，Pi 将对话历史存储为<strong>树结构</strong>（<code>SessionManager</code>）。用户可以：
+- <code>/tree</code> 命令导航到任何历史节点
+- 从任意节点 fork 出新分支
+- 每个分支都有独立的 <code>branch_summary</code></p>
+<p>这个设计来源于一个实际需求：Agent 走错方向时，用户不想放弃整个 session，只想从某个决策点重新开始。</p>
 <h2 id="_3">关键实现<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>测试框架</strong>：同一Claude Sonnet模型，同一admin panel（react-admin Posters Galore demo），同一任务</li>
-<li><strong>任务内容</strong>：找到订单最多的Smith客户→定位其最新pending订单→接受所有pending评论→标记订单为delivered</li>
-<li><strong>视觉Agent路径</strong>：browser-use 0.12，视觉模式截图+点击</li>
-<li><strong>API Agent路径</strong>：每个tool映射到应用State的event handler，Agent读取结构化响应</li>
-<li><strong>代码开源</strong>：<a href="https://github.com/reflex-dev/agent-benchmark">github.com/reflex-dev/agent-benchmark</a></li>
-<li><strong>HN热度</strong>：283分+254条讨论，社区高度关注</li>
-</ul>
+<h3 id="1-bash">1. 工具系统：Bash 工具的可插拔执行<a class="headerlink" href="#1-bash" title="Permanent link">&para;</a></h3>
+<pre><code class="language-typescript">// packages/coding-agent/src/core/tools/bash.ts
+export interface BashOperations {
+  exec: (
+    command: string,
+    cwd: string,
+    options: {
+      onData: (data: Buffer) =&gt; void;
+      signal?: AbortSignal;
+      timeout?: number;
+      env?: NodeJS.ProcessEnv;
+    },
+  ) =&gt; Promise&lt;{ exitCode: number | null }&gt;;
+}
+</code></pre>
+<p>Bash 工具将命令执行抽象为 <code>BashOperations</code> 接口。默认实现用 <code>child_process.spawn</code>，但 Extension 可以通过 <code>user_bash</code> 事件替换为 SSH 远程执行、Docker 容器内执行等。输出通过 <code>OutputAccumulator</code> 流式累积，超时后 <code>killProcessTree</code> 杀掉整个进程树。</p>
+<p><strong>输出截断</strong>：默认限制 <code>maxLines: 500</code>、<code>maxBytes: 100000</code>（约 100KB），超出部分写入临时文件，返回文件路径让 Agent 按需读取。</p>
+<h3 id="2-system-prompt">2. System Prompt 构建：最小化 + 按需组装<a class="headerlink" href="#2-system-prompt" title="Permanent link">&para;</a></h3>
+<pre><code class="language-typescript">// packages/coding-agent/src/core/system-prompt.ts
+export function buildSystemPrompt(options: BuildSystemPromptOptions): string {
+  // 1. 自定义 prompt 直接使用，跳过默认构建
+  if (customPrompt) { ... }
+
+  // 2. 默认 prompt 非常精简（约 30 行），核心是：
+  //    &quot;You are an expert coding assistant operating inside pi&quot;
+  //    + 工具列表 + guidelines
+  //    + 项目上下文文件（AGENTS.md, SYSTEM.md 等）
+  //    + skills 列表
+}
+</code></pre>
+<p>Pi 的 system prompt 设计哲学是<strong>极致精简</strong>：默认 prompt 只说明角色、工具和基本规则，不包含大量指令。项目特定的行为通过 <code>~/.pi/agent/</code> 和项目目录的 <code>AGENTS.md</code>/<code>SYSTEM.md</code> 文件注入。Skills 通过 <code>&lt;available_skills&gt;</code> XML 块以<strong>渐进式披露</strong>方式加载——只列出名称和描述，Agent 需要时才用 <code>read</code> 工具读取完整 SKILL.md。</p>
+<h3 id="3-provider-15">3. 多 Provider 支持：15+ 提供商的统一抽象<a class="headerlink" href="#3-provider-15" title="Permanent link">&para;</a></h3>
+<p><code>packages/ai/src/providers/</code> 目录下包含：
+- <code>anthropic.ts</code> — Anthropic Messages API
+- <code>openai-responses.ts</code> / <code>openai-completions.ts</code> — OpenAI 两种 API 格式
+- <code>google.ts</code> / <code>google-vertex.ts</code> — Google AI 和 Vertex AI
+- <code>azure-openai-responses.ts</code> — Azure OpenAI
+- <code>amazon-bedrock.ts</code> — AWS Bedrock
+- <code>mistral.ts</code> — Mistral AI
+- <code>cloudflare.ts</code> — Cloudflare Workers AI</p>
+<p>所有 Provider 统一通过 <code>streamSimple()</code> 函数调用，Extension 可以通过 <code>registerProvider()</code> 在运行时添加新 Provider 或覆盖现有 Provider 的 <code>baseUrl</code>（用于代理）。</p>
+<h3 id="4-session-managerjsonl">4. Session Manager：JSONL 持久化 + 树结构<a class="headerlink" href="#4-session-managerjsonl" title="Permanent link">&para;</a></h3>
+<pre><code class="language-typescript">// packages/coding-agent/src/core/session-manager.ts
+// Session 文件格式：每行一个 JSON entry
+// entry 类型：message, compaction, branch_summary, custom, label, session_info 等
+// 树结构通过 parentUuid/uuid 关联
+</code></pre>
+<p>Session 存储为 JSONL（每行一个 JSON 对象），支持：
+- <strong>树形导航</strong>：每个 entry 有 uuid 和 parentUuid，形成树结构
+- <strong>分支摘要</strong>：切换分支时自动生成 <code>branch_summary</code>
+- <strong>标签系统</strong>：用户可以对任意 entry 打标签，方便导航
+- <strong>导出 HTML</strong>：<code>/export</code> 命令将 session 导出为可分享的 HTML 文件
+- <strong>GitHub Gist 分享</strong>：<code>/share</code> 命令上传到 Gist，生成可渲染的分享链接</p>
+<h3 id="5-skill-agent-skills">5. Skill 系统：兼容 Agent Skills 标准<a class="headerlink" href="#5-skill-agent-skills" title="Permanent link">&para;</a></h3>
+<p>Pi 的 Skill 系统遵循 <a href="https://agentskills.io">Agent Skills 标准</a>（与 OpenClaw 兼容）：</p>
+<pre><code class="language-typescript">// packages/coding-agent/src/core/skills.ts
+export function formatSkillsForPrompt(skills: Skill[]): string {
+  // 输出格式：&lt;available_skills&gt;&lt;skill&gt;&lt;name&gt;...&lt;/name&gt;&lt;description&gt;...&lt;/description&gt;&lt;location&gt;...&lt;/location&gt;&lt;/skill&gt;&lt;/available_skills&gt;
+}
+</code></pre>
+<p>Skill 发现机制：
+1. 全局目录 <code>~/.pi/agent/skills/</code>
+2. 项目目录 <code>.pi/skills/</code>
+3. 通过 <code>--skill</code> CLI 参数指定路径
+4. Extension 通过 <code>resources_discover</code> 事件动态添加路径</p>
+<p>每个 Skill 是一个包含 <code>SKILL.md</code> 的目录，支持 frontmatter（<code>name</code>, <code>description</code>, <code>disable-model-invocation</code>）。<code>disable-model-invocation: true</code> 的 Skill 不会出现在 prompt 中，只能通过 <code>/skill:name</code> 命令手动调用。</p>
 <h2 id="_4">关联分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="claude-code">与 Claude Code 的对比<a class="headerlink" href="#claude-code" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Pi Agent</th>
+<th>Claude Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>Extension 系统 30+ 事件 + 工具/命令/Provider 注册</td>
+<td>Hooks（pre/post tool call）+ slash commands</td>
+</tr>
+<tr>
+<td><strong>Provider</strong></td>
+<td>15+ 内置，运行时可注册新 Provider</td>
+<td>仅 Anthropic</td>
+</tr>
+<tr>
+<td><strong>Session</strong></td>
+<td>树结构，支持分支/fork/标签</td>
+<td>线性 session</td>
+</tr>
+<tr>
+<td><strong>System Prompt</strong></td>
+<td>极简默认 + 项目文件注入</td>
+<td>内置大量指令</td>
+</tr>
+<tr>
+<td><strong>上下文管理</strong></td>
+<td>可自定义 compaction（Extension 可替换摘要策略）</td>
+<td>内置 auto-compact</td>
+</tr>
+<tr>
+<td><strong>运行时修改</strong></td>
+<td>Agent 可以自我修改（ask Pi to build it）</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>完全可定制（header/footer/widget/editor/overlay）</td>
+<td>固定 TUI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="aider">与 Aider 的对比<a class="headerlink" href="#aider" title="Permanent link">&para;</a></h3>
+<p>Pi 和 Aider 的核心差异在于<strong>Agent 自主性</strong>：
+- Aider 是"AI 辅助编辑器"——用户主导，AI 执行具体编辑
+- Pi 是"AI Agent 底座"——Agent 自主决策，用户通过 steering 纠偏</p>
+<p>Pi 的 Extension 系统比 Aider 的 <code>--commands</code> 灵活得多：Aider 的命令是静态 shell 脚本，Pi 的命令是 TypeScript 函数，可以访问完整的 Agent 上下文和 UI API。</p>
+<h3 id="codex-cli">与 Codex CLI 的对比<a class="headerlink" href="#codex-cli" title="Permanent link">&para;</a></h3>
+<p>Codex CLI（OpenAI）的沙箱模型更激进：所有操作在沙箱容器中执行，安全但限制多。Pi 选择信任本地环境，通过 Extension 的 <code>BashOperations</code> 抽象让用户自行决定执行边界。Pi 还支持 <code>--provider openai</code> 直接使用 OpenAI 模型，不绑定单一 Provider。</p>
+<h3 id="_5">与已有分析的关联<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <ul>
-<li>直接关联 <a href="../AI-Code-Tool-Pricing-2026/">AI-Code-Tool-Pricing-2026</a>：两篇文章共同指向2026年AI应用的核心矛盾——能力在涨，成本也在涨</li>
-<li>与 <a href="../../entities/GLM-5V-Turbo/">GLM-5V-Turbo</a> 互补：原生多模态模型可能降低视觉Agent的token消耗，但45倍差距难以仅靠模型优化弥合</li>
-<li>对 <a href="../../entities/deer-flow/">deer-flow</a> 等Agent框架的架构启示：优先构建API surface，视觉Agent作为fallback</li>
+<li><a href="../pi-agent-rust-analysis/">pi-agent-rust-analysis</a>：Rust 移植版分析，聚焦 <code>#![forbid(unsafe_code)]</code> 安全模型和 hostcall 优化</li>
+<li><a href="../../entities/pi-mono/">pi-mono</a>：项目实体页</li>
+<li><a href="../Agent-Skills-Architecture/">Agent-Skills-Architecture</a>：Agent Skills 标准分析</li>
+<li><a href="../OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">OpenClaw-源码分析</a>：OpenClaw 的 Extension 系统与 Pi 类似但实现不同</li>
 </ul>
-<h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Agent架构选型</strong>：新项目优先设计结构化API surface，视觉Agent只用于无法改造的遗留系统</li>
-<li><strong>成本预算</strong>：视觉Agent方案按API方案的45倍预估token成本，做ROI计算</li>
-<li><strong>移动端Agent</strong>：Android无障碍服务（Accessibility Service）天然提供结构化UI树，比截图方案成本低且准确率高——12年移动端经验在这里是差异化优势</li>
-</ol>
-<h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">可执行建议<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1-extension-agent">1. 学习 Extension 模式用于你的 Agent 工具开发<a class="headerlink" href="#1-extension-agent" title="Permanent link">&para;</a></h3>
+<p>Pi 的 Extension API（<code>ExtensionAPI</code> interface）是当前开源 Agent 中<strong>最完整的插件架构</strong>参考。特别关注：
+- <code>ToolDefinition</code> 的 <code>executionMode: "parallel" | "sequential"</code> 设计——决定工具是否可以并发执行
+- <code>ToolCallEvent</code> 的 mutable <code>input</code>——允许 Extension 在工具执行前修改参数，这是实现权限控制、日志审计等横切关注点的基础</p>
+<h3 id="2-tree-structured-session">2. Tree-Structured Session 模式值得借鉴<a class="headerlink" href="#2-tree-structured-session" title="Permanent link">&para;</a></h3>
+<p>当前大多数 Agent（Claude Code、Codex）都是线性 session。Pi 的树结构解决了"Agent 走错方向后想回退"的实际痛点。如果你的 Agent 应用需要支持<strong>多轮探索性对话</strong>，这个模式直接可用。</p>
+<h3 id="3-context-compaction">3. Context Compaction 的文件追踪机制<a class="headerlink" href="#3-context-compaction" title="Permanent link">&para;</a></h3>
+<p>Pi 在 compaction 时自动提取 <code>&lt;read-files&gt;</code> 和 <code>&lt;modified-files&gt;</code> 附件到摘要中。这个设计成本低但效果显著——压缩后 Agent 仍然知道自己读过哪些文件。建议在你的 Agent 应用中采用类似机制。</p>
+<h3 id="4-steering">4. Steering 消息模式<a class="headerlink" href="#4-steering" title="Permanent link">&para;</a></h3>
+<p>Pi 的 steering（中断式）vs follow-up（队列式）消息区分，是解决"用户在 Agent 思考时想纠正方向"问题的优雅方案。多数 Agent 框架只支持 follow-up，用户必须等 Agent 完成一轮才能干预。</p>
+<h3 id="5-pi-packages">5. Pi Packages 生态<a class="headerlink" href="#5-pi-packages" title="Permanent link">&para;</a></h3>
+<p>Pi 支持 npm/git 分发 Extension 包（<a href="https://pi.dev/packages">pi.dev/packages</a>）。如果你在构建 Agent 工具生态，这种"包 = Extension + Skills + Themes + Tools"的分发模型值得参考。</p>
+<h2 id="_7">自评<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2479,6 +2905,9 @@ score: 技术深度9/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>评分说明：摘要质量（覆盖四层架构+五大子系统，每个都有代码引用）| 技术深度（Extension API、Agent Loop 双循环、Compaction 算法、Session 树结构均有源码级分析）| 相关性（Agent 架构+Vibe Coding 工具链，完全匹配用户转型方向）| 原创性（Steering vs Follow-up 分析、Tree Session 与线性 session 对比、文件追踪 compaction 机制均为独立见解）| 格式规范（标签/链接/评分完整）</p>
+</blockquote>
 
 
 
