@@ -22,3 +22,4 @@
 - [GLM-5-Scaling-Pain](GLM-5-Scaling-Pain.md) (2026-05-07)
 - [Teaching-Claude-Why](Teaching-Claude-Why.md) (2026-05-09)
 - [pi-agent-rust-analysis](pi-agent-rust-analysis.md) (2026-05-10)
+- [pi-agent-ts-analysis](pi-agent-ts-analysis.md) (2026-05-10)

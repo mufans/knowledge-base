@@ -2,6 +2,7 @@
 
 ## 2026年5月10日
 - 2026-05-10 | ingest | pi_agent_rust 项目源码分析 | 创建wiki页面 pi-agent-rust-analysis（自评8.70）
+- 2026-05-10 | ingest | pi-mono (earendil-works/pi) TypeScript 源码分析 | 创建wiki页面 pi-agent-ts-analysis（自评8.85）⚠️ 原任务URL BillSchumacher/pi-agent 已失效，实际分析官方仓库 earendil-works/pi
 
 ## 2026年5月9日
 - 📊 周度成长报告 (5.2-5.9)
