@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-10 18:46:07
+// Generated: 2026-05-10 20:02:47
 // Total articles: 96
-// Updated files this run: 1
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -755,6 +755,21 @@ window.__kb_articles = [
     "url": "wiki/entities/Hy-MT-Offline-Translation"
   },
   {
+    "title": "Pi Agent Toolkit",
+    "category": "entities",
+    "tags": [
+      "AI Agent",
+      "开源工具",
+      "TypeScript",
+      "CLI",
+      "LLM"
+    ],
+    "rating": 8.0,
+    "description": "基于TypeScript的AI Agent工具包，集成编码Agent CLI、统一LLM API、TUI/Web UI库、Slack Bot及vLLM支持",
+    "date": "2026-05-10",
+    "url": "wiki/entities/Pi-Agent-Toolkit"
+  },
+  {
     "title": "awesome llm apps",
     "category": "entities",
     "tags": [
@@ -1032,20 +1047,6 @@ window.__kb_articles = [
     "description": "Mojo语言发布1.0 Beta，主打AI场景下Python兼容+系统级性能的统一",
     "date": "2026-05-09",
     "url": "wiki/entities/Mojo-1.0"
-  },
-  {
-    "title": "Pi Agent Toolkit",
-    "category": "entities",
-    "tags": [
-      "AI Agent",
-      "编码工具",
-      "TypeScript",
-      "开源"
-    ],
-    "rating": 7.5,
-    "description": "46k星的AI Agent工具包，提供编码Agent CLI、统一LLM API、TUI/Web UI、Slack机器人等全家桶方案",
-    "date": "2026-05-08",
-    "url": "wiki/entities/Pi-Agent-Toolkit"
   },
   {
     "title": "Deer-Flow: 字节跳动长周期SuperAgent框架",
