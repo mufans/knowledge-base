@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-10 20:02:47
-// Total articles: 96
+// Generated: 2026-05-10 22:11:14
+// Total articles: 101
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -245,6 +245,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Claude-Ecosystem-Tools"
   },
   {
+    "title": "LLM文档编辑腐蚀问题",
+    "category": "concepts",
+    "tags": [
+      "LLM",
+      "Agent-Reliability",
+      "Document-Editing",
+      "Safety"
+    ],
+    "rating": 8.5,
+    "description": "论文揭示LLM在代理文档编辑任务时会系统性修改不相关内容，对Agent可靠性构成根本性挑战",
+    "date": "2026-05-10",
+    "url": "wiki/concepts/LLM-Document-Corruption"
+  },
+  {
     "title": "Skill Auto-Creation",
     "category": "concepts",
     "tags": [
@@ -323,6 +337,19 @@ window.__kb_articles = [
     "description": "Redis作者antirez开源的DeepSeek 4 Flash本地推理引擎，专为Apple Silicon优化，支持Metal GPU加速。",
     "date": "2026-05-08",
     "url": "wiki/entities/DS4-DeepSeek-Local-Inference"
+  },
+  {
+    "title": "DeepSeek V4: 百万上下文窗口的开源模型",
+    "category": "entities",
+    "tags": [
+      "DeepSeek",
+      "开源模型",
+      "长上下文"
+    ],
+    "rating": 8.5,
+    "description": "DeepSeek V4 百万上下文窗口开源模型分析",
+    "date": "2026-04-29",
+    "url": "wiki/entities/DeepSeek-V4"
   },
   {
     "title": "Dify",
@@ -486,6 +513,20 @@ window.__kb_articles = [
     "description": "Zed 1.0 编辑器分析",
     "date": "2026-05-03",
     "url": "wiki/entities/Zed-1.0"
+  },
+  {
+    "title": "re_gent: AI Agent版本控制系统",
+    "category": "entities",
+    "tags": [
+      "Agent-Tooling",
+      "Version-Control",
+      "Claude-Code",
+      "Traceability"
+    ],
+    "rating": 8.5,
+    "description": "为AI Agent操作提供版本控制能力的开源工具，解决Agent操作的可追溯性和回滚问题",
+    "date": "2026-05-10",
+    "url": "wiki/entities/re_gent"
   },
   {
     "title": "AI Agent沙箱方案讨论",
@@ -861,6 +902,20 @@ window.__kb_articles = [
     "url": "wiki/sources/Apple-Foundation-Models-Practice"
   },
   {
+    "title": "HTML作为Coding Agent交互介质",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Prompt-Engineering",
+      "HTML",
+      "Coding-Agent"
+    ],
+    "rating": 8.0,
+    "description": "HN高赞经验分享：用HTML替代纯文本/Markdown作为Coding Agent交互介质，大幅提升UI代码生成质量",
+    "date": "2026-05-10",
+    "url": "wiki/sources/Claude-Code-HTML-Effectiveness"
+  },
+  {
     "title": "Claude Code 发现 Linux 内核 23 年漏洞",
     "category": "sources",
     "tags": [
@@ -887,6 +942,20 @@ window.__kb_articles = [
     "description": "OpenAI揭秘生产级语音AI的低延迟架构，涵盖音频流处理、边缘推理和智能路由的关键技术决策",
     "date": "2026-05-05",
     "url": "wiki/sources/OpenAI-Low-Latency-Voice-AI"
+  },
+  {
+    "title": "OpenAI实时语音API的WebRTC技术债务",
+    "category": "sources",
+    "tags": [
+      "WebRTC",
+      "Realtime-API",
+      "Voice-AI",
+      "Mobile-AI"
+    ],
+    "rating": 8.0,
+    "description": "深度分析WebRTC为何不适合AI实时语音交互场景，对移动端AI语音架构设计有直接参考价值",
+    "date": "2026-05-10",
+    "url": "wiki/sources/OpenAI-WebRTC-Problem"
   },
   {
     "title": "AI Agent Self-Improving",
@@ -968,19 +1037,6 @@ window.__kb_articles = [
     "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
     "date": "2026-05-08",
     "url": "wiki/entities/AlphaEvolve"
-  },
-  {
-    "title": "DeepSeek V4: 百万上下文窗口的开源模型",
-    "category": "entities",
-    "tags": [
-      "DeepSeek",
-      "开源模型",
-      "长上下文"
-    ],
-    "rating": 7.5,
-    "description": "DeepSeek V4 百万上下文窗口开源模型分析",
-    "date": "2026-04-29",
-    "url": "wiki/entities/DeepSeek-V4"
   },
   {
     "title": "GPT-5.5",
@@ -1152,6 +1208,19 @@ window.__kb_articles = [
     "description": "tags: #AI-Code #Copyright #Legal #Coding-Agent",
     "date": "2026-05-07",
     "url": "wiki/sources/AI生成代码的知识产权归属"
+  },
+  {
+    "title": "Agent时代的分布式基础设施设计",
+    "category": "sources",
+    "tags": [
+      "Agent-Infrastructure",
+      "Distributed-Systems",
+      "Architecture"
+    ],
+    "rating": 7.5,
+    "description": "InfoQ深度文章探讨AI Agent时代对分布式基础设施的新要求，涵盖Agent调度、状态管理和安全隔离",
+    "date": "2026-05-10",
+    "url": "wiki/sources/Agent-Distributed-Infrastructure"
   },
   {
     "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
