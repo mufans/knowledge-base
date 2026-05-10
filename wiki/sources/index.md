@@ -23,3 +23,6 @@
 - [Teaching-Claude-Why](Teaching-Claude-Why.md) (2026-05-09)
 - [pi-agent-rust-analysis](pi-agent-rust-analysis.md) (2026-05-10)
 - [pi-agent-ts-analysis](pi-agent-ts-analysis.md) (2026-05-10)
+- [OpenAI-WebRTC-Problem](OpenAI-WebRTC-Problem.md) (2026-05-10)
+- [Agent-Distributed-Infrastructure](Agent-Distributed-Infrastructure.md) (2026-05-10)
+- [Claude-Code-HTML-Effectiveness](Claude-Code-HTML-Effectiveness.md) (2026-05-10)

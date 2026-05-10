@@ -25,3 +25,4 @@
 - [Agent-Control-Flow](Agent-Control-Flow.md) (2026-05-08)
 - [Natural-Language-Autoencoders](Natural-Language-Autoencoders.md) (2026-05-08)
 - [Agentic-Search-Retrieval](Agentic-Search-Retrieval.md) (2026-05-09)
+- [LLM-Document-Corruption](LLM-Document-Corruption.md) (2026-05-10)
