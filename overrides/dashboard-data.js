@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-10 22:11:14
-// Total articles: 101
+// Generated: 2026-05-11 22:06:48
+// Total articles: 109
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -87,6 +87,53 @@ window.__kb_articles = [
     "url": "wiki/entities/Hermes-Agent"
   },
   {
+    "title": "LLaMA Factory: 统一高效微调框架",
+    "category": "entities",
+    "tags": [
+      "fine-tuning",
+      "LLM",
+      "LoRA",
+      "transformers",
+      "PEFT",
+      "RLHF",
+      "QLoRA"
+    ],
+    "rating": 9.0,
+    "description": "支持100+LLM/VLM的统一微调框架，集成LoRA/QLoRA/RLHF，ACL 2024论文发表",
+    "date": "2026-05-11",
+    "url": "wiki/entities/LlamaFactory"
+  },
+  {
+    "title": "OpenHands: AI驱动的开发平台",
+    "category": "entities",
+    "tags": [
+      "OpenHands",
+      "AI-Agent",
+      "Coding-Agent",
+      "Developer-Tools",
+      "CLI"
+    ],
+    "rating": 9.0,
+    "description": "AI驱动的软件开发平台，通过自然语言完成编码、调试、测试全流程，高度可扩展的代理架构",
+    "date": "2026-05-11",
+    "url": "wiki/entities/OpenHands"
+  },
+  {
+    "title": "Reasonix: 极致缓存优化的终端AI编码Agent",
+    "category": "entities",
+    "tags": [
+      "DeepSeek",
+      "Caching",
+      "Token-Optimization",
+      "Coding-Agent",
+      "CLI"
+    ],
+    "rating": 9.0,
+    "description": "开源终端AI编码Agent,通过极致缓存策略将长会话Token成本降低80%,基于DeepSeek模型",
+    "date": "2026-05-11",
+    "url": "wiki/entities/Reasonix"
+  },
+  {
     "title": "SmartPerfetto",
     "category": "entities",
     "tags": [
@@ -111,6 +158,22 @@ window.__kb_articles = [
     "description": "Warp Terminal 源码深度分析，现代终端设计",
     "date": "2026-04-29",
     "url": "wiki/entities/Warp-Terminal-Analysis"
+  },
+  {
+    "title": "AI Engineering Hub: LLM/RAG/Agent实战教程集",
+    "category": "entities",
+    "tags": [
+      "LLM",
+      "RAG",
+      "AI-Agents",
+      "MCP",
+      "Machine-Learning",
+      "Tutorial"
+    ],
+    "rating": 9.0,
+    "description": "面向LLM/RAG/AI Agent的实战教程合集，Jupyter Notebook形式，涵盖MCP、DeepSeek微调等前沿技术",
+    "date": "2026-05-11",
+    "url": "wiki/entities/ai-engineering-hub"
   },
   {
     "title": "Claude-Mem 深度分析报告",
@@ -150,6 +213,38 @@ window.__kb_articles = [
     "description": "OpenClaw 源码级深度分析，多通道 Agent 网关实现",
     "date": "2026-04-24",
     "url": "wiki/sources/OpenClaw-源码分析"
+  },
+  {
+    "title": "Training an LLM in Swift: 矩阵乘法从Gflop/s到Tflop/s",
+    "category": "sources",
+    "tags": [
+      "Swift",
+      "Matrix-Multiplication",
+      "LLM",
+      "HPC",
+      "Performance-Optimization",
+      "Apple-Silicon"
+    ],
+    "rating": 9.0,
+    "description": "Swift中手动实现LLM训练的矩阵乘法优化全过程，从朴素实现到Metal GPU，涵盖SIMD/AMX/GPU全路径",
+    "date": "2026-05-11",
+    "url": "wiki/sources/Training-LLM-Swift"
+  },
+  {
+    "title": "Google x Kaggle: AI Agents Vibe Coding 5天密集课程",
+    "category": "sources",
+    "tags": [
+      "AI-Agents",
+      "Google",
+      "Kaggle",
+      "Education",
+      "Vibe-Coding",
+      "GenAI"
+    ],
+    "rating": 9.0,
+    "description": "Google与Kaggle联合推出的5天AI Agents密集课程，主打Vibe Coding概念，降低AI应用开发门槛",
+    "date": "2026-05-11",
+    "url": "wiki/sources/Vibe-Coding-Google-Kaggle-Course"
   },
   {
     "title": "pi agent rust analysis",
@@ -515,6 +610,20 @@ window.__kb_articles = [
     "url": "wiki/entities/Zed-1.0"
   },
   {
+    "title": "everything-claude-code: Agent Harness性能优化系统",
+    "category": "entities",
+    "tags": [
+      "Claude-Code",
+      "Agent-Harness",
+      "Coding-Agent",
+      "Developer-Tools"
+    ],
+    "rating": 8.5,
+    "description": "178k星标的Agent Harness优化系统，为Claude Code等编码Agent提供技能、记忆、安全和研究能力增强",
+    "date": "2026-05-11",
+    "url": "wiki/entities/everything-claude-code"
+  },
+  {
     "title": "re_gent: AI Agent版本控制系统",
     "category": "entities",
     "tags": [
@@ -783,6 +892,19 @@ window.__kb_articles = [
     "url": "wiki/entities/GLM-5V-Turbo"
   },
   {
+    "title": "GPT-5.5",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "OpenAI",
+      "大模型"
+    ],
+    "rating": 8.0,
+    "description": "GPT-5.5 模型分析",
+    "date": "2026-04-27",
+    "url": "wiki/entities/GPT-5.5"
+  },
+  {
     "title": "Hy-MT手机端离线翻译模型",
     "category": "entities",
     "tags": [
@@ -834,6 +956,20 @@ window.__kb_articles = [
     "description": "tags: #BrowserAgent #ComputerUse #Playwright #Python",
     "date": "2026-05-07",
     "url": "wiki/entities/browser-use"
+  },
+  {
+    "title": "cc-switch: 跨平台编码Agent管理工具",
+    "category": "entities",
+    "tags": [
+      "Claude-Code",
+      "Coding-Agent",
+      "Desktop-Tool",
+      "Cross-Platform"
+    ],
+    "rating": 8.0,
+    "description": "跨平台桌面端All-in-One工具，统一管理Claude Code、Codex、OpenCode等多个编码Agent",
+    "date": "2026-05-11",
+    "url": "wiki/entities/cc-switch"
   },
   {
     "title": "Claude Context",
@@ -1037,19 +1173,6 @@ window.__kb_articles = [
     "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
     "date": "2026-05-08",
     "url": "wiki/entities/AlphaEvolve"
-  },
-  {
-    "title": "GPT-5.5",
-    "category": "entities",
-    "tags": [
-      "GPT",
-      "OpenAI",
-      "大模型"
-    ],
-    "rating": 7.5,
-    "description": "GPT-5.5 模型分析",
-    "date": "2026-04-27",
-    "url": "wiki/entities/GPT-5.5"
   },
   {
     "title": "GitNexus",
