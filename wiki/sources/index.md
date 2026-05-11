@@ -26,3 +26,5 @@
 - [OpenAI-WebRTC-Problem](OpenAI-WebRTC-Problem.md) (2026-05-10)
 - [Agent-Distributed-Infrastructure](Agent-Distributed-Infrastructure.md) (2026-05-10)
 - [Claude-Code-HTML-Effectiveness](Claude-Code-HTML-Effectiveness.md) (2026-05-10)
+- [Training-LLM-Swift](Training-LLM-Swift.md) (2026-05-11)
+- [Vibe-Coding-Google-Kaggle-Course](Vibe-Coding-Google-Kaggle-Course.md) (2026-05-11)

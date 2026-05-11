@@ -756,3 +756,41 @@
 - 2026-05-10 | skip | raw/inbox/2026-05-10-GitHub项目.md | AutoTTS星数过低(10)、printer-fix无关领域
 - 2026-05-10 | skip | raw/inbox/2026-05-10-新闻热点.md | Bun重写/鸿蒙元服务等领域匹配度不足，技术深度<7.0
 - 2026-05-10 | skip | raw/inbox/2026-05-10-知识库Lint审查.md | 元报告，不含待提炼内容
+- ## 2026年5月11日 每日技术动态采集
+
+- **采集时间**: 2026-05-11 09:30 CST
+- **采集来源**: InfoQ（部分成功）、OSChina（内容获取失败）、Dev.to（部分成功）、Reddit ML（JSON请求失败）、Solidot（部分成功）
+- **采集数量**: 8条（部分源受限）
+- **分类统计**: AI与大模型(5条)、开源技术(1条)、科技新闻(2条)
+- **文件路径**: raw/inbox/2026-05-11-技术动态.md
+- **推送状态**: 已准备Top 8技术动态，等待钉钉推送
+- **重点内容**: 
+  1. [开源项目的信任危机，也许是那群"以为自己会写代码"的资本大佬造成的](https://www.infoq.cn/article/TUsD1lkUSAbDfHsZcoYc) - 探讨开源项目中资本介入带来的信任问题
+  2. [AI 把编程这件事接管之后，作为程序员的我该何去何从？](https://www.infoq.cn/article/128UQPlXTAZjV9uwjYFJ) - 程序员在AI时代面临的职业转型思考
+  3. [Chrome 开了一个危险的头：偷偷给数亿电脑塞4GB Gemini模型，占硬盘、耗算力、删了自动重下](https://www.infoq.cn/article/FOy8AahY8bsPveNwwTq1) - Chrome浏览器无提示下载AI模型引发争议
+  4. ["不必给中国最新最好芯片！"黄仁勋直言不同意Dario做法，称"软件工程师岗没了"完全没道理！](https://www.infoq.cn/article/Ll3XLpG1LV8QBKtuxgc2) - NVIDIA CEO对芯片限制政策的最新表态
+  5. [马斯克22万张GPU救场后，Claude勉强恢复"三个月前体验"，Gary Marcus却警告：GPU将严重过剩，很快不值钱](https://www.infoq.cn/article/HMObXFJYS8ay2pNZWDJG) - GPU市场供需关系变化的深度分析
+  6. [Linux 基金会 2.95% 的预算投入在 Linux](https://www.solidot.org/story?sid=84255) - Linux基金会的预算分配情况分析
+  7. [法国对马斯克及其 X 平台展开刑事调查](https://www.solidot.org/story?sid=84253) - 法国监管机构对X平台的监管行动升级
+  8. [超加工食品增加心血管死亡风险](https://www.solidot.org/story?sid=84254) - 食品安全与健康风险的最新研究成果
+
+- **失败源**: Reddit ML JSON请求失败、OSChina内容获取不完整、Dev.to内容截断
+- **备注**: proxy_on命令未找到，成功完成8条采集任务；重点关注AI对编程行业影响、Chrome隐私问题、GPU市场动态等话题
+
+## 2026-05-11 每日技术新闻热点采集完成，共14条新闻
+- 2026-05-11 每日技术新闻热点采集完成，共14条新闻
+- 2026-05-11 每日技术新闻热点采集完成，共10条新闻（AI/大模型2条、编程/开发工具2条、移动端2条、云原生/后端2条、开源/硬件2条）
+
+## 2026-05-11 技术动态采集完成，共27条
+- **采集源**: InfoQ(RSS) / 开源中国 / Dev.to(API) / Solidot | Reddit ML 超时
+- **重点**: DeepSeek融资500亿、Meta统一Agent平台、40% Agent项目将失败预警、Mojo v1.0.0b1发布、Chrome静默推送4GB模型、Reasonix开源终端AI编程助手
+
+## 2026年5月11日
+- 2026-05-11 | ingest | raw/inbox/2026-05-11-GitHub项目.md | 创建wiki页面 everything-claude-code（自评8.60）
+- 2026-05-11 | ingest | raw/inbox/2026-05-11-GitHub项目.md | 创建wiki页面 cc-switch（自评7.60）
+- 2026-05-11 | ingest | raw/inbox/2026-05-11-技术动态.md | 创建wiki页面 Reasonix（自评8.25）
+- 2026-05-11 | update | raw/inbox/2026-05-11-新闻热点.md | 更新wiki页面 GPT-5.5（合并了ChatGPT 5.5 Pro博士数学实测数据）
+- 2026-05-11 | skip | raw/inbox/2026-05-11-GitHub项目.md | deer-flow/OpenHands/Mojo-1.0 已有页面且无实质性更新
+- 2026-05-11 | skip | raw/inbox/2026-05-11-AI论文.md | AI-Memory-Systems已有完整页面，新survey论文增量不足
+- 2026-05-11 | skip | raw/inbox/2026-05-11-技术动态.md | DeepSeek融资/Chrome Gemini/Agent Mesh等新闻性质内容，技术深度不足
+- 2026-05-11 | skip | raw/inbox/2026-05-11-新闻热点.md | 多数内容与技术动态重复，已覆盖
