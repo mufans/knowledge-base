@@ -785,6 +785,10 @@
 - **采集源**: InfoQ(RSS) / 开源中国 / Dev.to(API) / Solidot | Reddit ML 超时
 - **重点**: DeepSeek融资500亿、Meta统一Agent平台、40% Agent项目将失败预警、Mojo v1.0.0b1发布、Chrome静默推送4GB模型、Reasonix开源终端AI编程助手
 
+## 2026年5月12日
+- 2026-05-12 | collect | raw/inbox/2026-05-12-新闻热点.md | 每日技术新闻热点采集，覆盖AI/大模型、编程/开发工具、移动端、云原生/后端、开源硬件5大类共10条新闻。来源：Hacker News、Solidot、InfoQ、36氪（GitHub Trending脚本因API限流失败，已跳过不阻塞其他源）。重点：TanStack安全漏洞、Mistral Medium 3.5发布、混元3D生成模型、Claude Code Auto模式、Figma自研Redis代理、本田电动摩托车离合器技术、Gmail QR码验证、Cloudflare Flagship服务、CUDA-oxide Rust编译器。
+- 2026-05-12 | collect | GitHub Trending | 因API限流失败，脚本已跳过不阻塞其他采集源，替代信息手动补充5个开源项目。
+
 ## 2026年5月11日
 - 2026-05-11 | ingest | raw/inbox/2026-05-11-GitHub项目.md | 创建wiki页面 everything-claude-code（自评8.60）
 - 2026-05-11 | ingest | raw/inbox/2026-05-11-GitHub项目.md | 创建wiki页面 cc-switch（自评7.60）
