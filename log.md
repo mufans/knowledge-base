@@ -1,5 +1,12 @@
 # Knowledge Base Log
 
+## 2026年5月12日
+- ai-knowledge-base百科同步 | 36篇新文章处理
+  - 入库(5篇): entities/LangChain(7.95), entities/JeecgBoot(7.15), entities/OpenMythos(8.65), entities/AgentGPT(6.75⚠️任务要求创建但低于阈值), sources/Transformer-Architecture-Evolution(8.35)
+  - 跳过(已有覆盖): DeerFlow→deer-flow已有, Nanobot已有, Google-Vibe-Coding-Course→Vibe-Coding-Google-Kaggle-Course已有
+  - 已有页面更新检查: 14个已有页面快速检查，无重大更新（无新版本/重大新特性），均跳过
+- 2026-05-12 | ingest | 每日技术动态采集 | 采集24条技术动态（AI/架构/安全/云原生/开发者趋势），来源InfoQ/开源中国/DEV/Solidot
+
 ## 2026年5月10日
 - 2026-05-10 | ingest | pi_agent_rust 项目源码分析 | 创建wiki页面 pi-agent-rust-analysis（自评8.70）
 - 2026-05-10 | ingest | pi-mono (earendil-works/pi) TypeScript 源码分析 | 创建wiki页面 pi-agent-ts-analysis（自评8.85）⚠️ 原任务URL BillSchumacher/pi-agent 已失效，实际分析官方仓库 earendil-works/pi
@@ -798,3 +805,4 @@
 - 2026-05-11 | skip | raw/inbox/2026-05-11-AI论文.md | AI-Memory-Systems已有完整页面，新survey论文增量不足
 - 2026-05-11 | skip | raw/inbox/2026-05-11-技术动态.md | DeepSeek融资/Chrome Gemini/Agent Mesh等新闻性质内容，技术深度不足
 - 2026-05-11 | skip | raw/inbox/2026-05-11-新闻热点.md | 多数内容与技术动态重复，已覆盖
+- 2026-05-12 | update | raw/inbox/2026-05-12-社交媒体.md | HN AI Agent/LLM/移动端AI动态17条（Reddit/X超时未抓取）

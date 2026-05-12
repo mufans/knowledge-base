@@ -28,3 +28,4 @@
 - [Claude-Code-HTML-Effectiveness](Claude-Code-HTML-Effectiveness.md) (2026-05-10)
 - [Training-LLM-Swift](Training-LLM-Swift.md) (2026-05-11)
 - [Vibe-Coding-Google-Kaggle-Course](Vibe-Coding-Google-Kaggle-Course.md) (2026-05-11)
+- [Transformer-Architecture-Evolution](Transformer-Architecture-Evolution.md) (2026-05-12)

@@ -57,3 +57,7 @@
 - [everything-claude-code](everything-claude-code.md) (2026-05-11)
 - [cc-switch](cc-switch.md) (2026-05-11)
 - [Reasonix](Reasonix.md) (2026-05-11)
+- [LangChain](LangChain.md) (2026-05-12)
+- [AgentGPT](AgentGPT.md) (2026-05-12)
+- [JeecgBoot](JeecgBoot.md) (2026-05-12)
+- [OpenMythos](OpenMythos.md) (2026-05-12)
