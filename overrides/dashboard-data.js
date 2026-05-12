@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-12 20:11:07
-// Total articles: 114
-// Updated files this run: 5
+// Generated: 2026-05-12 22:08:39
+// Total articles: 118
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -72,6 +72,21 @@ window.__kb_articles = [
     "description": "Andrej Karpathy 的 AI 技能体系深度分析报告",
     "date": "2026-04-26",
     "url": "wiki/concepts/andrej-karpathy-skills"
+  },
+  {
+    "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
+    "category": "entities",
+    "tags": [
+      "Rust",
+      "CUDA",
+      "GPU-Computing",
+      "Nvidia",
+      "Edge-AI"
+    ],
+    "rating": 9.0,
+    "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
+    "date": "2026-05-12",
+    "url": "wiki/entities/CUDA-oxide"
   },
   {
     "title": "Hermes Agent 深度分析报告",
@@ -566,6 +581,20 @@ window.__kb_articles = [
     "url": "wiki/entities/MetaGPT"
   },
   {
+    "title": "Mistral Medium 3.5：1280亿参数模型与云端智能体",
+    "category": "entities",
+    "tags": [
+      "Mistral",
+      "LLM",
+      "AI-Agent",
+      "Cloud-Agent"
+    ],
+    "rating": 8.5,
+    "description": "Mistral发布1280亿参数的Medium 3.5模型，集成远程智能体和Work模式，实现指令遵循、推理与编码一体化。",
+    "date": "2026-05-12",
+    "url": "wiki/entities/Mistral-Medium-3.5"
+  },
+  {
     "title": "OpenClaw",
     "category": "entities",
     "tags": [
@@ -826,6 +855,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Memory-Management"
   },
   {
+    "title": "PrefixGuard：从Agent轨迹到在线失败预警监控",
+    "category": "concepts",
+    "tags": [
+      "Agent-Safety",
+      "Failure-Prediction",
+      "Online-Monitoring",
+      "LLM-Agent"
+    ],
+    "rating": 8.0,
+    "description": "基于LLM Agent执行轨迹构建在线失败预警监控系统，在Agent任务执行过程中实时检测异常模式并提前预警。",
+    "date": "2026-05-12",
+    "url": "wiki/concepts/PrefixGuard"
+  },
+  {
     "title": "Pretext.js: 绕过 DOM 布局重排的高性能文本排版",
     "category": "concepts",
     "tags": [
@@ -850,6 +893,20 @@ window.__kb_articles = [
     "description": "Prompt Caching 的常见陷阱和最佳实践，避免缓存失效",
     "date": "2026-05-01",
     "url": "wiki/concepts/Prompt-Caching-Pitfalls"
+  },
+  {
+    "title": "Q-RAG：长上下文多步检索的Value-based Embedder训练",
+    "category": "concepts",
+    "tags": [
+      "RAG",
+      "Long-Context",
+      "Multi-step-Retrieval",
+      "Value-based-Training"
+    ],
+    "rating": 8.0,
+    "description": "通过Value-based方法训练Embedder实现长上下文多步检索，解决传统RAG在长期记忆和复杂查询中的召回瓶颈。",
+    "date": "2026-05-12",
+    "url": "wiki/concepts/Q-RAG"
   },
   {
     "title": "Real-world AI Applications",
