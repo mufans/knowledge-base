@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-12 08:02:54
-// Total articles: 109
-// Updated files this run: 0
+// Generated: 2026-05-12 20:11:07
+// Total articles: 114
+// Updated files this run: 5
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -231,6 +231,19 @@ window.__kb_articles = [
     "url": "wiki/sources/Training-LLM-Swift"
   },
   {
+    "title": "Transformer Architecture Evolution",
+    "category": "sources",
+    "tags": [
+      "书单",
+      "源码分析",
+      "论文"
+    ],
+    "rating": 9.0,
+    "description": "tags: #Transformer #Architecture-Evolution #Deep-Learning #RoPE #SwiGLU #MoE #RMSNorm",
+    "date": "2026-05-12",
+    "url": "wiki/sources/Transformer-Architecture-Evolution"
+  },
+  {
     "title": "Google x Kaggle: AI Agents Vibe Coding 5天密集课程",
     "category": "sources",
     "tags": [
@@ -394,6 +407,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Weak-Model-Orchestration"
   },
   {
+    "title": "AgentGPT",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "GitHub",
+      "OpenAI",
+      "框架"
+    ],
+    "rating": 8.5,
+    "description": "tags: #Autonomous-Agent #TypeScript #NextJS #LangChain #Browser-Agent",
+    "date": "2026-05-12",
+    "url": "wiki/entities/AgentGPT"
+  },
+  {
     "title": "Continue",
     "category": "entities",
     "tags": [
@@ -550,6 +577,18 @@ window.__kb_articles = [
     "description": "多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施",
     "date": "2026-04-24",
     "url": "wiki/entities/OpenClaw"
+  },
+  {
+    "title": "OpenMythos",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS"
+    ],
+    "rating": 8.5,
+    "description": "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer",
+    "date": "2026-05-12",
+    "url": "wiki/entities/OpenMythos"
   },
   {
     "title": "RAGFlow",
@@ -916,6 +955,31 @@ window.__kb_articles = [
     "description": "Hy-MT 手机端离线翻译模型方案",
     "date": "2026-05-01",
     "url": "wiki/entities/Hy-MT-Offline-Translation"
+  },
+  {
+    "title": "JeecgBoot",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS",
+      "工具"
+    ],
+    "rating": 8.0,
+    "description": "tags: #Low-Code #AI #Java #Code-Generation #Spring-Boot #Vue3",
+    "date": "2026-05-12",
+    "url": "wiki/entities/JeecgBoot"
+  },
+  {
+    "title": "LangChain",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "框架"
+    ],
+    "rating": 8.0,
+    "description": "tags: #LangChain #Agent-Framework #RAG #Multi-Agent #LangGraph",
+    "date": "2026-05-12",
+    "url": "wiki/entities/LangChain"
   },
   {
     "title": "Pi Agent Toolkit",
