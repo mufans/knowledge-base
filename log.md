@@ -806,3 +806,11 @@
 - 2026-05-11 | skip | raw/inbox/2026-05-11-技术动态.md | DeepSeek融资/Chrome Gemini/Agent Mesh等新闻性质内容，技术深度不足
 - 2026-05-11 | skip | raw/inbox/2026-05-11-新闻热点.md | 多数内容与技术动态重复，已覆盖
 - 2026-05-12 | update | raw/inbox/2026-05-12-社交媒体.md | HN AI Agent/LLM/移动端AI动态17条（Reddit/X超时未抓取）
+
+- 2026-05-12 | ingest | raw/inbox/2026-05-12-AI论文.md | 创建wiki/concepts/Q-RAG.md（自评7.85）
+- 2026-05-12 | ingest | raw/inbox/2026-05-12-AI论文.md | 创建wiki/concepts/PrefixGuard.md（自评7.75）
+- 2026-05-12 | ingest | raw/inbox/2026-05-12-新闻热点.md | 创建wiki/entities/CUDA-oxide.md（自评7.55）
+- 2026-05-12 | ingest | raw/inbox/2026-05-12-技术动态.md | 创建wiki/entities/Mistral-Medium-3.5.md（自评7.55）
+- 2026-05-12 | update | raw/inbox/2026-05-12-技术动态.md | 更新wiki/entities/Claude-Code-Source-Analysis.md（合并了Auto模式新内容）
+- 2026-05-12 | ingest | raw/inbox/2026-05-12-GitHub项目.md | 跳过gobbo-ai（⭐10，无实质技术内容）
+- 2026-05-12 | ingest | raw/inbox/2026-05-12-社交媒体.md | 跳过：Training-LLM-Swift已存在、CUDA-oxide已创建、其余低于7.0分

@@ -61,3 +61,5 @@
 - [AgentGPT](AgentGPT.md) (2026-05-12)
 - [JeecgBoot](JeecgBoot.md) (2026-05-12)
 - [OpenMythos](OpenMythos.md) (2026-05-12)
+- [CUDA-oxide](CUDA-oxide.md) (2026-05-12)
+- [Mistral-Medium-3.5](Mistral-Medium-3.5.md) (2026-05-12)

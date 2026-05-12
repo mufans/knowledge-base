@@ -354,6 +354,22 @@ for await (const event of stream) {
 
 ## 关联分析
 
+### 2026-05-12 更新：Auto模式深度解析
+
+Anthropic在Claude Code中引入**Auto模式**，将多步骤自动化执行与分层安全机制结合：
+
+- **核心设计**：Auto模式允许Agent自主规划并执行多步骤开发任务（文件创建、代码修改、测试运行、git提交等），但在关键节点保留人工审批检查点
+- **分层安全机制**：
+  - 低风险操作（读取文件、搜索）→ 自动执行
+  - 中风险操作（修改非核心文件）→ 简要确认
+  - 高风险操作（删除文件、git push、执行外部命令）→ 强制人工审批
+- **与Agentic Loop的关系**：Auto模式本质上是query.ts中agentic loop的扩展，增加了审批门控层和风险分级逻辑
+- **实际价值**：将开发者从逐步确认的重复操作中解放出来，同时保持对破坏性操作的控制
+- **行业趋势**：与Mistral的Work模式、Cursor的Agent模式类似，都在向"半自治编码"方向演进
+
+## 关联分析
+
 - [claude-context](../entities/claude-context.md) — Claude的上下文管理策略
 - [everything-claude-code](../entities/everything-claude-code.md) — Claude Code功能全景分析
 - [OpenClaw](../entities/OpenClaw.md) — OpenClaw的Agent架构对比
+- [Mistral-Medium-3.5](Mistral-Medium-3.5.md) — Mistral的Work模式对比
