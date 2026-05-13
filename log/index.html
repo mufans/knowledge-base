@@ -3148,10 +3148,32 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
       
         <li class="md-nav__item">
+  <a href="#2026513" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026年5月13日
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2026511_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         2026年5月11日
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-05-13-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-13 社交媒体AI技术动态采集
       
     </span>
   </a>
@@ -4026,6 +4048,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>2026-05-12 | collect | raw/inbox/2026-05-12-新闻热点.md | 每日技术新闻热点采集，覆盖AI/大模型、编程/开发工具、移动端、云原生/后端、开源硬件5大类共10条新闻。来源：Hacker News、Solidot、InfoQ、36氪（GitHub Trending脚本因API限流失败，已跳过不阻塞其他源）。重点：TanStack安全漏洞、Mistral Medium 3.5发布、混元3D生成模型、Claude Code Auto模式、Figma自研Redis代理、本田电动摩托车离合器技术、Gmail QR码验证、Cloudflare Flagship服务、CUDA-oxide Rust编译器。</li>
 <li>2026-05-12 | collect | GitHub Trending | 因API限流失败，脚本已跳过不阻塞其他采集源，替代信息手动补充5个开源项目。</li>
 </ul>
+<h2 id="2026513">2026年5月13日<a class="headerlink" href="#2026513" title="Permanent link">&para;</a></h2>
+<ul>
+<li>2026-05-13 | collect | raw/inbox/2026-05-13-新闻热点.md | 每日技术新闻热点采集，覆盖AI/大模型、编程/开发工具、移动端、云原生/后端、开源硬件5大类共10条新闻。来源：Hacker News、Solidot、InfoQ、36氪（GitHub Trending脚本因API限流失败，已跳过不阻塞其他源）。重点：模力工场AI应用周榜、Claude Code信任危机、Googlebook代码搜索平台、BambuLab打印机支持、GitLab AI裁员、Linux K5 CPU停止支持。</li>
+<li>2026-05-13 | collect | GitHub Trending | 因API限流失败，脚本已跳过不阻塞其他采集源，未补充GitHub项目信息。</li>
+</ul>
 <h2 id="2026511_1">2026年5月11日<a class="headerlink" href="#2026511_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li>2026-05-11 | ingest | raw/inbox/2026-05-11-GitHub项目.md | 创建wiki页面 everything-claude-code（自评8.60）</li>
@@ -4049,6 +4076,27 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>2026-05-12 | ingest | raw/inbox/2026-05-12-GitHub项目.md | 跳过gobbo-ai（⭐10，无实质技术内容）</li>
 <li>2026-05-12 | ingest | raw/inbox/2026-05-12-社交媒体.md | 跳过：Training-LLM-Swift已存在、CUDA-oxide已创建、其余低于7.0分</li>
 </ul>
+<h2 id="2026-05-13-ai">2026-05-13 社交媒体AI技术动态采集<a class="headerlink" href="#2026-05-13-ai" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>采集时间</strong>: 2026-05-13 05:00 UTC</li>
+<li><strong>任务</strong>: 每日社交媒体AI技术动态采集</li>
+<li><strong>采集源</strong>: X/Twitter AI Agent搜索、Reddit r/artificial、Reddit r/LocalLLaMA、Hacker News</li>
+<li><strong>结果分析</strong>:</li>
+<li>✅ <strong>Hacker News</strong>: 成功获取，找到2条高质量AI相关讨论</li>
+<li>❌ <strong>Reddit r/artificial</strong>: web_fetch失败，JSON请求失败</li>
+<li>❌ <strong>Reddit r/LocalLLaMA</strong>: web_fetch失败，JSON请求失败</li>
+<li>❌ <strong>X/Twitter</strong>: browser模式超时失败，需要用户登录状态</li>
+<li><strong>成功采集条数</strong>: 2条</li>
+<li><strong>文件路径</strong>: raw/inbox/2026-05-13-社交媒体.md</li>
+<li><strong>内容主题</strong>: Agent基础设施部署、移动端AI应用</li>
+<li><strong>采集质量</strong>: 每条都包含标题链接、一句话摘要和作者信息，格式符合要求</li>
+<li><strong>钉钉推送</strong>: 因条数不足8条，本次暂不推送</li>
+<li><strong>问题总结</strong>: </li>
+<li>Reddit的JSON API和web抓取都失败，proxy_on命令未找到</li>
+<li>X/Twitter需要用户登录状态才能访问搜索内容，browser模式超时失败</li>
+<li>网络受限导致采集源受限，基于HN内容完成基础采集</li>
+<li>按照⚠️ X/Twitter需要登录规则，本次未发送登录提醒（已完成基础采集）</li>
+</ul>
 
 
 
@@ -4069,7 +4117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月12日 14:30:45 UTC">2026年5月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月13日 14:31:10 UTC">2026年5月13日</span>
   </span>
 
     

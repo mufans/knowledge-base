@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-12 22:30:31
+// Generated: 2026-05-13 22:30:56
 // Total articles: 118
-// Updated files this run: 0
+// Updated files this run: 3
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -1389,19 +1389,6 @@ window.__kb_articles = [
     "url": "wiki/entities/harmonist"
   },
   {
-    "title": "mattpocock/skills",
-    "category": "entities",
-    "tags": [
-      "Skill",
-      "TypeScript",
-      "教程"
-    ],
-    "rating": 7.5,
-    "description": "Matt Pocock 的 TypeScript 技能集合",
-    "date": "2026-04-27",
-    "url": "wiki/entities/mattpocock-skills"
-  },
-  {
     "title": "HuggingFace ml-intern",
     "category": "entities",
     "tags": [
@@ -1428,19 +1415,6 @@ window.__kb_articles = [
     "url": "wiki/entities/nanobot"
   },
   {
-    "title": "Open Design: 本地优先的AI设计工具",
-    "category": "entities",
-    "tags": [
-      "设计",
-      "本地优先",
-      "AI"
-    ],
-    "rating": 7.5,
-    "description": "Open Design 本地优先的 AI 设计工具",
-    "date": "2026-04-29",
-    "url": "wiki/entities/open-design"
-  },
-  {
     "title": "AI生成代码的知识产权归属",
     "category": "sources",
     "tags": [
@@ -1465,19 +1439,6 @@ window.__kb_articles = [
     "description": "InfoQ深度文章探讨AI Agent时代对分布式基础设施的新要求，涵盖Agent调度、状态管理和安全隔离",
     "date": "2026-05-10",
     "url": "wiki/sources/Agent-Distributed-Infrastructure"
-  },
-  {
-    "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
-    "category": "sources",
-    "tags": [
-      "Coding-Agent",
-      "批评",
-      "开源"
-    ],
-    "rating": 7.5,
-    "description": "17年开源老兵对 Coding Agents 堆功能现象的深度批评",
-    "date": "2026-04-29",
-    "url": "wiki/sources/Coding-Agents-Critique-2026"
   },
   {
     "title": "Teaching Claude Why — Anthropic推理透明性研究",
@@ -1533,6 +1494,32 @@ window.__kb_articles = [
     "url": "wiki/entities/Operit"
   },
   {
+    "title": "mattpocock/skills",
+    "category": "entities",
+    "tags": [
+      "Skill",
+      "TypeScript",
+      "教程"
+    ],
+    "rating": 7.0,
+    "description": "Matt Pocock 的 TypeScript 技能集合",
+    "date": "2026-04-27",
+    "url": "wiki/entities/mattpocock-skills"
+  },
+  {
+    "title": "Open Design: 本地优先的AI设计工具",
+    "category": "entities",
+    "tags": [
+      "设计",
+      "本地优先",
+      "AI"
+    ],
+    "rating": 7.0,
+    "description": "Open Design 本地优先的 AI 设计工具",
+    "date": "2026-04-29",
+    "url": "wiki/entities/open-design"
+  },
+  {
     "title": "trycua/cua — Computer-Use Agent 基础设施",
     "category": "entities",
     "tags": [
@@ -1544,6 +1531,19 @@ window.__kb_articles = [
     "description": "trycua/cua Computer-Use Agent 基础设施",
     "date": "2026-04-27",
     "url": "wiki/entities/trycua-cua"
+  },
+  {
+    "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
+    "category": "sources",
+    "tags": [
+      "Coding-Agent",
+      "批评",
+      "开源"
+    ],
+    "rating": 7.0,
+    "description": "17年开源老兵对 Coding Agents 堆功能现象的深度批评",
+    "date": "2026-04-29",
+    "url": "wiki/sources/Coding-Agents-Critique-2026"
   },
   {
     "title": "OpenMobile: 开放移动Agent框架",
