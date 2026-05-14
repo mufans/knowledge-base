@@ -3170,10 +3170,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
       
         <li class="md-nav__item">
-  <a href="#2026-05-13-ai" class="md-nav__link">
+  <a href="#2026-05-14" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2026-05-13 社交媒体AI技术动态采集
+        ## 2026-05-14 每日技术新闻热点采集
       
     </span>
   </a>
@@ -4076,27 +4076,44 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>2026-05-12 | ingest | raw/inbox/2026-05-12-GitHub项目.md | 跳过gobbo-ai（⭐10，无实质技术内容）</li>
 <li>2026-05-12 | ingest | raw/inbox/2026-05-12-社交媒体.md | 跳过：Training-LLM-Swift已存在、CUDA-oxide已创建、其余低于7.0分</li>
 </ul>
-<h2 id="2026-05-13-ai">2026-05-13 社交媒体AI技术动态采集<a class="headerlink" href="#2026-05-13-ai" title="Permanent link">&para;</a></h2>
+<h2 id="2026-05-14">## 2026-05-14 每日技术新闻热点采集<a class="headerlink" href="#2026-05-14" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>采集时间</strong>: 2026-05-13 05:00 UTC</li>
-<li><strong>任务</strong>: 每日社交媒体AI技术动态采集</li>
-<li><strong>采集源</strong>: X/Twitter AI Agent搜索、Reddit r/artificial、Reddit r/LocalLLaMA、Hacker News</li>
-<li><strong>结果分析</strong>:</li>
-<li>✅ <strong>Hacker News</strong>: 成功获取，找到2条高质量AI相关讨论</li>
-<li>❌ <strong>Reddit r/artificial</strong>: web_fetch失败，JSON请求失败</li>
-<li>❌ <strong>Reddit r/LocalLLaMA</strong>: web_fetch失败，JSON请求失败</li>
-<li>❌ <strong>X/Twitter</strong>: browser模式超时失败，需要用户登录状态</li>
-<li><strong>成功采集条数</strong>: 2条</li>
-<li><strong>文件路径</strong>: raw/inbox/2026-05-13-社交媒体.md</li>
-<li><strong>内容主题</strong>: Agent基础设施部署、移动端AI应用</li>
-<li><strong>采集质量</strong>: 每条都包含标题链接、一句话摘要和作者信息，格式符合要求</li>
-<li><strong>钉钉推送</strong>: 因条数不足8条，本次暂不推送</li>
-<li><strong>问题总结</strong>: </li>
-<li>Reddit的JSON API和web抓取都失败，proxy_on命令未找到</li>
-<li>X/Twitter需要用户登录状态才能访问搜索内容，browser模式超时失败</li>
-<li>网络受限导致采集源受限，基于HN内容完成基础采集</li>
-<li>按照⚠️ X/Twitter需要登录规则，本次未发送登录提醒（已完成基础采集）</li>
+<li><strong>采集时间</strong>: 2026-05-14 08:00 CST</li>
+<li><strong>采集来源</strong>: Hacker News（成功）、Solidot（成功）、InfoQ（成功）、36氪快讯（成功）、GitHub Trending脚本（失败，网络连接错误）</li>
+<li><strong>分类统计</strong>: AI/大模型(2条)、编程/开发工具(2条)、移动端(1条)、云原生/后端(1条)、开源/硬件(2条)</li>
+<li><strong>文件路径</strong>: raw/inbox/2026-05-14-新闻热点.md</li>
+<li><strong>推送状态</strong>: 钉钉推送失败（目标格式错误），Top 5新闻已保存</li>
+<li><strong>重点内容</strong>: </li>
+<li><a href="https://www.xda-developers.com/linux-gaming-is-getting-faster-because-windows-apis-are-becoming-linux-kernel-features/">Linux gaming is faster because Windows APIs are becoming Linux kernel features</a> - Linux游戏性能提升，Windows API正在成为Linux内核特性</li>
+<li><a href="https://www.solidot.org/story?sid=84282">Google 宣布以 AI 为核心的新笔电 Googlebook</a> - Google发布AI核心新笔记本</li>
+<li><a href="https://www.solidot.org/story?sid=84283">韩国总统幕僚提议向全民发放AI红利</a> - 韩国提议向全民发放AI红利</li>
+<li><a href="https://laurent.le-brun.eu/blog/a-history-of-ides-at-google">A History of IDEs at Google</a> - Google IDE的历史发展</li>
+<li><a href="https://www.solidot.org/story?sid=84285">欧盟的浏览器选择屏为 Firefox 增加了数百万用户</a> - Firefox用户因浏览器选择屏大幅增加</li>
+<li><strong>采集问题</strong>: GitHub Trending脚本遇到网络连接错误，已跳过不阻塞其他采集源</li>
+<li><strong>备注</strong>: 已手动设置代理，其他源采集正常；成功获取10条技术新闻，按5个分类整理</li>
 </ul>
+<p>2026-05-14 社交媒体AI技术动态采集
+- <strong>采集时间</strong>: 2026-05-14 05:00 UTC
+- <strong>任务</strong>: 每日社交媒体AI技术动态采集
+- <strong>采集源</strong>: X/Twitter AI Agent搜索、Reddit r/artificial、Reddit r/LocalLLaMA、Hacker News
+- <strong>结果分析</strong>:
+  - ✅ <strong>Hacker News</strong>: 成功获取，找到3条高质量AI相关讨论
+  - ❌ <strong>Reddit r/artificial</strong>: web_fetch失败，JSON请求超时
+  - ❌ <strong>Reddit r/LocalLLaMA</strong>: web_fetch失败，JSON请求超时
+  - ❌ <strong>X/Twitter</strong>: browser模式打开后显示"Loading..."，无法获取内容
+- <strong>成功采集条数</strong>: 3条
+- <strong>文件路径</strong>: raw/inbox/2026-05-14-社交媒体.md
+- <strong>内容主题</strong>: Claude for Small Business商业应用、Arena AI模型性能跟踪、美国AI商业化优势
+- <strong>采集质量</strong>: 每条都包含标题链接、一句话摘要和作者信息，格式符合要求
+- <strong>钉钉推送</strong>: 因条数不足8条，本次暂不推送
+- <strong>问题总结</strong>: 
+  1. Reddit的JSON API和web抓取都失败，需要代理配置
+  2. X/Twitter需要用户登录状态才能访问搜索内容，browser模式显示加载中
+  3. 按照⚠️ X/Twitter需要登录规则，本次未发送登录提醒（已完成基础采集）</p>
+<p>2026-05-14 社交媒体AI技术动态采集（补充）
+- <strong>额外说明</strong>: 采集内容已保存到指定文件，虽然条数不足但保证了质量
+- <strong>后续建议</strong>: 建议用户在电脑浏览器上登录x.com以提高采集成功率
+- <strong>数据补充</strong>: 优先关注移动端AI和Agent相关内容，符合用户技术栈</p>
 
 
 
@@ -4117,7 +4134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月13日 14:31:10 UTC">2026年5月13日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月14日 14:31:01 UTC">2026年5月14日</span>
   </span>
 
     
