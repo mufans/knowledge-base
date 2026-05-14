@@ -819,22 +819,41 @@
 - 2026-05-12 | ingest | raw/inbox/2026-05-12-GitHub项目.md | 跳过gobbo-ai（⭐10，无实质技术内容）
 - 2026-05-12 | ingest | raw/inbox/2026-05-12-社交媒体.md | 跳过：Training-LLM-Swift已存在、CUDA-oxide已创建、其余低于7.0分
 
-## 2026-05-13 社交媒体AI技术动态采集
-- **采集时间**: 2026-05-13 05:00 UTC
+## ## 2026-05-14 每日技术新闻热点采集
+- **采集时间**: 2026-05-14 08:00 CST
+- **采集来源**: Hacker News（成功）、Solidot（成功）、InfoQ（成功）、36氪快讯（成功）、GitHub Trending脚本（失败，网络连接错误）
+- **分类统计**: AI/大模型(2条)、编程/开发工具(2条)、移动端(1条)、云原生/后端(1条)、开源/硬件(2条)
+- **文件路径**: raw/inbox/2026-05-14-新闻热点.md
+- **推送状态**: 钉钉推送失败（目标格式错误），Top 5新闻已保存
+- **重点内容**: 
+  1. [Linux gaming is faster because Windows APIs are becoming Linux kernel features](https://www.xda-developers.com/linux-gaming-is-getting-faster-because-windows-apis-are-becoming-linux-kernel-features/) - Linux游戏性能提升，Windows API正在成为Linux内核特性
+  2. [Google 宣布以 AI 为核心的新笔电 Googlebook](https://www.solidot.org/story?sid=84282) - Google发布AI核心新笔记本
+  3. [韩国总统幕僚提议向全民发放AI红利](https://www.solidot.org/story?sid=84283) - 韩国提议向全民发放AI红利
+  4. [A History of IDEs at Google](https://laurent.le-brun.eu/blog/a-history-of-ides-at-google) - Google IDE的历史发展
+  5. [欧盟的浏览器选择屏为 Firefox 增加了数百万用户](https://www.solidot.org/story?sid=84285) - Firefox用户因浏览器选择屏大幅增加
+- **采集问题**: GitHub Trending脚本遇到网络连接错误，已跳过不阻塞其他采集源
+- **备注**: 已手动设置代理，其他源采集正常；成功获取10条技术新闻，按5个分类整理
+
+2026-05-14 社交媒体AI技术动态采集
+- **采集时间**: 2026-05-14 05:00 UTC
 - **任务**: 每日社交媒体AI技术动态采集
 - **采集源**: X/Twitter AI Agent搜索、Reddit r/artificial、Reddit r/LocalLLaMA、Hacker News
 - **结果分析**:
-  - ✅ **Hacker News**: 成功获取，找到2条高质量AI相关讨论
-  - ❌ **Reddit r/artificial**: web_fetch失败，JSON请求失败
-  - ❌ **Reddit r/LocalLLaMA**: web_fetch失败，JSON请求失败
-  - ❌ **X/Twitter**: browser模式超时失败，需要用户登录状态
-- **成功采集条数**: 2条
-- **文件路径**: raw/inbox/2026-05-13-社交媒体.md
-- **内容主题**: Agent基础设施部署、移动端AI应用
+  - ✅ **Hacker News**: 成功获取，找到3条高质量AI相关讨论
+  - ❌ **Reddit r/artificial**: web_fetch失败，JSON请求超时
+  - ❌ **Reddit r/LocalLLaMA**: web_fetch失败，JSON请求超时
+  - ❌ **X/Twitter**: browser模式打开后显示"Loading..."，无法获取内容
+- **成功采集条数**: 3条
+- **文件路径**: raw/inbox/2026-05-14-社交媒体.md
+- **内容主题**: Claude for Small Business商业应用、Arena AI模型性能跟踪、美国AI商业化优势
 - **采集质量**: 每条都包含标题链接、一句话摘要和作者信息，格式符合要求
 - **钉钉推送**: 因条数不足8条，本次暂不推送
 - **问题总结**: 
-  1. Reddit的JSON API和web抓取都失败，proxy_on命令未找到
-  2. X/Twitter需要用户登录状态才能访问搜索内容，browser模式超时失败
-  3. 网络受限导致采集源受限，基于HN内容完成基础采集
-  4. 按照⚠️ X/Twitter需要登录规则，本次未发送登录提醒（已完成基础采集）
+  1. Reddit的JSON API和web抓取都失败，需要代理配置
+  2. X/Twitter需要用户登录状态才能访问搜索内容，browser模式显示加载中
+  3. 按照⚠️ X/Twitter需要登录规则，本次未发送登录提醒（已完成基础采集）
+
+2026-05-14 社交媒体AI技术动态采集（补充）
+- **额外说明**: 采集内容已保存到指定文件，虽然条数不足但保证了质量
+- **后续建议**: 建议用户在电脑浏览器上登录x.com以提高采集成功率
+- **数据补充**: 优先关注移动端AI和Agent相关内容，符合用户技术栈
