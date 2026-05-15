@@ -1,5 +1,13 @@
 # Knowledge Base Log
 
+## 2026年5月15日
+- ai-knowledge-base百科同步 | 33篇新文章处理
+  - 入库(1篇): entities/Khoj(7.60)
+  - 跳过(已有覆盖23篇): deer-flow、nanobot、Goose-Agent、LangChain、JeecgBoot、LlamaFactory、Pi-Agent-Toolkit、MetaGPT、mem0、Hermes-Agent、OpenHands、RAGFlow、Dify、AgentGPT、browser-use、awesome-llm-apps、ai-engineering-hub、Cherry-Studio、CowAgent、DS4-DeepSeek-Local-Inference、GLM-5-Scaling-Pain、Transformer-Architecture-Evolution、Vibe-Coding-Google-Kaggle-Course
+  - 跳过(领域不匹配/技术深度不足9篇): AI-as-Social-Technology(6)、Aurora(6)、sectorllm(6)、Google-XPRIZE(6)、Google-AI-April(6)、Google-Finance(6)、porting-microgpt-to-futhark(7偏离方向)、Gemini-Webhooks(7小众)、Google-Small-Brief(7非技术)
+  - 已有页面更新检查: 页面均在5月7-12日创建/更新，无重大变更
+- 2026-05-15 | ingest | ai-knowledge-base同步 | 创建entities/Khoj(7.60)，更新entities/index.md
+
 ## 2026年5月12日
 - ai-knowledge-base百科同步 | 36篇新文章处理
   - 入库(5篇): entities/LangChain(7.95), entities/JeecgBoot(7.15), entities/OpenMythos(8.65), entities/AgentGPT(6.75⚠️任务要求创建但低于阈值), sources/Transformer-Architecture-Evolution(8.35)
@@ -857,3 +865,13 @@
 - **额外说明**: 采集内容已保存到指定文件，虽然条数不足但保证了质量
 - **后续建议**: 建议用户在电脑浏览器上登录x.com以提高采集成功率
 - **数据补充**: 优先关注移动端AI和Agent相关内容，符合用户技术栈
+
+## 2026-05-15 技术新闻热点
+- 采集来源：Solidot、36氪、开源中国、IT之家（HN/GitHub/InfoQ 因网络故障未采集）
+- 文件：raw/inbox/2026-05-15-新闻热点.md
+- 重点新闻：Redis之父发布DeepSeek V4推理引擎ds4、微信800人适配鸿蒙、英伟达市值破5.5万亿美元、Mojo语言接近1.0、PHP改BSD许可证
+
+## 2026-05-15
+- 社交媒体采集 | raw/inbox/2026-05-15-社交媒体.md | 采集18条AI动态（Reddit r/artificial, r/LocalLLaMA, Hacker News）
+  - 覆盖：Agent工具链、LLM模型、量化优化、硬件评测、AI治理
+  - X/Twitter因API限制未获取
