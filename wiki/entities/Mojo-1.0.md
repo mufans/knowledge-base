@@ -35,6 +35,12 @@ Trade-off：生态成熟度 vs 性能。Mojo目前生态远不及Python（没有
 - 对 [移动端AI](../concepts/Real-world-AI-Applications.md) 的潜在影响：Mojo编译后的推理性能接近C，可在移动端替代部分C++推理代码
 - 与 [DeepSeek-V4](DeepSeek-V4.md) 等模型的推理优化形成互补：模型侧优化 + 语言侧优化
 
+## 最新动态（2026-05-15）
+
+Mojo发布1.0.0b1版本，核心语言特性冻结，API稳定性提升。“像Python一样写，像C++一样跑”的承诺进入验证阶段。
+
+---
+
 ## 可执行建议
 
 1. **AI推理场景试点**：如果有自研推理kernel的需求（如移动端模型部署），Mojo值得评估

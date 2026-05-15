@@ -28,3 +28,4 @@
 - [LLM-Document-Corruption](LLM-Document-Corruption.md) (2026-05-10)
 - [Q-RAG](Q-RAG.md) (2026-05-12)
 - [PrefixGuard](PrefixGuard.md) (2026-05-12)
+- [MTP-Multi-Token-Prediction](MTP-Multi-Token-Prediction.md) (2026-05-15)

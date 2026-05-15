@@ -2,7 +2,7 @@
 title: "AI Agent Self-Improving"
 category: "concepts"
 tags: ["AI-Agent", "Self-Improvement", "LLM"]
-rating: 7.5
+rating: 8.5
 description: "AI Agent 自我改进机制，包括代码质量评估、记忆管理与技能迭代"
 date: "2026-04-26"
 ---
@@ -64,11 +64,39 @@ date: "2026-04-26"
 3. **后台审查机制**：不占用用户注意力预算
 4. **局部修补优先**：保留已验证的稳定能力
 
+## Multi-Agent协作进化Survey（2026-05-15更新）
+
+论文 [Beyond Individual Intelligence](https://arxiv.org/abs/2605.14892) 系统性调研了LLM-based Multi-Agent Systems中的三大核心议题：
+
+### 1. 协作模式分类
+- **同质协作**：相同角色的Agent通过不同视角互补
+- **异质协作**：不同专业能力的Agent分工协作（如 coder + reviewer + tester）
+- **层级协作**：Manager-Worker模式，上层负责规划，下层负责执行
+
+### 2. 失败归因
+- **通信失败**：Agent间信息传递不完整或误解
+- **能力不匹配**：分配的任务超出Agent的能力边界
+- **目标漂移**：多步执行中偏离原始目标
+- 关键发现：大多数失败可以通过**事后归因分析**转化为系统改进
+
+### 3. 自进化机制
+- **个体进化**：单个Agent从自己的错误中学习（即Self-Improving）
+- **群体进化**：多Agent系统从协作失败中提取共享经验
+- **架构进化**：系统根据历史表现自动调整Agent组合和分工
+
+### 核心洞察
+> Multi-Agent的自进化不只是"每个Agent都变得更好"，更重要的是**协作模式本身的进化**——系统学会在什么场景下用什么分工策略最有效。
+
+这与[Agent-Control-Flow](Agent-Control-Flow.md)的控制流设计直接相关：确定性的控制流 + 进化的协作策略 = 稳定且持续改进的Multi-Agent系统。
+
+---
+
 ## 关联概念
 
-- [Memory Management](#Memory Management) - 容量限制与信息压缩
-- [Skill Auto-Creation](#Skill Auto-Creation) - 自动创建技能的机制
-- [Real-world AI Applications](#Real-world AI Applications) - 实际应用价值验证
+- [Memory Management](Memory-Management.md) - 容量限制与信息压缩
+- [Skill Auto-Creation](Skill-Auto-Creation.md) - 自动创建技能的机制
+- [Real-world AI Applications](Real-world-AI-Applications.md) - 实际应用价值验证
+- [Orchard](../entities/Orchard.md) - Agentic建模框架，行为层设计参考
 
 ---
 

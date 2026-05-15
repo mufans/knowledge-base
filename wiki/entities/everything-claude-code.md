@@ -2,7 +2,7 @@
 title: "everything-claude-code: Agent Harness性能优化系统"
 category: "entities"
 tags: ["Claude-Code", "Agent-Harness", "Coding-Agent", "Developer-Tools"]
-rating: 8.5
+rating: 9.0
 description: "178k星标的Agent Harness优化系统，为Claude Code等编码Agent提供技能、记忆、安全和研究能力增强"
 date: "2026-05-11"
 ---
@@ -48,6 +48,27 @@ everything-claude-code是一个面向编码Agent（Claude Code、Codex、OpenCod
 - OpenClaw用SKILL.md定义Agent行为模板，everything-claude-code做的是同样的事但专门面向编码场景
 - 两者都是"给Agent一个结构化的工作手册"的思路
 
+## Claude Code大型代码库最佳实践（2026-05-15更新）
+
+[来源](https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start) | HN Score: 36
+
+Anthropic官方分享Claude Code在大代码库中的工作原理：
+
+### 核心策略
+1. **上下文预算管理**：大代码库的挑战不是"看不完"，而是"看哪些"。Claude Code通过分层索引 + 相关性排序优化上下文利用
+2. **增量理解**：不需要一次性理解整个代码库，而是随任务需要逐步深入
+3. **工作记忆 + 文件缓存**：将已读取的文件摘要缓存，避免重复读取消耗token
+
+### 最佳实践
+- **CLAUDE.md / AGENTS.md**：在项目根目录放置指引文件，告诉Agent项目结构和约束
+- **分模块工作**：不要让Agent一次性处理整个代码库，而是按模块逐步深入
+- **明确边界**：告诉Agent"只需要关注这几个文件"，而非"帮我理解整个项目"
+
+### 与everything-claude-code Harness的关系
+这些最佳实践本质上就是Harness的Skills设计原则：通过结构化指引减少Agent的规划开销。
+
+---
+
 ## 关联分析
 
 - [OpenClaw](../entities/OpenClaw.md) — 同为Agent Harness设计，OpenClaw更通用，everything-claude-code专注编码
@@ -55,6 +76,7 @@ everything-claude-code是一个面向编码Agent（Claude Code、Codex、OpenCod
 - [cc-switch](cc-switch.md) — 另一个编码Agent管理工具，侧重跨平台桌面端
 - [deer-flow](deer-flow.md) — 字节跳动的长周期SuperAgent框架，同样包含Memory和Skill机制
 - [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) — Harness中Memory机制的底层优化原理
+- [Reasonix](Reasonix.md) — 另一个编码Agent，侧重缓存优化与Claude Code互补
 
 ## 可执行建议
 
