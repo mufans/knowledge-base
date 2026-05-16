@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="tags: #Agent-Memory #RAG #Personalization">
+        <meta name="description" content="tags: #Agent-Memory #RAG #Personalization #BM25">
       
       
         <meta name="author" content="mufans">
@@ -2327,6 +2327,23 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="设计原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-05-16-20264" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-16 更新：新记忆算法（2026年4月）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2395,9 +2412,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <h1 id="mem0">mem0<a class="headerlink" href="#mem0" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>tags: #Agent-Memory #RAG #Personalization
+<p>tags: #Agent-Memory #RAG #Personalization #BM25
 source: <a href="https://github.com/mem0ai/mem0">mem0ai/mem0</a>
-score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 综合 8.30/10</p>
+score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.75/10</p>
 </blockquote>
 <h2 id="_1">核心概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>mem0 是一个为 AI Agent 提供持久化记忆层的开源库（Python + TypeScript），通过自动提取、存储和检索对话中的关键信息，让 Agent 具备跨会话的上下文感知和个性化能力。它不是简单的聊天历史存储，而是对交互内容进行语义提炼后的结构化记忆。</p>
@@ -2405,6 +2422,55 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 
 <p><strong>核心 trade-off</strong>：mem0 选择在 Agent 和 LLM 之间插入一个独立的记忆管理层，而非依赖 LLM 的 context window 或 prompt engineering 来维持状态。这样做的好处是记忆持久化且成本可控（不需要每次都把历史塞进 prompt），代价是引入了额外的存储依赖和检索延迟。</p>
 <p><strong>记忆类型分离</strong>：mem0 区分短期记忆（session-level）和长期记忆（user-level），通过不同的 TTL 和检索策略管理。这解决了 Agent 在多轮对话中"遗忘"和"信息过载"的矛盾。</p>
 <p><strong>架构选择</strong>：支持多种后端（Qdrant、PostgreSQL、MongoDB 等），而非绑定单一向量数据库。这让用户可以根据部署环境选择——本地开发用 SQLite + ChromaDB，生产环境用 Qdrant/PGVector。</p>
+<h3 id="2026-05-16-20264">2026-05-16 更新：新记忆算法（2026年4月）<a class="headerlink" href="#2026-05-16-20264" title="Permanent link">&para;</a></h3>
+<p>2026年4月发布全新记忆算法，benchmark数据显著提升：</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>旧算法</th>
+<th>新算法</th>
+<th>Tokens</th>
+<th>Latency p50</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LoCoMo</td>
+<td>71.4</td>
+<td><strong>91.6</strong> (+20.2)</td>
+<td>7.0K</td>
+<td>0.88s</td>
+</tr>
+<tr>
+<td>LongMemEval</td>
+<td>67.8</td>
+<td><strong>94.8</strong> (+27.0)</td>
+<td>6.8K</td>
+<td>1.09s</td>
+</tr>
+<tr>
+<td>BEAM (1M)</td>
+<td>—</td>
+<td><strong>64.1</strong></td>
+<td>6.7K</td>
+<td>1.00s</td>
+</tr>
+<tr>
+<td>BEAM (10M)</td>
+<td>—</td>
+<td><strong>48.6</strong></td>
+<td>6.9K</td>
+<td>1.05s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>算法变更要点</strong>：
+- <strong>Single-pass ADD-only提取</strong>：一次LLM调用，不再有UPDATE/DELETE操作。记忆只增不覆盖，简化了冲突处理
+- <strong>Agent生成事实成为一等公民</strong>：当Agent确认执行某操作时，该信息以同等权重存储
+- <strong>Entity linking</strong>：提取实体并embedding，跨记忆关联，提升检索质量
+- <strong>Multi-signal检索</strong>：语义搜索 + BM25关键词 + 实体匹配三路并行融合
+- <strong>Temporal Reasoning</strong>：时间感知检索，对"当前状态"、"过去事件"、"未来计划"查询区分处理</p>
 <h2 id="_3">关键实现<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>记忆提取</strong>：每次交互后，通过 LLM 自动判断哪些信息值得记忆（人名、偏好、决策等），生成结构化的 memory entry</li>
@@ -2412,18 +2478,29 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 
 <li><strong>冲突解决</strong>：当新信息与已有记忆矛盾时（如用户改了偏好），自动更新而非追加</li>
 <li><strong>集成方式</strong>：提供 OpenAI/Anthropic/LangChain/LlamaIndex 的原生适配器，也支持 MCP 协议</li>
 <li><strong>TypeScript SDK</strong>：<code>mem0-ts</code> 子项目提供 Node.js 支持，便于前端/全栈项目集成</li>
+<li><strong>Agent Mode CLI</strong>（新增）：<code>mem0 init --agent --agent-caller claude-code --json</code>，Agent可自主初始化，无需人工登录</li>
+<li><strong>Skills集成</strong>（新增）：支持Claude Code/Codex/Cursor等通过npx skills加载mem0能力</li>
 </ul>
+<pre><code class="language-python">from mem0 import Memory
+memory = Memory()
+# 添加记忆
+memory.add(&quot;Prefers dark mode and vim keybindings&quot;, user_id=&quot;alice&quot;)
+# 检索记忆
+results = memory.search(&quot;What does Alice prefer?&quot;, user_id=&quot;alice&quot;)
+</code></pre>
 <h2 id="_4">关联分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../../concepts/Memory-Management/">Memory-Management</a> — Agent 记忆系统的设计模式</li>
 <li><a href="../claude-mem/">claude-mem</a> — Claude Code 的记忆实现对比</li>
 <li><a href="../OpenClaw/">OpenClaw</a> — 使用记忆系统的 Agent 框架</li>
+<li><a href="../nanobot/">nanobot</a> — 另一个轻量Agent框架，可与mem0组合使用</li>
 </ul>
 <h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>个人项目集成</strong>：如果你的 Agent 需要记住用户偏好（如 coding style、常用工具），mem0 是最成熟的开源方案，比自建记忆层省大量时间</li>
-<li><strong>成本控制</strong>：mem0 的记忆检索只返回相关片段（而非全部历史），可以显著降低 token 消耗——对比每次把完整 history 塞进 prompt 的做法</li>
+<li><strong>成本控制</strong>：新算法单次检索仅需~7K tokens、延迟~1s，性价比极高</li>
 <li><strong>移动端场景</strong>：TypeScript SDK + 轻量后端（SQLite）可以部署为个人记忆服务，供移动端 Agent 调用</li>
+<li><strong>Agent Mode体验</strong>：直接用<code>mem0 init --agent</code>让Coding Agent自主完成记忆层集成</li>
 </ol>
 <h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <table>
@@ -2438,31 +2515,31 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 
 <tbody>
 <tr>
 <td>摘要质量</td>
-<td>8</td>
+<td>8.5</td>
+<td>0.25</td>
+<td>2.13</td>
+</tr>
+<tr>
+<td>技术深度</td>
+<td>8.0</td>
 <td>0.25</td>
 <td>2.00</td>
 </tr>
 <tr>
-<td>技术深度</td>
-<td>7</td>
-<td>0.25</td>
-<td>1.75</td>
-</tr>
-<tr>
 <td>相关性</td>
-<td>9</td>
+<td>9.0</td>
 <td>0.20</td>
 <td>1.80</td>
 </tr>
 <tr>
 <td>原创性</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.15</td>
-<td>1.05</td>
+<td>1.13</td>
 </tr>
 <tr>
 <td>格式规范</td>
-<td>9</td>
+<td>9.0</td>
 <td>0.15</td>
 <td>1.35</td>
 </tr>
@@ -2470,10 +2547,13 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 
 <td><strong>加权总分</strong></td>
 <td></td>
 <td></td>
-<td><strong>7.95</strong></td>
+<td><strong>8.40</strong></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>评分依据：新算法的benchmark数据和架构变更都是实质性技术更新，Agent Mode CLI降低了集成门槛。</p>
+</blockquote>
 
 
 
@@ -2494,7 +2574,7 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月14日 14:31:02 UTC">2026年5月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月16日 12:09:49 UTC">2026年5月16日</span>
   </span>
 
     

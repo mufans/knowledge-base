@@ -2352,7 +2352,57 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
       
         <li class="md-nav__item">
+  <a href="#markdownagent-evolvemem2026-05-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown作为Agent大脑 + EvolveMem自进化记忆（2026-05-15更新）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Markdown作为Agent大脑 + EvolveMem自进化记忆（2026-05-15更新）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markdown-versioned-folders-as-agent-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown Versioned Folders as Agent Brain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolvemem-self-evolving-memory-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EvolveMem: Self-Evolving Memory Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        综合洞察
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         可执行建议
@@ -2363,7 +2413,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         自评
@@ -2425,14 +2475,43 @@ score: 技术深度9/10 | 实用价值8/10 | 时效性8/10 | 领域匹配9/10 | 
 <li>与 <a href="../Self-RAG/">Self-RAG</a> 的关系：记忆检索可以使用 Self-RAG 的反思检索策略提升质量</li>
 <li>与 <a href="../PersonalAI-KG-Comparison/">PersonalAI-KG-Comparison</a> 相关：知识图谱作为语义记忆的实现方式</li>
 </ul>
-<h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="markdownagent-evolvemem2026-05-15">Markdown作为Agent大脑 + EvolveMem自进化记忆（2026-05-15更新）<a class="headerlink" href="#markdownagent-evolvemem2026-05-15" title="Permanent link">&para;</a></h2>
+<h3 id="markdown-versioned-folders-as-agent-brain">Markdown Versioned Folders as Agent Brain<a class="headerlink" href="#markdown-versioned-folders-as-agent-brain" title="Permanent link">&para;</a></h3>
+<p><a href="https://extency.com/blog/markdown-versioned-folders-agent-brain-2026">来源</a> | HN Score: 32</p>
+<p>核心主张：用纯Markdown文件 + Git版本管理构建Agent的记忆系统。这与你当前的知识库架构高度吻合：</p>
+<ul>
+<li><strong>SOUL.md</strong> = Agent人格/价值观（长期不变）</li>
+<li><strong>MEMORY.md</strong> = 结构化长期记忆（定期更新）</li>
+<li><strong>daily notes</strong> = 情景记忆（每日追加）</li>
+<li><strong>SKILL.md</strong> = 能力记忆（工作流模板）</li>
+</ul>
+<p>优势：
+1. <strong>人类可读</strong>：比向量数据库更透明，可直接审查和编辑
+2. <strong>Git追踪</strong>：每次变更可追溯，支持回滚
+3. <strong>低成本</strong>：无需额外的数据库基础设施
+4. <strong>Token友好</strong>：Markdown天然适合作为LLM的上下文输入</p>
+<h3 id="evolvemem-self-evolving-memory-architecture">EvolveMem: Self-Evolving Memory Architecture<a class="headerlink" href="#evolvemem-self-evolving-memory-architecture" title="Permanent link">&para;</a></h3>
+<p><a href="https://arxiv.org/abs/2605.13941">论文</a> | AutoResearch框架</p>
+<p>EvolveMem提出Agent记忆的<strong>自动进化架构</strong>：
+- <strong>自动研究（AutoResearch）</strong>：Agent主动探索和验证记忆的准确性，而非被动存储
+- <strong>记忆进化</strong>：通过"使用-验证-修正"循环，记忆随时间变得越准确
+- <strong>多会话持久化</strong>：跨会话保持长期一致性，而非每次重新开始</p>
+<p>与你当前知识库实践的关联：
+- 你的wiki提炼流程本质就是"AutoResearch"——从原始信息中提取、验证、结构化
+- EvolveMem的"使用-验证-修正"循环对应你的"采集→提炼→更新已有页面"工作流
+- 关键差异：EvolveMem是自动化的，你的流程目前是手动触发的（cron + subagent）</p>
+<h3 id="_5">综合洞察<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Markdown记忆 + 自进化 = <strong>知识图谱的终极形态可能是"可版本控制的Markdown + 自动验证循环"</strong>。你的知识库架构已经走在正确的方向上。</p>
+<hr />
+<h2 id="_6">可执行建议<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>构建 Agent 记忆系统时的分层设计</strong>：工作记忆用 prompt engineering，情景记忆用向量数据库，语义记忆用知识图谱</li>
 <li><strong>遗忘比积累更重要</strong>：设计记忆系统时优先考虑遗忘策略，避免"记住一切"的陷阱</li>
 <li><strong>混合检索是生产标配</strong>：纯向量检索或纯关键词检索都不够，混合方案 + 时间权重是当前最佳实践</li>
 <li><strong>参考 <a href="../../entities/OpenClaw/">OpenClaw</a> 的记忆模式</strong>：SOUL.md（长期人格）+ MEMORY.md（结构化记忆）+ daily notes（情景记忆）是三层记忆的实际案例</li>
+<li><strong>引入EvolveMem的自动验证</strong>：考虑在知识库中加入"记忆验证"步骤，定期检查已有页面是否过时</li>
 </ol>
-<h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_7">自评<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2501,7 +2580,7 @@ score: 技术深度9/10 | 实用价值8/10 | 时效性8/10 | 领域匹配9/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月14日 14:31:01 UTC">2026年5月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月16日 12:09:49 UTC">2026年5月16日</span>
   </span>
 
     

@@ -2327,6 +2327,23 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="设计原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-05-16-cloud-browser-cli-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-16 更新：Cloud Browser &amp; CLI &amp; Skills
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2395,10 +2412,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <h1 id="browser-use">browser-use<a class="headerlink" href="#browser-use" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>tags: #BrowserAgent #ComputerUse #Playwright #Python
+<p>tags: #BrowserAgent #ComputerUse #Playwright #Python #CloudBrowser
 source: <a href="https://github.com/browser-use/browser-use">ai-knowledge-base/articles/2026-04-29-browser-usebrowser-use.json</a>
 project: <a href="https://github.com/browser-use/browser-use">browser-use</a>
-score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 综合 8.25/10</p>
+score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.50/10</p>
 </blockquote>
 <h2 id="_1">核心概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>browser-use 是一个开源 Python 框架，让 LLM Agent 能够通过 Playwright 控制浏览器执行网页操作任务。核心思路是将浏览器 DOM 抽象为 LLM 可理解的结构化状态（元素角色、名称、坐标），让模型决定下一步操作（点击、输入、滚动等），形成"观察→决策→执行"的闭环。</p>
@@ -2406,25 +2423,43 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配9/10 | 
 <p><strong>分层架构</strong>：Browser-Use 将浏览器控制分为三层——Playwright（底层浏览器控制）、Agent（任务规划与状态管理）、LLM（决策引擎）。这种分离使得底层可以独立演进（支持 stealth、proxy rotation），上层可以灵活切换不同 LLM。</p>
 <p><strong>Open Source vs Cloud 策略</strong>：开源版本适合需要自定义 tools 和深度集成的场景，Cloud 版本（托管）在 100 个真实浏览器任务 benchmark 上成功率显著更高（内置 captcha solving、proxy rotation、persistent memory）。这种双轨策略既保证了社区传播，又通过 Cloud 变现。</p>
 <p><strong>DOM 抽象方式</strong>：不同于 naive 的 screenshot→VLM 方案，browser-use 将页面解析为结构化的 accessibility tree（元素角色+名称），大幅降低 token 消耗同时保留足够的操作信息。这是性能和成本的关键 trade-off。</p>
+<h3 id="2026-05-16-cloud-browser-cli-skills">2026-05-16 更新：Cloud Browser &amp; CLI &amp; Skills<a class="headerlink" href="#2026-05-16-cloud-browser-cli-skills" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ChatBrowserUse内置模型</strong>：专为浏览器自动化优化的模型，平均完成任务速度比其他模型快3-5x</li>
+<li>定价：Input $0.20/M tokens, Cached $0.02/M, Output $2.00/M</li>
+<li><strong>CLI模式</strong>：<code>browser-use open/state/click/type/screenshot/close</code> 提供命令行持久化浏览器自动化</li>
+<li><strong>Cloud Browser</strong>：<code>use_cloud=True</code> 启用远程反检测浏览器，支持代理轮换和验证码解决</li>
+<li><strong>Claude Code Skill</strong>：<code>~/.claude/skills/browser-use/SKILL.md</code> 让Claude Code具备浏览器自动化能力</li>
+<li><strong>模板系统</strong>：<code>uvx browser-use init --template default/advanced/tools</code> 快速生成项目</li>
+<li><strong>自定义Tools</strong>：<code>@tools.action</code> 装饰器注册自定义浏览器操作</li>
+</ul>
 <h2 id="_3">关键实现<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <pre><code class="language-python">from browser_use import Agent, Browser, ChatBrowserUse
 import asyncio
 
 async def main():
-    browser = Browser()
+    browser = Browser(
+        # use_cloud=True,  # 启用Cloud反检测浏览器
+    )
     agent = Agent(
         task=&quot;Find the number of stars of the browser-use repo&quot;,
-        llm=ChatBrowserUse(),  # 内置模型，也支持 ChatGoogle/ChatAnthropic
+        llm=ChatBrowserUse(),  # 内置优化模型
         browser=browser,
     )
     await agent.run()
 </code></pre>
 <ul>
-<li>支持自定义 tools：继承 <code>BaseTool</code> 扩展 Agent 能力</li>
-<li>支持 Cloud Browser 远程连接：<code>use_cloud=True</code> 实现反检测和代理轮换</li>
-<li>CLI 模式：<code>browser-use open https://example.com</code> 提供命令行交互</li>
+<li><strong>自定义 Tools</strong>：
+  <code>python
+  from browser_use import Tools
+  tools = Tools()
+  @tools.action(description='Description of what this tool does.')
+  def custom_tool(param: str) -&gt; str:
+      return f"Result: {param}"
+  agent = Agent(task="Your task", llm=llm, browser=browser, tools=tools)</code></li>
+<li>CLI模式：<code>browser-use open https://example.com</code></li>
+<li>认证方案：支持复用Chrome profile、AgentMail临时账号、远程profile同步</li>
 <li>Benchmark：100 个真实浏览器任务的开源评估集 <a href="https://github.com/browser-use/benchmark">browser-use/benchmark</a></li>
-<li>模板系统：<code>uvx browser-use init --template advanced</code> 快速生成配置</li>
 </ul>
 <h2 id="_4">关联分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2437,6 +2472,7 @@ async def main():
 <li><strong>评估 browser-use 作为 Web Agent 基座</strong>：如果需要构建网页自动化 Agent（爬虫、表单填写、数据采集），browser-use 是目前最成熟的开源方案</li>
 <li><strong>自定义 tools 扩展</strong>：继承 <code>BaseTool</code> 添加业务特定操作（如数据提取、登录流程封装），比纯 prompt 指令更可靠</li>
 <li><strong>Cloud vs 自建决策</strong>：需要反检测/大规模并发 → Cloud；需要数据隐私/深度定制 → 开源自建</li>
+<li><strong>ChatBrowserUse模型</strong>：专为浏览器优化，性价比高（$0.20/M input），适合批量Web自动化场景</li>
 <li><strong>参考 benchmark 方法论</strong>：其 100 任务评估集可作为 Web Agent 能力评估的参考标准</li>
 </ol>
 <h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
@@ -2452,31 +2488,31 @@ async def main():
 <tbody>
 <tr>
 <td>摘要质量</td>
-<td>8</td>
+<td>8.5</td>
 <td>0.25</td>
-<td>2.00</td>
+<td>2.13</td>
 </tr>
 <tr>
 <td>技术深度</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.25</td>
-<td>1.75</td>
+<td>1.88</td>
 </tr>
 <tr>
 <td>相关性</td>
-<td>9</td>
+<td>9.0</td>
 <td>0.20</td>
 <td>1.80</td>
 </tr>
 <tr>
 <td>原创性</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.15</td>
-<td>1.05</td>
+<td>1.13</td>
 </tr>
 <tr>
 <td>格式规范</td>
-<td>9</td>
+<td>9.0</td>
 <td>0.15</td>
 <td>1.35</td>
 </tr>
@@ -2484,10 +2520,13 @@ async def main():
 <td><strong>加权总分</strong></td>
 <td></td>
 <td></td>
-<td><strong>7.95</strong></td>
+<td><strong>8.28</strong></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>评分依据：ChatBrowserUse内置模型和Cloud Browser是重要的产品化进展，CLI模式和Claude Code Skill降低了集成门槛。</p>
+</blockquote>
 
 
 
@@ -2508,7 +2547,7 @@ async def main():
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月14日 14:31:02 UTC">2026年5月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月16日 12:09:49 UTC">2026年5月16日</span>
   </span>
 
     

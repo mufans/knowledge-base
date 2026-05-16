@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="tags: #AIAssistant #MultiPlatform #AgentSkills #DeepSeek">
+        <meta name="description" content="tags: #AIAssistant #MultiPlatform #AgentSkills #DeepSeek #WeChat">
       
       
         <meta name="author" content="mufans">
@@ -2327,6 +2327,23 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="设计原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-05-16-v20x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-16 更新：v2.0.x 持续迭代
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2395,35 +2412,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <h1 id="cowagent">CowAgent<a class="headerlink" href="#cowagent" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>tags: #AIAssistant #MultiPlatform #AgentSkills #DeepSeek
+<p>tags: #AIAssistant #MultiPlatform #AgentSkills #DeepSeek #WeChat #知识库
 source: <a href="https://github.com/zhayujie/CowAgent">ai-knowledge-base/articles/2026-04-29-zhayujiecowagent.json</a>
 project: <a href="https://github.com/zhayujie/CowAgent">CowAgent</a>
-score: 技术深度7/10 | 实用价值7/10 | 时效性8/10 | 领域匹配8/10 | 综合 7.50/10</p>
+score: 技术深度8/10 | 实用价值8/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.25/10</p>
 </blockquote>
 <h2 id="_1">核心概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>CowAgent 是一个基于大模型的超级 AI 助手，支持主动思考、任务规划、操作系统访问和外部资源调用。与 <a href="../OpenClaw/">OpenClaw</a> 类似定位，但更轻量，原生支持微信、飞书、钉钉等中国主流平台接入，支持 DeepSeek、OpenAI、Claude、Gemini 等多种模型。</p>
+<p>CowAgent 是一个基于大模型的超级 AI 助手，支持主动思考、任务规划、操作系统访问和外部资源调用。与 <a href="../OpenClaw/">OpenClaw</a> 类似定位，但更轻量，原生支持微信、飞书、钉钉等中国主流平台接入，支持 DeepSeek、OpenAI、Claude、Gemini 等多种模型。由chatgpt-on-wechat项目演进而来。</p>
 <h2 id="_2">设计原理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p><strong>多平台原生接入</strong>：CowAgent 的差异化在于原生支持中国主流 IM 平台（微信、飞书、钉钉），而非依赖 Webhook 或中间层。这使得它更适合中国开发者的使用场景。</p>
-<p><strong>Skills 系统</strong>：类似 OpenClaw 的 Skill 系统，CowAgent 支持创建和执行自定义 Skills，扩展 Agent 能力。Skills 可以是代码执行、文件操作、API 调用等。</p>
+<p><strong>多平台原生接入</strong>：CowAgent 的差异化在于原生支持中国主流 IM 平台（微信、飞书、钉钉、企微、QQ、公众号），而非依赖 Webhook 或中间层。这使得它更适合中国开发者的使用场景。</p>
+<p><strong>Skills 系统</strong>：类似 OpenClaw 的 Skill 系统，CowAgent 支持创建和执行自定义 Skills，扩展 Agent 能力。支持从 Skill Hub、GitHub 一键安装，或通过对话创造 Skills。</p>
 <p><strong>轻量化定位</strong>：相比 OpenClaw 的全功能定位，CowAgent 更侧重聊天场景下的 AI 助手能力，不包含浏览器自动化、Canvas 等重功能。</p>
+<h3 id="2026-05-16-v20x">2026-05-16 更新：v2.0.x 持续迭代<a class="headerlink" href="#2026-05-16-v20x" title="Permanent link">&para;</a></h3>
+<p>近两个月重要更新：
+- <strong>v2.0.8 (2026-05-06)</strong>：飞书渠道全面升级（语音、流式输出和Markdown、一键扫码接入）、新增DeepSeek V4/百度千帆模型支持
+- <strong>v2.0.7 (2026-04-22)</strong>：图像生成内置技能（GPT Image 2、Nano Banana）、新增Kimi K2.6/Claude Opus 4.7/GLM 5.1模型、知识库和记忆增强
+- <strong>v2.0.6 (2026-04-14)</strong>：<strong>知识库系统</strong>（自动整理结构化知识，交叉引用构建知识图谱）、<strong>梦境记忆模块</strong>（核心记忆+日级记忆+梦境蒸馏）、上下文智能压缩、Web控制台多会话
+- <strong>v2.0.5 (2026-04-01)</strong>：Cow CLI命令系统、Skill Hub开源、浏览器工具、企微扫码创建
+- <strong>v2.0.4 (2026-03-22)</strong>：新增个人微信通道（扫码即用）、新增MiniMax-M2.7和GLM-5-Turbo模型</p>
+<p><strong>关键技术演进</strong>：
+- <strong>知识库系统</strong>：自动整理结构化知识，通过交叉引用构建知识图谱，支持对话管理和可视化浏览
+- <strong>梦境记忆</strong>：三层记忆架构——核心记忆（持久）、日级记忆（按日聚合）、梦境蒸馏（从日级记忆中提炼）
+- <strong>Agent推荐模型</strong>：deepseek-v4-flash、MiniMax-M2.7、glm-5.1、kimi-k2.6、claude-sonnet-4-6</p>
 <h2 id="_3">关键实现<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>多模型支持</strong>：DeepSeek、OpenAI、Claude、Gemini 等主流模型</li>
-<li><strong>平台集成</strong>：微信、飞书、钉钉、Telegram、Web</li>
-<li><strong>Skills 系统</strong>：可扩展的技能系统，支持代码执行和工具调用</li>
-<li><strong>长期记忆</strong>：内置记忆和知识库功能</li>
-<li><strong>多模态</strong>：支持文本、语音、图像</li>
+<li><strong>多模型支持</strong>：DeepSeek、OpenAI、Claude、Gemini、GLM、Qwen、Kimi、MiniMax、Doubao等国内外主流模型</li>
+<li><strong>平台集成</strong>：微信、飞书、钉钉、企微、QQ、公众号、Web控制台</li>
+<li><strong>Skills 系统</strong>：Skill Hub + GitHub一键安装 + 对话创造</li>
+<li><strong>长期记忆</strong>：核心记忆 + 日级记忆 + 梦境蒸馏，支持关键词及向量检索</li>
+<li><strong>知识库</strong>：自动整理结构化知识，交叉引用构建知识图谱</li>
+<li><strong>多模态</strong>：支持文本、语音、图像、文件</li>
+<li><strong>浏览器工具</strong>：Agent可操作浏览器（访问网页、填写表单等）</li>
+<li><strong>一键部署</strong>：<code>bash &lt;(curl -fsSL https://cdn.link-ai.tech/code/cow/run.sh)</code></li>
 </ul>
+<pre><code class="language-json">{
+  &quot;channel_type&quot;: &quot;weixin&quot;,
+  &quot;model&quot;: &quot;deepseek-v4-flash&quot;,
+  &quot;agent&quot;: true,
+  &quot;agent_workspace&quot;: &quot;~/cow&quot;,
+  &quot;agent_max_context_tokens&quot;: 50000,
+  &quot;agent_max_steps&quot;: 20,
+  &quot;enable_thinking&quot;: false
+}
+</code></pre>
 <h2 id="_4">关联分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
 <li>与 <a href="../OpenClaw/">OpenClaw</a> 高度相似：同为 AI Agent 助手框架，但 CowAgent 更轻量、更侧重中国平台</li>
 <li>与 <a href="../Cherry-Studio/">Cherry-Studio</a> 对比：Cherry Studio 是桌面客户端，CowAgent 是服务端 Agent</li>
+<li>与 <a href="../nanobot/">nanobot</a> 对比：同为轻量Agent框架，CowAgent更侧重中国IM生态</li>
 <li>相关概念：<a href="../../concepts/Skill-Auto-Creation/">Skill-Auto-Creation</a>、<a href="../../concepts/Agent-MetaSKILLs/">Agent-MetaSKILLs</a></li>
 </ul>
 <h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>对比参考</strong>：如果构建中国平台 AI 助手，CowAgent 的平台接入实现值得参考</li>
 <li><strong>Skills 架构借鉴</strong>：其 Skills 系统的设计模式可作为 Agent 扩展能力的参考</li>
+<li><strong>知识库系统</strong>：v2.0.6新增的自动知识图谱构建功能值得关注，是Agent"成长"能力的体现</li>
+<li><strong>梦境记忆</strong>：三层记忆架构（核心/日级/蒸馏）是独特的记忆管理设计，值得与mem0方案做对比</li>
 </ol>
 <h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <table>
@@ -2438,42 +2482,45 @@ score: 技术深度7/10 | 实用价值7/10 | 时效性8/10 | 领域匹配8/10 | 
 <tbody>
 <tr>
 <td>摘要质量</td>
-<td>7</td>
+<td>8.0</td>
 <td>0.25</td>
-<td>1.75</td>
+<td>2.00</td>
 </tr>
 <tr>
 <td>技术深度</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.25</td>
-<td>1.75</td>
+<td>1.88</td>
 </tr>
 <tr>
 <td>相关性</td>
-<td>8</td>
+<td>8.5</td>
 <td>0.20</td>
-<td>1.60</td>
+<td>1.70</td>
 </tr>
 <tr>
 <td>原创性</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.15</td>
-<td>1.05</td>
+<td>1.13</td>
 </tr>
 <tr>
 <td>格式规范</td>
-<td>8</td>
+<td>8.5</td>
 <td>0.15</td>
-<td>1.20</td>
+<td>1.28</td>
 </tr>
 <tr>
 <td><strong>加权总分</strong></td>
 <td></td>
 <td></td>
-<td><strong>7.35</strong></td>
+<td><strong>7.98</strong></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>评分依据：v2.0.x迭代迅速，知识库系统和梦境记忆是有特色的创新点。作为chatgpt-on-wechat的演进版，在中国IM生态有独特优势。</p>
+</blockquote>
 
 
 
@@ -2494,7 +2541,7 @@ score: 技术深度7/10 | 实用价值7/10 | 时效性8/10 | 领域匹配8/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月14日 14:31:02 UTC">2026年5月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月16日 12:09:49 UTC">2026年5月16日</span>
   </span>
 
     

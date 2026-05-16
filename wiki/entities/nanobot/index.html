@@ -2327,6 +2327,23 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="设计原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-05-16-v015post3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-16 更新：密集迭代（v0.1.5.post3）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2395,34 +2412,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <h1 id="nanobot">nanobot<a class="headerlink" href="#nanobot" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>tags: #AI-Agent #Lightweight #Multi-LLM
+<p>tags: #AI-Agent #Lightweight #Multi-LLM #MCP #MultiChannel
 source: <a href="https://github.com/HKUDS/nanobot">HKUDS/nanobot</a>
-score: 技术深度7/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 综合 7.85/10</p>
+score: 技术深度7/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.25/10</p>
 </blockquote>
 <h2 id="_1">核心概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>nanobot 是港大数据科学实验室（HKUDS）开源的超轻量个人 AI Agent 框架，基于 Python，支持多 LLM 后端（OpenAI、Claude、Gemini、本地模型等）。它以极低的启动成本提供完整的 Agent 能力——对话、工具调用、文件操作、代码执行，41K+ stars 证明其社区认可度。</p>
+<p>nanobot 是港大数据科学实验室（HKUDS）开源的超轻量个人 AI Agent 框架，基于 Python，支持多 LLM 后端（OpenAI、Claude、Gemini、本地模型等）。它以极低的启动成本提供完整的 Agent 能力——对话、工具调用、文件操作、代码执行，41K+ stars 证明其社区认可度。定位类似OpenClaw/Claude Code/Codex，但保持核心Agent loop精简可读。</p>
 <h2 id="_2">设计原理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p><strong>核心 trade-off</strong>：nanobot 选择"够用就好"的极简路线，而非追求 LangChain/CrewAI 那样的全功能框架。好处是学习曲线低、依赖少、易于定制；代价是缺少高级编排能力（如多 Agent 协作、复杂 workflow）。</p>
 <p><strong>插件式架构</strong>：核心只提供对话循环和工具调度，具体能力通过插件扩展。这让用户可以按需加载，避免引入不需要的依赖。</p>
 <p><strong>本地优先</strong>：支持完全本地运行（Ollama、vLLM），不依赖云端 API。这对数据敏感场景和成本控制很重要。</p>
+<h3 id="2026-05-16-v015post3">2026-05-16 更新：密集迭代（v0.1.5.post3）<a class="headerlink" href="#2026-05-16-v015post3" title="Permanent link">&para;</a></h3>
+<p>nanobot保持每日迭代节奏，近一个月的重要更新：
+- <strong>v0.1.5 (2026-04-05)</strong>：Dream两阶段记忆、生产级沙箱、Programming Agent SDK
+- <strong>v0.1.5.post1 (2026-04-14)</strong>：Dream skill发现、mid-turn follow-up注入、WebSocket channel
+- <strong>v0.1.5.post2 (2026-04-21)</strong>：Windows &amp; Python 3.14支持、Office文档阅读、SSE streaming
+- <strong>v0.1.5.post3 (2026-04-29)</strong>：更智能的线程处理（Feishu/Discord/Slack/Teams）、DeepSeek-V4支持、Hugging Face &amp; Olostep集成
+- <strong>新功能</strong>：WebUI聊天界面、<code>/goal</code>长期目标追踪、Streaming reasoning、NVIDIA NIM支持、LM Studio集成、MCP多服务器、Dream记忆蒸馏、Context自动压缩</p>
 <h2 id="_3">关键实现<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>多 LLM 统一接口</strong>：通过 adapter 模式统一不同 LLM 的 API 调用，切换模型只需改配置</li>
 <li><strong>工具系统</strong>：内置文件读写、代码执行、搜索等基础工具，支持自定义工具注册</li>
 <li><strong>配置驱动</strong>：通过 YAML 配置文件定义 Agent 行为、可用工具、系统提示等</li>
 <li><strong>终端 + Web UI</strong>：提供 TUI 和 Web 两种交互界面</li>
+<li><strong>多Channel支持</strong>（新增）：Discord/Telegram/Feishu/WhatsApp/WeChat/Slack/MSTeams/QQ</li>
+<li><strong>Dream记忆</strong>（新增）：两阶段记忆系统——短期记忆 + 梦境蒸馏，类似人类睡眠整理记忆</li>
+<li><strong>MCP多服务器</strong>（新增）：支持同时连接多个MCP服务器</li>
+<li><strong>Context自动压缩</strong>（新增）：session过长时自动compact，保持活跃任务不被截断</li>
 </ul>
 <h2 id="_4">关联分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../mem0/">mem0</a> — Agent 记忆层，可与 nanobot 组合使用</li>
+<li><a href="../mem0/">mem0</a> — Agent 记忆层，nanobot的Dream记忆是另一种实现思路</li>
 <li><a href="../pi-mono/">pi-mono</a> — 另一个轻量 Agent 工具包，TypeScript 实现</li>
-<li><a href="../Hermes-Agent/">Hermes-Agent</a> — 功能更完整的 Agent 框架对比</li>
+<li><a href="../OpenClaw/">OpenClaw</a> — 类似定位的全功能Agent框架，nanobot更轻量</li>
+<li><a href="../CowAgent/">CowAgent</a> — 同为中国开发者的Agent框架，CowAgent更侧重多平台IM</li>
 </ul>
 <h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>快速原型验证</strong>：如果你想快速验证一个 Agent 想法（如自动化某个工作流），nanobot 的启动成本比 LangChain 低得多</li>
 <li><strong>学习参考</strong>：代码库相对精简，适合阅读学习 Agent 的核心实现模式（对话循环、工具调度、上下文管理）</li>
 <li><strong>本地部署方案</strong>：结合 Ollama 可以实现完全本地的 Agent，适合隐私敏感场景</li>
+<li><strong>Dream记忆机制</strong>：值得关注其"梦境蒸馏"的Memory设计——定期从短期记忆中提炼长期知识</li>
 </ol>
 <h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <table>
@@ -2437,31 +2467,31 @@ score: 技术深度7/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 
 <tbody>
 <tr>
 <td>摘要质量</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.25</td>
-<td>1.75</td>
+<td>1.88</td>
 </tr>
 <tr>
 <td>技术深度</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.25</td>
-<td>1.75</td>
+<td>1.88</td>
 </tr>
 <tr>
 <td>相关性</td>
-<td>8</td>
+<td>8.5</td>
 <td>0.20</td>
-<td>1.60</td>
+<td>1.70</td>
 </tr>
 <tr>
 <td>原创性</td>
-<td>7</td>
+<td>7.5</td>
 <td>0.15</td>
-<td>1.05</td>
+<td>1.13</td>
 </tr>
 <tr>
 <td>格式规范</td>
-<td>9</td>
+<td>9.0</td>
 <td>0.15</td>
 <td>1.35</td>
 </tr>
@@ -2469,10 +2499,13 @@ score: 技术深度7/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 
 <td><strong>加权总分</strong></td>
 <td></td>
 <td></td>
-<td><strong>7.50</strong></td>
+<td><strong>7.93</strong></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>评分依据：迭代速度极快，功能覆盖面已接近OpenClaw级别。Dream记忆和Context自动压缩是有特色的技术点。</p>
+</blockquote>
 
 
 
@@ -2493,7 +2526,7 @@ score: 技术深度7/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月14日 14:31:02 UTC">2026年5月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月16日 12:09:49 UTC">2026年5月16日</span>
   </span>
 
     
