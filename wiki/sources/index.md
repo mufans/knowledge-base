@@ -29,3 +29,5 @@
 - [Training-LLM-Swift](Training-LLM-Swift.md) (2026-05-11)
 - [Vibe-Coding-Google-Kaggle-Course](Vibe-Coding-Google-Kaggle-Course.md) (2026-05-11)
 - [Transformer-Architecture-Evolution](Transformer-Architecture-Evolution.md) (2026-05-12)
+- [MCP-Tool-Development-Best-Practices](MCP-Tool-Development-Best-Practices.md) (2026-05-17)
+- [Gemma-Mobile-LLM-Tutorial](Gemma-Mobile-LLM-Tutorial.md) (2026-05-17)

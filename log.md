@@ -179,9 +179,19 @@
 - **采集问题**：Product Hunt返回403错误，GitHub Trending抓取失败
 
 ---
-*最后更新: 2026-05-17 10:00 CST*
+*最后更新: 2026-05-17 22:30 CST*
 2026-05-17 | Claude Blog采集 | raw/inbox/2026-05-17-Claude博客.md | 采集5篇，最高分9.52026-05-17 | 社交媒体AI技术动态采集 | raw/inbox/2026-05-17-社交媒体.md | HN采集18条动态；Reddit/X/Brave搜索均失败
 - **数据源状态**: HN ✅ | Reddit ❌ (API封锁) | X/Twitter ❌ (需登录) | Brave Search ❌ (无API key)
 - **采集重点**: AI Agent工具、MCP生态、端侧AI、LLM新模型、行业观察
 
 2026-05-17 | ingest | ai-knowledge-base同步 | 33篇新文章处理，入库1篇(entities/Firecrawl, score 8.0)，跳过32篇(已有页面覆盖24篇，评分<7或领域不匹配8篇)
+
+2026-05-17 | lint | 知识库Lint审查 | 健康度评分6.2/10（较上周5.5提升0.7）| 发现9个积压文件、3个孤立页面、3个浅显内容页、多处关联缺失 | 保存raw/inbox/2026-05-17-知识库Lint审查.md | 已推送钉钉提醒
+
+2026-05-17 | lint | 知识库Lint审查 | 健康度6.0/10（↓0.4），35个积压文件、35个孤立页面、6处索引遗漏、全部131页面缺自评表 | 保存raw/inbox/2026-05-17-知识库Lint审查.md
+
+2026-05-17 | lint | raw/inbox/2026-05-17-知识库Lint审查.md | 健康度5.8/10（↑0.3），22个积压文件未提炼，7个索引问题，43个页面缺自评，2个[[]]格式，10个抽查页面全部合格
+
+2026-05-17 | ingest | raw/inbox/2026-05-17-Claude博客.md | 新建entities/Anthropic-Agent-API.md（自评8.35），更新entities/Claude-Code-Source-Analysis.md（添加Agent View功能），更新concepts/Claude-Ecosystem-Tools.md（添加API能力引用）；跳过Amazon Bedrock GA（2023旧文）、Analysis tool（已被code execution替代）
+2026-05-17 | ingest | raw/inbox/2026-05-17-GitHub项目.md | 新建entities/TrendRadar.md（自评7.55）、entities/hello-agents.md（自评7.10）；更新entities/JeecgBoot.md（已覆盖，无新内容，跳过）；跳过ComfyUI（purpose不匹配）、renewlet（不相关）
+2026-05-17 | ingest | raw/inbox/2026-05-17-社交媒体.md | 新建entities/Zerostack.md（自评7.15）、entities/OpenCode-Agent.md（自评7.10）、entities/Stork-MCP.md（自评7.35）、entities/Subvault.md（自评7.80）、entities/EdgeDox.md（自评8.55）、concepts/Delta-Mem.md（自评7.85）、sources/MCP-Tool-Development-Best-Practices.md（自评7.80）、sources/Gemma-Mobile-LLM-Tutorial.md（自评8.05）；跳过SANA-WM（purpose不匹配）、OpenAI马耳他/CTF竞赛/AI访问限制（非技术深度）、行业观察类（观点文章）

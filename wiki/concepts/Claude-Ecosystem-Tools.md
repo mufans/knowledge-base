@@ -1,10 +1,10 @@
 ---
 title: "Claude Ecosystem Tools"
-category: concepts
-tags: [Claude, Ecosystem, Tool]
-rating: 8.5
+category: "concepts"
+tags: ["Claude", "Ecosystem", "Tool"]
+rating: 9.0
 description: "Claude 生态工具全景分析，包括 Claude Code、MCP、Skills 等"
-date: 2026-04-26
+date: "2026-04-26"
 ---
 
 # Claude Ecosystem Tools
@@ -126,11 +126,32 @@ date: 2026-04-26
 - **权限控制**：学习cline的精细权限管理
 - **多模态支持**：扩展支持更多输入类型
 
+### 5. Anthropic API Agent 能力（2025年5月新增）
+
+2025年5月，Anthropic在API层面推出四大Agent构建能力：
+
+- **Code Execution Tool**：沙箱Python执行，50hr/天免费，$0.05/hr/container
+- **MCP Connector**：零代码连接远程MCP服务器（Zapier、Asana等）
+- **Files API**：上传一次文档，跨会话引用
+- **Extended Prompt Caching**：TTL从5分钟扩展到1小时，成本降低最高90%
+
+详细分析 → [Anthropic-Agent-API](../entities/Anthropic-Agent-API.md)
+
+### 6. Claude Code Agent View（2026年5月新增）
+
+Claude Code引入Agent View，统一管理多个并行Agent session：
+- Dashboard一览所有Agent状态（等待/运行/完成）
+- 降低多Agent并行的心智负担
+- 详细分析 → [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md)
+
 ## 关联概念
 
 - [AI Agent Self-Improving](#AI Agent Self-Improving) - 代理工具的自改进能力
 - [Real-world AI Applications](#Real-world AI Applications) - 实际应用场景
 - [Memory Management](#Memory Management) - 工具中的记忆管理
+- [Anthropic-Agent-API](../entities/Anthropic-Agent-API.md) - Anthropic API Agent能力
+- [Subvault](../entities/Subvault.md) - MCP统一记忆层
+- [Stork-MCP](../entities/Stork-MCP.md) - MCP服务器搜索
 
 ---
 

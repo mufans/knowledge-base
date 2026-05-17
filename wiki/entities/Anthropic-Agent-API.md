@@ -1,0 +1,91 @@
+---
+title: "Anthropic Agent API 新能力"
+category: "entities"
+tags: ["Anthropic", "Agent", "Code-Execution", "MCP", "Files-API", "Prompt-Caching"]
+rating: 9.0
+description: "Anthropic API 四大新能力：Code Execution Tool、MCP Connector、Files API、Extended Prompt Caching"
+date: "2026-05-17"
+---
+
+# Anthropic Agent API 新能力
+
+> tags: #Anthropic #AgentAPI #CodeExecution #MCP #FilesAPI #PromptCaching
+> source: [New capabilities for building agents on the Anthropic API](https://claude.com/blog/agent-capabilities-api)
+> score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.8/10
+
+## 核心概念
+
+2025年5月，Anthropic在API层面推出四个Agent构建能力：Code Execution Tool（沙箱Python执行）、MCP Connector（零代码连接MCP服务器）、Files API（跨会话文件管理）、Extended Prompt Caching（1小时TTL缓存）。这些能力与 Claude Opus 4 / Sonnet 4 协同，让开发者无需自建基础设施即可构建端到端的AI Agent。
+
+## 设计原理
+
+四大能力的核心设计动机是**降低Agent开发的基础设施负担**：
+
+- **Code Execution Tool**：将Claude从"代码生成器"升级为"数据分析师"。之前Claude只能输出代码片段让用户自行运行，现在可在沙箱环境直接执行Python，迭代可视化、清洗数据集、生成报表。每个组织每天有50小时免费额度，超出后 $0.05/hr/container。
+- **MCP Connector**：此前连接MCP服务器需要自建client harness处理连接管理、工具发现、错误处理。现在API层自动完成这些操作——只需在请求中传入MCP server URL，Claude自动发现工具、选择调用、管理认证。支持 Zapier、Asana 等远程MCP服务器。
+- **Files API**：解决"每次请求都要重新上传文件"的痛点。上传一次，跨会话引用。特别适合知识库、技术文档、数据集等大文件场景。Files API与Code Execution集成，Claude可在代码执行中直接读取上传的文件并生成图表。
+- **Extended Prompt Caching**：标准TTL从5分钟扩展到1小时（12x提升），成本降低最高90%，延迟降低最高85%。对长时间运行的Agent工作流（多步骤任务、跨工具协调）意义重大。
+
+## 关键实现
+
+### Code Execution Tool
+
+| 参数 | 值 |
+|---|---|
+| 执行环境 | 沙箱Python |
+| 免费额度 | 50小时/天/组织 |
+| 超额计费 | $0.05/hr/container |
+| 支持场景 | 金融建模、科学计算、商业智能、文档处理、统计分析 |
+
+### MCP Connector 工作流程
+
+1. 在API请求中配置MCP server URL
+2. API自动连接服务器并获取可用工具列表
+3. Claude推理选择工具和参数
+4. 自动执行工具调用直到获得满意结果
+5. 管理认证和错误处理
+6. 返回整合了外部数据的增强响应
+
+### Files API 特性
+
+- 上传文档一次 → 跨对话反复引用
+- 与Code Execution集成 → 执行中直接访问上传文件
+- 支持输出文件（图表、报表）作为响应的一部分
+
+### Extended Prompt Caching
+
+| 参数 | 标准缓存 | 扩展缓存 |
+|---|---|---|
+| TTL | 5分钟 | 1小时 |
+| 成本降低 | 最高50% | 最高90% |
+| 延迟降低 | 最高50% | 最高85% |
+
+### 典型Agent工作流组合
+
+项目管理Agent示例：MCP Connector（连接Asana获取任务）→ Files API（上传相关报告）→ Code Execution（分析进度和风险）→ Extended Caching（维持完整上下文）→ 全程保持低成本。
+
+## 关联分析
+
+- 与 [Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md) 对比：Claude Code的MCP客户端需要本地配置（stdio/sse/http），API层面的MCP Connector提供了云端原生方案
+- 与 [Claude-Ecosystem-Tools](../concepts/Claude-Ecosystem-Tools.md) 互补：从工具生态层面分析了Claude的工具体系
+- 对 [OpenClaw](OpenClaw.md) 的启示：OpenClaw的MCP集成可以参考API层的MCP Connector设计，简化用户配置
+- Extended Prompt Caching 对Agent成本优化意义重大，与 [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) 直接相关
+
+## 可执行建议
+
+1. **立即评估Code Execution API**：如果SI项目需要数据分析能力，这比自建沙箱执行环境成本低得多（50小时/天免费）
+2. **MCP Connector替代自建client**：目前连接MCP服务器需要写客户端代码，API层Connector可直接使用，减少维护成本
+3. **Files API用于知识库场景**：知识库项目的文档可以上传一次反复使用，避免每次请求都传文件
+4. **Extended Caching用于长流程Agent**：如果构建多步骤Agent工作流，1小时TTL缓存可大幅降低成本（最高90%）
+
+## 自评
+| 维度 | 分数 | 权重 | 加权 |
+|------|------|------|------|
+| 摘要质量 | 8 | 0.25 | 2.00 |
+| 技术深度 | 8 | 0.25 | 2.00 |
+| 相关性 | 9 | 0.20 | 1.80 |
+| 原创性 | 8 | 0.15 | 1.20 |
+| 格式规范 | 9 | 0.15 | 1.35 |
+| **加权总分** | | | **8.35** |
+
+> 评分说明：四大能力的API设计和计费模式覆盖完整；与已有页面的交叉分析有实质内容；对用户背景（Agent开发+成本控制）有具体可执行建议。
