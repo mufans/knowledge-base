@@ -70,3 +70,4 @@
 - [TurboQuant](TurboQuant.md) (2026-05-15)
 - [RTX-5000-PRO](RTX-5000-PRO.md) (2026-05-15)
 - [HarmonyOS-Ecosystem-2026-05](HarmonyOS-Ecosystem-2026-05.md) (2026-05-15)
+- [Firecrawl](Firecrawl.md) (2026-05-17)
