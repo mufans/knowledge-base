@@ -11,4 +11,4 @@
 2026-05-18 | Claude Blog采集 | raw/inbox/2026-05-18-Claude博客.md | 采集5篇，最高分9.5
 2026-05-18 | Claude Blog采集 | raw/inbox/2026-05-18-Claude博客.md | 采集5篇，最高分9.5
 2026-05-18 | Claude Blog采集 | raw/inbox/2026-05-18-Claude博客.md | 采集5篇，最高分9.5
-2026-05-18 | Claude Blog采集 | raw/inbox/2026-05-18-Claude博客.md | 采集10篇，最高分9.5
+2026-05-18 | Claude Blog采集 | raw/inbox/2026-05-18-Claude博客.md | 采集10篇，最高分9.52026-05-18 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-18-*.json | 扫描34篇新文章，18篇score≥7，全部已有wiki页面覆盖，0篇新建，34篇跳过（16篇score<7或不相关）
