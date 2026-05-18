@@ -79,3 +79,7 @@
 - [Stork-MCP](Stork-MCP.md) (2026-05-17)
 - [Subvault](Subvault.md) (2026-05-17)
 - [EdgeDox](EdgeDox.md) (2026-05-17)
+- [MemPalace](MemPalace.md) (2026-05-18)
+- [gemini-cli](gemini-cli.md) (2026-05-18)
+- [MemLens](MemLens.md) (2026-05-18)
+- [WildClawBench](WildClawBench.md) (2026-05-16)
