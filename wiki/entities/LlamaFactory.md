@@ -1,10 +1,10 @@
 ---
 title: "LLaMA Factory: 统一高效微调框架"
-category: entities
+category: "entities"
 tags: ["fine-tuning", "LLM", "LoRA", "transformers", "PEFT", "RLHF", "QLoRA"]
-rating: 9.0
+rating: 8.5
 description: "支持100+LLM/VLM的统一微调框架，集成LoRA/QLoRA/RLHF，ACL 2024论文发表"
-date: 2026-05-11
+date: "2026-05-11"
 ---
 
 # LLaMA Factory: 统一高效微调框架
