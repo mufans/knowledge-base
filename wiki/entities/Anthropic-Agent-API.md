@@ -2,7 +2,7 @@
 title: "Anthropic Agent API 新能力"
 category: "entities"
 tags: ["Anthropic", "Agent", "Code-Execution", "MCP", "Files-API", "Prompt-Caching"]
-rating: 9.0
+rating: 9.5
 description: "Anthropic API 四大新能力：Code Execution Tool、MCP Connector、Files API、Extended Prompt Caching"
 date: "2026-05-17"
 ---
@@ -70,6 +70,33 @@ date: "2026-05-17"
 - 与 [Claude-Ecosystem-Tools](../concepts/Claude-Ecosystem-Tools.md) 互补：从工具生态层面分析了Claude的工具体系
 - 对 [OpenClaw](OpenClaw.md) 的启示：OpenClaw的MCP集成可以参考API层的MCP Connector设计，简化用户配置
 - Extended Prompt Caching 对Agent成本优化意义重大，与 [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) 直接相关
+
+### 2026-05-19 更新：Claude Platform on AWS 正式GA
+
+Claude Platform on AWS于2026年5月11日正式GA，带来了一系列重要的新特性：
+
+**核心新增能力**：
+
+| 能力 | 说明 |
+|---|---|
+| **Claude Managed Agents** (beta) | 托管Agent服务，大规模部署Agent |
+| **Advisor Strategy** (beta) | 顾问模型策略，让Agent通过咨询顾问模型获得"智力增强" |
+| **Skills** (beta) | 可复用技能系统，教Claude最佳实践 |
+| **MCP Connector** (beta) | 零代码连接远程MCP服务器 |
+| **Code Execution** | 沙箱Python执行 |
+| **Web Search/Fetch** | 实时网络数据获取 |
+| **Files API** (beta) | 跨会话文件上传和引用 |
+| **Prompt Caching** | 降低成本和延迟 |
+
+**计费模式**：通过AWS IAM认证、CloudTrail审计、AWS账单统一结算，可抵扣现有AWS承诺金额。
+
+**模型可用**：Claude Opus 4.7、Sonnet 4.6、Haiku 4.5，新模型同步上线。
+
+**与Bedrock的区别**：
+- Claude Platform on AWS = Anthropic运营，数据在AWS边界外处理，功能最全
+- Claude on Amazon Bedrock = AWS运营，数据在AWS边界内处理，适合严格数据驻留要求
+
+**Compliance API**（2026-03-30发布）：管理员可通过API获取组织级审计日志，追踪用户活动、配置变更，支持合规审查。
 
 ## 可执行建议
 

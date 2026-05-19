@@ -44,6 +44,19 @@ Reddit Score: 349 | Comments: 94，LocalLLaMA社区高关注度。
 - **测试硬件**: MacBook Pro M5 Max
 - **开源**: LLaMA.cpp已支持MTP
 
+### 2026-05-19 更新：llama.cpp MTP正式落地
+
+llama.cpp正式实现MTP支持，社区实测数据：
+
+| 硬件 | 模型 | 加速倍数 |
+|---|---|---|
+| AMD Strix Halo | Qwen3.6 27B | **2.44x** |
+| NVIDIA RTX 3090 | Qwen3.6 27B | **2.17x** |
+
+Reddit Score: 57⬆ / 29💬。
+
+这意味着MTP从实验性优化进入了生产可用阶段。2x+的推理加速对端侧部署意义重大——原来30 tok/s的模型可以跑到60+ tok/s，接近实时对话体验。
+
 ## 关联分析
 
 - 与 [Context-Window-Optimization](Context-Window-Optimization.md) 互补：优化推理速度和优化上下文利用是LLM性能的两个维度

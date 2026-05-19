@@ -83,3 +83,6 @@
 - [gemini-cli](gemini-cli.md) (2026-05-18)
 - [MemLens](MemLens.md) (2026-05-18)
 - [WildClawBench](WildClawBench.md) (2026-05-16)
+- [4B-Coding-Agent](4B-Coding-Agent.md) (2026-05-19)
+- [ExecuTorch](ExecuTorch.md) (2026-05-19)
+- [NavixMind](NavixMind.md) (2026-05-19)
