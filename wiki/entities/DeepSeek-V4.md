@@ -37,6 +37,17 @@ DeepSeek被曝完成**500亿人民币融资**，创始人梁文锋个人出资20
 
 **行业影响**：500亿融资规模在国内AI公司中仅次于少数几家头部企业，DeepSeek的开源策略+重资本投入的组合模式对行业格局影响深远。
 
+### 2026-05-20 更新：4x RTX 2080 Ti低成本本地运行方案
+
+Reddit用户分享用**4张二手RTX 2080 Ti（总成本约$2000）**本地运行DeepSeek-V4的方案（Reddit 20↑ 16c）。这证明DeepSeek-V4的MoE架构在消费级硬件上的可行性：
+
+- **硬件**：4x RTX 2080 Ti（11GB VRAM × 4 = 44GB总显存）
+- **成本**：二手2080 Ti约$500/张，总$2000
+- **关键**：MoE稀疏激活使得推理时不需要加载全部参数，44GB显存可运行量化后的V4
+- **意义**：与[DS4](../entities/DS4-DeepSeek-Local-Inference.md)（Apple Silicon方案）互补，为非Mac用户提供了低成本本地部署路径
+
+**Trade-off**：二手2080 Ti功耗高（单卡250W+）、需大功率电源和散热方案，且2080 Ti不支持FP8等新精度格式，需使用INT4量化。
+
 ## 关联分析
 
 - 与[Context-Window-Optimization](../concepts/Context-Window-Optimization.md)直接相关——百万上下文窗口的实用化需要配合上下文优化策略

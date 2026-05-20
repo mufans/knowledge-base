@@ -57,6 +57,18 @@ Reddit Score: 57⬆ / 29💬。
 
 这意味着MTP从实验性优化进入了生产可用阶段。2x+的推理加速对端侧部署意义重大——原来30 tok/s的模型可以跑到60+ tok/s，接近实时对话体验。
 
+### 2026-05-20 更新：LM Studio集成MTP + llama.cpp生态扩展
+
+LM Studio正式添加MTP Speculative Decoding支持（Reddit 48↑ 7c），这是继llama.cpp之后第二个主流本地推理工具集成MTP。同时社区呼吁更新llama.cpp以获得MTP改进（Reddit 108↑ 76c），显示MTP正在成为本地推理的**标配优化**而非可选特性。
+
+**生态进展总结**：
+- **llama.cpp**：原生MTP支持，2x+加速
+- **LM Studio**：GUI用户可用MTP，降低使用门槛
+- **[Google AI Edge Gallery](../entities/Google-AI-Edge-Gallery.md)**：移动端MTP推理（Gemma 4）
+- **Qwen/DeepSeek V4**：模型原生支持MTP头
+
+MTP已从实验技术进入**全平台标配**阶段：CLI（llama.cpp）→ GUI（LM Studio）→ 移动端（AI Edge Gallery）。
+
 ## 关联分析
 
 - 与 [Context-Window-Optimization](Context-Window-Optimization.md) 互补：优化推理速度和优化上下文利用是LLM性能的两个维度

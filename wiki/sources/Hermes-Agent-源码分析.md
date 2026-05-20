@@ -1,10 +1,10 @@
 ---
 title: "Hermes Agent 源码分析"
-category: sources
-tags: [Hermes, 源码分析, Agent]
+category: "sources"
+tags: ["Hermes", "源码分析", "Agent"]
 rating: 9.0
 description: "Hermes Agent 源码级分析，架构设计与核心机制"
-date: 2026-04-24
+date: "2026-04-24"
 ---
 
 # Hermes Agent 源码分析

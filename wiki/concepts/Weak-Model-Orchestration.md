@@ -1,10 +1,10 @@
 ---
 title: "弱模型协作架构"
-category: concepts
-tags: [弱模型, 协作, 编排]
+category: "concepts"
+tags: ["弱模型", "协作", "编排"]
 rating: 8.5
 description: "弱模型协作架构，低成本实现复杂任务的模型编排策略"
-date: 2026-05-01
+date: "2026-05-01"
 ---
 
 # 弱模型协作架构

@@ -1,10 +1,10 @@
 ---
 title: "Apple Foundation Models Framework 实战"
-category: sources
-tags: [Apple, Foundation-Models, 实战]
+category: "sources"
+tags: ["Apple", "Foundation-Models", "实战"]
 rating: 8.0
 description: "Apple Foundation Models Framework 实战指南"
-date: 2026-05-03
+date: "2026-05-03"
 ---
 
 # Apple Foundation Models Framework 实战

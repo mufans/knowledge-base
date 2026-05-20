@@ -47,3 +47,23 @@
 2026-05-19 | skip | raw/inbox/2026-05-19-AI论文.md | #1 POMDP世界模型（偏理论，7.0）、#2 Solvita（不够相关，6.5）、#3 VLM深度估计（偏视觉，6.0）、#5-10均<7.0
 2026-05-19 | skip | raw/inbox/2026-05-19-社交媒体.md | #14 EdgeDox已有页面无实质更新、#12 Hermes Agent已有页面无实质更新、#1 Qwen3.7产品发布无技术深度、#3 42个LLM末日测试偏趣味、#4 EU AI Act偏合规、其余<7.0
 2026-05-19 | skip | raw/inbox/2026-05-19-新闻热点.md | #1 xAI Skills（无技术细节）、#2 Anthropic涨价（非技术）、#4 AI最后一公里（泛泛）、#5 Kimi离职（非技术）、#7 Cangjie语言（低相关）、#9 iOS性能（非AI）、#10 ChatGPT理财（非技术）、#11 K8s（低相关）、#12 时序存储（低相关）、#14-18非技术类
+- 2026-05-20 每日技术新闻热点采集完成，共14条新闻
+2026-05-20 08:03:45 - 每日技术新闻热点采集完成，已保存至 /Users/liujun/Nutstore Files/我的坚果云/knowledge/raw/inbox/2026-05-20-新闻热点.md
+
+
+=== 2026-05-20 ===
+每日技术新闻热点采集完成，共10条新闻，已保存到 2026-05-20-新闻热点.md
+
+2026-05-20 13:00:xx - 社交媒体AI技术动态采集完成，已保存至 /Users/liujun/Nutstore Files/我的坚果云/knowledge/raw/inbox/2026-05-20-社交媒体.md
+- Hacker News: 19条AI Agent/LLM相关帖子
+- Reddit r/artificial: 8条AI相关讨论
+- Reddit r/LocalLLaMA: 13条LLM/本地部署相关讨论
+- X/Twitter: 未采集（网络限制）
+- Top 8 精选已推送钉钉
+
+=== 2026-05-20 提炼 ===
+2026-05-20 | ingest | raw/inbox/2026-05-20-社交媒体.md | 创建wiki/entities/Google-AI-Edge-Gallery.md（自评7.50）
+2026-05-20 | update | raw/inbox/2026-05-20-社交媒体.md | 更新wiki/concepts/MTP-Multi-Token-Prediction.md（合并了LM Studio MTP支持+生态扩展）
+2026-05-20 | update | raw/inbox/2026-05-20-社交媒体.md | 更新wiki/entities/DeepSeek-V4.md（合并了4x2080Ti低成本方案）
+2026-05-20 | skip | raw/inbox/2026-05-20-新闻热点.md | 全部内容评分<7.0，无提炼价值
+2026-05-20 | skip | raw/inbox/2026-05-20-社交媒体.md | Agent沙箱已覆盖无新内容；Qwen/字节/NVIDIA发布为新闻性信息无技术深度；Mnemosyne/Mnemora/Project Chimera信息量不足
