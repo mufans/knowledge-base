@@ -87,3 +87,5 @@
 - [ExecuTorch](ExecuTorch.md) (2026-05-19)
 - [NavixMind](NavixMind.md) (2026-05-19)
 - [Google-AI-Edge-Gallery](Google-AI-Edge-Gallery.md) (2026-05-20)
+- [MobileVLN](MobileVLN.md) (2026-05-21)
+- [EdgeAgent](EdgeAgent.md) (2026-05-21)

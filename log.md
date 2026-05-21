@@ -61,9 +61,14 @@
 - X/Twitter: 未采集（网络限制）
 - Top 8 精选已推送钉钉
 
-=== 2026-05-20 提炼 ===
-2026-05-20 | ingest | raw/inbox/2026-05-20-社交媒体.md | 创建wiki/entities/Google-AI-Edge-Gallery.md（自评7.50）
-2026-05-20 | update | raw/inbox/2026-05-20-社交媒体.md | 更新wiki/concepts/MTP-Multi-Token-Prediction.md（合并了LM Studio MTP支持+生态扩展）
-2026-05-20 | update | raw/inbox/2026-05-20-社交媒体.md | 更新wiki/entities/DeepSeek-V4.md（合并了4x2080Ti低成本方案）
-2026-05-20 | skip | raw/inbox/2026-05-20-新闻热点.md | 全部内容评分<7.0，无提炼价值
-2026-05-20 | skip | raw/inbox/2026-05-20-社交媒体.md | Agent沙箱已覆盖无新内容；Qwen/字节/NVIDIA发布为新闻性信息无技术深度；Mnemosyne/Mnemora/Project Chimera信息量不足
+=== 2026-05-21 提炼 ===
+2026-05-21 | skip | raw/inbox/2026-05-21-社交媒体.md | 所有数据源访问被阻止，X/Twitter需要登录，Reddit和HN访问限制
+
+## 2026-05-21 知识提炼
+2026-05-21 | ingest | raw/inbox/2026-05-21-AI论文.md | 创建 wiki/entities/MobileVLN.md（自评8.10）
+2026-05-21 | ingest | raw/inbox/2026-05-21-AI论文.md | 创建 wiki/entities/EdgeAgent.md（自评8.30）
+2026-05-21 | ingest | raw/inbox/2026-05-21-AI论文.md | 创建 wiki/concepts/EfficientAgent.md（自评7.50）
+2026-05-21 | update | raw/inbox/2026-05-21-AI论文.md | 更新 wiki/concepts/AI-Memory-Systems.md（合并MemoryOpt压缩长期记忆方案）
+2026-05-21 | skip | raw/inbox/2026-05-21-AI论文.md | #3 EvoLM（Prompt优化，内容不足7.0）、#6-10均无足够技术细节创建页面
+2026-05-21 | skip | raw/inbox/2026-05-21-GitHub项目.md | 全部跳过：大部分为知名项目（vLLM/gpt4all/Llama等）已有覆盖或无新信息；部分数据疑似不实（tsuyoshicho/tsuyoshi、airbnb/babel描述异常）
+2026-05-21 | skip | raw/inbox/2026-05-21-社交媒体.md | 所有数据源访问被阻止，无内容可提炼

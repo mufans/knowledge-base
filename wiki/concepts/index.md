@@ -34,3 +34,4 @@
 - [Context-Engineering](Context-Engineering.md) (2026-05-18)
 - [STALE-Memory-Staleness](STALE-Memory-Staleness.md) (2026-05-16)
 - [Agent-MetaSKILLs](Agent-MetaSKILLs.md) (2026-05-16)
+- [EfficientAgent](EfficientAgent.md) (2026-05-21)

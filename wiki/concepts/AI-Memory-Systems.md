@@ -92,6 +92,14 @@ Markdown记忆 + 自进化 = **知识图谱的终极形态可能是"可版本控
 4. **参考 [OpenClaw](../entities/OpenClaw.md) 的记忆模式**：SOUL.md（长期人格）+ MEMORY.md（结构化记忆）+ daily notes（情景记忆）是三层记忆的实际案例
 5. **引入EvolveMem的自动验证**：考虑在知识库中加入"记忆验证"步骤，定期检查已有页面是否过时
 
+### 2026-05-21 更新：MemoryOpt — 压缩长期记忆
+
+[MemoryOpt](https://huggingface.co/papers/2605.16215)（arXiv 2605.16215）提出了针对Agent长期记忆的压缩方案，解决Agent长时间运行时的内存膨胀问题。核心方法：将低频访问的情景记忆压缩为语义摘要，保留关键实体和因果关系，丢弃冗余细节。这与上文提到的"检索vs摘要的trade-off"一致，但MemoryOpt提供了自动化压缩的具体算法。
+
+关联：[Delta-Mem](../concepts/Delta-Mem.md)、[STALE-Memory-Staleness](../concepts/STALE-Memory-Staleness.md)
+
+---
+
 ## 自评
 | 维度 | 分数 | 权重 | 加权 |
 |------|------|------|------|
