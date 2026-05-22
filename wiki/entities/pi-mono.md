@@ -2,7 +2,7 @@
 title: "pi mono"
 category: "entities"
 tags: ["GitHub", "工具", "终端"]
-rating: 8.0
+rating: 7.5
 description: "tags: #AI-Agent #TypeScript #LLM-API #Coding-Agent"
 date: "2026-05-07"
 ---

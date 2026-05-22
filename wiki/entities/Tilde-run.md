@@ -2,7 +2,7 @@
 title: "Tilde.run：事务性版本化文件系统的Agent沙箱"
 category: "entities"
 tags: ["Agent-Sandbox", "Transactional-FS", "Version-Control", "AI-Safety"]
-rating: 8.5
+rating: 8.0
 description: "面向AI Agent的沙箱环境，提供事务性版本化文件系统，支持代码变更的原子提交和回滚"
 date: "2026-05-07"
 ---

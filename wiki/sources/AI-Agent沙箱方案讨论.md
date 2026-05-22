@@ -2,7 +2,7 @@
 title: "AI Agent沙箱方案讨论"
 category: "sources"
 tags: ["安全", "源码分析", "论文"]
-rating: 8.5
+rating: 8.0
 description: "tags: #Agent-Security #Sandbox #Docker #VM"
 date: "2026-05-07"
 ---
