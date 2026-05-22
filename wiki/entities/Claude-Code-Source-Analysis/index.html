@@ -1501,6 +1501,23 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="关联分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-05-17-agent-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-17 更新：Agent View 功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3129,6 +3146,23 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="关联分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-05-17-agent-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-17 更新：Agent View 功能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3469,6 +3503,21 @@ for await (const event of stream) {
 <li><a href="../OpenClaw/">OpenClaw</a> — OpenClaw的Agent架构对比</li>
 <li><a href="../Mistral-Medium-3.5/">Mistral-Medium-3.5</a> — Mistral的Work模式对比</li>
 </ul>
+<h3 id="2026-05-17-agent-view">2026-05-17 更新：Agent View 功能<a class="headerlink" href="#2026-05-17-agent-view" title="Permanent link">&para;</a></h3>
+<p>2026年5月，Claude Code 引入 <strong>Agent View</strong> 功能，解决多Agent并行管理问题：</p>
+<ul>
+<li><strong>核心痛点</strong>：此前并行运行多个Claude Code Agent需要管理多个终端tab或tmux窗口，心智负担重</li>
+<li><strong>Agent View 方案</strong>：一个界面统一管理所有Claude Code session</li>
+<li>启动新Agent并发送到后台</li>
+<li>一览哪些Agent在等待用户输入、哪些仍在运行、哪些已完成</li>
+<li>只在Claude需要用户时介入</li>
+<li><strong>设计理念</strong>：从"用户管理多个终端"转向"一个Dashboard管理多个Agent"，降低了并行Agent的心智负担</li>
+<li><strong>与源码中Subagent系统的关系</strong>：Agent View是前端展示层（Ink TUI），底层仍然是 <code>src/tasks/</code> 中的 LocalAgentTask/DreamTask/RemoteAgentTask 系统</li>
+<li><strong>参考</strong>：<a href="https://claude.com/blog/agent-view-in-claude-code">Agent view in Claude Code</a></li>
+</ul>
+<p>关联：
+- <a href="../Anthropic-Agent-API/">Anthropic-Agent-API</a> — API层Agent能力
+- <a href="../OpenCode-Agent/">OpenCode-Agent</a> — 开源替代方案</p>
 
 
 
@@ -3489,7 +3538,7 @@ for await (const event of stream) {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月16日 12:09:49 UTC">2026年5月16日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月22日 01:38:08 UTC">2026年5月22日</span>
   </span>
 
     
