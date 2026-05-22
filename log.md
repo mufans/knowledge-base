@@ -81,3 +81,5 @@
 钉钉推送: Top 8条技术动态已发送
 
 2026-05-22 | Claude Blog采集 | raw/inbox/2026-05-22-Claude博客.md | 采集5篇，最高分9.0
+
+2026-05-22 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-20~22-*.json | 扫描105篇新文章(去重后约40篇)，全部已有wiki页面覆盖或score<7/不相关，0篇新建，105篇跳过
