@@ -83,3 +83,12 @@
 2026-05-22 | Claude Blog采集 | raw/inbox/2026-05-22-Claude博客.md | 采集5篇，最高分9.0
 
 2026-05-22 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-20~22-*.json | 扫描105篇新文章(去重后约40篇)，全部已有wiki页面覆盖或score<7/不相关，0篇新建，105篇跳过
+## 2026-05-22 知识提炼
+2026-05-22 | update | raw/inbox/2026-05-22-Claude博客.md | 更新Anthropic-Agent-API（合并了Self-Hosted Sandboxes + MCP Tunnels新内容）
+2026-05-22 | update | raw/inbox/2026-05-22-AI论文.md | 更新AI-Memory-Systems（合并了MINTEval多目标记忆评估新内容）
+2026-05-22 | ingest | raw/inbox/2026-05-22-AI论文.md | 创建Maestro-Agent-Orchestration（自评7.60）
+2026-05-22 | ingest | raw/inbox/2026-05-22-AI论文.md | 创建IndusAgent（自评7.40，首次6.95改进后达标）
+2026-05-22 | skip | raw/inbox/2026-05-22-GitHub项目.md | 2个项目均不相关（芯片设计、课程仓库），跳过
+2026-05-22 | skip | raw/inbox/2026-05-22-技术动态.md | 内容泛泛无技术深度，全部跳过
+2026-05-22 | skip | raw/inbox/2026-05-22-新闻热点.md | 低技术深度，全部跳过
+2026-05-22 | skip | raw/inbox/2026-05-22-晚间总结.md | 汇总内容，无新增信息，跳过
