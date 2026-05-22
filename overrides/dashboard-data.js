@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-22 20:01:50
-// Total articles: 156
+// Generated: 2026-05-22 22:21:43
+// Total articles: 158
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -120,6 +120,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/EfficientAgent"
   },
   {
+    "title": "Maestro：RL驱动的层级Agent编排",
+    "category": "concepts",
+    "tags": [
+      "Multi-Agent",
+      "RL-Orchestration",
+      "Hierarchical-Agent",
+      "Model-Ensemble",
+      "Agent-Architecture"
+    ],
+    "rating": 9.0,
+    "description": "用强化学习自动编排多模型多技能的层级Agent架构，解决复杂Agent系统的编排策略问题",
+    "date": "2026-05-22",
+    "url": "wiki/concepts/Maestro-Agent-Orchestration"
+  },
+  {
     "title": "andrej-karpathy-skills 深度分析报告",
     "category": "concepts",
     "tags": [
@@ -204,6 +219,21 @@ window.__kb_articles = [
     "description": "Hermes Agent 深度分析报告，架构与核心实现",
     "date": "2026-04-25",
     "url": "wiki/entities/Hermes-Agent"
+  },
+  {
+    "title": "IndusAgent：工业异常检测Agent",
+    "category": "entities",
+    "tags": [
+      "IndusAgent",
+      "Anomaly-Detection",
+      "Industrial-AI",
+      "Agent-Tool-Calling",
+      "MLLM"
+    ],
+    "rating": 9.0,
+    "description": "将多模态大语言模型（MLLM）与Agent工具调用结合，实现开放词汇工业异常检测",
+    "date": "2026-05-22",
+    "url": "wiki/entities/IndusAgent"
   },
   {
     "title": "LLaMA Factory: 统一高效微调框架",
