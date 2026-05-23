@@ -2,7 +2,7 @@
 title: "Agent控制流设计：确定性优先于Prompt"
 category: "concepts"
 tags: ["Agent-Architecture", "Control-Flow", "State-Machine", "LLM-Engineering"]
-rating: 8.5
+rating: 8.0
 description: "可靠的Agent系统需要确定性控制流（状态机、校验检查点），而非更复杂的prompt链。LLM是组件而非系统本身。"
 date: "2026-05-08"
 ---
