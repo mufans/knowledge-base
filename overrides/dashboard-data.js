@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-22 22:30:43
+// Generated: 2026-05-23 20:01:42
 // Total articles: 158
-// Updated files this run: 0
+// Updated files this run: 7
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -283,21 +283,6 @@ window.__kb_articles = [
     "url": "wiki/entities/NavixMind"
   },
   {
-    "title": "Needle: 26M参数端侧工具调用模型",
-    "category": "entities",
-    "tags": [
-      "Tool-Calling",
-      "On-Device-AI",
-      "Model-Distillation",
-      "Edge-AI",
-      "Mobile-AI"
-    ],
-    "rating": 9.0,
-    "description": "将Gemini工具调用能力蒸馏到26M参数的微型模型，为端侧AI Agent提供本地工具调用能力",
-    "date": "2026-05-15",
-    "url": "wiki/entities/Needle"
-  },
-  {
     "title": "OpenHands: AI驱动的开发平台",
     "category": "entities",
     "tags": [
@@ -562,35 +547,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/AST-Driven-AI-Editing"
   },
   {
-    "title": "Agent控制流设计：确定性优先于Prompt",
-    "category": "concepts",
-    "tags": [
-      "Agent-Architecture",
-      "Control-Flow",
-      "State-Machine",
-      "LLM-Engineering"
-    ],
-    "rating": 8.5,
-    "description": "可靠的Agent系统需要确定性控制流（状态机、校验检查点），而非更复杂的prompt链。LLM是组件而非系统本身。",
-    "date": "2026-05-08",
-    "url": "wiki/concepts/Agent-Control-Flow"
-  },
-  {
-    "title": "Agent MetaSKILLs",
-    "category": "concepts",
-    "tags": [
-      "agent",
-      "工作流",
-      "skill系统",
-      "starlark",
-      "可重复任务"
-    ],
-    "rating": 8.5,
-    "description": "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题",
-    "date": "2026-05-06",
-    "url": "wiki/concepts/Agent-MetaSKILLs"
-  },
-  {
     "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",
     "category": "concepts",
     "tags": [
@@ -712,21 +668,6 @@ window.__kb_articles = [
     "description": "tags: #Autonomous-Agent #TypeScript #NextJS #LangChain #Browser-Agent",
     "date": "2026-05-12",
     "url": "wiki/entities/AgentGPT"
-  },
-  {
-    "title": "Codex Mobile: OpenAI编程Agent进入移动端",
-    "category": "entities",
-    "tags": [
-      "OpenAI",
-      "Codex",
-      "Mobile-AI",
-      "Coding-Agent",
-      "端侧AI"
-    ],
-    "rating": 8.5,
-    "description": "OpenAI将Codex编程Agent集成到ChatGPT移动端App，移动端AI编程进入新阶段",
-    "date": "2026-05-15",
-    "url": "wiki/entities/Codex-Mobile"
   },
   {
     "title": "Continue",
@@ -913,6 +854,21 @@ window.__kb_articles = [
     "description": "Mistral发布1280亿参数的Medium 3.5模型，集成远程智能体和Work模式，实现指令遵循、推理与编码一体化。",
     "date": "2026-05-12",
     "url": "wiki/entities/Mistral-Medium-3.5"
+  },
+  {
+    "title": "Needle: 26M参数端侧工具调用模型",
+    "category": "entities",
+    "tags": [
+      "Tool-Calling",
+      "On-Device-AI",
+      "Model-Distillation",
+      "Edge-AI",
+      "Mobile-AI"
+    ],
+    "rating": 8.5,
+    "description": "将Gemini工具调用能力蒸馏到26M参数的微型模型，为端侧AI Agent提供本地工具调用能力",
+    "date": "2026-05-15",
+    "url": "wiki/entities/Needle"
   },
   {
     "title": "OpenClaw",
@@ -1301,6 +1257,35 @@ window.__kb_articles = [
     "url": "wiki/syntheses/Hermes-vs-OpenClaw对比分析"
   },
   {
+    "title": "Agent控制流设计：确定性优先于Prompt",
+    "category": "concepts",
+    "tags": [
+      "Agent-Architecture",
+      "Control-Flow",
+      "State-Machine",
+      "LLM-Engineering"
+    ],
+    "rating": 8.0,
+    "description": "可靠的Agent系统需要确定性控制流（状态机、校验检查点），而非更复杂的prompt链。LLM是组件而非系统本身。",
+    "date": "2026-05-08",
+    "url": "wiki/concepts/Agent-Control-Flow"
+  },
+  {
+    "title": "Agent MetaSKILLs",
+    "category": "concepts",
+    "tags": [
+      "agent",
+      "工作流",
+      "skill系统",
+      "starlark",
+      "可重复任务"
+    ],
+    "rating": 8.0,
+    "description": "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题",
+    "date": "2026-05-06",
+    "url": "wiki/concepts/Agent-MetaSKILLs"
+  },
+  {
     "title": "Client-Side Tool Calling",
     "category": "concepts",
     "tags": [
@@ -1462,16 +1447,19 @@ window.__kb_articles = [
     "url": "wiki/concepts/TNL-Persistent-Plan-Mode"
   },
   {
-    "title": "Cherry Studio",
+    "title": "Codex Mobile: OpenAI编程Agent进入移动端",
     "category": "entities",
     "tags": [
-      "GitHub",
-      "工具"
+      "OpenAI",
+      "Codex",
+      "Mobile-AI",
+      "Coding-Agent",
+      "端侧AI"
     ],
     "rating": 8.0,
-    "description": "tags: #AIClient #MultiModel #TypeScript #DesktopApp",
-    "date": "2026-05-07",
-    "url": "wiki/entities/Cherry-Studio"
+    "description": "OpenAI将Codex编程Agent集成到ChatGPT移动端App，移动端AI编程进入新阶段",
+    "date": "2026-05-15",
+    "url": "wiki/entities/Codex-Mobile"
   },
   {
     "title": "CopilotKit: Agent前端栈与AG-UI协议",
@@ -1857,32 +1845,16 @@ window.__kb_articles = [
     "url": "wiki/concepts/DeepEP"
   },
   {
-    "title": "Natural Language Autoencoders：将模型内部激活转译为自然语言",
-    "category": "concepts",
-    "tags": [
-      "Interpretability",
-      "Anthropic",
-      "Autoencoder",
-      "AI-Safety"
-    ],
-    "rating": 7.5,
-    "description": "Anthropic发布的NLA方法，直接将LLM内部激活值转译为自然语言，已用于发现Claude在安全测试中的隐藏行为。",
-    "date": "2026-05-08",
-    "url": "wiki/concepts/Natural-Language-Autoencoders"
-  },
-  {
-    "title": "AlphaEvolve：Gemini驱动的多领域编程Agent",
+    "title": "Cherry Studio",
     "category": "entities",
     "tags": [
-      "Google-DeepMind",
-      "Coding-Agent",
-      "Gemini",
-      "Evolutionary-Algorithm"
+      "GitHub",
+      "工具"
     ],
     "rating": 7.5,
-    "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
-    "date": "2026-05-08",
-    "url": "wiki/entities/AlphaEvolve"
+    "description": "tags: #AIClient #MultiModel #TypeScript #DesktopApp",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Cherry-Studio"
   },
   {
     "title": "GitNexus",
@@ -2071,6 +2043,20 @@ window.__kb_articles = [
     "url": "wiki/sources/Teaching-Claude-Why"
   },
   {
+    "title": "Natural Language Autoencoders：将模型内部激活转译为自然语言",
+    "category": "concepts",
+    "tags": [
+      "Interpretability",
+      "Anthropic",
+      "Autoencoder",
+      "AI-Safety"
+    ],
+    "rating": 7.0,
+    "description": "Anthropic发布的NLA方法，直接将LLM内部激活值转译为自然语言，已用于发现Claude在安全测试中的隐藏行为。",
+    "date": "2026-05-08",
+    "url": "wiki/concepts/Natural-Language-Autoencoders"
+  },
+  {
     "title": "PersonalAI: LLM Agent个性化中的知识图谱存储与检索",
     "category": "concepts",
     "tags": [
@@ -2095,6 +2081,20 @@ window.__kb_articles = [
     "description": "8 维度 Skill 量化评估框架，系统化衡量 Agent 技能质量",
     "date": "2026-04-27",
     "url": "wiki/concepts/Skill-Evaluation-Framework"
+  },
+  {
+    "title": "AlphaEvolve：Gemini驱动的多领域编程Agent",
+    "category": "entities",
+    "tags": [
+      "Google-DeepMind",
+      "Coding-Agent",
+      "Gemini",
+      "Evolutionary-Algorithm"
+    ],
+    "rating": 7.0,
+    "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
+    "date": "2026-05-08",
+    "url": "wiki/entities/AlphaEvolve"
   },
   {
     "title": "Operit: Android最强AI Agent应用",
