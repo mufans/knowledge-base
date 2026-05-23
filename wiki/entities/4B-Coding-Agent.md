@@ -19,6 +19,10 @@ date: "2026-05-19"
 
 社区反响：Reddit r/LocalLLaMA 691⬆ / 332💬，高热度讨论。
 
+### 2026-05-23 更新
+
+GitHub仓库 [smallcode](https://github.com/Doorman11991/smallcode) 登上GitHub Trending（⭐1217），确认该项目为上述4B Coding Agent的开源实现。项目热度持续上升，进一步验证了小模型+Agent架构方案的行业认可度。
+
 ## 设计原理
 
 ### 为什么小模型能做到？

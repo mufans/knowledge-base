@@ -2,7 +2,7 @@
 title: "AlphaEvolve：Gemini驱动的多领域编程Agent"
 category: "entities"
 tags: ["Google-DeepMind", "Coding-Agent", "Gemini", "Evolutionary-Algorithm"]
-rating: 7.0
+rating: 7.5
 description: "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。"
 date: "2026-05-08"
 ---

@@ -2,7 +2,7 @@
 title: "Cherry Studio"
 category: "entities"
 tags: ["GitHub", "工具"]
-rating: 7.5
+rating: 8.0
 description: "tags: #AIClient #MultiModel #TypeScript #DesktopApp"
 date: "2026-05-07"
 ---

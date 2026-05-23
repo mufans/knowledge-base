@@ -102,3 +102,13 @@
 
 2026-05-23 | Claude Blog采集 | raw/inbox/2026-05-23-Claude博客.md | 采集5篇，最高分9.0
 2026-05-23 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-23-*.json | 扫描36篇新文章，全部已有wiki页面覆盖或为宽泛新闻无技术深度，0篇新建/更新，36篇跳过
+
+### 2026-05-23 每日知识提炼（22:00）
+2026-05-23 | ingest | raw/inbox/2026-05-23-Claude博客.md | 创建wiki/concepts/Agent-Workflow-Patterns.md（自评8.50）
+2026-05-23 | ingest | raw/inbox/2026-05-23-技术动态.md | 创建wiki/entities/MCP-Tunnel.md（自评8.05）
+2026-05-23 | ingest | raw/inbox/2026-05-23-每日技术新闻.md | 创建wiki/entities/Project-Glasswing.md（自评7.91）
+2026-05-23 | update | raw/inbox/2026-05-23-每日技术新闻.md | 更新wiki/entities/4B-Coding-Agent.md（合并GitHub Trending数据）
+2026-05-23 | skip | raw/inbox/2026-05-23-社交媒体.md | 空文件（0条采集内容）
+2026-05-23 | skip | raw/inbox/2026-05-23-Claude博客.md | Claude Skills Guide仅下载链接公告，无实质技术内容；Compliance API/Connectors为工具目录或企业级功能，与purpose匹配度低
+2026-05-23 | skip | raw/inbox/2026-05-23-技术动态.md | Vibe Coding融合已有页面且无新内容；其余为行业新闻标题（芯片/SpaceX/GitHub等），技术深度不足
+2026-05-23 | skip | raw/inbox/2026-05-23-每日技术新闻.md | Gemini 3.5/Deno/Vite为版本更新标题无深度分析；Kanbots/Agent-Learning-Hub fetch失败；smallcode已覆盖
