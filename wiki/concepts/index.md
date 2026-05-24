@@ -37,3 +37,4 @@
 - [EfficientAgent](EfficientAgent.md) (2026-05-21)
 - [Maestro-Agent-Orchestration](Maestro-Agent-Orchestration.md) (2026-05-22)
 - [Agent-Workflow-Patterns](Agent-Workflow-Patterns.md) (2026-05-23)
+- [ThunderKittens-GPU-DSL](ThunderKittens-GPU-DSL.md) (2026-05-24)

@@ -2,7 +2,7 @@
 title: "Context Window 优化：AI Coding Agent 的核心效率问题"
 category: "concepts"
 tags: ["Context-Window", "优化", "Coding-Agent"]
-rating: 8.0
+rating: 8.5
 description: "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析"
 date: "2026-04-26"
 ---
@@ -93,6 +93,17 @@ class ContextManager:
 2. **实现分层上下文**：核心指令（不可裁剪）> 当前任务上下文 > 工具输出（可裁剪）
 3. **缓存工具输出**：同一文件多次读取时，使用摘要版本而非原始版本
 4. **监控 context 使用率**：记录每次 turn 的 token 消耗，识别"吞 token"的工具
+
+### 2026-05-24 更新：Claude官方Context Editing方案
+
+2025年9月，Anthropic推出了**context editing**和**memory tool**两个官方功能，直接解决Agent长时间运行的context耗尽问题：
+
+- **Context Editing**：当context window接近token上限时，自动清除过时的tool call和结果，保留对话流程。本质上是自动化的context裁剪，与本文描述的智能裁剪策略一致，但由平台层实现而非应用层。
+- **Memory Tool**：让Agent将关键信息持久化到跨session存储，避免重要信息因context裁剪丢失。
+
+这两个功能配合Claude Sonnet 4.5，使Agent能够处理更长时间的任务而无需人工干预。
+
+**对移动端Agent的意义**：Context editing的自动裁剪思路可直接在移动端实现——本地Agent处理长任务时，采用类似的旧内容自动淘汰策略，保留核心上下文。
 
 ## 参见
 - [claude-context](../entities/claude-context.md) — 代码搜索 MCP，解决"找什么代码"的问题

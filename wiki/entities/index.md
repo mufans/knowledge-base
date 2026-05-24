@@ -92,3 +92,4 @@
 - [IndusAgent](IndusAgent.md) (2026-05-22)
 - [MCP-Tunnel](MCP-Tunnel.md) (2026-05-23)
 - [Project-Glasswing](Project-Glasswing.md) (2026-05-23)
+- [Claude-Cowork](Claude-Cowork.md) (2026-05-24)

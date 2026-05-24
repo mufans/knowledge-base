@@ -158,3 +158,6 @@ Claude Code引入Agent View，统一管理多个并行Agent session：
 *创建时间：2026-04-23*  
 *数据来源：GitHub热门项目精选*  
 *技术参考：Claude生态系统分析*
+
+### 关联条目
+- [Claude-Cowork](../entities/Claude-Cowork.md) — Claude企业级协作平台，插件系统+私有市场

@@ -33,3 +33,4 @@
 - [Gemma-Mobile-LLM-Tutorial](Gemma-Mobile-LLM-Tutorial.md) (2026-05-17)
 - [PAGER-GUI-Agent](PAGER-GUI-Agent.md) (2026-05-19)
 - [Cainiao-AI-RD-Practice](Cainiao-AI-RD-Practice.md) (2026-05-19)
+- [Google-IO-2026-Agentic-Era](Google-IO-2026-Agentic-Era.md) (2026-05-24)
