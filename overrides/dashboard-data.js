@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-23 22:30:35
-// Total articles: 161
-// Updated files this run: 0
+// Generated: 2026-05-24 22:13:40
+// Total articles: 164
+// Updated files this run: 3
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -150,6 +150,19 @@ window.__kb_articles = [
     "url": "wiki/concepts/Maestro-Agent-Orchestration"
   },
   {
+    "title": "ThunderKittens GPU DSL",
+    "category": "concepts",
+    "tags": [
+      "Agent",
+      "Memory",
+      "RAG"
+    ],
+    "rating": 9.0,
+    "description": "tags: #GPU #DSL #ThunderKittens #CUDA #TensorCore #Hopper #Blackwell #KernelOptimization",
+    "date": "2026-05-24",
+    "url": "wiki/concepts/ThunderKittens-GPU-DSL"
+  },
+  {
     "title": "andrej-karpathy-skills 深度分析报告",
     "category": "concepts",
     "tags": [
@@ -191,6 +204,21 @@ window.__kb_articles = [
     "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
     "date": "2026-05-12",
     "url": "wiki/entities/CUDA-oxide"
+  },
+  {
+    "title": "Claude Cowork：企业级AI协作平台",
+    "category": "entities",
+    "tags": [
+      "Claude",
+      "Cowork",
+      "Enterprise-AI",
+      "Plugins",
+      "Agent-Platform"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户",
+    "date": "2026-05-24",
+    "url": "wiki/entities/Claude-Cowork"
   },
   {
     "title": "EdgeAgent：轻量级端侧AI Agent",
@@ -457,6 +485,19 @@ window.__kb_articles = [
     "url": "wiki/sources/Gemma-Mobile-LLM-Tutorial"
   },
   {
+    "title": "Google IO 2026 Agentic Era",
+    "category": "sources",
+    "tags": [
+      "对比",
+      "源码分析",
+      "论文"
+    ],
+    "rating": 9.0,
+    "description": "tags: #Gemini #GoogleIO #Agent #Gemini3.5 #GeminiOmni #Antigravity #AIInfrastructure",
+    "date": "2026-05-24",
+    "url": "wiki/sources/Google-IO-2026-Agentic-Era"
+  },
+  {
     "title": "Hermes Agent 源码分析",
     "category": "sources",
     "tags": [
@@ -648,6 +689,19 @@ window.__kb_articles = [
     "description": "从Carta Healthcare 99%准确率和YC startup工作流中提炼的context engineering核心方法论：喂给模型什么比模型本身更重要",
     "date": "2026-05-18",
     "url": "wiki/concepts/Context-Engineering"
+  },
+  {
+    "title": "Context Window 优化：AI Coding Agent 的核心效率问题",
+    "category": "concepts",
+    "tags": [
+      "Context-Window",
+      "优化",
+      "Coding-Agent"
+    ],
+    "rating": 8.5,
+    "description": "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析",
+    "date": "2026-04-26",
+    "url": "wiki/concepts/Context-Window-Optimization"
   },
   {
     "title": "LLM文档编辑腐蚀问题",
@@ -1357,19 +1411,6 @@ window.__kb_articles = [
     "description": "客户端 Tool Calling 方案，在浏览器端直接调用 LLM 工具",
     "date": "2026-05-03",
     "url": "wiki/concepts/Client-Side-Tool-Calling"
-  },
-  {
-    "title": "Context Window 优化：AI Coding Agent 的核心效率问题",
-    "category": "concepts",
-    "tags": [
-      "Context-Window",
-      "优化",
-      "Coding-Agent"
-    ],
-    "rating": 8.0,
-    "description": "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析",
-    "date": "2026-04-26",
-    "url": "wiki/concepts/Context-Window-Optimization"
   },
   {
     "title": "δ-mem: LLM 高效在线记忆机制",
