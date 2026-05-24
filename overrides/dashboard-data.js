@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-24 22:13:40
+// Generated: 2026-05-24 22:30:33
 // Total articles: 164
-// Updated files this run: 3
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
