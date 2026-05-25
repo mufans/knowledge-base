@@ -1,10 +1,10 @@
 ---
 title: "Pi Agent Toolkit"
-category: entities
-tags: [AI Agent, 开源工具, TypeScript, CLI, LLM]
-rating: 8.0
+category: "entities"
+tags: ["AI Agent", "开源工具", "TypeScript", "CLI", "LLM"]
+rating: 7.5
 description: "基于TypeScript的AI Agent工具包，集成编码Agent CLI、统一LLM API、TUI/Web UI库、Slack Bot及vLLM支持"
-date: 2026-05-10
+date: "2026-05-10"
 ---
 
 # Pi Agent Toolkit
