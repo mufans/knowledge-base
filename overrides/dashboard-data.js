@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-24 22:30:33
+// Generated: 2026-05-25 20:03:06
 // Total articles: 164
-// Updated files this run: 0
+// Updated files this run: 7
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -470,21 +470,6 @@ window.__kb_articles = [
     "url": "wiki/entities/everything-claude-code"
   },
   {
-    "title": "Gemma 移动端 LLM 教程",
-    "category": "sources",
-    "tags": [
-      "Gemma",
-      "Mobile",
-      "OnDevice-AI",
-      "LLM",
-      "Tutorial"
-    ],
-    "rating": 9.0,
-    "description": "手把手教程：使用 Gemma 模型在移动设备上本地运行 LLM",
-    "date": "2026-05-17",
-    "url": "wiki/sources/Gemma-Mobile-LLM-Tutorial"
-  },
-  {
     "title": "Google IO 2026 Agentic Era",
     "category": "sources",
     "tags": [
@@ -582,18 +567,6 @@ window.__kb_articles = [
     "description": "Google与Kaggle联合推出的5天AI Agents密集课程，主打Vibe Coding概念，降低AI应用开发门槛",
     "date": "2026-05-11",
     "url": "wiki/sources/Vibe-Coding-Google-Kaggle-Course"
-  },
-  {
-    "title": "pi agent rust analysis",
-    "category": "sources",
-    "tags": [
-      "安全",
-      "对比"
-    ],
-    "rating": 9.0,
-    "description": "tags: #Rust #AI-Coding-Agent #Extension-System #Hostcall-Optimization #Structured-Concurrency",
-    "date": "2026-05-10",
-    "url": "wiki/sources/pi-agent-rust-analysis"
   },
   {
     "title": "推荐书单 — 2026年4月",
@@ -702,20 +675,6 @@ window.__kb_articles = [
     "description": "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析",
     "date": "2026-04-26",
     "url": "wiki/concepts/Context-Window-Optimization"
-  },
-  {
-    "title": "LLM文档编辑腐蚀问题",
-    "category": "concepts",
-    "tags": [
-      "LLM",
-      "Agent-Reliability",
-      "Document-Editing",
-      "Safety"
-    ],
-    "rating": 8.5,
-    "description": "论文揭示LLM在代理文档编辑任务时会系统性修改不相关内容，对Agent可靠性构成根本性挑战",
-    "date": "2026-05-10",
-    "url": "wiki/concepts/LLM-Document-Corruption"
   },
   {
     "title": "Multi-Agent系统设计：何时与如何使用",
@@ -1234,20 +1193,6 @@ window.__kb_articles = [
     "url": "wiki/entities/nanobot"
   },
   {
-    "title": "re_gent: AI Agent版本控制系统",
-    "category": "entities",
-    "tags": [
-      "Agent-Tooling",
-      "Version-Control",
-      "Claude-Code",
-      "Traceability"
-    ],
-    "rating": 8.5,
-    "description": "为AI Agent操作提供版本控制能力的开源工具，解决Agent操作的可追溯性和回滚问题",
-    "date": "2026-05-10",
-    "url": "wiki/entities/re_gent"
-  },
-  {
     "title": "AI Agent沙箱方案讨论",
     "category": "sources",
     "tags": [
@@ -1359,6 +1304,21 @@ window.__kb_articles = [
     "url": "wiki/sources/GLM-5-Scaling-Pain"
   },
   {
+    "title": "Gemma 移动端 LLM 教程",
+    "category": "sources",
+    "tags": [
+      "Gemma",
+      "Mobile",
+      "OnDevice-AI",
+      "LLM",
+      "Tutorial"
+    ],
+    "rating": 8.5,
+    "description": "手把手教程：使用 Gemma 模型在移动设备上本地运行 LLM",
+    "date": "2026-05-17",
+    "url": "wiki/sources/Gemma-Mobile-LLM-Tutorial"
+  },
+  {
     "title": "PAGER: GUI精准几何控制",
     "category": "sources",
     "tags": [
@@ -1384,6 +1344,18 @@ window.__kb_articles = [
     "description": "claude-context 源码分析，上下文管理实现",
     "date": "2026-04-24",
     "url": "wiki/sources/claude-context-源码分析"
+  },
+  {
+    "title": "pi agent rust analysis",
+    "category": "sources",
+    "tags": [
+      "安全",
+      "对比"
+    ],
+    "rating": 8.5,
+    "description": "tags: #Rust #AI-Coding-Agent #Extension-System #Hostcall-Optimization #Structured-Concurrency",
+    "date": "2026-05-10",
+    "url": "wiki/sources/pi-agent-rust-analysis"
   },
   {
     "title": "Hermes vs OpenClaw 对比分析",
@@ -1425,6 +1397,20 @@ window.__kb_articles = [
     "description": "论文提出 δ-mem 方法，为LLM添加高效的在线持久记忆能力",
     "date": "2026-05-17",
     "url": "wiki/concepts/Delta-Mem"
+  },
+  {
+    "title": "LLM文档编辑腐蚀问题",
+    "category": "concepts",
+    "tags": [
+      "LLM",
+      "Agent-Reliability",
+      "Document-Editing",
+      "Safety"
+    ],
+    "rating": 8.0,
+    "description": "论文揭示LLM在代理文档编辑任务时会系统性修改不相关内容，对Agent可靠性构成根本性挑战",
+    "date": "2026-05-10",
+    "url": "wiki/concepts/LLM-Document-Corruption"
   },
   {
     "title": "MTP多Token预测推理优化",
@@ -1694,21 +1680,6 @@ window.__kb_articles = [
     "url": "wiki/entities/MemPalace"
   },
   {
-    "title": "Pi Agent Toolkit",
-    "category": "entities",
-    "tags": [
-      "AI Agent",
-      "开源工具",
-      "TypeScript",
-      "CLI",
-      "LLM"
-    ],
-    "rating": 8.0,
-    "description": "基于TypeScript的AI Agent工具包，集成编码Agent CLI、统一LLM API、TUI/Web UI库、Slack Bot及vLLM支持",
-    "date": "2026-05-10",
-    "url": "wiki/entities/Pi-Agent-Toolkit"
-  },
-  {
     "title": "RTX 5000 PRO 48GB: 端侧推理新标杆",
     "category": "entities",
     "tags": [
@@ -1819,6 +1790,20 @@ window.__kb_articles = [
     "url": "wiki/entities/pi-mono"
   },
   {
+    "title": "re_gent: AI Agent版本控制系统",
+    "category": "entities",
+    "tags": [
+      "Agent-Tooling",
+      "Version-Control",
+      "Claude-Code",
+      "Traceability"
+    ],
+    "rating": 8.0,
+    "description": "为AI Agent操作提供版本控制能力的开源工具，解决Agent操作的可追溯性和回滚问题",
+    "date": "2026-05-10",
+    "url": "wiki/entities/re_gent"
+  },
+  {
     "title": "Apple Foundation Models Framework 实战",
     "category": "sources",
     "tags": [
@@ -1830,20 +1815,6 @@ window.__kb_articles = [
     "description": "Apple Foundation Models Framework 实战指南",
     "date": "2026-05-03",
     "url": "wiki/sources/Apple-Foundation-Models-Practice"
-  },
-  {
-    "title": "HTML作为Coding Agent交互介质",
-    "category": "sources",
-    "tags": [
-      "Claude-Code",
-      "Prompt-Engineering",
-      "HTML",
-      "Coding-Agent"
-    ],
-    "rating": 8.0,
-    "description": "HN高赞经验分享：用HTML替代纯文本/Markdown作为Coding Agent交互介质，大幅提升UI代码生成质量",
-    "date": "2026-05-10",
-    "url": "wiki/sources/Claude-Code-HTML-Effectiveness"
   },
   {
     "title": "Claude Code 发现 Linux 内核 23 年漏洞",
@@ -2038,6 +2009,21 @@ window.__kb_articles = [
     "url": "wiki/entities/OpenCode-Agent"
   },
   {
+    "title": "Pi Agent Toolkit",
+    "category": "entities",
+    "tags": [
+      "AI Agent",
+      "开源工具",
+      "TypeScript",
+      "CLI",
+      "LLM"
+    ],
+    "rating": 7.5,
+    "description": "基于TypeScript的AI Agent工具包，集成编码Agent CLI、统一LLM API、TUI/Web UI库、Slack Bot及vLLM支持",
+    "date": "2026-05-10",
+    "url": "wiki/entities/Pi-Agent-Toolkit"
+  },
+  {
     "title": "fabrica",
     "category": "entities",
     "tags": [
@@ -2117,17 +2103,18 @@ window.__kb_articles = [
     "url": "wiki/sources/AI生成代码的知识产权归属"
   },
   {
-    "title": "Agent时代的分布式基础设施设计",
+    "title": "HTML作为Coding Agent交互介质",
     "category": "sources",
     "tags": [
-      "Agent-Infrastructure",
-      "Distributed-Systems",
-      "Architecture"
+      "Claude-Code",
+      "Prompt-Engineering",
+      "HTML",
+      "Coding-Agent"
     ],
     "rating": 7.5,
-    "description": "InfoQ深度文章探讨AI Agent时代对分布式基础设施的新要求，涵盖Agent调度、状态管理和安全隔离",
+    "description": "HN高赞经验分享：用HTML替代纯文本/Markdown作为Coding Agent交互介质，大幅提升UI代码生成质量",
     "date": "2026-05-10",
-    "url": "wiki/sources/Agent-Distributed-Infrastructure"
+    "url": "wiki/sources/Claude-Code-HTML-Effectiveness"
   },
   {
     "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
@@ -2207,6 +2194,19 @@ window.__kb_articles = [
     "description": "trycua/cua Computer-Use Agent 基础设施",
     "date": "2026-04-27",
     "url": "wiki/entities/trycua-cua"
+  },
+  {
+    "title": "Agent时代的分布式基础设施设计",
+    "category": "sources",
+    "tags": [
+      "Agent-Infrastructure",
+      "Distributed-Systems",
+      "Architecture"
+    ],
+    "rating": 7.0,
+    "description": "InfoQ深度文章探讨AI Agent时代对分布式基础设施的新要求，涵盖Agent调度、状态管理和安全隔离",
+    "date": "2026-05-10",
+    "url": "wiki/sources/Agent-Distributed-Infrastructure"
   },
   {
     "title": "OpenMobile: 开放移动Agent框架",
