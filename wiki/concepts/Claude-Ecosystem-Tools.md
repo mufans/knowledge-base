@@ -159,5 +159,23 @@ Claude Code引入Agent View，统一管理多个并行Agent session：
 *数据来源：GitHub热门项目精选*  
 *技术参考：Claude生态系统分析*
 
+### 7. Skills与MCP协同架构（2026-05-25 更新）
+
+2025年12月，Anthropic发布[Skills与MCP协同指南](https://claude.com/blog/extending-claude-capabilities-with-skills-mcp-servers)，明确两者的分工：
+- **MCP = 连接层**：提供对第三方工具的安全、标准化访问（GitHub、Salesforce、Notion等）
+- **Skills = 专业知识层**：教Claude如何正确使用这些连接，编码工作流逻辑
+- **Agent Skills开放标准**：已发布为跨平台可移植的开放标准（2025年12月18日）
+
+核心比喻：MCP是五金店的货架（有工具），Skills是懂行的员工（知道用什么、怎么用）。单个Skill可编排多个MCP服务器，单个MCP服务器可支撑数十个不同Skill。
+
+**三层收益**：
+1. **精确发现**：Skill编码了机构知识——先查项目页、再查会议记录、然后查利益相关者档案
+2. **可靠编排**：多步骤工作流变得可预测，Skill显式定义执行序列
+3. **一致输出**：Skill定义"完成"的标准——正确的结构、细节粒度、语气风格
+
+来源：[2026-05-25-Claude博客](../../raw/inbox/2026-05-25-Claude博客.md)
+
+---
+
 ### 关联条目
 - [Claude-Cowork](../entities/Claude-Cowork.md) — Claude企业级协作平台，插件系统+私有市场

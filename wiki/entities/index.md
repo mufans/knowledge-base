@@ -93,3 +93,5 @@
 - [MCP-Tunnel](MCP-Tunnel.md) (2026-05-23)
 - [Project-Glasswing](Project-Glasswing.md) (2026-05-23)
 - [Claude-Cowork](Claude-Cowork.md) (2026-05-24)
+- [ECC](ECC.md) (2026-05-25)
+- [learn-claude-code](learn-claude-code.md) (2026-05-25)

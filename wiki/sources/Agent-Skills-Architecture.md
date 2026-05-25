@@ -91,3 +91,14 @@ tools: [browser_act, browser_snapshot]
 | **加权总分** | | | **8.80** |
 
 > 评分说明：摘要包含具体的Token管理策略和YAML技能定义；技术深度有单体vs组合的trade-off分析；与purpose.md的Agent架构方向高度匹配；有对OpenClaw技能系统的对比分析；格式完整。
+
+### 2026-05-25 更新：Anthropic官方Skills+MCP协同指南
+
+2025年12月，Anthropic发布官方指南明确了Skills和MCP的边界：
+- **MCP处理连接**：安全、标准化的外部系统访问
+- **Skills处理专业知识**：领域知识和工作流逻辑，将原始工具访问转化为可靠输出
+- **架构可组合性**：一个Skill可编排多个MCP服务器，一个MCP服务器可支撑多个Skill
+
+这与本文的技能组合模式分析完全一致。Anthropic官方的三层收益（精确发现、可靠编排、一致输出）进一步验证了技能架构的工程价值。
+
+来源：[2026-05-25-Claude博客](../../raw/inbox/2026-05-25-Claude博客.md)
