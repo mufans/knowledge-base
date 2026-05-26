@@ -1,7 +1,7 @@
 ---
 title: "Claude Cowork：企业级AI协作平台"
 category: "entities"
-tags: ["Claude", "Cowork", "Enterprise-AI", "Plugins", "Agent-Platform"]
+tags: ["Claude", "Cowork", "Enterprise-AI", "Plugins", "Agent-Platform", "Sales-Automation"]
 rating: 9.0
 description: "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户"
 date: "2026-05-24"
@@ -83,3 +83,13 @@ Private Marketplace（企业内部分发）
 | 原创性 | 8.5 | 0.15 | 1.28 |
 | 格式规范 | 8.5 | 0.15 | 1.28 |
 | **加权总分** | | | **8.36** |
+
+### 2026-05-26 更新
+
+Anthropic销售主管Travis Bryant分享了Claude Cowork在企业场景的深度实践：
+- **4000账户管理**：用Claude Cowork为一本4000账户的客户手册打分，过去需要RevOps/FP&A/Marketing跨团队数百小时，一晚完成
+- **五维度评分模型**：分别为Tech和Industries客户定义不同评分维度（如Tech关注agent opportunity、AI commitment；Industries关注knowledge-worker density）
+- **自动日报/周报**：每日自动扫描Calendar订会议室、客户会前自动拉取BigQuery消费数据+Salesforce pipeline状态生成Brief
+- **交互式Dashboard**：Claude Cowork自动生成按AE territory分片排序的Dashboard，悬浮显示用例和案例
+
+这一实践展示了Claude Cowork的**Scheduler+Skills组合**在企业非技术场景的巨大潜力——从数据拉取到报告生成到Dashboard构建，全链路自动化。
