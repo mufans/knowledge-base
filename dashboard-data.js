@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-25 22:30:28
-// Total articles: 167
-// Updated files this run: 0
+// Generated: 2026-05-26 22:09:33
+// Total articles: 172
+// Updated files this run: 2
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -191,6 +191,21 @@ window.__kb_articles = [
     "url": "wiki/entities/4B-Coding-Agent"
   },
   {
+    "title": "Android CLI：谷歌让Android工具链适配AI Agent",
+    "category": "entities",
+    "tags": [
+      "Android",
+      "CLI",
+      "AI-Agent",
+      "Google",
+      "Mobile-Dev"
+    ],
+    "rating": 9.0,
+    "description": "谷歌推出全新Android CLI工具，让AI Agent能更高效地使用Android工具链，构建速度提升3倍",
+    "date": "2026-05-26",
+    "url": "wiki/entities/Android-CLI-AI-Agent"
+  },
+  {
     "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
     "category": "entities",
     "tags": [
@@ -213,7 +228,8 @@ window.__kb_articles = [
       "Cowork",
       "Enterprise-AI",
       "Plugins",
-      "Agent-Platform"
+      "Agent-Platform",
+      "Sales-Automation"
     ],
     "rating": 9.0,
     "description": "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户",
@@ -722,6 +738,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/Agent-MetaSKILLs"
   },
   {
+    "title": "Claude Agent Harness设计模式",
+    "category": "concepts",
+    "tags": [
+      "Claude",
+      "Agent-Harness",
+      "Design-Pattern",
+      "AI-Engineering",
+      "Prompt-Engineering"
+    ],
+    "rating": 8.5,
+    "description": "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界",
+    "date": "2026-05-26",
+    "url": "wiki/concepts/Claude-Agent-Harness-Patterns"
+  },
+  {
     "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",
     "category": "concepts",
     "tags": [
@@ -804,6 +835,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/STALE-Memory-Staleness"
   },
   {
+    "title": "自调节模拟规划：Agent何时规划与如何规划",
+    "category": "concepts",
+    "tags": [
+      "Agent-Planning",
+      "Self-Regulated",
+      "Simulative-Planning",
+      "Reasoning",
+      "LLM-Agent"
+    ],
+    "rating": 8.5,
+    "description": "Agent自调节规划策略：动态决定何时规划、如何规划，通过模拟执行评估计划可行性",
+    "date": "2026-05-26",
+    "url": "wiki/concepts/Self-Regulated-Agent-Planning"
+  },
+  {
     "title": "Skill Auto-Creation",
     "category": "concepts",
     "tags": [
@@ -815,6 +861,21 @@ window.__kb_articles = [
     "description": "AI Agent Skill 自动创建机制，从使用中学习生成新技能",
     "date": "2026-04-26",
     "url": "wiki/concepts/Skill-Auto-Creation"
+  },
+  {
+    "title": "SkillOpt：Agent技能自演化执行策略",
+    "category": "concepts",
+    "tags": [
+      "Agent-Skills",
+      "Self-Evolution",
+      "SkillOpt",
+      "Auto-Creation",
+      "LLM-Agent"
+    ],
+    "rating": 8.5,
+    "description": "Agent技能的自动演化策略：从手工编码到自进化的技能管理系统，包含评估-优化-部署闭环",
+    "date": "2026-05-26",
+    "url": "wiki/concepts/SkillOpt-Agent-Skills"
   },
   {
     "title": "Vibe Coding与Agent工程融合：开发者角色的重新定义",
@@ -911,6 +972,21 @@ window.__kb_articles = [
     "description": "Redis作者antirez开源的DeepSeek 4 Flash本地推理引擎，专为Apple Silicon优化，支持Metal GPU加速。",
     "date": "2026-05-08",
     "url": "wiki/entities/DS4-DeepSeek-Local-Inference"
+  },
+  {
+    "title": "DeepSeek Harness：中国版Claude Code",
+    "category": "entities",
+    "tags": [
+      "DeepSeek",
+      "Harness",
+      "AI-Coding",
+      "Claude-Code",
+      "China-AI"
+    ],
+    "rating": 8.5,
+    "description": "DeepSeek组建团队从零开发对标Claude Code的AI编程工具Harness，国内AI Coding赛道竞争加剧",
+    "date": "2026-05-26",
+    "url": "wiki/entities/DeepSeek-Harness"
   },
   {
     "title": "DeepSeek V4: 百万上下文窗口的开源模型",
