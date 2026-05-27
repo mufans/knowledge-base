@@ -1,5 +1,5 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-27 10:31:34
+// Generated: 2026-05-27 20:02:21
 // Total articles: 172
 // Updated files this run: 16
 window.__kb_articles = [
@@ -62,6 +62,21 @@ window.__kb_articles = [
     "description": "Claude Code v2.1.88 源码深度分析，架构设计与实现细节",
     "date": "2026-04-29",
     "url": "wiki/entities/Claude-Code-Source-Analysis"
+  },
+  {
+    "title": "ExecuTorch: Meta端侧AI推理框架",
+    "category": "entities",
+    "tags": [
+      "ExecuTorch",
+      "PyTorch",
+      "OnDevice-AI",
+      "Mobile-Inference",
+      "Edge-AI"
+    ],
+    "rating": 9.5,
+    "description": "Meta的ExecuTorch框架，支持在移动端、嵌入式和边缘设备上高效运行PyTorch模型",
+    "date": "2026-05-19",
+    "url": "wiki/entities/ExecuTorch"
   },
   {
     "title": "LLM Wiki",
@@ -252,19 +267,19 @@ window.__kb_articles = [
     "url": "wiki/entities/EdgeAgent"
   },
   {
-    "title": "ExecuTorch: Meta端侧AI推理框架",
+    "title": "EdgeDox - Android 离线文档 AI",
     "category": "entities",
     "tags": [
-      "ExecuTorch",
-      "PyTorch",
+      "Android",
       "OnDevice-AI",
-      "Mobile-Inference",
-      "Edge-AI"
+      "LLM",
+      "Qwen",
+      "Offline"
     ],
     "rating": 9.0,
-    "description": "Meta的ExecuTorch框架，支持在移动端、嵌入式和边缘设备上高效运行PyTorch模型",
-    "date": "2026-05-19",
-    "url": "wiki/entities/ExecuTorch"
+    "description": "在 Android 上使用 Qwen3.5-0.8B 的离线文档 AI，完全本地运行",
+    "date": "2026-05-17",
+    "url": "wiki/entities/EdgeDox"
   },
   {
     "title": "Hermes Agent 深度分析报告",
@@ -293,6 +308,23 @@ window.__kb_articles = [
     "description": "将多模态大语言模型（MLLM）与Agent工具调用结合，实现开放词汇工业异常检测",
     "date": "2026-05-22",
     "url": "wiki/entities/IndusAgent"
+  },
+  {
+    "title": "LLaMA Factory: 统一高效微调框架",
+    "category": "entities",
+    "tags": [
+      "fine-tuning",
+      "LLM",
+      "LoRA",
+      "transformers",
+      "PEFT",
+      "RLHF",
+      "QLoRA"
+    ],
+    "rating": 9.0,
+    "description": "支持100+LLM/VLM的统一微调框架，集成LoRA/QLoRA/RLHF，ACL 2024论文发表",
+    "date": "2026-05-11",
+    "url": "wiki/entities/LlamaFactory"
   },
   {
     "title": "MCP隧道：私有Agent安全访问内部系统",
@@ -325,6 +357,21 @@ window.__kb_articles = [
     "url": "wiki/entities/MobileVLN"
   },
   {
+    "title": "NavixMind: 开源Android Agent框架",
+    "category": "entities",
+    "tags": [
+      "Android-Agent",
+      "OnDevice-AI",
+      "Python",
+      "Mobile-Agent",
+      "OpenSource"
+    ],
+    "rating": 9.0,
+    "description": "开源Android Agent框架，支持在设备本地运行Python代码，移动端Agent的探索性项目",
+    "date": "2026-05-19",
+    "url": "wiki/entities/NavixMind"
+  },
+  {
     "title": "Needle: 26M参数端侧工具调用模型",
     "category": "entities",
     "tags": [
@@ -340,6 +387,21 @@ window.__kb_articles = [
     "url": "wiki/entities/Needle"
   },
   {
+    "title": "OpenHands: AI驱动的开发平台",
+    "category": "entities",
+    "tags": [
+      "OpenHands",
+      "AI-Agent",
+      "Coding-Agent",
+      "Developer-Tools",
+      "CLI"
+    ],
+    "rating": 9.0,
+    "description": "AI驱动的软件开发平台，通过自然语言完成编码、调试、测试全流程，高度可扩展的代理架构",
+    "date": "2026-05-11",
+    "url": "wiki/entities/OpenHands"
+  },
+  {
     "title": "Project Glasswing：AI驱动的软件安全漏洞发现",
     "category": "entities",
     "tags": [
@@ -353,6 +415,21 @@ window.__kb_articles = [
     "description": "Anthropic的Project Glasswing使用Mythos Preview模型，一个月内发现超过1万个高/严重级别漏洞，AI安全能力质的飞跃",
     "date": "2026-05-23",
     "url": "wiki/entities/Project-Glasswing"
+  },
+  {
+    "title": "Reasonix: 极致缓存优化的终端AI编码Agent",
+    "category": "entities",
+    "tags": [
+      "DeepSeek",
+      "Caching",
+      "Token-Optimization",
+      "Coding-Agent",
+      "CLI"
+    ],
+    "rating": 9.0,
+    "description": "开源终端AI编码Agent,通过极致缓存策略将长会话Token成本降低80%,基于DeepSeek模型",
+    "date": "2026-05-11",
+    "url": "wiki/entities/Reasonix"
   },
   {
     "title": "SmartPerfetto",
@@ -379,6 +456,22 @@ window.__kb_articles = [
     "description": "Warp Terminal 源码深度分析，现代终端设计",
     "date": "2026-04-29",
     "url": "wiki/entities/Warp-Terminal-Analysis"
+  },
+  {
+    "title": "AI Engineering Hub: LLM/RAG/Agent实战教程集",
+    "category": "entities",
+    "tags": [
+      "LLM",
+      "RAG",
+      "AI-Agents",
+      "MCP",
+      "Machine-Learning",
+      "Tutorial"
+    ],
+    "rating": 9.0,
+    "description": "面向LLM/RAG/AI Agent的实战教程合集，Jupyter Notebook形式，涵盖MCP、DeepSeek微调等前沿技术",
+    "date": "2026-05-11",
+    "url": "wiki/entities/ai-engineering-hub"
   },
   {
     "title": "Claude-Mem 深度分析报告",
@@ -521,6 +614,35 @@ window.__kb_articles = [
     "description": "Swift中手动实现LLM训练的矩阵乘法优化全过程，从朴素实现到Metal GPU，涵盖SIMD/AMX/GPU全路径",
     "date": "2026-05-11",
     "url": "wiki/sources/Training-LLM-Swift"
+  },
+  {
+    "title": "Transformer Architecture Evolution",
+    "category": "sources",
+    "tags": [
+      "书单",
+      "源码分析",
+      "论文"
+    ],
+    "rating": 9.0,
+    "description": "tags: #Transformer #Architecture-Evolution #Deep-Learning #RoPE #SwiGLU #MoE #RMSNorm",
+    "date": "2026-05-12",
+    "url": "wiki/sources/Transformer-Architecture-Evolution"
+  },
+  {
+    "title": "Google x Kaggle: AI Agents Vibe Coding 5天密集课程",
+    "category": "sources",
+    "tags": [
+      "AI-Agents",
+      "Google",
+      "Kaggle",
+      "Education",
+      "Vibe-Coding",
+      "GenAI"
+    ],
+    "rating": 9.0,
+    "description": "Google与Kaggle联合推出的5天AI Agents密集课程，主打Vibe Coding概念，降低AI应用开发门槛",
+    "date": "2026-05-11",
+    "url": "wiki/sources/Vibe-Coding-Google-Kaggle-Course"
   },
   {
     "title": "pi agent rust analysis",
@@ -783,6 +905,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Weak-Model-Orchestration"
   },
   {
+    "title": "AgentGPT",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "GitHub",
+      "OpenAI",
+      "框架"
+    ],
+    "rating": 8.5,
+    "description": "tags: #Autonomous-Agent #TypeScript #NextJS #LangChain #Browser-Agent",
+    "date": "2026-05-12",
+    "url": "wiki/entities/AgentGPT"
+  },
+  {
     "title": "Codex Mobile: OpenAI编程Agent进入移动端",
     "category": "entities",
     "tags": [
@@ -879,21 +1015,6 @@ window.__kb_articles = [
     "url": "wiki/entities/Dify"
   },
   {
-    "title": "EdgeDox - Android 离线文档 AI",
-    "category": "entities",
-    "tags": [
-      "Android",
-      "OnDevice-AI",
-      "LLM",
-      "Qwen",
-      "Offline"
-    ],
-    "rating": 8.5,
-    "description": "在 Android 上使用 Qwen3.5-0.8B 的离线文档 AI，完全本地运行",
-    "date": "2026-05-17",
-    "url": "wiki/entities/EdgeDox"
-  },
-  {
     "title": "Fewshell",
     "category": "entities",
     "tags": [
@@ -986,23 +1107,6 @@ window.__kb_articles = [
     "url": "wiki/entities/Kora-AI-Native-OS"
   },
   {
-    "title": "LLaMA Factory: 统一高效微调框架",
-    "category": "entities",
-    "tags": [
-      "fine-tuning",
-      "LLM",
-      "LoRA",
-      "transformers",
-      "PEFT",
-      "RLHF",
-      "QLoRA"
-    ],
-    "rating": 8.5,
-    "description": "支持100+LLM/VLM的统一微调框架，集成LoRA/QLoRA/RLHF，ACL 2024论文发表",
-    "date": "2026-05-11",
-    "url": "wiki/entities/LlamaFactory"
-  },
-  {
     "title": "MetaGPT",
     "category": "entities",
     "tags": [
@@ -1017,19 +1121,18 @@ window.__kb_articles = [
     "url": "wiki/entities/MetaGPT"
   },
   {
-    "title": "NavixMind: 开源Android Agent框架",
+    "title": "Mistral Medium 3.5：1280亿参数模型与云端智能体",
     "category": "entities",
     "tags": [
-      "Android-Agent",
-      "OnDevice-AI",
-      "Python",
-      "Mobile-Agent",
-      "OpenSource"
+      "Mistral",
+      "LLM",
+      "AI-Agent",
+      "Cloud-Agent"
     ],
     "rating": 8.5,
-    "description": "开源Android Agent框架，支持在设备本地运行Python代码，移动端Agent的探索性项目",
-    "date": "2026-05-19",
-    "url": "wiki/entities/NavixMind"
+    "description": "Mistral发布1280亿参数的Medium 3.5模型，集成远程智能体和Work模式，实现指令遵循、推理与编码一体化。",
+    "date": "2026-05-12",
+    "url": "wiki/entities/Mistral-Medium-3.5"
   },
   {
     "title": "OpenClaw",
@@ -1043,21 +1146,6 @@ window.__kb_articles = [
     "description": "多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施",
     "date": "2026-04-24",
     "url": "wiki/entities/OpenClaw"
-  },
-  {
-    "title": "OpenHands: AI驱动的开发平台",
-    "category": "entities",
-    "tags": [
-      "OpenHands",
-      "AI-Agent",
-      "Coding-Agent",
-      "Developer-Tools",
-      "CLI"
-    ],
-    "rating": 8.5,
-    "description": "AI驱动的软件开发平台，通过自然语言完成编码、调试、测试全流程，高度可扩展的代理架构",
-    "date": "2026-05-11",
-    "url": "wiki/entities/OpenHands"
   },
   {
     "title": "OpenMythos",
@@ -1100,21 +1188,6 @@ window.__kb_articles = [
     "description": "tags: #RAG #Agent #OpenSource #RetrievalAugmented #KnowledgeManagement",
     "date": "2026-05-07",
     "url": "wiki/entities/RAGFlow"
-  },
-  {
-    "title": "Reasonix: 极致缓存优化的终端AI编码Agent",
-    "category": "entities",
-    "tags": [
-      "DeepSeek",
-      "Caching",
-      "Token-Optimization",
-      "Coding-Agent",
-      "CLI"
-    ],
-    "rating": 8.5,
-    "description": "开源终端AI编码Agent,通过极致缓存策略将长会话Token成本降低80%,基于DeepSeek模型",
-    "date": "2026-05-11",
-    "url": "wiki/entities/Reasonix"
   },
   {
     "title": "Room 3.0：Kotlin优先、异步、多平台持久化库",
@@ -1215,22 +1288,6 @@ window.__kb_articles = [
     "description": "Zed 1.0 编辑器分析",
     "date": "2026-05-03",
     "url": "wiki/entities/Zed-1.0"
-  },
-  {
-    "title": "AI Engineering Hub: LLM/RAG/Agent实战教程集",
-    "category": "entities",
-    "tags": [
-      "LLM",
-      "RAG",
-      "AI-Agents",
-      "MCP",
-      "Machine-Learning",
-      "Tutorial"
-    ],
-    "rating": 8.5,
-    "description": "面向LLM/RAG/AI Agent的实战教程合集，Jupyter Notebook形式，涵盖MCP、DeepSeek微调等前沿技术",
-    "date": "2026-05-11",
-    "url": "wiki/entities/ai-engineering-hub"
   },
   {
     "title": "browser use",
@@ -1437,35 +1494,6 @@ window.__kb_articles = [
     "url": "wiki/sources/PAGER-GUI-Agent"
   },
   {
-    "title": "Transformer Architecture Evolution",
-    "category": "sources",
-    "tags": [
-      "书单",
-      "源码分析",
-      "论文"
-    ],
-    "rating": 8.5,
-    "description": "tags: #Transformer #Architecture-Evolution #Deep-Learning #RoPE #SwiGLU #MoE #RMSNorm",
-    "date": "2026-05-12",
-    "url": "wiki/sources/Transformer-Architecture-Evolution"
-  },
-  {
-    "title": "Google x Kaggle: AI Agents Vibe Coding 5天密集课程",
-    "category": "sources",
-    "tags": [
-      "AI-Agents",
-      "Google",
-      "Kaggle",
-      "Education",
-      "Vibe-Coding",
-      "GenAI"
-    ],
-    "rating": 8.5,
-    "description": "Google与Kaggle联合推出的5天AI Agents密集课程，主打Vibe Coding概念，降低AI应用开发门槛",
-    "date": "2026-05-11",
-    "url": "wiki/sources/Vibe-Coding-Google-Kaggle-Course"
-  },
-  {
     "title": "Claude Context 源码分析",
     "category": "sources",
     "tags": [
@@ -1548,6 +1576,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Memory-Management"
   },
   {
+    "title": "PrefixGuard：从Agent轨迹到在线失败预警监控",
+    "category": "concepts",
+    "tags": [
+      "Agent-Safety",
+      "Failure-Prediction",
+      "Online-Monitoring",
+      "LLM-Agent"
+    ],
+    "rating": 8.0,
+    "description": "基于LLM Agent执行轨迹构建在线失败预警监控系统，在Agent任务执行过程中实时检测异常模式并提前预警。",
+    "date": "2026-05-12",
+    "url": "wiki/concepts/PrefixGuard"
+  },
+  {
     "title": "Pretext.js: 绕过 DOM 布局重排的高性能文本排版",
     "category": "concepts",
     "tags": [
@@ -1572,6 +1614,20 @@ window.__kb_articles = [
     "description": "Prompt Caching 的常见陷阱和最佳实践，避免缓存失效",
     "date": "2026-05-01",
     "url": "wiki/concepts/Prompt-Caching-Pitfalls"
+  },
+  {
+    "title": "Q-RAG：长上下文多步检索的Value-based Embedder训练",
+    "category": "concepts",
+    "tags": [
+      "RAG",
+      "Long-Context",
+      "Multi-step-Retrieval",
+      "Value-based-Training"
+    ],
+    "rating": 8.0,
+    "description": "通过Value-based方法训练Embedder实现长上下文多步检索，解决传统RAG在长期记忆和复杂查询中的召回瓶颈。",
+    "date": "2026-05-12",
+    "url": "wiki/concepts/Q-RAG"
   },
   {
     "title": "Real-world AI Applications",
@@ -1611,20 +1667,6 @@ window.__kb_articles = [
     "description": "Typed Natural Language 实现的 Agent 持久化规划方案",
     "date": "2026-05-03",
     "url": "wiki/concepts/TNL-Persistent-Plan-Mode"
-  },
-  {
-    "title": "AgentGPT",
-    "category": "entities",
-    "tags": [
-      "GPT",
-      "GitHub",
-      "OpenAI",
-      "框架"
-    ],
-    "rating": 8.0,
-    "description": "tags: #Autonomous-Agent #TypeScript #NextJS #LangChain #Browser-Agent",
-    "date": "2026-05-12",
-    "url": "wiki/entities/AgentGPT"
   },
   {
     "title": "Cherry Studio",
@@ -1667,6 +1709,19 @@ window.__kb_articles = [
     "url": "wiki/entities/GLM-5V-Turbo"
   },
   {
+    "title": "GPT-5.5",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "OpenAI",
+      "大模型"
+    ],
+    "rating": 8.0,
+    "description": "GPT-5.5 模型分析",
+    "date": "2026-04-27",
+    "url": "wiki/entities/GPT-5.5"
+  },
+  {
     "title": "HarmonyOS生态动态2026-05: 大规模投入与市场验证",
     "category": "entities",
     "tags": [
@@ -1695,6 +1750,19 @@ window.__kb_articles = [
     "url": "wiki/entities/Hy-MT-Offline-Translation"
   },
   {
+    "title": "JeecgBoot",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS",
+      "工具"
+    ],
+    "rating": 8.0,
+    "description": "tags: #Low-Code #AI #Java #Code-Generation #Spring-Boot #Vue3",
+    "date": "2026-05-12",
+    "url": "wiki/entities/JeecgBoot"
+  },
+  {
     "title": "Khoj",
     "category": "entities",
     "tags": [
@@ -1705,6 +1773,18 @@ window.__kb_articles = [
     "description": "tags: #RAG #Self-Hosted #AI-Agent #Productivity #Semantic-Search",
     "date": "2026-05-15",
     "url": "wiki/entities/Khoj"
+  },
+  {
+    "title": "LangChain",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "框架"
+    ],
+    "rating": 8.0,
+    "description": "tags: #LangChain #Agent-Framework #RAG #Multi-Agent #LangGraph",
+    "date": "2026-05-12",
+    "url": "wiki/entities/LangChain"
   },
   {
     "title": "MemLens：多模态大模型长期记忆基准",
@@ -1733,20 +1813,6 @@ window.__kb_articles = [
     "description": "当前benchmark最佳的开源AI记忆系统，为Agent提供持久化、可检索的记忆层",
     "date": "2026-05-18",
     "url": "wiki/entities/MemPalace"
-  },
-  {
-    "title": "Mistral Medium 3.5：1280亿参数模型与云端智能体",
-    "category": "entities",
-    "tags": [
-      "Mistral",
-      "LLM",
-      "AI-Agent",
-      "Cloud-Agent"
-    ],
-    "rating": 8.0,
-    "description": "Mistral发布1280亿参数的Medium 3.5模型，集成远程智能体和Work模式，实现指令遵循、推理与编码一体化。",
-    "date": "2026-05-12",
-    "url": "wiki/entities/Mistral-Medium-3.5"
   },
   {
     "title": "Pi Agent Toolkit",
@@ -2012,34 +2078,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/Natural-Language-Autoencoders"
   },
   {
-    "title": "PrefixGuard：从Agent轨迹到在线失败预警监控",
-    "category": "concepts",
-    "tags": [
-      "Agent-Safety",
-      "Failure-Prediction",
-      "Online-Monitoring",
-      "LLM-Agent"
-    ],
-    "rating": 7.5,
-    "description": "基于LLM Agent执行轨迹构建在线失败预警监控系统，在Agent任务执行过程中实时检测异常模式并提前预警。",
-    "date": "2026-05-12",
-    "url": "wiki/concepts/PrefixGuard"
-  },
-  {
-    "title": "Q-RAG：长上下文多步检索的Value-based Embedder训练",
-    "category": "concepts",
-    "tags": [
-      "RAG",
-      "Long-Context",
-      "Multi-step-Retrieval",
-      "Value-based-Training"
-    ],
-    "rating": 7.5,
-    "description": "通过Value-based方法训练Embedder实现长上下文多步检索，解决传统RAG在长期记忆和复杂查询中的召回瓶颈。",
-    "date": "2026-05-12",
-    "url": "wiki/concepts/Q-RAG"
-  },
-  {
     "title": "AlphaEvolve：Gemini驱动的多领域编程Agent",
     "category": "entities",
     "tags": [
@@ -2052,19 +2090,6 @@ window.__kb_articles = [
     "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
     "date": "2026-05-08",
     "url": "wiki/entities/AlphaEvolve"
-  },
-  {
-    "title": "GPT-5.5",
-    "category": "entities",
-    "tags": [
-      "GPT",
-      "OpenAI",
-      "大模型"
-    ],
-    "rating": 7.5,
-    "description": "GPT-5.5 模型分析",
-    "date": "2026-04-27",
-    "url": "wiki/entities/GPT-5.5"
   },
   {
     "title": "GitNexus",
@@ -2091,31 +2116,6 @@ window.__kb_articles = [
     "description": "tags: #TPU #AI-Infrastructure #Agentic-AI #Google-Cloud",
     "date": "2026-05-07",
     "url": "wiki/entities/Google-TPU-8t-8i"
-  },
-  {
-    "title": "JeecgBoot",
-    "category": "entities",
-    "tags": [
-      "GitHub",
-      "OS",
-      "工具"
-    ],
-    "rating": 7.5,
-    "description": "tags: #Low-Code #AI #Java #Code-Generation #Spring-Boot #Vue3",
-    "date": "2026-05-12",
-    "url": "wiki/entities/JeecgBoot"
-  },
-  {
-    "title": "LangChain",
-    "category": "entities",
-    "tags": [
-      "GitHub",
-      "框架"
-    ],
-    "rating": 7.5,
-    "description": "tags: #LangChain #Agent-Framework #RAG #Multi-Agent #LangGraph",
-    "date": "2026-05-12",
-    "url": "wiki/entities/LangChain"
   },
   {
     "title": "Mirror AI",
