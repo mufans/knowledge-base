@@ -26,3 +26,5 @@
 2026-05-26 | ingest | raw/inbox/2026-05-26-新闻热点.md | 创建DeepSeek-Harness（自评7.15）+ 创建Android-CLI-AI-Agent（自评8.10）+ 更新GLM-5V-Turbo（合并了400tokens/s新数据）+ 更新HarmonyOS-Ecosystem-2026-05（合并了KMP/Flutter新内容）
 2026-05-26 | ingest | raw/inbox/2026-05-26-技术动态.md | 全部已覆盖或深度不足，无新页面创建
 2026-05-26 | ingest | raw/inbox/2026-05-26-社交媒体.md | 采集失败，跳过提炼
+
+2026-05-27 | Claude Blog采集 | raw/inbox/2026-05-27-Claude博客.md | 采集5篇，最高分9.5

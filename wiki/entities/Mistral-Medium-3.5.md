@@ -2,7 +2,7 @@
 title: "Mistral Medium 3.5：1280亿参数模型与云端智能体"
 category: "entities"
 tags: ["Mistral", "LLM", "AI-Agent", "Cloud-Agent"]
-rating: 8.5
+rating: 8.0
 description: "Mistral发布1280亿参数的Medium 3.5模型，集成远程智能体和Work模式，实现指令遵循、推理与编码一体化。"
 date: "2026-05-12"
 ---

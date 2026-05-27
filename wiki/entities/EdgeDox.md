@@ -2,7 +2,7 @@
 title: "EdgeDox - Android 离线文档 AI"
 category: "entities"
 tags: ["Android", "OnDevice-AI", "LLM", "Qwen", "Offline"]
-rating: 9.0
+rating: 8.5
 description: "在 Android 上使用 Qwen3.5-0.8B 的离线文档 AI，完全本地运行"
 date: "2026-05-17"
 ---
