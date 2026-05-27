@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-27 20:02:21
-// Total articles: 172
-// Updated files this run: 16
+// Generated: 2026-05-27 22:07:08
+// Total articles: 175
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -529,6 +529,21 @@ window.__kb_articles = [
     "description": "Anthropic发布的2026年代理式编码趋势报告，识别8大趋势并分为基础、能力、影响三大类，附Rakuten/TELUS/Zapier实战案例",
     "date": "2026-05-25",
     "url": "wiki/sources/Agentic-Coding-Trends-2026"
+  },
+  {
+    "title": "Claude Code在Anthropic内部团队的实践案例",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Agentic-Coding",
+      "Best-Practices",
+      "Vibe-Coding",
+      "Workflow"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic各团队（工程、安全、法务、营销、数据）使用Claude Code的真实案例集，展示了Agentic Coding从开发工具演变为通用生产力工具的路径",
+    "date": "2026-05-27",
+    "url": "wiki/sources/Claude-Code-Anthropic-内部实践"
   },
   {
     "title": "Gemma 移动端 LLM 教程",
@@ -1205,6 +1220,20 @@ window.__kb_articles = [
     "url": "wiki/entities/Room-3"
   },
   {
+    "title": "SimuWoB：移动端GUI Agent基准测试环境",
+    "category": "entities",
+    "tags": [
+      "GUI-Agent",
+      "Mobile-AI",
+      "Benchmark",
+      "Android"
+    ],
+    "rating": 8.5,
+    "description": "基于Web任务模拟真实移动App的GUI Agent快速可靠基准测试框架，解决真实App测试的API限制和稳定性问题",
+    "date": "2026-05-27",
+    "url": "wiki/entities/SimuWoB"
+  },
+  {
     "title": "Subvault - MCP 统一记忆层",
     "category": "entities",
     "tags": [
@@ -1641,6 +1670,20 @@ window.__kb_articles = [
     "description": "AI 在真实场景中的应用案例分析",
     "date": "2026-04-26",
     "url": "wiki/concepts/Real-world-AI-Applications"
+  },
+  {
+    "title": "SEAL：Agent与学习环境的协同进化",
+    "category": "concepts",
+    "tags": [
+      "Agent-Architecture",
+      "Co-Evolution",
+      "Reinforcement-Learning",
+      "Environment-Design"
+    ],
+    "rating": 8.0,
+    "description": "LLM Agent与学习环境协同进化的框架，Agent在交互中自我改进的同时环境也随之优化，实现Agent能力的持续提升",
+    "date": "2026-05-27",
+    "url": "wiki/concepts/SEAL-Agent-Co-Evolution"
   },
   {
     "title": "Self-RAG: 自反思检索增强生成",
