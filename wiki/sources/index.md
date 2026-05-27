@@ -35,3 +35,4 @@
 - [Cainiao-AI-RD-Practice](Cainiao-AI-RD-Practice.md) (2026-05-19)
 - [Google-IO-2026-Agentic-Era](Google-IO-2026-Agentic-Era.md) (2026-05-24)
 - [Agentic-Coding-Trends-2026](Agentic-Coding-Trends-2026.md) (2026-05-25)
+- [Claude-Code-Anthropic-内部实践](Claude-Code-Anthropic-内部实践.md) (2026-05-27)
