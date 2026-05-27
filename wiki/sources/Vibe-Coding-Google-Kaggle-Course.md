@@ -2,7 +2,7 @@
 title: "Google x Kaggle: AI Agents Vibe Coding 5天密集课程"
 category: "sources"
 tags: ["AI-Agents", "Google", "Kaggle", "Education", "Vibe-Coding", "GenAI"]
-rating: 8.5
+rating: 9.0
 description: "Google与Kaggle联合推出的5天AI Agents密集课程，主打Vibe Coding概念，降低AI应用开发门槛"
 date: "2026-05-11"
 ---

@@ -2,7 +2,7 @@
 title: "JeecgBoot"
 category: "entities"
 tags: ["GitHub", "OS", "工具"]
-rating: 7.5
+rating: 8.0
 description: "tags: #Low-Code #AI #Java #Code-Generation #Spring-Boot #Vue3"
 date: "2026-05-12"
 ---

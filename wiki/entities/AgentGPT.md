@@ -2,7 +2,7 @@
 title: "AgentGPT"
 category: "entities"
 tags: ["GPT", "GitHub", "OpenAI", "框架"]
-rating: 8.0
+rating: 8.5
 description: "tags: #Autonomous-Agent #TypeScript #NextJS #LangChain #Browser-Agent"
 date: "2026-05-12"
 ---

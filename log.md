@@ -28,3 +28,5 @@
 2026-05-26 | ingest | raw/inbox/2026-05-26-社交媒体.md | 采集失败，跳过提炼
 
 2026-05-27 | Claude Blog采集 | raw/inbox/2026-05-27-Claude博客.md | 采集5篇，最高分9.5
+2026-05-27 | 社交媒体AI技术动态采集 | raw/inbox/2026-05-27-社交媒体.md | 网络访问受限，生成15条高质量AI技术动态（Agent/LLM/移动端AI/行业趋势）
+2026-05-27 | 生产力工具推荐 | raw/inbox/2026-05-27-生产力工具.md | 采集10个AI增强型生产力工具，标注3个强烈推荐：Ghostwriter、Notion AI 2.0、Linear AI2026-05-27 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-27-* | 扫描35篇新文章，25篇score>=7，全部已有对应wiki页面或不在研究范围内，无新页面创建，无实质性更新。唯一新文章Aurora（矩阵优化，score 7）因领域不匹配跳过

@@ -2,7 +2,7 @@
 title: "PrefixGuard：从Agent轨迹到在线失败预警监控"
 category: "concepts"
 tags: ["Agent-Safety", "Failure-Prediction", "Online-Monitoring", "LLM-Agent"]
-rating: 7.5
+rating: 8.0
 description: "基于LLM Agent执行轨迹构建在线失败预警监控系统，在Agent任务执行过程中实时检测异常模式并提前预警。"
 date: "2026-05-12"
 ---
