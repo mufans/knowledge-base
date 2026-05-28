@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-28 20:02:20
-// Total articles: 175
-// Updated files this run: 2
+// Generated: 2026-05-28 22:05:39
+// Total articles: 177
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -204,6 +204,21 @@ window.__kb_articles = [
     "description": "谷歌推出全新Android CLI工具，让AI Agent能更高效地使用Android工具链，构建速度提升3倍",
     "date": "2026-05-26",
     "url": "wiki/entities/Android-CLI-AI-Agent"
+  },
+  {
+    "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
+    "category": "entities",
+    "tags": [
+      "Rust",
+      "CUDA",
+      "GPU-Computing",
+      "Nvidia",
+      "Edge-AI"
+    ],
+    "rating": 9.0,
+    "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
+    "date": "2026-05-12",
+    "url": "wiki/entities/CUDA-oxide"
   },
   {
     "title": "Claude Cowork：企业级AI协作平台",
@@ -514,6 +529,21 @@ window.__kb_articles = [
     "description": "Anthropic发布的2026年代理式编码趋势报告，识别8大趋势并分为基础、能力、影响三大类，附Rakuten/TELUS/Zapier实战案例",
     "date": "2026-05-25",
     "url": "wiki/sources/Agentic-Coding-Trends-2026"
+  },
+  {
+    "title": "Brex Claude Code企业实践：从编码工具到组织变革引擎",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Enterprise-AI",
+      "Agentic-Coding",
+      "MCP",
+      "Best-Practices"
+    ],
+    "rating": 9.0,
+    "description": "Brex全员50%采用Claude Code的实践，涵盖非技术人员建Figma插件、text-to-SQL、headless模式hackathon等具体案例，3-4x效率提升",
+    "date": "2026-05-28",
+    "url": "wiki/sources/Brex-Claude-Code-Practice"
   },
   {
     "title": "Claude Code在Anthropic内部团队的实践案例",
@@ -919,21 +949,6 @@ window.__kb_articles = [
     "url": "wiki/entities/AgentGPT"
   },
   {
-    "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
-    "category": "entities",
-    "tags": [
-      "Rust",
-      "CUDA",
-      "GPU-Computing",
-      "Nvidia",
-      "Edge-AI"
-    ],
-    "rating": 8.5,
-    "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
-    "date": "2026-05-12",
-    "url": "wiki/entities/CUDA-oxide"
-  },
-  {
     "title": "Codex Mobile: OpenAI编程Agent进入移动端",
     "category": "entities",
     "tags": [
@@ -1150,6 +1165,20 @@ window.__kb_articles = [
     "url": "wiki/entities/Mistral-Medium-3.5"
   },
   {
+    "title": "MobileMoE：端侧Mixture of Experts扩展方案",
+    "category": "entities",
+    "tags": [
+      "MoE",
+      "On-Device-AI",
+      "Mobile-LLM",
+      "Model-Compression"
+    ],
+    "rating": 8.5,
+    "description": "将百亿参数级MoE架构部署到移动设备的技术方案，解决端侧大模型推理的显存和算力瓶颈",
+    "date": "2026-05-28",
+    "url": "wiki/entities/MobileMoE"
+  },
+  {
     "title": "OpenClaw",
     "category": "entities",
     "tags": [
@@ -1161,6 +1190,18 @@ window.__kb_articles = [
     "description": "多通道 AI Agent 网关平台，个人 AI 助手的运行时基础设施",
     "date": "2026-04-24",
     "url": "wiki/entities/OpenClaw"
+  },
+  {
+    "title": "OpenMythos",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS"
+    ],
+    "rating": 8.5,
+    "description": "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer",
+    "date": "2026-05-12",
+    "url": "wiki/entities/OpenMythos"
   },
   {
     "title": "Orchard: 开源Agentic建模框架",
@@ -1844,18 +1885,6 @@ window.__kb_articles = [
     "description": "当前benchmark最佳的开源AI记忆系统，为Agent提供持久化、可检索的记忆层",
     "date": "2026-05-18",
     "url": "wiki/entities/MemPalace"
-  },
-  {
-    "title": "OpenMythos",
-    "category": "entities",
-    "tags": [
-      "GitHub",
-      "OS"
-    ],
-    "rating": 8.0,
-    "description": "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer",
-    "date": "2026-05-12",
-    "url": "wiki/entities/OpenMythos"
   },
   {
     "title": "Pi Agent Toolkit",
