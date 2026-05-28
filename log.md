@@ -35,3 +35,14 @@
 2026-05-27 | update | raw/inbox/2026-05-27-AI论文.md | 更新AI-Memory-Systems（合并了Personalize-then-Store新内容）
 2026-05-27 | skip | raw/inbox/2026-05-27-GitHub项目.md | 仅1个FRP工具（⭐3），评分<5.0，跳过
 2026-05-27 | skip | raw/inbox/2026-05-27-社交媒体.md | 内容为生成式（非真实采集），不可靠，跳过
+
+## 2026-05-28 技术动态采集
+
+- 采集时间：10:01 CST
+- 来源：InfoQ、OSChina、DEV Community、Solidot
+- 条目：16条
+- 保存位置：raw/inbox/2026-05-28-技术动态.md
+- 亮点：DeepSeek造中国版Claude Code、C++之父批AI Coding、谷歌AI搜索引发用户逃离、RocketMQ 5.5.0发布
+
+2026-05-28 | Claude Blog采集 | raw/inbox/2026-05-28-Claude博客.md | 采集5篇，最高分9.5
+2026-05-28 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-28-* | 扫描36篇新文章，30篇score>=7（Goose 9, browser-use 9, deer-flow 9, cherry-studio 9, Pi 9, firecrawl 9, MetaGPT 9, LlamaFactory 10, nanobot 9, ragflow 9, mem0 9, Hermes-Agent 9, OpenHands 9, LangChain 10, Dify 9, CowAgent 9, awesome-llm-apps 9, ai-engineering-hub 9, AgentGPT 8, JeecgBoot 9, crystallization-transformer 8, autonomous-ai-research 8, Google I/O系列 7-9, training-llm-swift 7, Aurora 8），全部已有对应wiki页面，无新页面创建，无实质性更新。6篇score<7跳过（DS4 4, Categorizing 4, Missouri 4, AI Social 6, Open/Closed 6, Beam 6）
