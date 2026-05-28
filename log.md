@@ -46,3 +46,8 @@
 
 2026-05-28 | Claude Blog采集 | raw/inbox/2026-05-28-Claude博客.md | 采集5篇，最高分9.5
 2026-05-28 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-28-* | 扫描36篇新文章，30篇score>=7（Goose 9, browser-use 9, deer-flow 9, cherry-studio 9, Pi 9, firecrawl 9, MetaGPT 9, LlamaFactory 10, nanobot 9, ragflow 9, mem0 9, Hermes-Agent 9, OpenHands 9, LangChain 10, Dify 9, CowAgent 9, awesome-llm-apps 9, ai-engineering-hub 9, AgentGPT 8, JeecgBoot 9, crystallization-transformer 8, autonomous-ai-research 8, Google I/O系列 7-9, training-llm-swift 7, Aurora 8），全部已有对应wiki页面，无新页面创建，无实质性更新。6篇score<7跳过（DS4 4, Categorizing 4, Missouri 4, AI Social 6, Open/Closed 6, Beam 6）
+
+2026-05-28 | ingest | raw/inbox/2026-05-28-AI论文.md | 创建MobileMoE（自评8.05）
+2026-05-28 | ingest | raw/inbox/2026-05-28-Claude博客.md | 创建Brex-Claude-Code-Practice（自评9.00）
+2026-05-28 | update | raw/inbox/2026-05-28-技术动态.md | 更新MTP-Multi-Token-Prediction（合并Gemma 4约3x加速新数据）
+2026-05-28 | update | raw/inbox/2026-05-28-新闻热点.md | 已覆盖（DeepSeek-Harness已有页面，MTP已更新）

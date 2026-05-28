@@ -98,3 +98,4 @@
 - [DeepSeek-Harness](DeepSeek-Harness.md) (2026-05-26)
 - [Android-CLI-AI-Agent](Android-CLI-AI-Agent.md) (2026-05-26)
 - [SimuWoB](SimuWoB.md) (2026-05-27)
+- [MobileMoE](MobileMoE.md) (2026-05-28)
