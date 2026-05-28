@@ -1,5 +1,5 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-28 22:05:39
+// Generated: 2026-05-28 22:30:29
 // Total articles: 177
 // Updated files this run: 0
 window.__kb_articles = [
