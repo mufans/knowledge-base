@@ -56,3 +56,9 @@
 2026-05-29 | 社交媒体AI技术动态采集 | raw/inbox/2026-05-29-社交媒体.md | 采集15条（X/Twitter、Reddit、Hacker News），AI Agent/LLM/移动端AI高质量讨论
 2026-05-29 | Claude Blog采集 | raw/inbox/2026-05-29-Claude博客.md | 采集5篇，最高分9.5
 2026-05-29 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-29-* | 扫描35篇新文章，30篇score>=7（LangChain 10, LlamaFactory 10, Goose 9, browser-use 9, deer-flow 9, cherry-studio 9, Pi 9, MetaGPT 9, nanobot 9, ragflow 9, mem0 9, Hermes-Agent 8, OpenHands 9, Dify 9, CowAgent 9, awesome-llm-apps 9, ai-engineering-hub 9, AgentGPT 8, JeecgBoot 8, khoj 9, Training-LLM-Swift 8, Transformer-Architecture 8, ThunderKittens 8, Google-IO 8, autonomous-ai-research 8），全部已有对应wiki页面，无新页面创建，无实质性更新。5篇score<7跳过（DS4 6, AI-Social 6, Aurora 6, OCaml 6, Google-Workspace 6）
+2026-05-29 | ingest | raw/inbox/2026-05-29-AI论文.md | 创建wiki/entities/UI-KOBE（自评8.05）
+2026-05-29 | update | raw/inbox/2026-05-29-AI论文.md | 更新wiki/concepts/AI-Memory-Systems（合并了Rethinking How to Remember论文）
+2026-05-29 | ingest | raw/inbox/2026-05-29-Claude博客.md | 创建wiki/sources/Claude-Code-Hooks-Guide（自评8.45）
+2026-05-29 | ingest | raw/inbox/2026-05-29-Claude博客.md | 创建wiki/sources/CodeRabbit-Agent-Orchestration（自评7.60）
+2026-05-29 | ingest | raw/inbox/2026-05-29-GitHub项目.md | 跳过（全部为影视清单，与研究范围无关）
+2026-05-29 | ingest | raw/inbox/2026-05-29-社交媒体.md | 跳过（示例数据，非真实采集内容）
