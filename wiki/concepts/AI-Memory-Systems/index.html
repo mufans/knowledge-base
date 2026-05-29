@@ -2446,6 +2446,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-05-29-beyond-atomic-facts-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-29 更新：Beyond Atomic Facts — 终身Agent记忆
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2568,6 +2579,13 @@ score: 技术深度9/10 | 实用价值8/10 | 时效性8/10 | 领域匹配9/10 | 
 - 提出"Personalize-then-Store"范式：先根据用户画像个性化记忆写入策略，再存储
 - 发现个性化记忆显著提升长程对话中的用户满意度，但增加了记忆管理复杂度</p>
 <p><strong>与现有框架的关系</strong>：与EvolveMem的自动验证互补——EvolveMem解决记忆准确性，Personalize-then-Store解决记忆的个性化适配。两者结合 = 准确且个性化的Agent记忆系统。</p>
+<h3 id="2026-05-29-beyond-atomic-facts-agent">2026-05-29 更新：Beyond Atomic Facts — 终身Agent记忆<a class="headerlink" href="#2026-05-29-beyond-atomic-facts-agent" title="Permanent link">&para;</a></h3>
+<p><a href="https://arxiv.org/abs/2605.19952">Rethinking How to Remember</a>（arXiv 2605.19952）提出了超越原子事实的终身Agent记忆架构。核心论点：现有Agent记忆系统主要存储原子级事实（key-value pairs），但人类长期记忆的关键在于<strong>关系型知识</strong>和<strong>情境化回忆</strong>。</p>
+<p><strong>关键贡献</strong>：
+- 指出原子事实存储的局限性：无法支持推理链、无法捕捉因果关系、缺乏时间维度
+- 提出结构化记忆图谱方案：将事实组织为实体-关系-实体的三元组，支持推理和关联检索
+- 在长程对话任务上，结构化记忆比原子事实存储的准确率提升显著</p>
+<p><strong>与现有三层模型的关系</strong>：该论文本质上强化了上文"语义记忆"层的重要性——单纯存储事实不如构建事实间的关系网络。这与MINTEval的发现（多目标需要结构化索引）形成呼应。</p>
 <hr />
 <h2 id="_7">自评<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <table>
@@ -2638,7 +2656,7 @@ score: 技术深度9/10 | 实用价值8/10 | 时效性8/10 | 领域匹配9/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月29日 12:02:25 UTC">2026年5月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月29日 14:05:03 UTC">2026年5月29日</span>
   </span>
 
     

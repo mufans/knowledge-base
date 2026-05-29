@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-29 20:02:09
-// Total articles: 177
-// Updated files this run: 3
+// Generated: 2026-05-29 22:04:47
+// Total articles: 180
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -118,6 +118,21 @@ window.__kb_articles = [
     "description": "Claude 生态工具全景分析，包括 Claude Code、MCP、Skills 等",
     "date": "2026-04-26",
     "url": "wiki/concepts/Claude-Ecosystem-Tools"
+  },
+  {
+    "title": "EfficientAgent：分层任务分解加速LLM推理",
+    "category": "concepts",
+    "tags": [
+      "EfficientAgent",
+      "Task-Decomposition",
+      "LLM-Inference",
+      "Agent-Efficiency",
+      "Hierarchical-Planning"
+    ],
+    "rating": 9.0,
+    "description": "通过分层任务分解策略降低LLM Agent在复杂推理任务中的计算开销，实现推理加速",
+    "date": "2026-05-21",
+    "url": "wiki/concepts/EfficientAgent"
   },
   {
     "title": "Maestro：RL驱动的层级Agent编排",
@@ -237,6 +252,21 @@ window.__kb_articles = [
     "url": "wiki/entities/ECC"
   },
   {
+    "title": "EdgeAgent：轻量级端侧AI Agent",
+    "category": "entities",
+    "tags": [
+      "EdgeAgent",
+      "OnDevice-AI",
+      "Mobile-Agent",
+      "Lightweight-LLM",
+      "Edge-Computing"
+    ],
+    "rating": 9.0,
+    "description": "面向移动计算的轻量级端侧AI Agent框架，解决移动设备上LLM Agent的部署和推理效率问题",
+    "date": "2026-05-21",
+    "url": "wiki/entities/EdgeAgent"
+  },
+  {
     "title": "EdgeDox - Android 离线文档 AI",
     "category": "entities",
     "tags": [
@@ -310,6 +340,21 @@ window.__kb_articles = [
     "description": "Anthropic推出的MCP隧道功能，允许托管Agent通过加密出站连接访问私有MCP服务器，无需开放公网入站端口",
     "date": "2026-05-23",
     "url": "wiki/entities/MCP-Tunnel"
+  },
+  {
+    "title": "MobileVLN：端侧视觉语言导航训练",
+    "category": "entities",
+    "tags": [
+      "MobileVLN",
+      "OnDevice-AI",
+      "Vision-Language-Navigation",
+      "Edge-Training",
+      "VLN"
+    ],
+    "rating": 9.0,
+    "description": "在移动设备上实现Vision-Language Navigation的端侧训练方法，突破传统云端训练依赖",
+    "date": "2026-05-21",
+    "url": "wiki/entities/MobileVLN"
   },
   {
     "title": "NavixMind: 开源Android Agent框架",
@@ -765,21 +810,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/Context-Window-Optimization"
   },
   {
-    "title": "EfficientAgent：分层任务分解加速LLM推理",
-    "category": "concepts",
-    "tags": [
-      "EfficientAgent",
-      "Task-Decomposition",
-      "LLM-Inference",
-      "Agent-Efficiency",
-      "Hierarchical-Planning"
-    ],
-    "rating": 8.5,
-    "description": "通过分层任务分解策略降低LLM Agent在复杂推理任务中的计算开销，实现推理加速",
-    "date": "2026-05-21",
-    "url": "wiki/concepts/EfficientAgent"
-  },
-  {
     "title": "LLM文档编辑腐蚀问题",
     "category": "concepts",
     "tags": [
@@ -1015,21 +1045,6 @@ window.__kb_articles = [
     "url": "wiki/entities/Dify"
   },
   {
-    "title": "EdgeAgent：轻量级端侧AI Agent",
-    "category": "entities",
-    "tags": [
-      "EdgeAgent",
-      "OnDevice-AI",
-      "Mobile-Agent",
-      "Lightweight-LLM",
-      "Edge-Computing"
-    ],
-    "rating": 8.5,
-    "description": "面向移动计算的轻量级端侧AI Agent框架，解决移动设备上LLM Agent的部署和推理效率问题",
-    "date": "2026-05-21",
-    "url": "wiki/entities/EdgeAgent"
-  },
-  {
     "title": "Fewshell",
     "category": "entities",
     "tags": [
@@ -1162,21 +1177,6 @@ window.__kb_articles = [
     "description": "将百亿参数级MoE架构部署到移动设备的技术方案，解决端侧大模型推理的显存和算力瓶颈",
     "date": "2026-05-28",
     "url": "wiki/entities/MobileMoE"
-  },
-  {
-    "title": "MobileVLN：端侧视觉语言导航训练",
-    "category": "entities",
-    "tags": [
-      "MobileVLN",
-      "OnDevice-AI",
-      "Vision-Language-Navigation",
-      "Edge-Training",
-      "VLN"
-    ],
-    "rating": 8.5,
-    "description": "在移动设备上实现Vision-Language Navigation的端侧训练方法，突破传统云端训练依赖",
-    "date": "2026-05-21",
-    "url": "wiki/entities/MobileVLN"
   },
   {
     "title": "OpenClaw",
@@ -2039,6 +2039,20 @@ window.__kb_articles = [
     "url": "wiki/sources/Claude-Code-HTML-Effectiveness"
   },
   {
+    "title": "Claude Code Hooks 配置指南",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Hooks",
+      "Automation",
+      "Workflow"
+    ],
+    "rating": 8.0,
+    "description": "Claude Code官方Hooks配置详解，8种Hook类型实现自动化工作流、规则执行和动态上下文注入",
+    "date": "2026-05-29",
+    "url": "wiki/sources/Claude-Code-Hooks-Guide"
+  },
+  {
     "title": "Claude Code 发现 Linux 内核 23 年漏洞",
     "category": "sources",
     "tags": [
@@ -2051,6 +2065,20 @@ window.__kb_articles = [
     "description": "Claude Code 发现 Linux 内核 23 年历史漏洞",
     "date": "2026-05-03",
     "url": "wiki/sources/Claude-Code-Linux-Kernel-Vuln"
+  },
+  {
+    "title": "CodeRabbit Agent编排系统",
+    "category": "sources",
+    "tags": [
+      "Agent-Orchestration",
+      "Code-Review",
+      "Planning-Agent",
+      "Claude"
+    ],
+    "rating": 8.0,
+    "description": "CodeRabbit基于Claude构建的编码计划Agent，在代码生成前先生成可审查的结构化编码方案",
+    "date": "2026-05-29",
+    "url": "wiki/sources/CodeRabbit-Agent-Orchestration"
   },
   {
     "title": "MCP 工具开发最佳实践",
@@ -2229,6 +2257,20 @@ window.__kb_articles = [
     "description": "开源AI编程Agent工具，支持多种LLM后端，终端界面",
     "date": "2026-05-17",
     "url": "wiki/entities/OpenCode-Agent"
+  },
+  {
+    "title": "UI-KOBE",
+    "category": "entities",
+    "tags": [
+      "GUI-Agent",
+      "Mobile",
+      "Knowledge-Distillation",
+      "Graph-Guided"
+    ],
+    "rating": 7.5,
+    "description": "轻量级图引导的移动端GUI Agent，通过知识导向行为探索提升移动自动化效率",
+    "date": "2026-05-29",
+    "url": "wiki/entities/UI-KOBE"
   },
   {
     "title": "fabrica",
