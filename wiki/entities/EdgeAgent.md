@@ -2,7 +2,7 @@
 title: "EdgeAgent：轻量级端侧AI Agent"
 category: "entities"
 tags: ["EdgeAgent", "OnDevice-AI", "Mobile-Agent", "Lightweight-LLM", "Edge-Computing"]
-rating: 9.0
+rating: 8.5
 description: "面向移动计算的轻量级端侧AI Agent框架，解决移动设备上LLM Agent的部署和推理效率问题"
 date: "2026-05-21"
 ---

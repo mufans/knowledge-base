@@ -51,3 +51,8 @@
 2026-05-28 | ingest | raw/inbox/2026-05-28-Claude博客.md | 创建Brex-Claude-Code-Practice（自评9.00）
 2026-05-28 | update | raw/inbox/2026-05-28-技术动态.md | 更新MTP-Multi-Token-Prediction（合并Gemma 4约3x加速新数据）
 2026-05-28 | update | raw/inbox/2026-05-28-新闻热点.md | 已覆盖（DeepSeek-Harness已有页面，MTP已更新）
+2026-05-29 | ingest | raw/inbox/2026-05-29-新闻热点.md | 每日技术新闻热点（Anthropic 9650亿估值、面壁AI训练框架、Claude Code自愈、Siri大改版、比亚迪4nm芯片、IBM 50亿开源安全）
+
+2026-05-29 | 社交媒体AI技术动态采集 | raw/inbox/2026-05-29-社交媒体.md | 采集15条（X/Twitter、Reddit、Hacker News），AI Agent/LLM/移动端AI高质量讨论
+2026-05-29 | Claude Blog采集 | raw/inbox/2026-05-29-Claude博客.md | 采集5篇，最高分9.5
+2026-05-29 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-29-* | 扫描35篇新文章，30篇score>=7（LangChain 10, LlamaFactory 10, Goose 9, browser-use 9, deer-flow 9, cherry-studio 9, Pi 9, MetaGPT 9, nanobot 9, ragflow 9, mem0 9, Hermes-Agent 8, OpenHands 9, Dify 9, CowAgent 9, awesome-llm-apps 9, ai-engineering-hub 9, AgentGPT 8, JeecgBoot 8, khoj 9, Training-LLM-Swift 8, Transformer-Architecture 8, ThunderKittens 8, Google-IO 8, autonomous-ai-research 8），全部已有对应wiki页面，无新页面创建，无实质性更新。5篇score<7跳过（DS4 6, AI-Social 6, Aurora 6, OCaml 6, Google-Workspace 6）
