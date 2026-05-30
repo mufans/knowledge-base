@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-29 22:04:47
-// Total articles: 180
-// Updated files this run: 0
+// Generated: 2026-05-30 22:05:03
+// Total articles: 181
+// Updated files this run: 15
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -148,6 +148,20 @@ window.__kb_articles = [
     "description": "用强化学习自动编排多模型多技能的层级Agent架构，解决复杂Agent系统的编排策略问题",
     "date": "2026-05-22",
     "url": "wiki/concepts/Maestro-Agent-Orchestration"
+  },
+  {
+    "title": "Multi-Agent系统设计：何时与如何使用",
+    "category": "concepts",
+    "tags": [
+      "Multi-Agent",
+      "Agent-Architecture",
+      "Context-Engineering",
+      "Subagent-Pattern"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic官方总结的多Agent系统设计指南：三种真正需要多Agent的场景（上下文隔离、并行化、专业化），以及context-centric分解原则",
+    "date": "2026-05-18",
+    "url": "wiki/concepts/Multi-Agent-Systems-Design"
   },
   {
     "title": "ThunderKittens GPU DSL",
@@ -824,20 +838,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/LLM-Document-Corruption"
   },
   {
-    "title": "Multi-Agent系统设计：何时与如何使用",
-    "category": "concepts",
-    "tags": [
-      "Multi-Agent",
-      "Agent-Architecture",
-      "Context-Engineering",
-      "Subagent-Pattern"
-    ],
-    "rating": 8.5,
-    "description": "Anthropic官方总结的多Agent系统设计指南：三种真正需要多Agent的场景（上下文隔离、并行化、专业化），以及context-centric分解原则",
-    "date": "2026-05-18",
-    "url": "wiki/concepts/Multi-Agent-Systems-Design"
-  },
-  {
     "title": "PersonalAI：知识图谱存储与检索的个性化 LLM 方案",
     "category": "concepts",
     "tags": [
@@ -849,6 +849,19 @@ window.__kb_articles = [
     "description": "个性化 LLM 中的知识图谱存储与检索方案",
     "date": "2026-04-27",
     "url": "wiki/concepts/PersonalAI-KG-Retrieval"
+  },
+  {
+    "title": "Prompt Caching陷阱",
+    "category": "concepts",
+    "tags": [
+      "Prompt-Caching",
+      "成本优化",
+      "LLM"
+    ],
+    "rating": 8.5,
+    "description": "Prompt Caching 的常见陷阱和最佳实践，避免缓存失效",
+    "date": "2026-05-01",
+    "url": "wiki/concepts/Prompt-Caching-Pitfalls"
   },
   {
     "title": "STALE：LLM Agent记忆时效性检测",
@@ -1177,6 +1190,20 @@ window.__kb_articles = [
     "description": "将百亿参数级MoE架构部署到移动设备的技术方案，解决端侧大模型推理的显存和算力瓶颈",
     "date": "2026-05-28",
     "url": "wiki/entities/MobileMoE"
+  },
+  {
+    "title": "OSCAR：面向真实Serving的2-bit KV Cache量化",
+    "category": "entities",
+    "tags": [
+      "KV-Cache",
+      "Quantization",
+      "LLM-Serving",
+      "Cost-Optimization"
+    ],
+    "rating": 8.5,
+    "description": "清华大学团队提出的2-bit KV Cache量化方案，超越TurboQuant，显著降低LLM推理的显存占用和延迟",
+    "date": "2026-05-30",
+    "url": "wiki/entities/OSCAR"
   },
   {
     "title": "OpenClaw",
@@ -1659,19 +1686,6 @@ window.__kb_articles = [
     "description": "Pretext.js 绕过 DOM 布局重排的高性能文本排版方案",
     "date": "2026-04-26",
     "url": "wiki/concepts/Pretext-js"
-  },
-  {
-    "title": "Prompt Caching陷阱",
-    "category": "concepts",
-    "tags": [
-      "Prompt-Caching",
-      "成本优化",
-      "LLM"
-    ],
-    "rating": 8.0,
-    "description": "Prompt Caching 的常见陷阱和最佳实践，避免缓存失效",
-    "date": "2026-05-01",
-    "url": "wiki/concepts/Prompt-Caching-Pitfalls"
   },
   {
     "title": "Q-RAG：长上下文多步检索的Value-based Embedder训练",

@@ -2374,6 +2374,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-05-30 更新：五种协调模式详解
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2479,6 +2490,52 @@ return await lead_agent.synthesize(results)
 <li><strong>管理太多工具</strong>：15-20+工具时，考虑先尝试 <a href="../Client-Side-Tool-Calling/">Tool Search Tool</a>（可减少85% token用量）</li>
 <li><strong>可并行子任务</strong>：自然分解为独立部分时</li>
 </ol>
+<h3 id="2026-05-30">2026-05-30 更新：五种协调模式详解<a class="headerlink" href="#2026-05-30" title="Permanent link">&para;</a></h3>
+<p>Anthropic在后续博客《<a href="https://claude.com/blog/multi-agent-coordination-patterns">Multi-agent coordination patterns</a>》中，进一步将多Agent协调细化为<strong>五种具体模式</strong>，并给出演进路径建议：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>适用场景</th>
+<th>复杂度</th>
+<th>关键权衡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Generator-Verifier</strong></td>
+<td>质量关键输出+明确评估标准</td>
+<td>★☆☆</td>
+<td>最简模式，增加一次LLM调用但显著提升输出质量</td>
+</tr>
+<tr>
+<td><strong>Orchestrator-Subagent</strong></td>
+<td>清晰任务分解+有界子任务</td>
+<td>★★☆</td>
+<td>与上文核心模式一致，适合大多数场景</td>
+</tr>
+<tr>
+<td><strong>Agent Teams</strong></td>
+<td>并行独立长时间子任务</td>
+<td>★★☆</td>
+<td>需要结果合并策略，避免信息丢失</td>
+</tr>
+<tr>
+<td><strong>Message Bus</strong></td>
+<td>事件驱动管道+增长Agent生态</td>
+<td>★★★</td>
+<td>异步解耦，但调试复杂度高</td>
+</tr>
+<tr>
+<td><strong>Shared-State</strong></td>
+<td>协作式工作+Agent互建发现</td>
+<td>★★★</td>
+<td>最灵活但并发控制最难</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心建议</strong>：从最简单的Generator-Verifier或Orchestrator-Subagent开始，观察痛点后逐步演进。不要因为"听起来高级"就选复杂方案。</p>
+<p>与上文"三种场景"的映射：Generator-Verifier ≈ 专业化（验证角色）；Orchestrator-Subagent = 核心编排模式；Agent Teams ≈ 并行化；Message Bus/Shared-State 是更高级的架构选择。</p>
 <h2 id="_3">关联分析<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../Agent-Control-Flow/">Agent-Control-Flow</a> — 单Agent流程控制模式</li>
@@ -2564,7 +2621,7 @@ return await lead_agent.synthesize(results)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月29日 14:05:03 UTC">2026年5月29日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月30日 14:05:19 UTC">2026年5月30日</span>
   </span>
 
     
