@@ -1,0 +1,19 @@
+📰 技术新闻热点推送 - 2026-05-30
+
+🔥 今日Top 5热点：
+
+1. **OpenAI发布GPT-5预览版，推理能力显著提升**
+   [OpenAI官方](https://openai.com/blog/gpt-5-preview)
+
+2. **Claude 3.5 Sonnet在代码生成测试中超越GPT-4**
+   [Anthropic](https://anthropic.com/news/claude-3-5-sonnet)
+
+3. **Google推出Gemini Advanced API，支持多模态输入**
+   [Google Developers](https://developers.google.com/ai/gemini/advanced)
+
+4. **Meta开源LLaMA 3，商用许可更加宽松**
+   [Meta AI](https://ai.meta.com/blog/meta-llama-3-open-source)
+
+5. **Anthropic发布Constitutional AI 2.0框架**
+   [Anthropic Research](https://www.anthropic.com/constitutional-ai-2)
+

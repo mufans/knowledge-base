@@ -2,7 +2,7 @@
 title: "Prompt Caching陷阱"
 category: "concepts"
 tags: ["Prompt-Caching", "成本优化", "LLM"]
-rating: 8.0
+rating: 8.5
 description: "Prompt Caching 的常见陷阱和最佳实践，避免缓存失效"
 date: "2026-05-01"
 ---
@@ -45,6 +45,18 @@ Prompt caching依赖精确的prefix匹配。Agent场景中，每次请求的syst
 2. 设置API层面的硬性费用上限（hard budget cap）
 3. 直接调用模型API，减少中间层
 4. 定期审计token使用量，设置异常告警阈值
+
+### 2026-05-30 更新：Anthropic官方Prompt Caching数据
+
+Anthropic官方博客《[Prompt caching with Claude](https://claude.com/blog/prompt-caching)》发布了GA后的实测数据：
+
+| 场景 | 无缓存TTFT | 有缓存TTFT | 延迟降低 | 成本降低 |
+|------|-----------|-----------|---------|----------|
+| 与书籍对话（100K tokens cached） | 11.5s | 2.4s | -79% | -90% |
+| Many-shot提示（10K tokens） | 1.6s | 1.1s | -31% | -86% |
+| 多轮对话（10轮+长system prompt） | ~10s | ~2.5s | -75% | -53% |
+
+最佳适用场景：对话Agent（长指令+文档）、编码助手（代码库摘要）、大文档处理、详细指令集、Agentic搜索和工具调用。
 
 ## 关联分析
 

@@ -2,7 +2,7 @@
 title: "Multi-Agent系统设计：何时与如何使用"
 category: "concepts"
 tags: ["Multi-Agent", "Agent-Architecture", "Context-Engineering", "Subagent-Pattern"]
-rating: 8.5
+rating: 9.0
 description: "Anthropic官方总结的多Agent系统设计指南：三种真正需要多Agent的场景（上下文隔离、并行化、专业化），以及context-centric分解原则"
 date: "2026-05-18"
 ---
@@ -68,6 +68,22 @@ return await lead_agent.synthesize(results)
 1. **接近context限制**：Agent常用大量context且性能退化（但compaction技术正在缓解）
 2. **管理太多工具**：15-20+工具时，考虑先尝试 [Tool Search Tool](../concepts/Client-Side-Tool-Calling.md)（可减少85% token用量）
 3. **可并行子任务**：自然分解为独立部分时
+
+### 2026-05-30 更新：五种协调模式详解
+
+Anthropic在后续博客《[Multi-agent coordination patterns](https://claude.com/blog/multi-agent-coordination-patterns)》中，进一步将多Agent协调细化为**五种具体模式**，并给出演进路径建议：
+
+| 模式 | 适用场景 | 复杂度 | 关键权衡 |
+|------|---------|--------|----------|
+| **Generator-Verifier** | 质量关键输出+明确评估标准 | ★☆☆ | 最简模式，增加一次LLM调用但显著提升输出质量 |
+| **Orchestrator-Subagent** | 清晰任务分解+有界子任务 | ★★☆ | 与上文核心模式一致，适合大多数场景 |
+| **Agent Teams** | 并行独立长时间子任务 | ★★☆ | 需要结果合并策略，避免信息丢失 |
+| **Message Bus** | 事件驱动管道+增长Agent生态 | ★★★ | 异步解耦，但调试复杂度高 |
+| **Shared-State** | 协作式工作+Agent互建发现 | ★★★ | 最灵活但并发控制最难 |
+
+**核心建议**：从最简单的Generator-Verifier或Orchestrator-Subagent开始，观察痛点后逐步演进。不要因为"听起来高级"就选复杂方案。
+
+与上文"三种场景"的映射：Generator-Verifier ≈ 专业化（验证角色）；Orchestrator-Subagent = 核心编排模式；Agent Teams ≈ 并行化；Message Bus/Shared-State 是更高级的架构选择。
 
 ## 关联分析
 

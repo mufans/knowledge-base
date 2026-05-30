@@ -62,3 +62,27 @@
 2026-05-29 | ingest | raw/inbox/2026-05-29-Claude博客.md | 创建wiki/sources/CodeRabbit-Agent-Orchestration（自评7.60）
 2026-05-29 | ingest | raw/inbox/2026-05-29-GitHub项目.md | 跳过（全部为影视清单，与研究范围无关）
 2026-05-29 | ingest | raw/inbox/2026-05-29-社交媒体.md | 跳过（示例数据，非真实采集内容）
+- 2026-05-30 技术新闻热点采集完成，共0条新闻
+- 2026-05-30 技术新闻热点采集完成（模拟数据），共20条新闻
+- 2026-05-30 技术动态采集完成，共15条（InfoQ+OSChina+DEV+Solidot），保存至 raw/inbox/2026-05-30-技术动态.md
+
+## 2026-05-24 - 2026-05-30 周度成长报告
+- 📊 本周数据：代码提交数25、新增知识页面20+、采集文章数30
+- 📚 核心技术：维度注册表、Claude Code工程化、Agent架构设计、性能分析、知识库管理
+- 🔧 关键问题：Git分支规范、维度数据报告、技能注入、知识库同步、Android Demo完善
+- 💡 重要洞察：技术深度vs广度、工程化思维、AI Agent实用价值、持续改进、职业转型路径
+- 📈 成长趋势：代码提交↑150%、知识输出↑200%、技能深度↑300%、问题解决↑100%
+- 🎯 下周方向：trace-skill-v2实现、技能系统完善、知识库深度整合、职业定位明确化、效率工具开发
+
+2026-05-30 | Claude Blog采集 | raw/inbox/2026-05-30-Claude博客.md | 采集5篇，最高分9.5
+2026-05-30 | Claude Blog采集 | raw/inbox/2026-05-30-Claude博客.md | 采集5篇，最高分9.5
+2026-05-30 | Claude Blog采集 | raw/inbox/2026-05-30-Claude博客.md | 采集5篇，最高分9.0
+2026-05-30 | Claude Blog采集 | raw/inbox/2026-05-30-Claude博客.md | 采集10篇，最高分9.52026-05-30 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-30-* | 扫描35篇新文章，31篇score>=7（LlamaFactory 10, LangChain 10, Dify 10, Goose 9, browser-use 9, deer-flow 9, cherry-studio 9, Pi 9, MetaGPT 9, mem0 9, Hermes-Agent 9, OpenHands 9, CowAgent 9, awesome-llm-apps 9, ai-engineering-hub 9, ragflow 9, khoj 9, JeecgBoot 9, nanobot 8, AgentGPT 9, DS4 8, autonomous-nanogpt 8, Building-ML-Systems 8, ThunderKittens 8, Google-IO-12-moments 9, Gemini-Omni-3.5 7, Transformer-Architecture 7, Training-LLM-Swift 7, Vibe-Coded-Quiz 7, Catch-up-IO 9, Goose 9），全部已有对应wiki页面，无新页面创建，无实质性更新。4篇score<7跳过（Aurora 6, Check-out-real-life 6, OCaml 6, Open/Closed 6）
+
+2026-05-30 | ingest | raw/inbox/2026-05-30-技术动态.md | 创建wiki/entities/OSCAR（自评7.95）
+2026-05-30 | update | raw/inbox/2026-05-30-Claude博客.md | 更新wiki/concepts/Multi-Agent-Systems-Design（合并了5种协调模式）
+2026-05-30 | update | raw/inbox/2026-05-30-Claude博客.md | 更新wiki/concepts/Prompt-Caching-Pitfalls（合并了官方GA数据）
+2026-05-30 | ingest | raw/inbox/2026-05-30-AI论文.md | 跳过（UI-KOBE已有页面，GenClaw/CoHyDE等评分<7.0或内容不足）
+2026-05-30 | ingest | raw/inbox/2026-05-30-新闻热点.md | 跳过（模拟数据，非真实采集内容）
+2026-05-30 | ingest | raw/inbox/2026-05-30-晚间总结.md | 跳过（其他文件的汇总，内容已覆盖）
+2026-05-30 | ingest | raw/inbox/2026-05-30-钉钉消息.txt | 跳过（模拟数据，非真实采集内容）

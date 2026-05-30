@@ -100,3 +100,4 @@
 - [SimuWoB](SimuWoB.md) (2026-05-27)
 - [MobileMoE](MobileMoE.md) (2026-05-28)
 - [UI-KOBE](UI-KOBE.md) (2026-05-29)
+- [OSCAR](OSCAR.md) (2026-05-30)
