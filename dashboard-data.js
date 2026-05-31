@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-05-30 22:30:38
-// Total articles: 181
-// Updated files this run: 0
+// Generated: 2026-05-31 22:09:58
+// Total articles: 184
+// Updated files this run: 16
 window.__kb_articles = [
   {
     "title": "Pi Agent TypeScript 源码分析",
@@ -33,6 +33,21 @@ window.__kb_articles = [
     "description": "tags: #AgentMemory #LongTermMemory #RAG #MemoryArchitecture",
     "date": "2026-05-07",
     "url": "wiki/concepts/AI-Memory-Systems"
+  },
+  {
+    "title": "Claude Agent Harness设计模式",
+    "category": "concepts",
+    "tags": [
+      "Claude",
+      "Agent-Harness",
+      "Design-Pattern",
+      "AI-Engineering",
+      "Prompt-Engineering"
+    ],
+    "rating": 9.5,
+    "description": "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界",
+    "date": "2026-05-26",
+    "url": "wiki/concepts/Claude-Agent-Harness-Patterns"
   },
   {
     "title": "Anthropic Agent API 新能力",
@@ -118,6 +133,21 @@ window.__kb_articles = [
     "description": "Claude 生态工具全景分析，包括 Claude Code、MCP、Skills 等",
     "date": "2026-04-26",
     "url": "wiki/concepts/Claude-Ecosystem-Tools"
+  },
+  {
+    "title": "CoHyDE：LLM Agent工具检索的迭代协同训练",
+    "category": "concepts",
+    "tags": [
+      "Tool-Retrieval",
+      "LLM-Agent",
+      "Co-Training",
+      "Dense-Encoding",
+      "HyDE"
+    ],
+    "rating": 9.0,
+    "description": "CoHyDE通过LLM Rewriter与Dense Encoder的迭代协同训练，解决大规模API目录下Agent工具检索瓶颈",
+    "date": "2026-05-31",
+    "url": "wiki/concepts/CoHyDE-Tool-Retrieval"
   },
   {
     "title": "EfficientAgent：分层任务分解加速LLM推理",
@@ -459,6 +489,21 @@ window.__kb_articles = [
     "url": "wiki/entities/SmartPerfetto"
   },
   {
+    "title": "UI-KOBE：轻量级知识引导GUI Agent",
+    "category": "entities",
+    "tags": [
+      "GUI-Agent",
+      "Knowledge-Guided",
+      "Mobile-AI",
+      "Graph-Guided",
+      "Lightweight"
+    ],
+    "rating": 9.0,
+    "description": "UI-KOBE通过知识导向的行为探索和轻量级图引导机制，降低移动端GUI Agent的推理成本",
+    "date": "2026-05-31",
+    "url": "wiki/entities/UI-KOBE-GUI-Agent"
+  },
+  {
     "title": "Warp Terminal 源码深度分析",
     "category": "entities",
     "tags": [
@@ -644,6 +689,21 @@ window.__kb_articles = [
     "url": "wiki/sources/OpenClaw-源码分析"
   },
   {
+    "title": "规模化Agentic Coding实践指南",
+    "category": "sources",
+    "tags": [
+      "Agentic-Coding",
+      "Claude-Code",
+      "Enterprise-Adoption",
+      "Workflow-Design",
+      "CLAUDE.md"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic官方发布的企业级Agentic Coding推广指南，涵盖试点策略、CLAUDE.md最佳实践、影响度量和常见陷阱",
+    "date": "2026-05-31",
+    "url": "wiki/sources/Scaling-Agentic-Coding"
+  },
+  {
     "title": "Training an LLM in Swift: 矩阵乘法从Gflop/s到Tflop/s",
     "category": "sources",
     "tags": [
@@ -780,21 +840,6 @@ window.__kb_articles = [
     "description": "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题",
     "date": "2026-05-06",
     "url": "wiki/concepts/Agent-MetaSKILLs"
-  },
-  {
-    "title": "Claude Agent Harness设计模式",
-    "category": "concepts",
-    "tags": [
-      "Claude",
-      "Agent-Harness",
-      "Design-Pattern",
-      "AI-Engineering",
-      "Prompt-Engineering"
-    ],
-    "rating": 8.5,
-    "description": "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界",
-    "date": "2026-05-26",
-    "url": "wiki/concepts/Claude-Agent-Harness-Patterns"
   },
   {
     "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",

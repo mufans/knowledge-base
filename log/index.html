@@ -2345,7 +2345,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <h1>Log</h1>
 
-<p>2026-05-25 - 技术新闻热点采集完成，共10条新闻
+<p>2026-05-31 | 技术动态采集 | raw/inbox/2026-05-31-技术动态.md | 13条技术动态（InfoQ+OSChina+Solidot），AI Agent争议、DeepSeek融资、Token成本反思
+2026-05-25 - 技术新闻热点采集完成，共10条新闻
 2026-05-25 - 技术动态采集完成，共15条（InfoQ+OSCHINA+Dev.to+Solidot），保存至 raw/inbox/2026-05-25-技术动态.md
 2026-05-25 | Claude Blog采集 | raw/inbox/2026-05-25-Claude博客.md | 采集5篇，最高分9.0
 2026-05-25 | Claude Blog采集 | raw/inbox/2026-05-25-Claude博客.md | 采集5篇，最高分9.5
@@ -2424,7 +2425,19 @@ document.addEventListener('DOMContentLoaded', function() {
 2026-05-30 | ingest | raw/inbox/2026-05-30-AI论文.md | 跳过（UI-KOBE已有页面，GenClaw/CoHyDE等评分&lt;7.0或内容不足）
 2026-05-30 | ingest | raw/inbox/2026-05-30-新闻热点.md | 跳过（模拟数据，非真实采集内容）
 2026-05-30 | ingest | raw/inbox/2026-05-30-晚间总结.md | 跳过（其他文件的汇总，内容已覆盖）
-2026-05-30 | ingest | raw/inbox/2026-05-30-钉钉消息.txt | 跳过（模拟数据，非真实采集内容）</p>
+2026-05-30 | ingest | raw/inbox/2026-05-30-钉钉消息.txt | 跳过（模拟数据，非真实采集内容）
+2026-05-31 | ingest | raw/inbox/2026-05-31-新闻热点.md | 4源采集成功（HN/Solidot/InfoQ/36氪），GitHub Trending API限流跳过
+2026-05-31 | 技术新闻热点采集 | /Users/liujun/Nutstore Files/我的坚果云/knowledge/raw/inbox/2026-05-31-新闻热点.md | 共0条新闻</p>
+<p>2026-05-31 | Claude Blog采集 | raw/inbox/2026-05-31-Claude博客.md | 采集5篇，最高分9.52026-05-31 | ai-knowledge-base同步 | v4/knowledge/articles/2026-05-31-* | 扫描35篇新文章，28篇score&gt;=7（LlamaFactory 10, LangChain 10, Goose 9, browser-use 9, deer-flow 9, cherry-studio 9, Pi 9, MetaGPT 9, mem0 9, Hermes-Agent 9, OpenHands 9, CowAgent 9, awesome-llm-apps 9, ai-engineering-hub 9, ragflow 9, khoj 9, Dify 9, nanobot 8, AgentGPT 8, earendil-pi 8, DS4 8, Catch-up-IO 8, 100-things-IO 7, JeecgBoot 7, Transformer-Architecture 7, Training-LLM-Swift 7, Gemini-Omni 9, Google-IO-12-moments 8），全部已有对应wiki页面，无新页面创建，无实质性更新。7篇score&lt;7跳过（AI-Social 4, Aurora 6, autonomous-nanogpt 6, ThunderKittens 6, OCaml 6, Open/Closed 6, Vibe-Quiz 6）
+2026-05-31 | lint | knowledge/ | 知识库Lint审查完成：健康度7.5/10，发现8个积压文件、4个孤立页面、7个质量问题
+2026-05-31 | ingest | raw/inbox/2026-05-31-Claude博客.md | 创建wiki/sources/Scaling-Agentic-Coding.md（自评8.80）
+2026-05-31 | ingest | raw/inbox/2026-05-31-AI论文.md | 创建wiki/concepts/CoHyDE-Tool-Retrieval.md（自评8.45）
+2026-05-31 | ingest | raw/inbox/2026-05-31-AI论文.md | 创建wiki/entities/UI-KOBE-GUI-Agent.md（自评8.05）
+2026-05-31 | update | raw/inbox/2026-05-31-Claude博客.md | 更新wiki/concepts/Claude-Agent-Harness-Patterns.md（合并了Seeing-like-an-Agent工具设计内容）
+2026-05-31 | ingest | raw/inbox/2026-05-31-GitHub项目.md | 跳过（3个项目均低于7.0：metamask-openclaw Web3方向不匹配、polymarket套利bot无技术深度、skill-antifragile仅8星）
+2026-05-31 | ingest | raw/inbox/2026-05-31-技术动态.md | 跳过（OSCAR/OpenHarmony仅标题级内容无可提炼细节，其余为行业新闻无技术深度）
+2026-05-31 | ingest | raw/inbox/2026-05-31-新闻热点.md | 跳过（内容为空，仅2条GitHub Trending链接）
+2026-05-31 | ingest | raw/inbox/2026-05-31-知识库Lint审查.md | 跳过（内部审查报告，非知识内容）</p>
 
 
 
@@ -2445,7 +2458,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月30日 14:30:52 UTC">2026年5月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月31日 14:10:14 UTC">2026年5月31日</span>
   </span>
 
     
