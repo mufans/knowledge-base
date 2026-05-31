@@ -39,3 +39,4 @@
 - [Brex-Claude-Code-Practice](Brex-Claude-Code-Practice.md) (2026-05-28)
 - [Claude-Code-Hooks-Guide](Claude-Code-Hooks-Guide.md) (2026-05-29)
 - [CodeRabbit-Agent-Orchestration](CodeRabbit-Agent-Orchestration.md) (2026-05-29)
+- [Scaling-Agentic-Coding](Scaling-Agentic-Coding.md) (2026-05-31)

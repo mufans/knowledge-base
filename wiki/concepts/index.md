@@ -42,3 +42,4 @@
 - [SkillOpt-Agent-Skills](SkillOpt-Agent-Skills.md) (2026-05-26)
 - [Claude-Agent-Harness-Patterns](Claude-Agent-Harness-Patterns.md) (2026-05-26)
 - [SEAL-Agent-Co-Evolution](SEAL-Agent-Co-Evolution.md) (2026-05-27)
+- [CoHyDE-Tool-Retrieval](CoHyDE-Tool-Retrieval.md) (2026-05-31)

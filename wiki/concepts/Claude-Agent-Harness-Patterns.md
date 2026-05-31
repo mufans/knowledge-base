@@ -2,7 +2,7 @@
 title: "Claude Agent Harness设计模式"
 category: "concepts"
 tags: ["Claude", "Agent-Harness", "Design-Pattern", "AI-Engineering", "Prompt-Engineering"]
-rating: 8.5
+rating: 9.5
 description: "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界"
 date: "2026-05-26"
 ---
@@ -87,6 +87,21 @@ Claude Code的工具集本质上只有：
 - 用Agent已经熟悉的接口（REST API、CLI），而非设计全新的通信协议
 - 让Agent通过现有工具链（Gradle、adb、xcodebuild）完成工作，而非封装
 - 信任模型能力，精简控制层
+
+### 2026-05-31 更新：Seeing Like an Agent（工具设计视角）
+
+来源：[Seeing like an agent: how we design tools in Claude Code](https://claude.com/blog/seeing-like-an-agent) (Apr 2026)
+
+Claude Code团队分享了工具设计的核心框架：**给Agent的工具必须与其自身能力匹配**。
+
+**能力匹配隐喻**：解数学题时需要什么工具？纸（基础但受限）、计算器（更好但需会操作）、计算机（最强但学习曲线陡）。Agent的工具设计同理——通用工具(bash) vs 专用工具(50个细粒度工具)的选择不是越多越好。
+
+**工具增删判断**：
+- 添加时机：观察到Agent反复用通用工具模拟某个专用操作时
+- 移除时机：工具使用频率低且Agent用通用工具能等效完成时
+- 判断方法：阅读Agent输出、实验验证——"learn to see like an agent"
+
+**AskUserQuestion工具演进**：从"直接问"到"渐进式披露(progressive disclosure)"，只在真正需要用户输入时才提问，避免中断Agent工作流。
 
 ## 可执行建议
 

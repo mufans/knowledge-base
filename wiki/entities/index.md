@@ -101,3 +101,4 @@
 - [MobileMoE](MobileMoE.md) (2026-05-28)
 - [UI-KOBE](UI-KOBE.md) (2026-05-29)
 - [OSCAR](OSCAR.md) (2026-05-30)
+- [UI-KOBE-GUI-Agent](UI-KOBE-GUI-Agent.md) (2026-05-31)
