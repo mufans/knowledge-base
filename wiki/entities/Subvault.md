@@ -2,7 +2,7 @@
 title: "Subvault - MCP 统一记忆层"
 category: "entities"
 tags: ["MCP", "Memory", "Agent", "Cross-Tool"]
-rating: 8.5
+rating: 8.0
 description: "跨所有 MCP 兼容 AI 工具的统一记忆层，解决跨工具记忆不互通问题"
 date: "2026-05-17"
 ---

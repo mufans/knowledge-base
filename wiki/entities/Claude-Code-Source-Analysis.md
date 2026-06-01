@@ -1,10 +1,10 @@
 ---
 title: "Claude Code v2.1.88 源码深度分析"
-category: entities
-tags: [Claude-Code, 源码分析, Coding-Agent]
-rating: 9.5
+category: "entities"
+tags: ["Claude-Code", "源码分析", "Coding-Agent"]
+rating: 9.0
 description: "Claude Code v2.1.88 源码深度分析，架构设计与实现细节"
-date: 2026-04-29
+date: "2026-04-29"
 ---
 
 # Claude Code v2.1.88 源码深度分析

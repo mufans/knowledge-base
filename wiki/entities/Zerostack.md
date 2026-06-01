@@ -2,7 +2,7 @@
 title: "Zerostack"
 category: "entities"
 tags: ["Coding-Agent", "Rust", "Unix", "Agent"]
-rating: 8.0
+rating: 7.5
 description: "纯 Rust 实现的 Unix 哲学 Coding Agent，强调模块化和可组合性"
 date: "2026-05-17"
 ---

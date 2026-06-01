@@ -100,3 +100,5 @@
 2026-05-31 | ingest | raw/inbox/2026-05-31-技术动态.md | 跳过（OSCAR/OpenHarmony仅标题级内容无可提炼细节，其余为行业新闻无技术深度）
 2026-05-31 | ingest | raw/inbox/2026-05-31-新闻热点.md | 跳过（内容为空，仅2条GitHub Trending链接）
 2026-05-31 | ingest | raw/inbox/2026-05-31-知识库Lint审查.md | 跳过（内部审查报告，非知识内容）
+
+2026-06-01 | Claude Blog采集 | raw/inbox/2026-06-01-Claude博客.md | 采集5篇，最高分9.52026-06-01 | ai-knowledge-base同步 | v4/knowledge/articles/2026-06-01-* | 扫描37篇新文章，30篇score>=7（langchain 10, goose 9, browser-use 9, deer-flow 9, cherry-studio 9, pi 9, MetaGPT 9, LlamaFactory 9, ragflow 9, JeecgBoot 9, khoj 9, dify 9, mem0 9, Hermes-Agent 9, OpenHands 9, ai-engineering-hub 9, AgentGPT 9, awesome-llm-apps 9, CowAgent 9, 100-things-IO 9, 9-demos-Gemini-Omni 9, catch-up-12-IO 9, DS4 8, autonomous-nanogpt 8, Building-ML 8, nanobot 8, ThunderKittens 7, Transformer-Architecture 7, Training-LLM-Swift 8, Open-Closed-AI 8），全部已有对应wiki页面，无新页面创建，无实质性更新。7篇score<7跳过（AI-Social 4, Aurora 6, catch-up-dialogues 4, categorizing 4, check-out-prototypes 6, OCaml 6, vibe-quiz 4）

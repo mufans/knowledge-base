@@ -2,7 +2,7 @@
 title: "OpenCode Agent"
 category: "entities"
 tags: ["Coding-Agent", "OpenSource", "LLM", "CLI"]
-rating: 7.5
+rating: 7.0
 description: "开源AI编程Agent工具，支持多种LLM后端，终端界面"
 date: "2026-05-17"
 ---
