@@ -17,6 +17,12 @@ date: "2026-04-26"
 
 ## 主要工具分类
 
+### 2026-06-01 更新
+
+**Agent Skills开放标准**：Anthropic于2025年12月发布Agent Skills作为跨平台可移植的开放标准，并推出组织级Skills管理、合作伙伴Skills目录。Skills可通过`.claude/skills/`目录手动安装，也可通过plugins从anthropics/skills市场安装。Claude Agent SDK同样支持Agent Skills标准。
+
+**Claude Code Subagents**：Claude Code内置子代理系统，支持会话式调用、自定义Agent配置（`.claude/agents/`）、CLAUDE.md策略、Skills按需加载、Hooks生命周期自动化五层调用体系。详见 [Claude-Code-Subagents-Guide](../sources/Claude-Code-Subagents-Guide.md)。
+
 ### 1. 开发环境工具
 
 #### claude-code

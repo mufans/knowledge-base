@@ -10,7 +10,11 @@ date: "2026-05-11"
 # LLaMA Factory: 统一高效微调框架
 
 > tags: #fine-tuning #LLM #LoRA #transformers #PEFT #RLHF #QLoRA
-> source: [hiyouga/LlamaFactory](https://github.com/hiyouga/LlamaFactory) ⭐71137
+> source: [hiyouga/LlamaFactory](https://github.com/hiyouga/LlamaFactory) ⭐71744
+
+### 2026-06-01 更新
+
+GitHub Stars从71137增长至71744（+607），社区活跃度持续上升。
 > score: 技术深度9/10 | 实用价值10/10 | 时效性9/10 | 领域匹配8/10 | 综合 9.1/10
 
 ## 核心概念

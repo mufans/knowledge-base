@@ -102,3 +102,11 @@
 2026-05-31 | ingest | raw/inbox/2026-05-31-知识库Lint审查.md | 跳过（内部审查报告，非知识内容）
 
 2026-06-01 | Claude Blog采集 | raw/inbox/2026-06-01-Claude博客.md | 采集5篇，最高分9.52026-06-01 | ai-knowledge-base同步 | v4/knowledge/articles/2026-06-01-* | 扫描37篇新文章，30篇score>=7（langchain 10, goose 9, browser-use 9, deer-flow 9, cherry-studio 9, pi 9, MetaGPT 9, LlamaFactory 9, ragflow 9, JeecgBoot 9, khoj 9, dify 9, mem0 9, Hermes-Agent 9, OpenHands 9, ai-engineering-hub 9, AgentGPT 9, awesome-llm-apps 9, CowAgent 9, 100-things-IO 9, 9-demos-Gemini-Omni 9, catch-up-12-IO 9, DS4 8, autonomous-nanogpt 8, Building-ML 8, nanobot 8, ThunderKittens 7, Transformer-Architecture 7, Training-LLM-Swift 8, Open-Closed-AI 8），全部已有对应wiki页面，无新页面创建，无实质性更新。7篇score<7跳过（AI-Social 4, Aurora 6, catch-up-dialogues 4, categorizing 4, check-out-prototypes 6, OCaml 6, vibe-quiz 4）
+2026-06-01 | ingest | raw/inbox/2026-06-01-AI论文.md | 创建wiki/concepts/Verifiable-Rewards-Factual-QA.md（自评7.90）
+2026-06-01 | ingest | raw/inbox/2026-06-01-AI论文.md | 创建wiki/concepts/LongTraceRL.md（自评7.60）
+2026-06-01 | ingest | raw/inbox/2026-06-01-Claude博客.md | 创建wiki/sources/Claude-Code-Subagents-Guide.md（自评9.05）
+2026-06-01 | update | raw/inbox/2026-06-01-GitHub项目.md | 更新wiki/entities/LlamaFactory.md（合并了星数增长数据）
+2026-06-01 | update | raw/inbox/2026-06-01-Claude博客.md | 更新wiki/concepts/Claude-Ecosystem-Tools.md（合并了Agent Skills开放标准和Subagents信息）
+2026-06-01 | skip | raw/inbox/2026-06-01-Claude博客.md | Claude Enterprise/Team plan/Structured outputs — 产品公告，技术深度不足7.0
+2026-06-01 | skip | raw/inbox/2026-06-01-GitHub项目.md | chatgpt-answer-outline(7⭐)/RFABE(15⭐) — 社区热度不足，无实质技术内容
+2026-06-01 | skip | raw/inbox/2026-06-01-AI论文.md | CoHyDE — 已有wiki页面，无新内容

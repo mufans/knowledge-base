@@ -2,7 +2,7 @@
 title: "hello-agents"
 category: "entities"
 tags: ["Agent", "Tutorial", "Datawhale", "LLM"]
-rating: 8.0
+rating: 8.5
 description: "Datawhale 出品的《从零开始构建智能体》教程，系统化Agent原理与实践"
 date: "2026-05-17"
 ---

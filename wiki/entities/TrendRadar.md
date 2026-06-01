@@ -2,7 +2,7 @@
 title: "TrendRadar"
 category: "entities"
 tags: ["AI", "Public-Opinion", "MCP", "RSS", "Monitor"]
-rating: 8.0
+rating: 8.5
 description: "AI驱动的舆情监控与趋势追踪工具，支持多平台聚合、RSS订阅、MCP架构"
 date: "2026-05-17"
 ---
