@@ -45,3 +45,4 @@
 - [CoHyDE-Tool-Retrieval](CoHyDE-Tool-Retrieval.md) (2026-05-31)
 - [Verifiable-Rewards-Factual-QA](Verifiable-Rewards-Factual-QA.md) (2026-06-01)
 - [LongTraceRL](LongTraceRL.md) (2026-06-01)
+- [Advisor策略：高智能低成本Agent架构](Advisor-Strategy.md)

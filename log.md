@@ -8,6 +8,9 @@
 2026-05-25 | ingest | raw/inbox/2026-05-25-GitHub项目.md | 创建wiki/entities/ECC.md（自评8.75）
 2026-05-25 | ingest | raw/inbox/2026-05-25-GitHub项目.md | 创建wiki/entities/learn-claude-code.md（自评8.40）
 2026-05-25 | ingest | raw/inbox/2026-05-25-Claude博客.md | 创建wiki/sources/Agentic-Coding-Trends-2026.md（自评8.80）
+
+2026-06-02 - 新闻采集完成，共5条新闻
+2026-06-02 | 技术动态采集 | raw/inbox/2026-06-02-技术动态.md | 17条技术动态（InfoQ+OSChina+Dev.to+Solidot），聚焦AI成本反思、MCP采用困境、编程Agent争议
 2026-05-25 | update | raw/inbox/2026-05-25-Claude博客.md | 更新wiki/concepts/Claude-Ecosystem-Tools.md（合并了Skills+MCP协同指南）
 2026-05-25 | update | raw/inbox/2026-05-25-Claude博客.md | 更新wiki/sources/Agent-Skills-Architecture.md（合并了Anthropic官方Skills+MCP指南）
 2026-05-25 | skip | raw/inbox/2026-05-25-Claude博客.md | Evaluate prompts / Fine-tune Haiku：2024年旧文，内容过简，低于7.0
@@ -110,3 +113,17 @@
 2026-06-01 | skip | raw/inbox/2026-06-01-Claude博客.md | Claude Enterprise/Team plan/Structured outputs — 产品公告，技术深度不足7.0
 2026-06-01 | skip | raw/inbox/2026-06-01-GitHub项目.md | chatgpt-answer-outline(7⭐)/RFABE(15⭐) — 社区热度不足，无实质技术内容
 2026-06-01 | skip | raw/inbox/2026-06-01-AI论文.md | CoHyDE — 已有wiki页面，无新内容
+- 2026-06-02 技术新闻热点采集完成，共0条新闻
+
+
+---
+2026年06月02日 - 新闻采集完成，共5条新闻
+
+2026-06-02 | Claude Blog采集 | raw/inbox/2026-06-02-Claude博客.md | 采集5篇，最高分9.0
+2026-06-02 | 社交媒体AI技术动态采集 | raw/inbox/2026-06-02-社交媒体.md | 因网络限制全部源访问失败，需要X.com登录验证和代理设置优化
+2026-06-02 | ai-knowledge-base同步 | v4/knowledge/articles/2026-06-02-* | 扫描37篇文章，21篇score>=7需要处理。8个"新建"页面（LangChain/MetaGPT/OpenHands/Khoj/Training-LLM-Swift/LlamaFactory/Hermes-Agent/Transformer-Crystallization）和13个已有页面（Goose/browser-use/deer-flow/Cherry-Studio/nanobot/RAGFlow/Dify/mem0/ai-engineering-hub/awesome-llm-apps/CowAgent/pi-mono/ThunderKittens）均已有对应wiki页面且内容完整。JSON内容仅为已有页面的简要概述，无新版本号、新特性或架构变化，全部跳过更新。新建0篇，更新0篇，跳过21篇
+2026-06-02 | ingest | raw/inbox/2026-06-02-Claude博客.md | 创建wiki/concepts/Advisor-Strategy.md（自评8.48）
+2026-06-02 | ingest | raw/inbox/2026-06-02-技术动态.md | 创建wiki/sources/Agent-Cost-Crisis-2026.md（自评7.96）
+2026-06-02 | ingest | raw/inbox/2026-06-02-技术动态.md | 创建wiki/sources/MCP-Adoption-Challenges.md（自评7.58）
+2026-06-02 | update | raw/inbox/2026-06-02-技术动态.md | 更新wiki/entities/Anthropic-Agent-API.md（合并了托管式智能体新内容）
+2026-06-02 | update | raw/inbox/2026-06-02-AI论文.md | 更新wiki/concepts/Agentic-Search-Retrieval.md（合并了SAAS论文和GrepSeek新内容）

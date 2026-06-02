@@ -64,6 +64,17 @@ date: "2026-05-17"
 
 项目管理Agent示例：MCP Connector（连接Asana获取任务）→ Files API（上传相关报告）→ Code Execution（分析进度和风险）→ Extended Caching（维持完整上下文）→ 全程保持低成本。
 
+### 2026-06-02 更新：托管式智能体与主动式工作流
+
+Anthropic在 Code With Claude 活动上发布了**托管式智能体（Managed Agents）**和**主动式工作流（Proactive Workflows）**：
+
+- **托管式智能体**：Claude Code新增的托管式智能体能力，开发者无需自行管理Agent基础设施（沙箱、超时、重试），由平台统一调度
+- **主动式工作流**：Agent可主动触发任务（如代码审查、测试运行），而非被动等待用户指令
+- **能力曲线（Capability Curves）**：可视化Agent在不同任务类型上的能力边界，帮助开发者选择合适的模型和配置
+- GitHub和Vercel分享了基于Claude构建Agent的**生产环境落地经验**
+
+这与[Advisor-Strategy](../concepts/Advisor-Strategy.md)形成互补：Advisor解决智能分层问题，托管式智能体解决运行时管理问题。
+
 ## 关联分析
 
 - 与 [Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md) 对比：Claude Code的MCP客户端需要本地配置（stdio/sse/http），API层面的MCP Connector提供了云端原生方案

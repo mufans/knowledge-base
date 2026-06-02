@@ -41,3 +41,5 @@
 - [CodeRabbit-Agent-Orchestration](CodeRabbit-Agent-Orchestration.md) (2026-05-29)
 - [Scaling-Agentic-Coding](Scaling-Agentic-Coding.md) (2026-05-31)
 - [Claude-Code-Subagents-Guide](Claude-Code-Subagents-Guide.md) (2026-06-01)
+- [2026编程Agent成本危机](Agent-Cost-Crisis-2026.md)
+- [MCP Server采用困境分析](MCP-Adoption-Challenges.md)
