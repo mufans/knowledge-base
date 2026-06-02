@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-06-01 22:30:47
-// Total articles: 187
-// Updated files this run: 0
+// Generated: 2026-06-02 22:06:33
+// Total articles: 190
+// Updated files this run: 8
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -828,6 +828,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/AST-Driven-AI-Editing"
   },
   {
+    "title": "Advisor策略：高智能低成本Agent架构",
+    "category": "concepts",
+    "tags": [
+      "Agent-Architecture",
+      "Cost-Optimization",
+      "Claude-API",
+      "Multi-Model"
+    ],
+    "rating": 8.5,
+    "description": "通过Opus顾问+Sonnet执行者配对，以接近Sonnet的成本获得接近Opus的智能，一行API调用即可实现",
+    "date": "2026-06-02",
+    "url": "wiki/concepts/Advisor-Strategy"
+  },
+  {
     "title": "Agent控制流设计：确定性优先于Prompt",
     "category": "concepts",
     "tags": [
@@ -855,6 +869,20 @@ window.__kb_articles = [
     "description": "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题",
     "date": "2026-05-06",
     "url": "wiki/concepts/Agent-MetaSKILLs"
+  },
+  {
+    "title": "Agentic Search 检索范式",
+    "category": "concepts",
+    "tags": [
+      "RAG",
+      "Agentic-Search",
+      "Retrieval",
+      "Information-Extraction"
+    ],
+    "rating": 8.5,
+    "description": "论文提出超越语义相似度的Agent检索新范式，通过直接语料交互替代传统向量匹配",
+    "date": "2026-05-09",
+    "url": "wiki/concepts/Agentic-Search-Retrieval"
   },
   {
     "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",
@@ -1583,6 +1611,20 @@ window.__kb_articles = [
     "url": "wiki/sources/AI-Junior-Developer-Crisis"
   },
   {
+    "title": "2026编程Agent成本危机",
+    "category": "sources",
+    "tags": [
+      "Agent-Cost",
+      "Token-Optimization",
+      "Enterprise-AI",
+      "ROI"
+    ],
+    "rating": 8.5,
+    "description": "2026年企业级Agent Token消耗失控案例频发，从米哈游200万/天到某公司5亿/月，引发行业对AI ROI的集体反思",
+    "date": "2026-06-02",
+    "url": "wiki/sources/Agent-Cost-Crisis-2026"
+  },
+  {
     "title": "Agent 技能架构设计方法论",
     "category": "sources",
     "tags": [
@@ -2183,6 +2225,20 @@ window.__kb_articles = [
     "url": "wiki/sources/CodeRabbit-Agent-Orchestration"
   },
   {
+    "title": "MCP Server采用困境分析",
+    "category": "sources",
+    "tags": [
+      "MCP",
+      "Adoption",
+      "Developer-Tools",
+      "Ecosystem"
+    ],
+    "rating": 8.0,
+    "description": "MCP Server面临安装率低、安装后使用率更低的困境，反映了工具生态冷启动的系统性挑战",
+    "date": "2026-06-02",
+    "url": "wiki/sources/MCP-Adoption-Challenges"
+  },
+  {
     "title": "MCP 工具开发最佳实践",
     "category": "sources",
     "tags": [
@@ -2237,20 +2293,6 @@ window.__kb_articles = [
     "description": "RAG聊天bot实测发现最昂贵模型性能最差，总结真正影响RAG效果的关键因素：chunking策略、检索质量、prompt工程",
     "date": "2026-05-16",
     "url": "wiki/sources/RAG-Evaluation-Practical"
-  },
-  {
-    "title": "Agentic Search 检索范式",
-    "category": "concepts",
-    "tags": [
-      "RAG",
-      "Agentic-Search",
-      "Retrieval",
-      "Information-Extraction"
-    ],
-    "rating": 7.5,
-    "description": "论文提出超越语义相似度的Agent检索新范式，通过直接语料交互替代传统向量匹配",
-    "date": "2026-05-09",
-    "url": "wiki/concepts/Agentic-Search-Retrieval"
   },
   {
     "title": "DeepSeek DeepEP",
