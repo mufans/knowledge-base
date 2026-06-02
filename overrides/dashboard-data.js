@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-06-02 22:06:33
+// Generated: 2026-06-02 22:30:30
 // Total articles: 190
-// Updated files this run: 8
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
