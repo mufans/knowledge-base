@@ -1,3 +1,5 @@
+2026-06-03 | ai-knowledge-base同步 | v4/knowledge/articles/2026-06-03-* | 扫描4篇高分文章。LlamaFactory/awesome-llm-apps/Transformer-Architecture-Evolution 均已有对应wiki页面且JSON内容无实质性更新（无新版本/新特性/新数据），跳过更新。Microsoft CEO Agent趋势为纯新闻（技术深度不足7.0），跳过。新建0篇，更新0篇，跳过4篇
+2026-06-03 | 技术动态采集 | raw/inbox/2026-06-03-技术动态.md | 23条技术动态（InfoQ+OSChina+Dev.to+Solidot），Anthropic IPO、编程Agent成本争议、微信AI Agent上线、RTX Spark ARM芯片、JetBrains开源Mellum2、Red Hat NPM被入侵
 2026-05-31 | 技术动态采集 | raw/inbox/2026-05-31-技术动态.md | 13条技术动态（InfoQ+OSChina+Solidot），AI Agent争议、DeepSeek融资、Token成本反思
 2026-05-25 - 技术新闻热点采集完成，共10条新闻
 2026-05-25 - 技术动态采集完成，共15条（InfoQ+OSCHINA+Dev.to+Solidot），保存至 raw/inbox/2026-05-25-技术动态.md
@@ -127,3 +129,12 @@
 2026-06-02 | ingest | raw/inbox/2026-06-02-技术动态.md | 创建wiki/sources/MCP-Adoption-Challenges.md（自评7.58）
 2026-06-02 | update | raw/inbox/2026-06-02-技术动态.md | 更新wiki/entities/Anthropic-Agent-API.md（合并了托管式智能体新内容）
 2026-06-02 | update | raw/inbox/2026-06-02-AI论文.md | 更新wiki/concepts/Agentic-Search-Retrieval.md（合并了SAAS论文和GrepSeek新内容）
+
+2026-06-03 | Claude Blog采集 | raw/inbox/2026-06-03-Claude博客.md | 采集5篇，最高分9.5
+2026-06-03 | 生产力工具推荐 | raw/inbox/2026-06-03-生产力工具.md | 采集10个AI增强型生产力工具，标注3个强烈推荐：Notion、Zapier、Asana2026-06-03 | ingest | raw/inbox/2026-06-03-Claude博客.md | 创建wiki/sources/CLAUDE-md-Best-Practices.md（自评8.80）
+2026-06-03 | update | raw/inbox/2026-06-03-Claude博客.md | 更新wiki/sources/Claude-Code-HTML-Effectiveness.md（合并官方博文确认信息）
+2026-06-03 | update | raw/inbox/2026-06-03-技术动态.md | 更新wiki/sources/Agent-Cost-Crisis-2026.md（合并Codex vs Claude成本争议新数据）
+2026-06-03 | update | raw/inbox/2026-06-03-Claude博客.md | 更新wiki/concepts/Context-Window-Optimization.md（合并Session管理/1M context官方指南）
+2026-06-03 | skip | raw/inbox/2026-06-03-AI论文.md | 10篇论文，inbox摘要过短无法满足≥7.0深度要求（仅含abstract+一句话点评）
+2026-06-03 | skip | raw/inbox/2026-06-03-GitHub项目.md | aicrawl仅6星，技术深度不足7.0
+2026-06-03 | skip | raw/inbox/2026-06-03-技术动态.md | 23条动态中20条为纯新闻（Anthropic IPO、RTX Spark等），无技术深度；OSCAR/Agent-Cost已有页面覆盖

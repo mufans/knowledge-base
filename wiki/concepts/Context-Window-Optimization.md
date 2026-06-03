@@ -2,7 +2,7 @@
 title: "Context Window 优化：AI Coding Agent 的核心效率问题"
 category: "concepts"
 tags: ["Context-Window", "优化", "Coding-Agent"]
-rating: 8.5
+rating: 9.0
 description: "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析"
 date: "2026-04-26"
 ---
@@ -104,6 +104,20 @@ class ContextManager:
 这两个功能配合Claude Sonnet 4.5，使Agent能够处理更长时间的任务而无需人工干预。
 
 **对移动端Agent的意义**：Context editing的自动裁剪思路可直接在移动端实现——本地Agent处理长任务时，采用类似的旧内容自动淘汰策略，保留核心上下文。
+
+### 2026-06-03 更新：Claude Code官方Session管理指南
+
+2026年4月，Claude发布官方Session管理博文，系统阐述了1M context下的session策略：
+
+- **`/clear`在不同任务间切换**：清除累积的无关上下文，但保留CLAUDE.md配置
+- **`/compact`自动压缩**：当context接近上限时自动压缩历史对话
+- **Subagents隔离**：不同工作阶段使用隔离的subagent，避免调试上下文干扰安全审查等独立分析
+- **`/usage`命令**：新增Token用量监控命令，帮助理解每个session的成本
+- **Context Rot概念**：长期累积的无关上下文（旧文件内容、过时的命令输出）导致Agent表现下降
+
+**关键洞察**：Session管理的本质是**信号噪声比管理**——不是最大化context window利用率，而是保持高信噪比。
+
+参考：[Using Claude Code: session management and 1M context](https://claude.com/blog/using-claude-code-session-management-and-1m-context)
 
 ## 参见
 - [claude-context](../entities/claude-context.md) — 代码搜索 MCP，解决"找什么代码"的问题

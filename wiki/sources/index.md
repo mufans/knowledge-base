@@ -42,4 +42,5 @@
 - [Scaling-Agentic-Coding](Scaling-Agentic-Coding.md) (2026-05-31)
 - [Claude-Code-Subagents-Guide](Claude-Code-Subagents-Guide.md) (2026-06-01)
 - [2026编程Agent成本危机](Agent-Cost-Crisis-2026.md)
+- [CLAUDE-md最佳实践](CLAUDE-md-Best-Practices.md) (2026-06-03)
 - [MCP Server采用困境分析](MCP-Adoption-Challenges.md)

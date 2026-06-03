@@ -10,7 +10,7 @@ date: "2026-06-02"
 # 2026编程Agent成本危机
 
 > tags: #Agent-Cost #Token-Optimization #Enterprise-AI #ROI
-> source: [编程Agent可能是软件开发史上最昂贵的错误之一](https://www.infoq.cn/article/oDaj3oKLwc8MiprLcxhs) | [米哈游一夜烧掉200万元Token](https://www.infoq.cn/news/LXegvvlZaOtPJEFJ9rEt) | [一家美国公司一个月内在Claude AI上花费了5亿美元](https://www.solidot.org/story?sid=84441)
+> source: [编程Agent可能是软件开发史上最昂贵的错误之一](https://www.infoq.cn/article/oDaj3oKLwc8MiprLcxhs) | [米哈游一夜烧掉200万元Token](https://www.infoq.cn/news/LXegvvlZaOtPJEFJ9rEt) | [一家美国公司一个月内在Claude AI上花费了5亿美元](https://www.solidot.org/story?sid=84441) | [Codex 500万用户福利被怼作秀](https://www.infoq.cn/news/50wIN1CuFf0ioqwebZvj)
 > score: 技术深度7/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.0/10
 
 ## 核心概念
@@ -41,6 +41,13 @@ date: "2026-06-02"
 - **Redis之父antirez质疑基准测试可靠性**，认为跑分不能代表真实场景的性价比
 - **InfoQ深度分析指出**：编程Agent可能是"软件开发史上最昂贵的错误之一"，核心论点是Agent在复杂任务中Token消耗指数级增长，而产出质量未必等比提升
 - **面壁智能用AI重写训练框架**反超英伟达，说明降本增效有技术路径可走
+
+### 2026-06-03 更新：成本争议持续发酵
+
+- **Codex vs Claude Code用户福利之争**：OpenAI向Codex提供500万用户福利被社区质疑为"作秀"，同时数据显示Claude Code消耗了近90%的Token用量，两家在开发者工具Token消耗上的竞争白热化
+- **面壁发布全AI编写训练框架**：用AI重写国产算力软件栈，速度反超英伟达——证明"AI降本"有技术路径
+- **Opus 4.8跑分争议**：Redis之父质疑基准测试可靠性，DHH盛赞GPT-5.5，编程模型能力与成本的关系仍在争论中
+- **Snowflake观点**：AI的胜负手从模型转向数据，Token卖得再多也是小钱
 
 ## 关联分析
 
