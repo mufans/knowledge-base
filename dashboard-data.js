@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-06-02 22:30:30
-// Total articles: 190
-// Updated files this run: 0
+// Generated: 2026-06-03 22:05:31
+// Total articles: 191
+// Updated files this run: 5
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -163,6 +163,19 @@ window.__kb_articles = [
     "description": "CoHyDE通过LLM Rewriter与Dense Encoder的迭代协同训练，解决大规模API目录下Agent工具检索瓶颈",
     "date": "2026-05-31",
     "url": "wiki/concepts/CoHyDE-Tool-Retrieval"
+  },
+  {
+    "title": "Context Window 优化：AI Coding Agent 的核心效率问题",
+    "category": "concepts",
+    "tags": [
+      "Context-Window",
+      "优化",
+      "Coding-Agent"
+    ],
+    "rating": 9.0,
+    "description": "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析",
+    "date": "2026-04-26",
+    "url": "wiki/concepts/Context-Window-Optimization"
   },
   {
     "title": "EfficientAgent：分层任务分解加速LLM推理",
@@ -620,6 +633,20 @@ window.__kb_articles = [
     "url": "wiki/sources/Brex-Claude-Code-Practice"
   },
   {
+    "title": "CLAUDE.md最佳实践：为Claude Code配置持久化项目上下文",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Context-Engineering",
+      "CLAUDE-md",
+      "Agent-Workflow"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic官方详细指南：如何用CLAUDE.md文件为Claude Code提供持久化项目上下文，涵盖文件结构、MCP工具集成、自定义命令和工作流定义",
+    "date": "2026-06-03",
+    "url": "wiki/sources/CLAUDE-md-Best-Practices"
+  },
+  {
     "title": "Claude Code在Anthropic内部团队的实践案例",
     "category": "sources",
     "tags": [
@@ -897,19 +924,6 @@ window.__kb_articles = [
     "description": "从Carta Healthcare 99%准确率和YC startup工作流中提炼的context engineering核心方法论：喂给模型什么比模型本身更重要",
     "date": "2026-05-18",
     "url": "wiki/concepts/Context-Engineering"
-  },
-  {
-    "title": "Context Window 优化：AI Coding Agent 的核心效率问题",
-    "category": "concepts",
-    "tags": [
-      "Context-Window",
-      "优化",
-      "Coding-Agent"
-    ],
-    "rating": 8.5,
-    "description": "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析",
-    "date": "2026-04-26",
-    "url": "wiki/concepts/Context-Window-Optimization"
   },
   {
     "title": "LLM文档编辑腐蚀问题",
@@ -1668,6 +1682,20 @@ window.__kb_articles = [
     "url": "wiki/sources/Cainiao-AI-RD-Practice"
   },
   {
+    "title": "HTML作为Coding Agent交互介质",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Prompt-Engineering",
+      "HTML",
+      "Coding-Agent"
+    ],
+    "rating": 8.5,
+    "description": "HN高赞经验分享：用HTML替代纯文本/Markdown作为Coding Agent交互介质，大幅提升UI代码生成质量",
+    "date": "2026-05-10",
+    "url": "wiki/sources/Claude-Code-HTML-Effectiveness"
+  },
+  {
     "title": "Computer Use成本分析：视觉Agent比结构化API贵45倍",
     "category": "sources",
     "tags": [
@@ -2167,20 +2195,6 @@ window.__kb_articles = [
     "description": "Apple Foundation Models Framework 实战指南",
     "date": "2026-05-03",
     "url": "wiki/sources/Apple-Foundation-Models-Practice"
-  },
-  {
-    "title": "HTML作为Coding Agent交互介质",
-    "category": "sources",
-    "tags": [
-      "Claude-Code",
-      "Prompt-Engineering",
-      "HTML",
-      "Coding-Agent"
-    ],
-    "rating": 8.0,
-    "description": "HN高赞经验分享：用HTML替代纯文本/Markdown作为Coding Agent交互介质，大幅提升UI代码生成质量",
-    "date": "2026-05-10",
-    "url": "wiki/sources/Claude-Code-HTML-Effectiveness"
   },
   {
     "title": "Claude Code Hooks 配置指南",
