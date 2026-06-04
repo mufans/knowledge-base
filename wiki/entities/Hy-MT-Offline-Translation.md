@@ -2,7 +2,7 @@
 title: "Hy-MT手机端离线翻译模型"
 category: "entities"
 tags: ["翻译", "离线", "移动端"]
-rating: 8.0
+rating: 7.5
 description: "Hy-MT 手机端离线翻译模型方案"
 date: "2026-05-01"
 ---

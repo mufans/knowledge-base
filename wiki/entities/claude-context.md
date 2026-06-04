@@ -2,7 +2,7 @@
 title: "Claude Context"
 category: "entities"
 tags: ["Claude", "Context", "记忆"]
-rating: 8.0
+rating: 7.5
 description: "Claude Context 上下文管理工具"
 date: "2026-04-24"
 ---

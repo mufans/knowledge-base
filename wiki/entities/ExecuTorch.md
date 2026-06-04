@@ -2,7 +2,7 @@
 title: "ExecuTorch: Meta端侧AI推理框架"
 category: "entities"
 tags: ["ExecuTorch", "PyTorch", "OnDevice-AI", "Mobile-Inference", "Edge-AI"]
-rating: 9.5
+rating: 9.0
 description: "Meta的ExecuTorch框架，支持在移动端、嵌入式和边缘设备上高效运行PyTorch模型"
 date: "2026-05-19"
 ---

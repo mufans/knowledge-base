@@ -2,7 +2,7 @@
 title: "TNL: Typed Natural Language — Agent持久化规划"
 category: "concepts"
 tags: ["TNL", "Agent", "规划"]
-rating: 8.0
+rating: 7.5
 description: "Typed Natural Language 实现的 Agent 持久化规划方案"
 date: "2026-05-03"
 ---

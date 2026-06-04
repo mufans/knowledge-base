@@ -44,3 +44,6 @@
 - [2026编程Agent成本危机](Agent-Cost-Crisis-2026.md)
 - [CLAUDE-md最佳实践](CLAUDE-md-Best-Practices.md) (2026-06-03)
 - [MCP Server采用困境分析](MCP-Adoption-Challenges.md)
+- [Microsoft-CEO-Agents-Paradigm](Microsoft-CEO-Agents-Paradigm.md) (2026-06-04)
+- [Autonomous-AI-Research-NanoGPT](Autonomous-AI-Research-NanoGPT.md) (2026-06-04)
+- [Constraining-LLMs-Structured-Output](Constraining-LLMs-Structured-Output.md) (2026-06-04)
