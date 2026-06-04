@@ -2,7 +2,7 @@
 title: "Hermes Agent 深度分析报告"
 category: "entities"
 tags: ["Hermes", "Agent", "源码分析"]
-rating: 8.5
+rating: 9.0
 description: "Hermes Agent 深度分析报告，架构与核心实现"
 date: "2026-04-25"
 ---

@@ -2,7 +2,7 @@
 title: "Fewshell"
 category: "entities"
 tags: ["Shell", "AI", "终端"]
-rating: 8.0
+rating: 8.5
 description: "Fewshell AI 驱动的终端工具"
 date: "2026-05-01"
 ---

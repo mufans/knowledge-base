@@ -46,3 +46,5 @@
 - [Verifiable-Rewards-Factual-QA](Verifiable-Rewards-Factual-QA.md) (2026-06-01)
 - [LongTraceRL](LongTraceRL.md) (2026-06-01)
 - [Advisor策略：高智能低成本Agent架构](Advisor-Strategy.md)
+- [MemTrain](MemTrain.md) (2026-06-04)
+- [MMG2Skill](MMG2Skill.md) (2026-06-04)

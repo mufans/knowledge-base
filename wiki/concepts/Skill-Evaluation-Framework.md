@@ -2,7 +2,7 @@
 title: "8 维度 Skill 量化评估框架"
 category: "concepts"
 tags: ["Skill", "评估", "量化"]
-rating: 6.5
+rating: 7.0
 description: "8 维度 Skill 量化评估框架，系统化衡量 Agent 技能质量"
 date: "2026-04-27"
 ---

@@ -2,7 +2,7 @@
 title: "Client-Side Tool Calling"
 category: "concepts"
 tags: ["Tool-Calling", "Client-Side", "LLM"]
-rating: 7.5
+rating: 8.0
 description: "客户端 Tool Calling 方案，在浏览器端直接调用 LLM 工具"
 date: "2026-05-03"
 ---

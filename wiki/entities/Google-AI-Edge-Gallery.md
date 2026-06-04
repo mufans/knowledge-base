@@ -2,7 +2,7 @@
 title: "Google AI Edge Gallery：端侧AI应用生态平台"
 category: "entities"
 tags: ["On-device-AI", "Gemma", "Google", "Mobile-AI"]
-rating: 8.0
+rating: 8.5
 description: "Google推出的端侧AI应用展示平台，支持Gemma 4 MTP推理，提供Android/iOS本地模型运行能力"
 date: "2026-05-20"
 ---

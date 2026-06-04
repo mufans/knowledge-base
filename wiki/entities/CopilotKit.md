@@ -2,7 +2,7 @@
 title: "CopilotKit: Agent前端栈与AG-UI协议"
 category: "entities"
 tags: ["CopilotKit", "AG-UI", "Agent-Frontend", "React"]
-rating: 7.5
+rating: 8.0
 description: "Agent应用的前端框架，提出AG-UI协议标准化Agent与UI的通信，支持React和Angular"
 date: "2026-05-05"
 ---

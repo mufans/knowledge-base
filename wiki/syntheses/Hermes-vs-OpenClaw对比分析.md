@@ -2,7 +2,7 @@
 title: "Hermes vs OpenClaw 对比分析"
 category: "syntheses"
 tags: ["Hermes", "OpenClaw", "对比", "Agent"]
-rating: 8.0
+rating: 8.5
 description: "Hermes vs OpenClaw 深度对比分析，架构与功能差异"
 date: "2026-04-24"
 ---

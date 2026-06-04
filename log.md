@@ -4,3 +4,9 @@
 2026-06-04 | Claude Blog采集 | raw/inbox/2026-06-04-Claude博客.md | 采集5篇，最高分9.0
 2026-06-04 | 社交媒体AI技术动态采集 | raw/inbox/2026-06-04-社交媒体.md | 采集8条（HN成功4条，X/Reddit失败）2026-06-04 | ingest | v4/knowledge/articles/2026-06-03~04 (36篇去重) | 创建3篇wiki页面：Microsoft-CEO-Agents-Paradigm(7.70)、Autonomous-AI-Research-NanoGPT(8.65)、Constraining-LLMs-Structured-Output(7.65)
 2026-06-04 | skip | v4/knowledge/articles/2026-06-03~04 | 跳过33篇：已有wiki页面覆盖(MetaGPT/LangChain/Dify/mem0等20+项目实体)、方向不匹配(AI伦理/TUI/HPC)、评分不足(<7分6篇)
+2026-06-04 | ingest | raw/inbox/2026-06-04-Claude博客.md | 创建sources/LLMs-Secure-Source-Code.md（自评8.40）
+2026-06-04 | ingest | raw/inbox/2026-06-04-GitHub项目.md | 创建entities/multi-llm-mcp.md（自评7.50）
+2026-06-04 | ingest | raw/inbox/2026-06-04-AI论文.md | 创建entities/BraveGuard.md（自评8.00）
+2026-06-04 | ingest | raw/inbox/2026-06-04-技术动态.md + raw/inbox/2026-06-04-新闻热点.md | 创建sources/GitHub-Token-Cost-Optimization.md（自评8.35）
+2026-06-04 | ingest | raw/inbox/2026-06-04-AI论文.md | 创建concepts/MemTrain.md（自评7.80）
+2026-06-04 | ingest | raw/inbox/2026-06-04-AI论文.md | 创建concepts/MMG2Skill.md（自评8.00）

@@ -102,3 +102,5 @@
 - [UI-KOBE](UI-KOBE.md) (2026-05-29)
 - [OSCAR](OSCAR.md) (2026-05-30)
 - [UI-KOBE-GUI-Agent](UI-KOBE-GUI-Agent.md) (2026-05-31)
+- [multi-llm-mcp](multi-llm-mcp.md) (2026-06-04)
+- [BraveGuard](BraveGuard.md) (2026-06-04)

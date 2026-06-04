@@ -47,3 +47,5 @@
 - [Microsoft-CEO-Agents-Paradigm](Microsoft-CEO-Agents-Paradigm.md) (2026-06-04)
 - [Autonomous-AI-Research-NanoGPT](Autonomous-AI-Research-NanoGPT.md) (2026-06-04)
 - [Constraining-LLMs-Structured-Output](Constraining-LLMs-Structured-Output.md) (2026-06-04)
+- [LLMs-Secure-Source-Code](LLMs-Secure-Source-Code.md) (2026-06-04)
+- [GitHub-Token-Cost-Optimization](GitHub-Token-Cost-Optimization.md) (2026-06-04)
