@@ -40,6 +40,10 @@ date: "2026-05-03"
 
 ## 关联分析
 
+- [Zero Trust for AI Agents — Anthropic](Zero-Trust-AI-Agents-Anthropic.md) — Anthropic发布的企业级Agent Zero Trust框架，与本文互为补充（CISA侧重政策，Anthropic侧重企业实操）
+
+## 关联分析
+
 - Agent安全事故：Claude驱动的AI Agent意外删除公司数据库事件（见inbox采集），印证了安全控制的必要性
 - 沙箱方案：[SmolVM](https://github.com/CelestoAI/SmolVM/) 提供轻量级microVM沙箱
 - 可观测性：[Agent Receipts](https://github.com/realalonw/agent-receipts) 提供Agent操作透明度方案

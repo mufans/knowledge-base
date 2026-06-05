@@ -2,7 +2,7 @@
 title: "Computer Use成本分析：视觉Agent比结构化API贵45倍"
 category: "sources"
 tags: ["Computer-Use", "Vision-Agent", "Cost-Analysis", "API-Agent"]
-rating: 8.0
+rating: 8.5
 description: "Reflex实测对比发现，视觉Agent（browser-use）完成同一任务消耗551k token/53步，而API Agent仅需12k token/8步，成本差距45倍"
 date: "2026-05-06"
 ---

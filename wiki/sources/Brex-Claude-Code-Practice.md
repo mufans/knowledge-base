@@ -2,7 +2,7 @@
 title: "Brex Claude Code企业实践：从编码工具到组织变革引擎"
 category: "sources"
 tags: ["Claude-Code", "Enterprise-AI", "Agentic-Coding", "MCP", "Best-Practices"]
-rating: 8.5
+rating: 9.0
 description: "Brex全员50%采用Claude Code的实践，涵盖非技术人员建Figma插件、text-to-SQL、headless模式hackathon等具体案例，3-4x效率提升"
 date: "2026-05-28"
 ---

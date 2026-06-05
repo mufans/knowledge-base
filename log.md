@@ -15,3 +15,9 @@
 
 2026-06-05 | Claude Blog采集 | raw/inbox/2026-06-05-Claude博客.md | 采集5篇，最高分9.0
 2026-06-05 | Claude Blog采集 | raw/inbox/2026-06-05-Claude博客.md | 采集1篇，最高分9.02026-06-05 | ai-knowledge-base同步 | v4/knowledge/articles/2026-06-05-*.json（36篇） | 扫描完成，30篇score≥7，全部已有对应wiki页面，无新增/更新
+2026-06-05 | ingest | raw/inbox/2026-06-05-Claude博客.md | 创建wiki/sources/Zero-Trust-AI-Agents-Anthropic.md（自评8.75）
+2026-06-05 | update | raw/inbox/2026-06-05-Claude博客.md | 更新wiki/sources/CISA-NSA-Agent-Security.md（添加Zero Trust交叉链接）
+2026-06-05 | 已覆盖，无新内容 | raw/inbox/2026-06-05-技术动态.md#8 | GitHub-Token-Cost-Optimization已有对应页面
+2026-06-05 | 跳过 | raw/inbox/2026-06-05-GitHub项目.md | codefuse/ariel等描述过薄，inbox仅有1行介绍，无足够技术细节创建质量页面
+2026-06-05 | 跳过 | raw/inbox/2026-06-05-技术动态.md#3,#5,#7,#11 | 仅为新闻标题，无正文内容，技术深度不足
+2026-06-05 | 跳过 | raw/inbox/2026-06-05-新闻热点.md | 均为新闻摘要，缺乏技术细节，与已有页面重复

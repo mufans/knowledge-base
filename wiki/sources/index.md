@@ -49,3 +49,4 @@
 - [Constraining-LLMs-Structured-Output](Constraining-LLMs-Structured-Output.md) (2026-06-04)
 - [LLMs-Secure-Source-Code](LLMs-Secure-Source-Code.md) (2026-06-04)
 - [GitHub-Token-Cost-Optimization](GitHub-Token-Cost-Optimization.md) (2026-06-04)
+- [Zero-Trust-AI-Agents-Anthropic](Zero-Trust-AI-Agents-Anthropic.md) (2026-06-05)
