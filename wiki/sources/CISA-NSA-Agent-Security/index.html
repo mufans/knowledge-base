@@ -2355,7 +2355,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        可执行建议
+        关联分析
       
     </span>
   </a>
@@ -2364,6 +2364,17 @@ document.addEventListener('DOMContentLoaded', function() {
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可执行建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         自评
@@ -2418,19 +2429,23 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 
 - <strong>失败回滚</strong>：Agent操作必须支持原子回滚</p>
 <h2 id="_4">关联分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="../Zero-Trust-AI-Agents-Anthropic/">Zero Trust for AI Agents — Anthropic</a> — Anthropic发布的企业级Agent Zero Trust框架，与本文互为补充（CISA侧重政策，Anthropic侧重企业实操）</li>
+</ul>
+<h2 id="_5">关联分析<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
 <li>Agent安全事故：Claude驱动的AI Agent意外删除公司数据库事件（见inbox采集），印证了安全控制的必要性</li>
 <li>沙箱方案：<a href="https://github.com/CelestoAI/SmolVM/">SmolVM</a> 提供轻量级microVM沙箱</li>
 <li>可观测性：<a href="https://github.com/realalonw/agent-receipts">Agent Receipts</a> 提供Agent操作透明度方案</li>
 <li>OpenClaw安全模型：<a href="OpenClaw.md">OpenClaw</a> 的allowlist/deny权限机制部分对齐了指南建议</li>
 </ul>
-<h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_6">可执行建议<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>对照检查</strong>：将当前项目中的Agent安全实现与指南对照，识别差距</li>
 <li><strong>沙箱化</strong>：Coding Agent必须运行在沙箱中（Docker/microVM），禁止直接操作宿主文件系统</li>
 <li><strong>审计先行</strong>：在Agent系统中实现结构化操作日志，为后续合规审计做准备</li>
 <li><strong>权限最小化</strong>：定期审查Agent的权限配置，删除不再需要的权限</li>
 </ol>
-<h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_7">自评<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2502,7 +2517,7 @@ score: 技术深度7/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月5日 12:02:12 UTC">2026年6月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月5日 14:04:52 UTC">2026年6月5日</span>
   </span>
 
     
