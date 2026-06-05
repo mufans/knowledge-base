@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-06-04 22:30:32
+// Generated: 2026-06-05 20:01:55
 // Total articles: 200
-// Updated files this run: 0
+// Updated files this run: 5
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -321,21 +321,6 @@ window.__kb_articles = [
     "description": "自进化防御框架，从开放世界威胁信号训练Guard模型，AgentHazard准确率从38.79%提升至82.38%",
     "date": "2026-06-04",
     "url": "wiki/entities/BraveGuard"
-  },
-  {
-    "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
-    "category": "entities",
-    "tags": [
-      "Rust",
-      "CUDA",
-      "GPU-Computing",
-      "Nvidia",
-      "Edge-AI"
-    ],
-    "rating": 9.0,
-    "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
-    "date": "2026-05-12",
-    "url": "wiki/entities/CUDA-oxide"
   },
   {
     "title": "Claude Cowork：企业级AI协作平台",
@@ -692,21 +677,6 @@ window.__kb_articles = [
     "description": "PrimeIntellect让GPT-5.5和Claude Opus 4.7自主优化nanoGPT训练，Opus以2930步打破人类基线2990步。揭示了Agent在搜索优化上的强项和创新上的弱项",
     "date": "2026-06-04",
     "url": "wiki/sources/Autonomous-AI-Research-NanoGPT"
-  },
-  {
-    "title": "Brex Claude Code企业实践：从编码工具到组织变革引擎",
-    "category": "sources",
-    "tags": [
-      "Claude-Code",
-      "Enterprise-AI",
-      "Agentic-Coding",
-      "MCP",
-      "Best-Practices"
-    ],
-    "rating": 9.0,
-    "description": "Brex全员50%采用Claude Code的实践，涵盖非技术人员建Figma插件、text-to-SQL、headless模式hackathon等具体案例，3-4x效率提升",
-    "date": "2026-05-28",
-    "url": "wiki/sources/Brex-Claude-Code-Practice"
   },
   {
     "title": "CLAUDE.md最佳实践：为Claude Code配置持久化项目上下文",
@@ -1183,6 +1153,21 @@ window.__kb_articles = [
     "url": "wiki/entities/AgentGPT"
   },
   {
+    "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
+    "category": "entities",
+    "tags": [
+      "Rust",
+      "CUDA",
+      "GPU-Computing",
+      "Nvidia",
+      "Edge-AI"
+    ],
+    "rating": 8.5,
+    "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
+    "date": "2026-05-12",
+    "url": "wiki/entities/CUDA-oxide"
+  },
+  {
     "title": "Codex Mobile: OpenAI编程Agent进入移动端",
     "category": "entities",
     "tags": [
@@ -1440,18 +1425,6 @@ window.__kb_articles = [
     "url": "wiki/entities/OpenClaw"
   },
   {
-    "title": "OpenMythos",
-    "category": "entities",
-    "tags": [
-      "GitHub",
-      "OS"
-    ],
-    "rating": 8.5,
-    "description": "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer",
-    "date": "2026-05-12",
-    "url": "wiki/entities/OpenMythos"
-  },
-  {
     "title": "Orchard: 开源Agentic建模框架",
     "category": "entities",
     "tags": [
@@ -1480,21 +1453,6 @@ window.__kb_articles = [
     "description": "tags: #RAG #Agent #OpenSource #RetrievalAugmented #KnowledgeManagement",
     "date": "2026-05-07",
     "url": "wiki/entities/RAGFlow"
-  },
-  {
-    "title": "Room 3.0：Kotlin优先、异步、多平台持久化库",
-    "category": "entities",
-    "tags": [
-      "Room",
-      "Android",
-      "KMP",
-      "SQLite",
-      "Kotlin"
-    ],
-    "rating": 8.5,
-    "description": "Google发布Room 3.0重大更新，全面转向Kotlin-only代码生成、KSP、协程优先模型，并扩展到JS/WASM平台",
-    "date": "2026-05-06",
-    "url": "wiki/entities/Room-3"
   },
   {
     "title": "SimuWoB：移动端GUI Agent基准测试环境",
@@ -1744,6 +1702,21 @@ window.__kb_articles = [
     "url": "wiki/sources/Agent-Skills-Architecture"
   },
   {
+    "title": "Brex Claude Code企业实践：从编码工具到组织变革引擎",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Enterprise-AI",
+      "Agentic-Coding",
+      "MCP",
+      "Best-Practices"
+    ],
+    "rating": 8.5,
+    "description": "Brex全员50%采用Claude Code的实践，涵盖非技术人员建Figma插件、text-to-SQL、headless模式hackathon等具体案例，3-4x效率提升",
+    "date": "2026-05-28",
+    "url": "wiki/sources/Brex-Claude-Code-Practice"
+  },
+  {
     "title": "CISA/NSA AI Agent 安全部署指南",
     "category": "sources",
     "tags": [
@@ -1785,20 +1758,6 @@ window.__kb_articles = [
     "description": "HN高赞经验分享：用HTML替代纯文本/Markdown作为Coding Agent交互介质，大幅提升UI代码生成质量",
     "date": "2026-05-10",
     "url": "wiki/sources/Claude-Code-HTML-Effectiveness"
-  },
-  {
-    "title": "Computer Use成本分析：视觉Agent比结构化API贵45倍",
-    "category": "sources",
-    "tags": [
-      "Computer-Use",
-      "Vision-Agent",
-      "Cost-Analysis",
-      "API-Agent"
-    ],
-    "rating": 8.5,
-    "description": "Reflex实测对比发现，视觉Agent（browser-use）完成同一任务消耗551k token/53步，而API Agent仅需12k token/8步，成本差距45倍",
-    "date": "2026-05-06",
-    "url": "wiki/sources/Computer-Use-Cost-Analysis"
   },
   {
     "title": "GLM 5 Scaling Pain",
@@ -2150,6 +2109,18 @@ window.__kb_articles = [
     "url": "wiki/entities/MemPalace"
   },
   {
+    "title": "OpenMythos",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS"
+    ],
+    "rating": 8.0,
+    "description": "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer",
+    "date": "2026-05-12",
+    "url": "wiki/entities/OpenMythos"
+  },
+  {
     "title": "Pi Agent Toolkit",
     "category": "entities",
     "tags": [
@@ -2178,6 +2149,21 @@ window.__kb_articles = [
     "description": "48GB显存工作站显卡实测，运行Qwen3.6-27B-FP8 + 200k上下文，PP速度4400 tok/s",
     "date": "2026-05-15",
     "url": "wiki/entities/RTX-5000-PRO"
+  },
+  {
+    "title": "Room 3.0：Kotlin优先、异步、多平台持久化库",
+    "category": "entities",
+    "tags": [
+      "Room",
+      "Android",
+      "KMP",
+      "SQLite",
+      "Kotlin"
+    ],
+    "rating": 8.0,
+    "description": "Google发布Room 3.0重大更新，全面转向Kotlin-only代码生成、KSP、协程优先模型，并扩展到JS/WASM平台",
+    "date": "2026-05-06",
+    "url": "wiki/entities/Room-3"
   },
   {
     "title": "Stork - MCP 服务器搜索",
@@ -2328,6 +2314,20 @@ window.__kb_articles = [
     "description": "CodeRabbit基于Claude构建的编码计划Agent，在代码生成前先生成可审查的结构化编码方案",
     "date": "2026-05-29",
     "url": "wiki/sources/CodeRabbit-Agent-Orchestration"
+  },
+  {
+    "title": "Computer Use成本分析：视觉Agent比结构化API贵45倍",
+    "category": "sources",
+    "tags": [
+      "Computer-Use",
+      "Vision-Agent",
+      "Cost-Analysis",
+      "API-Agent"
+    ],
+    "rating": 8.0,
+    "description": "Reflex实测对比发现，视觉Agent（browser-use）完成同一任务消耗551k token/53步，而API Agent仅需12k token/8步，成本差距45倍",
+    "date": "2026-05-06",
+    "url": "wiki/sources/Computer-Use-Cost-Analysis"
   },
   {
     "title": "用约束用户的思路约束LLM",
