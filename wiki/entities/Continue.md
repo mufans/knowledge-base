@@ -2,7 +2,7 @@
 title: "Continue"
 category: "entities"
 tags: ["GitHub", "工具", "开源项目"]
-rating: 8.5
+rating: 8.0
 description: "tags: #AICodeReview #CI-CD #TypeScript #DeveloperTools"
 date: "2026-05-07"
 ---

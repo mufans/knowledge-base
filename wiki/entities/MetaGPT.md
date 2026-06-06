@@ -2,7 +2,7 @@
 title: "MetaGPT"
 category: "entities"
 tags: ["GPT", "GitHub", "OpenAI", "框架"]
-rating: 8.5
+rating: 8.0
 description: "tags: #MultiAgent #SoftwareDevelopment #SOP #Python"
 date: "2026-05-07"
 ---
