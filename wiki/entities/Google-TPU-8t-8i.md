@@ -2,7 +2,7 @@
 title: "Google TPU 8t 8i"
 category: "entities"
 tags: ["GitHub", "工具", "开源项目"]
-rating: 7.0
+rating: 7.5
 description: "tags: #TPU #AI-Infrastructure #Agentic-AI #Google-Cloud"
 date: "2026-05-07"
 ---

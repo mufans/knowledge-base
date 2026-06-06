@@ -2,7 +2,7 @@
 title: "GitNexus"
 category: "entities"
 tags: ["GitHub", "工具", "开源项目"]
-rating: 7.0
+rating: 7.5
 description: "tags: #Code-Intelligence #Graph-RAG #Zero-Server #Knowledge-Graph"
 date: "2026-05-07"
 ---

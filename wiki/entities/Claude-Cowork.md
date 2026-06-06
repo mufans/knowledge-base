@@ -2,7 +2,7 @@
 title: "Claude Cowork：企业级AI协作平台"
 category: "entities"
 tags: ["Claude", "Cowork", "Enterprise-AI", "Plugins", "Agent-Platform", "Sales-Automation"]
-rating: 9.0
+rating: 9.5
 description: "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户"
 date: "2026-05-24"
 ---
@@ -10,7 +10,7 @@ date: "2026-05-24"
 # Claude Cowork：企业级AI协作平台
 
 > tags: #Claude #Cowork #Enterprise-AI #Plugins #Agent-Platform
-> source: [Making Claude Cowork ready for enterprise](https://claude.com/blog/cowork-for-enterprise) | [Customize Cowork with plugins](https://claude.com/blog/cowork-plugins) | [Cowork and plugins for teams](https://claude.com/blog/cowork-plugins-across-enterprise) | [Contribution metrics](https://claude.com/blog/contribution-metrics)
+> source: [Making Claude Cowork ready for enterprise](https://claude.com/blog/cowork-for-enterprise) | [Customize Cowork with plugins](https://claude.com/blog/cowork-plugins) | [Cowork and plugins for teams](https://claude.com/blog/cowork-plugins-across-enterprise) | [Contribution metrics](https://claude.com/blog/contribution-metrics) | [How one Anthropic seller rebuilt his team's workflows with Claude Code](https://claude.com/blog/how-anthropic-uses-claude-gtm-engineering)
 > score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.5/10
 
 ## 核心概念
@@ -93,3 +93,12 @@ Anthropic销售主管Travis Bryant分享了Claude Cowork在企业场景的深度
 - **交互式Dashboard**：Claude Cowork自动生成按AE territory分片排序的Dashboard，悬浮显示用例和案例
 
 这一实践展示了Claude Cowork的**Scheduler+Skills组合**在企业非技术场景的巨大潜力——从数据拉取到报告生成到Dashboard构建，全链路自动化。
+
+### 2026-06-06 更新
+
+Anthropic GTM产品经理Jared Sires的案例进一步验证了**非技术人员用Claude Code构建生产工具**的可行性：
+- **CLAFTS（Claude Drafts）**：销售出身、从未写代码的Jared，用Claude Code构建了Gmail内嵌的邮件自动回复工具，每天节省2-3小时
+- **24小时内传播**：Slack分享后，整个销售组织在一天内开始使用
+- **角色转型**：Jared从Account Executive转为GTM Product Manager，专职为销售团队构建Claude驱动的解决方案
+- **技术栈**：Claude API + Claude Cowork插件系统，打包为销售团队可复用的插件
+- **关键洞察**："the most empowering thing I've ever experienced"——非技术人员的Agent开发体验，验证了Cowork降低AI工具构建门槛的产品定位

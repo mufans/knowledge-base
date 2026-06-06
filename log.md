@@ -27,3 +27,8 @@
 2026-06-06 | 周度成长报告 | reports/weekly-growth-2026-06-06.md | 代码18提交、新增70知识页面、采集32文章，重点：移动端AI、成本优化、产品原型
 
 2026-06-06 | Claude Blog采集 | raw/inbox/2026-06-06-Claude博客.md | 采集1篇，最高分9.02026-06-06 | ai-knowledge-base同步 | v4/knowledge/articles/2026-06-06-*.json（34篇） | 扫描完成，24篇score≥7，全部已有对应wiki页面（Goose-Agent/browser-use/deer-flow/MetaGPT/LlamaFactory/RAGFlow/JeecgBoot/Khoj/LangChain/Dify/mem0/Hermes-Agent/OpenHands/AgentGPT/awesome-llm-apps/CowAgent/Cherry-Studio/ai-engineering-hub/nanobot/Pi-Agent-Toolkit/ThunderKittens/Autonomous-AI-Research-NanoGPT），无新增/更新。跳过10篇：score<7（6篇）、方向不匹配（AI伦理/HPC/Google新闻3篇，各1篇）
+2026-06-06 | ingest | raw/inbox/2026-06-06-AI论文.md | 创建wiki/concepts/Self-Evolving-Agent.md（自评8.05）
+2026-06-06 | update | raw/inbox/2026-06-06-Claude博客.md | 更新wiki/entities/Claude-Cowork.md（合并了CLAFTS非技术人员Agent开发案例）
+2026-06-06 | skip | raw/inbox/2026-06-06-GitHub项目.md | 2个项目（Nova-OS、zenith-mesh）相关性不足，评分<7.0
+2026-06-06 | skip | raw/inbox/2026-06-06-技术动态.md | 标题级内容，缺乏技术深度，无法提炼wiki页面
+2026-06-06 | skip | raw/inbox/2026-06-06-新闻热点.md | 标题级内容，与技术动态重叠，缺乏技术深度

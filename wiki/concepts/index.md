@@ -48,3 +48,4 @@
 - [Advisor策略：高智能低成本Agent架构](Advisor-Strategy.md)
 - [MemTrain](MemTrain.md) (2026-06-04)
 - [MMG2Skill](MMG2Skill.md) (2026-06-04)
+- [Self-Evolving-Agent](Self-Evolving-Agent.md) (2026-06-06)
