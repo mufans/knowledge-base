@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-06-07 20:02:51
+// Generated: 2026-06-07 22:31:18
 // Total articles: 203
-// Updated files this run: 9
+// Updated files this run: 8
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -224,6 +224,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/MMG2Skill"
   },
   {
+    "title": "Maestro：RL驱动的层级Agent编排",
+    "category": "concepts",
+    "tags": [
+      "Multi-Agent",
+      "RL-Orchestration",
+      "Hierarchical-Agent",
+      "Model-Ensemble",
+      "Agent-Architecture"
+    ],
+    "rating": 9.0,
+    "description": "用强化学习自动编排多模型多技能的层级Agent架构，解决复杂Agent系统的编排策略问题",
+    "date": "2026-05-22",
+    "url": "wiki/concepts/Maestro-Agent-Orchestration"
+  },
+  {
     "title": "MemTrain — 自监督上下文记忆训练",
     "category": "concepts",
     "tags": [
@@ -410,6 +425,21 @@ window.__kb_articles = [
     "description": "Hermes Agent 深度分析报告，架构与核心实现",
     "date": "2026-04-25",
     "url": "wiki/entities/Hermes-Agent"
+  },
+  {
+    "title": "IndusAgent：工业异常检测Agent",
+    "category": "entities",
+    "tags": [
+      "IndusAgent",
+      "Anomaly-Detection",
+      "Industrial-AI",
+      "Agent-Tool-Calling",
+      "MLLM"
+    ],
+    "rating": 9.0,
+    "description": "将多模态大语言模型（MLLM）与Agent工具调用结合，实现开放词汇工业异常检测",
+    "date": "2026-05-22",
+    "url": "wiki/entities/IndusAgent"
   },
   {
     "title": "LLaMA Factory: 统一高效微调框架",
@@ -960,6 +990,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Advisor-Strategy"
   },
   {
+    "title": "Agent控制流设计：确定性优先于Prompt",
+    "category": "concepts",
+    "tags": [
+      "Agent-Architecture",
+      "Control-Flow",
+      "State-Machine",
+      "LLM-Engineering"
+    ],
+    "rating": 8.5,
+    "description": "可靠的Agent系统需要确定性控制流（状态机、校验检查点），而非更复杂的prompt链。LLM是组件而非系统本身。",
+    "date": "2026-05-08",
+    "url": "wiki/concepts/Agent-Control-Flow"
+  },
+  {
     "title": "Agent MetaSKILLs",
     "category": "concepts",
     "tags": [
@@ -1029,21 +1073,6 @@ window.__kb_articles = [
     "description": "利用搜索Agent轨迹和Rubric奖励训练LLM的长上下文推理能力，直击长文本处理核心瓶颈",
     "date": "2026-06-01",
     "url": "wiki/concepts/LongTraceRL"
-  },
-  {
-    "title": "Maestro：RL驱动的层级Agent编排",
-    "category": "concepts",
-    "tags": [
-      "Multi-Agent",
-      "RL-Orchestration",
-      "Hierarchical-Agent",
-      "Model-Ensemble",
-      "Agent-Architecture"
-    ],
-    "rating": 8.5,
-    "description": "用强化学习自动编排多模型多技能的层级Agent架构，解决复杂Agent系统的编排策略问题",
-    "date": "2026-05-22",
-    "url": "wiki/concepts/Maestro-Agent-Orchestration"
   },
   {
     "title": "PersonalAI：知识图谱存储与检索的个性化 LLM 方案",
@@ -1357,21 +1386,6 @@ window.__kb_articles = [
     "description": "tags: #AI-Agent #MCP #Rust #Open-Source",
     "date": "2026-05-07",
     "url": "wiki/entities/Goose-Agent"
-  },
-  {
-    "title": "IndusAgent：工业异常检测Agent",
-    "category": "entities",
-    "tags": [
-      "IndusAgent",
-      "Anomaly-Detection",
-      "Industrial-AI",
-      "Agent-Tool-Calling",
-      "MLLM"
-    ],
-    "rating": 8.5,
-    "description": "将多模态大语言模型（MLLM）与Agent工具调用结合，实现开放词汇工业异常检测",
-    "date": "2026-05-22",
-    "url": "wiki/entities/IndusAgent"
   },
   {
     "title": "Kora: AI原生OS层",
@@ -1884,20 +1898,6 @@ window.__kb_articles = [
     "description": "Hermes vs OpenClaw 深度对比分析，架构与功能差异",
     "date": "2026-04-24",
     "url": "wiki/syntheses/Hermes-vs-OpenClaw对比分析"
-  },
-  {
-    "title": "Agent控制流设计：确定性优先于Prompt",
-    "category": "concepts",
-    "tags": [
-      "Agent-Architecture",
-      "Control-Flow",
-      "State-Machine",
-      "LLM-Engineering"
-    ],
-    "rating": 8.0,
-    "description": "可靠的Agent系统需要确定性控制流（状态机、校验检查点），而非更复杂的prompt链。LLM是组件而非系统本身。",
-    "date": "2026-05-08",
-    "url": "wiki/concepts/Agent-Control-Flow"
   },
   {
     "title": "Client-Side Tool Calling",
@@ -2502,6 +2502,34 @@ window.__kb_articles = [
     "url": "wiki/concepts/DeepEP"
   },
   {
+    "title": "Natural Language Autoencoders：将模型内部激活转译为自然语言",
+    "category": "concepts",
+    "tags": [
+      "Interpretability",
+      "Anthropic",
+      "Autoencoder",
+      "AI-Safety"
+    ],
+    "rating": 7.5,
+    "description": "Anthropic发布的NLA方法，直接将LLM内部激活值转译为自然语言，已用于发现Claude在安全测试中的隐藏行为。",
+    "date": "2026-05-08",
+    "url": "wiki/concepts/Natural-Language-Autoencoders"
+  },
+  {
+    "title": "AlphaEvolve：Gemini驱动的多领域编程Agent",
+    "category": "entities",
+    "tags": [
+      "Google-DeepMind",
+      "Coding-Agent",
+      "Gemini",
+      "Evolutionary-Algorithm"
+    ],
+    "rating": 7.5,
+    "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
+    "date": "2026-05-08",
+    "url": "wiki/entities/AlphaEvolve"
+  },
+  {
     "title": "GitNexus",
     "category": "entities",
     "tags": [
@@ -2610,6 +2638,19 @@ window.__kb_articles = [
     "url": "wiki/entities/harmonist"
   },
   {
+    "title": "mattpocock/skills",
+    "category": "entities",
+    "tags": [
+      "Skill",
+      "TypeScript",
+      "教程"
+    ],
+    "rating": 7.5,
+    "description": "Matt Pocock 的 TypeScript 技能集合",
+    "date": "2026-04-27",
+    "url": "wiki/entities/mattpocock-skills"
+  },
+  {
     "title": "HuggingFace ml-intern",
     "category": "entities",
     "tags": [
@@ -2621,6 +2662,19 @@ window.__kb_articles = [
     "description": "HuggingFace ml-intern 机器学习实习项目",
     "date": "2026-04-26",
     "url": "wiki/entities/ml-intern"
+  },
+  {
+    "title": "Open Design: 本地优先的AI设计工具",
+    "category": "entities",
+    "tags": [
+      "设计",
+      "本地优先",
+      "AI"
+    ],
+    "rating": 7.5,
+    "description": "Open Design 本地优先的 AI 设计工具",
+    "date": "2026-04-29",
+    "url": "wiki/entities/open-design"
   },
   {
     "title": "AI生成代码的知识产权归属",
@@ -2649,6 +2703,19 @@ window.__kb_articles = [
     "url": "wiki/sources/Agent-Distributed-Infrastructure"
   },
   {
+    "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
+    "category": "sources",
+    "tags": [
+      "Coding-Agent",
+      "批评",
+      "开源"
+    ],
+    "rating": 7.5,
+    "description": "17年开源老兵对 Coding Agents 堆功能现象的深度批评",
+    "date": "2026-04-29",
+    "url": "wiki/sources/Coding-Agents-Critique-2026"
+  },
+  {
     "title": "Teaching Claude Why — Anthropic推理透明性研究",
     "category": "sources",
     "tags": [
@@ -2661,20 +2728,6 @@ window.__kb_articles = [
     "description": "Anthropic研究如何让Claude理解并表达推理过程中的因果关系，提升AI决策透明度",
     "date": "2026-05-09",
     "url": "wiki/sources/Teaching-Claude-Why"
-  },
-  {
-    "title": "Natural Language Autoencoders：将模型内部激活转译为自然语言",
-    "category": "concepts",
-    "tags": [
-      "Interpretability",
-      "Anthropic",
-      "Autoencoder",
-      "AI-Safety"
-    ],
-    "rating": 7.0,
-    "description": "Anthropic发布的NLA方法，直接将LLM内部激活值转译为自然语言，已用于发现Claude在安全测试中的隐藏行为。",
-    "date": "2026-05-08",
-    "url": "wiki/concepts/Natural-Language-Autoencoders"
   },
   {
     "title": "PersonalAI: LLM Agent个性化中的知识图谱存储与检索",
@@ -2703,20 +2756,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/Skill-Evaluation-Framework"
   },
   {
-    "title": "AlphaEvolve：Gemini驱动的多领域编程Agent",
-    "category": "entities",
-    "tags": [
-      "Google-DeepMind",
-      "Coding-Agent",
-      "Gemini",
-      "Evolutionary-Algorithm"
-    ],
-    "rating": 7.0,
-    "description": "Google DeepMind发布的AlphaEvolve，使用Gemini驱动的进化算法在数学、硬件设计等多领域取得突破。",
-    "date": "2026-05-08",
-    "url": "wiki/entities/AlphaEvolve"
-  },
-  {
     "title": "Operit: Android最强AI Agent应用",
     "category": "entities",
     "tags": [
@@ -2730,32 +2769,6 @@ window.__kb_articles = [
     "url": "wiki/entities/Operit"
   },
   {
-    "title": "mattpocock/skills",
-    "category": "entities",
-    "tags": [
-      "Skill",
-      "TypeScript",
-      "教程"
-    ],
-    "rating": 7.0,
-    "description": "Matt Pocock 的 TypeScript 技能集合",
-    "date": "2026-04-27",
-    "url": "wiki/entities/mattpocock-skills"
-  },
-  {
-    "title": "Open Design: 本地优先的AI设计工具",
-    "category": "entities",
-    "tags": [
-      "设计",
-      "本地优先",
-      "AI"
-    ],
-    "rating": 7.0,
-    "description": "Open Design 本地优先的 AI 设计工具",
-    "date": "2026-04-29",
-    "url": "wiki/entities/open-design"
-  },
-  {
     "title": "trycua/cua — Computer-Use Agent 基础设施",
     "category": "entities",
     "tags": [
@@ -2767,19 +2780,6 @@ window.__kb_articles = [
     "description": "trycua/cua Computer-Use Agent 基础设施",
     "date": "2026-04-27",
     "url": "wiki/entities/trycua-cua"
-  },
-  {
-    "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
-    "category": "sources",
-    "tags": [
-      "Coding-Agent",
-      "批评",
-      "开源"
-    ],
-    "rating": 7.0,
-    "description": "17年开源老兵对 Coding Agents 堆功能现象的深度批评",
-    "date": "2026-04-29",
-    "url": "wiki/sources/Coding-Agents-Critique-2026"
   },
   {
     "title": "OpenMobile: 开放移动Agent框架",
