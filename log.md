@@ -32,3 +32,18 @@
 2026-06-06 | skip | raw/inbox/2026-06-06-GitHub项目.md | 2个项目（Nova-OS、zenith-mesh）相关性不足，评分<7.0
 2026-06-06 | skip | raw/inbox/2026-06-06-技术动态.md | 标题级内容，缺乏技术深度，无法提炼wiki页面
 2026-06-06 | skip | raw/inbox/2026-06-06-新闻热点.md | 标题级内容，与技术动态重叠，缺乏技术深度
+
+2026-06-07 | GitHub项目采集完成 | raw/inbox/2026-06-07-GitHub项目.md | API+Active，精选1个项目（MCP服务器精选集合）
+2026-06-07 | 技术新闻热点采集完成 | raw/inbox/2026-06-07-新闻热点.md | 10条分类新闻（AI/大模型、编程/开发工具、移动端、云原生/后端、开源/硬件）
+- 数据来源：Hacker News、Solidot、InfoQ、36氪、GitHub Trending
+- 采集时间：2026-06-07 08:00
+
+2026-06-07 | 技术动态采集完成 | raw/inbox/2026-06-07-技术动态.md | 23条技术动态（AI框架、编程工具、企业AI应用、数据库运维、开源技术、科研前沿）
+- 采集源：InfoQ、Dev.to、Solidot、开源中国（部分源访问受限）
+- 格式：[标题](链接) + 一句话摘要，10-15条精选技术动态
+- 技术分类：AI与机器学习、编程语言与开发工具、架构与企业应用、系统与基础设施
+
+2026-06-07 | 钉钉推送完成 | Top 8技术动态 | 推送到钉钉群组
+2026-06-07 | Claude Blog采集 | raw/inbox/2026-06-07-Claude博客.md | 采集1篇，最高分9.0
+2026-06-07 | 社交媒体AI技术动态采集 | /Users/liujun/Nutstore Files/我的坚果云/knowledge/raw/inbox/2026-06-07-社交媒体.md | 采集12条
+2026-06-07 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-06-07-*.json | 扫描38篇新文章，所有高分项目(CowAgent/Goose/OpenHands/deer-flow/MetaGPT/browser-use/mem0/Khoj/RAGFlow/nanobot/Dify)均已有wiki页面，无实质性更新。创建1篇新sources页面：LLM-Behavioural-Transmission（Nature论文，自评8.20）。跳过37篇（已有页面覆盖或方向匹配度不足）
