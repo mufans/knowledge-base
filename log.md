@@ -47,3 +47,12 @@
 2026-06-07 | Claude Blog采集 | raw/inbox/2026-06-07-Claude博客.md | 采集1篇，最高分9.0
 2026-06-07 | 社交媒体AI技术动态采集 | /Users/liujun/Nutstore Files/我的坚果云/knowledge/raw/inbox/2026-06-07-社交媒体.md | 采集12条
 2026-06-07 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-06-07-*.json | 扫描38篇新文章，所有高分项目(CowAgent/Goose/OpenHands/deer-flow/MetaGPT/browser-use/mem0/Khoj/RAGFlow/nanobot/Dify)均已有wiki页面，无实质性更新。创建1篇新sources页面：LLM-Behavioural-Transmission（Nature论文，自评8.20）。跳过37篇（已有页面覆盖或方向匹配度不足）
+2026-06-07 | lint | - | 知识库Lint审查完成（总分3.5/10，结构7/10，质量0/10）
+
+2026-06-07 | ingest | raw/inbox/2026-06-07-AI论文.md | 已覆盖（Self-Evolving-Agent.md已提炼MLEvolve/EvoDS/SePO），其余7篇低于7.0
+2026-06-07 | ingest | raw/inbox/2026-06-07-Claude博客.md | 已覆盖（Claude-Cowork.md已有详细内容），product guide无新特性
+2026-06-07 | ingest | raw/inbox/2026-06-07-GitHub项目.md | 低于7.0（awesome-mcp-servers仅列表汇总，无技术深度）
+2026-06-07 | ingest | raw/inbox/2026-06-07-技术动态.md | 低于7.0（新闻标题为主，缺乏可提炼的技术实质内容）
+2026-06-07 | ingest | raw/inbox/2026-06-07-新闻热点.md | 低于7.0（与技术动态重复，无新增价值）
+2026-06-07 | ingest | raw/inbox/2026-06-07-知识库Lint审查.md | 跳过（内部审查报告，非知识内容）
+2026-06-07 | ingest | raw/inbox/2026-06-07-社交媒体.md | 低于7.0（通用标题无可验证技术细节）

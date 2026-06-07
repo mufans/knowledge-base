@@ -2,7 +2,7 @@
 title: "Maestro：RL驱动的层级Agent编排"
 category: "concepts"
 tags: ["Multi-Agent", "RL-Orchestration", "Hierarchical-Agent", "Model-Ensemble", "Agent-Architecture"]
-rating: 8.5
+rating: 9.0
 description: "用强化学习自动编排多模型多技能的层级Agent架构，解决复杂Agent系统的编排策略问题"
 date: "2026-05-22"
 ---
