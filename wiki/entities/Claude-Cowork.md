@@ -67,6 +67,23 @@ Private Marketplace（企业内部分发）
 - [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) — Cowork底层依赖的context管理
 - [Agent-Workflow-Patterns](../concepts/Agent-Workflow-Patterns.md) — 插件中的Agent工作流模式
 
+### 2026-07-10 更新：Government FedRAMP 部署
+
+2026年7月，Claude Code 和 Claude Cowork 在 **Claude for Government Desktop** 中公开 Beta 上线，基于 FedRAMP High 授权环境运行：
+
+- **政府级部署**：与商用版相同的应用，通过 FedRAMP High 授权环境交付
+- **会话历史本地存储**：对话数据存储在机构管理的设备上，不离开设备边界
+- **推理在云内**：推理运行在 FedRAMP High 授权环境内，非本地推理
+- **适配 USA 拨款模式的计费**：按固定增量购买，设置硬性不超上限
+- **层级化管理**：部门级管理员分配 seats 和预付费用量，子机构可自行管理用户
+- **SCIM 组映射**：按 seat tier 配置速率限制、金额上限和允许的模型
+- **分层配置**：为子机构设置默认配置，包括 Claude 可连接的内容、可用功能和交互指令
+- **防篡改审计日志**：所有管理操作记录在 hash-chained 审计日志中
+- **双向审批**：Anthropic 侧敏感操作需两个人审批
+- **MDM 部署**：通过标准机构 MDM 平台分发
+
+**对 Agent 企业部署的启示**：FedRAMP 合规架构提供了 Agent 企业级部署的参考模板——本地存储 + 云端推理 + 层级化权限 + 防篡改审计。这一模式同样适用于金融、医疗等高合规要求场景。
+
 ## 可执行建议
 
 1. **企业AI落地参考**：Cowork的插件架构可作为企业内部AI平台设计的参考模板——Skills+Connectors+Commands的分层设计值得借鉴

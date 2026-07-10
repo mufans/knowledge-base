@@ -56,7 +56,11 @@
 2026-06-07 | ingest | raw/inbox/2026-06-07-新闻热点.md | 低于7.0（与技术动态重复，无新增价值）
 2026-06-07 | ingest | raw/inbox/2026-06-07-知识库Lint审查.md | 跳过（内部审查报告，非知识内容）
 2026-06-07 | ingest | raw/inbox/2026-06-07-社交媒体.md | 低于7.0（通用标题无可验证技术细节）
-- 2026-07-10 技术动态采集完成（InfoQ/Solidot/Dev.to 共16条）
+2026-07-10 | ingest | raw/inbox/2026-07-10-社交媒体.md + raw/inbox/2026-07-10-技术动态.md | 创建 entities/Colibri.md（自评7.95）、sources/Ello-Low-Latency-Agent.md（自评8.15）、concepts/Jet-Long-Dynamic-RoPE.md（自评7.80）
+2026-07-10 | update | raw/inbox/2026-07-10-Claude博客.md | 更新 entities/Claude-Cowork.md（合并FedRAMP政府部署内容）、entities/Anthropic-Agent-API.md（合并Managed Agents设计哲学）
+2026-07-10 | skip | raw/inbox/2026-07-10-GitHub项目.md | 空文件，无项目数据
+2026-07-10 | skip | raw/inbox/2026-07-10-AI论文.md | MentalThink已有对应页面，Jet-Long已提炼为概念，其余HunyuanOCR/CanvasAgent等评分<7.0（细节不足）
+2026-07-10 | skip | raw/inbox/2026-07-10-技术动态.md | Claude Code 80% prompt/300行Cursor/Claude隐藏空间/DeepSeek芯片等均为标题级内容，缺乏技术细节，
 
 2026-07-10 | Claude Blog采集 | raw/inbox/2026-07-10-Claude博客.md | 采集5篇，最高分9.0
 ## 2026-07-10

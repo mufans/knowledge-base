@@ -107,3 +107,4 @@
 - [GPT-5.6](GPT-5.6.md) (2026-07-10)
 - [Claude-Fable-5](Claude-Fable-5.md) (2026-07-10)
 - [Grok-4](Grok-4.md) (2026-07-10)
+- [Colibri](Colibri.md) (2026-07-10)

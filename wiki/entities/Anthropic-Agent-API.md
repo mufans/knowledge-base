@@ -64,6 +64,22 @@ date: "2026-05-17"
 
 项目管理Agent示例：MCP Connector（连接Asana获取任务）→ Files API（上传相关报告）→ Code Execution（分析进度和风险）→ Extended Caching（维持完整上下文）→ 全程保持低成本。
 
+### 2026-06-10 更新：Claude Managed Agents 设计哲学
+
+2026年6月，Anthropic 发布[Building with Claude Managed Agents](https://claude.com/blog/building-with-claude-managed-agents) 博客，详细阐述了 Agent 架构从 API 到 Managed Agents 的演进设计哲学：
+
+**Agent 架构演进三阶段**：
+1. **简单 API 阶段**（2023）：token in/token out, 单次调用, 用户决定下一步
+2. **自建 Loop 阶段**（2024-2025）：开发者需要自建 Agent Loop（ask→tool→result→repeat），负责完整的 harness 构建、状态管理、权限系统
+3. **Managed Agents 阶段**（2026）：平台提供编排、状态管理、基础设施、观测性，开发者只需定义 Agent 行为
+
+**关键洞察：基础设施是原型和生产的鸿沟**
+- 很多团队将开发周期浪费在安全、状态管理、权限配置和 harness 调优上
+- Managed Agents = 优化性能的 Agent harness + 生产级基础设施
+- 让团队从月份级部署周期缩短到天数级
+
+**设计理念**：对于需要完全自定义的 Agent，自建 Loop 适合；对于可预测、复杂度低的 Agent 工作负载，Managed Agents 避免了随模型演变迭代调整 harness 的重复劳动。
+
 ### 2026-06-02 更新：托管式智能体与主动式工作流
 
 Anthropic在 Code With Claude 活动上发布了**托管式智能体（Managed Agents）**和**主动式工作流（Proactive Workflows）**：
