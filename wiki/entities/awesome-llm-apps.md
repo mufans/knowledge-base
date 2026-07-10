@@ -2,7 +2,7 @@
 title: "awesome llm apps"
 category: "entities"
 tags: ["GitHub", "工具", "框架"]
-rating: 8.0
+rating: 7.0
 description: "tags: #LLMApps #AgentExamples #RAG #Python #ReferenceCollection"
 date: "2026-05-07"
 ---

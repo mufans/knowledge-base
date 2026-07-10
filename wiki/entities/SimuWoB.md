@@ -1,10 +1,10 @@
 ---
 title: "SimuWoB：移动端GUI Agent基准测试环境"
-category: entities
-tags: [GUI-Agent, Mobile-AI, Benchmark, Android]
-rating: 8.5
+category: "entities"
+tags: ["GUI-Agent", "Mobile-AI", "Benchmark", "Android"]
+rating: 7.5
 description: "基于Web任务模拟真实移动App的GUI Agent快速可靠基准测试框架，解决真实App测试的API限制和稳定性问题"
-date: 2026-05-27
+date: "2026-05-27"
 ---
 
 # SimuWoB：移动端GUI Agent基准测试环境

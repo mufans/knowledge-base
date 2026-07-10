@@ -2,7 +2,7 @@
 title: "Agentic Search 检索范式"
 category: "concepts"
 tags: ["RAG", "Agentic-Search", "Retrieval", "Information-Extraction"]
-rating: 8.5
+rating: 7.5
 description: "论文提出超越语义相似度的Agent检索新范式，通过直接语料交互替代传统向量匹配"
 date: "2026-05-09"
 ---

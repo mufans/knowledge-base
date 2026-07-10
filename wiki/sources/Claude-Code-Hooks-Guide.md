@@ -2,7 +2,7 @@
 title: "Claude Code Hooks 配置指南"
 category: "sources"
 tags: ["Claude-Code", "Hooks", "Automation", "Workflow"]
-rating: 8.0
+rating: 7.0
 description: "Claude Code官方Hooks配置详解，8种Hook类型实现自动化工作流、规则执行和动态上下文注入"
 date: "2026-05-29"
 ---

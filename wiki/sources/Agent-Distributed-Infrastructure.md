@@ -2,7 +2,7 @@
 title: "Agent时代的分布式基础设施设计"
 category: "sources"
 tags: ["Agent-Infrastructure", "Distributed-Systems", "Architecture"]
-rating: 7.5
+rating: 6.5
 description: "InfoQ深度文章探讨AI Agent时代对分布式基础设施的新要求，涵盖Agent调度、状态管理和安全隔离"
 date: "2026-05-10"
 ---

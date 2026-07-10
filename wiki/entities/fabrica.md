@@ -2,7 +2,7 @@
 title: "fabrica"
 category: "entities"
 tags: ["GitHub", "工具", "框架", "终端"]
-rating: 7.5
+rating: 6.5
 description: "tags: #Coding-Agent #Terminal #Minimal #Vibe-Coding"
 date: "2026-05-07"
 ---

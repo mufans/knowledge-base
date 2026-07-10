@@ -2,7 +2,7 @@
 title: "GPT-5.5"
 category: "entities"
 tags: ["GPT", "OpenAI", "大模型"]
-rating: 8.0
+rating: 7.0
 description: "GPT-5.5 模型分析"
 date: "2026-04-27"
 ---

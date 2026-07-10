@@ -2,7 +2,7 @@
 title: "RAG聊天机器人实战评估：最贵模型反而最差"
 category: "sources"
 tags: ["RAG", "Evaluation", "Cost-Performance", "Model-Selection"]
-rating: 8.0
+rating: 7.0
 description: "RAG聊天bot实测发现最昂贵模型性能最差，总结真正影响RAG效果的关键因素：chunking策略、检索质量、prompt工程"
 date: "2026-05-16"
 ---

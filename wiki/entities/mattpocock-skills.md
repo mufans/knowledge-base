@@ -2,7 +2,7 @@
 title: "mattpocock/skills"
 category: "entities"
 tags: ["Skill", "TypeScript", "教程"]
-rating: 7.5
+rating: 6.5
 description: "Matt Pocock 的 TypeScript 技能集合"
 date: "2026-04-27"
 ---

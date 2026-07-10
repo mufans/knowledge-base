@@ -2,7 +2,7 @@
 title: "MemLens：多模态大模型长期记忆基准"
 category: "entities"
 tags: ["Multimodal-Memory", "Benchmark", "Vision-Language-Model", "Long-Term-Memory"]
-rating: 8.0
+rating: 7.0
 description: "首个系统评估大型视觉语言模型长期记忆能力的benchmark，揭示多模态记忆的关键挑战"
 date: "2026-05-18"
 ---

@@ -2,7 +2,7 @@
 title: "Mojo 1.0"
 category: "entities"
 tags: ["Mojo", "Programming-Language", "AI-Inference", "Performance"]
-rating: 7.5
+rating: 6.5
 description: "Mojo语言发布1.0 Beta，主打AI场景下Python兼容+系统级性能的统一"
 date: "2026-05-09"
 ---

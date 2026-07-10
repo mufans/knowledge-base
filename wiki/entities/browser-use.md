@@ -2,7 +2,7 @@
 title: "browser use"
 category: "entities"
 tags: ["GitHub", "框架"]
-rating: 8.5
+rating: 7.5
 description: "tags: #BrowserAgent #ComputerUse #Playwright #Python"
 date: "2026-05-07"
 ---

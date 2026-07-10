@@ -2,7 +2,7 @@
 title: "Context Engineering：从Carta Healthcare到YC Startups的实践"
 category: "concepts"
 tags: ["Context-Engineering", "Prompt-Design", "Production-AI", "Agent-Architecture"]
-rating: 8.5
+rating: 7.5
 description: "从Carta Healthcare 99%准确率和YC startup工作流中提炼的context engineering核心方法论：喂给模型什么比模型本身更重要"
 date: "2026-05-18"
 ---

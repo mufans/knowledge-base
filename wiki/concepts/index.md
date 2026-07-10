@@ -49,3 +49,4 @@
 - [MemTrain](MemTrain.md) (2026-06-04)
 - [MMG2Skill](MMG2Skill.md) (2026-06-04)
 - [Self-Evolving-Agent](Self-Evolving-Agent.md) (2026-06-06)
+- [Loop-Engineering](Loop-Engineering.md) (2026-07-10)

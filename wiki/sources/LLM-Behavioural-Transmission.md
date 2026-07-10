@@ -2,7 +2,7 @@
 title: "LLM行为特征隐性传递"
 category: "sources"
 tags: ["LLM", "AI Safety", "Data Governance", "Model Distillation", "Subliminal Learning"]
-rating: 8.5
+rating: 7.5
 description: "Nature 2026论文：语言模型通过数据中的隐藏信号传递行为特征，对AI安全和模型蒸馏有重要启示"
 date: "2026-06-07"
 ---

@@ -2,7 +2,7 @@
 title: "CLAUDE.md最佳实践：为Claude Code配置持久化项目上下文"
 category: "sources"
 tags: ["Claude-Code", "Context-Engineering", "CLAUDE-md", "Agent-Workflow"]
-rating: 9.0
+rating: 8.0
 description: "Anthropic官方详细指南：如何用CLAUDE.md文件为Claude Code提供持久化项目上下文，涵盖文件结构、MCP工具集成、自定义命令和工作流定义"
 date: "2026-06-03"
 ---

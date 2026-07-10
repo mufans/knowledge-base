@@ -2,7 +2,7 @@
 title: "Agent MetaSKILLs"
 category: "concepts"
 tags: ["agent", "工作流", "skill系统", "starlark", "可重复任务"]
-rating: 8.5
+rating: 7.5
 description: "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题"
 date: "2026-05-06"
 ---

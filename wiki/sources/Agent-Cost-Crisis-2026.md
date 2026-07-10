@@ -2,7 +2,7 @@
 title: "2026编程Agent成本危机"
 category: "sources"
 tags: ["Agent-Cost", "Token-Optimization", "Enterprise-AI", "ROI"]
-rating: 8.5
+rating: 7.5
 description: "2026年企业级Agent Token消耗失控案例频发，从米哈游200万/天到某公司5亿/月，引发行业对AI ROI的集体反思"
 date: "2026-06-02"
 ---

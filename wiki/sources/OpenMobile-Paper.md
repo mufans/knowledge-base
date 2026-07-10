@@ -2,7 +2,7 @@
 title: "OpenMobile: 开放移动端 Agent 框架"
 category: "sources"
 tags: ["OpenMobile", "移动端", "Agent", "论文"]
-rating: 7.0
+rating: 6.0
 description: "OpenMobile 开放移动端 Agent 框架论文"
 date: "2026-04-27"
 ---

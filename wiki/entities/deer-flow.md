@@ -2,7 +2,7 @@
 title: "Deer-Flow: 字节跳动长周期SuperAgent框架"
 category: "entities"
 tags: ["字节跳动", "Agent", "框架"]
-rating: 8.5
+rating: 7.5
 description: "字节跳动 Deer-Flow 长周期 SuperAgent 框架（v2.0全面重写）"
 date: "2026-04-29"
 ---

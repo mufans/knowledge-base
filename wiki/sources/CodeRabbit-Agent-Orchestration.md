@@ -2,7 +2,7 @@
 title: "CodeRabbit Agent编排系统"
 category: "sources"
 tags: ["Agent-Orchestration", "Code-Review", "Planning-Agent", "Claude"]
-rating: 8.0
+rating: 7.0
 description: "CodeRabbit基于Claude构建的编码计划Agent，在代码生成前先生成可审查的结构化编码方案"
 date: "2026-05-29"
 ---

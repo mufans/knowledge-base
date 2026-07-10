@@ -2,7 +2,7 @@
 title: "自调节模拟规划：Agent何时规划与如何规划"
 category: "concepts"
 tags: ["Agent-Planning", "Self-Regulated", "Simulative-Planning", "Reasoning", "LLM-Agent"]
-rating: 8.5
+rating: 7.5
 description: "Agent自调节规划策略：动态决定何时规划、如何规划，通过模拟执行评估计划可行性"
 date: "2026-05-26"
 ---

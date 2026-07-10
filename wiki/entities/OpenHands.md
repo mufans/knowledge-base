@@ -2,7 +2,7 @@
 title: "OpenHands: AI驱动的开发平台"
 category: "entities"
 tags: ["OpenHands", "AI-Agent", "Coding-Agent", "Developer-Tools", "CLI"]
-rating: 9.0
+rating: 8.0
 description: "AI驱动的软件开发平台，通过自然语言完成编码、调试、测试全流程，高度可扩展的代理架构"
 date: "2026-05-11"
 ---

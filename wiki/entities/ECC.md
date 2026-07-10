@@ -2,7 +2,7 @@
 title: "ECC：Agent Harness性能优化系统"
 category: "entities"
 tags: ["Agent-Harness", "Claude-Code", "Performance", "Skills", "Memory"]
-rating: 9.0
+rating: 8.0
 description: "190k stars的Agent开发全栈优化框架，提供Skills、Instincts、Memory、Security模块化能力，支持Claude Code/Codex/Opencode/Cursor等多平台"
 date: "2026-05-25"
 ---

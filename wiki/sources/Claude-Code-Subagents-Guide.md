@@ -2,7 +2,7 @@
 title: "Claude Code Subagents 实战指南"
 category: "sources"
 tags: ["Claude-Code", "Subagent", "Agent-Orchestration", "Coding-Agent", "Parallel-Execution"]
-rating: 9.8
+rating: 9.0
 description: "Anthropic官方指南：Claude Code子代理的使用时机、调用方式、自定义配置和自动化Hooks"
 date: "2026-06-01"
 ---

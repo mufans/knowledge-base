@@ -2,7 +2,7 @@
 title: "WildClawBench：真实世界长周期Agent评估基准"
 category: "entities"
 tags: ["Agent-Benchmark", "Long-Horizon", "Evaluation", "Agent-Architecture"]
-rating: 8.5
+rating: 7.5
 description: "首个面向真实世界长周期Agent任务的评估基准，填补了现有benchmark偏重短任务、沙箱环境的空白"
 date: "2026-05-16"
 ---

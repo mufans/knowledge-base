@@ -2,7 +2,7 @@
 title: "Q-RAG：长上下文多步检索的Value-based Embedder训练"
 category: "concepts"
 tags: ["RAG", "Long-Context", "Multi-step-Retrieval", "Value-based-Training"]
-rating: 8.0
+rating: 7.0
 description: "通过Value-based方法训练Embedder实现长上下文多步检索，解决传统RAG在长期记忆和复杂查询中的召回瓶颈。"
 date: "2026-05-12"
 ---

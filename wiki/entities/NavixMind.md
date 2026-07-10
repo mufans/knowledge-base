@@ -2,7 +2,7 @@
 title: "NavixMind: 开源Android Agent框架"
 category: "entities"
 tags: ["Android-Agent", "OnDevice-AI", "Python", "Mobile-Agent", "OpenSource"]
-rating: 9.0
+rating: 8.0
 description: "开源Android Agent框架，支持在设备本地运行Python代码，移动端Agent的探索性项目"
 date: "2026-05-19"
 ---

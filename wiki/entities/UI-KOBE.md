@@ -2,7 +2,7 @@
 title: "UI-KOBE"
 category: "entities"
 tags: ["GUI-Agent", "Mobile", "Knowledge-Distillation", "Graph-Guided"]
-rating: 7.5
+rating: 6.5
 description: "轻量级图引导的移动端GUI Agent，通过知识导向行为探索提升移动自动化效率"
 date: "2026-05-29"
 ---

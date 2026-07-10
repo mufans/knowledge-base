@@ -2,7 +2,7 @@
 title: "nanobot"
 category: "entities"
 tags: ["GitHub", "工具", "框架"]
-rating: 8.5
+rating: 7.5
 description: "tags: #AI-Agent #Lightweight #Multi-LLM"
 date: "2026-05-07"
 ---

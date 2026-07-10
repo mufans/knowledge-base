@@ -2,7 +2,7 @@
 title: "Firecrawl"
 category: "entities"
 tags: ["GitHub", "OS", "工具"]
-rating: 8.5
+rating: 7.5
 description: "tags: #WebScraping #AI-Agent #DataExtraction #LLM #MCP"
 date: "2026-05-17"
 ---

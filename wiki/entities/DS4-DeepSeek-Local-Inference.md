@@ -2,7 +2,7 @@
 title: "DS4：Redis作者开源的DeepSeek 4 Flash Metal推理引擎"
 category: "entities"
 tags: ["Local-Inference", "Apple-Silicon", "DeepSeek", "antirez"]
-rating: 8.5
+rating: 7.5
 description: "Redis作者antirez开源的DeepSeek 4 Flash本地推理引擎，专为Apple Silicon优化，支持Metal GPU加速。"
 date: "2026-05-08"
 ---

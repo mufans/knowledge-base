@@ -2,7 +2,7 @@
 title: "Orchard: 开源Agentic建模框架"
 category: "entities"
 tags: ["Agent-Framework", "Agentic-Modeling", "LLM", "Open-Source"]
-rating: 8.5
+rating: 7.5
 description: "开源Agentic建模框架，将LLM转化为具备自主决策能力的Agent"
 date: "2026-05-15"
 ---

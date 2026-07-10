@@ -65,16 +65,16 @@ knowledge/
 
 | 任务 | 时间 | 模型 | 方式 | 说明 |
 |------|------|------|------|------|
-| 新闻热点 | 08:00 | glm-4.7-flash | LLM | AI/大模型、编程工具、移动端、云原生、开源 |
-| 技术动态 | 09:30 | glm-4.7-flash | LLM | InfoQ、OSChina等技术社区 |
+| 新闻热点 | 08:00 | deepseek/deepseek-v4-flash | LLM | AI/大模型、编程工具、移动端、云原生、开源 |
+| 技术动态 | 09:30 | deepseek/deepseek-v4-flash | LLM | InfoQ、OSChina等技术社区 |
 | AI论文 | 10:00 | - | **Python脚本** | HuggingFace Daily Papers（0 token消耗） |
 | GitHub项目 | 10:30 | - | **Python脚本** | GitHub Search API（0 token消耗） |
-| 社交媒体 | 11:00 | glm-4.7-flash | LLM | AI技术动态筛选 |
-| 晚间总结 | 21:00 | glm-4.7-flash | LLM | 当日采集内容回顾 |
+| 社交媒体 | 11:00 | deepseek/deepseek-v4-flash | LLM | AI技术动态筛选 |
+| 晚间总结 | 21:00 | deepseek/deepseek-v4-flash | LLM | 当日采集内容回顾 |
 
 ## 提炼流程
 
-每日00:00由 glm-5.1 执行深度知识提炼：
+每日00:00由 deepseek/deepseek-v4-flash 执行深度知识提炼：
 
 1. **读取** — 加载当日采集文件 + 已有wiki内容
 2. **筛选** — 评估每条内容的价值（技术深度、实用价值、时效性、领域匹配）
@@ -152,7 +152,7 @@ knowledge/
 
 - **自动化平台**: [OpenClaw](https://github.com/openclaw/openclaw) — AI Agent网关
 - **采集脚本**: Python 3（GitHub API + HuggingFace API）
-- **知识提炼**: GLM-5.1（深度分析）+ GLM-4.7-Flash（采集）
+- **知识提炼**: DeepSeek V4 Flash（分析+采集）
 - **静态站点**: MkDocs Material（GitHub Pages部署）
 - **知识库地址**: [mufans.github.io/knowledge-base](https://mufans.github.io/knowledge-base/)
 - **MCP Server**: Python stdio（支持 Claude Code / OpenCode / Cursor）

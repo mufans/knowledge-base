@@ -2,7 +2,7 @@
 title: "Claude Code在Anthropic内部团队的实践案例"
 category: "sources"
 tags: ["Claude-Code", "Agentic-Coding", "Best-Practices", "Vibe-Coding", "Workflow"]
-rating: 9.0
+rating: 8.0
 description: "Anthropic各团队（工程、安全、法务、营销、数据）使用Claude Code的真实案例集，展示了Agentic Coding从开发工具演变为通用生产力工具的路径"
 date: "2026-05-27"
 ---

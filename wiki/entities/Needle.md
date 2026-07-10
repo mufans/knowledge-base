@@ -2,7 +2,7 @@
 title: "Needle: 26M参数端侧工具调用模型"
 category: "entities"
 tags: ["Tool-Calling", "On-Device-AI", "Model-Distillation", "Edge-AI", "Mobile-AI"]
-rating: 9.0
+rating: 8.0
 description: "将Gemini工具调用能力蒸馏到26M参数的微型模型，为端侧AI Agent提供本地工具调用能力"
 date: "2026-05-15"
 ---

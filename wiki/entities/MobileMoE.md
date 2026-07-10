@@ -2,7 +2,7 @@
 title: "MobileMoE：端侧Mixture of Experts扩展方案"
 category: "entities"
 tags: ["MoE", "On-Device-AI", "Mobile-LLM", "Model-Compression"]
-rating: 8.5
+rating: 7.5
 description: "将百亿参数级MoE架构部署到移动设备的技术方案，解决端侧大模型推理的显存和算力瓶颈"
 date: "2026-05-28"
 ---

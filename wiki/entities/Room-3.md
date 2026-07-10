@@ -2,7 +2,7 @@
 title: "Room 3.0：Kotlin优先、异步、多平台持久化库"
 category: "entities"
 tags: ["Room", "Android", "KMP", "SQLite", "Kotlin"]
-rating: 8.5
+rating: 7.5
 description: "Google发布Room 3.0重大更新，全面转向Kotlin-only代码生成、KSP、协程优先模型，并扩展到JS/WASM平台"
 date: "2026-05-06"
 ---

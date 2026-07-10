@@ -2,7 +2,7 @@
 title: "everything-claude-code: Agent Harness性能优化系统"
 category: "entities"
 tags: ["Claude-Code", "Agent-Harness", "Coding-Agent", "Developer-Tools"]
-rating: 9.0
+rating: 8.0
 description: "178k星标的Agent Harness优化系统，为Claude Code等编码Agent提供技能、记忆、安全和研究能力增强"
 date: "2026-05-11"
 ---

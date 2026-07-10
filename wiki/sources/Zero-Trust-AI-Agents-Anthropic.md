@@ -2,7 +2,7 @@
 title: "Zero Trust for AI Agents — Anthropic企业级Agent安全框架"
 category: "sources"
 tags: ["Zero-Trust", "Agent-Security", "Enterprise-AI", "SOAR", "Anthropic"]
-rating: 9.0
+rating: 8.0
 description: "Anthropic发布的企业级AI Agent Zero Trust安全框架，涵盖三层架构、八阶段实施流程和Agentic SOAR防御运营"
 date: "2026-06-05"
 ---

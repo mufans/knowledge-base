@@ -2,7 +2,7 @@
 title: "Dify"
 category: "entities"
 tags: ["GitHub", "OS", "工具"]
-rating: 8.5
+rating: 7.5
 description: "tags: #AgentPlatform #RAG #Workflow #TypeScript #VisualProgramming"
 date: "2026-05-07"
 ---

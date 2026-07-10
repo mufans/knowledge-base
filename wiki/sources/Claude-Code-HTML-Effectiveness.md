@@ -2,7 +2,7 @@
 title: "HTML作为Coding Agent交互介质"
 category: "sources"
 tags: ["Claude-Code", "Prompt-Engineering", "HTML", "Coding-Agent"]
-rating: 8.5
+rating: 7.5
 description: "HN高赞经验分享：用HTML替代纯文本/Markdown作为Coding Agent交互介质，大幅提升UI代码生成质量"
 date: "2026-05-10"
 ---

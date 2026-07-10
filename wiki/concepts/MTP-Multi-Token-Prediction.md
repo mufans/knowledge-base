@@ -2,7 +2,7 @@
 title: "MTP多Token预测推理优化"
 category: "concepts"
 tags: ["Multi-Token-Prediction", "Inference-Optimization", "LLM", "Performance"]
-rating: 8.0
+rating: 7.0
 description: "Multi-Token Prediction技术通过一次预测多个token实现+40%推理性能提升，90%接受率"
 date: "2026-05-15"
 ---

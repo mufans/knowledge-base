@@ -2,7 +2,7 @@
 title: "MCP隧道：私有Agent安全访问内部系统"
 category: "entities"
 tags: ["MCP", "Tunnel", "Enterprise-AI", "Security", "Anthropic"]
-rating: 9.0
+rating: 8.0
 description: "Anthropic推出的MCP隧道功能，允许托管Agent通过加密出站连接访问私有MCP服务器，无需开放公网入站端口"
 date: "2026-05-23"
 ---

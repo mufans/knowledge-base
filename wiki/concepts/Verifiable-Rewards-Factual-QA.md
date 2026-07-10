@@ -2,7 +2,7 @@
 title: "Verifiable Rewards：突破数学与代码的RL验证边界"
 category: "concepts"
 tags: ["RLHF", "Factual-QA", "Process-Supervision", "Verifiable-Rewards"]
-rating: 8.5
+rating: 7.5
 description: "轻量级语料库锚定的过程监督方法，将RL验证从数学/代码扩展到知识密集型问答领域"
 date: "2026-06-01"
 ---

@@ -2,7 +2,7 @@
 title: "Multi-Agent系统设计：何时与如何使用"
 category: "concepts"
 tags: ["Multi-Agent", "Agent-Architecture", "Context-Engineering", "Subagent-Pattern"]
-rating: 9.0
+rating: 8.0
 description: "Anthropic官方总结的多Agent系统设计指南：三种真正需要多Agent的场景（上下文隔离、并行化、专业化），以及context-centric分解原则"
 date: "2026-05-18"
 ---

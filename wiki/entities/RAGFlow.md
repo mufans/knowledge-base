@@ -2,7 +2,7 @@
 title: "RAGFlow"
 category: "entities"
 tags: ["GitHub", "OS", "RAG", "工具", "框架", "检索增强"]
-rating: 8.5
+rating: 7.5
 description: "tags: #RAG #Agent #OpenSource #RetrievalAugmented #KnowledgeManagement"
 date: "2026-05-07"
 ---

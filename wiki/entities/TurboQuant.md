@@ -2,7 +2,7 @@
 title: "TurboQuant: FP8 KV-Cache量化最佳实践"
 category: "entities"
 tags: ["Quantization", "FP8", "KV-Cache", "Inference-Optimization", "vLLM"]
-rating: 8.5
+rating: 7.5
 description: "vLLM团队研究证明FP8仍是KV-cache量化最佳默认，TurboQuant 3bit不适合生产环境"
 date: "2026-05-15"
 ---

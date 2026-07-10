@@ -2,7 +2,7 @@
 title: "pi agent rust analysis"
 category: "sources"
 tags: ["安全", "对比"]
-rating: 9.0
+rating: 8.0
 description: "tags: #Rust #AI-Coding-Agent #Extension-System #Hostcall-Optimization #Structured-Concurrency"
 date: "2026-05-10"
 ---

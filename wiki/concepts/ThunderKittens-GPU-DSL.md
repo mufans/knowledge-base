@@ -2,7 +2,7 @@
 title: "ThunderKittens GPU DSL"
 category: "concepts"
 tags: ["Agent", "Memory", "RAG"]
-rating: 9.0
+rating: 8.0
 description: "tags: #GPU #DSL #ThunderKittens #CUDA #TensorCore #Hopper #Blackwell #KernelOptimization"
 date: "2026-05-24"
 ---

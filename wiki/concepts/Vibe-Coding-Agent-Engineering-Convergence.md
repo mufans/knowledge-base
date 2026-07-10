@@ -2,7 +2,7 @@
 title: "Vibe Coding与Agent工程融合：开发者角色的重新定义"
 category: "concepts"
 tags: ["Vibe-Coding", "Agentic-Engineering", "AI-Development", "Developer-Experience"]
-rating: 8.5
+rating: 7.5
 description: "Simon Willison分析Vibe Coding与Agent工程正在融合，开发者需要同时掌握直觉式AI编程和系统化Agent设计"
 date: "2026-05-07"
 ---

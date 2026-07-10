@@ -2,7 +2,7 @@
 title: "LangChain"
 category: "entities"
 tags: ["GitHub", "框架"]
-rating: 8.0
+rating: 7.0
 description: "tags: #LangChain #Agent-Framework #RAG #Multi-Agent #LangGraph"
 date: "2026-05-12"
 ---
