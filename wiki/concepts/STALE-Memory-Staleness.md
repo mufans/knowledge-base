@@ -2,7 +2,7 @@
 title: "STALE：LLM Agent记忆时效性检测"
 category: "concepts"
 tags: ["Agent-Memory", "Memory-Validity", "Long-Horizon-Agent", "Self-Awareness"]
-rating: 7.5
+rating: 8.5
 description: "研究LLM Agent是否能感知自身记忆已过时的能力，揭示当前Agent在记忆时效性判断上的系统性缺陷"
 date: "2026-05-16"
 ---

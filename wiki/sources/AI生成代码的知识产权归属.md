@@ -2,7 +2,7 @@
 title: "AI生成代码的知识产权归属"
 category: "sources"
 tags: ["书单", "源码分析", "论文"]
-rating: 6.5
+rating: 7.5
 description: "tags: #AI-Code #Copyright #Legal #Coding-Agent"
 date: "2026-05-07"
 ---

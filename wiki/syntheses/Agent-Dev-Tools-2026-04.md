@@ -2,7 +2,7 @@
 title: "AI Agent编排与开发工具生态（2026年4月）"
 category: "syntheses"
 tags: ["Agent", "工具生态", "趋势"]
-rating: 6.0
+rating: 7.0
 description: "2026年4月 AI Agent 编排与开发工具生态综述"
 date: "2026-04-29"
 ---

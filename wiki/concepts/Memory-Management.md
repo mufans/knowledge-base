@@ -2,7 +2,7 @@
 title: "Memory Management"
 category: "concepts"
 tags: ["Memory", "AI-Agent", "Cloudflare", "Agent-Memory"]
-rating: 7.0
+rating: 8.0
 description: "AI Agent 记忆管理方案，包括短期记忆、长期记忆、检索策略和托管服务"
 date: "2026-04-26"
 ---

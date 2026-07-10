@@ -2,7 +2,7 @@
 title: "规模化Agentic Coding实践指南"
 category: "sources"
 tags: ["Agentic-Coding", "Claude-Code", "Enterprise-Adoption", "Workflow-Design", "CLAUDE.md"]
-rating: 8.0
+rating: 9.0
 description: "Anthropic官方发布的企业级Agentic Coding推广指南，涵盖试点策略、CLAUDE.md最佳实践、影响度量和常见陷阱"
 date: "2026-05-31"
 ---

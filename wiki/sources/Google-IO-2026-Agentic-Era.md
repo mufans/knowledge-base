@@ -2,7 +2,7 @@
 title: "Google IO 2026 Agentic Era"
 category: "sources"
 tags: ["对比", "源码分析", "论文"]
-rating: 8.0
+rating: 9.0
 description: "tags: #Gemini #GoogleIO #Agent #Gemini3.5 #GeminiOmni #Antigravity #AIInfrastructure"
 date: "2026-05-24"
 ---

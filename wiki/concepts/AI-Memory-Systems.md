@@ -2,7 +2,7 @@
 title: "AI Memory Systems"
 category: "concepts"
 tags: ["Agent", "Context", "Memory", "Prompt", "RAG", "记忆管理"]
-rating: 8.5
+rating: 9.5
 description: "tags: #AgentMemory #LongTermMemory #RAG #MemoryArchitecture"
 date: "2026-05-07"
 ---

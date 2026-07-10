@@ -2,7 +2,7 @@
 title: "OpenMythos"
 category: "entities"
 tags: ["GitHub", "OS"]
-rating: 7.5
+rating: 8.5
 description: "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer"
 date: "2026-05-12"
 ---

@@ -2,7 +2,7 @@
 title: "Codex Mobile: OpenAI编程Agent进入移动端"
 category: "entities"
 tags: ["OpenAI", "Codex", "Mobile-AI", "Coding-Agent", "端侧AI"]
-rating: 7.5
+rating: 8.5
 description: "OpenAI将Codex编程Agent集成到ChatGPT移动端App，移动端AI编程进入新阶段"
 date: "2026-05-15"
 ---

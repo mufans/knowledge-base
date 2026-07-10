@@ -2,7 +2,7 @@
 title: "菜鸟AI研发效能实践：从Vibe Coding到需求托管Agent"
 category: "sources"
 tags: ["Vibe-Coding", "Agent", "R&D-Efficiency", "Enterprise-AI", "Delivery-Agent"]
-rating: 7.5
+rating: 8.5
 description: "菜鸟分享从Vibe Coding到需求托管Agent全流程的研发效能提升实战经验"
 date: "2026-05-19"
 ---

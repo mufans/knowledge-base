@@ -2,7 +2,7 @@
 title: "HarmonyOS生态动态2026-05: 大规模投入与市场验证"
 category: "entities"
 tags: ["HarmonyOS", "鸿蒙", "WeChat", "华为", "移动端"]
-rating: 7.0
+rating: 8.0
 description: "微信800人团队适配鸿蒙、华为4万人投入HarmonyOS NEXT，Pura 90首周销量超20万台"
 date: "2026-05-15"
 ---

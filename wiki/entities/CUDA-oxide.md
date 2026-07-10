@@ -2,7 +2,7 @@
 title: "CUDA-oxide：Nvidia官方Rust到CUDA编译器"
 category: "entities"
 tags: ["Rust", "CUDA", "GPU-Computing", "Nvidia", "Edge-AI"]
-rating: 8.0
+rating: 9.0
 description: "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。"
 date: "2026-05-12"
 ---

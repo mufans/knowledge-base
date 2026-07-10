@@ -2,7 +2,7 @@
 title: "MobileVLN：端侧视觉语言导航训练"
 category: "entities"
 tags: ["MobileVLN", "OnDevice-AI", "Vision-Language-Navigation", "Edge-Training", "VLN"]
-rating: 8.0
+rating: 9.0
 description: "在移动设备上实现Vision-Language Navigation的端侧训练方法，突破传统云端训练依赖"
 date: "2026-05-21"
 ---

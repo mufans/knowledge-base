@@ -2,7 +2,7 @@
 title: "OSCAR：面向真实Serving的2-bit KV Cache量化"
 category: "entities"
 tags: ["KV-Cache", "Quantization", "LLM-Serving", "Cost-Optimization"]
-rating: 7.5
+rating: 8.5
 description: "清华大学团队提出的2-bit KV Cache量化方案，超越TurboQuant，显著降低LLM推理的显存占用和延迟"
 date: "2026-05-30"
 ---

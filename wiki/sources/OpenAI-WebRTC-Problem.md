@@ -2,7 +2,7 @@
 title: "OpenAI实时语音API的WebRTC技术债务"
 category: "sources"
 tags: ["WebRTC", "Realtime-API", "Voice-AI", "Mobile-AI"]
-rating: 7.0
+rating: 8.0
 description: "深度分析WebRTC为何不适合AI实时语音交互场景，对移动端AI语音架构设计有直接参考价值"
 date: "2026-05-10"
 ---

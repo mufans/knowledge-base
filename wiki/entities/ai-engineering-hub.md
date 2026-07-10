@@ -2,7 +2,7 @@
 title: "AI Engineering Hub: LLM/RAG/Agent实战教程集"
 category: "entities"
 tags: ["LLM", "RAG", "AI-Agents", "MCP", "Machine-Learning", "Tutorial"]
-rating: 8.0
+rating: 9.0
 description: "面向LLM/RAG/AI Agent的实战教程合集，Jupyter Notebook形式，涵盖MCP、DeepSeek微调等前沿技术"
 date: "2026-05-11"
 ---

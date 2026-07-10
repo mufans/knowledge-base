@@ -2,7 +2,7 @@
 title: "GitHub Token Cost Optimization — Agent工作流Token成本降低62%"
 category: "sources"
 tags: ["Token-optimization", "MCP", "Agent-cost", "GitHub-Copilot", "cost-reduction"]
-rating: 8.0
+rating: 9.0
 date: "2026-06-04"
 description: "GitHub通过MCP工具精简和每日Token审计，将Agent工作流Token成本最高降低62%"
 ---

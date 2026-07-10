@@ -2,7 +2,7 @@
 title: "DeepSeek Harness：中国版Claude Code"
 category: "entities"
 tags: ["DeepSeek", "Harness", "AI-Coding", "Claude-Code", "China-AI"]
-rating: 7.5
+rating: 8.5
 description: "DeepSeek组建团队从零开发对标Claude Code的AI编程工具Harness，国内AI Coding赛道竞争加剧"
 date: "2026-05-26"
 ---

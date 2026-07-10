@@ -104,3 +104,6 @@
 - [UI-KOBE-GUI-Agent](UI-KOBE-GUI-Agent.md) (2026-05-31)
 - [multi-llm-mcp](multi-llm-mcp.md) (2026-06-04)
 - [BraveGuard](BraveGuard.md) (2026-06-04)
+- [GPT-5.6](GPT-5.6.md) (2026-07-10)
+- [Claude-Fable-5](Claude-Fable-5.md) (2026-07-10)
+- [Grok-4](Grok-4.md) (2026-07-10)

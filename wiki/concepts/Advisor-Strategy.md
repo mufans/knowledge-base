@@ -2,7 +2,7 @@
 title: "Advisor策略：高智能低成本Agent架构"
 category: "concepts"
 tags: ["Agent-Architecture", "Cost-Optimization", "Claude-API", "Multi-Model"]
-rating: 7.5
+rating: 8.5
 description: "通过Opus顾问+Sonnet执行者配对，以接近Sonnet的成本获得接近Opus的智能，一行API调用即可实现"
 date: "2026-06-02"
 ---

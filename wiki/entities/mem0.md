@@ -2,7 +2,7 @@
 title: "mem0"
 category: "entities"
 tags: ["GitHub", "工具", "开源项目"]
-rating: 7.5
+rating: 8.5
 description: "tags: #Agent-Memory #RAG #Personalization #BM25"
 date: "2026-05-07"
 ---

@@ -2,7 +2,7 @@
 title: "IndusAgent：工业异常检测Agent"
 category: "entities"
 tags: ["IndusAgent", "Anomaly-Detection", "Industrial-AI", "Agent-Tool-Calling", "MLLM"]
-rating: 8.0
+rating: 9.0
 description: "将多模态大语言模型（MLLM）与Agent工具调用结合，实现开放词汇工业异常检测"
 date: "2026-05-22"
 ---

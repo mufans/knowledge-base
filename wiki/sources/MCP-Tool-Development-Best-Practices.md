@@ -2,7 +2,7 @@
 title: "MCP 工具开发最佳实践"
 category: "sources"
 tags: ["MCP", "Tool-Development", "Agent", "Best-Practice"]
-rating: 7.0
+rating: 8.0
 description: "MCP工具开发实践经验：Agent每次读工具输出但工具描述只读一次"
 date: "2026-05-17"
 ---

@@ -2,7 +2,7 @@
 title: "MCP Server采用困境分析"
 category: "sources"
 tags: ["MCP", "Adoption", "Developer-Tools", "Ecosystem"]
-rating: 7.0
+rating: 8.0
 description: "MCP Server面临安装率低、安装后使用率更低的困境，反映了工具生态冷启动的系统性挑战"
 date: "2026-06-02"
 ---

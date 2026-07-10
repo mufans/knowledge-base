@@ -2,7 +2,7 @@
 title: "GKE Agent Sandbox"
 category: "entities"
 tags: ["GKE", "Sandbox", "Agent"]
-rating: 7.5
+rating: 8.5
 description: "GKE Agent Sandbox 安全沙箱方案"
 date: "2026-05-01"
 ---

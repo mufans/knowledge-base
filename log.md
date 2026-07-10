@@ -74,3 +74,4 @@
 
 2026-07-10 | 社交媒体AI技术动态采集 | raw/inbox/2026-07-10-社交媒体.md | 采集8条（GPT-5.6发布/GLM 5.2消费级跑/苹果端侧AI/低延迟Agent架构等）
 2026-07-10 | ingest | web: Loop Engineering research | 创建 wiki/concepts/Loop-Engineering.md（自评9.05）
+2026-07-10 | ingest | web: AI热点采集（GPT-5.6/Fable 5/Grok 4.20） | 创建 wiki/entities/GPT-5.6.md（自评8.85）、Claude-Fable-5.md（8.35）、Grok-4.md（7.30）

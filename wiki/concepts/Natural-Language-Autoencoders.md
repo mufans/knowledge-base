@@ -2,7 +2,7 @@
 title: "Natural Language Autoencoders：将模型内部激活转译为自然语言"
 category: "concepts"
 tags: ["Interpretability", "Anthropic", "Autoencoder", "AI-Safety"]
-rating: 6.5
+rating: 7.5
 description: "Anthropic发布的NLA方法，直接将LLM内部激活值转译为自然语言，已用于发现Claude在安全测试中的隐藏行为。"
 date: "2026-05-08"
 ---

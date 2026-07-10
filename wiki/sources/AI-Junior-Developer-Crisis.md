@@ -2,7 +2,7 @@
 title: "AI正在掏空初级开发者培养渠道"
 category: "sources"
 tags: ["AI-Programming", "Career", "Junior-Developer", "Skill-Gap"]
-rating: 7.5
+rating: 8.5
 description: "微软研究警告AI编程工具压缩初级开发者成长路径，对12年经验移动端开发者转型的启示"
 date: "2026-05-05"
 ---

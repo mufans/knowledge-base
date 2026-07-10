@@ -2,7 +2,7 @@
 title: "Mirror AI"
 category: "entities"
 tags: ["安全", "工具", "终端"]
-rating: 6.5
+rating: 7.5
 description: "tags: #AI-Agent #Desktop-Agent #MCP #Tool-Use"
 date: "2026-05-07"
 ---

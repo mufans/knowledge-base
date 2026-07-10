@@ -2,7 +2,7 @@
 title: "Anthropic Agent API 新能力"
 category: "entities"
 tags: ["Anthropic", "Agent", "Code-Execution", "MCP", "Files-API", "Prompt-Caching"]
-rating: 8.5
+rating: 9.5
 description: "Anthropic API 四大新能力：Code Execution Tool、MCP Connector、Files API、Extended Prompt Caching"
 date: "2026-05-17"
 ---

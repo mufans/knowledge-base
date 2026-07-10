@@ -2,7 +2,7 @@
 title: "Transformer Architecture Evolution"
 category: "sources"
 tags: ["书单", "源码分析", "论文"]
-rating: 8.0
+rating: 9.0
 description: "tags: #Transformer #Architecture-Evolution #Deep-Learning #RoPE #SwiGLU #MoE #RMSNorm"
 date: "2026-05-12"
 ---

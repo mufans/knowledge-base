@@ -2,7 +2,7 @@
 title: "Agent 技能架构设计方法论"
 category: "sources"
 tags: ["Agent", "Skills", "Architecture", "Dynamic-Loading"]
-rating: 7.5
+rating: 8.5
 description: "Addy Osmani对Agent系统技能架构的深度分析，涵盖技能组合、动态加载和上下文管理的工程实践"
 date: "2026-05-05"
 ---

@@ -2,7 +2,7 @@
 title: "cc-switch: 跨平台编码Agent管理工具"
 category: "entities"
 tags: ["Claude-Code", "Coding-Agent", "Desktop-Tool", "Cross-Platform"]
-rating: 7.0
+rating: 8.0
 description: "跨平台桌面端All-in-One工具，统一管理Claude Code、Codex、OpenCode等多个编码Agent"
 date: "2026-05-11"
 ---

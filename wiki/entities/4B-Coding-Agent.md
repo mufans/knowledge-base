@@ -2,7 +2,7 @@
 title: "4B参数Coding Agent：小模型+架构突破"
 category: "entities"
 tags: ["Coding-Agent", "Small-Model", "Agent-Architecture", "OnDevice-AI", "Benchmark"]
-rating: 8.0
+rating: 9.0
 description: "4B参数模型通过优秀的Agent架构设计，在编码基准测试中达到87%成绩，证明架构创新>暴力参数"
 date: "2026-05-19"
 ---

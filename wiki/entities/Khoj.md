@@ -2,7 +2,7 @@
 title: "Khoj"
 category: "entities"
 tags: ["GitHub", "工具"]
-rating: 7.0
+rating: 8.0
 description: "tags: #RAG #Self-Hosted #AI-Agent #Productivity #Semantic-Search"
 date: "2026-05-15"
 ---

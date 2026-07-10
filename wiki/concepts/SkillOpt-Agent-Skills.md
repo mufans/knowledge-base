@@ -2,7 +2,7 @@
 title: "SkillOpt：Agent技能自演化执行策略"
 category: "concepts"
 tags: ["Agent-Skills", "Self-Evolution", "SkillOpt", "Auto-Creation", "LLM-Agent"]
-rating: 7.5
+rating: 8.5
 description: "Agent技能的自动演化策略：从手工编码到自进化的技能管理系统，包含评估-优化-部署闭环"
 date: "2026-05-26"
 ---

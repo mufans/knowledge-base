@@ -2,7 +2,7 @@
 title: "GLM 5 Scaling Pain"
 category: "sources"
 tags: ["书单", "源码分析", "论文"]
-rating: 7.5
+rating: 8.5
 description: "tags: #LLM-Inference #KV-Cache #Race-Condition #Coding-Agent #Speculative-Decoding"
 date: "2026-05-07"
 ---

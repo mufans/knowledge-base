@@ -2,7 +2,7 @@
 title: "UI-KOBE：轻量级知识引导GUI Agent"
 category: "entities"
 tags: ["GUI-Agent", "Knowledge-Guided", "Mobile-AI", "Graph-Guided", "Lightweight"]
-rating: 8.0
+rating: 9.0
 description: "UI-KOBE通过知识导向的行为探索和轻量级图引导机制，降低移动端GUI Agent的推理成本"
 date: "2026-05-31"
 ---

@@ -2,7 +2,7 @@
 title: "LLMs for Secure Source Code — Claude Opus 源码安全扫描最佳实践"
 category: "sources"
 tags: ["security", "LLM-audit", "vulnerability-scanning", "Agent-security"]
-rating: 7.0
+rating: 8.0
 date: "2026-06-04"
 description: "Anthropic公开Claude Opus源码安全扫描方法论：6步闭环流程，瓶颈从发现转移到验证修复，1596个漏洞仅97个被修复"
 ---

@@ -2,7 +2,7 @@
 title: "Pi Agent TypeScript 源码分析"
 category: "sources"
 tags: ["#AI-Coding-Agent", "#Extension-System", "#Context-Compaction", "#Agent-Architecture", "#TypeScript"]
-rating: 8.5
+rating: 9.8
 description: "tags: #AI-Coding-Agent #Extension-System #Context-Compaction #Agent-Architecture #TypeScript"
 date: "2026-05-10"
 ---

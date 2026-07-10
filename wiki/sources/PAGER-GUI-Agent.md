@@ -2,7 +2,7 @@
 title: "PAGER: GUI精准几何控制"
 category: "sources"
 tags: ["GUI-Agent", "Vision-Language-Model", "Geometric-Control", "Point-Precise"]
-rating: 7.5
+rating: 8.5
 description: "PAGER弥合语义理解与精确执行之间的差距，实现像素级GUI操控"
 date: "2026-05-19"
 ---

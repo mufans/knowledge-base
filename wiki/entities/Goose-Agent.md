@@ -2,7 +2,7 @@
 title: "Goose Agent"
 category: "entities"
 tags: ["GitHub", "OS", "工具"]
-rating: 7.5
+rating: 8.5
 description: "tags: #AI-Agent #MCP #Rust #Open-Source"
 date: "2026-05-07"
 ---

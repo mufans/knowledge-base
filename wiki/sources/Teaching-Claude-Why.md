@@ -2,7 +2,7 @@
 title: "Teaching Claude Why — Anthropic推理透明性研究"
 category: "sources"
 tags: ["Anthropic", "Interpretability", "Chain-of-Thought", "AI-Safety"]
-rating: 6.5
+rating: 7.5
 description: "Anthropic研究如何让Claude理解并表达推理过程中的因果关系，提升AI决策透明度"
 date: "2026-05-09"
 ---

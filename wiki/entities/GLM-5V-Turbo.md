@@ -2,7 +2,7 @@
 title: "GLM-5V-Turbo：面向多模态Agent的原生基础模型"
 category: "entities"
 tags: ["GLM-5V", "Multimodal-Agent", "Vision-Language-Model", "智谱AI"]
-rating: 7.0
+rating: 8.0
 description: "智谱AI发布面向多模态Agent场景的原生视觉语言模型，突破传统VLM在Agent任务中的能力瓶颈"
 date: "2026-05-06"
 ---

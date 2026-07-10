@@ -2,7 +2,7 @@
 title: "Kora: AI原生OS层"
 category: "entities"
 tags: ["AI-OS", "操作系统", "原生"]
-rating: 7.5
+rating: 8.5
 description: "Kora AI 原生操作系统层设计"
 date: "2026-05-03"
 ---

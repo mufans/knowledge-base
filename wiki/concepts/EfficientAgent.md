@@ -2,7 +2,7 @@
 title: "EfficientAgent：分层任务分解加速LLM推理"
 category: "concepts"
 tags: ["EfficientAgent", "Task-Decomposition", "LLM-Inference", "Agent-Efficiency", "Hierarchical-Planning"]
-rating: 8.0
+rating: 9.0
 description: "通过分层任务分解策略降低LLM Agent在复杂推理任务中的计算开销，实现推理加速"
 date: "2026-05-21"
 ---

@@ -2,7 +2,7 @@
 title: "用约束用户的思路约束LLM"
 category: "sources"
 tags: ["LLM-Safety", "Token-Constraints", "Structured-Output", "vLLM", "Grammar-Guided"]
-rating: 7.0
+rating: 8.0
 description: "Andrew Godwin提出将传统用户输入约束方法论应用于LLM输出控制，通过token概率采样约束和CFG/正则实现确定性输出"
 date: "2026-06-04"
 ---

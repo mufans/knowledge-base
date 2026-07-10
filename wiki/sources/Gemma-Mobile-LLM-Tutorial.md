@@ -2,7 +2,7 @@
 title: "Gemma 移动端 LLM 教程"
 category: "sources"
 tags: ["Gemma", "Mobile", "OnDevice-AI", "LLM", "Tutorial"]
-rating: 8.0
+rating: 9.0
 description: "手把手教程：使用 Gemma 模型在移动设备上本地运行 LLM"
 date: "2026-05-17"
 ---

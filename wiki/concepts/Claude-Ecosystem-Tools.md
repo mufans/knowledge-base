@@ -2,7 +2,7 @@
 title: "Claude Ecosystem Tools"
 category: "concepts"
 tags: ["Claude", "Ecosystem", "Tool"]
-rating: 8.0
+rating: 9.0
 description: "Claude 生态工具全景分析，包括 Claude Code、MCP、Skills 等"
 date: "2026-04-26"
 ---

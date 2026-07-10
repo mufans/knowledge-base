@@ -2,7 +2,7 @@
 title: "RTX 5000 PRO 48GB: 端侧推理新标杆"
 category: "entities"
 tags: ["NVIDIA", "GPU", "Local-Inference", "Hardware", "AI-Inference"]
-rating: 7.0
+rating: 8.0
 description: "48GB显存工作站显卡实测，运行Qwen3.6-27B-FP8 + 200k上下文，PP速度4400 tok/s"
 date: "2026-05-15"
 ---

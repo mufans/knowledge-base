@@ -2,7 +2,7 @@
 title: "SEAL：Agent与学习环境的协同进化"
 category: "concepts"
 tags: ["Agent-Architecture", "Co-Evolution", "Reinforcement-Learning", "Environment-Design"]
-rating: 7.0
+rating: 8.0
 description: "LLM Agent与学习环境协同进化的框架，Agent在交互中自我改进的同时环境也随之优化，实现Agent能力的持续提升"
 date: "2026-05-27"
 ---

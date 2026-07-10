@@ -2,7 +2,7 @@
 title: "MemPalace：开源AI记忆系统"
 category: "entities"
 tags: ["AI-Memory", "Open-Source", "Agent-Memory", "Memory-System"]
-rating: 7.0
+rating: 8.0
 description: "当前benchmark最佳的开源AI记忆系统，为Agent提供持久化、可检索的记忆层"
 date: "2026-05-18"
 ---

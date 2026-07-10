@@ -2,7 +2,7 @@
 title: "LongTraceRL：从搜索Agent轨迹学习长上下文推理"
 category: "concepts"
 tags: ["Long-Context", "RL-Training", "Search-Agent", "Reasoning"]
-rating: 7.5
+rating: 8.5
 description: "利用搜索Agent轨迹和Rubric奖励训练LLM的长上下文推理能力，直击长文本处理核心瓶颈"
 date: "2026-06-01"
 ---

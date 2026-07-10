@@ -2,7 +2,7 @@
 title: "Training an LLM in Swift: 矩阵乘法从Gflop/s到Tflop/s"
 category: "sources"
 tags: ["Swift", "Matrix-Multiplication", "LLM", "HPC", "Performance-Optimization", "Apple-Silicon"]
-rating: 8.0
+rating: 9.0
 description: "Swift中手动实现LLM训练的矩阵乘法优化全过程，从朴素实现到Metal GPU，涵盖SIMD/AMX/GPU全路径"
 date: "2026-05-11"
 ---

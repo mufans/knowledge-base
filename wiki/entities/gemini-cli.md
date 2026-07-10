@@ -2,7 +2,7 @@
 title: "Gemini CLI：Google官方终端AI Agent"
 category: "entities"
 tags: ["Terminal-Agent", "Google-Gemini", "CLI-Tool", "AI-Agent"]
-rating: 7.0
+rating: 8.0
 description: "Google开源的终端AI Agent，将Gemini能力直接带入命令行，104k stars，与Claude Code直接竞争"
 date: "2026-05-18"
 ---

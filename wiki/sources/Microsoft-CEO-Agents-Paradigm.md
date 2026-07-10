@@ -2,7 +2,7 @@
 title: "Microsoft CEO: 从OS/App到Agents的计算范式转变"
 category: "sources"
 tags: ["Agent", "Computing-Paradigm", "Microsoft", "Qualcomm", "Project-Solara"]
-rating: 7.0
+rating: 8.0
 description: "2026年6月Microsoft Build大会上，Satya Nadella提出计算范式正从OS+App向Agent-first转变，Qualcomm推出Project Solara芯片到云平台支撑这一愿景"
 date: "2026-06-04"
 ---

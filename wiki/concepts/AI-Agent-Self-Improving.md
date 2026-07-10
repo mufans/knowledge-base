@@ -2,7 +2,7 @@
 title: "AI Agent Self-Improving"
 category: "concepts"
 tags: ["AI-Agent", "Self-Improvement", "LLM"]
-rating: 7.5
+rating: 8.5
 description: "AI Agent 自我改进机制，包括代码质量评估、记忆管理与技能迭代"
 date: "2026-04-26"
 ---

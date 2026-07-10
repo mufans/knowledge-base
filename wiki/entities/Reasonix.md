@@ -2,7 +2,7 @@
 title: "Reasonix: 极致缓存优化的终端AI编码Agent"
 category: "entities"
 tags: ["DeepSeek", "Caching", "Token-Optimization", "Coding-Agent", "CLI"]
-rating: 8.0
+rating: 9.0
 description: "开源终端AI编码Agent,通过极致缓存策略将长会话Token成本降低80%,基于DeepSeek模型"
 date: "2026-05-11"
 ---

@@ -2,7 +2,7 @@
 title: "Stork - MCP 服务器搜索"
 category: "entities"
 tags: ["MCP", "Search", "Agent-Tool", "Discovery"]
-rating: 7.0
+rating: 8.0
 description: "MCP服务器搜索引擎，可搜索 14000+ MCP 服务器和 AI 工具"
 date: "2026-05-17"
 ---

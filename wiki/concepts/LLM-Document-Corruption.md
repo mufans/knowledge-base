@@ -2,7 +2,7 @@
 title: "LLM文档编辑腐蚀问题"
 category: "concepts"
 tags: ["LLM", "Agent-Reliability", "Document-Editing", "Safety"]
-rating: 7.5
+rating: 8.5
 description: "论文揭示LLM在代理文档编辑任务时会系统性修改不相关内容，对Agent可靠性构成根本性挑战"
 date: "2026-05-10"
 ---

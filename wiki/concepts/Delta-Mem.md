@@ -2,7 +2,7 @@
 title: "δ-mem: LLM 高效在线记忆机制"
 category: "concepts"
 tags: ["LLM", "Memory", "Online-Learning", "Delta-Memory"]
-rating: 7.0
+rating: 8.0
 description: "论文提出 δ-mem 方法，为LLM添加高效的在线持久记忆能力"
 date: "2026-05-17"
 ---

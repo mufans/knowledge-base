@@ -2,7 +2,7 @@
 title: "CowAgent"
 category: "entities"
 tags: ["GitHub", "工具", "开源项目"]
-rating: 7.5
+rating: 8.5
 description: "tags: #AIAssistant #MultiPlatform #AgentSkills #DeepSeek #WeChat"
 date: "2026-05-07"
 ---

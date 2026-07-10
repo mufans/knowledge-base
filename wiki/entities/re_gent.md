@@ -2,7 +2,7 @@
 title: "re_gent: AI Agent版本控制系统"
 category: "entities"
 tags: ["Agent-Tooling", "Version-Control", "Claude-Code", "Traceability"]
-rating: 7.5
+rating: 8.5
 description: "为AI Agent操作提供版本控制能力的开源工具，解决Agent操作的可追溯性和回滚问题"
 date: "2026-05-10"
 ---

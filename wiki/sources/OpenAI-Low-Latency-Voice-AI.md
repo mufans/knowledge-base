@@ -2,7 +2,7 @@
 title: "OpenAI 大规模低延迟语音AI实现方案"
 category: "sources"
 tags: ["OpenAI", "Voice-AI", "Edge-Computing", "LLM-Inference"]
-rating: 7.0
+rating: 8.0
 description: "OpenAI揭秘生产级语音AI的低延迟架构，涵盖音频流处理、边缘推理和智能路由的关键技术决策"
 date: "2026-05-05"
 ---
