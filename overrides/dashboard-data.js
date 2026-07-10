@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-10 15:37:26
-// Total articles: 210
-// Updated files this run: 206
+// Generated: 2026-07-10 22:19:07
+// Total articles: 213
+// Updated files this run: 0
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -209,6 +209,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/EfficientAgent"
   },
   {
+    "title": "Jet-Long：动态双焦点RoPE长上下文扩展",
+    "category": "concepts",
+    "tags": [
+      "Long-Context",
+      "RoPE",
+      "Position-Encoding",
+      "LLM",
+      "Context-Extension"
+    ],
+    "rating": 9.0,
+    "description": "Jet-Long引入Dynamic Bifocal RoPE机制，通过双焦点位置编码实现低成本的LLM长上下文扩展，对Agent长记忆场景有重要价值",
+    "date": "2026-07-10",
+    "url": "wiki/concepts/Jet-Long-Dynamic-RoPE"
+  },
+  {
     "title": "Loop Engineering",
     "category": "concepts",
     "tags": [
@@ -396,6 +411,21 @@ window.__kb_articles = [
     "description": "ChatGPT Work是OpenAI发布的跨应用Agent平台，在sheets/slides/docs间执行任务，支持长期规划和后台调度，内置Codex技术",
     "date": "2026-07-10",
     "url": "wiki/entities/ChatGPT-Work"
+  },
+  {
+    "title": "Colibri：纯C MoE推理引擎",
+    "category": "entities",
+    "tags": [
+      "MoE",
+      "C",
+      "推理引擎",
+      "端侧AI",
+      "GLM"
+    ],
+    "rating": 9.0,
+    "description": "Colibri是一个纯C实现、零依赖的MoE推理引擎，可在25GB内存消费级机器上运行744B参数的GLM 5.2模型",
+    "date": "2026-07-10",
+    "url": "wiki/entities/Colibri"
   },
   {
     "title": "ECC：Agent Harness性能优化系统",
@@ -780,6 +810,21 @@ window.__kb_articles = [
     "description": "Anthropic各团队（工程、安全、法务、营销、数据）使用Claude Code的真实案例集，展示了Agentic Coding从开发工具演变为通用生产力工具的路径",
     "date": "2026-05-27",
     "url": "wiki/sources/Claude-Code-Anthropic-内部实践"
+  },
+  {
+    "title": "Ello：<1000ms实时AI教学系统架构",
+    "category": "sources",
+    "tags": [
+      "低延迟",
+      "Agent-Architecture",
+      "实时系统",
+      "AI-Tutor",
+      "Latency-Optimization"
+    ],
+    "rating": 9.0,
+    "description": "Ello为4-9岁儿童构建的实时AI教学系统，摒弃标准Agent Tool Loop架构，实现每次交互<1000ms的低延迟Agent设计",
+    "date": "2026-07-10",
+    "url": "wiki/sources/Ello-Low-Latency-Agent"
   },
   {
     "title": "Gemma 移动端 LLM 教程",
