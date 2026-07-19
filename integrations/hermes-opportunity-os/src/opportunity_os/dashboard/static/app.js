@@ -5,6 +5,7 @@ export const routes = [
 
 export const eventTypes = Object.freeze([
   "state.invalidated", "component.updated", "incident.firing", "incident.recovered",
+  "conversation.started", "conversation.completed", "conversation.failed",
 ]);
 
 const pageMeta = {
@@ -87,10 +88,23 @@ export function renderOverview(data = {}, state = componentState(data)) {
 }
 
 export function renderConversations(data = {}, state = "empty") {
+  const task = data.conversation_task;
+  const result = task?.result;
+  const output = result?.final_text
+    ? `<article class="panel" aria-live="polite"><p class="eyebrow">FINAL</p><h2>${safe(task.target)} 最终答复</h2><p class="large-copy">${safe(result.final_text)}</p><small>${safe(result.provider ?? "provider unknown")} · ${safe(result.model ?? "model unknown")} · token ${safe(result.token_status)} · cost ${safe(result.cost_status)}</small></article>`
+    : task
+      ? `<article class="panel" aria-live="polite"><p class="eyebrow">TASK</p><h2>${safe(task.status)}</h2><p>任务 ${safe(task.task_id)} 只流转生命周期元数据。</p></article>`
+      : emptyPanel("选择研究入口", "会话正文不会进入 SSE、初始 HTML 或浏览器存储。");
   return `<div class="page" data-page="conversations" data-state="${normalizedState(state)}">${pageHeader("conversations", state)}
     <section class="assistant-grid"><article class="assistant-card"><p class="eyebrow">OPENCLAW</p><h2>知识与系统助手</h2><p>查询知识库、任务和系统状态。</p><span>只读入口</span></article>
     <article class="assistant-card accent"><p class="eyebrow">HERMES</p><h2>机会研究员</h2><p>深度分析、方向复盘与历史 Session。</p><span>调用前预览边界</span></article></section>
-    ${emptyPanel("选择研究入口", "会话正文不会进入 SSE、初始 HTML 或浏览器存储。")}</div>`;
+    <form id="conversation-form" class="panel" aria-label="提交安全会话">
+      <label>研究入口<select name="target"><option value="openclaw">OpenClaw</option><option value="hermes">Hermes</option></select></label>
+      <label>Session ID<input name="session_id" value="dashboard-main" maxlength="64" required></label>
+      <label>消息<textarea name="message" maxlength="8192" required></textarea></label>
+      <button type="submit">提交任务</button>
+      <small>最多 8 KiB UTF-8；不启用消息投递或自动写入。</small>
+    </form>${output}</div>`;
 }
 
 export function renderSignals(data = {}, state = "empty") {
@@ -147,6 +161,8 @@ let reconnectDelay = 1_000;
 let reconnectTimer = null;
 let source = null;
 let lastEventId = "";
+let csrfToken = "";
+let conversationTask = null;
 
 function currentRoute() {
   const route = window.location.hash.slice(1);
@@ -164,7 +180,8 @@ function viewState(route) {
 function renderCurrent({focus = false} = {}) {
   const route = currentRoute();
   const main = document.querySelector("#main-content");
-  main.innerHTML = renderers[route](snapshot, viewState(route));
+  const data = route === "conversations" ? {...snapshot, conversation_task: conversationTask} : snapshot;
+  main.innerHTML = renderers[route](data, viewState(route));
   main.setAttribute("aria-busy", "false");
   document.querySelectorAll("[data-route]").forEach(link => {
     if (link.dataset.route === route) link.setAttribute("aria-current", "page");
@@ -179,6 +196,7 @@ async function fetchSnapshot() {
     headers: {Accept: "application/json"},
   });
   if (!response.ok) throw new Error(`status_${response.status}`);
+  csrfToken = response.headers.get("X-CSRF-Token") || csrfToken;
   snapshot = await response.json();
   connectionState = "connected";
   renderCurrent();
@@ -195,6 +213,49 @@ export async function refreshMonitoring() {
 
 async function refreshCurrent() {
   return fetchSnapshot();
+}
+
+export async function submitConversation(target, sessionId, message, csrf, fetchImpl = fetch) {
+  if (!new Set(["openclaw", "hermes"]).has(target)) throw new Error("invalid_conversation_target");
+  if (!message.trim() || new TextEncoder().encode(message).length > 8192) {
+    throw new Error("invalid_conversation_message");
+  }
+  const response = await fetchImpl("/api/v1/conversations", {
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrf,
+    },
+    body: JSON.stringify({target, session_id: sessionId, message}),
+  });
+  if (!response.ok) throw new Error(`conversation_${response.status}`);
+  return response.json();
+}
+
+async function refreshConversationTask(taskId) {
+  const response = await fetch(`/api/v1/conversations/${encodeURIComponent(taskId)}`, {
+    credentials: "same-origin",
+    headers: {Accept: "application/json"},
+  });
+  if (!response.ok) throw new Error(`conversation_task_${response.status}`);
+  conversationTask = await response.json();
+  if (currentRoute() === "conversations") renderCurrent();
+  return conversationTask;
+}
+
+function conversationEvent(event) {
+  rememberEvent(event);
+  let payload;
+  try {
+    payload = JSON.parse(event.data);
+  } catch (_) {
+    markDisconnected();
+    return;
+  }
+  if (typeof payload.task_id !== "string") return;
+  refreshConversationTask(payload.task_id).catch(markDisconnected);
 }
 
 function rememberEvent(event) {
@@ -223,6 +284,9 @@ function attachEventHandlers(eventSource) {
     rememberEvent(event);
     Promise.all([refreshOverview(), refreshMonitoring()]).catch(markDisconnected);
   });
+  eventSource.addEventListener("conversation.started", conversationEvent);
+  eventSource.addEventListener("conversation.completed", conversationEvent);
+  eventSource.addEventListener("conversation.failed", conversationEvent);
 }
 
 function markDisconnected() {
@@ -271,10 +335,30 @@ async function exchangeBootstrap() {
     body: JSON.stringify({token}),
   });
   if (!response.ok) throw new Error("bootstrap_failed");
+  const session = await response.json();
+  csrfToken = session.csrf_token;
 }
 
 function installNavigation() {
   window.addEventListener("hashchange", () => renderCurrent({focus: true}));
+  document.addEventListener("submit", async event => {
+    if (event.target?.id !== "conversation-form") return;
+    event.preventDefault();
+    const form = new FormData(event.target);
+    try {
+      const accepted = await submitConversation(
+        String(form.get("target") ?? ""),
+        String(form.get("session_id") ?? ""),
+        String(form.get("message") ?? ""),
+        csrfToken,
+      );
+      conversationTask = {task_id: accepted.task_id, target: String(form.get("target")), status: "queued"};
+      renderCurrent();
+    } catch (_) {
+      conversationTask = {task_id: "unavailable", target: "conversation", status: "failed"};
+      renderCurrent();
+    }
+  });
 }
 
 if (typeof window !== "undefined" && typeof document !== "undefined") {

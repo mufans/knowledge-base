@@ -6,6 +6,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Literal, Protocol
+from pathlib import Path
 
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.schemas import ComponentHealth
@@ -31,7 +32,11 @@ class CommandRunner:
 
     def run(self, argv: tuple[str, ...], timeout: float) -> CommandResult:
         started = time.monotonic()
-        environment = {**os.environ, "PATH": OPENCLAW_EXECUTABLE_PATH} if argv and argv[0] == "openclaw" else None
+        environment = (
+            {**os.environ, "PATH": OPENCLAW_EXECUTABLE_PATH}
+            if argv and Path(argv[0]).name == "openclaw"
+            else None
+        )
         try:
             completed = subprocess.run(
                 argv,

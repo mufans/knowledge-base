@@ -13,7 +13,13 @@ import uvicorn
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
+from opportunity_os.dashboard.conversations import (
+    ConversationService,
+    HermesConversationAdapter,
+    OpenClawConversationAdapter,
+)
 from opportunity_os.dashboard.events import EventHub
+from opportunity_os.dashboard.probes import CommandRunner
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.errors import OpportunityOSError, ValidationError
@@ -55,12 +61,20 @@ def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> Dashbo
     read_model = DashboardReadModel(PrivateStateReadRepository(home), probes=())
     sessions = SessionStore(config.dashboard_home)
     event_hub = EventHub(config.dashboard_home / "event-cursor")
+    command_runner = CommandRunner()
+    conversations = ConversationService(
+        openclaw=OpenClawConversationAdapter(command_runner),
+        hermes=HermesConversationAdapter(command_runner),
+        event_hub=event_hub,
+        sessions_path=config.dashboard_home / "sessions.json",
+    )
     return DashboardDependencies(
         read_model=read_model,
         sessions=sessions,
         csrf=CsrfGuard(),
         event_hub=event_hub,
         event_journal_path=Path(home).expanduser().resolve() / "events.jsonl",
+        conversation_service=conversations,
     )
 
 

@@ -19,6 +19,12 @@ from pydantic import BaseModel
 
 from opportunity_os.dashboard.auth import CsrfGuard, Session, SessionInfo, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
+from opportunity_os.dashboard.conversations import (
+    ConversationAccepted,
+    ConversationRequest,
+    ConversationService,
+    ConversationTask,
+)
 from opportunity_os.dashboard.events import DashboardEvent, EventHub, EventJournalTailer
 from opportunity_os.dashboard.schemas import DashboardSnapshot
 
@@ -47,6 +53,7 @@ class DashboardDependencies:
     event_journal_path: Path | None = None
     journal_poll_interval: float = 0.25
     event_tailer: EventJournalTailer | None = None
+    conversation_service: ConversationService | None = None
 
 
 class BootstrapExchange(BaseModel):
@@ -186,6 +193,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     def require_session(request: Request, response: Response) -> Session:
         session = dependencies.sessions.resolve(request.cookies.get(SESSION_COOKIE))
         if session is not None:
+            response.headers["X-CSRF-Token"] = session.csrf_token
             return session
         if request.state.remote_origin_authenticated:
             issued = dependencies.sessions.create_session("remote")
@@ -318,5 +326,30 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     @app.post("/api/v1/session/refresh", response_model=SessionInfo)
     def refresh_session(session: Session = Depends(require_csrf_session)) -> SessionInfo:
         return dependencies.sessions.refresh(session)
+
+    @app.post(
+        "/api/v1/conversations",
+        response_model=ConversationAccepted,
+        status_code=202,
+    )
+    def submit_conversation(
+        conversation: ConversationRequest,
+        _: Session = Depends(require_csrf_session),
+    ) -> ConversationAccepted:
+        if dependencies.conversation_service is None:
+            raise HTTPException(status_code=503, detail="conversation_service_unavailable")
+        return ConversationAccepted(task_id=dependencies.conversation_service.submit(conversation))
+
+    @app.get("/api/v1/conversations/{task_id}", response_model=ConversationTask)
+    def conversation_task(
+        task_id: str,
+        _: Session = Depends(require_session),
+    ) -> ConversationTask:
+        if dependencies.conversation_service is None:
+            raise HTTPException(status_code=503, detail="conversation_service_unavailable")
+        try:
+            return dependencies.conversation_service.get(task_id)
+        except KeyError as error:
+            raise HTTPException(status_code=404, detail="conversation_task_not_found") from error
 
     return app

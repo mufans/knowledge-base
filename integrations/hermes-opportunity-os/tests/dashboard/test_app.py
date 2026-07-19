@@ -403,12 +403,86 @@ console.log(JSON.stringify(module.eventTypes));
         "component.updated",
         "incident.firing",
         "incident.recovered",
+        "conversation.started",
+        "conversation.completed",
+        "conversation.failed",
     ]
     source = app_js.read_text(encoding="utf-8")
     for event_type in json.loads(result.stdout):
         assert f'addEventListener("{event_type}"' in source
     for unsupported in ("task.updated", "approval.updated", "report.updated", "review.updated"):
         assert unsupported not in source
+
+
+def test_frontend_submits_bounded_conversation_request_with_csrf() -> None:
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("Node.js is required for the conversation submission contract test")
+    app_js = Path(__file__).parents[2] / "src" / "opportunity_os" / "dashboard" / "static" / "app.js"
+    runner = """
+import fs from 'node:fs';
+const source = fs.readFileSync(process.argv[1], 'utf8');
+const module = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+const calls = [];
+const fetchImpl = async (url, options) => {
+  calls.push({url, options});
+  return {ok: true, status: 202, json: async () => ({task_id: 'conv_123e4567-e89b-12d3-a456-426614174000'})};
+};
+const result = await module.submitConversation('hermes', ' Research/Main ', '分析端侧 Agent', 'csrf-value', fetchImpl);
+console.log(JSON.stringify({calls, result}));
+"""
+
+    result = subprocess.run(
+        [node, "--input-type=module", "-e", runner, str(app_js)],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=10,
+    )
+
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["result"] == {"task_id": "conv_123e4567-e89b-12d3-a456-426614174000"}
+    assert payload["calls"] == [
+        {
+            "url": "/api/v1/conversations",
+            "options": {
+                "method": "POST",
+                "credentials": "same-origin",
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": "csrf-value",
+                },
+                "body": json.dumps(
+                    {
+                        "target": "hermes",
+                        "session_id": " Research/Main ",
+                        "message": "分析端侧 Agent",
+                    },
+                    separators=(",", ":"),
+                    ensure_ascii=False,
+                ),
+            },
+        }
+    ]
+
+
+def test_conversation_renderer_contains_no_deliver_or_yolo_controls() -> None:
+    app_js = (
+        Path(__file__).parents[2]
+        / "src"
+        / "opportunity_os"
+        / "dashboard"
+        / "static"
+        / "app.js"
+    ).read_text(encoding="utf-8")
+
+    assert 'id="conversation-form"' in app_js
+    assert 'name="session_id"' in app_js
+    assert 'name="message"' in app_js
+    assert "--deliver" not in app_js
+    assert "--yolo" not in app_js
 
 
 def test_hashchange_listener_is_installed_outside_retryable_start() -> None:
