@@ -58,7 +58,11 @@ def save_opportunity(
     stop_criteria: list[str],
     scores: dict[str, float],
 ) -> dict[str, Any]:
-    """Validate and persist a complete opportunity card in private state."""
+    """Validate and persist a complete opportunity card in private state.
+
+    Every evidence item uses source_tier=official|primary|secondary|community.
+    Fact evidence requires official or primary; never use A/B/C tier aliases.
+    """
     identifier = "opp-" + hashlib.sha256(title.encode("utf-8")).hexdigest()[:12]
     opportunity = Opportunity(
         id=identifier,

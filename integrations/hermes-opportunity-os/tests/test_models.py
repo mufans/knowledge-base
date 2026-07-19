@@ -50,7 +50,7 @@ def test_evidence_accepts_only_declared_reasoning_kinds(kind: str) -> None:
 
 
 def test_evidence_rejects_community_claim_as_fact_without_official_source() -> None:
-    with pytest.raises(ValidationError, match="Fact.*官方"):
+    with pytest.raises(ValidationError, match="source_tier 必须是 official 或 primary"):
         Evidence(
             kind="fact",
             stance="support",

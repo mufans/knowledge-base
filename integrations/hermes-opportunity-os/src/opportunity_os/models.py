@@ -39,7 +39,7 @@ class Evidence:
             _required_text(value, label)
         date.fromisoformat(self.observed_at)
         if self.kind == "fact" and self.source_tier not in {"official", "primary"}:
-            raise ValidationError("Fact 必须引用官方或一手来源")
+            raise ValidationError("Fact 的 source_tier 必须是 official 或 primary")
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

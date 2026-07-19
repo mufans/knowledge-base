@@ -55,3 +55,14 @@ def test_mcp_server_exposes_all_state_transition_tools(monkeypatch, tmp_path: Pa
         "record_experiment", "set_direction", "get_portfolio", "record_tech_state", "save_review"
     ):
         assert callable(getattr(server, tool_name))
+
+
+def test_save_opportunity_tool_description_names_evidence_source_tiers() -> None:
+    spec = importlib.util.spec_from_file_location("opportunity_mcp_doc", SERVER_PATH)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    description = module.save_opportunity.__doc__ or ""
+
+    for value in ("official", "primary", "secondary", "community", "Fact"):
+        assert value in description

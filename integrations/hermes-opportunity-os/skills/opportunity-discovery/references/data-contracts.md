@@ -1,7 +1,7 @@
 # Data contracts
 
 - Signal：`id/title/relative_path/collected_at/category/excerpt/source_urls`。
-- Evidence：`kind/stance/claim/source_name/source_url/observed_at/source_tier`。
+- Evidence：`kind/stance/claim/source_name/source_url/observed_at/source_tier`。`source_tier` 只使用四个精确值：`official`（官方发布或文档）、`primary`（原始代码、论文或数据）、`secondary`（二手分析）、`community`（媒体、社区或热度）。
 - Opportunity：类型、摘要、呈现桶、正反证据、失效条件、经验组合、最小实验、继续/停止标准、七维评分。
 - Direction：`observe|validate|active`，容量分别为 5/2/1。
 - Review：周期、摘要、机会 ID、意外发现、40/40/20 计数、Fact/Inference/Hypothesis。
