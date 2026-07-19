@@ -1,0 +1,8 @@
+📰 技术新闻热点推送 - 2026-06-02
+
+🔥 今日Top 5热点：
+1. [LLM Agent架构设计最佳实践](https://example.com/llm-agent-best-practices)
+2. [苹果M4芯片AI性能基准测试结果](https://example.com/m4-benchmark-ai)
+3. [鸿蒙系统6.0开发者预览版发布](https://example.com/harmony-os-6-preview)
+4. [Kubernetes 1.30版本新特性解析](https://example.com/kubernetes-1-30-features)
+5. [PyTorch 3.0正式版发布，性能提升40%](https://example.com/pytorch-3-0-released)

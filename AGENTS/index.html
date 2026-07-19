@@ -18,19 +18,19 @@
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>🔍 Claude Code代码质量检查报告 - Knowledge Base</title>
+        <title>AGENTS.md — 知识库规则配置 - Knowledge Base</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -40,7 +40,7 @@
 
       
     
-<script src="../../../overrides/dashboard-data.js"></script>
+<script src="../overrides/dashboard-data.js"></script>
 <script>
 // 在页面加载后，用 frontmatter date 替换/补充日期显示
 document.addEventListener('DOMContentLoaded', function() {
@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  <link rel="stylesheet" href="../../../overrides/styles/dashboard.css">
+  <link rel="stylesheet" href="../overrides/styles/dashboard.css">
   <style>
     /* 显示 frontmatter date 替代 git date */
     .md-source-date { display: none !important; }
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div data-md-component="skip">
       
         
-        <a href="#claude-code" class="md-skip">
+        <a href="#agentsmd" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href=".." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              🔍 Claude Code代码质量检查报告
+              AGENTS.md — 知识库规则配置
             
           </span>
         </div>
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         
   
   
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
       <li class="md-tabs__item">
-        <a href="../../../wiki/concepts/" class="md-tabs__link">
+        <a href="../wiki/concepts/" class="md-tabs__link">
           
   
   
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
       <li class="md-tabs__item">
-        <a href="../../inbox/" class="md-tabs__link">
+        <a href="../raw/inbox/" class="md-tabs__link">
           
   
   
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+    <a href=".." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../wiki/concepts/" class="md-nav__link ">
+            <a href="../wiki/concepts/" class="md-nav__link ">
               
   
   
@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/AI-Agent-Self-Improving/" class="md-nav__link">
+      <a href="../wiki/concepts/AI-Agent-Self-Improving/" class="md-nav__link">
         
   
   
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Claude-Ecosystem-Tools/" class="md-nav__link">
+      <a href="../wiki/concepts/Claude-Ecosystem-Tools/" class="md-nav__link">
         
   
   
@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Context-Window-Optimization/" class="md-nav__link">
+      <a href="../wiki/concepts/Context-Window-Optimization/" class="md-nav__link">
         
   
   
@@ -589,7 +589,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/DeepEP/" class="md-nav__link">
+      <a href="../wiki/concepts/DeepEP/" class="md-nav__link">
         
   
   
@@ -617,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Memory-Management/" class="md-nav__link">
+      <a href="../wiki/concepts/Memory-Management/" class="md-nav__link">
         
   
   
@@ -645,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/PersonalAI-KG-Comparison/" class="md-nav__link">
+      <a href="../wiki/concepts/PersonalAI-KG-Comparison/" class="md-nav__link">
         
   
   
@@ -673,7 +673,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/PersonalAI-KG-Retrieval/" class="md-nav__link">
+      <a href="../wiki/concepts/PersonalAI-KG-Retrieval/" class="md-nav__link">
         
   
   
@@ -701,7 +701,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Pretext-js/" class="md-nav__link">
+      <a href="../wiki/concepts/Pretext-js/" class="md-nav__link">
         
   
   
@@ -729,7 +729,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Prompt-Caching-Pitfalls/" class="md-nav__link">
+      <a href="../wiki/concepts/Prompt-Caching-Pitfalls/" class="md-nav__link">
         
   
   
@@ -757,7 +757,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Real-world-AI-Applications/" class="md-nav__link">
+      <a href="../wiki/concepts/Real-world-AI-Applications/" class="md-nav__link">
         
   
   
@@ -785,7 +785,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Self-RAG/" class="md-nav__link">
+      <a href="../wiki/concepts/Self-RAG/" class="md-nav__link">
         
   
   
@@ -813,7 +813,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Skill-Auto-Creation/" class="md-nav__link">
+      <a href="../wiki/concepts/Skill-Auto-Creation/" class="md-nav__link">
         
   
   
@@ -841,7 +841,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Skill-Evaluation-Framework/" class="md-nav__link">
+      <a href="../wiki/concepts/Skill-Evaluation-Framework/" class="md-nav__link">
         
   
   
@@ -869,7 +869,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/Weak-Model-Orchestration/" class="md-nav__link">
+      <a href="../wiki/concepts/Weak-Model-Orchestration/" class="md-nav__link">
         
   
   
@@ -897,7 +897,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/concepts/andrej-karpathy-skills/" class="md-nav__link">
+      <a href="../wiki/concepts/andrej-karpathy-skills/" class="md-nav__link">
         
   
   
@@ -1002,7 +1002,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../wiki/entities/" class="md-nav__link ">
+            <a href="../wiki/entities/" class="md-nav__link ">
               
   
   
@@ -1046,7 +1046,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/Claude-Code-Source-Analysis/" class="md-nav__link">
+      <a href="../wiki/entities/Claude-Code-Source-Analysis/" class="md-nav__link">
         
   
   
@@ -1074,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/DeepSeek-V4/" class="md-nav__link">
+      <a href="../wiki/entities/DeepSeek-V4/" class="md-nav__link">
         
   
   
@@ -1102,7 +1102,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/Fewshell/" class="md-nav__link">
+      <a href="../wiki/entities/Fewshell/" class="md-nav__link">
         
   
   
@@ -1130,7 +1130,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/GKE-Agent-Sandbox/" class="md-nav__link">
+      <a href="../wiki/entities/GKE-Agent-Sandbox/" class="md-nav__link">
         
   
   
@@ -1158,7 +1158,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/GPT-5.5/" class="md-nav__link">
+      <a href="../wiki/entities/GPT-5.5/" class="md-nav__link">
         
   
   
@@ -1186,7 +1186,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/Ghostty-Leaving-GitHub/" class="md-nav__link">
+      <a href="../wiki/entities/Ghostty-Leaving-GitHub/" class="md-nav__link">
         
   
   
@@ -1214,7 +1214,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/GoClick/" class="md-nav__link">
+      <a href="../wiki/entities/GoClick/" class="md-nav__link">
         
   
   
@@ -1242,7 +1242,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/Hermes-Agent/" class="md-nav__link">
+      <a href="../wiki/entities/Hermes-Agent/" class="md-nav__link">
         
   
   
@@ -1270,7 +1270,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/Hy-MT-Offline-Translation/" class="md-nav__link">
+      <a href="../wiki/entities/Hy-MT-Offline-Translation/" class="md-nav__link">
         
   
   
@@ -1298,7 +1298,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/OpenClaw/" class="md-nav__link">
+      <a href="../wiki/entities/OpenClaw/" class="md-nav__link">
         
   
   
@@ -1326,7 +1326,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/Operit/" class="md-nav__link">
+      <a href="../wiki/entities/Operit/" class="md-nav__link">
         
   
   
@@ -1354,7 +1354,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/SmartPerfetto/" class="md-nav__link">
+      <a href="../wiki/entities/SmartPerfetto/" class="md-nav__link">
         
   
   
@@ -1382,7 +1382,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/Warp-Terminal-Analysis/" class="md-nav__link">
+      <a href="../wiki/entities/Warp-Terminal-Analysis/" class="md-nav__link">
         
   
   
@@ -1410,7 +1410,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/claude-context/" class="md-nav__link">
+      <a href="../wiki/entities/claude-context/" class="md-nav__link">
         
   
   
@@ -1438,7 +1438,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/claude-mem/" class="md-nav__link">
+      <a href="../wiki/entities/claude-mem/" class="md-nav__link">
         
   
   
@@ -1466,7 +1466,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/deer-flow/" class="md-nav__link">
+      <a href="../wiki/entities/deer-flow/" class="md-nav__link">
         
   
   
@@ -1494,7 +1494,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/harmonist/" class="md-nav__link">
+      <a href="../wiki/entities/harmonist/" class="md-nav__link">
         
   
   
@@ -1522,7 +1522,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/llm_wiki/" class="md-nav__link">
+      <a href="../wiki/entities/llm_wiki/" class="md-nav__link">
         
   
   
@@ -1550,7 +1550,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/mattpocock-skills/" class="md-nav__link">
+      <a href="../wiki/entities/mattpocock-skills/" class="md-nav__link">
         
   
   
@@ -1578,7 +1578,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/ml-intern/" class="md-nav__link">
+      <a href="../wiki/entities/ml-intern/" class="md-nav__link">
         
   
   
@@ -1606,7 +1606,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/open-design/" class="md-nav__link">
+      <a href="../wiki/entities/open-design/" class="md-nav__link">
         
   
   
@@ -1634,7 +1634,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/entities/trycua-cua/" class="md-nav__link">
+      <a href="../wiki/entities/trycua-cua/" class="md-nav__link">
         
   
   
@@ -1711,7 +1711,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../wiki/sources/" class="md-nav__link ">
+            <a href="../wiki/sources/" class="md-nav__link ">
               
   
   
@@ -1755,7 +1755,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/AI-Code-Tool-Pricing-2026/" class="md-nav__link">
+      <a href="../wiki/sources/AI-Code-Tool-Pricing-2026/" class="md-nav__link">
         
   
   
@@ -1783,7 +1783,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/Coding-Agents-Critique-2026/" class="md-nav__link">
+      <a href="../wiki/sources/Coding-Agents-Critique-2026/" class="md-nav__link">
         
   
   
@@ -1811,7 +1811,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/Hermes-Agent-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../wiki/sources/Hermes-Agent-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -1839,7 +1839,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../wiki/sources/OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -1867,7 +1867,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/OpenMobile-Paper-V2/" class="md-nav__link">
+      <a href="../wiki/sources/OpenMobile-Paper-V2/" class="md-nav__link">
         
   
   
@@ -1895,7 +1895,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/OpenMobile-Paper/" class="md-nav__link">
+      <a href="../wiki/sources/OpenMobile-Paper/" class="md-nav__link">
         
   
   
@@ -1923,7 +1923,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/claude-context-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../wiki/sources/claude-context-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -1951,7 +1951,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/sources/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95-2026%E5%B9%B44%E6%9C%88/" class="md-nav__link">
+      <a href="../wiki/sources/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95-2026%E5%B9%B44%E6%9C%88/" class="md-nav__link">
         
   
   
@@ -2018,7 +2018,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../wiki/syntheses/" class="md-nav__link ">
+            <a href="../wiki/syntheses/" class="md-nav__link ">
               
   
   
@@ -2062,7 +2062,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/syntheses/Agent-Dev-Tools-2026-04/" class="md-nav__link">
+      <a href="../wiki/syntheses/Agent-Dev-Tools-2026-04/" class="md-nav__link">
         
   
   
@@ -2090,7 +2090,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/syntheses/Hermes-vs-OpenClaw%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../wiki/syntheses/Hermes-vs-OpenClaw%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -2118,7 +2118,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../wiki/syntheses/SmartPerfetto-vs-SmartInspector%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+      <a href="../wiki/syntheses/SmartPerfetto-vs-SmartInspector%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   
@@ -2221,7 +2221,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../../inbox/" class="md-nav__link">
+      <a href="../raw/inbox/" class="md-nav__link">
         
   
   
@@ -2249,7 +2249,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../raw/projects/" class="md-nav__link">
         
   
   
@@ -2307,7 +2307,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📋 检查文件
+        目录结构
       
     </span>
   </a>
@@ -2318,19 +2318,19 @@ document.addEventListener('DOMContentLoaded', function() {
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 分析结果
+        ⛔ 核心规则（最高优先级）
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📊 分析结果">
+    <nav class="md-nav" aria-label="⛔ 核心规则（最高优先级）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1mcporterjson" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        文件1：mcporter.json
+        1. 层级权限
       
     </span>
   </a>
@@ -2338,10 +2338,32 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#22026-03-19md" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        文件2：2026-03-19.md
+        2. 操作日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 索引维护
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 链接规范
       
     </span>
   </a>
@@ -2354,13 +2376,185 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#wiki" class="md-nav__link">
     <span class="md-ellipsis">
       
-        💡 总体建议
+        Wiki页面规范
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Wiki页面规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        页面模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        内容质量标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分类判断标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#purposemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        purpose.md — 知识库方向（必读）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ingest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingest流程（摄取新知识）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        增量缓存（避免重复处理）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lint审查（定期维护）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        采集任务规范
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="采集任务规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#githubai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        脚本采集（GitHub项目、AI论文）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM采集（新闻热点、技术动态、社交媒体）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate Limit处理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Pages同步
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub Pages同步">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        同步方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        部署前检查（脚本自动执行，以下供参考）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2384,63 +2578,245 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<h1 id="claude-code">🔍 Claude Code代码质量检查报告<a class="headerlink" href="#claude-code" title="Permanent link">&para;</a></h1>
-<h2 id="_1">📋 检查文件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ol>
-<li>/Users/liujun/.openclaw/workspace/config/mcporter.json</li>
-<li>/Users/liujun/.openclaw/workspace/memory/2026-03-19.md</li>
-</ol>
-<h2 id="_2">📊 分析结果<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="1mcporterjson">文件1：mcporter.json<a class="headerlink" href="#1mcporterjson" title="Permanent link">&para;</a></h3>
+<h1 id="agentsmd">AGENTS.md — 知识库规则配置<a class="headerlink" href="#agentsmd" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>知识库的"大脑"，AI操作知识库时必须遵守的规则。</p>
+<p><strong>架构出处</strong>：基于 <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy LLM Wiki 方法论</a> 构建，参考 <a href="https://github.com/nashsu/llm_wiki">nashsu/llm_wiki</a> 增强设计。</p>
+</blockquote>
+<h2 id="_1">目录结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code>knowledge/
+├── AGENTS.md          ← 本文件（规则配置）
+├── README.md          ← 项目说明（GitHub首页）
+├── log.md             ← 操作日志（append-only，每次操作必须追加）
+├── raw/               ← 原始资源层（只读不改）
+│   ├── inbox/         ← 每日采集的原始内容
+│   │   └── archive/   ← 归档的旧日报
+│   ├── projects/      ← 项目相关原始文档
+│   └── assets/        ← 图片附件
+└── wiki/              ← 知识提炼层（结构化知识）
+    ├── concepts/      ← 概念页面（抽象的技术思想、方法论）
+    ├── entities/      ← 实体页面（具体的项目、工具、产品）
+    ├── sources/       ← 来源摘要（文章/论文的详细摘要）
+    └── syntheses/     ← 综合分析（跨源对比、趋势分析）
+</code></pre>
+<h2 id="_2">⛔ 核心规则（最高优先级）<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 层级权限<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>格式检查</strong>：✅ JSON格式正确，符合MCP配置规范</li>
-<li><strong>问题列表</strong>：</li>
-<li>⚠️ <strong>配置文件命名异常</strong>：文件名为<code>mcporter.json</code>而非标准的<code>claude_desktop_config.json</code>或类似名称，可能不是Claude Desktop的主配置文件</li>
-<li>⚠️ <strong>单个服务器配置</strong>：只配置了context7一个MCP服务器，功能覆盖有限</li>
-<li>⚠️ <strong>缺少环境变量</strong>：没有配置环境变量选项，context7可能需要API密钥等配置</li>
-<li>⚠️ <strong>缺少注释</strong>：JSON不支持注释，但没有配套的README说明配置用途</li>
-<li><strong>优化建议</strong>：</li>
-<li>🔧 添加更多实用的MCP服务器（如文件系统、数据库、Web搜索等）</li>
-<li>📝 创建配套的README.md说明各MCP服务器的用途和配置方法</li>
-<li>🔐 确认context7是否需要环境变量配置（如UPSTASH_REDIS_REST_URL等）</li>
-<li>🎯 考虑按功能分类组织MCP服务器（如开发工具、 productivity、AI工具等）</li>
+<li><strong>Raw层只读</strong>：AI只能从 <code>raw/</code> 读取信息，绝不能修改原始文件</li>
+<li><strong>Wiki层可写</strong>：AI可以创建、修改、合并 <code>wiki/</code> 下的文件</li>
 </ul>
-<h3 id="22026-03-19md">文件2：2026-03-19.md<a class="headerlink" href="#22026-03-19md" title="Permanent link">&para;</a></h3>
+<h3 id="2">2. 操作日志<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>格式检查</strong>：✅ Markdown格式规范，结构清晰</li>
-<li><strong>问题列表</strong>：</li>
-<li>⚠️ <strong>日期更新不完整</strong>：文件记录截止到08:50，但当前时间可能已过</li>
-<li>⚠️ <strong>缺少元数据区</strong>：建议在文件开头添加元数据块（任务统计、时间范围、关键指标）</li>
-<li>⚠️ <strong>嵌套层级过深</strong>：部分章节使用4级标题，可考虑简化层级结构</li>
-<li>⚠️ <strong>缺少标签/分类</strong>：没有使用标签系统（如#钉钉 #定时任务 #集成）便于后续检索</li>
-<li><strong>优化建议</strong>：</li>
-<li>📊 在文件开头添加元数据摘要区：
-    <code>markdown
-    ---
-    日期: 2026-03-19
-    记录时间范围: 07:39 - 08:50
-    任务数量: 19个定时任务
-    新增功能: 6个
-    用户满意度: 高
-    标签: #钉钉集成 #定时任务 #ClaudeCode #工作流
-    ---</code></li>
-<li>🏷️ 添加标签系统，便于关键词检索</li>
-<li>📈 考虑添加"待办事项"章节，跟踪未完成任务</li>
-<li>🔗 添加"相关文件"章节，链接相关配置文件和脚本</li>
-<li>✅ 使用统一的复选框格式标记完成状态（目前混用了✅和复选框）</li>
+<li><strong>每次操作必须更新 <code>log.md</code></strong>：格式 <code>YYYY-MM-DD | 操作类型 | 涉及文件 | 简要说明</code></li>
 </ul>
-<h2 id="_3">💡 总体建议<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="3">3. 索引维护<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>每次创建新wiki页面必须更新对应目录的 <code>index.md</code></strong></li>
+<li>格式：<code>- [页面标题](文件名.md)</code>，链接必须包含 <code>.md</code> 后缀</li>
+<li>禁止 <code>([](../dir/))dir/文件名.md</code> 错误格式</li>
+<li>禁止 <code>[[]]</code> Obsidian wikilink格式</li>
+</ul>
+<h3 id="4">4. 链接规范<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>所有URL使用 <code>[名称](URL)</code> 格式，禁止裸URL</li>
+<li>提到已有wiki条目时使用交叉链接：</li>
+<li>同目录：<code>[Self-RAG](Self-RAG.md)</code></li>
+<li>跨目录：<code>[Codex-context](../entities/Codex-context.md)</code></li>
+<li>原始项目链接：<code>[项目名](https://github.com/xxx/xxx)</code></li>
+</ul>
+<h2 id="wiki">Wiki页面规范<a class="headerlink" href="#wiki" title="Permanent link">&para;</a></h2>
+<h3 id="_3">页面模板<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<pre><code class="language-markdown"># 标题
+
+&gt; tags: #tag1 #tag2 #tag3
+&gt; source: [采集文件名](链接)
+&gt; project: [项目名](GitHub URL)（如有）
+&gt; score: 技术深度X/10 | 实用价值X/10 | 时效性X/10 | 领域匹配X/10 | 综合 X.X/10
+
+## 核心概念
+（具体技术定义，不超过3句）
+
+## 设计原理
+（分析核心设计思路。只有当项目存在有意义的架构选择或权衡时才写 trade-off 分析；对于工具介绍、API变更等无显著 trade-off 的内容，直接说明设计动机和核心思路即可）
+
+## 关键实现
+（代码片段、API、具体参数值）
+
+## 关联分析
+（使用markdown链接引用已有wiki页面）
+
+## 可执行建议
+（结合用户背景的具体行动项）
+
+## 自评
+| 维度 | 分数 | 权重 | 加权 |
+|------|------|------|------|
+| 摘要质量 | X | 0.25 | X.XX |
+| 技术深度 | X | 0.25 | X.XX |
+| 相关性 | X | 0.20 | X.XX |
+| 原创性 | X | 0.15 | X.XX |
+| 格式规范 | X | 0.15 | X.XX |
+| **加权总分** | | | **X.XX** |
+
+&gt; 评分标准：摘要质量（具体技术细节）| 技术深度（有实质性的设计/实现分析）| 相关性（purpose匹配）| 原创性（独立见解）| 格式规范（标签/链接/评分）
+</code></pre>
+<h3 id="_4">内容质量标准<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><strong>必须做到</strong>：
+- ✅ 避免泛泛而谈，体现具体技术细节（算法名、参数值、代码行、性能数据）
+- ✅ 每个页面2-5个分类标签（英文技术术语，如 <code>#RAG #BM25 #LangGraph</code>）
+- ✅ 底部包含多维度评分（技术深度/实用价值/时效性/领域匹配/综合）
+- ✅ 每个维度至少包含一个具体数据或引用
+- ✅ 中文输出，技术术语保留英文原文
+- ✅ 每个页面底部包含五维度自评表（加权总分 ≥ 7.0 才算合格）</p>
+<p><strong>禁止行为</strong>：
+- ❌ 百科式描述（"XX是一种XX技术，由XX公司开发"）
+- ❌ 功能罗列（"XX有A、B、C功能"）
+- ❌ 编造信息（所有技术声明必须有据可查）
+- ❌ 裸URL（<code>https://github.com/xxx</code>）
+- ❌ Obsidian格式（<code>[[wikilink]]</code>）
+- ❌ 自评加权总分低于 7.0 仍创建页面</p>
+<h3 id="_5">分类判断标准<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>目录</th>
+<th>判断标准</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>概念</td>
+<td>concepts/</td>
+<td>抽象的思想/方法/模式</td>
+<td>Self-RAG、Context-Window-Optimization</td>
+</tr>
+<tr>
+<td>实体</td>
+<td>entities/</td>
+<td>具体的项目/工具/产品</td>
+<td>OpenClaw、Codex-mem、ml-intern</td>
+</tr>
+<tr>
+<td>来源</td>
+<td>sources/</td>
+<td>文章/论文的深度摘要</td>
+<td>Hermes-Agent-源码分析、推荐书单</td>
+</tr>
+<tr>
+<td>综合</td>
+<td>syntheses/</td>
+<td>跨源对比/趋势分析</td>
+<td>Hermes-vs-OpenClaw对比分析</td>
+</tr>
+</tbody>
+</table>
+<p><strong>模糊时</strong>：看内容侧重——分析技术原理 → concepts，分析项目本身 → entities</p>
+<h2 id="purposemd">purpose.md — 知识库方向（必读）<a class="headerlink" href="#purposemd" title="Permanent link">&para;</a></h2>
+<p>每次Ingest和提炼操作前，AI必须读取 <code>purpose.md</code> 确保方向一致：</p>
+<pre><code class="language-markdown"># purpose.md
+
+## 目标
+构建 AI Agent + 移动端开发交叉领域的个人技术知识图谱
+
+## 关键问题
+- AI Agent架构的最佳实践和设计模式？
+- 移动端AI应用的技术栈选择和落地路径？
+- 哪些开源项目/工具值得深度跟踪？
+
+## 研究范围
+AI Agent、LLM、RAG、MCP、移动端开发、鸿蒙AI、Vibe Coding
+
+## 排除范围
+纯时政、社会新闻、非技术内容、与用户背景无关的领域
+</code></pre>
+<p><strong>与AGENTS.md的区别</strong>：schema是结构规则（怎么做），purpose是方向意图（做什么）。</p>
+<h2 id="ingest">Ingest流程（摄取新知识）<a class="headerlink" href="#ingest" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>建立记忆文件模板</strong>：创建标准化的每日记忆文件模板，包含元数据、任务列表、问题追踪等固定区块</li>
-<li><strong>自动化质量检查</strong>：创建检查脚本，验证JSON格式、Markdown规范、必填字段等</li>
-<li><strong>配置文件版本管理</strong>：将配置文件纳入Git管理，记录变更历史</li>
-<li><strong>定期归档机制</strong>：建议每月将记忆文件归档到子目录（如<code>memory/2026/03/</code>），保持根目录简洁</li>
-<li><strong>标签系统标准化</strong>：定义一套标准标签体系，跨所有记忆文件使用，便于全局搜索</li>
+<li>读取 <code>purpose.md</code> 确认方向匹配</li>
+<li>读取新内容 → 判断是否有提炼价值（评分≥7.0/10）</li>
+<li><strong>增量检查</strong>：在 <code>log.md</code> 中搜索文件名，已处理的整个文件跳过（但步骤4的更新逻辑仍需执行）</li>
+<li><strong>已有页面匹配与更新</strong>（重要：不再简单跳过）：</li>
+<li>对inbox中每条内容，扫描 <code>wiki/</code> 目录检查是否已有相关页面（匹配方式：项目名/概念名/工具名）</li>
+<li><strong>匹配到已有页面</strong>：读取已有页面，判断新内容是否有实质性更新（新特性、新版本、新数据、新事件等）<ul>
+<li>有实质性更新 → 合并到已有页面，在对应章节追加新内容，标注更新日期（如 <code>### 2026-05-01 更新</code>）</li>
+<li>无实质性更新（只是重复提及） → 跳过，记录"已覆盖，无新内容"</li>
+</ul>
+</li>
+<li><strong>未匹配到已有页面</strong>：评估内容价值（评分≥7.0）则创建新页面</li>
+<li><strong>自评 + 弱项改进</strong>（审核循环，仅新页面）</li>
+<li>AI 按五维度标准（摘要质量0.25、技术深度0.25、相关性0.20、原创性0.15、格式规范0.15）对页面内容自评</li>
+<li>如果加权总分 &lt; 7.0，识别弱项维度，定向改进后重新自评</li>
+<li>最多改进 2 次，如果仍 &lt; 7.0 则放弃创建该页面</li>
+<li>改进重点：补充具体技术细节、增加 trade-off 分析、添加数据支撑</li>
+<li>注：更新的已有页面不需要重新自评（原自评已达标）</li>
+<li>在相关页面之间建立交叉链接</li>
+<li>更新对应目录的 <code>index.md</code> 和根 <code>log.md</code></li>
+<li>新建页面：<code>YYYY-MM-DD | ingest | raw/inbox/文件名 | 创建wiki页面名（自评X.XX）</code></li>
+<li>更新页面：<code>YYYY-MM-DD | update | raw/inbox/文件名 | 更新wiki页面名（合并了XX新内容）</code></li>
 </ol>
-<hr />
-<p>⏰ 检查时间：2026-03-19 08:53
-🎯 目标：测试Claude Code集成
-📈 质量评分：mcporter.json (7/10) | 2026-03-19.md (8.5/10)</p>
+<h2 id="_6">增量缓存（避免重复处理）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>每次提炼前在 <code>log.md</code> 中搜索文件名，已处理过则跳过</li>
+<li>如果原始文件内容有重大更新（不是每日新增），手动触发重新提炼</li>
+<li>日志格式确保可搜索：<code>YYYY-MM-DD | ingest | raw/inbox/2026-04-26-AI论文.md | 提炼3篇wiki页面</code></li>
+</ul>
+<h2 id="lint">Lint审查（定期维护）<a class="headerlink" href="#lint" title="Permanent link">&para;</a></h2>
+<ul>
+<li>找出 <code>raw/inbox/</code> 中有但 <code>wiki/</code> 未提炼的"未处理资源"</li>
+<li>找出 <code>wiki/</code> 中没有任何引用的"孤立页面"</li>
+<li>找出内容高度相似可合并的"重复页面"</li>
+<li>检查 <code>index.md</code> 是否列出所有实际文件</li>
+<li>检查链接格式是否正确（<code>.md</code>后缀、无裸URL、无<code>[[]]</code>）</li>
+<li>标记过时的内容</li>
+<li>运行 <code>python scripts/check_quality.py</code> 检查所有 wiki 页面质量</li>
+</ul>
+<h2 id="_7">采集任务规范<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="githubai">脚本采集（GitHub项目、AI论文）<a class="headerlink" href="#githubai" title="Permanent link">&para;</a></h3>
+<ul>
+<li>使用Python脚本抓取，不消耗LLM token</li>
+<li>脚本输出原始数据（名称、链接、描述）</li>
+<li>LLM在脚本执行后补充中文点评（💡 标注），追加到文件对应条目下方</li>
+<li>点评不超过30字，说明「为什么值得关注」「对用户有什么价值」</li>
+<li>推送到钉钉时包含点评</li>
+</ul>
+<h3 id="llm">LLM采集（新闻热点、技术动态、社交媒体）<a class="headerlink" href="#llm" title="Permanent link">&para;</a></h3>
+<ul>
+<li>使用web_fetch抓取网页，LLM整理格式</li>
+<li>遇到429/rate limit错误，等待30分钟后重试</li>
+<li>X/Twitter抓取失败时用browser(host)模式重试，再失败通知用户登录</li>
+</ul>
+<h3 id="rate-limit">Rate Limit处理<a class="headerlink" href="#rate-limit" title="Permanent link">&para;</a></h3>
+<ul>
+<li>所有LLM采集任务遇到429错误时，等待30分钟后重试</li>
+<li>脚本采集不涉及LLM，不会触发rate limit</li>
+</ul>
+<h2 id="github-pages">GitHub Pages同步<a class="headerlink" href="#github-pages" title="Permanent link">&para;</a></h2>
+<h3 id="_8">同步方式<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>⛔ <strong>禁止手动cp/git/mkdocs操作</strong>，统一使用同步脚本：</p>
+<pre><code>bash /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh &quot;commit message&quot;
+</code></pre>
+<p>脚本自动完成：
+1. wiki/ → docs/wiki/
+2. raw/ → docs/raw/（⚠️ 必须同步，否则采集文件不显示）
+3. 根文件 → docs/（AGENTS.md、README.md、log.md、purpose.md）
+4. 重建所有 index.md（wiki子目录 + raw/inbox + raw/projects）
+5. mkdocs.yml篡改检测与自动恢复
+6. <code>[[]]</code>格式检测与警告
+7. mkdocs build错误拦截
+8. git push + mkdocs gh-deploy</p>
+<h3 id="_9">部署前检查（脚本自动执行，以下供参考）<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong><code>docs/raw/</code> 是否存在</strong>：sync脚本必须同步raw/目录，否则采集文件不显示</li>
+<li><strong>所有 <code>index.md</code> 是否列出所有实际文件</strong>：包括raw/inbox/index.md和wiki各子目录的index.md</li>
+<li><strong>链接格式正确</strong>：<code>.md</code>后缀、无裸URL、无<code>[[]]</code>Obsidian格式</li>
+<li><strong><code>mkdocs.yml</code> 未被覆盖</strong>：被覆盖则 <code>git checkout mkdocs.yml</code></li>
+<li><strong><code>mkdocs build</code> 无 ERROR</strong></li>
+<li><strong>subagent创建的wiki页面是否同步到docs/</strong>：subagent不会自动同步，必须执行sync脚本</li>
+<li><strong>新创建的md文件是否出现在Pages上</strong>：文件必须先cp到docs/目录，mkdocs才会渲染</li>
+<li><strong>docs/index.md禁止直接修改</strong>：始终等于README.md，sync脚本末尾会强制cp覆盖</li>
+</ol>
 
 
 
@@ -2461,7 +2837,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 14:31:06 UTC">2026年7月19日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 16:43:50 UTC">2026年7月19日</span>
   </span>
 
     
@@ -2512,11 +2888,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
 
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
 <script>
