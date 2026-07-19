@@ -2,7 +2,7 @@
 title: "LLM多Agent系统：协作、失败归因与自进化"
 category: "sources"
 tags: ["Multi-Agent", "Collaboration", "Failure-Attribution", "Self-Evolution", "Survey"]
-rating: 9.0
+rating: 8.5
 description: "综述LLM多Agent系统中的三大核心问题：协作效率、失败归因机制和自进化策略，提出系统性分类框架"
 date: "2026-05-16"
 ---

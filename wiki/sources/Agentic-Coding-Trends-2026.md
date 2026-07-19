@@ -2,7 +2,7 @@
 title: "2026 Agentic Coding八大趋势报告"
 category: "sources"
 tags: ["Agentic-Coding", "Trends", "Claude-Code", "Multi-Agent", "Enterprise-AI"]
-rating: 9.0
+rating: 8.5
 description: "Anthropic发布的2026年代理式编码趋势报告，识别8大趋势并分为基础、能力、影响三大类，附Rakuten/TELUS/Zapier实战案例"
 date: "2026-05-25"
 ---

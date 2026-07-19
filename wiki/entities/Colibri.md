@@ -2,7 +2,7 @@
 title: "Colibri：纯C MoE推理引擎"
 category: "entities"
 tags: ["MoE", "C", "推理引擎", "端侧AI", "GLM"]
-rating: 9.0
+rating: 8.5
 description: "Colibri是一个纯C实现、零依赖的MoE推理引擎，可在25GB内存消费级机器上运行744B参数的GLM 5.2模型"
 date: "2026-07-10"
 ---

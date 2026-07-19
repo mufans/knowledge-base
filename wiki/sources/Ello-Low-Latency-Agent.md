@@ -2,7 +2,7 @@
 title: "Ello：<1000ms实时AI教学系统架构"
 category: "sources"
 tags: ["低延迟", "Agent-Architecture", "实时系统", "AI-Tutor", "Latency-Optimization"]
-rating: 9.0
+rating: 8.5
 description: "Ello为4-9岁儿童构建的实时AI教学系统，摒弃标准Agent Tool Loop架构，实现每次交互<1000ms的低延迟Agent设计"
 date: "2026-07-10"
 ---

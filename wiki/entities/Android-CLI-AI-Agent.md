@@ -2,7 +2,7 @@
 title: "Android CLI：谷歌让Android工具链适配AI Agent"
 category: "entities"
 tags: ["Android", "CLI", "AI-Agent", "Google", "Mobile-Dev"]
-rating: 9.0
+rating: 8.5
 description: "谷歌推出全新Android CLI工具，让AI Agent能更高效地使用Android工具链，构建速度提升3倍"
 date: "2026-05-26"
 ---

@@ -2,7 +2,7 @@
 title: "MemTrain — 自监督上下文记忆训练"
 category: "concepts"
 tags: ["Agent-memory", "self-supervised", "GRPO", "long-horizon-Agent", "context-memory"]
-rating: 9.0
+rating: 8.5
 date: "2026-06-04"
 description: "自监督训练框架增强LLM Agent上下文记忆能力，双代理任务+GRPO联合优化，提升高达17.67个点"
 ---

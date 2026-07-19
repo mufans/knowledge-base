@@ -2,7 +2,7 @@
 title: "Claude Agent Harness设计模式"
 category: "concepts"
 tags: ["Claude", "Agent-Harness", "Design-Pattern", "AI-Engineering", "Prompt-Engineering"]
-rating: 9.5
+rating: 9.0
 description: "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界"
 date: "2026-05-26"
 ---

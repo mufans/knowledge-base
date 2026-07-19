@@ -2,7 +2,7 @@
 title: "ChatGPT Work：跨应用Agent平台"
 category: "entities"
 tags: ["Agent-Platform", "GPT", "OpenAI", "Auto-Agent", "Workflow"]
-rating: 9.0
+rating: 8.5
 description: "ChatGPT Work是OpenAI发布的跨应用Agent平台，在sheets/slides/docs间执行任务，支持长期规划和后台调度，内置Codex技术"
 date: "2026-07-10"
 ---

@@ -2,7 +2,7 @@
 title: "Agent工作流模式：顺序/并行/评估优化"
 category: "concepts"
 tags: ["Agent-Workflow", "Orchestration", "Sequential", "Parallel", "Evaluator-Optimizer"]
-rating: 9.0
+rating: 8.5
 description: "Anthropic总结的三大Agent工作流模式（顺序、并行、评估-优化），覆盖生产环境90%以上的多Agent编排场景"
 date: "2026-05-23"
 ---

@@ -2,7 +2,7 @@
 title: "Claude Cowork：企业级AI协作平台"
 category: "entities"
 tags: ["Claude", "Cowork", "Enterprise-AI", "Plugins", "Agent-Platform", "Sales-Automation"]
-rating: 9.5
+rating: 9.0
 description: "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户"
 date: "2026-05-24"
 ---

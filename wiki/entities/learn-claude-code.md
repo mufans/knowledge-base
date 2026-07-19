@@ -2,7 +2,7 @@
 title: "learn-claude-code：从零构建Agent Harness"
 category: "entities"
 tags: ["Agent-Harness", "Bash", "Education", "Architecture", "Claude-Code"]
-rating: 9.0
+rating: 8.5
 description: "62k stars教学项目，用纯Bash从零实现一个类Claude Code的Agent Harness，深入理解Agent架构底层原理"
 date: "2026-05-25"
 ---

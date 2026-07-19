@@ -2,7 +2,7 @@
 title: "BraveGuard — Computer-Use Agent自适应安全防护框架"
 category: "entities"
 tags: ["Agent-security", "guard-model", "computer-use", "trajectory-safety", "adaptive-defense"]
-rating: 9.0
+rating: 8.5
 date: "2026-06-04"
 description: "自进化防御框架，从开放世界威胁信号训练Guard模型，AgentHazard准确率从38.79%提升至82.38%"
 ---
