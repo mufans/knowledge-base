@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f5f2ea">
+  <title>Opportunity OS · 个人成长控制台</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Opportunity OS 总览">
+        <span class="brand-mark" aria-hidden="true">O</span>
+        <span><strong>Opportunity OS</strong><small>个人成长控制台</small></span>
+      </a>
+      <nav class="primary-nav" aria-label="主导航">
+        <a href="#overview" data-route="overview"><span aria-hidden="true">◫</span>总览</a>
+        <a href="#signals" data-route="signals"><span aria-hidden="true">⌁</span>信号与新鲜度</a>
+        <a href="#opportunities" data-route="opportunities"><span aria-hidden="true">◇</span>机会与实验</a>
+        <a href="#tasks" data-route="tasks"><span aria-hidden="true">✓</span>任务与调度</a>
+        <a href="#reports" data-route="reports"><span aria-hidden="true">▤</span>报告</a>
+        <a href="#monitoring" data-route="monitoring"><span aria-hidden="true">⌁</span>监控</a>
+      </nav>
+      <div class="sidebar-foot">
+        <span class="connection-dot" aria-hidden="true"></span>
+        <span id="connection-label">正在建立安全连接</span>
+      </div>
+    </aside>
+    <main id="main-content" class="main" tabindex="-1" aria-live="polite" aria-busy="true">
+      <section class="loading-state" data-state="disconnected">
+        <p class="eyebrow">安全控制面</p>
+        <h1>正在连接本机 Broker</h1>
+        <p>页面外壳不包含任何私有数据。身份验证完成后才会读取授权 DTO。</p>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/static/app.js"></script>
+</body>
+</html>

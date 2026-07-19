@@ -1,0 +1,30 @@
+version: 3
+
+agent:
+  authtoken: __NGROK_AUTHTOKEN__
+  update_channel: stable
+  update_check: true
+  web_addr: 127.0.0.1:4040
+
+endpoints:
+  - name: opportunity-os-dashboard
+    description: Owner-only Opportunity OS dashboard
+    # Scheme-only URL asks ngrok to allocate a random HTTPS address.
+    url: https://
+    upstream:
+      url: http://127.0.0.1:8765
+      protocol: http1
+    traffic_policy:
+      on_http_request:
+        - actions:
+            - type: oauth
+              config:
+                provider: github
+                idle_session_timeout: 15m
+                max_session_duration: 8h
+        - expressions:
+            - "!(actions.ngrok.oauth.identity.email in ['__OWNER_GITHUB_EMAIL__'])"
+          actions:
+            - type: deny
+              config:
+                status_code: 403

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.opportunity-os.dashboard</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__OPPORTUNITY_OS_EXECUTABLE__</string>
+    <string>dashboard</string><string>serve</string>
+    <string>--home</string><string>__OPPORTUNITY_OS_HOME__</string>
+    <string>--host</string><string>127.0.0.1</string>
+    <string>--port</string><string>8765</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><dict><key>SuccessfulExit</key><false/></dict>
+  <key>ProcessType</key><string>Background</string>
+  <key>ThrottleInterval</key><integer>10</integer>
+  <key>WorkingDirectory</key><string>__OPPORTUNITY_OS_HOME__</string>
+</dict>
+</plist>

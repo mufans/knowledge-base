@@ -120,3 +120,35 @@
 2026-07-19 | ingest | raw/inbox/2026-07-19-Claude博客.md | 创建sources/Anthropic-AI-Code-Migration.md（自评9.00）、sources/Anthropic-CISO-Agent-Security-Guide.md（自评9.00）、sources/Claude-Code-Effort-Model-Guide.md（自评7.75）。更新entities/Claude-Cowork.md（合并Cowork安全控制五层架构）
 
 2026-07-19 | lint | raw/inbox/2026-07-19-知识库Lint审查.md | 知识库Lint审查完成（总分8.0/10，结构7.5/10，质量8.5/10）。索引修复6个、孤立页面从110降至4个、零积压。修复建议：根index.md重复章节+链接格式问题（两轮未修）。
+2026-07-19 | development | integrations/hermes-opportunity-os/dashboard | 完成Task 4 metadata-only SSE事件中心与八页面响应式可访问控制台（138项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 4事件schema、私有journal实时桥、可信loopback代理认证与前端重连监听（161项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 4 journal bridge静默失效：显式健康、受监督退避、SSE安全断流与恢复（169项测试通过）
+2026-07-19 | development | integrations/hermes-opportunity-os/dashboard | 完成Task 5 OpenClaw/Hermes固定命令会话适配、元数据任务事件与认证网页提交（191项测试通过，未调用真实Provider）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 收紧Task 5 exact OpenClaw可执行文件、Provider调用并发上限、调用前边界与任务I/O终态保障（196项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 5独立审查：发现跨认证会话结果泄漏与已完成任务无界内存保留（64项聚焦测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 5跨认证任务与SSE隔离、已完成任务TTL/数量回收及64KiB Provider输出边界（205项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 5修复复审：I1/I2已解决；发现跨owner相同alias仍复用原生OpenClaw session（205项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 5 OpenClaw原生session跨owner隔离：稳定opaque ID派生且仅公开alias（206项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 5最终复审通过：跨owner OpenClaw原生session派生隔离、I1/I2无回归（206项测试通过）
+2026-07-19 | development | integrations/hermes-opportunity-os/dashboard | 完成Task 6两阶段审批、CAS任务控制、字段级脱敏审计与CSRF网页流程（真实OpenClaw仅执行只读合同检查）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6独立审查未通过：发现审批到期、CAS TOCTOU、审计私有文本与审计落盘原子性问题（243项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6修复复审未通过：I1/I2（attestation边界内）/I3/M1/M2已验证，applying崩溃窗口未入outbox且无法恢复（269项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6恢复复审未通过：applying恢复已覆盖但pre-CLI外部同目标写入会被错误归因为Dashboard applied（277项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6审批到期、单写者attestation与任务锁、严格调度验证、durable audit outbox及有界回收（269项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6 applying崩溃恢复：phase持久化、只读reconciliation、indeterminate/manual review与幂等终态补账（277项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6 recovery分类顺序：仅mutation_started且目标匹配可归因applied，pre-CLI外部变更与legacy phase转manual review（280项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6最终复审通过：phase顺序归因与零mutation恢复已验证，I1-I4/M1/M2无回归（280项测试通过）
+2026-07-19 | implement | integrations/hermes-opportunity-os/automation | 完成Task 7固定Hermes节奏、幂等锁与心跳、安全Profile、自我改进约束、AGENTS合规知识库导出及14天私有Bridge（338项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 加固Task 7进程组超时清理、成功态幂等重试、周期心跳、no-follow导出锁、Bridge语义与JSON边界及TTL清理（365项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 完成Task 7监督异常进程组清理、全路径openat边界、flock锁仲裁及Bridge来源缩减与去重防护（400项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 将Task 7 Bridge收敛为逐文件typed additive schema、安全opaque UUID与服务端add-only来源锁策略（398项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 收紧Task 7 Bridge精确字段：entity/experiment ID数组必填非空，并锁定小写专属UUID前缀（409项测试通过）
+2026-07-19 | implement | integrations/hermes-opportunity-os/monitoring | 完成Task 8持久化Incident滞回去重、RestartBudget、receipt驱动投递、安全告警摘要、SSE事故元数据与boot恢复通知（439项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/monitoring | 修复Task 8 transactional incident outbox、delivery claim/lease与receipt对账、boot幂等重试、future clock、URL allowlist、CLI退出码及状态写容量持久性（461项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/monitoring | 加固Task 8 Delivery raw-first校验、receipt索引与TTL同步裁剪、v1/v2迁移及永不静默淘汰的delivered tombstone防重与容量fail-closed（470项测试通过）
+2026-07-19 | implement | integrations/hermes-opportunity-os/dashboard-im | 完成Task 9 owner-only精确Hermes IM路由、持久化二阶段确认、私有pending proposal、typed fake action后端、固定stdin-json CLI与OpenClaw Skill安全边界
+2026-07-19 | refactor | integrations/hermes-opportunity-os | 删除与OpenClaw/Hermes重复的会话、审批、IM、Cron写入、事故恢复与投递实现；改为只读Cron、无状态健康检查、typed领域查询/提案与原生控制链接（284项测试通过）
+2026-07-19 | refactor | integrations/hermes-opportunity-os/automation | Task 7改为OpenClaw唯一调度/失败管理者：Hermes runner仅单次固定Profile/Skill调用、成功周期幂等与安全RunRecord，删除锁、心跳、超时、重试和进程组监督（266项非deployment测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os | 修复原生能力去重复审查问题：原子有界健康marker与新鲜度读取、typed无路径错误、官方Cron只读状态/前端、domain与proposal限额并发安全，并删除conversation/incident残留协议（305项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 加固原生OpenClaw调度下的Hermes单次运行完成证据：周期/run绑定marker、旧产物拒绝、cadence业务验证、固定toolset、安全可执行文件与并发失败保真（整合全量322项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/deployment | 修复原生部署审查：Cron受管marker/同名碰撞fail-closed与mode=none幂等归一，ngrok v3 YAML结构化OAuth owner校验、全mutation前官方config check及loopback状态API（专项40项、全量333项测试通过）

@@ -28,6 +28,7 @@ metadata:
 8. 技术判断分别记录 `known_latest` 与 `recommended_stable`。新版本先进入 Frontier；五项稳定门槛全部通过后才可推荐。
 9. 重要结论必须注明来源日期、观察日期、可能失效条件和 `review_due_at`。
 10. 只通过 opportunity OS MCP 写私人状态；知识库 MCP 只用于检索。
+11. 非交互周期运行只有在保存当期必需业务产物后，才可以最后调用 `complete_cadence`；必须原样传入 prompt 中的 cadence、period_key 和 run_id，`artifact_refs` 不得引用旧产物。
 
 按需读取：
 
@@ -47,4 +48,4 @@ metadata:
 
 ## Verification
 
-完成前调用 `system_status` 并确认：机会卡为 3–5 张；每张有正反证据、失效条件和最小实验；有意外发现；方向未超容量；Frontier 未覆盖 Stable。最后只报告已保存的 Review ID、三行摘要和需要用户决定的下一步。
+完成前调用 `system_status` 并确认：机会卡为 3–5 张；每张有正反证据、失效条件和最小实验；有意外发现；方向未超容量；Frontier 未覆盖 Stable。非交互周期运行再以当期新产物调用 `complete_cadence`。最后只报告已保存的 Review ID、三行摘要和需要用户决定的下一步。

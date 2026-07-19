@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "name": "opportunity-os-daily",
+      "description": "[managed-by:opportunity-os/v1] Daily discovery; OpenClaw owns scheduling, retry, delivery and failure alerts.",
+      "cron": "30 18 * * 1-6",
+      "timezone": "Asia/Shanghai",
+      "message": "Run the installed opportunity-os CLI exactly once with: opportunity-os automation run --home /Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os --cadence daily --period-key <today in Asia/Shanghai as YYYY-MM-DD> --format json. The period key is the only computed argument. Do not retry inside the task. If the exec exits non-zero, fail the Cron task: do not convert the error into a successful summary and do not swallow it. On success, return a concise Chinese summary of fresh signals, stable guidance, contrary evidence, and one unexpected cross-domain finding.",
+      "enabled": true,
+      "session": "isolated",
+      "timeout_seconds": 1800,
+      "delivery": "announce",
+      "delivery_channel": "dingtalk",
+      "delivery_to": "__OPENCLAW_DINGTALK_OWNER__",
+      "failure_alert": {
+        "enabled": true,
+        "after": 2,
+        "cooldown": "1h",
+        "exclude_skipped": true,
+        "channel": "dingtalk",
+        "to": "__OPENCLAW_DINGTALK_OWNER__"
+      }
+    },
+    {
+      "name": "opportunity-os-weekly",
+      "description": "[managed-by:opportunity-os/v1] Weekly review; OpenClaw owns scheduling, retry, delivery and failure alerts.",
+      "cron": "0 19 * * 0",
+      "timezone": "Asia/Shanghai",
+      "message": "Run the installed opportunity-os CLI exactly once with: opportunity-os automation run --home /Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os --cadence weekly --period-key <current ISO week in Asia/Shanghai as YYYY-Www> --format json. The period key is the only computed argument. Do not retry inside the task. If the exec exits non-zero, fail the Cron task: do not convert the error into a successful summary and do not swallow it. On success, return a concise Chinese summary of 3-5 opportunity cards, supporting and contrary evidence, and one low-cost experiment proposal; do not take external action.",
+      "enabled": true,
+      "session": "isolated",
+      "timeout_seconds": 3600,
+      "delivery": "announce",
+      "delivery_channel": "dingtalk",
+      "delivery_to": "__OPENCLAW_DINGTALK_OWNER__",
+      "failure_alert": {
+        "enabled": true,
+        "after": 1,
+        "cooldown": "4h",
+        "exclude_skipped": true,
+        "channel": "dingtalk",
+        "to": "__OPENCLAW_DINGTALK_OWNER__"
+      }
+    },
+    {
+      "name": "opportunity-os-healthcheck",
+      "description": "[managed-by:opportunity-os/v1] Thin aggregate probes; OpenClaw native failure alerts notify IM on non-zero exit.",
+      "cron": "*/10 * * * *",
+      "timezone": "Asia/Shanghai",
+      "message": "Run the installed opportunity-os CLI exactly once with: opportunity-os healthcheck --home /Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os --format json. Do not retry, restart, send messages, or enqueue anything inside the task. If the exec exits non-zero, fail the Cron task: do not convert the error into a successful summary and do not swallow it. Preserve the process exit status so OpenClaw native failure alerts handle notification.",
+      "enabled": true,
+      "session": "isolated",
+      "timeout_seconds": 120,
+      "delivery": "none",
+      "delivery_channel": "dingtalk",
+      "delivery_to": "__OPENCLAW_DINGTALK_OWNER__",
+      "failure_alert": {
+        "enabled": true,
+        "after": 2,
+        "cooldown": "1h",
+        "exclude_skipped": true,
+        "channel": "dingtalk",
+        "to": "__OPENCLAW_DINGTALK_OWNER__"
+      }
+    }
+  ]
+}

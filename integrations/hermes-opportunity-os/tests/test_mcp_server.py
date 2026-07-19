@@ -53,9 +53,33 @@ def test_mcp_server_exposes_all_state_transition_tools(monkeypatch, tmp_path: Pa
     server = load_server(monkeypatch, tmp_path)
 
     for tool_name in (
-        "record_experiment", "set_direction", "get_portfolio", "record_tech_state", "save_review"
+        "record_experiment", "set_direction", "get_portfolio", "record_tech_state", "save_review",
+        "complete_cadence",
     ):
         assert callable(getattr(server, tool_name))
+
+
+def test_complete_cadence_tool_requires_saved_domain_artifact(monkeypatch, tmp_path: Path) -> None:
+    server = load_server(monkeypatch, tmp_path)
+    home = tmp_path / "private"
+    review_id = "daily-review"
+    CadenceCompletionStore = server.CadenceCompletionStore
+    CadenceCompletionStore(home).begin("daily", "2026-07-19", "a" * 32)
+    reviews = home / "reviews"
+    reviews.mkdir(parents=True, exist_ok=True)
+    (reviews / f"{review_id}.json").write_text(
+        json.dumps({"id": review_id, "period": "daily"}), encoding="utf-8"
+    )
+
+    marker = server.complete_cadence(
+        cadence="daily",
+        period_key="2026-07-19",
+        run_id="a" * 32,
+        artifact_refs=[f"review:{review_id}"],
+    )
+
+    assert marker["run_id"] == "a" * 32
+    assert marker["artifact_refs"] == [f"review:{review_id}"]
 
 
 def test_save_opportunity_tool_description_names_evidence_source_tiers() -> None:
