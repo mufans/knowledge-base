@@ -25,6 +25,8 @@ class CommandResult:
     stderr: str
     timed_out: bool
     duration_ms: int
+    stdout_truncated: bool = False
+    stderr_truncated: bool = False
 
 
 class CommandRunner:

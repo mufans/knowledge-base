@@ -14,12 +14,12 @@ from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.conversations import (
+    BoundedCommandRunner,
     ConversationService,
     HermesConversationAdapter,
     OpenClawConversationAdapter,
 )
 from opportunity_os.dashboard.events import EventHub
-from opportunity_os.dashboard.probes import CommandRunner
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.errors import OpportunityOSError, ValidationError
@@ -61,7 +61,7 @@ def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> Dashbo
     read_model = DashboardReadModel(PrivateStateReadRepository(home), probes=())
     sessions = SessionStore(config.dashboard_home)
     event_hub = EventHub(config.dashboard_home / "event-cursor")
-    command_runner = CommandRunner()
+    command_runner = BoundedCommandRunner()
     conversations = ConversationService(
         openclaw=OpenClawConversationAdapter(command_runner),
         hermes=HermesConversationAdapter(command_runner),

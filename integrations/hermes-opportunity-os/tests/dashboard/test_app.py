@@ -239,7 +239,7 @@ def test_sse_honors_last_event_id_and_emits_metadata_only(
     class FiniteHub:
         requested_cursor: str | None = None
 
-        async def subscribe(self, last_event_id: str | None):
+        async def subscribe(self, last_event_id: str | None, *, audience: str | None = None):
             self.requested_cursor = last_event_id
             yield DashboardEvent(
                 id="42",
@@ -527,7 +527,7 @@ def test_browser_uses_proxy_issued_cookie_for_navigation_and_eventsource(
     config: DashboardConfig, sessions: SessionStore
 ) -> None:
     class FiniteHub:
-        async def subscribe(self, last_event_id: str | None):
+        async def subscribe(self, last_event_id: str | None, *, audience: str | None = None):
             yield DashboardEvent(
                 id="1",
                 type="state.invalidated",
@@ -601,8 +601,8 @@ def test_lifecycle_bridge_mutation_emits_safe_sse_then_status_can_be_refetched(
     tmp_path: Path,
 ) -> None:
     class OneShotEventHub(EventHub):
-        async def subscribe(self, last_event_id: str | None):
-            subscription = super().subscribe(last_event_id)
+        async def subscribe(self, last_event_id: str | None, *, audience: str | None = None):
+            subscription = super().subscribe(last_event_id, audience=audience)
             try:
                 yield await anext(subscription)
             finally:
@@ -706,7 +706,7 @@ def test_running_bridge_failure_sends_safe_control_event_then_disconnects(
     class ControlHub(EventHub):
         tailer: EventJournalTailer
 
-        async def subscribe(self, last_event_id: str | None):
+        async def subscribe(self, last_event_id: str | None, *, audience: str | None = None):
             self.tailer.health.set_unavailable("io_failure")
             if False:
                 yield

@@ -244,7 +244,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     @app.get("/api/v1/events")
     def events(
         request: Request,
-        _: Session = Depends(require_session),
+        session: Session = Depends(require_session),
         last_event_id: str | None = Header(default=None, alias="Last-Event-ID"),
     ) -> StreamingResponse:
         cursor = last_event_id or request.query_params.get("last_event_id")
@@ -256,7 +256,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         async def stream():
             active_cursor = cursor
             while True:
-                subscription = event_hub.subscribe(active_cursor)
+                subscription = event_hub.subscribe(active_cursor, audience=session.key)
                 try:
                     while True:
                         if await request.is_disconnected():
@@ -335,12 +335,14 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     )
     def submit_conversation(
         conversation: ConversationRequest,
-        _: Session = Depends(require_csrf_session),
+        session: Session = Depends(require_csrf_session),
     ) -> ConversationAccepted:
         if dependencies.conversation_service is None:
             raise HTTPException(status_code=503, detail="conversation_service_unavailable")
         try:
-            task_id = dependencies.conversation_service.submit(conversation)
+            task_id = dependencies.conversation_service.submit(
+                conversation, owner_id=session.key
+            )
         except ConversationBusyError as error:
             raise HTTPException(
                 status_code=429, detail="conversation_capacity_reached"
@@ -350,12 +352,12 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     @app.get("/api/v1/conversations/{task_id}", response_model=ConversationTask)
     def conversation_task(
         task_id: str,
-        _: Session = Depends(require_session),
+        session: Session = Depends(require_session),
     ) -> ConversationTask:
         if dependencies.conversation_service is None:
             raise HTTPException(status_code=503, detail="conversation_service_unavailable")
         try:
-            return dependencies.conversation_service.get(task_id)
+            return dependencies.conversation_service.get(task_id, owner_id=session.key)
         except KeyError as error:
             raise HTTPException(status_code=404, detail="conversation_task_not_found") from error
 

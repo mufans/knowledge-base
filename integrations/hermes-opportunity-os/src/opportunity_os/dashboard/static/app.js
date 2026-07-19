@@ -91,7 +91,7 @@ export function renderConversations(data = {}, state = "empty") {
   const task = data.conversation_task;
   const result = task?.result;
   const output = result?.final_text
-    ? `<article class="panel" aria-live="polite"><p class="eyebrow">FINAL</p><h2>${safe(task.target)} 最终答复</h2><p class="large-copy">${safe(result.final_text)}</p><small>${safe(result.provider ?? "provider unknown")} · ${safe(result.model ?? "model unknown")} · token ${safe(result.token_status)} · cost ${safe(result.cost_status)}</small></article>`
+    ? `<article class="panel" aria-live="polite"><p class="eyebrow">FINAL</p><h2>${safe(task.target)} 最终答复</h2><p class="large-copy">${safe(result.final_text)}</p><small>${safe(result.provider ?? "provider unknown")} · ${safe(result.model ?? "model unknown")} · token ${safe(result.token_status)} · cost ${safe(result.cost_status)}${result.truncated ? " · output truncated" : ""}</small></article>`
     : task
       ? `<article class="panel" aria-live="polite"><p class="eyebrow">TASK</p><h2>${safe(task.status)}</h2><p>任务 ${safe(task.task_id)} 只流转生命周期元数据。</p></article>`
       : emptyPanel("选择研究入口", "会话正文不会进入 SSE、初始 HTML 或浏览器存储。");

@@ -11,7 +11,7 @@ import tempfile
 import threading
 from collections import deque
 from collections.abc import AsyncIterator, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from types import MappingProxyType
@@ -34,6 +34,7 @@ _CONVERSATION_TASK_ID = re.compile(
     r"^conv_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
 )
 _CONVERSATION_TARGETS = frozenset({"openclaw", "hermes"})
+_AUDIENCE_ID = re.compile(r"^[0-9a-f]{64}$")
 
 
 def _is_component(value: object) -> bool:
@@ -97,6 +98,7 @@ class DashboardEvent:
     type: str
     payload: Mapping[str, str]
     at: datetime
+    audience: str | None = field(default=None, repr=False, compare=False)
 
     def wire_payload(self) -> dict[str, str]:
         return {
@@ -162,6 +164,7 @@ class EventBridgeHealth:
 class _Subscriber:
     queue: asyncio.Queue[DashboardEvent]
     loop: asyncio.AbstractEventLoop
+    audience: str | None
 
 
 class EventHub:
@@ -212,8 +215,25 @@ class EventHub:
             raise ValueError("event payload contains invalid metadata")
         return {key: str(payload[key]) for key in schema}
 
-    def publish(self, event_type: str, payload: Mapping[str, object]) -> DashboardEvent:
+    @staticmethod
+    def _validate_audience(audience: str | None) -> str | None:
+        if audience is not None and _AUDIENCE_ID.fullmatch(audience) is None:
+            raise ValueError("event audience must be an opaque server-side identifier")
+        return audience
+
+    @staticmethod
+    def _visible(event: DashboardEvent, audience: str | None) -> bool:
+        return event.audience is None or event.audience == audience
+
+    def publish(
+        self,
+        event_type: str,
+        payload: Mapping[str, object],
+        *,
+        audience: str | None = None,
+    ) -> DashboardEvent:
         metadata = self._validate(event_type, payload)
+        scoped_audience = self._validate_audience(audience)
         with self._lock:
             self._cursor += 1
             event = DashboardEvent(
@@ -221,6 +241,7 @@ class EventHub:
                 type=event_type,
                 payload=MappingProxyType(metadata),
                 at=datetime.now(timezone.utc),
+                audience=scoped_audience,
             )
             try:
                 self._persist_cursor()
@@ -231,6 +252,8 @@ class EventHub:
             subscribers = tuple(self._subscribers)
 
         for subscriber in subscribers:
+            if not self._visible(event, subscriber.audience):
+                continue
             def enqueue(target: _Subscriber = subscriber) -> None:
                 if target.queue.full():
                     target.queue.get_nowait()
@@ -239,20 +262,40 @@ class EventHub:
             subscriber.loop.call_soon_threadsafe(enqueue)
         return event
 
-    def replay(self, last_event_id: str | None) -> list[DashboardEvent]:
+    def replay(
+        self,
+        last_event_id: str | None,
+        *,
+        audience: str | None = None,
+    ) -> list[DashboardEvent]:
         if last_event_id in (None, ""):
             cursor = 0
         elif last_event_id.isdigit():
             cursor = int(last_event_id)
         else:
             raise ValueError("last_event_id must be a non-negative integer")
+        scoped_audience = self._validate_audience(audience)
         with self._lock:
-            return [event for event in self._events if int(event.id) > cursor]
+            return [
+                event
+                for event in self._events
+                if int(event.id) > cursor and self._visible(event, scoped_audience)
+            ]
 
-    async def subscribe(self, last_event_id: str | None) -> AsyncIterator[DashboardEvent]:
-        subscriber = _Subscriber(asyncio.Queue(maxsize=self._max_events), asyncio.get_running_loop())
+    async def subscribe(
+        self,
+        last_event_id: str | None,
+        *,
+        audience: str | None = None,
+    ) -> AsyncIterator[DashboardEvent]:
+        scoped_audience = self._validate_audience(audience)
+        subscriber = _Subscriber(
+            asyncio.Queue(maxsize=self._max_events),
+            asyncio.get_running_loop(),
+            scoped_audience,
+        )
         with self._lock:
-            replay = self.replay(last_event_id)
+            replay = self.replay(last_event_id, audience=scoped_audience)
             self._subscribers.add(subscriber)
         try:
             for event in replay:

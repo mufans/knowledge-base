@@ -1,21 +1,25 @@
 from __future__ import annotations
 
 import json
+import io
 import subprocess
+import sys
 import threading
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
 
-from opportunity_os.dashboard.app import DashboardDependencies, create_app
+from opportunity_os.dashboard.app import DashboardDependencies, SESSION_COOKIE, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.conversations import (
     MAX_MESSAGE_BYTES,
+    MAX_PROVIDER_OUTPUT_BYTES,
+    BoundedCommandRunner,
     ConversationRequest,
     ConversationBusyError,
     ConversationResult,
@@ -25,8 +29,12 @@ from opportunity_os.dashboard.conversations import (
     normalize_session_id,
 )
 from opportunity_os.dashboard.events import EventHub
-from opportunity_os.dashboard.probes import CommandResult, CommandRunner, OPENCLAW_EXECUTABLE_PATH
+from opportunity_os.dashboard.probes import CommandResult, OPENCLAW_EXECUTABLE_PATH
 from opportunity_os.dashboard.schemas import DashboardSnapshot
+
+
+OWNER_A = "a" * 64
+OWNER_B = "b" * 64
 
 
 @dataclass
@@ -108,13 +116,20 @@ def test_hermes_adapter_uses_exact_quiet_profile_skill_command(fake_runner: Fake
 def test_absolute_openclaw_executable_still_gets_fixed_node_path(monkeypatch) -> None:
     observed: dict[str, object] = {}
 
-    def fake_run(argv, **kwargs):
+    class FakeProcess:
+        stdout = io.BytesIO(b'{"final":"ok"}')
+        stderr = io.BytesIO()
+
+        def wait(self, timeout=None):
+            return 0
+
+    def fake_popen(argv, **kwargs):
         observed.update(argv=argv, **kwargs)
-        return subprocess.CompletedProcess(argv, 0, "{}", "")
+        return FakeProcess()
 
-    monkeypatch.setattr(subprocess, "run", fake_run)
+    monkeypatch.setattr(subprocess, "Popen", fake_popen)
 
-    CommandRunner().run(("/opt/homebrew/bin/openclaw", "agent", "--json"), 1)
+    BoundedCommandRunner().run(("/opt/homebrew/bin/openclaw", "agent", "--json"), 1)
 
     assert observed["shell"] is False
     assert observed["env"]["PATH"] == OPENCLAW_EXECUTABLE_PATH
@@ -188,6 +203,7 @@ def test_openclaw_json_is_parsed_and_final_text_is_sanitized(fake_runner: FakeRu
         "exit_code": 0,
         "duration_ms": 31,
         "error_code": None,
+        "truncated": False,
     }
     assert "stderr" not in payload
     assert "never-return-this" not in repr(result)
@@ -260,10 +276,12 @@ class StubAdapter:
         )
 
 
-def _wait_for_terminal(service: ConversationService, task_id: str):
+def _wait_for_terminal(
+    service: ConversationService, task_id: str, *, owner_id: str = OWNER_A
+):
     deadline = time.monotonic() + 2
     while time.monotonic() < deadline:
-        task = service.get(task_id)
+        task = service.get(task_id, owner_id=owner_id)
         if task.status in {"succeeded", "failed"}:
             return task
         time.sleep(0.01)
@@ -287,20 +305,21 @@ def test_service_streams_metadata_lifecycle_and_persists_only_session_metadata(
     task_id = service.submit(
         ConversationRequest(
             target="hermes", session_id=" Research/Main ", message="private question"
-        )
+        ),
+        owner_id=OWNER_A,
     )
     task = _wait_for_terminal(service, task_id)
 
     assert task.status == "succeeded"
     assert task.result is not None
     assert task.result.final_text == "hermes final"
-    events = hub.replay(None)
+    events = hub.replay(None, audience=OWNER_A)
     assert [(item.type, dict(item.payload)) for item in events] == [
         ("conversation.started", {"task_id": task_id, "target": "hermes"}),
         ("conversation.completed", {"task_id": task_id, "target": "hermes"}),
     ]
     persisted = sessions_path.read_text(encoding="utf-8")
-    assert json.loads(persisted)["sessions"]["research-main"]["provider"] == "fixture-provider"
+    assert json.loads(persisted)["owners"][OWNER_A]["sessions"]["research-main"]["provider"] == "fixture-provider"
     assert "private question" not in persisted
     assert "hermes final" not in persisted
     assert "reasoning" not in persisted.casefold()
@@ -329,12 +348,13 @@ def test_service_failure_event_contains_no_raw_stderr(tmp_path: Path) -> None:
     )
 
     task_id = service.submit(
-        ConversationRequest(target="openclaw", session_id="main", message="status")
+        ConversationRequest(target="openclaw", session_id="main", message="status"),
+        owner_id=OWNER_A,
     )
     task = _wait_for_terminal(service, task_id)
 
     assert task.status == "failed"
-    assert [(item.type, dict(item.payload)) for item in hub.replay(None)] == [
+    assert [(item.type, dict(item.payload)) for item in hub.replay(None, audience=OWNER_A)] == [
         ("conversation.started", {"task_id": task_id, "target": "openclaw"}),
         ("conversation.failed", {"task_id": task_id, "target": "openclaw"}),
     ]
@@ -360,10 +380,10 @@ def test_service_bounds_active_calls_and_rejects_same_session(tmp_path: Path) ->
     )
     request = ConversationRequest(target="hermes", session_id="main", message="status")
 
-    first = service.submit(request)
+    first = service.submit(request, owner_id=OWNER_A)
     assert started.wait(timeout=1)
     with pytest.raises(ConversationBusyError):
-        service.submit(request)
+        service.submit(request, owner_id=OWNER_A)
     release.set()
     assert _wait_for_terminal(service, first).status == "succeeded"
 
@@ -373,7 +393,13 @@ def test_started_event_io_failure_does_not_block_adapter_or_terminal_state(tmp_p
         def __init__(self) -> None:
             self.calls: list[str] = []
 
-        def publish(self, event_type: str, payload: dict[str, str]):
+        def publish(
+            self,
+            event_type: str,
+            payload: dict[str, str],
+            *,
+            audience: str | None = None,
+        ):
             self.calls.append(event_type)
             if event_type == "conversation.started":
                 raise OSError("cursor unavailable")
@@ -388,7 +414,8 @@ def test_started_event_io_failure_does_not_block_adapter_or_terminal_state(tmp_p
     )
 
     task_id = service.submit(
-        ConversationRequest(target="hermes", session_id="main", message="status")
+        ConversationRequest(target="hermes", session_id="main", message="status"),
+        owner_id=OWNER_A,
     )
     task = _wait_for_terminal(service, task_id)
 
@@ -415,12 +442,13 @@ def test_session_metadata_io_failure_does_not_suppress_terminal_event(
     )
 
     task_id = service.submit(
-        ConversationRequest(target="openclaw", session_id="main", message="status")
+        ConversationRequest(target="openclaw", session_id="main", message="status"),
+        owner_id=OWNER_A,
     )
     task = _wait_for_terminal(service, task_id)
 
     assert task.status == "succeeded"
-    assert [item.type for item in hub.replay(None)] == [
+    assert [item.type for item in hub.replay(None, audience=OWNER_A)] == [
         "conversation.started",
         "conversation.completed",
     ]
@@ -439,6 +467,24 @@ class FakeReadModel:
             pending_approvals=0,
             active_incidents=0,
         )
+
+
+def test_service_task_get_is_owner_scoped(tmp_path: Path) -> None:
+    adapter = StubAdapter("openclaw")
+    service = ConversationService(
+        openclaw=adapter,
+        hermes=adapter,
+        event_hub=EventHub(tmp_path / "event-cursor"),
+        sessions_path=tmp_path / "sessions.json",
+    )
+    task_id = service.submit(
+        ConversationRequest(target="openclaw", session_id="shared", message="status"),
+        owner_id=OWNER_A,
+    )
+    assert _wait_for_terminal(service, task_id).status == "succeeded"
+
+    with pytest.raises(KeyError):
+        service.get(task_id, owner_id=OWNER_B)
 
 
 def test_authenticated_api_submits_and_reads_conversation_task(tmp_path: Path) -> None:
@@ -491,7 +537,9 @@ def test_authenticated_api_submits_and_reads_conversation_task(tmp_path: Path) -
 
     assert response.status_code == 202
     task_id = response.json()["task_id"]
-    _wait_for_terminal(service, task_id)
+    owner = sessions.resolve(client.cookies.get(SESSION_COOKIE))
+    assert owner is not None
+    _wait_for_terminal(service, task_id, owner_id=owner.key)
     task_response = client.get(f"/api/v1/conversations/{task_id}")
     assert task_response.status_code == 200
     assert task_response.json()["result"]["final_text"] == "openclaw final"
@@ -538,7 +586,7 @@ def test_api_rejects_oversized_message_before_submission(tmp_path: Path) -> None
 
 def test_api_maps_conversation_capacity_to_429(tmp_path: Path) -> None:
     class BusyService:
-        def submit(self, request: ConversationRequest) -> str:
+        def submit(self, request: ConversationRequest, *, owner_id: str) -> str:
             raise ConversationBusyError("busy")
 
     sessions = SessionStore(tmp_path / "dashboard")
@@ -568,3 +616,264 @@ def test_api_maps_conversation_capacity_to_429(tmp_path: Path) -> None:
 
     assert response.status_code == 429
     assert response.json() == {"detail": "conversation_capacity_reached"}
+
+
+def test_two_authenticated_clients_cannot_read_or_receive_each_others_task(
+    tmp_path: Path,
+) -> None:
+    class FiniteAudienceHub(EventHub):
+        async def subscribe(self, last_event_id: str | None, *, audience: str | None = None):
+            for event in self.replay(last_event_id, audience=audience):
+                yield event
+
+    sessions = SessionStore(tmp_path / "dashboard")
+    hub = FiniteAudienceHub(tmp_path / "event-cursor")
+    adapter = StubAdapter("openclaw")
+    service = ConversationService(
+        openclaw=adapter,
+        hermes=adapter,
+        event_hub=hub,
+        sessions_path=tmp_path / "sessions.json",
+    )
+    app = create_app(
+        DashboardConfig(dashboard_home=tmp_path / "dashboard"),
+        DashboardDependencies(
+            read_model=FakeReadModel(),
+            sessions=sessions,
+            csrf=CsrfGuard(),
+            event_hub=hub,
+            conversation_service=service,
+        ),
+    )
+    victim = TestClient(app, base_url="http://127.0.0.1:8765", client=("127.0.0.1", 51001))
+    attacker = TestClient(app, base_url="http://127.0.0.1:8765", client=("127.0.0.1", 51002))
+    victim_auth = victim.post(
+        "/auth/local/exchange", json={"token": sessions.create_bootstrap()}
+    ).json()
+    attacker_auth = attacker.post(
+        "/auth/local/exchange", json={"token": sessions.create_bootstrap()}
+    ).json()
+
+    submitted = victim.post(
+        "/api/v1/conversations",
+        json={"target": "openclaw", "session_id": "shared", "message": "private"},
+        headers={
+            "origin": "http://127.0.0.1:8765",
+            "x-csrf-token": victim_auth["csrf_token"],
+        },
+    )
+    task_id = submitted.json()["task_id"]
+    attacker_submitted = attacker.post(
+        "/api/v1/conversations",
+        json={"target": "openclaw", "session_id": "shared", "message": "other"},
+        headers={
+            "origin": "http://127.0.0.1:8765",
+            "x-csrf-token": attacker_auth["csrf_token"],
+        },
+    )
+    attacker_task_id = attacker_submitted.json()["task_id"]
+    deadline = time.monotonic() + 2
+    while time.monotonic() < deadline:
+        task_response = victim.get(f"/api/v1/conversations/{task_id}")
+        attacker_task_response = attacker.get(
+            f"/api/v1/conversations/{attacker_task_id}"
+        )
+        if task_response.json()["status"] in {
+            "succeeded",
+            "failed",
+        } and attacker_task_response.json()["status"] in {"succeeded", "failed"}:
+            break
+        time.sleep(0.01)
+
+    victim_events = victim.get("/api/v1/events")
+    attacker_events = attacker.get("/api/v1/events")
+    assert task_id in victim_events.text
+    assert task_id not in attacker_events.text
+    assert attacker_task_id in attacker_events.text
+    assert attacker_task_id not in victim_events.text
+    assert attacker.get(f"/api/v1/conversations/{task_id}").status_code == 404
+    assert victim.get(f"/api/v1/conversations/{attacker_task_id}").status_code == 404
+    assert victim.get(f"/api/v1/conversations/{task_id}").status_code == 200
+    victim_owner = sessions.resolve(victim.cookies.get(SESSION_COOKIE))
+    assert victim_owner is not None
+    assert victim_owner.key not in victim_events.text
+    assert victim_owner.key not in victim.get(f"/api/v1/conversations/{task_id}").text
+
+
+def test_same_session_alias_is_isolated_between_authenticated_owners(tmp_path: Path) -> None:
+    both_started = threading.Event()
+    release = threading.Event()
+    calls: list[str] = []
+    lock = threading.Lock()
+
+    class BlockingAdapter(StubAdapter):
+        def send(self, session_id: str, message: str) -> ConversationResult:
+            with lock:
+                calls.append(session_id)
+                if len(calls) == 2:
+                    both_started.set()
+            assert release.wait(timeout=2)
+            return super().send(session_id, message)
+
+    adapter = BlockingAdapter("hermes")
+    service = ConversationService(
+        openclaw=adapter,
+        hermes=adapter,
+        event_hub=EventHub(tmp_path / "event-cursor"),
+        sessions_path=tmp_path / "sessions.json",
+        max_active_tasks=2,
+    )
+    request = ConversationRequest(target="hermes", session_id="shared", message="status")
+    first = service.submit(request, owner_id=OWNER_A)
+    second = service.submit(request, owner_id=OWNER_B)
+
+    assert both_started.wait(timeout=1)
+    release.set()
+    assert _wait_for_terminal(service, first, owner_id=OWNER_A).status == "succeeded"
+    assert _wait_for_terminal(service, second, owner_id=OWNER_B).status == "succeeded"
+
+
+class ManualClock:
+    def __init__(self) -> None:
+        self.now = datetime(2026, 7, 19, tzinfo=timezone.utc)
+
+    def __call__(self) -> datetime:
+        return self.now
+
+
+def test_completed_tasks_are_bounded_and_expire_without_evicting_active(tmp_path: Path) -> None:
+    clock = ManualClock()
+    started = threading.Event()
+    release = threading.Event()
+
+    class SelectiveAdapter(StubAdapter):
+        def send(self, session_id: str, message: str) -> ConversationResult:
+            if message == "block":
+                started.set()
+                assert release.wait(timeout=2)
+            return super().send(session_id, message)
+
+    adapter = SelectiveAdapter("openclaw")
+    service = ConversationService(
+        openclaw=adapter,
+        hermes=adapter,
+        event_hub=EventHub(tmp_path / "event-cursor"),
+        sessions_path=tmp_path / "sessions.json",
+        max_active_tasks=2,
+        max_completed_tasks=2,
+        completed_ttl=timedelta(minutes=15),
+        clock=clock,
+    )
+    active = service.submit(
+        ConversationRequest(target="openclaw", session_id="active", message="block"),
+        owner_id=OWNER_A,
+    )
+    assert started.wait(timeout=1)
+    completed: list[str] = []
+    for number in range(3):
+        task_id = service.submit(
+            ConversationRequest(
+                target="openclaw", session_id=f"done-{number}", message="status"
+            ),
+            owner_id=OWNER_A,
+        )
+        completed.append(task_id)
+        assert _wait_for_terminal(service, task_id).status == "succeeded"
+        clock.now += timedelta(seconds=1)
+
+    with pytest.raises(KeyError):
+        service.get(completed[0], owner_id=OWNER_A)
+    assert service.get(active, owner_id=OWNER_A).status == "running"
+    assert len([task for task in service.tasks.values() if task.status == "succeeded"]) == 2
+
+    clock.now += timedelta(minutes=16)
+    assert service.get(active, owner_id=OWNER_A).status == "running"
+    assert all(task.status in {"queued", "running"} for task in service.tasks.values())
+    release.set()
+    assert _wait_for_terminal(service, active).status == "succeeded"
+
+
+def test_cleanup_never_evicts_active_task_during_terminal_transition(tmp_path: Path) -> None:
+    started = threading.Event()
+    release = threading.Event()
+
+    class BlockingAdapter(StubAdapter):
+        def send(self, session_id: str, message: str) -> ConversationResult:
+            if message == "block":
+                started.set()
+                assert release.wait(timeout=2)
+            return super().send(session_id, message)
+
+    adapter = BlockingAdapter("openclaw")
+    service = ConversationService(
+        openclaw=adapter,
+        hermes=adapter,
+        event_hub=EventHub(tmp_path / "event-cursor"),
+        sessions_path=tmp_path / "sessions.json",
+        max_completed_tasks=1,
+    )
+    old = service.submit(
+        ConversationRequest(target="openclaw", session_id="old", message="done"),
+        owner_id=OWNER_A,
+    )
+    assert _wait_for_terminal(service, old).status == "succeeded"
+    active = service.submit(
+        ConversationRequest(target="openclaw", session_id="active", message="block"),
+        owner_id=OWNER_A,
+    )
+    assert started.wait(timeout=1)
+
+    with service._lock:
+        service._tasks[active] = service._tasks[active].model_copy(
+            update={"status": "succeeded", "updated_at": datetime.now(timezone.utc)}
+        )
+    try:
+        assert active in service.tasks
+    finally:
+        release.set()
+
+
+def test_provider_output_is_utf8_safely_bounded_and_marked_truncated(
+    fake_runner: FakeRunner,
+) -> None:
+    fake_runner.result = CommandResult(
+        exit_code=0,
+        stdout="界" * MAX_PROVIDER_OUTPUT_BYTES,
+        stderr="",
+        timed_out=False,
+        duration_ms=2,
+    )
+
+    result = HermesConversationAdapter(fake_runner).send("main", "status")
+
+    assert len(result.final_text.encode("utf-8")) <= MAX_PROVIDER_OUTPUT_BYTES
+    assert result.final_text.encode("utf-8").decode("utf-8") == result.final_text
+    assert result.truncated is True
+
+
+def test_bounded_runner_never_accumulates_more_than_output_limit() -> None:
+    runner = BoundedCommandRunner(max_output_bytes=257)
+
+    result = runner.run(
+        (sys.executable, "-c", "print('界' * 10000, end='')"),
+        timeout=5,
+    )
+
+    assert result.exit_code == 0
+    assert len(result.stdout.encode("utf-8")) <= 257
+    assert result.stdout_truncated is True
+
+
+def test_bounded_runner_timeout_kills_children_that_inherit_output_pipes() -> None:
+    runner = BoundedCommandRunner(max_output_bytes=257)
+    script = (
+        "import subprocess,sys,time;"
+        "subprocess.Popen([sys.executable,'-c','import time;time.sleep(2)']);"
+        "time.sleep(2)"
+    )
+    started = time.monotonic()
+
+    result = runner.run((sys.executable, "-c", script), timeout=0.1)
+
+    assert result.timed_out is True
+    assert time.monotonic() - started < 1.5

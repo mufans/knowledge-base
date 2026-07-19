@@ -72,6 +72,29 @@ def test_subscribe_replays_then_delivers_new_metadata(event_hub: EventHub) -> No
     assert asyncio.run(receive()) == [first.id, "2"]
 
 
+def test_owner_scoped_events_are_not_visible_to_other_audiences(event_hub: EventHub) -> None:
+    owner_a = "a" * 64
+    owner_b = "b" * 64
+    private = event_hub.publish(
+        "conversation.started",
+        {
+            "task_id": "conv_123e4567-e89b-12d3-a456-426614174000",
+            "target": "hermes",
+        },
+        audience=owner_a,
+    )
+    public = event_hub.publish("state.invalidated", {"scope": "private_state"})
+
+    assert [event.id for event in event_hub.replay(None, audience=owner_a)] == [
+        private.id,
+        public.id,
+    ]
+    assert [event.id for event in event_hub.replay(None, audience=owner_b)] == [public.id]
+    assert [event.id for event in event_hub.replay(None)] == [public.id]
+    assert "audience" not in private.wire_payload()
+    assert owner_a not in event_hub.cursor_path.read_text(encoding="utf-8")
+
+
 @pytest.mark.parametrize(
     ("event_type", "payload"),
     [
