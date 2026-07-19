@@ -101,3 +101,5 @@
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 收紧Task 5 exact OpenClaw可执行文件、Provider调用并发上限、调用前边界与任务I/O终态保障（196项测试通过）
 2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 5独立审查：发现跨认证会话结果泄漏与已完成任务无界内存保留（64项聚焦测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 5跨认证任务与SSE隔离、已完成任务TTL/数量回收及64KiB Provider输出边界（205项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 5修复复审：I1/I2已解决；发现跨owner相同alias仍复用原生OpenClaw session（205项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 5 OpenClaw原生session跨owner隔离：稳定opaque ID派生且仅公开alias（206项测试通过）

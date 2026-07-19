@@ -685,6 +685,11 @@ def test_two_authenticated_clients_cannot_read_or_receive_each_others_task(
             break
         time.sleep(0.01)
 
+    assert task_response.json()["result"]["session_id"] == "shared"
+    assert attacker_task_response.json()["result"]["session_id"] == "shared"
+    native_session_ids = {session_id for session_id, _message in adapter.calls}
+    assert len(native_session_ids) == 2
+    assert "shared" not in native_session_ids
     victim_events = victim.get("/api/v1/events")
     attacker_events = attacker.get("/api/v1/events")
     assert task_id in victim_events.text
@@ -731,6 +736,84 @@ def test_same_session_alias_is_isolated_between_authenticated_owners(tmp_path: P
     release.set()
     assert _wait_for_terminal(service, first, owner_id=OWNER_A).status == "succeeded"
     assert _wait_for_terminal(service, second, owner_id=OWNER_B).status == "succeeded"
+
+
+def test_openclaw_native_session_is_opaque_owner_scoped_and_never_public(
+    tmp_path: Path,
+) -> None:
+    both_started = threading.Event()
+    release = threading.Event()
+    calls: list[tuple[tuple[str, ...], float]] = []
+    lock = threading.Lock()
+
+    class BlockingRunner:
+        def run(self, argv: tuple[str, ...], timeout: float) -> CommandResult:
+            with lock:
+                calls.append((argv, timeout))
+                if len(calls) == 2:
+                    both_started.set()
+            assert release.wait(timeout=2)
+            return CommandResult(
+                exit_code=0,
+                stdout='{"final":"ok"}',
+                stderr="",
+                timed_out=False,
+                duration_ms=7,
+            )
+
+    sessions_path = tmp_path / "sessions.json"
+    service = ConversationService(
+        openclaw=OpenClawConversationAdapter(BlockingRunner()),
+        hermes=StubAdapter("hermes"),
+        event_hub=EventHub(tmp_path / "event-cursor"),
+        sessions_path=sessions_path,
+        max_active_tasks=2,
+    )
+    first = service.submit(
+        ConversationRequest(target="openclaw", session_id="shared", message="owner-a"),
+        owner_id=OWNER_A,
+    )
+    second = service.submit(
+        ConversationRequest(target="openclaw", session_id="shared", message="owner-b"),
+        owner_id=OWNER_B,
+    )
+
+    assert both_started.wait(timeout=1)
+    release.set()
+    first_task = _wait_for_terminal(service, first, owner_id=OWNER_A)
+    second_task = _wait_for_terminal(service, second, owner_id=OWNER_B)
+    third = service.submit(
+        ConversationRequest(
+            target="openclaw", session_id="shared", message="owner-a-again"
+        ),
+        owner_id=OWNER_A,
+    )
+    third_task = _wait_for_terminal(service, third, owner_id=OWNER_A)
+
+    native_by_message = {argv[5]: argv[3] for argv, _timeout in calls}
+    owner_a_native = native_by_message["owner-a"]
+    owner_b_native = native_by_message["owner-b"]
+    assert owner_a_native != owner_b_native
+    assert native_by_message["owner-a-again"] == owner_a_native
+    for native_id in (owner_a_native, owner_b_native):
+        assert native_id.startswith("oppos-")
+        assert len(native_id) == 64
+        assert native_id != "shared"
+        assert OWNER_A not in native_id
+        assert OWNER_B not in native_id
+        int(native_id.removeprefix("oppos-"), 16)
+
+    for task in (first_task, second_task, third_task):
+        assert task.session_id == "shared"
+        assert task.result is not None
+        assert task.result.session_id == "shared"
+        serialized = task.model_dump_json()
+        assert owner_a_native not in serialized
+        assert owner_b_native not in serialized
+    persisted = sessions_path.read_text(encoding="utf-8")
+    assert '"shared"' in persisted
+    assert owner_a_native not in persisted
+    assert owner_b_native not in persisted
 
 
 class ManualClock:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -35,6 +36,7 @@ DEFAULT_MAX_ACTIVE_TASKS = 2
 MAX_PROVIDER_OUTPUT_BYTES = 64 * 1_024
 DEFAULT_MAX_COMPLETED_TASKS = 100
 DEFAULT_COMPLETED_TASK_TTL = timedelta(minutes=15)
+OPENCLAW_NATIVE_SESSION_PREFIX = "oppos-"
 _SESSION_UNSAFE = re.compile(r"[^a-z0-9._-]+")
 _SAFE_RUNTIME_LABEL = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$")
 _OWNER_ID = re.compile(r"^[0-9a-f]{64}$")
@@ -173,6 +175,20 @@ def normalize_session_id(value: str) -> str:
     if not normalized:
         raise ValueError("session_id must contain an ASCII letter or number")
     return normalized
+
+
+def _openclaw_native_session_id(owner_id: str, public_session_id: str) -> str:
+    """Derive a stable owner-scoped ID without exposing owner or public alias."""
+    owner = _validate_owner_id(owner_id)
+    alias = normalize_session_id(public_session_id)
+    digest = hashlib.sha256(
+        b"opportunity-os/openclaw-session/v1\0"
+        + owner.encode("ascii")
+        + b"\0"
+        + alias.encode("ascii")
+    ).hexdigest()
+    digest_length = MAX_SESSION_ID_LENGTH - len(OPENCLAW_NATIVE_SESSION_PREFIX)
+    return OPENCLAW_NATIVE_SESSION_PREFIX + digest[:digest_length]
 
 
 def _validate_message(message: str) -> str:
@@ -597,7 +613,14 @@ class ConversationService:
                 audience=owner_id,
             )
             try:
-                result = self._adapters[request.target].send(request.session_id, request.message)
+                adapter_session_id = (
+                    _openclaw_native_session_id(owner_id, request.session_id)
+                    if request.target == "openclaw"
+                    else request.session_id
+                )
+                result = self._adapters[request.target].send(
+                    adapter_session_id, request.message
+                ).model_copy(update={"session_id": request.session_id})
             except Exception:
                 result = ConversationResult(
                     session_id=request.session_id,
