@@ -90,3 +90,5 @@
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-技术动态.md | 创建entities/Google-Genkit-Agents-API.md（自评7.80）
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-新闻热点.md + raw/inbox/2026-07-19-GitHub项目.md | 创建sources/ServiceTitan-AI-Migration-Practice.md（自评8.00）、entities/superpowers.md（自评8.00）
 - 2026-07-19 | update | - | 修复index.md：补充Headroom/ChatGPT-Work/Pi-Agent-Toolkit/Multi-Agent-Collaboration-Survey/RAG-Evaluation-Practical/MentalThink到对应目录索引
+
+2026-07-19 | 周度成长报告 | reports/weekly-growth-2026-07-19.md | 代码0提交、新增wiki~7页、采集6篇。重点：OpenClaw审计+Hermes评估+知识库Lint审查。下周聚焦：知识库索引优化+SI进展+深度对比
