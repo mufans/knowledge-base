@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-19 11:08:10
-// Total articles: 219
-// Updated files this run: 0
+// Generated: 2026-07-19 11:13:26
+// Total articles: 221
+// Updated files this run: 1
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -872,6 +872,21 @@ window.__kb_articles = [
     "url": "wiki/sources/Ello-Low-Latency-Agent"
   },
   {
+    "title": "Gemini Managed Agents — 后台任务与远程MCP",
+    "category": "sources",
+    "tags": [
+      "Gemini",
+      "Managed-Agents",
+      "MCP",
+      "Background-Execution",
+      "Google-AI"
+    ],
+    "rating": 9.0,
+    "description": "tags: #Gemini #Managed-Agents #MCP #Background-Execution #Google-DeepMind",
+    "date": "2026-07-19",
+    "url": "wiki/sources/Gemini-Managed-Agents"
+  },
+  {
     "title": "Gemma 移动端 LLM 教程",
     "category": "sources",
     "tags": [
@@ -1575,6 +1590,20 @@ window.__kb_articles = [
     "description": "Kora AI 原生操作系统层设计",
     "date": "2026-05-03",
     "url": "wiki/entities/Kora-AI-Native-OS"
+  },
+  {
+    "title": "LangGraph",
+    "category": "entities",
+    "tags": [
+      "LangChain",
+      "Agent-Orchestration",
+      "Graph",
+      "Stateful-Agents"
+    ],
+    "rating": 8.5,
+    "description": "tags: #LangGraph #Agent-Orchestration #Stateful-Agents #LangChain #Durable-Execution",
+    "date": "2026-07-19",
+    "url": "wiki/entities/LangGraph"
   },
   {
     "title": "MetaGPT",
