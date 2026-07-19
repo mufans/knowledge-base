@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-10 22:31:16
+// Generated: 2026-07-19 10:53:26
 // Total articles: 213
-// Updated files this run: 0
+// Updated files this run: 52
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -50,21 +50,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/AI-Memory-Systems"
   },
   {
-    "title": "Claude Agent Harness设计模式",
-    "category": "concepts",
-    "tags": [
-      "Claude",
-      "Agent-Harness",
-      "Design-Pattern",
-      "AI-Engineering",
-      "Prompt-Engineering"
-    ],
-    "rating": 9.5,
-    "description": "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界",
-    "date": "2026-05-26",
-    "url": "wiki/concepts/Claude-Agent-Harness-Patterns"
-  },
-  {
     "title": "Anthropic Agent API 新能力",
     "category": "entities",
     "tags": [
@@ -94,37 +79,6 @@ window.__kb_articles = [
     "url": "wiki/entities/Claude-Code-Source-Analysis"
   },
   {
-    "title": "Claude Cowork：企业级AI协作平台",
-    "category": "entities",
-    "tags": [
-      "Claude",
-      "Cowork",
-      "Enterprise-AI",
-      "Plugins",
-      "Agent-Platform",
-      "Sales-Automation"
-    ],
-    "rating": 9.5,
-    "description": "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户",
-    "date": "2026-05-24",
-    "url": "wiki/entities/Claude-Cowork"
-  },
-  {
-    "title": "ExecuTorch: Meta端侧AI推理框架",
-    "category": "entities",
-    "tags": [
-      "ExecuTorch",
-      "PyTorch",
-      "OnDevice-AI",
-      "Mobile-Inference",
-      "Edge-AI"
-    ],
-    "rating": 9.5,
-    "description": "Meta的ExecuTorch框架，支持在移动端、嵌入式和边缘设备上高效运行PyTorch模型",
-    "date": "2026-05-19",
-    "url": "wiki/entities/ExecuTorch"
-  },
-  {
     "title": "LLM Wiki",
     "category": "entities",
     "tags": [
@@ -138,19 +92,19 @@ window.__kb_articles = [
     "url": "wiki/entities/llm_wiki"
   },
   {
-    "title": "Agent工作流模式：顺序/并行/评估优化",
+    "title": "Claude Agent Harness设计模式",
     "category": "concepts",
     "tags": [
-      "Agent-Workflow",
-      "Orchestration",
-      "Sequential",
-      "Parallel",
-      "Evaluator-Optimizer"
+      "Claude",
+      "Agent-Harness",
+      "Design-Pattern",
+      "AI-Engineering",
+      "Prompt-Engineering"
     ],
     "rating": 9.0,
-    "description": "Anthropic总结的三大Agent工作流模式（顺序、并行、评估-优化），覆盖生产环境90%以上的多Agent编排场景",
-    "date": "2026-05-23",
-    "url": "wiki/concepts/Agent-Workflow-Patterns"
+    "description": "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界",
+    "date": "2026-05-26",
+    "url": "wiki/concepts/Claude-Agent-Harness-Patterns"
   },
   {
     "title": "Claude Ecosystem Tools",
@@ -166,21 +120,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/Claude-Ecosystem-Tools"
   },
   {
-    "title": "CoHyDE：LLM Agent工具检索的迭代协同训练",
-    "category": "concepts",
-    "tags": [
-      "Tool-Retrieval",
-      "LLM-Agent",
-      "Co-Training",
-      "Dense-Encoding",
-      "HyDE"
-    ],
-    "rating": 9.0,
-    "description": "CoHyDE通过LLM Rewriter与Dense Encoder的迭代协同训练，解决大规模API目录下Agent工具检索瓶颈",
-    "date": "2026-05-31",
-    "url": "wiki/concepts/CoHyDE-Tool-Retrieval"
-  },
-  {
     "title": "Context Window 优化：AI Coding Agent 的核心效率问题",
     "category": "concepts",
     "tags": [
@@ -192,36 +131,6 @@ window.__kb_articles = [
     "description": "AI Coding Agent 的上下文窗口优化策略，核心效率问题深度解析",
     "date": "2026-04-26",
     "url": "wiki/concepts/Context-Window-Optimization"
-  },
-  {
-    "title": "EfficientAgent：分层任务分解加速LLM推理",
-    "category": "concepts",
-    "tags": [
-      "EfficientAgent",
-      "Task-Decomposition",
-      "LLM-Inference",
-      "Agent-Efficiency",
-      "Hierarchical-Planning"
-    ],
-    "rating": 9.0,
-    "description": "通过分层任务分解策略降低LLM Agent在复杂推理任务中的计算开销，实现推理加速",
-    "date": "2026-05-21",
-    "url": "wiki/concepts/EfficientAgent"
-  },
-  {
-    "title": "Jet-Long：动态双焦点RoPE长上下文扩展",
-    "category": "concepts",
-    "tags": [
-      "Long-Context",
-      "RoPE",
-      "Position-Encoding",
-      "LLM",
-      "Context-Extension"
-    ],
-    "rating": 9.0,
-    "description": "Jet-Long引入Dynamic Bifocal RoPE机制，通过双焦点位置编码实现低成本的LLM长上下文扩展，对Agent长记忆场景有重要价值",
-    "date": "2026-07-10",
-    "url": "wiki/concepts/Jet-Long-Dynamic-RoPE"
   },
   {
     "title": "Loop Engineering",
@@ -238,51 +147,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/Loop-Engineering"
   },
   {
-    "title": "MMG2Skill — 从互联网指南蒸馏为Agent自我进化技能",
-    "category": "concepts",
-    "tags": [
-      "skill-distillation",
-      "self-evolving",
-      "VLM-agent",
-      "guide-to-skill",
-      "closed-loop"
-    ],
-    "rating": 9.0,
-    "description": "Guide-to-Skill Learning范式，从互联网指南自动蒸馏Agent可执行技能，闭环框架+根因反馈持续进化",
-    "date": "2026-06-04",
-    "url": "wiki/concepts/MMG2Skill"
-  },
-  {
-    "title": "Maestro：RL驱动的层级Agent编排",
-    "category": "concepts",
-    "tags": [
-      "Multi-Agent",
-      "RL-Orchestration",
-      "Hierarchical-Agent",
-      "Model-Ensemble",
-      "Agent-Architecture"
-    ],
-    "rating": 9.0,
-    "description": "用强化学习自动编排多模型多技能的层级Agent架构，解决复杂Agent系统的编排策略问题",
-    "date": "2026-05-22",
-    "url": "wiki/concepts/Maestro-Agent-Orchestration"
-  },
-  {
-    "title": "MemTrain — 自监督上下文记忆训练",
-    "category": "concepts",
-    "tags": [
-      "Agent-memory",
-      "self-supervised",
-      "GRPO",
-      "long-horizon-Agent",
-      "context-memory"
-    ],
-    "rating": 9.0,
-    "description": "自监督训练框架增强LLM Agent上下文记忆能力，双代理任务+GRPO联合优化，提升高达17.67个点",
-    "date": "2026-06-04",
-    "url": "wiki/concepts/MemTrain"
-  },
-  {
     "title": "Multi-Agent系统设计：何时与如何使用",
     "category": "concepts",
     "tags": [
@@ -295,21 +159,6 @@ window.__kb_articles = [
     "description": "Anthropic官方总结的多Agent系统设计指南：三种真正需要多Agent的场景（上下文隔离、并行化、专业化），以及context-centric分解原则",
     "date": "2026-05-18",
     "url": "wiki/concepts/Multi-Agent-Systems-Design"
-  },
-  {
-    "title": "Self-Evolving Agent：自进化智能体范式",
-    "category": "concepts",
-    "tags": [
-      "Self-Evolution",
-      "Agent-Architecture",
-      "Prompt-Optimization",
-      "Skill-Learning",
-      "RL"
-    ],
-    "rating": 9.0,
-    "description": "Agent通过自引用优化循环，自主扩展技能集、优化自身prompt、发现新算法的范式，代表Agent从静态工具到持续进化系统的转变",
-    "date": "2026-06-06",
-    "url": "wiki/concepts/Self-Evolving-Agent"
   },
   {
     "title": "ThunderKittens GPU DSL",
@@ -338,139 +187,35 @@ window.__kb_articles = [
     "url": "wiki/concepts/andrej-karpathy-skills"
   },
   {
-    "title": "4B参数Coding Agent：小模型+架构突破",
+    "title": "Claude Cowork：企业级AI协作平台",
     "category": "entities",
     "tags": [
-      "Coding-Agent",
-      "Small-Model",
-      "Agent-Architecture",
+      "Claude",
+      "Cowork",
+      "Enterprise-AI",
+      "Plugins",
+      "Agent-Platform",
+      "Sales-Automation"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户",
+    "date": "2026-05-24",
+    "url": "wiki/entities/Claude-Cowork"
+  },
+  {
+    "title": "ExecuTorch: Meta端侧AI推理框架",
+    "category": "entities",
+    "tags": [
+      "ExecuTorch",
+      "PyTorch",
       "OnDevice-AI",
-      "Benchmark"
-    ],
-    "rating": 9.0,
-    "description": "4B参数模型通过优秀的Agent架构设计，在编码基准测试中达到87%成绩，证明架构创新>暴力参数",
-    "date": "2026-05-19",
-    "url": "wiki/entities/4B-Coding-Agent"
-  },
-  {
-    "title": "Android CLI：谷歌让Android工具链适配AI Agent",
-    "category": "entities",
-    "tags": [
-      "Android",
-      "CLI",
-      "AI-Agent",
-      "Google",
-      "Mobile-Dev"
-    ],
-    "rating": 9.0,
-    "description": "谷歌推出全新Android CLI工具，让AI Agent能更高效地使用Android工具链，构建速度提升3倍",
-    "date": "2026-05-26",
-    "url": "wiki/entities/Android-CLI-AI-Agent"
-  },
-  {
-    "title": "BraveGuard — Computer-Use Agent自适应安全防护框架",
-    "category": "entities",
-    "tags": [
-      "Agent-security",
-      "guard-model",
-      "computer-use",
-      "trajectory-safety",
-      "adaptive-defense"
-    ],
-    "rating": 9.0,
-    "description": "自进化防御框架，从开放世界威胁信号训练Guard模型，AgentHazard准确率从38.79%提升至82.38%",
-    "date": "2026-06-04",
-    "url": "wiki/entities/BraveGuard"
-  },
-  {
-    "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
-    "category": "entities",
-    "tags": [
-      "Rust",
-      "CUDA",
-      "GPU-Computing",
-      "Nvidia",
+      "Mobile-Inference",
       "Edge-AI"
     ],
     "rating": 9.0,
-    "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
-    "date": "2026-05-12",
-    "url": "wiki/entities/CUDA-oxide"
-  },
-  {
-    "title": "ChatGPT Work：跨应用Agent平台",
-    "category": "entities",
-    "tags": [
-      "Agent-Platform",
-      "GPT",
-      "OpenAI",
-      "Auto-Agent",
-      "Workflow"
-    ],
-    "rating": 9.0,
-    "description": "ChatGPT Work是OpenAI发布的跨应用Agent平台，在sheets/slides/docs间执行任务，支持长期规划和后台调度，内置Codex技术",
-    "date": "2026-07-10",
-    "url": "wiki/entities/ChatGPT-Work"
-  },
-  {
-    "title": "Colibri：纯C MoE推理引擎",
-    "category": "entities",
-    "tags": [
-      "MoE",
-      "C",
-      "推理引擎",
-      "端侧AI",
-      "GLM"
-    ],
-    "rating": 9.0,
-    "description": "Colibri是一个纯C实现、零依赖的MoE推理引擎，可在25GB内存消费级机器上运行744B参数的GLM 5.2模型",
-    "date": "2026-07-10",
-    "url": "wiki/entities/Colibri"
-  },
-  {
-    "title": "ECC：Agent Harness性能优化系统",
-    "category": "entities",
-    "tags": [
-      "Agent-Harness",
-      "Claude-Code",
-      "Performance",
-      "Skills",
-      "Memory"
-    ],
-    "rating": 9.0,
-    "description": "190k stars的Agent开发全栈优化框架，提供Skills、Instincts、Memory、Security模块化能力，支持Claude Code/Codex/Opencode/Cursor等多平台",
-    "date": "2026-05-25",
-    "url": "wiki/entities/ECC"
-  },
-  {
-    "title": "EdgeAgent：轻量级端侧AI Agent",
-    "category": "entities",
-    "tags": [
-      "EdgeAgent",
-      "OnDevice-AI",
-      "Mobile-Agent",
-      "Lightweight-LLM",
-      "Edge-Computing"
-    ],
-    "rating": 9.0,
-    "description": "面向移动计算的轻量级端侧AI Agent框架，解决移动设备上LLM Agent的部署和推理效率问题",
-    "date": "2026-05-21",
-    "url": "wiki/entities/EdgeAgent"
-  },
-  {
-    "title": "EdgeDox - Android 离线文档 AI",
-    "category": "entities",
-    "tags": [
-      "Android",
-      "OnDevice-AI",
-      "LLM",
-      "Qwen",
-      "Offline"
-    ],
-    "rating": 9.0,
-    "description": "在 Android 上使用 Qwen3.5-0.8B 的离线文档 AI，完全本地运行",
-    "date": "2026-05-17",
-    "url": "wiki/entities/EdgeDox"
+    "description": "Meta的ExecuTorch框架，支持在移动端、嵌入式和边缘设备上高效运行PyTorch模型",
+    "date": "2026-05-19",
+    "url": "wiki/entities/ExecuTorch"
   },
   {
     "title": "Hermes Agent 深度分析报告",
@@ -486,143 +231,6 @@ window.__kb_articles = [
     "url": "wiki/entities/Hermes-Agent"
   },
   {
-    "title": "IndusAgent：工业异常检测Agent",
-    "category": "entities",
-    "tags": [
-      "IndusAgent",
-      "Anomaly-Detection",
-      "Industrial-AI",
-      "Agent-Tool-Calling",
-      "MLLM"
-    ],
-    "rating": 9.0,
-    "description": "将多模态大语言模型（MLLM）与Agent工具调用结合，实现开放词汇工业异常检测",
-    "date": "2026-05-22",
-    "url": "wiki/entities/IndusAgent"
-  },
-  {
-    "title": "LLaMA Factory: 统一高效微调框架",
-    "category": "entities",
-    "tags": [
-      "fine-tuning",
-      "LLM",
-      "LoRA",
-      "transformers",
-      "PEFT",
-      "RLHF",
-      "QLoRA"
-    ],
-    "rating": 9.0,
-    "description": "支持100+LLM/VLM的统一微调框架，集成LoRA/QLoRA/RLHF，ACL 2024论文发表",
-    "date": "2026-05-11",
-    "url": "wiki/entities/LlamaFactory"
-  },
-  {
-    "title": "MCP隧道：私有Agent安全访问内部系统",
-    "category": "entities",
-    "tags": [
-      "MCP",
-      "Tunnel",
-      "Enterprise-AI",
-      "Security",
-      "Anthropic"
-    ],
-    "rating": 9.0,
-    "description": "Anthropic推出的MCP隧道功能，允许托管Agent通过加密出站连接访问私有MCP服务器，无需开放公网入站端口",
-    "date": "2026-05-23",
-    "url": "wiki/entities/MCP-Tunnel"
-  },
-  {
-    "title": "MobileVLN：端侧视觉语言导航训练",
-    "category": "entities",
-    "tags": [
-      "MobileVLN",
-      "OnDevice-AI",
-      "Vision-Language-Navigation",
-      "Edge-Training",
-      "VLN"
-    ],
-    "rating": 9.0,
-    "description": "在移动设备上实现Vision-Language Navigation的端侧训练方法，突破传统云端训练依赖",
-    "date": "2026-05-21",
-    "url": "wiki/entities/MobileVLN"
-  },
-  {
-    "title": "NavixMind: 开源Android Agent框架",
-    "category": "entities",
-    "tags": [
-      "Android-Agent",
-      "OnDevice-AI",
-      "Python",
-      "Mobile-Agent",
-      "OpenSource"
-    ],
-    "rating": 9.0,
-    "description": "开源Android Agent框架，支持在设备本地运行Python代码，移动端Agent的探索性项目",
-    "date": "2026-05-19",
-    "url": "wiki/entities/NavixMind"
-  },
-  {
-    "title": "Needle: 26M参数端侧工具调用模型",
-    "category": "entities",
-    "tags": [
-      "Tool-Calling",
-      "On-Device-AI",
-      "Model-Distillation",
-      "Edge-AI",
-      "Mobile-AI"
-    ],
-    "rating": 9.0,
-    "description": "将Gemini工具调用能力蒸馏到26M参数的微型模型，为端侧AI Agent提供本地工具调用能力",
-    "date": "2026-05-15",
-    "url": "wiki/entities/Needle"
-  },
-  {
-    "title": "OpenHands: AI驱动的开发平台",
-    "category": "entities",
-    "tags": [
-      "OpenHands",
-      "AI-Agent",
-      "Coding-Agent",
-      "Developer-Tools",
-      "CLI"
-    ],
-    "rating": 9.0,
-    "description": "AI驱动的软件开发平台，通过自然语言完成编码、调试、测试全流程，高度可扩展的代理架构",
-    "date": "2026-05-11",
-    "url": "wiki/entities/OpenHands"
-  },
-  {
-    "title": "Project Glasswing：AI驱动的软件安全漏洞发现",
-    "category": "entities",
-    "tags": [
-      "Security",
-      "Vulnerability-Discovery",
-      "Anthropic",
-      "Mythos",
-      "AI-Safety"
-    ],
-    "rating": 9.0,
-    "description": "Anthropic的Project Glasswing使用Mythos Preview模型，一个月内发现超过1万个高/严重级别漏洞，AI安全能力质的飞跃",
-    "date": "2026-05-23",
-    "url": "wiki/entities/Project-Glasswing"
-  },
-  {
-    "title": "Reasonix: 极致缓存优化的终端AI编码Agent",
-    "category": "entities",
-    "tags": [
-      "DeepSeek",
-      "Caching",
-      "Token-Optimization",
-      "Coding-Agent",
-      "CLI"
-    ],
-    "rating": 9.0,
-    "description": "开源终端AI编码Agent,通过极致缓存策略将长会话Token成本降低80%,基于DeepSeek模型",
-    "date": "2026-05-11",
-    "url": "wiki/entities/Reasonix"
-  },
-  {
     "title": "SmartPerfetto",
     "category": "entities",
     "tags": [
@@ -636,21 +244,6 @@ window.__kb_articles = [
     "url": "wiki/entities/SmartPerfetto"
   },
   {
-    "title": "UI-KOBE：轻量级知识引导GUI Agent",
-    "category": "entities",
-    "tags": [
-      "GUI-Agent",
-      "Knowledge-Guided",
-      "Mobile-AI",
-      "Graph-Guided",
-      "Lightweight"
-    ],
-    "rating": 9.0,
-    "description": "UI-KOBE通过知识导向的行为探索和轻量级图引导机制，降低移动端GUI Agent的推理成本",
-    "date": "2026-05-31",
-    "url": "wiki/entities/UI-KOBE-GUI-Agent"
-  },
-  {
     "title": "Warp Terminal 源码深度分析",
     "category": "entities",
     "tags": [
@@ -662,22 +255,6 @@ window.__kb_articles = [
     "description": "Warp Terminal 源码深度分析，现代终端设计",
     "date": "2026-04-29",
     "url": "wiki/entities/Warp-Terminal-Analysis"
-  },
-  {
-    "title": "AI Engineering Hub: LLM/RAG/Agent实战教程集",
-    "category": "entities",
-    "tags": [
-      "LLM",
-      "RAG",
-      "AI-Agents",
-      "MCP",
-      "Machine-Learning",
-      "Tutorial"
-    ],
-    "rating": 9.0,
-    "description": "面向LLM/RAG/AI Agent的实战教程合集，Jupyter Notebook形式，涵盖MCP、DeepSeek微调等前沿技术",
-    "date": "2026-05-11",
-    "url": "wiki/entities/ai-engineering-hub"
   },
   {
     "title": "Claude-Mem 深度分析报告",
@@ -707,82 +284,6 @@ window.__kb_articles = [
     "url": "wiki/entities/everything-claude-code"
   },
   {
-    "title": "learn-claude-code：从零构建Agent Harness",
-    "category": "entities",
-    "tags": [
-      "Agent-Harness",
-      "Bash",
-      "Education",
-      "Architecture",
-      "Claude-Code"
-    ],
-    "rating": 9.0,
-    "description": "62k stars教学项目，用纯Bash从零实现一个类Claude Code的Agent Harness，深入理解Agent架构底层原理",
-    "date": "2026-05-25",
-    "url": "wiki/entities/learn-claude-code"
-  },
-  {
-    "title": "multi-llm-mcp — 多LLM调用的MCP工具",
-    "category": "entities",
-    "tags": [
-      "MCP",
-      "multi-LLM",
-      "Claude-Code",
-      "Codex",
-      "Agent-orchestration"
-    ],
-    "rating": 9.0,
-    "description": "MCP Server让Claude Code调用Codex执行任务，支持多模型统一调度",
-    "date": "2026-06-04",
-    "url": "wiki/entities/multi-llm-mcp"
-  },
-  {
-    "title": "2026 Agentic Coding八大趋势报告",
-    "category": "sources",
-    "tags": [
-      "Agentic-Coding",
-      "Trends",
-      "Claude-Code",
-      "Multi-Agent",
-      "Enterprise-AI"
-    ],
-    "rating": 9.0,
-    "description": "Anthropic发布的2026年代理式编码趋势报告，识别8大趋势并分为基础、能力、影响三大类，附Rakuten/TELUS/Zapier实战案例",
-    "date": "2026-05-25",
-    "url": "wiki/sources/Agentic-Coding-Trends-2026"
-  },
-  {
-    "title": "自主AI研究：nanogpt速度跑的Agent实验",
-    "category": "sources",
-    "tags": [
-      "Autonomous-AI",
-      "Codex",
-      "Claude-Code",
-      "Optimizer",
-      "nanoGPT",
-      "Agent-Harness"
-    ],
-    "rating": 9.0,
-    "description": "PrimeIntellect让GPT-5.5和Claude Opus 4.7自主优化nanoGPT训练，Opus以2930步打破人类基线2990步。揭示了Agent在搜索优化上的强项和创新上的弱项",
-    "date": "2026-06-04",
-    "url": "wiki/sources/Autonomous-AI-Research-NanoGPT"
-  },
-  {
-    "title": "Brex Claude Code企业实践：从编码工具到组织变革引擎",
-    "category": "sources",
-    "tags": [
-      "Claude-Code",
-      "Enterprise-AI",
-      "Agentic-Coding",
-      "MCP",
-      "Best-Practices"
-    ],
-    "rating": 9.0,
-    "description": "Brex全员50%采用Claude Code的实践，涵盖非技术人员建Figma插件、text-to-SQL、headless模式hackathon等具体案例，3-4x效率提升",
-    "date": "2026-05-28",
-    "url": "wiki/sources/Brex-Claude-Code-Practice"
-  },
-  {
     "title": "CLAUDE.md最佳实践：为Claude Code配置持久化项目上下文",
     "category": "sources",
     "tags": [
@@ -795,66 +296,6 @@ window.__kb_articles = [
     "description": "Anthropic官方详细指南：如何用CLAUDE.md文件为Claude Code提供持久化项目上下文，涵盖文件结构、MCP工具集成、自定义命令和工作流定义",
     "date": "2026-06-03",
     "url": "wiki/sources/CLAUDE-md-Best-Practices"
-  },
-  {
-    "title": "Claude Code在Anthropic内部团队的实践案例",
-    "category": "sources",
-    "tags": [
-      "Claude-Code",
-      "Agentic-Coding",
-      "Best-Practices",
-      "Vibe-Coding",
-      "Workflow"
-    ],
-    "rating": 9.0,
-    "description": "Anthropic各团队（工程、安全、法务、营销、数据）使用Claude Code的真实案例集，展示了Agentic Coding从开发工具演变为通用生产力工具的路径",
-    "date": "2026-05-27",
-    "url": "wiki/sources/Claude-Code-Anthropic-内部实践"
-  },
-  {
-    "title": "Ello：<1000ms实时AI教学系统架构",
-    "category": "sources",
-    "tags": [
-      "低延迟",
-      "Agent-Architecture",
-      "实时系统",
-      "AI-Tutor",
-      "Latency-Optimization"
-    ],
-    "rating": 9.0,
-    "description": "Ello为4-9岁儿童构建的实时AI教学系统，摒弃标准Agent Tool Loop架构，实现每次交互<1000ms的低延迟Agent设计",
-    "date": "2026-07-10",
-    "url": "wiki/sources/Ello-Low-Latency-Agent"
-  },
-  {
-    "title": "Gemma 移动端 LLM 教程",
-    "category": "sources",
-    "tags": [
-      "Gemma",
-      "Mobile",
-      "OnDevice-AI",
-      "LLM",
-      "Tutorial"
-    ],
-    "rating": 9.0,
-    "description": "手把手教程：使用 Gemma 模型在移动设备上本地运行 LLM",
-    "date": "2026-05-17",
-    "url": "wiki/sources/Gemma-Mobile-LLM-Tutorial"
-  },
-  {
-    "title": "GitHub Token Cost Optimization — Agent工作流Token成本降低62%",
-    "category": "sources",
-    "tags": [
-      "Token-optimization",
-      "MCP",
-      "Agent-cost",
-      "GitHub-Copilot",
-      "cost-reduction"
-    ],
-    "rating": 9.0,
-    "description": "GitHub通过MCP工具精简和每日Token审计，将Agent工作流Token成本最高降低62%",
-    "date": "2026-06-04",
-    "url": "wiki/sources/GitHub-Token-Cost-Optimization"
   },
   {
     "title": "Google IO 2026 Agentic Era",
@@ -883,21 +324,6 @@ window.__kb_articles = [
     "url": "wiki/sources/Hermes-Agent-源码分析"
   },
   {
-    "title": "LLM多Agent系统：协作、失败归因与自进化",
-    "category": "sources",
-    "tags": [
-      "Multi-Agent",
-      "Collaboration",
-      "Failure-Attribution",
-      "Self-Evolution",
-      "Survey"
-    ],
-    "rating": 9.0,
-    "description": "综述LLM多Agent系统中的三大核心问题：协作效率、失败归因机制和自进化策略，提出系统性分类框架",
-    "date": "2026-05-16",
-    "url": "wiki/sources/Multi-Agent-Collaboration-Survey"
-  },
-  {
     "title": "OpenClaw 源码分析",
     "category": "sources",
     "tags": [
@@ -909,21 +335,6 @@ window.__kb_articles = [
     "description": "OpenClaw 源码级深度分析，多通道 Agent 网关实现",
     "date": "2026-04-24",
     "url": "wiki/sources/OpenClaw-源码分析"
-  },
-  {
-    "title": "规模化Agentic Coding实践指南",
-    "category": "sources",
-    "tags": [
-      "Agentic-Coding",
-      "Claude-Code",
-      "Enterprise-Adoption",
-      "Workflow-Design",
-      "CLAUDE.md"
-    ],
-    "rating": 9.0,
-    "description": "Anthropic官方发布的企业级Agentic Coding推广指南，涵盖试点策略、CLAUDE.md最佳实践、影响度量和常见陷阱",
-    "date": "2026-05-31",
-    "url": "wiki/sources/Scaling-Agentic-Coding"
   },
   {
     "title": "Training an LLM in Swift: 矩阵乘法从Gflop/s到Tflop/s",
@@ -953,37 +364,6 @@ window.__kb_articles = [
     "description": "tags: #Transformer #Architecture-Evolution #Deep-Learning #RoPE #SwiGLU #MoE #RMSNorm",
     "date": "2026-05-12",
     "url": "wiki/sources/Transformer-Architecture-Evolution"
-  },
-  {
-    "title": "Google x Kaggle: AI Agents Vibe Coding 5天密集课程",
-    "category": "sources",
-    "tags": [
-      "AI-Agents",
-      "Google",
-      "Kaggle",
-      "Education",
-      "Vibe-Coding",
-      "GenAI"
-    ],
-    "rating": 9.0,
-    "description": "Google与Kaggle联合推出的5天AI Agents密集课程，主打Vibe Coding概念，降低AI应用开发门槛",
-    "date": "2026-05-11",
-    "url": "wiki/sources/Vibe-Coding-Google-Kaggle-Course"
-  },
-  {
-    "title": "Zero Trust for AI Agents — Anthropic企业级Agent安全框架",
-    "category": "sources",
-    "tags": [
-      "Zero-Trust",
-      "Agent-Security",
-      "Enterprise-AI",
-      "SOAR",
-      "Anthropic"
-    ],
-    "rating": 9.0,
-    "description": "Anthropic发布的企业级AI Agent Zero Trust安全框架，涵盖三层架构、八阶段实施流程和Agentic SOAR防御运营",
-    "date": "2026-06-05",
-    "url": "wiki/sources/Zero-Trust-AI-Agents-Anthropic"
   },
   {
     "title": "pi agent rust analysis",
@@ -1078,19 +458,19 @@ window.__kb_articles = [
     "url": "wiki/concepts/Agent-Control-Flow"
   },
   {
-    "title": "Agent MetaSKILLs",
+    "title": "Agent工作流模式：顺序/并行/评估优化",
     "category": "concepts",
     "tags": [
-      "agent",
-      "工作流",
-      "skill系统",
-      "starlark",
-      "可重复任务"
+      "Agent-Workflow",
+      "Orchestration",
+      "Sequential",
+      "Parallel",
+      "Evaluator-Optimizer"
     ],
     "rating": 8.5,
-    "description": "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题",
-    "date": "2026-05-06",
-    "url": "wiki/concepts/Agent-MetaSKILLs"
+    "description": "Anthropic总结的三大Agent工作流模式（顺序、并行、评估-优化），覆盖生产环境90%以上的多Agent编排场景",
+    "date": "2026-05-23",
+    "url": "wiki/concepts/Agent-Workflow-Patterns"
   },
   {
     "title": "Agentic Search 检索范式",
@@ -1107,6 +487,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/Agentic-Search-Retrieval"
   },
   {
+    "title": "CoHyDE：LLM Agent工具检索的迭代协同训练",
+    "category": "concepts",
+    "tags": [
+      "Tool-Retrieval",
+      "LLM-Agent",
+      "Co-Training",
+      "Dense-Encoding",
+      "HyDE"
+    ],
+    "rating": 8.5,
+    "description": "CoHyDE通过LLM Rewriter与Dense Encoder的迭代协同训练，解决大规模API目录下Agent工具检索瓶颈",
+    "date": "2026-05-31",
+    "url": "wiki/concepts/CoHyDE-Tool-Retrieval"
+  },
+  {
     "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",
     "category": "concepts",
     "tags": [
@@ -1119,6 +514,36 @@ window.__kb_articles = [
     "description": "从Carta Healthcare 99%准确率和YC startup工作流中提炼的context engineering核心方法论：喂给模型什么比模型本身更重要",
     "date": "2026-05-18",
     "url": "wiki/concepts/Context-Engineering"
+  },
+  {
+    "title": "EfficientAgent：分层任务分解加速LLM推理",
+    "category": "concepts",
+    "tags": [
+      "EfficientAgent",
+      "Task-Decomposition",
+      "LLM-Inference",
+      "Agent-Efficiency",
+      "Hierarchical-Planning"
+    ],
+    "rating": 8.5,
+    "description": "通过分层任务分解策略降低LLM Agent在复杂推理任务中的计算开销，实现推理加速",
+    "date": "2026-05-21",
+    "url": "wiki/concepts/EfficientAgent"
+  },
+  {
+    "title": "Jet-Long：动态双焦点RoPE长上下文扩展",
+    "category": "concepts",
+    "tags": [
+      "Long-Context",
+      "RoPE",
+      "Position-Encoding",
+      "LLM",
+      "Context-Extension"
+    ],
+    "rating": 8.5,
+    "description": "Jet-Long引入Dynamic Bifocal RoPE机制，通过双焦点位置编码实现低成本的LLM长上下文扩展，对Agent长记忆场景有重要价值",
+    "date": "2026-07-10",
+    "url": "wiki/concepts/Jet-Long-Dynamic-RoPE"
   },
   {
     "title": "LLM文档编辑腐蚀问题",
@@ -1147,6 +572,51 @@ window.__kb_articles = [
     "description": "利用搜索Agent轨迹和Rubric奖励训练LLM的长上下文推理能力，直击长文本处理核心瓶颈",
     "date": "2026-06-01",
     "url": "wiki/concepts/LongTraceRL"
+  },
+  {
+    "title": "MMG2Skill — 从互联网指南蒸馏为Agent自我进化技能",
+    "category": "concepts",
+    "tags": [
+      "skill-distillation",
+      "self-evolving",
+      "VLM-agent",
+      "guide-to-skill",
+      "closed-loop"
+    ],
+    "rating": 8.5,
+    "description": "Guide-to-Skill Learning范式，从互联网指南自动蒸馏Agent可执行技能，闭环框架+根因反馈持续进化",
+    "date": "2026-06-04",
+    "url": "wiki/concepts/MMG2Skill"
+  },
+  {
+    "title": "Maestro：RL驱动的层级Agent编排",
+    "category": "concepts",
+    "tags": [
+      "Multi-Agent",
+      "RL-Orchestration",
+      "Hierarchical-Agent",
+      "Model-Ensemble",
+      "Agent-Architecture"
+    ],
+    "rating": 8.5,
+    "description": "用强化学习自动编排多模型多技能的层级Agent架构，解决复杂Agent系统的编排策略问题",
+    "date": "2026-05-22",
+    "url": "wiki/concepts/Maestro-Agent-Orchestration"
+  },
+  {
+    "title": "MemTrain — 自监督上下文记忆训练",
+    "category": "concepts",
+    "tags": [
+      "Agent-memory",
+      "self-supervised",
+      "GRPO",
+      "long-horizon-Agent",
+      "context-memory"
+    ],
+    "rating": 8.5,
+    "description": "自监督训练框架增强LLM Agent上下文记忆能力，双代理任务+GRPO联合优化，提升高达17.67个点",
+    "date": "2026-06-04",
+    "url": "wiki/concepts/MemTrain"
   },
   {
     "title": "MentalThink：SVG思维画布推理",
@@ -1201,6 +671,21 @@ window.__kb_articles = [
     "description": "研究LLM Agent是否能感知自身记忆已过时的能力，揭示当前Agent在记忆时效性判断上的系统性缺陷",
     "date": "2026-05-16",
     "url": "wiki/concepts/STALE-Memory-Staleness"
+  },
+  {
+    "title": "Self-Evolving Agent：自进化智能体范式",
+    "category": "concepts",
+    "tags": [
+      "Self-Evolution",
+      "Agent-Architecture",
+      "Prompt-Optimization",
+      "Skill-Learning",
+      "RL"
+    ],
+    "rating": 8.5,
+    "description": "Agent通过自引用优化循环，自主扩展技能集、优化自身prompt、发现新算法的范式，代表Agent从静态工具到持续进化系统的转变",
+    "date": "2026-06-06",
+    "url": "wiki/concepts/Self-Evolving-Agent"
   },
   {
     "title": "自调节模拟规划：Agent何时规划与如何规划",
@@ -1287,6 +772,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/Weak-Model-Orchestration"
   },
   {
+    "title": "4B参数Coding Agent：小模型+架构突破",
+    "category": "entities",
+    "tags": [
+      "Coding-Agent",
+      "Small-Model",
+      "Agent-Architecture",
+      "OnDevice-AI",
+      "Benchmark"
+    ],
+    "rating": 8.5,
+    "description": "4B参数模型通过优秀的Agent架构设计，在编码基准测试中达到87%成绩，证明架构创新>暴力参数",
+    "date": "2026-05-19",
+    "url": "wiki/entities/4B-Coding-Agent"
+  },
+  {
     "title": "AgentGPT",
     "category": "entities",
     "tags": [
@@ -1301,19 +801,79 @@ window.__kb_articles = [
     "url": "wiki/entities/AgentGPT"
   },
   {
-    "title": "Codex Mobile: OpenAI编程Agent进入移动端",
+    "title": "Android CLI：谷歌让Android工具链适配AI Agent",
     "category": "entities",
     "tags": [
-      "OpenAI",
-      "Codex",
-      "Mobile-AI",
-      "Coding-Agent",
-      "端侧AI"
+      "Android",
+      "CLI",
+      "AI-Agent",
+      "Google",
+      "Mobile-Dev"
     ],
     "rating": 8.5,
-    "description": "OpenAI将Codex编程Agent集成到ChatGPT移动端App，移动端AI编程进入新阶段",
-    "date": "2026-05-15",
-    "url": "wiki/entities/Codex-Mobile"
+    "description": "谷歌推出全新Android CLI工具，让AI Agent能更高效地使用Android工具链，构建速度提升3倍",
+    "date": "2026-05-26",
+    "url": "wiki/entities/Android-CLI-AI-Agent"
+  },
+  {
+    "title": "BraveGuard — Computer-Use Agent自适应安全防护框架",
+    "category": "entities",
+    "tags": [
+      "Agent-security",
+      "guard-model",
+      "computer-use",
+      "trajectory-safety",
+      "adaptive-defense"
+    ],
+    "rating": 8.5,
+    "description": "自进化防御框架，从开放世界威胁信号训练Guard模型，AgentHazard准确率从38.79%提升至82.38%",
+    "date": "2026-06-04",
+    "url": "wiki/entities/BraveGuard"
+  },
+  {
+    "title": "CUDA-oxide：Nvidia官方Rust到CUDA编译器",
+    "category": "entities",
+    "tags": [
+      "Rust",
+      "CUDA",
+      "GPU-Computing",
+      "Nvidia",
+      "Edge-AI"
+    ],
+    "rating": 8.5,
+    "description": "Nvidia发布的官方Rust到CUDA编译器，让Rust开发者无需经过C++即可直接编写GPU内核，推动端侧AI推理生态。",
+    "date": "2026-05-12",
+    "url": "wiki/entities/CUDA-oxide"
+  },
+  {
+    "title": "ChatGPT Work：跨应用Agent平台",
+    "category": "entities",
+    "tags": [
+      "Agent-Platform",
+      "GPT",
+      "OpenAI",
+      "Auto-Agent",
+      "Workflow"
+    ],
+    "rating": 8.5,
+    "description": "ChatGPT Work是OpenAI发布的跨应用Agent平台，在sheets/slides/docs间执行任务，支持长期规划和后台调度，内置Codex技术",
+    "date": "2026-07-10",
+    "url": "wiki/entities/ChatGPT-Work"
+  },
+  {
+    "title": "Colibri：纯C MoE推理引擎",
+    "category": "entities",
+    "tags": [
+      "MoE",
+      "C",
+      "推理引擎",
+      "端侧AI",
+      "GLM"
+    ],
+    "rating": 8.5,
+    "description": "Colibri是一个纯C实现、零依赖的MoE推理引擎，可在25GB内存消费级机器上运行744B参数的GLM 5.2模型",
+    "date": "2026-07-10",
+    "url": "wiki/entities/Colibri"
   },
   {
     "title": "Continue",
@@ -1395,6 +955,51 @@ window.__kb_articles = [
     "description": "tags: #AgentPlatform #RAG #Workflow #TypeScript #VisualProgramming",
     "date": "2026-05-07",
     "url": "wiki/entities/Dify"
+  },
+  {
+    "title": "ECC：Agent Harness性能优化系统",
+    "category": "entities",
+    "tags": [
+      "Agent-Harness",
+      "Claude-Code",
+      "Performance",
+      "Skills",
+      "Memory"
+    ],
+    "rating": 8.5,
+    "description": "190k stars的Agent开发全栈优化框架，提供Skills、Instincts、Memory、Security模块化能力，支持Claude Code/Codex/Opencode/Cursor等多平台",
+    "date": "2026-05-25",
+    "url": "wiki/entities/ECC"
+  },
+  {
+    "title": "EdgeAgent：轻量级端侧AI Agent",
+    "category": "entities",
+    "tags": [
+      "EdgeAgent",
+      "OnDevice-AI",
+      "Mobile-Agent",
+      "Lightweight-LLM",
+      "Edge-Computing"
+    ],
+    "rating": 8.5,
+    "description": "面向移动计算的轻量级端侧AI Agent框架，解决移动设备上LLM Agent的部署和推理效率问题",
+    "date": "2026-05-21",
+    "url": "wiki/entities/EdgeAgent"
+  },
+  {
+    "title": "EdgeDox - Android 离线文档 AI",
+    "category": "entities",
+    "tags": [
+      "Android",
+      "OnDevice-AI",
+      "LLM",
+      "Qwen",
+      "Offline"
+    ],
+    "rating": 8.5,
+    "description": "在 Android 上使用 Qwen3.5-0.8B 的离线文档 AI，完全本地运行",
+    "date": "2026-05-17",
+    "url": "wiki/entities/EdgeDox"
   },
   {
     "title": "Fewshell",
@@ -1504,6 +1109,21 @@ window.__kb_articles = [
     "url": "wiki/entities/Headroom"
   },
   {
+    "title": "IndusAgent：工业异常检测Agent",
+    "category": "entities",
+    "tags": [
+      "IndusAgent",
+      "Anomaly-Detection",
+      "Industrial-AI",
+      "Agent-Tool-Calling",
+      "MLLM"
+    ],
+    "rating": 8.5,
+    "description": "将多模态大语言模型（MLLM）与Agent工具调用结合，实现开放词汇工业异常检测",
+    "date": "2026-05-22",
+    "url": "wiki/entities/IndusAgent"
+  },
+  {
     "title": "Kora: AI原生OS层",
     "category": "entities",
     "tags": [
@@ -1515,6 +1135,38 @@ window.__kb_articles = [
     "description": "Kora AI 原生操作系统层设计",
     "date": "2026-05-03",
     "url": "wiki/entities/Kora-AI-Native-OS"
+  },
+  {
+    "title": "LLaMA Factory: 统一高效微调框架",
+    "category": "entities",
+    "tags": [
+      "fine-tuning",
+      "LLM",
+      "LoRA",
+      "transformers",
+      "PEFT",
+      "RLHF",
+      "QLoRA"
+    ],
+    "rating": 8.5,
+    "description": "支持100+LLM/VLM的统一微调框架，集成LoRA/QLoRA/RLHF，ACL 2024论文发表",
+    "date": "2026-05-11",
+    "url": "wiki/entities/LlamaFactory"
+  },
+  {
+    "title": "MCP隧道：私有Agent安全访问内部系统",
+    "category": "entities",
+    "tags": [
+      "MCP",
+      "Tunnel",
+      "Enterprise-AI",
+      "Security",
+      "Anthropic"
+    ],
+    "rating": 8.5,
+    "description": "Anthropic推出的MCP隧道功能，允许托管Agent通过加密出站连接访问私有MCP服务器，无需开放公网入站端口",
+    "date": "2026-05-23",
+    "url": "wiki/entities/MCP-Tunnel"
   },
   {
     "title": "MetaGPT",
@@ -1559,6 +1211,51 @@ window.__kb_articles = [
     "url": "wiki/entities/MobileMoE"
   },
   {
+    "title": "MobileVLN：端侧视觉语言导航训练",
+    "category": "entities",
+    "tags": [
+      "MobileVLN",
+      "OnDevice-AI",
+      "Vision-Language-Navigation",
+      "Edge-Training",
+      "VLN"
+    ],
+    "rating": 8.5,
+    "description": "在移动设备上实现Vision-Language Navigation的端侧训练方法，突破传统云端训练依赖",
+    "date": "2026-05-21",
+    "url": "wiki/entities/MobileVLN"
+  },
+  {
+    "title": "NavixMind: 开源Android Agent框架",
+    "category": "entities",
+    "tags": [
+      "Android-Agent",
+      "OnDevice-AI",
+      "Python",
+      "Mobile-Agent",
+      "OpenSource"
+    ],
+    "rating": 8.5,
+    "description": "开源Android Agent框架，支持在设备本地运行Python代码，移动端Agent的探索性项目",
+    "date": "2026-05-19",
+    "url": "wiki/entities/NavixMind"
+  },
+  {
+    "title": "Needle: 26M参数端侧工具调用模型",
+    "category": "entities",
+    "tags": [
+      "Tool-Calling",
+      "On-Device-AI",
+      "Model-Distillation",
+      "Edge-AI",
+      "Mobile-AI"
+    ],
+    "rating": 8.5,
+    "description": "将Gemini工具调用能力蒸馏到26M参数的微型模型，为端侧AI Agent提供本地工具调用能力",
+    "date": "2026-05-15",
+    "url": "wiki/entities/Needle"
+  },
+  {
     "title": "OSCAR：面向真实Serving的2-bit KV Cache量化",
     "category": "entities",
     "tags": [
@@ -1586,16 +1283,19 @@ window.__kb_articles = [
     "url": "wiki/entities/OpenClaw"
   },
   {
-    "title": "OpenMythos",
+    "title": "OpenHands: AI驱动的开发平台",
     "category": "entities",
     "tags": [
-      "GitHub",
-      "OS"
+      "OpenHands",
+      "AI-Agent",
+      "Coding-Agent",
+      "Developer-Tools",
+      "CLI"
     ],
     "rating": 8.5,
-    "description": "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer",
-    "date": "2026-05-12",
-    "url": "wiki/entities/OpenMythos"
+    "description": "AI驱动的软件开发平台，通过自然语言完成编码、调试、测试全流程，高度可扩展的代理架构",
+    "date": "2026-05-11",
+    "url": "wiki/entities/OpenHands"
   },
   {
     "title": "Orchard: 开源Agentic建模框架",
@@ -1612,6 +1312,21 @@ window.__kb_articles = [
     "url": "wiki/entities/Orchard"
   },
   {
+    "title": "Project Glasswing：AI驱动的软件安全漏洞发现",
+    "category": "entities",
+    "tags": [
+      "Security",
+      "Vulnerability-Discovery",
+      "Anthropic",
+      "Mythos",
+      "AI-Safety"
+    ],
+    "rating": 8.5,
+    "description": "Anthropic的Project Glasswing使用Mythos Preview模型，一个月内发现超过1万个高/严重级别漏洞，AI安全能力质的飞跃",
+    "date": "2026-05-23",
+    "url": "wiki/entities/Project-Glasswing"
+  },
+  {
     "title": "RAGFlow",
     "category": "entities",
     "tags": [
@@ -1626,6 +1341,21 @@ window.__kb_articles = [
     "description": "tags: #RAG #Agent #OpenSource #RetrievalAugmented #KnowledgeManagement",
     "date": "2026-05-07",
     "url": "wiki/entities/RAGFlow"
+  },
+  {
+    "title": "Reasonix: 极致缓存优化的终端AI编码Agent",
+    "category": "entities",
+    "tags": [
+      "DeepSeek",
+      "Caching",
+      "Token-Optimization",
+      "Coding-Agent",
+      "CLI"
+    ],
+    "rating": 8.5,
+    "description": "开源终端AI编码Agent,通过极致缓存策略将长会话Token成本降低80%,基于DeepSeek模型",
+    "date": "2026-05-11",
+    "url": "wiki/entities/Reasonix"
   },
   {
     "title": "Room 3.0：Kotlin优先、异步、多平台持久化库",
@@ -1715,6 +1445,21 @@ window.__kb_articles = [
     "url": "wiki/entities/TurboQuant"
   },
   {
+    "title": "UI-KOBE：轻量级知识引导GUI Agent",
+    "category": "entities",
+    "tags": [
+      "GUI-Agent",
+      "Knowledge-Guided",
+      "Mobile-AI",
+      "Graph-Guided",
+      "Lightweight"
+    ],
+    "rating": 8.5,
+    "description": "UI-KOBE通过知识导向的行为探索和轻量级图引导机制，降低移动端GUI Agent的推理成本",
+    "date": "2026-05-31",
+    "url": "wiki/entities/UI-KOBE-GUI-Agent"
+  },
+  {
     "title": "WildClawBench：真实世界长周期Agent评估基准",
     "category": "entities",
     "tags": [
@@ -1740,6 +1485,22 @@ window.__kb_articles = [
     "description": "Zed 1.0 编辑器分析",
     "date": "2026-05-03",
     "url": "wiki/entities/Zed-1.0"
+  },
+  {
+    "title": "AI Engineering Hub: LLM/RAG/Agent实战教程集",
+    "category": "entities",
+    "tags": [
+      "LLM",
+      "RAG",
+      "AI-Agents",
+      "MCP",
+      "Machine-Learning",
+      "Tutorial"
+    ],
+    "rating": 8.5,
+    "description": "面向LLM/RAG/AI Agent的实战教程合集，Jupyter Notebook形式，涵盖MCP、DeepSeek微调等前沿技术",
+    "date": "2026-05-11",
+    "url": "wiki/entities/ai-engineering-hub"
   },
   {
     "title": "browser use",
@@ -1781,6 +1542,21 @@ window.__kb_articles = [
     "url": "wiki/entities/hello-agents"
   },
   {
+    "title": "learn-claude-code：从零构建Agent Harness",
+    "category": "entities",
+    "tags": [
+      "Agent-Harness",
+      "Bash",
+      "Education",
+      "Architecture",
+      "Claude-Code"
+    ],
+    "rating": 8.5,
+    "description": "62k stars教学项目，用纯Bash从零实现一个类Claude Code的Agent Harness，深入理解Agent架构底层原理",
+    "date": "2026-05-25",
+    "url": "wiki/entities/learn-claude-code"
+  },
+  {
     "title": "mem0",
     "category": "entities",
     "tags": [
@@ -1792,6 +1568,21 @@ window.__kb_articles = [
     "description": "tags: #Agent-Memory #RAG #Personalization #BM25",
     "date": "2026-05-07",
     "url": "wiki/entities/mem0"
+  },
+  {
+    "title": "multi-llm-mcp — 多LLM调用的MCP工具",
+    "category": "entities",
+    "tags": [
+      "MCP",
+      "multi-LLM",
+      "Claude-Code",
+      "Codex",
+      "Agent-orchestration"
+    ],
+    "rating": 8.5,
+    "description": "MCP Server让Claude Code调用Codex执行任务，支持多模型统一调度",
+    "date": "2026-06-04",
+    "url": "wiki/entities/multi-llm-mcp"
   },
   {
     "title": "nanobot",
@@ -1890,6 +1681,52 @@ window.__kb_articles = [
     "url": "wiki/sources/Agent-Skills-Architecture"
   },
   {
+    "title": "2026 Agentic Coding八大趋势报告",
+    "category": "sources",
+    "tags": [
+      "Agentic-Coding",
+      "Trends",
+      "Claude-Code",
+      "Multi-Agent",
+      "Enterprise-AI"
+    ],
+    "rating": 8.5,
+    "description": "Anthropic发布的2026年代理式编码趋势报告，识别8大趋势并分为基础、能力、影响三大类，附Rakuten/TELUS/Zapier实战案例",
+    "date": "2026-05-25",
+    "url": "wiki/sources/Agentic-Coding-Trends-2026"
+  },
+  {
+    "title": "自主AI研究：nanogpt速度跑的Agent实验",
+    "category": "sources",
+    "tags": [
+      "Autonomous-AI",
+      "Codex",
+      "Claude-Code",
+      "Optimizer",
+      "nanoGPT",
+      "Agent-Harness"
+    ],
+    "rating": 8.5,
+    "description": "PrimeIntellect让GPT-5.5和Claude Opus 4.7自主优化nanoGPT训练，Opus以2930步打破人类基线2990步。揭示了Agent在搜索优化上的强项和创新上的弱项",
+    "date": "2026-06-04",
+    "url": "wiki/sources/Autonomous-AI-Research-NanoGPT"
+  },
+  {
+    "title": "Brex Claude Code企业实践：从编码工具到组织变革引擎",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Enterprise-AI",
+      "Agentic-Coding",
+      "MCP",
+      "Best-Practices"
+    ],
+    "rating": 8.5,
+    "description": "Brex全员50%采用Claude Code的实践，涵盖非技术人员建Figma插件、text-to-SQL、headless模式hackathon等具体案例，3-4x效率提升",
+    "date": "2026-05-28",
+    "url": "wiki/sources/Brex-Claude-Code-Practice"
+  },
+  {
     "title": "CISA/NSA AI Agent 安全部署指南",
     "category": "sources",
     "tags": [
@@ -1917,6 +1754,21 @@ window.__kb_articles = [
     "description": "菜鸟分享从Vibe Coding到需求托管Agent全流程的研发效能提升实战经验",
     "date": "2026-05-19",
     "url": "wiki/sources/Cainiao-AI-RD-Practice"
+  },
+  {
+    "title": "Claude Code在Anthropic内部团队的实践案例",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Agentic-Coding",
+      "Best-Practices",
+      "Vibe-Coding",
+      "Workflow"
+    ],
+    "rating": 8.5,
+    "description": "Anthropic各团队（工程、安全、法务、营销、数据）使用Claude Code的真实案例集，展示了Agentic Coding从开发工具演变为通用生产力工具的路径",
+    "date": "2026-05-27",
+    "url": "wiki/sources/Claude-Code-Anthropic-内部实践"
   },
   {
     "title": "HTML作为Coding Agent交互介质",
@@ -1947,6 +1799,21 @@ window.__kb_articles = [
     "url": "wiki/sources/Computer-Use-Cost-Analysis"
   },
   {
+    "title": "Ello：<1000ms实时AI教学系统架构",
+    "category": "sources",
+    "tags": [
+      "低延迟",
+      "Agent-Architecture",
+      "实时系统",
+      "AI-Tutor",
+      "Latency-Optimization"
+    ],
+    "rating": 8.5,
+    "description": "Ello为4-9岁儿童构建的实时AI教学系统，摒弃标准Agent Tool Loop架构，实现每次交互<1000ms的低延迟Agent设计",
+    "date": "2026-07-10",
+    "url": "wiki/sources/Ello-Low-Latency-Agent"
+  },
+  {
     "title": "GLM 5 Scaling Pain",
     "category": "sources",
     "tags": [
@@ -1958,6 +1825,36 @@ window.__kb_articles = [
     "description": "tags: #LLM-Inference #KV-Cache #Race-Condition #Coding-Agent #Speculative-Decoding",
     "date": "2026-05-07",
     "url": "wiki/sources/GLM-5-Scaling-Pain"
+  },
+  {
+    "title": "Gemma 移动端 LLM 教程",
+    "category": "sources",
+    "tags": [
+      "Gemma",
+      "Mobile",
+      "OnDevice-AI",
+      "LLM",
+      "Tutorial"
+    ],
+    "rating": 8.5,
+    "description": "手把手教程：使用 Gemma 模型在移动设备上本地运行 LLM",
+    "date": "2026-05-17",
+    "url": "wiki/sources/Gemma-Mobile-LLM-Tutorial"
+  },
+  {
+    "title": "GitHub Token Cost Optimization — Agent工作流Token成本降低62%",
+    "category": "sources",
+    "tags": [
+      "Token-optimization",
+      "MCP",
+      "Agent-cost",
+      "GitHub-Copilot",
+      "cost-reduction"
+    ],
+    "rating": 8.5,
+    "description": "GitHub通过MCP工具精简和每日Token审计，将Agent工作流Token成本最高降低62%",
+    "date": "2026-06-04",
+    "url": "wiki/sources/GitHub-Token-Cost-Optimization"
   },
   {
     "title": "LLM行为特征隐性传递",
@@ -1975,6 +1872,21 @@ window.__kb_articles = [
     "url": "wiki/sources/LLM-Behavioural-Transmission"
   },
   {
+    "title": "LLM多Agent系统：协作、失败归因与自进化",
+    "category": "sources",
+    "tags": [
+      "Multi-Agent",
+      "Collaboration",
+      "Failure-Attribution",
+      "Self-Evolution",
+      "Survey"
+    ],
+    "rating": 8.5,
+    "description": "综述LLM多Agent系统中的三大核心问题：协作效率、失败归因机制和自进化策略，提出系统性分类框架",
+    "date": "2026-05-16",
+    "url": "wiki/sources/Multi-Agent-Collaboration-Survey"
+  },
+  {
     "title": "PAGER: GUI精准几何控制",
     "category": "sources",
     "tags": [
@@ -1987,6 +1899,52 @@ window.__kb_articles = [
     "description": "PAGER弥合语义理解与精确执行之间的差距，实现像素级GUI操控",
     "date": "2026-05-19",
     "url": "wiki/sources/PAGER-GUI-Agent"
+  },
+  {
+    "title": "规模化Agentic Coding实践指南",
+    "category": "sources",
+    "tags": [
+      "Agentic-Coding",
+      "Claude-Code",
+      "Enterprise-Adoption",
+      "Workflow-Design",
+      "CLAUDE.md"
+    ],
+    "rating": 8.5,
+    "description": "Anthropic官方发布的企业级Agentic Coding推广指南，涵盖试点策略、CLAUDE.md最佳实践、影响度量和常见陷阱",
+    "date": "2026-05-31",
+    "url": "wiki/sources/Scaling-Agentic-Coding"
+  },
+  {
+    "title": "Google x Kaggle: AI Agents Vibe Coding 5天密集课程",
+    "category": "sources",
+    "tags": [
+      "AI-Agents",
+      "Google",
+      "Kaggle",
+      "Education",
+      "Vibe-Coding",
+      "GenAI"
+    ],
+    "rating": 8.5,
+    "description": "Google与Kaggle联合推出的5天AI Agents密集课程，主打Vibe Coding概念，降低AI应用开发门槛",
+    "date": "2026-05-11",
+    "url": "wiki/sources/Vibe-Coding-Google-Kaggle-Course"
+  },
+  {
+    "title": "Zero Trust for AI Agents — Anthropic企业级Agent安全框架",
+    "category": "sources",
+    "tags": [
+      "Zero-Trust",
+      "Agent-Security",
+      "Enterprise-AI",
+      "SOAR",
+      "Anthropic"
+    ],
+    "rating": 8.5,
+    "description": "Anthropic发布的企业级AI Agent Zero Trust安全框架，涵盖三层架构、八阶段实施流程和Agentic SOAR防御运营",
+    "date": "2026-06-05",
+    "url": "wiki/sources/Zero-Trust-AI-Agents-Anthropic"
   },
   {
     "title": "Claude Context 源码分析",
@@ -2014,6 +1972,21 @@ window.__kb_articles = [
     "description": "Hermes vs OpenClaw 深度对比分析，架构与功能差异",
     "date": "2026-04-24",
     "url": "wiki/syntheses/Hermes-vs-OpenClaw对比分析"
+  },
+  {
+    "title": "Agent MetaSKILLs",
+    "category": "concepts",
+    "tags": [
+      "agent",
+      "工作流",
+      "skill系统",
+      "starlark",
+      "可重复任务"
+    ],
+    "rating": 8.0,
+    "description": "Swival框架提出的MetaSKILL概念——用小型程序化工作流替代静态Markdown指令，解决Agent循环任务的脆弱性问题",
+    "date": "2026-05-06",
+    "url": "wiki/concepts/Agent-MetaSKILLs"
   },
   {
     "title": "Client-Side Tool Calling",
@@ -2165,18 +2138,6 @@ window.__kb_articles = [
     "url": "wiki/concepts/TNL-Persistent-Plan-Mode"
   },
   {
-    "title": "Cherry Studio",
-    "category": "entities",
-    "tags": [
-      "GitHub",
-      "工具"
-    ],
-    "rating": 8.0,
-    "description": "tags: #AIClient #MultiModel #TypeScript #DesktopApp",
-    "date": "2026-05-07",
-    "url": "wiki/entities/Cherry-Studio"
-  },
-  {
     "title": "Claude Fable 5",
     "category": "entities",
     "tags": [
@@ -2188,6 +2149,21 @@ window.__kb_articles = [
     "description": "tags: #Claude-Fable-5 #Anthropic #Adaptive-Reasoning #Max-Effort #Frontier-Model",
     "date": "2026-07-10",
     "url": "wiki/entities/Claude-Fable-5"
+  },
+  {
+    "title": "Codex Mobile: OpenAI编程Agent进入移动端",
+    "category": "entities",
+    "tags": [
+      "OpenAI",
+      "Codex",
+      "Mobile-AI",
+      "Coding-Agent",
+      "端侧AI"
+    ],
+    "rating": 8.0,
+    "description": "OpenAI将Codex编程Agent集成到ChatGPT移动端App，移动端AI编程进入新阶段",
+    "date": "2026-05-15",
+    "url": "wiki/entities/Codex-Mobile"
   },
   {
     "title": "CopilotKit: Agent前端栈与AG-UI协议",
@@ -2216,19 +2192,6 @@ window.__kb_articles = [
     "description": "智谱AI发布面向多模态Agent场景的原生视觉语言模型，突破传统VLM在Agent任务中的能力瓶颈",
     "date": "2026-05-06",
     "url": "wiki/entities/GLM-5V-Turbo"
-  },
-  {
-    "title": "GPT-5.5",
-    "category": "entities",
-    "tags": [
-      "GPT",
-      "OpenAI",
-      "大模型"
-    ],
-    "rating": 8.0,
-    "description": "GPT-5.5 模型分析",
-    "date": "2026-04-27",
-    "url": "wiki/entities/GPT-5.5"
   },
   {
     "title": "Grok 4",
@@ -2335,6 +2298,18 @@ window.__kb_articles = [
     "description": "当前benchmark最佳的开源AI记忆系统，为Agent提供持久化、可检索的记忆层",
     "date": "2026-05-18",
     "url": "wiki/entities/MemPalace"
+  },
+  {
+    "title": "OpenMythos",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "OS"
+    ],
+    "rating": 8.0,
+    "description": "tags: #Transformer #Architecture #Claude #Recurrent-Depth #MoE #Looped-Transformer",
+    "date": "2026-05-12",
+    "url": "wiki/entities/OpenMythos"
   },
   {
     "title": "Pi Agent Toolkit",
@@ -2672,6 +2647,31 @@ window.__kb_articles = [
     "url": "wiki/entities/AlphaEvolve"
   },
   {
+    "title": "Cherry Studio",
+    "category": "entities",
+    "tags": [
+      "GitHub",
+      "工具"
+    ],
+    "rating": 7.5,
+    "description": "tags: #AIClient #MultiModel #TypeScript #DesktopApp",
+    "date": "2026-05-07",
+    "url": "wiki/entities/Cherry-Studio"
+  },
+  {
+    "title": "GPT-5.5",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "OpenAI",
+      "大模型"
+    ],
+    "rating": 7.5,
+    "description": "GPT-5.5 模型分析",
+    "date": "2026-04-27",
+    "url": "wiki/entities/GPT-5.5"
+  },
+  {
     "title": "GitNexus",
     "category": "entities",
     "tags": [
@@ -2780,19 +2780,6 @@ window.__kb_articles = [
     "url": "wiki/entities/harmonist"
   },
   {
-    "title": "mattpocock/skills",
-    "category": "entities",
-    "tags": [
-      "Skill",
-      "TypeScript",
-      "教程"
-    ],
-    "rating": 7.5,
-    "description": "Matt Pocock 的 TypeScript 技能集合",
-    "date": "2026-04-27",
-    "url": "wiki/entities/mattpocock-skills"
-  },
-  {
     "title": "HuggingFace ml-intern",
     "category": "entities",
     "tags": [
@@ -2804,19 +2791,6 @@ window.__kb_articles = [
     "description": "HuggingFace ml-intern 机器学习实习项目",
     "date": "2026-04-26",
     "url": "wiki/entities/ml-intern"
-  },
-  {
-    "title": "Open Design: 本地优先的AI设计工具",
-    "category": "entities",
-    "tags": [
-      "设计",
-      "本地优先",
-      "AI"
-    ],
-    "rating": 7.5,
-    "description": "Open Design 本地优先的 AI 设计工具",
-    "date": "2026-04-29",
-    "url": "wiki/entities/open-design"
   },
   {
     "title": "AI生成代码的知识产权归属",
@@ -2843,19 +2817,6 @@ window.__kb_articles = [
     "description": "InfoQ深度文章探讨AI Agent时代对分布式基础设施的新要求，涵盖Agent调度、状态管理和安全隔离",
     "date": "2026-05-10",
     "url": "wiki/sources/Agent-Distributed-Infrastructure"
-  },
-  {
-    "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
-    "category": "sources",
-    "tags": [
-      "Coding-Agent",
-      "批评",
-      "开源"
-    ],
-    "rating": 7.5,
-    "description": "17年开源老兵对 Coding Agents 堆功能现象的深度批评",
-    "date": "2026-04-29",
-    "url": "wiki/sources/Coding-Agents-Critique-2026"
   },
   {
     "title": "Teaching Claude Why — Anthropic推理透明性研究",
@@ -2911,6 +2872,32 @@ window.__kb_articles = [
     "url": "wiki/entities/Operit"
   },
   {
+    "title": "mattpocock/skills",
+    "category": "entities",
+    "tags": [
+      "Skill",
+      "TypeScript",
+      "教程"
+    ],
+    "rating": 7.0,
+    "description": "Matt Pocock 的 TypeScript 技能集合",
+    "date": "2026-04-27",
+    "url": "wiki/entities/mattpocock-skills"
+  },
+  {
+    "title": "Open Design: 本地优先的AI设计工具",
+    "category": "entities",
+    "tags": [
+      "设计",
+      "本地优先",
+      "AI"
+    ],
+    "rating": 7.0,
+    "description": "Open Design 本地优先的 AI 设计工具",
+    "date": "2026-04-29",
+    "url": "wiki/entities/open-design"
+  },
+  {
     "title": "trycua/cua — Computer-Use Agent 基础设施",
     "category": "entities",
     "tags": [
@@ -2922,6 +2909,19 @@ window.__kb_articles = [
     "description": "trycua/cua Computer-Use Agent 基础设施",
     "date": "2026-04-27",
     "url": "wiki/entities/trycua-cua"
+  },
+  {
+    "title": "17年开源老兵批评 Coding Agents 堆功能: 核心观点提炼",
+    "category": "sources",
+    "tags": [
+      "Coding-Agent",
+      "批评",
+      "开源"
+    ],
+    "rating": 7.0,
+    "description": "17年开源老兵对 Coding Agents 堆功能现象的深度批评",
+    "date": "2026-04-29",
+    "url": "wiki/sources/Coding-Agents-Critique-2026"
   },
   {
     "title": "OpenMobile: 开放移动Agent框架",
