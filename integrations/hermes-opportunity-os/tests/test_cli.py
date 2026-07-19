@@ -75,6 +75,30 @@ def test_render_review_latest_and_snapshot(tmp_path: Path, capsys) -> None:
     assert not any(".env" in name or "/snapshots/" in name for name in names)
 
 
+def test_snapshot_excludes_dashboard_runtime_but_keeps_business_state(tmp_path: Path, capsys) -> None:
+    home = tmp_path / "private"
+    store = PrivateStore(home)
+    store.initialize()
+    store.save_review(Review(
+        id="weekly-2026-07-19", period="weekly", title="周度复盘", summary="摘要", opportunity_ids=[],
+        surprise_signal="出现新信号。", presentation_counts={"strength": 0, "broad": 0, "surprise": 0},
+        proposed_experiment_ids=[], facts=["事实"], inferences=["推断"], hypotheses=["假设"],
+        created_at="2026-07-19T10:00:00+08:00",
+    ))
+    SessionStore(home / "dashboard").create_session("local")
+
+    assert main(["snapshot", "--home", str(home), "--format", "json"]) == 0
+    snapshot = Path(json.loads(capsys.readouterr().out)["snapshot"])
+
+    with tarfile.open(snapshot) as archive:
+        names = set(archive.getnames())
+    assert "opportunity-os/dashboard/auth.json" not in names
+    assert "opportunity-os/dashboard/.auth.lock" not in names
+    assert not any(name.startswith("opportunity-os/dashboard/") for name in names)
+    assert "opportunity-os/portfolio.json" in names
+    assert "opportunity-os/reviews/weekly-2026-07-19.json" in names
+
+
 def test_dashboard_serve_builds_app_and_binds_only_loopback(tmp_path: Path, monkeypatch) -> None:
     captured = {}
 

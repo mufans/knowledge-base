@@ -36,9 +36,10 @@ def _snapshot(store: PrivateStore) -> Path:
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     destination = store.home / "snapshots" / f"opportunity-os-{timestamp}.tar.gz"
     destination.parent.mkdir(parents=True, exist_ok=True)
+    runtime_roots = (store.home / "snapshots", store.home / "dashboard")
     with tarfile.open(destination, "w:gz") as archive:
         for path in sorted(store.home.rglob("*")):
-            if not path.is_file() or path.is_relative_to(store.home / "snapshots") or path.name == ".env":
+            if not path.is_file() or any(path.is_relative_to(root) for root in runtime_roots) or path.name == ".env":
                 continue
             archive.add(path, arcname=str(Path("opportunity-os") / path.relative_to(store.home)), recursive=False)
     return destination
