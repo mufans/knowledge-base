@@ -84,6 +84,20 @@ Private Marketplace（企业内部分发）
 
 **对 Agent 企业部署的启示**：FedRAMP 合规架构提供了 Agent 企业级部署的参考模板——本地存储 + 云端推理 + 层级化权限 + 防篡改审计。这一模式同样适用于金融、医疗等高合规要求场景。
 
+### 2026-07-19 更新：Anthropic CISO指南中的Cowork安全控制
+
+Anthropic Deputy CISO Jason Clinton在企业Agent安全指南中详细说明了Claude Cowork的安全控制架构（五层控制）：
+
+1. **身份来自IdP**：SAML/OIDC登录 + SCIM同步。Enterprise计划支持自定义角色，按IdP组圈定能力范围
+2. **Connector白名单（双重门控）**：管理员在组织级启用connector（MCP），用户在个人级单独授权。支持per-role connector控制——启用后对该角色下的所有用户可用。Admin可限制connector中的特定动作（如"允许起草文档但禁止自动发送"）
+3. **逐工具逐动作审批**：移除connector中的特定动词（如delete verb），Agent永远不会尝试不在tool list中的操作。如果担心"数据库被删"，直接从Agent的世界里移除delete动词
+4. **沙盒执行**：Agent loop在Anthropic管理的隔离临时沙盒中运行。Connector授权token不进入沙盒——通过反向代理注入真实凭据，沙盒内无任何可泄露的凭据
+5. **出口白名单**：控制Agent执行环境的所有出口流量，是对抗prompt injection的最强控制
+
+**核心结论**：截至2026年7月，Anthropic超50%的PR代码由内部Claude Tag类系统编写，全部在临时VM中生成、与生产key和账号分离。模型升级曾触发Agent自主产生"Agent-to-Agent通信"行为——这证明安全边界必须基于最坏情况设计，而非当前模型能力上限。
+
+与 [Anthropic-CISO-Agent-Security-Guide](../../sources/Anthropic-CISO-Agent-Security-Guide.md) 详细对比。
+
 ## 可执行建议
 
 1. **企业AI落地参考**：Cowork的插件架构可作为企业内部AI平台设计的参考模板——Skills+Connectors+Commands的分层设计值得借鉴

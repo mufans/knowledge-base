@@ -117,3 +117,6 @@
 2026-07-19 | design | docs/superpowers/specs/2026-07-19-hermes-openclaw-dashboard-design.md | 完成Hermes×OpenClaw个人成长控制台设计：ngrok GitHub OAuth外网访问、实时状态、受控任务修改、自动分析、知识库输出、钉钉告警与自恢复
 2026-07-19 | plan | docs/superpowers/plans/2026-07-19-hermes-openclaw-dashboard.md | 完成Hermes×OpenClaw个人成长控制台实施计划：13个TDD任务、子代理交付边界、生产部署与回滚验收
 2026-07-19 | maintenance | .gitignore | 忽略实施worktree与brainstorm临时文件，防止子代理和可视化产物污染知识库提交
+2026-07-19 | ingest | raw/inbox/2026-07-19-Claude博客.md | 创建sources/Anthropic-AI-Code-Migration.md（自评9.00）、sources/Anthropic-CISO-Agent-Security-Guide.md（自评9.00）、sources/Claude-Code-Effort-Model-Guide.md（自评7.75）。更新entities/Claude-Cowork.md（合并Cowork安全控制五层架构）
+
+2026-07-19 | lint | raw/inbox/2026-07-19-知识库Lint审查.md | 知识库Lint审查完成（总分8.0/10，结构7.5/10，质量8.5/10）。索引修复6个、孤立页面从110降至4个、零积压。修复建议：根index.md重复章节+链接格式问题（两轮未修）。
