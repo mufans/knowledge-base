@@ -1,0 +1,3560 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal knowledge repository and project analysis">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Hermes × OpenClaw Personal Growth Dashboard Implementation Plan - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../../overrides/dashboard-data.js"></script>
+<script>
+// 在页面加载后，用 frontmatter date 替换/补充日期显示
+document.addEventListener('DOMContentLoaded', function() {
+  // 从页面 meta 标签或 frontmatter data 获取 date
+  const pageContent = document.querySelector('.md-content__inner');
+  if (!pageContent) return;
+  
+  // MkDocs Material 会把 YAML frontmatter 的 date 放在 article 标签的 data-date 属性
+  // 或者我们可以从 page.meta 中获取});
+</script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link rel="stylesheet" href="../../../overrides/styles/dashboard.css">
+  <style>
+    /* 显示 frontmatter date 替代 git date */
+    .md-source-date { display: none !important; }
+    .kb-frontmatter-date {
+      font-size: 0.8rem;
+      color: var(--md-default-fg-color--light);
+      margin-left: 0.5rem;
+    }
+  </style>
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hermes-openclaw-personal-growth-dashboard-implementation-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hermes × OpenClaw Personal Growth Dashboard Implementation Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../wiki/concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Wiki
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../raw/inbox/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Raw
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/AI-Agent-Self-Improving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Agent-Self-Improving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Claude-Ecosystem-Tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Ecosystem-Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Context-Window-Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Window-Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/DeepEP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Memory-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory-Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Retrieval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Pretext-js/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pretext-js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Prompt-Caching-Pitfalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt-Caching-Pitfalls
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Real-world-AI-Applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-world-AI-Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Self-RAG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Auto-Creation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Auto-Creation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Evaluation-Framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Evaluation-Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Weak-Model-Orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weak-Model-Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/andrej-karpathy-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    andrej-karpathy-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/entities/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Entities
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Claude-Code-Source-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Code-Source-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/DeepSeek-V4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek-V4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Fewshell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fewshell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GKE-Agent-Sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GKE-Agent-Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GPT-5.5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPT-5.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Ghostty-Leaving-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ghostty-Leaving-GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GoClick/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GoClick
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hermes-Agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hy-MT-Offline-Translation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hy-MT-Offline-Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/OpenClaw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Operit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/SmartPerfetto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Warp-Terminal-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Warp-Terminal-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-mem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/deer-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    deer-flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/harmonist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    harmonist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/llm_wiki/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    llm_wiki
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/mattpocock-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mattpocock-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/ml-intern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ml-intern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/open-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    open-design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/trycua-cua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    trycua-cua
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/sources/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/AI-Code-Tool-Pricing-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Code-Tool-Pricing-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Coding-Agents-Critique-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coding-Agents-Critique-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Hermes-Agent-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper-V2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper-V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/claude-context-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95-2026%E5%B9%B44%E6%9C%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐书单-2026年4月
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/syntheses/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syntheses
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Syntheses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Agent-Dev-Tools-2026-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent-Dev-Tools-2026-04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Hermes-vs-OpenClaw%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-vs-OpenClaw对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/SmartPerfetto-vs-SmartInspector%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto-vs-SmartInspector对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Raw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Raw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/inbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-preflight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution Preflight
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Execution Preflight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-privacy-safe-repositories-and-sanitizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 1: Privacy-safe repositories and sanitizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-typed-runtime-probes-and-dashboard-read-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 2: Typed runtime probes and dashboard read model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-loopback-web-service-and-authentication-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 3: Loopback web service and authentication boundary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-sse-event-hub-and-eight-page-dashboard-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 4: SSE event hub and eight-page dashboard UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-5-openclaw-and-hermes-conversation-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 5: OpenClaw and Hermes conversation adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-6-approval-audit-and-openclaw-task-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 6: Approval, audit, and OpenClaw task controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-7-hermes-cadence-runner-self-improvement-controls-and-kb-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 7: Hermes cadence runner, self-improvement controls, and KB exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-8-incident-sentinel-dingtalk-delivery-state-and-recovery-notices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 8: Incident sentinel, DingTalk delivery state, and recovery notices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-9-openclaw-dingtalk-skill-and-typed-im-command-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 9: OpenClaw DingTalk Skill and typed IM command router
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-10-reliable-knowledge-sync-and-openclaw-job-installer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 10: Reliable knowledge sync and OpenClaw job installer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-11-ngrok-policy-launchagents-and-deployment-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 11: ngrok policy, LaunchAgents, and deployment CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-12-production-deployment-security-hardening-and-end-to-end-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 12: Production deployment, security hardening, and end-to-end verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-13-final-review-and-branch-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 13: Final review and branch integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rollback Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-acceptance-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final Acceptance Evidence
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+
+
+<h1 id="hermes-openclaw-personal-growth-dashboard-implementation-plan">Hermes × OpenClaw Personal Growth Dashboard Implementation Plan<a class="headerlink" href="#hermes-openclaw-personal-growth-dashboard-implementation-plan" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
+</blockquote>
+<p><strong>Goal:</strong> Build and deploy a secure real-time dashboard that controls OpenClaw and Hermes, automates opportunity reviews and knowledge-base output, sends reliable DingTalk incidents, and is accessible from any browser through ngrok GitHub OAuth.</p>
+<p><strong>Architecture:</strong> Extend the existing <code>opportunity_os</code> Python package with a loopback-only FastAPI broker, typed read/control adapters, SSE, approval and incident state machines, and a vanilla HTML/CSS/JavaScript UI. OpenClaw remains the only production scheduler and DingTalk egress; Hermes runs through fixed non-interactive wrappers and writes only private Opportunity OS state. ngrok provides the external OAuth boundary without exposing OpenClaw credentials or the local port.</p>
+<p><strong>Tech Stack:</strong> Python 3.12, FastAPI, Uvicorn, Pydantic 2, Jinja2, vanilla JavaScript/CSS, pytest, httpx TestClient, JSON/JSONL, OpenClaw 2026.4.26 CLI with Homebrew Node 22, Hermes Agent 0.18.2, ngrok Agent with managed GitHub OAuth, macOS LaunchAgents.</p>
+<h2 id="global-constraints">Global Constraints<a class="headerlink" href="#global-constraints" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use an isolated <code>codex/</code> Git worktree at execution time; preserve all pre-existing dirty files in the main workspace.</li>
+<li>Never modify <code>raw/**</code>; read <code>purpose.md</code> before generating Wiki output.</li>
+<li>Append <code>log.md</code> for every repository operation; new Wiki pages also update <code>wiki/syntheses/index.md</code>.</li>
+<li>Publish only through <code>/Users/liujun/.openclaw/workspace/scripts/sync_kb.sh</code>; never manually copy, push, or deploy MkDocs.</li>
+<li>Dashboard and ngrok upstream bind only to <code>127.0.0.1</code>/<code>::1</code>; OpenClaw Gateway stays loopback-only on port <code>18789</code>.</li>
+<li>Browser code never receives OpenClaw Gateway tokens, provider keys, ngrok Authtoken, DingTalk credentials, recipients, or raw task payloads.</li>
+<li>OpenClaw is the only production Cron and DingTalk egress; do not enable Hermes Cron or Hermes messaging.</li>
+<li>V1 task mutations are limited to <code>enabled</code>, Cron expression, timezone, and run-now; no delete, model, recipient, arbitrary payload, command, or arbitrary shell editing.</li>
+<li>Broad collection remains at least 80%; targeted additions remain at most 20%; every weekly output includes opposing evidence and a surprise signal.</li>
+<li>Keep Hermes <code>memory.write_approval=true</code>, <code>skills.write_approval=true</code>, <code>skills.guard_agent_created=true</code>, and <code>onboarding.profile_build="off"</code>.</li>
+<li>Explicitly set <code>memory.nudge_interval=0</code> and <code>skills.creation_nudge_interval=0</code> for unattended runs; never use <code>--yolo</code>.</li>
+<li>Do not auto-upgrade OpenClaw, Hermes, ngrok, Node, providers, or models.</li>
+<li>Any secret entry pauses execution and uses a visible user terminal or official browser; never accept the secret in chat or print it.</li>
+<li>Before each external configuration mutation, create a verified backup and record secret-free before/after hashes.</li>
+</ul>
+<hr />
+<h2 id="file-structure">File Structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h2>
+<p>Repository-owned files:</p>
+<pre><code class="language-text">integrations/hermes-opportunity-os/
+├── pyproject.toml
+├── src/opportunity_os/
+│   ├── cli.py
+│   ├── sanitizer.py                 # content-level secret and public-export filtering
+│   ├── store.py                     # privacy-safe summaries and existing private state
+│   ├── dashboard/
+│   │   ├── __init__.py
+│   │   ├── app.py                   # FastAPI factory and route composition
+│   │   ├── approvals.py             # change-request state machine, digest, nonce, CAS
+│   │   ├── audit.py                 # append-only secret-free audit records
+│   │   ├── auth.py                  # ngrok/local bootstrap sessions, CSRF, Host/Origin
+│   │   ├── config.py                # typed paths, ports, executable locations
+│   │   ├── conversations.py         # OpenClaw/Hermes session orchestration
+│   │   ├── events.py                # SSE broker and Last-Event-ID replay
+│   │   ├── incidents.py             # failure/recovery/cooldown/restart state
+│   │   ├── im.py                    # typed DingTalk/OpenClaw command routing
+│   │   ├── probes.py                # read-only runtime probes
+│   │   ├── read_model.py            # allowlisted aggregate dashboard DTO
+│   │   ├── repositories.py          # side-effect-free private state readers
+│   │   ├── schemas.py               # public API DTOs
+│   │   ├── tasks.py                 # OpenClaw typed task adapter
+│   │   ├── static/app.js
+│   │   ├── static/styles.css
+│   │   └── templates/index.html
+│   └── automation/
+│       ├── hermes_runner.py          # fixed cadence, lock, timeout, heartbeat
+│       ├── kb_export.py              # private-to-Wiki sanitizer/exporter
+│       └── monitor.py                # one-shot incident monitor for OpenClaw Cron
+├── deployment/
+│   ├── launchagents/
+│   │   ├── com.liujun.opportunity-dashboard.plist
+│   │   └── com.liujun.opportunity-ngrok.plist
+│   ├── ngrok/traffic-policy.example.yml
+│   ├── openclaw/install_jobs.py
+│   ├── openclaw/skills/hermes-dashboard/SKILL.md
+│   └── openclaw/sync_kb.sh
+└── tests/
+    ├── test_sanitizer.py
+    ├── dashboard/
+    │   ├── test_app.py
+    │   ├── test_approvals.py
+    │   ├── test_auth.py
+    │   ├── test_conversations.py
+    │   ├── test_events.py
+    │   ├── test_incidents.py
+    │   ├── test_im.py
+    │   ├── test_probes.py
+    │   ├── test_read_model.py
+    │   ├── test_repositories.py
+    │   └── test_tasks.py
+    ├── automation/
+    │   ├── test_hermes_runner.py
+    │   ├── test_kb_export.py
+    │   └── test_monitor.py
+    └── deployment/
+        ├── test_install_jobs.py
+        ├── test_launchagents.py
+        ├── test_openclaw_skill.py
+        └── test_sync_kb.py
+</code></pre>
+<p>Private deployed state, never committed:</p>
+<pre><code class="language-text">~/.hermes/profiles/opportunity-discovery/opportunity-os/dashboard/
+├── approvals.json
+├── audit.jsonl
+├── incidents.json
+├── sessions.json
+├── heartbeats/
+└── locks/
+
+~/.config/opportunity-dashboard/
+├── dashboard.env             # mode 0600, non-provider runtime secrets only
+├── ngrok.yml                 # mode 0600, Authtoken reference/config
+└── traffic-policy.yml        # mode 0600, owner allowlist + origin credential
+</code></pre>
+<h2 id="execution-preflight">Execution Preflight<a class="headerlink" href="#execution-preflight" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Use <code>superpowers:using-git-worktrees</code> to create a clean <code>codex/hermes-openclaw-dashboard</code> worktree.</li>
+<li>[ ] Record <code>git status --short</code>, <code>git rev-parse HEAD</code>, OpenClaw config/Cron hashes, Hermes template/profile hashes, and LaunchAgent state in a private preflight report.</li>
+<li>[ ] Run the existing 65-test baseline with <code>UV_CACHE_DIR=/private/tmp/hermes-dashboard-uv-cache uv run --directory integrations/hermes-opportunity-os --extra test pytest -q</code> and require PASS before edits.</li>
+<li>[ ] Run only read-only host probes: <code>openclaw gateway status</code>, <code>openclaw cron list --all --json</code>, <code>hermes -p opportunity-discovery config check</code>, and <code>opportunity-os doctor</code>; do not send messages or call a model.</li>
+</ul>
+<h3 id="task-1-privacy-safe-repositories-and-sanitizer">Task 1: Privacy-safe repositories and sanitizer<a class="headerlink" href="#task-1-privacy-safe-repositories-and-sanitizer" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/sanitizer.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/__init__.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/schemas.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/repositories.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/store.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/cli.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/test_sanitizer.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_repositories.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/test_store.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: <code>contains_secret(value: object) -&gt; bool</code>, <code>sanitize_public(value: object) -&gt; object</code>, <code>PrivateStateReadRepository.snapshot() -&gt; PrivateStateSnapshot</code>, and privacy-safe <code>PrivateStore.system_status() -&gt; dict[str, object]</code>.
+- <code>PrivateStateSnapshot</code> contains counts, capacity, latest review metadata, overdue TechState count, event cursor, and no direction titles or summaries.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing privacy tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_public_status_never_returns_directions(store):
+    status = store.system_status()
+    assert status[&quot;portfolio&quot;] == {
+        &quot;counts&quot;: {&quot;observe&quot;: 0, &quot;validate&quot;: 0, &quot;active&quot;: 0},
+        &quot;capacity&quot;: {&quot;observe&quot;: 5, &quot;validate&quot;: 2, &quot;active&quot;: 1},
+    }
+    assert &quot;directions&quot; not in repr(status)
+
+def test_sanitizer_rejects_secret_inside_free_text():
+    from opportunity_os.sanitizer import contains_secret
+    assert contains_secret(&quot;Authorization: Bearer sk-private-value&quot;) is True
+
+def test_repository_read_has_no_write_side_effect(tmp_path, initialized_store):
+    before = {p: p.stat().st_mtime_ns for p in initialized_store.home.rglob(&quot;*&quot;) if p.is_file()}
+    PrivateStateReadRepository(initialized_store.home).snapshot()
+    after = {p: p.stat().st_mtime_ns for p in initialized_store.home.rglob(&quot;*&quot;) if p.is_file()}
+    assert after == before
+</code></pre>
+<ul>
+<li>[ ] <strong>Step 2: Run the focused tests and verify failure</strong></li>
+</ul>
+<p>Run:</p>
+<pre><code class="language-bash">UV_CACHE_DIR=/private/tmp/hermes-dashboard-uv-cache uv run --directory integrations/hermes-opportunity-os --extra test pytest tests/test_sanitizer.py tests/dashboard/test_repositories.py tests/test_store.py -q
+</code></pre>
+<p>Expected: FAIL because <code>sanitizer</code> and <code>PrivateStateReadRepository</code> do not exist and current <code>system_status()</code> still returns directions.</p>
+<ul>
+<li>[ ] <strong>Step 3: Implement content scanning and side-effect-free reads</strong></li>
+</ul>
+<pre><code class="language-python">SECRET_PATTERNS = (
+    re.compile(r&quot;(?i)authorization\s*:\s*bearer\s+\S+&quot;),
+    re.compile(r&quot;(?i)(?:api[_-]?key|token|password|secret)\s*[=:]\s*\S+&quot;),
+    re.compile(r&quot;\b(?:sk|go)-[A-Za-z0-9_-]{12,}\b&quot;),
+)
+
+def contains_secret(value: object) -&gt; bool:
+    if isinstance(value, dict):
+        return any(str(key).casefold() in SENSITIVE_FIELDS or contains_secret(item) for key, item in value.items())
+    if isinstance(value, (list, tuple)):
+        return any(contains_secret(item) for item in value)
+    return isinstance(value, str) and any(pattern.search(value) for pattern in SECRET_PATTERNS)
+</code></pre>
+<p>Implement <code>PrivateStateReadRepository</code> with direct read-only <code>Path.read_text()</code> calls and no <code>PrivateStore.initialize()</code>. Change the existing <code>system_status()</code> contract itself to return only counts and capacity, so the MCP and CLI cannot accidentally leak full directions; detailed portfolio access remains available only through the separately named <code>get_portfolio()</code> method.</p>
+<ul>
+<li>[ ] <strong>Step 4: Run focused and full regression tests</strong></li>
+</ul>
+<p>Expected: focused tests PASS, then all existing and new tests PASS.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit the privacy foundation</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src integrations/hermes-opportunity-os/tests
+git commit -m &quot;fix: add privacy-safe dashboard reads&quot;
+</code></pre>
+<h3 id="task-2-typed-runtime-probes-and-dashboard-read-model">Task 2: Typed runtime probes and dashboard read model<a class="headerlink" href="#task-2-typed-runtime-probes-and-dashboard-read-model" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/config.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/schemas.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/probes.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/read_model.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_probes.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_read_model.py</code></p>
+<p><strong>Interfaces:</strong>
+- Consumes: <code>PrivateStateReadRepository.snapshot()</code> from Task 1.
+- Produces: <code>DashboardConfig.from_env()</code>, <code>CommandRunner.run(argv, timeout) -&gt; CommandResult</code>, <code>RuntimeProbe.check() -&gt; ComponentHealth</code>, and <code>DashboardReadModel.snapshot() -&gt; DashboardSnapshot</code>.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing probe and aggregation tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_timeout_is_unknown_not_down(fake_runner, dashboard_config):
+    fake_runner.result = CommandResult(exit_code=None, stdout=&quot;&quot;, stderr=&quot;&quot;, timed_out=True, duration_ms=1000)
+    result = HermesProbe(dashboard_config, fake_runner).check()
+    assert result.status == &quot;unknown&quot;
+    assert result.error_code == &quot;probe_timeout&quot;
+
+def test_read_model_never_exposes_paths_or_directions(private_repo, fake_probes):
+    payload = DashboardReadModel(private_repo, fake_probes).snapshot().model_dump(mode=&quot;json&quot;)
+    rendered = json.dumps(payload, ensure_ascii=False)
+    assert &quot;/Users/&quot; not in rendered
+    assert &quot;directions&quot; not in rendered
+</code></pre>
+<ul>
+<li>[ ] <strong>Step 2: Run tests and verify missing-type failures</strong></li>
+</ul>
+<p>Run <code>pytest tests/dashboard/test_probes.py tests/dashboard/test_read_model.py -q</code>; expect import failures for the new modules.</p>
+<ul>
+<li>[ ] <strong>Step 3: Implement exact health contracts</strong></li>
+</ul>
+<pre><code class="language-python">class ComponentHealth(BaseModel):
+    component: Literal[&quot;openclaw&quot;, &quot;hermes&quot;, &quot;opportunity_os&quot;, &quot;dashboard&quot;, &quot;ngrok&quot;, &quot;knowledge_publish&quot;]
+    status: Literal[&quot;healthy&quot;, &quot;degraded&quot;, &quot;down&quot;, &quot;unknown&quot;]
+    checked_at: datetime
+    last_success_at: datetime | None = None
+    duration_ms: int
+    error_code: str | None = None
+
+class DashboardSnapshot(BaseModel):
+    generated_at: datetime
+    components: list[ComponentHealth]
+    opportunity_counts: dict[str, int]
+    portfolio_counts: dict[str, int]
+    portfolio_capacity: dict[str, int]
+    latest_review_at: datetime | None
+    overdue_tech_states: int
+    pending_approvals: int
+    active_incidents: int
+</code></pre>
+<p>Use <code>asyncio.create_subprocess_exec(*argv)</code> or <code>subprocess.run(argv, shell=False)</code> only. Set the OpenClaw executable environment to <code>/opt/homebrew/opt/node@22/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</code> and probe with <code>openclaw gateway status</code>; probe Hermes with <code>hermes -p opportunity-discovery config check</code>; never invoke a provider-backed command.</p>
+<ul>
+<li>[ ] <strong>Step 4: Run probe/read-model tests and the full suite</strong></li>
+</ul>
+<p>Expected: all tests PASS; timeout remains <code>unknown</code>; payload scan contains no absolute user path or private direction data.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit runtime read models</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src/opportunity_os/dashboard integrations/hermes-opportunity-os/tests/dashboard
+git commit -m &quot;feat: add dashboard runtime read model&quot;
+</code></pre>
+<h3 id="task-3-loopback-web-service-and-authentication-boundary">Task 3: Loopback web service and authentication boundary<a class="headerlink" href="#task-3-loopback-web-service-and-authentication-boundary" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>integrations/hermes-opportunity-os/pyproject.toml</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/auth.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/app.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/cli.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_auth.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_app.py</code></p>
+<p><strong>Interfaces:</strong>
+- Consumes: <code>DashboardReadModel.snapshot()</code> from Task 2.
+- Produces: <code>create_app(config, dependencies) -&gt; FastAPI</code>, <code>SessionStore</code>, <code>CsrfGuard</code>, and CLI commands <code>dashboard serve</code> and <code>dashboard open</code>.</p>
+<ul>
+<li>[ ] <strong>Step 1: Add dependencies and failing security tests</strong></li>
+</ul>
+<p>Add exact dependency ranges:</p>
+<pre><code class="language-toml">&quot;fastapi&gt;=0.116,&lt;1&quot;,
+&quot;uvicorn&gt;=0.35,&lt;1&quot;,
+&quot;jinja2&gt;=3.1,&lt;4&quot;,
+</code></pre>
+<p>Add <code>httpx&gt;=0.28,&lt;1</code> to the test extra. Test rejected Host, Origin, missing origin credential, missing CSRF, GET mutation, expired bootstrap token, and successful loopback bootstrap exchange.</p>
+<pre><code class="language-python">def test_remote_request_requires_origin_credential(client):
+    response = client.get(&quot;/api/v1/status&quot;, headers={&quot;host&quot;: &quot;assigned.ngrok-free.app&quot;})
+    assert response.status_code == 401
+
+def test_mutation_requires_csrf(authenticated_client):
+    response = authenticated_client.post(&quot;/api/v1/session/refresh&quot;, json={})
+    assert response.status_code == 403
+</code></pre>
+<ul>
+<li>[ ] <strong>Step 2: Lock dependencies and verify tests fail</strong></li>
+</ul>
+<p>Run <code>uv lock --directory integrations/hermes-opportunity-os</code>, then focused pytest. Expected: route/auth imports fail.</p>
+<ul>
+<li>[ ] <strong>Step 3: Implement session, bootstrap, Host/Origin, and CSRF guards</strong></li>
+</ul>
+<p>Use 32-byte <code>secrets.token_urlsafe()</code> values, server-side session storage beneath the private Dashboard home, constant-time credential comparison, 12-hour remote sessions, 8-hour local sessions, 60-second one-time bootstrap tokens, and HttpOnly <code>SameSite=Strict</code> cookies. Define only these unauthenticated routes: <code>/healthz</code> and <code>/auth/local/exchange</code> from loopback.</p>
+<pre><code class="language-python">@router.get(&quot;/api/v1/status&quot;, response_model=DashboardSnapshot)
+def status(_: Session = Depends(require_session)) -&gt; DashboardSnapshot:
+    return dependencies.read_model.snapshot()
+
+@router.post(&quot;/api/v1/session/refresh&quot;, response_model=SessionInfo)
+def refresh_session(session: Session = Depends(require_csrf_session)) -&gt; SessionInfo:
+    return dependencies.sessions.refresh(session)
+</code></pre>
+<ul>
+<li>[ ] <strong>Step 4: Verify auth tests and bind behavior</strong></li>
+</ul>
+<p>Run focused tests, then start with <code>opportunity-os dashboard serve --host 127.0.0.1 --port 8765</code> against fixture state and verify <code>lsof</code> shows no non-loopback listener.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit the secure web shell</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/pyproject.toml integrations/hermes-opportunity-os/uv.lock integrations/hermes-opportunity-os/src integrations/hermes-opportunity-os/tests
+git commit -m &quot;feat: add authenticated loopback dashboard service&quot;
+</code></pre>
+<h3 id="task-4-sse-event-hub-and-eight-page-dashboard-ui">Task 4: SSE event hub and eight-page dashboard UI<a class="headerlink" href="#task-4-sse-event-hub-and-eight-page-dashboard-ui" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/events.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/templates/index.html</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/static/app.js</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/static/styles.css</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/app.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_events.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_app.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: <code>EventHub.publish(event)</code>, <code>EventHub.replay(last_event_id)</code>, <code>EventHub.subscribe(last_event_id)</code>, <code>/api/v1/events</code> SSE, and browser modules <code>renderOverview</code>, <code>renderSignals</code>, <code>renderOpportunities</code>, <code>renderTasks</code>, <code>renderApprovals</code>, <code>renderReports</code>, <code>renderMonitoring</code>, <code>renderConversations</code>.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing replay, redaction, and UI smoke tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_sse_replays_after_last_event_id(event_hub):
+    first = event_hub.publish(&quot;component.updated&quot;, {&quot;component&quot;: &quot;hermes&quot;})
+    second = event_hub.publish(&quot;incident.firing&quot;, {&quot;incident_id&quot;: &quot;inc-1&quot;})
+    assert [event.id for event in event_hub.replay(first.id)] == [second.id]
+
+def test_sse_rejects_private_body(event_hub):
+    with pytest.raises(ValueError, match=&quot;event payload&quot;):
+        event_hub.publish(&quot;review.updated&quot;, {&quot;summary&quot;: &quot;private free text&quot;})
+</code></pre>
+<ul>
+<li>[ ] <strong>Step 2: Run tests and verify failure</strong></li>
+</ul>
+<p>Expected: missing <code>EventHub</code> and UI route assertions fail.</p>
+<ul>
+<li>[ ] <strong>Step 3: Implement bounded SSE and accessible vanilla UI</strong></li>
+</ul>
+<p>Keep at most 1,000 metadata-only events in memory and persist the cursor only. Send a 20-second heartbeat comment, honor <code>Last-Event-ID</code>, reconnect with exponential backoff, and refetch the relevant DTO after each event. Build responsive desktop/mobile navigation for the eight approved pages; do not embed private data in initial HTML.</p>
+<pre><code class="language-javascript">const routes = [&quot;overview&quot;, &quot;conversations&quot;, &quot;signals&quot;, &quot;opportunities&quot;, &quot;tasks&quot;, &quot;approvals&quot;, &quot;reports&quot;, &quot;monitoring&quot;];
+const source = new EventSource(&quot;/api/v1/events&quot;);
+source.addEventListener(&quot;component.updated&quot;, () =&gt; refreshOverview());
+source.addEventListener(&quot;incident.firing&quot;, () =&gt; Promise.all([refreshOverview(), refreshMonitoring()]));
+</code></pre>
+<ul>
+<li>[ ] <strong>Step 4: Run UI/API tests and manually inspect local rendering</strong></li>
+</ul>
+<p>Expected: SSE replay/redaction tests PASS; all eight navigation targets render empty, healthy, degraded, and disconnected fixture states without console errors.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit UI and real-time events</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src/opportunity_os/dashboard integrations/hermes-opportunity-os/tests/dashboard
+git commit -m &quot;feat: add real-time dashboard interface&quot;
+</code></pre>
+<h3 id="task-5-openclaw-and-hermes-conversation-adapters">Task 5: OpenClaw and Hermes conversation adapters<a class="headerlink" href="#task-5-openclaw-and-hermes-conversation-adapters" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/conversations.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/app.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/static/app.js</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_conversations.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: <code>OpenClawConversationAdapter.send(session_id, message) -&gt; ConversationResult</code>, <code>HermesConversationAdapter.send(session_id, message) -&gt; ConversationResult</code>, and <code>ConversationService.submit(request) -&gt; task_id</code>.
+- <code>ConversationResult</code> contains <code>session_id</code>, final text, provider/model when reported, token/cost status, exit code, duration, and no raw stderr.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing fixed-command and timeout tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_openclaw_adapter_uses_fixed_gateway_agent_command(fake_runner):
+    adapter = OpenClawConversationAdapter(fake_runner, openclaw_path=&quot;/opt/homebrew/bin/openclaw&quot;)
+    adapter.send(&quot;dashboard-main&quot;, &quot;Hermes 状态&quot;)
+    assert fake_runner.argv == [
+        &quot;/opt/homebrew/bin/openclaw&quot;, &quot;agent&quot;, &quot;--session-id&quot;, &quot;dashboard-main&quot;,
+        &quot;--message&quot;, &quot;Hermes 状态&quot;, &quot;--timeout&quot;, &quot;600&quot;, &quot;--json&quot;,
+    ]
+
+def test_hermes_adapter_never_uses_yolo(fake_runner):
+    HermesConversationAdapter(fake_runner).send(&quot;research&quot;, &quot;分析端侧 Agent&quot;)
+    assert &quot;--yolo&quot; not in fake_runner.argv
+    assert fake_runner.argv[:6] == [&quot;hermes&quot;, &quot;-p&quot;, &quot;opportunity-discovery&quot;, &quot;chat&quot;, &quot;-Q&quot;, &quot;-q&quot;]
+</code></pre>
+<ul>
+<li>
+<p>[ ] <strong>Step 2: Run focused tests and verify missing adapter failures</strong></p>
+</li>
+<li>
+<p>[ ] <strong>Step 3: Implement bounded subprocess adapters</strong></p>
+</li>
+</ul>
+<p>Use <code>shell=False</code>, maximum message size 8 KiB, normalized session IDs, 600-second OpenClaw timeout, 1,500-second Hermes daily timeout, no <code>--deliver</code>, and <code>--source tool --skills opportunity-discovery</code> for Hermes. Stream task lifecycle events; only final sanitized text reaches the browser. Store session metadata, not hidden reasoning or credentials.</p>
+<ul>
+<li>[ ] <strong>Step 4: Verify fake adapters, then run one explicit no-delivery OpenClaw query and one Hermes fixture query</strong></li>
+</ul>
+<p>Expected: both return JSON/final text without DingTalk delivery or private-state mutation; real provider call occurs only after confirming the configured model and expected cost status.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit conversation routing</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src/opportunity_os/dashboard integrations/hermes-opportunity-os/tests/dashboard
+git commit -m &quot;feat: route OpenClaw and Hermes dashboard conversations&quot;
+</code></pre>
+<h3 id="task-6-approval-audit-and-openclaw-task-controller">Task 6: Approval, audit, and OpenClaw task controller<a class="headerlink" href="#task-6-approval-audit-and-openclaw-task-controller" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/approvals.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/audit.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/tasks.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/app.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/static/app.js</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_approvals.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_tasks.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: <code>ChangeRequest</code>, <code>ApprovalService.preview/approve/apply</code>, <code>AuditLog.append</code>, and <code>OpenClawTaskAdapter.list/status/runs/edit_enabled/edit_schedule/run_now</code>.
+- Allowed patch keys are exactly <code>enabled</code>, <code>cron</code>, and <code>tz</code>; run-now has no mutable patch.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing state-machine, CAS, and allowlist tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_payload_change_invalidates_approval(service):
+    request = service.preview(&quot;job-1&quot;, {&quot;enabled&quot;: False}, base_revision=&quot;r1&quot;)
+    approved = service.approve(request.id, request.digest, nonce=request.nonce)
+    with pytest.raises(ConflictError):
+        service.apply(approved.id, observed_revision=&quot;r2&quot;)
+
+@pytest.mark.parametrize(&quot;field&quot;, [&quot;message&quot;, &quot;model&quot;, &quot;to&quot;, &quot;command&quot;, &quot;delete&quot;])
+def test_forbidden_task_fields_are_rejected(service, field):
+    with pytest.raises(ValidationError):
+        service.preview(&quot;job-1&quot;, {field: &quot;blocked&quot;}, base_revision=&quot;r1&quot;)
+</code></pre>
+<ul>
+<li>
+<p>[ ] <strong>Step 2: Run focused tests and verify failure</strong></p>
+</li>
+<li>
+<p>[ ] <strong>Step 3: Implement deterministic OpenClaw CLI commands</strong></p>
+</li>
+</ul>
+<p>Use only:</p>
+<pre><code class="language-text">openclaw cron list --all --json
+openclaw cron status
+openclaw cron runs --id JOB_ID --limit 50
+openclaw cron edit JOB_ID --enable|--disable
+openclaw cron edit JOB_ID --cron EXPR --tz Asia/Shanghai
+openclaw cron run JOB_ID
+</code></pre>
+<p>Never pass <code>--message</code>, <code>--model</code>, <code>--to</code>, <code>rm</code>, <code>--token</code>, or a shell string. Derive <code>base_revision</code> from canonical task JSON and <code>updatedAtMs</code>; persist field-level audit Diff without payload, recipient, or token.</p>
+<ul>
+<li>[ ] <strong>Step 4: Run approval/task tests plus a read-only real <code>cron list/status/runs</code> contract test</strong></li>
+</ul>
+<p>Expected: tests PASS; no production mutation occurs in this step.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit controlled task mutation</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src/opportunity_os/dashboard integrations/hermes-opportunity-os/tests/dashboard
+git commit -m &quot;feat: add approved OpenClaw task controls&quot;
+</code></pre>
+<h3 id="task-7-hermes-cadence-runner-self-improvement-controls-and-kb-exporter">Task 7: Hermes cadence runner, self-improvement controls, and KB exporter<a class="headerlink" href="#task-7-hermes-cadence-runner-self-improvement-controls-and-kb-exporter" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/automation/__init__.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/automation/hermes_runner.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/automation/kb_export.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/cli.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/profile/config.yaml</code>
+- Modify: <code>integrations/hermes-opportunity-os/skills/opportunity-discovery/references/operating-rhythm.md</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/automation/test_hermes_runner.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/automation/test_kb_export.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: <code>CadenceRunner.run(cadence, period_key) -&gt; RunRecord</code>, CLI <code>automation run</code>, and <code>KnowledgeExporter.render/export</code>.
+- Allowed cadence values: <code>daily</code>, <code>weekly</code>, <code>biweekly</code>, <code>six-week</code>, <code>quarterly</code>.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing lock, idempotency, timeout, profile, and export tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_duplicate_period_is_skipped(runner):
+    first = runner.run(&quot;weekly&quot;, &quot;2026-W29&quot;)
+    second = runner.run(&quot;weekly&quot;, &quot;2026-W29&quot;)
+    assert first.status == &quot;success&quot;
+    assert second.status == &quot;skipped_duplicate&quot;
+
+def test_runner_uses_quiet_non_yolo_hermes(fake_runner, runner):
+    runner.run(&quot;daily&quot;, &quot;2026-07-19&quot;)
+    assert fake_runner.argv[:6] == [&quot;hermes&quot;, &quot;-p&quot;, &quot;opportunity-discovery&quot;, &quot;chat&quot;, &quot;-Q&quot;, &quot;-q&quot;]
+    assert &quot;--yolo&quot; not in fake_runner.argv
+
+def test_public_export_contains_no_private_path_or_secret(exporter, review_fixture):
+    rendered = exporter.render(review_fixture)
+    assert &quot;/Users/&quot; not in rendered
+    assert &quot;Authorization:&quot; not in rendered
+</code></pre>
+<ul>
+<li>
+<p>[ ] <strong>Step 2: Run focused tests and verify failure</strong></p>
+</li>
+<li>
+<p>[ ] <strong>Step 3: Implement atomic locks, heartbeats, prompts, and safe Profile defaults</strong></p>
+</li>
+</ul>
+<p>Set in the template:</p>
+<pre><code class="language-yaml">memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  write_approval: true
+  nudge_interval: 0
+skills:
+  guard_agent_created: true
+  write_approval: true
+  creation_nudge_interval: 0
+</code></pre>
+<p>Use <code>mkdir</code>-style atomic lock ownership, JSON heartbeat atomic replace, daily timeout 1,500 seconds, weekly timeout 3,000 seconds, and idempotency key <code>cadence:period_key</code>. Prompts require broad intake, opposing evidence, surprise, no external action, and improvement proposals instead of Memory/Skill mutation.</p>
+<ul>
+<li>[ ] <strong>Step 4: Implement AGENTS-compliant KB export and run tests</strong></li>
+</ul>
+<p>Exporter writes only <code>wiki/syntheses/</code> plus its index and append-only root log, validates the required self-evaluation score, and never touches <code>raw/</code> or <code>docs/</code>. Test with a temporary knowledge fixture and require no raw mtime changes.</p>
+<p>The exporter owns these exact public-safe pages: <code>个人机会发现仪表盘.md</code>, <code>个人机会发现周报-YYYY-MM-DD.md</code>, <code>技术新鲜度观察.md</code>, and <code>方向实验复盘-YYYY-Www.md</code>. It also writes private bridge files <code>openclaw-handoff.json</code>, <code>source-feedback.json</code>, and <code>experiment-evidence-request.json</code> with a 14-day TTL. Bridge feedback may add targeted searches up to 20% but cannot remove broad sources.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit cadence and exporter</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src integrations/hermes-opportunity-os/profile integrations/hermes-opportunity-os/skills integrations/hermes-opportunity-os/tests
+git commit -m &quot;feat: automate Hermes reviews and safe KB exports&quot;
+</code></pre>
+<h3 id="task-8-incident-sentinel-dingtalk-delivery-state-and-recovery-notices">Task 8: Incident sentinel, DingTalk delivery state, and recovery notices<a class="headerlink" href="#task-8-incident-sentinel-dingtalk-delivery-state-and-recovery-notices" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/incidents.py</code>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/automation/monitor.py</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/cli.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_incidents.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/automation/test_monitor.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: <code>IncidentSentinel.observe(key, ok, severity, error_class) -&gt; IncidentTransition</code>, <code>RestartBudget.allow(component, now)</code>, CLI <code>monitor once</code>, and a secret-free alert summary.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing incident transition tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_incident_fires_once_and_recovers_once(sentinel):
+    assert sentinel.observe(&quot;hermes:daily:timeout&quot;, False, &quot;P1&quot;, &quot;timeout&quot;).kind == &quot;pending&quot;
+    assert sentinel.observe(&quot;hermes:daily:timeout&quot;, False, &quot;P1&quot;, &quot;timeout&quot;).kind == &quot;firing&quot;
+    assert sentinel.observe(&quot;hermes:daily:timeout&quot;, False, &quot;P1&quot;, &quot;timeout&quot;).kind == &quot;suppressed&quot;
+    assert sentinel.observe(&quot;hermes:daily:timeout&quot;, True, &quot;P1&quot;, &quot;timeout&quot;).kind == &quot;recovering&quot;
+    assert sentinel.observe(&quot;hermes:daily:timeout&quot;, True, &quot;P1&quot;, &quot;timeout&quot;).kind == &quot;recovered&quot;
+
+def test_restart_budget_limits_hour_and_day(budget):
+    assert budget.allow(&quot;openclaw&quot;, at(&quot;2026-07-19T10:00:00Z&quot;)) is True
+    assert budget.allow(&quot;openclaw&quot;, at(&quot;2026-07-19T10:30:00Z&quot;)) is False
+    assert budget.allow(&quot;openclaw&quot;, at(&quot;2026-07-19T12:00:00Z&quot;)) is True
+    assert budget.allow(&quot;openclaw&quot;, at(&quot;2026-07-19T14:00:00Z&quot;)) is False
+</code></pre>
+<ul>
+<li>
+<p>[ ] <strong>Step 2: Run tests and verify failure</strong></p>
+</li>
+<li>
+<p>[ ] <strong>Step 3: Implement persistent incidents and delivery receipts</strong></p>
+</li>
+</ul>
+<p>Use key <code>source:task:error_class</code>, P0 immediate firing, P1 after two failures, P2 after three, 6-hour cooldown, two-success recovery, one restart/hour, two/day. Alert text contains error code, impact, last success, run-id, dashboard URL, and suggested action; never include raw stderr or paths.</p>
+<ul>
+<li>[ ] <strong>Step 4: Test fake DingTalk outcomes and recovery queueing</strong></li>
+</ul>
+<p>The monitor must distinguish <code>generated</code>, <code>queued</code>, <code>delivered</code>, and <code>failed</code>; a successful Cron run without delivery receipt cannot display “pushed”. Add a boot hook mode that emits a single “曾中断并已恢复” after LaunchAgent recovery.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit monitoring state machines</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src integrations/hermes-opportunity-os/tests
+git commit -m &quot;feat: add incident alerts and recovery tracking&quot;
+</code></pre>
+<h3 id="task-9-openclaw-dingtalk-skill-and-typed-im-command-router">Task 9: OpenClaw DingTalk Skill and typed IM command router<a class="headerlink" href="#task-9-openclaw-dingtalk-skill-and-typed-im-command-router" title="Permanent link">&para;</a></h3>
+<p><strong>Required sub-skill:</strong> <code>superpowers:writing-skills</code> before creating or editing the OpenClaw Skill.</p>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/src/opportunity_os/dashboard/im.py</code>
+- Create: <code>integrations/hermes-opportunity-os/deployment/openclaw/skills/hermes-dashboard/SKILL.md</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/cli.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_im.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/deployment/test_openclaw_skill.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: <code>ImCommandRouter.parse(text) -&gt; ImCommand</code>, <code>ImCommandRouter.execute(command, sender_id, session_id) -&gt; ImReply</code>, and CLI <code>dashboard im-command</code>.
+- Read commands: <code>status</code>, <code>latest_review</code>, <code>directions</code>, <code>opportunity_detail</code>, <code>learning_summary</code>, <code>pending_memory</code>, <code>pending_skills</code>.
+- Write proposals: <code>feedback</code>, <code>change_requirement</code>, <code>restart</code>, and <code>retry_task</code>; none applies without a second-phase nonce.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing parser, owner, and confirmation tests</strong></li>
+</ul>
+<pre><code class="language-python">@pytest.mark.parametrize(
+    (&quot;text&quot;, &quot;kind&quot;),
+    [
+        (&quot;Hermes 状态&quot;, &quot;status&quot;),
+        (&quot;Hermes 最新周报&quot;, &quot;latest_review&quot;),
+        (&quot;Hermes 当前方向&quot;, &quot;directions&quot;),
+        (&quot;Hermes 机会详情 opp-1&quot;, &quot;opportunity_detail&quot;),
+        (&quot;Hermes 最近学到了什么&quot;, &quot;learning_summary&quot;),
+        (&quot;Hermes 待审批记忆&quot;, &quot;pending_memory&quot;),
+        (&quot;Hermes 待审批Skill&quot;, &quot;pending_skills&quot;),
+        (&quot;Hermes 反馈：增加端侧 Agent 反证&quot;, &quot;feedback&quot;),
+        (&quot;Hermes 修改需求：周报增加失败假设&quot;, &quot;change_requirement&quot;),
+    ],
+)
+def test_im_commands_are_typed(router, text, kind):
+    assert router.parse(text).kind == kind
+
+def test_non_owner_is_rejected(router):
+    with pytest.raises(AuthorizationError):
+        router.execute(router.parse(&quot;Hermes 状态&quot;), sender_id=&quot;not-owner&quot;, session_id=&quot;dm-1&quot;)
+
+def test_write_command_returns_nonce_without_applying(router):
+    reply = router.execute(router.parse(&quot;Hermes 修改需求：调整周报&quot;), sender_id=&quot;owner&quot;, session_id=&quot;dm-1&quot;)
+    assert reply.status == &quot;awaiting_confirmation&quot;
+    assert reply.expires_in_seconds == 300
+    assert router.applied_changes == []
+</code></pre>
+<ul>
+<li>[ ] <strong>Step 2: Run parser/Skill tests and verify failure</strong></li>
+</ul>
+<p>Run <code>pytest tests/dashboard/test_im.py tests/deployment/test_openclaw_skill.py -q</code>; expect missing router and Skill failures.</p>
+<ul>
+<li>[ ] <strong>Step 3: Implement fail-closed typed routing</strong></li>
+</ul>
+<p>Normalize only the documented Chinese prefixes, cap input at 4 KiB, require the configured owner sender ID, and return structured text plus a Dashboard link. Read commands call existing read services. Feedback and requirement commands create Task 6 Change Requests; restart/retry require the same sender/session to return an exact 5-minute nonce. Unknown text falls back to normal OpenClaw chat and performs no system mutation.</p>
+<ul>
+<li>[ ] <strong>Step 4: Write and verify the OpenClaw Skill</strong></li>
+</ul>
+<p>The Skill triggers only on <code>Hermes</code>-prefixed commands, invokes the exact <code>opportunity-os dashboard im-command</code> CLI, never reads <code>.env</code> or OpenClaw config, never constructs shell fragments from user text, quotes read-only results, and uses the two-phase reply verbatim. Run the writing-skills validation and hostile prompt tests.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit IM routing</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/src/opportunity_os/dashboard/im.py integrations/hermes-opportunity-os/src/opportunity_os/cli.py integrations/hermes-opportunity-os/deployment/openclaw/skills integrations/hermes-opportunity-os/tests
+git commit -m &quot;feat: add owner-only Hermes DingTalk controls&quot;
+</code></pre>
+<h3 id="task-10-reliable-knowledge-sync-and-openclaw-job-installer">Task 10: Reliable knowledge sync and OpenClaw job installer<a class="headerlink" href="#task-10-reliable-knowledge-sync-and-openclaw-job-installer" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/deployment/openclaw/sync_kb.sh</code>
+- Create: <code>integrations/hermes-opportunity-os/deployment/openclaw/install_jobs.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/deployment/test_sync_kb.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/deployment/test_install_jobs.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: strict <code>sync_kb.sh</code> with stage JSON result and <code>build_job_plan(existing_jobs) -&gt; JobPlan</code>.
+- Job plan owns exact names <code>Hermes Opportunity Daily</code>, <code>Hermes Opportunity Weekly</code>, <code>Opportunity Monitor</code>, and only schedule corrections explicitly listed in the design.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing shell-fault and schedule-plan tests</strong></li>
+</ul>
+<pre><code class="language-python">@pytest.mark.parametrize(&quot;failed_stage&quot;, [&quot;build&quot;, &quot;push&quot;, &quot;deploy&quot;])
+def test_sync_failure_never_reports_success(sync_harness, failed_stage):
+    result = sync_harness.run(fail=failed_stage)
+    assert result.returncode != 0
+    assert result.json[&quot;status&quot;] == &quot;failed&quot;
+    assert result.json[&quot;stage&quot;] == failed_stage
+    assert &quot;success&quot; not in result.stdout.casefold()
+
+def test_job_plan_has_one_kb_sync_and_no_sunday_collision(existing_jobs):
+    plan = build_job_plan(existing_jobs)
+    assert plan.enabled_count(&quot;knowledge-base-sync&quot;) == 1
+    assert plan.schedule(&quot;Hermes Opportunity Daily&quot;) == (&quot;30 18 * * 1-6&quot;, &quot;Asia/Shanghai&quot;)
+    assert plan.schedule(&quot;Hermes Opportunity Weekly&quot;) == (&quot;0 19 * * 0&quot;, &quot;Asia/Shanghai&quot;)
+
+def test_push_policy_is_delta_daily_and_guaranteed_weekly(existing_jobs):
+    plan = build_job_plan(existing_jobs)
+    assert plan.push_policy(&quot;Hermes Opportunity Daily&quot;) == &quot;significant_delta_only&quot;
+    assert plan.push_policy(&quot;Hermes Opportunity Weekly&quot;) == &quot;always_after_successful_publish&quot;
+</code></pre>
+<ul>
+<li>
+<p>[ ] <strong>Step 2: Run deployment tests and verify failure</strong></p>
+</li>
+<li>
+<p>[ ] <strong>Step 3: Implement strict sync behavior</strong></p>
+</li>
+</ul>
+<p>Use <code>set -euo pipefail</code>, <code>mkdir</code> lock, explicit owned-path staging, immutable backup of the current <code>mkdocs.yml</code>, failure on drift rather than checkout, no global Git config mutation, and a final atomic JSON result. The script must still copy wiki/raw/root files, rebuild indexes, validate links, build, push, and deploy in the exact AGENTS order.</p>
+<ul>
+<li>[ ] <strong>Step 4: Implement dry-run job planning and exact OpenClaw commands</strong></li>
+</ul>
+<p>The installer first runs <code>openclaw backup create --only-config --verify --output PRIVATE_BACKUP_DIR</code> and snapshots Cron JSON. It emits, but does not execute until <code>--apply</code>, exact <code>openclaw cron add/edit/enable/disable</code> argv arrays. Configure failure alerts with <code>--failure-alert</code>, explicit destination resolved from the owner DM, <code>--failure-alert-after 2</code>, <code>--failure-alert-cooldown 6h</code>, <code>--failure-alert-exclude-skipped</code>, and no <code>--best-effort-deliver</code>.</p>
+<ul>
+<li>[ ] <strong>Step 5: Run fault injection and dry-run against a redacted real Cron snapshot, then commit</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/deployment integrations/hermes-opportunity-os/tests/deployment
+git commit -m &quot;fix: make opportunity automation and KB sync reliable&quot;
+</code></pre>
+<h3 id="task-11-ngrok-policy-launchagents-and-deployment-cli">Task 11: ngrok policy, LaunchAgents, and deployment CLI<a class="headerlink" href="#task-11-ngrok-policy-launchagents-and-deployment-cli" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Create: <code>integrations/hermes-opportunity-os/deployment/ngrok/traffic-policy.example.yml</code>
+- Create: <code>integrations/hermes-opportunity-os/deployment/launchagents/com.liujun.opportunity-dashboard.plist</code>
+- Create: <code>integrations/hermes-opportunity-os/deployment/launchagents/com.liujun.opportunity-ngrok.plist</code>
+- Modify: <code>integrations/hermes-opportunity-os/src/opportunity_os/cli.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/deployment/test_launchagents.py</code>
+- Test: <code>integrations/hermes-opportunity-os/tests/dashboard/test_auth.py</code></p>
+<p><strong>Interfaces:</strong>
+- Produces: CLI <code>deployment render --owner-email EMAIL --ngrok-domain DOMAIN --output PRIVATE_DIR</code>, validated LaunchAgent plists, and a GitHub OAuth Traffic Policy.</p>
+<ul>
+<li>[ ] <strong>Step 1: Write failing policy/plist tests</strong></li>
+</ul>
+<pre><code class="language-python">def test_ngrok_policy_authenticates_before_allowlist(rendered_policy):
+    steps = rendered_policy[&quot;on_http_request&quot;]
+    assert steps[0][&quot;actions&quot;][0][&quot;type&quot;] == &quot;oauth&quot;
+    assert steps[0][&quot;actions&quot;][0][&quot;config&quot;][&quot;provider&quot;] == &quot;github&quot;
+    assert steps[1][&quot;actions&quot;][0][&quot;type&quot;] == &quot;deny&quot;
+
+def test_launchagents_are_keepalive_loopback_and_secret_free(plists):
+    assert all(item[&quot;RunAtLoad&quot;] and item[&quot;KeepAlive&quot;] for item in plists)
+    rendered = json.dumps(plists)
+    assert &quot;AUTHTOKEN&quot; not in rendered
+    assert &quot;--host\&quot;, \&quot;127.0.0.1&quot; in rendered
+</code></pre>
+<ul>
+<li>
+<p>[ ] <strong>Step 2: Run deployment tests and verify failure</strong></p>
+</li>
+<li>
+<p>[ ] <strong>Step 3: Implement rendered private configuration</strong></p>
+</li>
+</ul>
+<p>The committed policy is a schema-valid example with no identity. The deployment command accepts the owner email and assigned domain as arguments, generates a 32-byte origin credential directly into the 0600 private environment/policy, configures managed GitHub OAuth, denies any identity whose email differs, and sets 1-hour maximum session with 10-minute identity refresh. Document the GitHub private-email limitation and fail closed if the identity email is absent.</p>
+<ul>
+<li>[ ] <strong>Step 4: Validate LaunchAgents without loading them</strong></li>
+</ul>
+<p>Run <code>plutil -lint</code> on both rendered plists. Dashboard command must be <code>uv run --directory ... opportunity-os dashboard serve --host 127.0.0.1 --port 8765</code>; ngrok command must be <code>ngrok http 8765 --traffic-policy-file PRIVATE_POLICY_PATH</code>. Logs go to a bounded log directory managed by rotation, never to the repository.</p>
+<ul>
+<li>[ ] <strong>Step 5: Commit deployment templates</strong></li>
+</ul>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/deployment integrations/hermes-opportunity-os/src/opportunity_os/cli.py integrations/hermes-opportunity-os/tests/deployment
+git commit -m &quot;feat: add secure dashboard and ngrok deployment&quot;
+</code></pre>
+<h3 id="task-12-production-deployment-security-hardening-and-end-to-end-verification">Task 12: Production deployment, security hardening, and end-to-end verification<a class="headerlink" href="#task-12-production-deployment-security-hardening-and-end-to-end-verification" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong>
+- Modify: <code>integrations/hermes-opportunity-os/README.md</code>
+- Modify: <code>integrations/hermes-opportunity-os/profile/config.yaml</code>
+- Modify: <code>wiki/syntheses/index.md</code> only if exporter creates new pages
+- Modify: <code>log.md</code> append-only
+- Deploy after approval: <code>~/.hermes/profiles/opportunity-discovery/**</code>
+- Deploy after approval: <code>~/.openclaw/**</code>
+- Deploy after approval: <code>~/Library/LaunchAgents/com.liujun.opportunity-*.plist</code>
+- Deploy after visible input: <code>~/.config/opportunity-dashboard/**</code></p>
+<p><strong>Interfaces:</strong>
+- Delivers the running Dashboard URL, local status commands, DingTalk commands, rollback bundle, and verification report.</p>
+<ul>
+<li>[ ] <strong>Step 1: Run the complete repository verification before deployment</strong></li>
+</ul>
+<pre><code class="language-bash">UV_CACHE_DIR=/private/tmp/hermes-dashboard-uv-cache uv run --directory integrations/hermes-opportunity-os --extra test pytest -q
+UV_CACHE_DIR=/private/tmp/hermes-dashboard-uv-cache uv run --directory integrations/hermes-opportunity-os opportunity-os --help
+rg -n --hidden --glob '!.git/**' --glob '!raw/**' '(go-[A-Za-z0-9_-]{12,}|sk-[A-Za-z0-9_-]{12,}|AUTHTOKEN=.+|Authorization: Bearer)' .
+</code></pre>
+<p>Expected: all tests PASS; CLI lists dashboard/automation/monitor/deployment; secret scan has no real matches.</p>
+<ul>
+<li>[ ] <strong>Step 2: Back up and apply Hermes/OpenClaw safety settings</strong></li>
+</ul>
+<p>Create verified OpenClaw backup and Hermes Profile export. Resolve the DingTalk owner only from <code>openclaw directory self --channel dingtalk --json</code> or a trusted existing DM; never print credential values. Apply <code>dmPolicy=allowlist</code>, owner <code>allowFrom</code>, <code>groupPolicy=disabled</code>, and <code>contextVisibility=allowlist_quote</code> with <code>openclaw config set --dry-run</code> before the real command. Deploy Hermes Profile changes and rerun <code>config check</code> plus both MCP tests.</p>
+<p>Deploy the tested <code>hermes-dashboard</code> OpenClaw Skill into the existing OpenClaw workspace through its documented Skill installation path, then verify every read command, non-owner rejection, and two-phase mutation from a trusted owner DM.</p>
+<ul>
+<li>[ ] <strong>Step 3: Pause for visible ngrok login and Authtoken entry</strong></li>
+</ul>
+<p>Ask the user to create/login to ngrok and run the official <code>ngrok config add-authtoken</code> command in a visible terminal. Do not ask for the token in chat. Capture only <code>ngrok version</code>, authenticated status, assigned domain, and whether GitHub OAuth returns the owner email.</p>
+<ul>
+<li>[ ] <strong>Step 4: Render/load LaunchAgents and apply OpenClaw jobs</strong></li>
+</ul>
+<p>Install private config with mode 0600 and directories 0700. Load the Dashboard and ngrok LaunchAgents, apply the reviewed OpenClaw job plan, remove the duplicate embedded sync, move Sunday Lint to 20:30, and keep 22:30 as the only KB sync. Confirm <code>launchctl print</code> and loopback <code>lsof</code> state.</p>
+<ul>
+<li>[ ] <strong>Step 5: Execute security and functional end-to-end tests</strong></li>
+</ul>
+<p>Verify local bootstrap, external GitHub login, non-owner denial, Host/Origin/CSRF/nonce rejection, status accuracy, OpenClaw/Hermes conversations without delivery, task Diff/approval/run-now, Hermes daily/weekly idempotency, sanitized KB output, and GitHub Pages link after the unique sync job.</p>
+<ul>
+<li>[ ] <strong>Step 6: Execute fault and restart tests</strong></li>
+</ul>
+<p>Inject Hermes timeout, task non-zero exit, DingTalk delivery failure, sync build/push/deploy failure, Dashboard stop, and ngrok stop. Confirm one FIRING, cooldown suppression, one RECOVERED, restart budgets, no log deletion, no false success, and no unrelated Git staging. Restart the Mac only after all non-reboot tests pass and user confirms the reboot checkpoint; after login verify all LaunchAgents, Cron, OAuth, DingTalk, and recovery notice.</p>
+<ul>
+<li>[ ] <strong>Step 7: Update operator documentation and status commands</strong></li>
+</ul>
+<p>Document:</p>
+<pre><code class="language-text">opportunity-os dashboard status
+opportunity-os monitor once --format json
+openclaw gateway status
+openclaw cron list --all --json
+hermes -p opportunity-discovery config check
+hermes -p opportunity-discovery mcp test opportunity_os
+launchctl print gui/$UID/com.liujun.opportunity-dashboard
+launchctl print gui/$UID/com.liujun.opportunity-ngrok
+</code></pre>
+<p>Document DingTalk queries <code>Hermes 状态</code>, <code>Hermes 最新周报</code>, <code>Hermes 当前方向</code>, <code>Hermes 机会详情 &lt;ID&gt;</code>, <code>Hermes 最近学到了什么</code>, <code>Hermes 待审批记忆</code>, <code>Hermes 待审批Skill</code>, <code>Hermes 反馈：...</code>, and <code>Hermes 修改需求：...</code>.</p>
+<ul>
+<li>[ ] <strong>Step 8: Recompute hashes, inspect dirty state, and commit documentation only</strong></li>
+</ul>
+<p>Confirm user pre-existing dirty files are unchanged, append <code>log.md</code>, and stage only owned repository files.</p>
+<pre><code class="language-bash">git add integrations/hermes-opportunity-os/README.md integrations/hermes-opportunity-os/profile/config.yaml
+git commit -m &quot;docs: add opportunity dashboard operations guide&quot;
+</code></pre>
+<h3 id="task-13-final-review-and-branch-integration">Task 13: Final review and branch integration<a class="headerlink" href="#task-13-final-review-and-branch-integration" title="Permanent link">&para;</a></h3>
+<p><strong>Files:</strong> No new production files unless review finds a defect.</p>
+<ul>
+<li>[ ] <strong>Step 1: Use <code>superpowers:requesting-code-review</code> for spec and code conformance</strong></li>
+<li>[ ] <strong>Step 2: Fix only evidence-backed findings with TDD and focused commits</strong></li>
+<li>[ ] <strong>Step 3: Use <code>superpowers:verification-before-completion</code> and rerun the complete suite, security scan, host probes, delivery test, and clean owned diff inspection</strong></li>
+<li>[ ] <strong>Step 4: Use <code>superpowers:finishing-a-development-branch</code> to present merge/PR/retain-worktree choices; do not delete the retained earlier Hermes worktree without user approval</strong></li>
+</ul>
+<h2 id="rollback-order">Rollback Order<a class="headerlink" href="#rollback-order" title="Permanent link">&para;</a></h2>
+<p>If production validation fails, roll back in this order:</p>
+<ol>
+<li>Disable newly created OpenClaw Hermes/monitor jobs; do not delete them.</li>
+<li>Unload ngrok and Dashboard LaunchAgents; loopback OpenClaw remains available.</li>
+<li>Restore OpenClaw config from the verified backup and confirm the original hash.</li>
+<li>Restore the previous Hermes Profile export under a new Profile name and run <code>doctor</code> before switching.</li>
+<li>Restore the previous <code>sync_kb.sh</code> backup if the strict replacement fails its fixture and live dry-run.</li>
+<li>Preserve audit, incident, heartbeat, and failure logs; never delete evidence during rollback.</li>
+</ol>
+<h2 id="final-acceptance-evidence">Final Acceptance Evidence<a class="headerlink" href="#final-acceptance-evidence" title="Permanent link">&para;</a></h2>
+<p>The completion report must include, without secrets:</p>
+<ul>
+<li>Git commit IDs and exact test counts.</li>
+<li>Local and external Dashboard URLs, with the external hostname but no session query/token.</li>
+<li>LaunchAgent loaded/running state and loopback listeners.</li>
+<li>OpenClaw/Hermes versions, config checks, MCP tests, and Cron names/schedules.</li>
+<li>DingTalk owner-only policy and one actual delivered test message ID/status.</li>
+<li>One synthetic FIRING and RECOVERED incident trace.</li>
+<li>One successful daily or weekly Hermes run with idempotency evidence.</li>
+<li>Generated private report location and sanitized Wiki/GitHub Pages link.</li>
+<li>Before/after config hashes, backup locations, rollback commands, and preserved unrelated dirty files.</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 06:41:21 UTC">2026年7月19日</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 只在首页生效
+  const contentEl = document.querySelector('.md-content__inner');
+  if (!contentEl) return;
+
+  // 检查是否是首页（Home）
+  const isHome = document.location.pathname === '/' ||
+                 document.location.pathname === '/index.html' ||
+                 document.location.pathname.endsWith('/knowledge/') ||
+                 document.location.pathname.endsWith('/knowledge/index.html') ||
+                 document.location.pathname.endsWith('/knowledge-base/') ||
+                 document.location.pathname.endsWith('/knowledge-base/index.html');
+  if (!isHome) return;
+
+  // 从 site.data 或页面数据构建文章列表
+  // MkDocs Material 不会自动暴露所有页面的 frontmatter，
+  // 所以我们用一个内联的数据对象
+  const articles = window.__kb_articles || [];
+  if (articles.length === 0) return;
+
+  // 构建分类数据
+  const categories = {
+    all: { label: '全部', count: articles.length },
+    concepts: { label: 'Concepts', count: 0 },
+    entities: { label: 'Entities', count: 0 },
+    sources: { label: 'Sources', count: 0 },
+    syntheses: { label: 'Syntheses', count: 0 }
+  };
+
+  const tagSet = new Set();
+  articles.forEach(a => {
+    if (categories[a.category]) categories[a.category].count++;
+    (a.tags || []).forEach(t => tagSet.add(t));
+  });
+
+  // 问候语
+  const hour = new Date().getHours();
+  let greeting = '晚上好';
+  if (hour >= 5 && hour < 12) greeting = '早上好';
+  else if (hour >= 12 && hour < 18) greeting = '下午好';
+
+  // 构建统计 HTML
+  const statsHtml = Object.entries(categories).map(([key, val]) =>
+    `<div class="kb-stat"><span class="kb-stat-num">${val.count}</span><span>${val.label}</span></div>`
+  ).join('');
+
+  // 构建筛选按钮
+  const filtersHtml = Object.entries(categories).map(([key, val]) =>
+    `<button class="kb-filter-btn${key === 'all' ? ' active' : ''}" data-filter="${key}">${val.label} (${val.count})</button>`
+  ).join('');
+
+  // 构建排序按钮
+  const sortHtml = `
+    <div class="kb-sort-bar">
+      <span>排序：</span>
+      <button class="kb-sort-btn active" data-sort="rating">评分 ↓</button>
+      <button class="kb-sort-btn" data-sort="date">最新</button>
+      <button class="kb-sort-btn" data-sort="name">名称</button>
+    </div>
+  `;
+
+  // 构建卡片
+  function renderCards(items) {
+    if (items.length === 0) {
+      return '<div class="kb-no-results">没有找到匹配的文章</div>';
+    }
+    return items.map(a => `
+      <a class="kb-card" href="${a.url}">
+        <div class="kb-card-header">
+          <span class="kb-card-category ${a.category}">${categories[a.category]?.label || a.category}</span>
+          <span class="kb-card-rating">★ ${a.rating || '-'}</span>
+        </div>
+        <h3 class="kb-card-title">${a.title}</h3>
+        <p class="kb-card-desc">${a.description || ''}</p>
+        <div class="kb-card-tags">
+          ${(a.tags || []).map(t => `<span class="kb-card-tag">${t}</span>`).join('')}
+        </div>
+        ${a.date ? `<div class="kb-card-date">${a.date}</div>` : ''}
+      </a>
+    `).join('');
+  }
+
+  // 组装 Dashboard
+  const dashboardHtml = `
+    <div class="kb-dashboard">
+      <div class="kb-greeting">
+        <h1>${greeting}，知识探索者！</h1>
+        <p>共收录 ${articles.length} 篇知识文章，持续更新中</p>
+      </div>
+      <div class="kb-search">
+        <input type="text" id="kb-search-input" placeholder="搜索文章标题、描述或标签...">
+      </div>
+      <div class="kb-filters" id="kb-filters">${filtersHtml}</div>
+      ${sortHtml}
+      <div class="kb-cards" id="kb-cards">${renderCards(articles)}</div>
+    </div>
+  `;
+
+  // 替换首页内容
+  contentEl.innerHTML = dashboardHtml;
+
+  // 筛选逻辑
+  let currentFilter = 'all';
+  let currentSort = 'rating';
+  let searchTerm = '';
+
+  function getFiltered() {
+    let items = articles;
+    if (currentFilter !== 'all') {
+      items = items.filter(a => a.category === currentFilter);
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      items = items.filter(a =>
+        (a.title || '').toLowerCase().includes(q) ||
+        (a.description || '').toLowerCase().includes(q) ||
+        (a.tags || []).some(t => t.toLowerCase().includes(q))
+      );
+    }
+    // 排序
+    if (currentSort === 'rating') {
+      items.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (currentSort === 'date') {
+      items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    } else if (currentSort === 'name') {
+      items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    }
+    return items;
+  }
+
+  function refresh() {
+    document.getElementById('kb-cards').innerHTML = renderCards(getFiltered());
+  }
+
+  // 事件绑定
+  document.getElementById('kb-filters').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-filter-btn')) return;
+    this.querySelectorAll('.kb-filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    refresh();
+  });
+
+  document.getElementById('kb-search-input').addEventListener('input', function(e) {
+    searchTerm = e.target.value;
+    refresh();
+  });
+
+  document.querySelector('.kb-sort-bar').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-sort-btn')) return;
+    this.querySelectorAll('.kb-sort-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentSort = e.target.dataset.sort;
+    refresh();
+  });
+});
+</script>
+
+  </body>
+</html>

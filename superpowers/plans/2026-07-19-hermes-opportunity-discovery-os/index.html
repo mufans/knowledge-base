@@ -1,0 +1,3126 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal knowledge repository and project analysis">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Hermes 个人方向与机会发现系统实施计划 - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../../overrides/dashboard-data.js"></script>
+<script>
+// 在页面加载后，用 frontmatter date 替换/补充日期显示
+document.addEventListener('DOMContentLoaded', function() {
+  // 从页面 meta 标签或 frontmatter data 获取 date
+  const pageContent = document.querySelector('.md-content__inner');
+  if (!pageContent) return;
+  
+  // MkDocs Material 会把 YAML frontmatter 的 date 放在 article 标签的 data-date 属性
+  // 或者我们可以从 page.meta 中获取});
+</script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link rel="stylesheet" href="../../../overrides/styles/dashboard.css">
+  <style>
+    /* 显示 frontmatter date 替代 git date */
+    .md-source-date { display: none !important; }
+    .kb-frontmatter-date {
+      font-size: 0.8rem;
+      color: var(--md-default-fg-color--light);
+      margin-left: 0.5rem;
+    }
+  </style>
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hermes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hermes 个人方向与机会发现系统实施计划
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../wiki/concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Wiki
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../raw/inbox/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Raw
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/AI-Agent-Self-Improving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Agent-Self-Improving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Claude-Ecosystem-Tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Ecosystem-Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Context-Window-Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Window-Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/DeepEP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Memory-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory-Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Retrieval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Pretext-js/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pretext-js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Prompt-Caching-Pitfalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt-Caching-Pitfalls
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Real-world-AI-Applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-world-AI-Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Self-RAG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Auto-Creation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Auto-Creation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Evaluation-Framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Evaluation-Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Weak-Model-Orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weak-Model-Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/andrej-karpathy-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    andrej-karpathy-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/entities/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Entities
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Claude-Code-Source-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Code-Source-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/DeepSeek-V4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek-V4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Fewshell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fewshell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GKE-Agent-Sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GKE-Agent-Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GPT-5.5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPT-5.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Ghostty-Leaving-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ghostty-Leaving-GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GoClick/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GoClick
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hermes-Agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hy-MT-Offline-Translation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hy-MT-Offline-Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/OpenClaw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Operit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/SmartPerfetto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Warp-Terminal-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Warp-Terminal-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-mem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/deer-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    deer-flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/harmonist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    harmonist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/llm_wiki/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    llm_wiki
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/mattpocock-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mattpocock-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/ml-intern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ml-intern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/open-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    open-design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/trycua-cua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    trycua-cua
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/sources/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/AI-Code-Tool-Pricing-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Code-Tool-Pricing-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Coding-Agents-Critique-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coding-Agents-Critique-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Hermes-Agent-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper-V2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper-V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/claude-context-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95-2026%E5%B9%B44%E6%9C%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐书单-2026年4月
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/syntheses/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syntheses
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Syntheses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Agent-Dev-Tools-2026-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent-Dev-Tools-2026-04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Hermes-vs-OpenClaw%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-vs-OpenClaw对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/SmartPerfetto-vs-SmartInspector%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto-vs-SmartInspector对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Raw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Raw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/inbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-safety-baseline-and-exact-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Safety baseline and exact boundaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-build-the-deterministic-core-with-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Build the deterministic core with TDD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Build the deterministic core with TDD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-models-and-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Models and score
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-broad-signal-reader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Broad signal reader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-private-store-and-invariants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Private store and invariants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-reports-and-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Reports and CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-build-and-test-the-dedicated-mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Build and test the dedicated MCP server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-author-the-hermes-skill-and-safety-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Author the Hermes skill and safety identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-install-hermes-0182-in-an-isolated-uv-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Install Hermes 0.18.2 in an isolated uv environment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-create-the-private-profile-and-runtime-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Create the private Profile and runtime safely
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-hidden-api-key-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Hidden API key entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-provider-smoke-tests-and-fallback-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Provider smoke tests and fallback test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-end-to-end-opportunity-discovery-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. End-to-end opportunity discovery run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-freshnessstability-seed-and-review-cadence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Freshness/stability seed and review cadence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-audit-rollback-and-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Audit, rollback and documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-final-self-review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Final self-review checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+
+
+<h1 id="hermes">Hermes 个人方向与机会发现系统实施计划<a class="headerlink" href="#hermes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Required sub-skill:</strong> <code>superpowers:executing-plans</code>；实现功能与修复时同时遵循 <code>superpowers:test-driven-development</code>，完成声明前遵循 <code>superpowers:verification-before-completion</code>。</p>
+</blockquote>
+<p><strong>Goal:</strong> 在不修改 OpenClaw 生产配置、不写入知识库 <code>raw/</code>、不把私人数据放进 Git 仓库的前提下，部署 Hermes v0.18.2 独立 Profile，并交付可持久化、可验证、反信息茧房、稳定优先的机会发现工作流。</p>
+<p><strong>Architecture:</strong> OpenClaw 继续负责广域采集；仓库新增一个无秘密的 <code>opportunity_os</code> Python 包和独立 MCP Server。MCP Server 只读知识库，所有 Opportunity、Experiment、Direction、Review、TechState 写入 Hermes Profile 的私有目录。Hermes 仅加载专用 Skill 和两个 MCP Server，主模型为 OpenCode Go <code>deepseek-v4-flash</code>，fallback 为 DeepSeek 官方 <code>deepseek-v4-flash</code>。</p>
+<p><strong>Tech Stack:</strong> Hermes Agent 0.18.2、uv 管理的 Python 3.12、Python 标准库、FastMCP、pytest、YAML 配置、JSON/JSONL 私有状态。</p>
+<p><strong>Authoritative version baseline (2026-07-19):</strong></p>
+<ul>
+<li>Hermes latest stable release: <code>v2026.7.7.2</code> / package <code>0.18.2</code>。</li>
+<li>Hermes built-in providers: <code>opencode-go</code> with <code>OPENCODE_GO_API_KEY</code>; <code>deepseek</code> with <code>DEEPSEEK_API_KEY</code>。</li>
+<li>OpenCode Go endpoint/model: <code>https://opencode.ai/zen/go/v1/chat/completions</code>, <code>deepseek-v4-flash</code>。</li>
+<li>DeepSeek endpoint/model: <code>https://api.deepseek.com</code>, <code>deepseek-v4-flash</code>。</li>
+<li>Hermes current fallback shape: top-level <code>fallback_providers</code> list。</li>
+</ul>
+<hr />
+<h2 id="1-safety-baseline-and-exact-boundaries">1. Safety baseline and exact boundaries<a class="headerlink" href="#1-safety-baseline-and-exact-boundaries" title="Permanent link">&para;</a></h2>
+<p><strong>Read-only checks:</strong></p>
+<ul>
+<li><code>git status --short</code></li>
+<li><code>shasum -a 256 ~/.openclaw/openclaw.json</code></li>
+<li><code>find ~/.openclaw/cron -type f -maxdepth 2 -print0 | sort -z | xargs -0 shasum -a 256</code></li>
+<li><code>command -v uv docker hermes</code></li>
+<li><code>uv --version</code>; <code>docker version</code>; existing <code>hermes version</code> if present</li>
+</ul>
+<p><strong>Persist outside Git:</strong></p>
+<ul>
+<li>Hermes profile: <code>~/.hermes/profiles/opportunity-discovery/</code></li>
+<li>Private OS state: <code>~/.hermes/profiles/opportunity-discovery/opportunity-os/</code></li>
+<li>Secrets: <code>~/.hermes/profiles/opportunity-discovery/.env</code></li>
+</ul>
+<p><strong>Repository files allowed to change:</strong></p>
+<ul>
+<li><code>integrations/hermes-opportunity-os/**</code></li>
+<li><code>docs/superpowers/specs/2026-07-19-hermes-opportunity-discovery-os-design.md</code></li>
+<li><code>docs/superpowers/plans/2026-07-19-hermes-opportunity-discovery-os.md</code></li>
+<li>append-only <code>log.md</code></li>
+</ul>
+<p><strong>Forbidden mutations:</strong></p>
+<ul>
+<li><code>~/.openclaw/**</code></li>
+<li><code>raw/**</code></li>
+<li>existing <code>wiki/**</code></li>
+<li>API keys in repository, process arguments, logs, shell history, test fixtures, or captured output</li>
+<li>production cron/gateway/messaging setup</li>
+</ul>
+<p>At the end, recompute OpenClaw hashes and compare them byte-for-byte with this baseline.</p>
+<h2 id="2-build-the-deterministic-core-with-tdd">2. Build the deterministic core with TDD<a class="headerlink" href="#2-build-the-deterministic-core-with-tdd" title="Permanent link">&para;</a></h2>
+<p>Create the package:</p>
+<pre><code class="language-text">integrations/hermes-opportunity-os/
+├── README.md
+├── pyproject.toml
+├── mcp_server.py
+├── src/opportunity_os/
+│   ├── __init__.py
+│   ├── cli.py
+│   ├── errors.py
+│   ├── freshness.py
+│   ├── models.py
+│   ├── reports.py
+│   ├── scoring.py
+│   ├── signals.py
+│   └── store.py
+├── skills/opportunity-discovery/
+│   ├── SKILL.md
+│   └── references/
+│       ├── data-contracts.md
+│       ├── freshness-policy.md
+│       ├── operating-rhythm.md
+│       ├── safety-policy.md
+│       └── source-policy.md
+└── tests/
+    ├── fixtures/knowledge/raw/inbox/2026-07-18-技术动态.md
+    ├── fixtures/knowledge/raw/inbox/2026-07-19-跨领域信号.md
+    ├── test_cli.py
+    ├── test_freshness.py
+    ├── test_models.py
+    ├── test_reports.py
+    ├── test_scoring.py
+    ├── test_signals.py
+    └── test_store.py
+</code></pre>
+<h3 id="21-models-and-score">2.1 Models and score<a class="headerlink" href="#21-models-and-score" title="Permanent link">&para;</a></h3>
+<p>Write failing tests first for:</p>
+<ul>
+<li><code>Signal</code>, <code>Evidence</code>, <code>Opportunity</code>, <code>Experiment</code>, <code>Direction</code>, <code>Review</code>, <code>TechState</code> serialization and validation.</li>
+<li>Evidence type is exactly <code>fact</code>, <code>inference</code>, or <code>hypothesis</code>.</li>
+<li>Opportunity score uses exact weights: <code>25/20/15/15/10/10/5</code> and rejects values outside <code>0..10</code>.</li>
+<li>Direction status is <code>observe</code>, <code>validate</code>, or <code>active</code>.</li>
+<li>Tech maturity is <code>frontier</code> or <code>stable</code>.</li>
+<li>Stable promotion requires all five gates: official stable release, complete docs, compatibility test, no severe known issue, rollback path.</li>
+</ul>
+<p>Run and expect failure:</p>
+<pre><code class="language-bash">uv run --directory integrations/hermes-opportunity-os pytest tests/test_models.py tests/test_scoring.py tests/test_freshness.py -q
+</code></pre>
+<p>Implement the smallest code to pass, then rerun the same command expecting all tests green.</p>
+<h3 id="22-broad-signal-reader">2.2 Broad signal reader<a class="headerlink" href="#22-broad-signal-reader" title="Permanent link">&para;</a></h3>
+<p>Write failing tests that prove:</p>
+<ul>
+<li><code>raw/inbox</code> is only read; no files are opened in write mode.</li>
+<li>default listing has no personal-goal or project filter.</li>
+<li>newest files are returned first with stable pagination.</li>
+<li>Markdown title, date, source links, category hint and excerpt are extracted.</li>
+<li>path traversal and files outside <code>raw/inbox</code> are rejected.</li>
+<li>explicit query filters are allowed only when the caller asks; default collection remains broad.</li>
+</ul>
+<p>Run failing tests, implement <code>signals.py</code>, rerun until green.</p>
+<h3 id="23-private-store-and-invariants">2.3 Private store and invariants<a class="headerlink" href="#23-private-store-and-invariants" title="Permanent link">&para;</a></h3>
+<p>Write failing tests that prove:</p>
+<ul>
+<li>state is atomically written beneath the configured private home only.</li>
+<li>every mutation appends a redacted event to <code>events.jsonl</code>.</li>
+<li>Opportunity cards require positive and opposing evidence, invalidation condition, 1–2 week minimum experiment, continue criterion, and stop criterion.</li>
+<li>portfolio caps are enforced: observe ≤5, validate ≤2, active ≤1; active may be zero.</li>
+<li>experiment evidence may support or contradict an opportunity.</li>
+<li>a daily review requires at least one <code>surprise</code> item.</li>
+<li>a weekly review enforces presentation counts close to 40/40/20, allowing integer rounding.</li>
+<li>no record accepts fields named <code>api_key</code>, <code>token</code>, <code>password</code>, <code>secret</code>, exact cash amount, private contact, or application message.</li>
+<li>tech state cannot overwrite a stable baseline with an unverified frontier record.</li>
+</ul>
+<p>Run failing tests, implement <code>store.py</code>, rerun until green.</p>
+<h3 id="24-reports-and-cli">2.4 Reports and CLI<a class="headerlink" href="#24-reports-and-cli" title="Permanent link">&para;</a></h3>
+<p>Write failing tests for:</p>
+<ul>
+<li><code>opportunity-os init --home PATH</code> creates the private layout and initial portfolio.</li>
+<li><code>opportunity-os doctor</code> validates the knowledge root is readable and private home is outside the knowledge repo.</li>
+<li><code>opportunity-os signals --days 14 --limit 80 --format json</code> emits broad, traceable signals.</li>
+<li><code>opportunity-os status --format json</code> reports counts and invariants without private content.</li>
+<li><code>opportunity-os render-review REVIEW_ID</code> renders Chinese Markdown with Fact/Inference/Hypothesis, surprise, positive/opposing evidence, experiment and freshness sections.</li>
+<li><code>opportunity-os snapshot</code> creates a local rollback archive outside Git without secrets.</li>
+</ul>
+<p>Implement <code>reports.py</code> and <code>cli.py</code>, then run:</p>
+<pre><code class="language-bash">uv run --directory integrations/hermes-opportunity-os pytest -q
+uv run --directory integrations/hermes-opportunity-os opportunity-os --help
+</code></pre>
+<p>Expected: all tests pass; CLI help lists <code>init</code>, <code>doctor</code>, <code>signals</code>, <code>status</code>, <code>render-review</code>, <code>snapshot</code>.</p>
+<p>Commit repository core only after tests pass:</p>
+<pre><code class="language-bash">git add -f integrations/hermes-opportunity-os
+git commit -m &quot;feat: add opportunity discovery core&quot;
+</code></pre>
+<p>Do not stage unrelated existing worktree changes.</p>
+<h2 id="3-build-and-test-the-dedicated-mcp-server">3. Build and test the dedicated MCP server<a class="headerlink" href="#3-build-and-test-the-dedicated-mcp-server" title="Permanent link">&para;</a></h2>
+<p><code>mcp_server.py</code> exposes typed tools:</p>
+<ul>
+<li><code>list_signals(days=14, limit=80, offset=0, query=None)</code></li>
+<li><code>get_signal(relative_path)</code></li>
+<li><code>save_opportunity(title, opportunity_type, summary, presentation_bucket, supporting_evidence, opposing_evidence, invalidation_conditions, experience_fit, experiment, continue_criteria, stop_criteria, scores)</code></li>
+<li><code>list_opportunities(status=None)</code></li>
+<li><code>record_experiment(opportunity_id, title, hypothesis, started_at, ends_at, cost_level, success_metric, continue_criteria, stop_criteria, evidence)</code></li>
+<li><code>set_direction(direction_id, title, status, opportunity_ids, rationale, next_review_at)</code></li>
+<li><code>get_portfolio()</code></li>
+<li><code>record_tech_state(technology, known_latest, recommended_stable, maturity, official_sources, observed_at, review_due_at, confidence, stable_gates, rollback_path)</code></li>
+<li><code>save_review(period, title, summary, opportunity_ids, surprise_signal, presentation_counts, proposed_experiment_ids, facts, inferences, hypotheses)</code></li>
+<li><code>render_review(review_id)</code></li>
+<li><code>system_status()</code></li>
+</ul>
+<p>Environment:</p>
+<ul>
+<li><code>KNOWLEDGE_BASE_PATH</code> points to the current knowledge repo.</li>
+<li><code>OPPORTUNITY_OS_HOME</code> points to the private profile state.</li>
+</ul>
+<p>Add failing tests around every tool's successful case and invariant rejection. Test the server import and MCP tool registration. Run:</p>
+<pre><code class="language-bash">uv run --directory integrations/hermes-opportunity-os pytest -q
+uv run --directory integrations/hermes-opportunity-os python -c &quot;import mcp_server; print(mcp_server.mcp.name)&quot;
+</code></pre>
+<p>Expected server name: <code>opportunity-discovery-os</code>.</p>
+<h2 id="4-author-the-hermes-skill-and-safety-identity">4. Author the Hermes skill and safety identity<a class="headerlink" href="#4-author-the-hermes-skill-and-safety-identity" title="Permanent link">&para;</a></h2>
+<p>Create <code>skills/opportunity-discovery/SKILL.md</code> with official Hermes frontmatter:</p>
+<ul>
+<li>name: <code>opportunity-discovery</code></li>
+<li>concise description ≤60 characters</li>
+<li>macOS/Linux platforms</li>
+<li>requires MCP toolset</li>
+<li>non-secret config keys for knowledge and private home</li>
+</ul>
+<p>The procedure must:</p>
+<ol>
+<li>start with broad <code>list_signals</code> and never use user relevance as collection admission;</li>
+<li>separate facts, inferences and hypotheses;</li>
+<li>search opposing evidence before saving a card;</li>
+<li>create 3–5 cards, at least one surprise, and 40/40/20 weekly presentation mix;</li>
+<li>propose only 1–2 week low-cost experiments;</li>
+<li>enforce direction capacity;</li>
+<li>keep <code>known_latest</code> and <code>recommended_stable</code> separate;</li>
+<li>prohibit publishing, applications, messages, payments, deletion, credential access and OpenClaw mutation;</li>
+<li>write only through the MCP tools;</li>
+<li>report uncertainty and source dates.</li>
+</ol>
+<p>Reference files contain the exact schemas, source hierarchy, cadence, stable-promotion gates and safety rules. Add a static skill linter test for frontmatter, description length, required sections and prohibited capabilities.</p>
+<h2 id="5-install-hermes-0182-in-an-isolated-uv-environment">5. Install Hermes 0.18.2 in an isolated uv environment<a class="headerlink" href="#5-install-hermes-0182-in-an-isolated-uv-environment" title="Permanent link">&para;</a></h2>
+<p>Request filesystem/network approval because this writes under <code>~/.local</code> and <code>~/.hermes</code> and downloads packages. Install the pinned package with Python 3.12:</p>
+<pre><code class="language-bash">uv tool install --python 3.12 &quot;hermes-agent==0.18.2&quot;
+</code></pre>
+<p>If <code>hermes</code> is not in the current PATH, use the absolute launcher returned by <code>uv tool dir --bin</code> and do not edit shell startup files.</p>
+<p>Verify:</p>
+<pre><code class="language-bash">hermes version
+hermes doctor
+</code></pre>
+<p>Expected: package version <code>0.18.2</code>; Python interpreter reports <code>3.12.x</code>. Record warnings but do not install optional messaging/browser integrations unless required by this profile.</p>
+<h2 id="6-create-the-private-profile-and-runtime-safely">6. Create the private Profile and runtime safely<a class="headerlink" href="#6-create-the-private-profile-and-runtime-safely" title="Permanent link">&para;</a></h2>
+<p>Create without bundled skills and without a shell alias:</p>
+<pre><code class="language-bash">hermes profile create opportunity-discovery --no-skills --no-alias --description &quot;发现个人技术、职业、产品与跨领域机会，使用可回滚的低成本实验验证方向。&quot;
+</code></pre>
+<p>If the profile already exists, inspect it first, create a local profile export backup, and update only files owned by this plan; never delete it.</p>
+<p>Initialize state:</p>
+<pre><code class="language-bash">uv run --directory integrations/hermes-opportunity-os opportunity-os init \
+  --home ~/.hermes/profiles/opportunity-discovery/opportunity-os \
+  --knowledge-root &quot;/Users/liujun/Nutstore Files/我的坚果云/knowledge&quot;
+</code></pre>
+<p>Install the skill into:</p>
+<pre><code class="language-text">~/.hermes/profiles/opportunity-discovery/skills/productivity/opportunity-discovery/
+</code></pre>
+<p>Copy only the reviewed Skill and references; the repository remains the source template, while personal state remains private.</p>
+<p>Create <code>SOUL.md</code> specifying Chinese output, opportunity-discovery mission, anti-cocoon policy, evidence labels, stable-first policy and human approval boundaries.</p>
+<p>Create <code>config.yaml</code> with:</p>
+<pre><code class="language-yaml">model:
+  provider: opencode-go
+  default: deepseek-v4-flash
+  context_length: 1000000
+fallback_providers:
+  - provider: deepseek
+    model: deepseek-v4-flash
+agent:
+  max_turns: 24
+  disabled_toolsets:
+    - terminal
+    - file
+    - browser
+    - delegation
+    - cronjob
+    - messaging
+memory:
+  memory_enabled: true
+  user_profile_enabled: false
+  write_approval: true
+skills:
+  guard_agent_created: true
+  write_approval: true
+approvals:
+  mode: manual
+display:
+  language: zh
+  tool_progress: new
+onboarding:
+  profile_build: &quot;off&quot;
+mcp_servers:
+  opportunity_os:
+    command: uv
+    args: [&quot;run&quot;, &quot;--directory&quot;, &quot;/Users/liujun/Nutstore Files/我的坚果云/knowledge/integrations/hermes-opportunity-os&quot;, &quot;python&quot;, &quot;mcp_server.py&quot;]
+    env:
+      KNOWLEDGE_BASE_PATH: &quot;/Users/liujun/Nutstore Files/我的坚果云/knowledge&quot;
+      OPPORTUNITY_OS_HOME: &quot;/Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os&quot;
+  knowledge:
+    command: uv
+    args: [&quot;run&quot;, &quot;--directory&quot;, &quot;/Users/liujun/Nutstore Files/我的坚果云/knowledge/mcp_server&quot;, &quot;python&quot;, &quot;server.py&quot;]
+    env:
+      KNOWLEDGE_BASE_PATH: &quot;/Users/liujun/Nutstore Files/我的坚果云/knowledge&quot;
+</code></pre>
+<p>Do not configure any Hermes Cron; OpenClaw remains the only production scheduler.</p>
+<p>Offline verification:</p>
+<pre><code class="language-bash">hermes -p opportunity-discovery config check
+hermes -p opportunity-discovery profile show opportunity-discovery
+hermes -p opportunity-discovery skills list
+hermes -p opportunity-discovery mcp list
+hermes -p opportunity-discovery mcp test opportunity_os
+hermes -p opportunity-discovery mcp test knowledge
+hermes -p opportunity-discovery prompt-size --json
+</code></pre>
+<p>Expected: exactly the dedicated skill plus both MCP servers; terminal/file/browser/delegation/cron/messaging absent from the profile tools.</p>
+<h2 id="7-hidden-api-key-entry">7. Hidden API key entry<a class="headerlink" href="#7-hidden-api-key-entry" title="Permanent link">&para;</a></h2>
+<p>Start a PTY command that disables echo and reads both keys directly into the profile <code>.env</code> using an in-memory process. The command must not include either key as an argument and must restore terminal echo on exit. Pause and tell the user when the prompt displays:</p>
+<pre><code class="language-text">OpenCode Go API Key:
+DeepSeek API Key:
+</code></pre>
+<p>The helper writes with mode <code>0600</code> and exact variable names:</p>
+<pre><code class="language-dotenv">OPENCODE_GO_API_KEY=由隐藏输入写入的值
+DEEPSEEK_API_KEY=由隐藏输入写入的值
+</code></pre>
+<p>Never print, partially mask, hash, count, or inspect the key values. Verification is limited to:</p>
+<ul>
+<li>file permissions are <code>0600</code>;</li>
+<li>both variable names are present exactly once;</li>
+<li>values are non-empty, checked inside the helper with no value output;</li>
+<li><code>.env</code> path is outside the repository.</li>
+</ul>
+<h2 id="8-provider-smoke-tests-and-fallback-test">8. Provider smoke tests and fallback test<a class="headerlink" href="#8-provider-smoke-tests-and-fallback-test" title="Permanent link">&para;</a></h2>
+<p>Run a minimal primary call:</p>
+<pre><code class="language-bash">hermes -p opportunity-discovery chat --quiet --max-turns 1 \
+  --provider opencode-go --model deepseek-v4-flash \
+  -q &quot;只回复 PRIMARY_OK&quot;
+</code></pre>
+<p>Run a minimal fallback-provider direct call:</p>
+<pre><code class="language-bash">hermes -p opportunity-discovery chat --quiet --max-turns 1 \
+  --provider deepseek --model deepseek-v4-flash \
+  -q &quot;只回复 FALLBACK_OK&quot;
+</code></pre>
+<p>Expected: each returns only its marker. Do not log provider response metadata that could include headers.</p>
+<p>Validate automatic fallback configuration offline from parsed config and, if Hermes provides a safe built-in fallback diagnostics command, run it. Do not intentionally invalidate or overwrite a real key to force failure.</p>
+<h2 id="9-end-to-end-opportunity-discovery-run">9. End-to-end opportunity discovery run<a class="headerlink" href="#9-end-to-end-opportunity-discovery-run" title="Permanent link">&para;</a></h2>
+<p>Use existing recent OpenClaw outputs through <code>opportunity_os.list_signals</code>; do not modify them. Start Hermes from the private profile directory so the knowledge repo's <code>AGENTS.md</code> is not injected as a writable workspace rule.</p>
+<p>Run:</p>
+<pre><code class="language-bash">hermes -p opportunity-discovery chat --quiet --max-turns 24 \
+  --skills opportunity-discovery \
+  -q &quot;执行首次每周机会发现：广泛读取最近14天信号，保存3到5张完整机会卡，至少一张为意外发现；保存方向组合与一份weekly review。不要对外行动。最后只返回review id和三行摘要。&quot;
+</code></pre>
+<p>Verify through the deterministic CLI, not by trusting prose:</p>
+<pre><code class="language-bash">uv run --directory integrations/hermes-opportunity-os opportunity-os doctor --home &quot;/Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os&quot; --knowledge-root &quot;/Users/liujun/Nutstore Files/我的坚果云/knowledge&quot;
+uv run --directory integrations/hermes-opportunity-os opportunity-os status --home &quot;/Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os&quot; --format json
+uv run --directory integrations/hermes-opportunity-os opportunity-os render-review --home &quot;/Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os&quot; --latest
+</code></pre>
+<p>Acceptance checks:</p>
+<ul>
+<li>3–5 complete Opportunity cards;</li>
+<li>supporting and opposing evidence on every card;</li>
+<li>at least one surprise;</li>
+<li>source paths/dates and invalidation conditions;</li>
+<li>one proposed 1–2 week experiment with continue/stop criteria;</li>
+<li>direction limits respected;</li>
+<li>SmartInspector and Skill are not default main axes;</li>
+<li>private files exist only under the profile;</li>
+<li><code>raw/</code> and OpenClaw hashes unchanged.</li>
+</ul>
+<p>If model output violates a deterministic constraint, use the MCP validation error as feedback for one repair run. Do not silently relax validators.</p>
+<h2 id="10-freshnessstability-seed-and-review-cadence">10. Freshness/stability seed and review cadence<a class="headerlink" href="#10-freshnessstability-seed-and-review-cadence" title="Permanent link">&para;</a></h2>
+<p>Use official current data verified during this implementation to save initial <code>TechState</code> records for:</p>
+<ul>
+<li>Hermes Agent: <code>known_latest=0.18.2</code>, <code>recommended_stable=0.18.2</code> only after local install tests pass.</li>
+<li>OpenCode Go model catalog: <code>known_latest</code> includes <code>deepseek-v4-flash</code>, with review due in 14 days because models/limits may change.</li>
+<li>DeepSeek API: <code>known_latest=deepseek-v4-flash</code>, with legacy aliases marked for 2026-07-24 retirement.</li>
+</ul>
+<p>Each record includes official URL, observed date, review due date, confidence, rollback path and all Stable gates. Any untested update remains Frontier.</p>
+<p>Create local, disabled-by-default cadence templates in the private directory for daily, weekly, two-week experiment, six-week portfolio and quarterly zero-base review. They are documentation/prompts only, not Hermes or OpenClaw scheduled jobs.</p>
+<h2 id="11-audit-rollback-and-documentation">11. Audit, rollback and documentation<a class="headerlink" href="#11-audit-rollback-and-documentation" title="Permanent link">&para;</a></h2>
+<p>Update <code>integrations/hermes-opportunity-os/README.md</code> with:</p>
+<ul>
+<li>architecture and privacy boundary;</li>
+<li>normal commands for daily/weekly/six-week/quarterly use;</li>
+<li>provider selection and fallback behavior;</li>
+<li>how to update the Hermes version conservatively;</li>
+<li>how to snapshot/restore private state;</li>
+<li>how to disable the profile without touching OpenClaw;</li>
+<li>explicit note that no scheduler is installed.</li>
+</ul>
+<p>Create a private snapshot:</p>
+<pre><code class="language-bash">uv run --directory integrations/hermes-opportunity-os opportunity-os snapshot --home &quot;/Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os&quot;
+</code></pre>
+<p>Run repository tests and secret scans:</p>
+<pre><code class="language-bash">uv run --directory integrations/hermes-opportunity-os pytest -q
+rg -n --hidden --glob '!.git/**' --glob '!raw/**' '(go-[A-Za-z0-9_-]{12,}|sk-[A-Za-z0-9_-]{12,}|OPENCODE_GO_API_KEY=.+|DEEPSEEK_API_KEY=.+)' .
+git diff --check
+git status --short
+</code></pre>
+<p>The scan may match documentation placeholders only; inspect every match and ensure no real-looking value exists.</p>
+<p>Recompute and compare:</p>
+<ul>
+<li><code>~/.openclaw/openclaw.json</code> hash;</li>
+<li>every file under <code>~/.openclaw/cron/</code> hash;</li>
+<li><code>raw/</code> tracked/untracked status relative to the baseline;</li>
+<li>unrelated dirty files from the initial <code>git status</code>.</li>
+</ul>
+<p>Append an implementation entry to <code>log.md</code>, but stage only the exact new line if unrelated log changes make safe staging impossible; otherwise leave it unstaged and report why.</p>
+<p>Commit only owned repository files after verification:</p>
+<pre><code class="language-bash">git add -f integrations/hermes-opportunity-os docs/superpowers/specs/2026-07-19-hermes-opportunity-discovery-os-design.md docs/superpowers/plans/2026-07-19-hermes-opportunity-discovery-os.md
+git commit -m &quot;feat: deploy Hermes opportunity discovery OS&quot;
+</code></pre>
+<h2 id="12-final-self-review-checklist">12. Final self-review checklist<a class="headerlink" href="#12-final-self-review-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Every approved design object has a schema and persistence route.</li>
+<li>Every design invariant has a deterministic test, not just a prompt rule.</li>
+<li>No placeholder file/path/interface remains in executable code.</li>
+<li>OpenCode Go and DeepSeek use official built-in Hermes provider IDs.</li>
+<li>The profile is isolated and private; no personal opportunity data is in Git.</li>
+<li>Knowledge access is read-only through MCP; <code>raw/</code> unchanged.</li>
+<li>No Hermes cron and no OpenClaw mutation.</li>
+<li>Surprise and 40/40/20 are enforced at review save time.</li>
+<li>Frontier cannot replace Stable without gates.</li>
+<li>Provider and end-to-end smoke tests pass.</li>
+<li>API keys never appear in command arguments, logs, output, repo, or Git diff.</li>
+<li>Rollback snapshot exists and restore steps are documented.</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 04:18:37 UTC">2026年7月19日</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 只在首页生效
+  const contentEl = document.querySelector('.md-content__inner');
+  if (!contentEl) return;
+
+  // 检查是否是首页（Home）
+  const isHome = document.location.pathname === '/' ||
+                 document.location.pathname === '/index.html' ||
+                 document.location.pathname.endsWith('/knowledge/') ||
+                 document.location.pathname.endsWith('/knowledge/index.html') ||
+                 document.location.pathname.endsWith('/knowledge-base/') ||
+                 document.location.pathname.endsWith('/knowledge-base/index.html');
+  if (!isHome) return;
+
+  // 从 site.data 或页面数据构建文章列表
+  // MkDocs Material 不会自动暴露所有页面的 frontmatter，
+  // 所以我们用一个内联的数据对象
+  const articles = window.__kb_articles || [];
+  if (articles.length === 0) return;
+
+  // 构建分类数据
+  const categories = {
+    all: { label: '全部', count: articles.length },
+    concepts: { label: 'Concepts', count: 0 },
+    entities: { label: 'Entities', count: 0 },
+    sources: { label: 'Sources', count: 0 },
+    syntheses: { label: 'Syntheses', count: 0 }
+  };
+
+  const tagSet = new Set();
+  articles.forEach(a => {
+    if (categories[a.category]) categories[a.category].count++;
+    (a.tags || []).forEach(t => tagSet.add(t));
+  });
+
+  // 问候语
+  const hour = new Date().getHours();
+  let greeting = '晚上好';
+  if (hour >= 5 && hour < 12) greeting = '早上好';
+  else if (hour >= 12 && hour < 18) greeting = '下午好';
+
+  // 构建统计 HTML
+  const statsHtml = Object.entries(categories).map(([key, val]) =>
+    `<div class="kb-stat"><span class="kb-stat-num">${val.count}</span><span>${val.label}</span></div>`
+  ).join('');
+
+  // 构建筛选按钮
+  const filtersHtml = Object.entries(categories).map(([key, val]) =>
+    `<button class="kb-filter-btn${key === 'all' ? ' active' : ''}" data-filter="${key}">${val.label} (${val.count})</button>`
+  ).join('');
+
+  // 构建排序按钮
+  const sortHtml = `
+    <div class="kb-sort-bar">
+      <span>排序：</span>
+      <button class="kb-sort-btn active" data-sort="rating">评分 ↓</button>
+      <button class="kb-sort-btn" data-sort="date">最新</button>
+      <button class="kb-sort-btn" data-sort="name">名称</button>
+    </div>
+  `;
+
+  // 构建卡片
+  function renderCards(items) {
+    if (items.length === 0) {
+      return '<div class="kb-no-results">没有找到匹配的文章</div>';
+    }
+    return items.map(a => `
+      <a class="kb-card" href="${a.url}">
+        <div class="kb-card-header">
+          <span class="kb-card-category ${a.category}">${categories[a.category]?.label || a.category}</span>
+          <span class="kb-card-rating">★ ${a.rating || '-'}</span>
+        </div>
+        <h3 class="kb-card-title">${a.title}</h3>
+        <p class="kb-card-desc">${a.description || ''}</p>
+        <div class="kb-card-tags">
+          ${(a.tags || []).map(t => `<span class="kb-card-tag">${t}</span>`).join('')}
+        </div>
+        ${a.date ? `<div class="kb-card-date">${a.date}</div>` : ''}
+      </a>
+    `).join('');
+  }
+
+  // 组装 Dashboard
+  const dashboardHtml = `
+    <div class="kb-dashboard">
+      <div class="kb-greeting">
+        <h1>${greeting}，知识探索者！</h1>
+        <p>共收录 ${articles.length} 篇知识文章，持续更新中</p>
+      </div>
+      <div class="kb-search">
+        <input type="text" id="kb-search-input" placeholder="搜索文章标题、描述或标签...">
+      </div>
+      <div class="kb-filters" id="kb-filters">${filtersHtml}</div>
+      ${sortHtml}
+      <div class="kb-cards" id="kb-cards">${renderCards(articles)}</div>
+    </div>
+  `;
+
+  // 替换首页内容
+  contentEl.innerHTML = dashboardHtml;
+
+  // 筛选逻辑
+  let currentFilter = 'all';
+  let currentSort = 'rating';
+  let searchTerm = '';
+
+  function getFiltered() {
+    let items = articles;
+    if (currentFilter !== 'all') {
+      items = items.filter(a => a.category === currentFilter);
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      items = items.filter(a =>
+        (a.title || '').toLowerCase().includes(q) ||
+        (a.description || '').toLowerCase().includes(q) ||
+        (a.tags || []).some(t => t.toLowerCase().includes(q))
+      );
+    }
+    // 排序
+    if (currentSort === 'rating') {
+      items.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (currentSort === 'date') {
+      items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    } else if (currentSort === 'name') {
+      items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    }
+    return items;
+  }
+
+  function refresh() {
+    document.getElementById('kb-cards').innerHTML = renderCards(getFiltered());
+  }
+
+  // 事件绑定
+  document.getElementById('kb-filters').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-filter-btn')) return;
+    this.querySelectorAll('.kb-filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    refresh();
+  });
+
+  document.getElementById('kb-search-input').addEventListener('input', function(e) {
+    searchTerm = e.target.value;
+    refresh();
+  });
+
+  document.querySelector('.kb-sort-bar').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-sort-btn')) return;
+    this.querySelectorAll('.kb-sort-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentSort = e.target.dataset.sort;
+    refresh();
+  });
+});
+</script>
+
+  </body>
+</html>

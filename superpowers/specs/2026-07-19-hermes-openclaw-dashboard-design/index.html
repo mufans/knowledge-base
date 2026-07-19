@@ -1,0 +1,3567 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal knowledge repository and project analysis">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Hermes × OpenClaw 个人成长控制台设计 - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../../overrides/dashboard-data.js"></script>
+<script>
+// 在页面加载后，用 frontmatter date 替换/补充日期显示
+document.addEventListener('DOMContentLoaded', function() {
+  // 从页面 meta 标签或 frontmatter data 获取 date
+  const pageContent = document.querySelector('.md-content__inner');
+  if (!pageContent) return;
+  
+  // MkDocs Material 会把 YAML frontmatter 的 date 放在 article 标签的 data-date 属性
+  // 或者我们可以从 page.meta 中获取});
+</script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link rel="stylesheet" href="../../../overrides/styles/dashboard.css">
+  <style>
+    /* 显示 frontmatter date 替代 git date */
+    .md-source-date { display: none !important; }
+    .kb-frontmatter-date {
+      font-size: 0.8rem;
+      color: var(--md-default-fg-color--light);
+      margin-left: 0.5rem;
+    }
+  </style>
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hermes-openclaw" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hermes × OpenClaw 个人成长控制台设计
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../wiki/concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Wiki
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../raw/inbox/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Raw
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/AI-Agent-Self-Improving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Agent-Self-Improving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Claude-Ecosystem-Tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Ecosystem-Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Context-Window-Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Window-Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/DeepEP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Memory-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory-Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Retrieval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Pretext-js/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pretext-js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Prompt-Caching-Pitfalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt-Caching-Pitfalls
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Real-world-AI-Applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-world-AI-Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Self-RAG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Auto-Creation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Auto-Creation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Evaluation-Framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Evaluation-Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Weak-Model-Orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weak-Model-Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/andrej-karpathy-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    andrej-karpathy-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/entities/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Entities
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Claude-Code-Source-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Code-Source-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/DeepSeek-V4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek-V4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Fewshell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fewshell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GKE-Agent-Sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GKE-Agent-Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GPT-5.5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPT-5.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Ghostty-Leaving-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ghostty-Leaving-GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GoClick/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GoClick
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hermes-Agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hy-MT-Offline-Translation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hy-MT-Offline-Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/OpenClaw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Operit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/SmartPerfetto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Warp-Terminal-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Warp-Terminal-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-mem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/deer-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    deer-flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/harmonist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    harmonist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/llm_wiki/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    llm_wiki
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/mattpocock-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mattpocock-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/ml-intern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ml-intern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/open-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    open-design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/trycua-cua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    trycua-cua
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/sources/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/AI-Code-Tool-Pricing-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Code-Tool-Pricing-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Coding-Agents-Critique-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coding-Agents-Critique-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Hermes-Agent-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper-V2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper-V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/claude-context-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95-2026%E5%B9%B44%E6%9C%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐书单-2026年4月
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/syntheses/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syntheses
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Syntheses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Agent-Dev-Tools-2026-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent-Dev-Tools-2026-04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Hermes-vs-OpenClaw%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-vs-OpenClaw对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/SmartPerfetto-vs-SmartInspector%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto-vs-SmartInspector对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Raw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Raw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/inbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../raw/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 背景与目标
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 设计原则
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 当前基线与必须修复的问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 总体架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 总体架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 进程与自动启动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 组件边界
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 外网访问与认证
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 仪表盘信息架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 仪表盘信息架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 总览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 实时会话
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 信号与新鲜度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 机会与实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 任务与调度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 审批中心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 报告
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8 监控与审计
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 实时数据流
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 任务修改与审批模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 任务修改与审批模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-hermes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Hermes 需求层级
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-hermes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Hermes 自我提升策略
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-openclawhermes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. OpenClaw、Hermes 与知识库自动节奏
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-openclaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 报告输出与反哺 OpenClaw
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. 报告输出与反哺 OpenClaw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 私有输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 知识库输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-openclaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 反哺 OpenClaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 监控、告警与自恢复
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. 监控、告警与自恢复">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 告警等级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-incident" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 Incident 状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 钉钉安全与可靠性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 知识库同步可靠性修复
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 安全与隐私分级
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 错误处理与降级
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 测试与验收
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. 测试与验收">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 单元测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 集成测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 安全测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 端到端验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 实施顺序与停顿点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 非目标
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 外部依据
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+
+
+<h1 id="hermes-openclaw">Hermes × OpenClaw 个人成长控制台设计<a class="headerlink" href="#hermes-openclaw" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>日期：2026-07-19</p>
+<p>状态：用户已确认设计</p>
+<p>目标：一次性完成可自动运行、可从任意浏览器安全访问、可通过钉钉查询与告警、可受控修改任务的个人机会发现系统。</p>
+</blockquote>
+<h2 id="1">1. 背景与目标<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>现有系统已经具备以下基础：</p>
+<ul>
+<li>OpenClaw 负责知识采集、知识库任务、钉钉入口和系统 Cron。</li>
+<li>Hermes <code>0.18.2</code> 使用 <code>opportunity-discovery</code> Profile，主模型为 OpenCode Go，DeepSeek API 为 fallback。</li>
+<li>Opportunity OS 已有机会、方向组合、技术新鲜度、Review、快照和审计事件模型。</li>
+<li>知识库通过唯一同步脚本发布到 GitHub Pages。</li>
+</ul>
+<p>本次不是再增加一个独立 Agent，而是建设统一控制面：</p>
+<ol>
+<li>实时查看 OpenClaw、Hermes、Opportunity OS、知识库和外网隧道状态。</li>
+<li>从网页与钉钉查询系统、与 OpenClaw/Hermes 会话、查看完整报告。</li>
+<li>受控创建、修改、启停和立即执行任务。</li>
+<li>自动完成每日轻扫描、每周完整分析、知识库脱敏输出和推送。</li>
+<li>为 Hermes 补齐监控、失败告警、自恢复和可审计的自我提升入口。</li>
+<li>保持广域技术信息采集，避免因个人方向形成信息茧房。</li>
+</ol>
+<h2 id="2">2. 设计原则<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>OpenClaw 是唯一生产调度器和钉钉出口</strong>：Hermes 不启用自己的 Cron 或 messaging。</li>
+<li><strong>Hermes 是深度分析器</strong>：按需运行会话，维护私有 Opportunity OS，不成为常驻网关。</li>
+<li><strong>浏览器不直接连接 Gateway</strong>：所有访问经本机 Dashboard Broker，浏览器永不接触 Gateway Token 或 API Key。</li>
+<li><strong>私有与公开分层</strong>：完整机会、实验、个人偏好和会话只保留在本机；知识库与 GitHub Pages 只接收脱敏报告。</li>
+<li><strong>默认拒绝写入</strong>：任务、Memory、Skill 和策略变更先生成结构化 Diff，再审批、应用、验证；失败自动回滚。</li>
+<li><strong>新鲜但不躁动</strong>：持续发现新技术，同时用多源验证、反证和 Stable gates 控制不可靠信号。</li>
+<li><strong>不制造信息茧房</strong>：广域采集不少于 80%，定向补充不超过 20%，每次分析保留反证和 surprise bucket。</li>
+<li><strong>可观测性不得伪精确</strong>：没有可靠公式时显示最近时间、延迟和状态，不展示虚构的“新鲜度 92 分”或“费用为 0”。</li>
+</ul>
+<h2 id="3">3. 当前基线与必须修复的问题<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>只读审计确认以下状态：</p>
+<ul>
+<li>OpenClaw Gateway 已由 LaunchAgent 以 <code>RunAtLoad + KeepAlive</code> 管理，只监听 loopback；普通 Shell 的 Node PATH 可能命中 Node 18，而 OpenClaw 需要 Node 22.12 以上，所有 Wrapper 必须固定 PATH。</li>
+<li>OpenClaw 有 42 个 Cron，25 个启用、17 个停用；启用任务最近为 19 个成功、6 个失败。</li>
+<li>当前没有真正的 Hermes daily/weekly 生产任务。</li>
+<li>钉钉插件已经启用，但 <code>dmPolicy=open</code>、缺少 owner allowlist，群聊策略也过宽。</li>
+<li>钉钉投递队列存在 7 条 pending、245 条 failed；多数为 HTTP 400，不能把“任务成功”当作“消息送达”。</li>
+<li>现有健康脚本没有可靠的时间窗、锁、滞回、去重和重启冷却，并尝试调用不存在的独立 <code>dingtalk</code> CLI。</li>
+<li>Gateway 主日志约 351 MB、错误日志约 9 MB；需要轮转与保留策略，不能删除故障证据。</li>
+<li>每日提炼任务内部同步与 22:30 独立同步形成双同步；周日 Lint 与每日提炼同刻运行。</li>
+<li><code>sync_kb.sh</code> 缺少严格失败传播，可能在 build、push 或 deploy 失败后仍显示成功，也可能暂存无关改动。</li>
+<li>Opportunity OS 的现有 <code>system_status()</code> 会嵌入完整方向数据，不可直接作为仪表盘公开 DTO。</li>
+<li>Hermes 的 <code>state.db</code> 中存在未终结记录，但不能据此判断真实运行进程；必须使用心跳和进程探针。</li>
+<li>Hermes 当前 <code>memory_enabled=true</code>、<code>user_profile_enabled=false</code>，Memory/Skill 写审批开启；默认 nudge 仍可能触发后台 Review，费用与写入需显式控制。</li>
+</ul>
+<p>这些问题属于本次交付范围，因为它们直接影响仪表盘状态真实性、自动化可靠性和远程控制安全性。</p>
+<h2 id="4">4. 总体架构<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">任意浏览器
+   │ HTTPS + GitHub OAuth allowlist
+   ▼
+ngrok Edge（固定免费开发域名）
+   │ OAuth 后注入 origin credential
+   ▼
+Dashboard Broker（仅 127.0.0.1）
+   ├── Read Model / SSE Event Hub
+   ├── OpenClaw Adapter
+   ├── Hermes Session Adapter
+   ├── Opportunity OS Read Repository
+   ├── Task + Approval Controller
+   ├── Runtime Probes + Incident Sentinel
+   ├── Sanitizer + Report Exporter
+   └── Append-only Audit
+         │
+         ├── OpenClaw Gateway / Cron / 钉钉
+         ├── 固定 Hermes Wrapper / Profile
+         ├── Opportunity OS 私有状态
+         └── Knowledge Base / GitHub Pages
+</code></pre>
+<h3 id="41">4.1 进程与自动启动<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ul>
+<li>复用现有 OpenClaw Gateway LaunchAgent。</li>
+<li>新增 Dashboard Broker LaunchAgent，使用 <code>RunAtLoad + KeepAlive</code>。</li>
+<li>新增 ngrok Agent LaunchAgent，仅把固定外网端点转发至 Dashboard loopback 端口。</li>
+<li>Hermes 不常驻；由 OpenClaw Cron 或 Dashboard 按需调用固定 Wrapper。</li>
+<li>Dashboard 进程由 <code>launchd</code> 拉起，OpenClaw 另设低频健康任务监控 Dashboard；OpenClaw 完全退出时由其 LaunchAgent 拉起。</li>
+</ul>
+<h3 id="42">4.2 组件边界<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>职责</th>
+<th>依赖</th>
+<th>禁止事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PrivateStateReadRepository</code></td>
+<td>纯只读机会、实验、TechState、Review、事件查询</td>
+<td>Opportunity OS 文件</td>
+<td>初始化/touch 文件、返回秘密或完整路径</td>
+</tr>
+<tr>
+<td><code>DashboardReadModel</code></td>
+<td>聚合稳定 DTO、状态和新鲜度</td>
+<td>只读 Repository、Probes</td>
+<td>透传 <code>system_status()</code></td>
+</tr>
+<tr>
+<td><code>RuntimeProbe</code></td>
+<td>探测 OpenClaw、Hermes、Dashboard、ngrok、任务心跳</td>
+<td>固定命令、短超时</td>
+<td>触发模型调用或修改状态</td>
+</tr>
+<tr>
+<td><code>ConversationRouter</code></td>
+<td>路由 OpenClaw 与 Hermes 会话、流式输出</td>
+<td>两个 Adapter</td>
+<td>向浏览器暴露 Token</td>
+</tr>
+<tr>
+<td><code>TaskController</code></td>
+<td>任务预览、审批、应用、验证、回滚</td>
+<td>OpenClaw CLI/Gateway Adapter</td>
+<td>直接写 <code>jobs.json</code>、任意 Shell</td>
+</tr>
+<tr>
+<td><code>ApprovalService</code></td>
+<td>Digest、ETag、TTL、nonce、状态机</td>
+<td>私有审批存储</td>
+<td>批准后替换 Payload</td>
+</tr>
+<tr>
+<td><code>IncidentSentinel</code></td>
+<td>告警去重、冷却、恢复通知、重启上限</td>
+<td>Probes、OpenClaw 钉钉</td>
+<td>删除日志、无限重启</td>
+</tr>
+<tr>
+<td><code>Sanitizer</code></td>
+<td>私有数据分级、内容扫描、脱敏导出</td>
+<td>明确 allowlist</td>
+<td>仅按字段名判断 Secret</td>
+</tr>
+<tr>
+<td><code>AuditLog</code></td>
+<td>记录 actor、request-id、字段 Diff、结果</td>
+<td>Append-only 文件</td>
+<td>记录 Token、收件人、完整会话正文</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 外网访问与认证<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>首阶段采用 ngrok 免费方案：</p>
+<ul>
+<li>使用账户自动分配的固定 <code>*.ngrok-free.app</code> 开发域名。</li>
+<li>ngrok Edge 强制 GitHub OAuth，并显式 allowlist 唯一 owner 账号。</li>
+<li>Dashboard 只监听 <code>127.0.0.1</code>/<code>::1</code>，不开放局域网或公网端口。</li>
+<li>ngrok 在 OAuth 成功后注入高熵 origin credential；Broker 校验 credential、Host、Origin 和 GitHub 身份，再签发短期 HttpOnly Session Cookie。</li>
+<li>Mutation 仅接受 JSON，关闭 CORS，禁止 GET 修改，使用 CSRF Token、<code>SameSite=Strict</code> Cookie 和 5 分钟确认 nonce。</li>
+<li>私有响应使用 <code>Cache-Control: no-store</code>，错误只返回固定错误码和 trace ID。</li>
+<li>免费额度不可用或无法可靠读取时显示 <code>unknown</code> 和 ngrok 控制台链接，不伪造剩余额度。</li>
+<li>采用 SSE 长连接传输状态和任务事件，避免高频浏览器轮询消耗 20,000 请求/月额度。</li>
+</ul>
+<p>ngrok 免费方案的已知约束：1 GB/月、20,000 HTTP 请求/月、最多 3 个 OAuth/OIDC 月活身份、访问提示页和无生产 SLA。超出阈值或稳定性不足时，再迁移到自有域名 + Cloudflare Tunnel + Access；Dashboard 内部接口不因隧道供应商改变。</p>
+<p>本机应急访问不绕过安全控制。CLI <code>dashboard open</code> 生成 60 秒一次性 loopback bootstrap token，换取本机 HttpOnly Session；远程和本机会话共享相同的写操作审批规则。</p>
+<p>实施到 ngrok Authtoken 时必须暂停，由用户在可见终端输入。任何 Token 不进入命令输出、Git、日志或对话。</p>
+<h2 id="6">6. 仪表盘信息架构<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 总览<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OpenClaw、Hermes、Opportunity OS、Dashboard、ngrok、知识库发布六张状态卡。</li>
+<li>状态只允许 <code>healthy / degraded / down / unknown</code>，同时显示最近探测和最近成功时间。</li>
+<li>机会/实验/Review 数量、observe/validate/active 容量、最近新信号和到期复核数。</li>
+<li>最新机会变化、待审批变更、最近事故、下一任务和最新报告入口。</li>
+</ul>
+<h3 id="62">6.2 实时会话<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>OpenClaw 助手</code>：知识库查询、系统任务查询和日常操作。</li>
+<li><code>Hermes 研究员</code>：机会发现、深度分析、方向复盘和继续历史 Session。</li>
+<li>会话输出流式显示，可将结论转为任务或长期需求草案。</li>
+<li>模型调用前展示 Profile、Provider、数据范围、允许工具和可用时的费用估计；费用未知时明确显示 unknown。</li>
+</ul>
+<h3 id="63">6.3 信号与新鲜度<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<ul>
+<li>最新信号时间线、类别、来源等级和采集状态。</li>
+<li><code>known_latest</code> 与 <code>recommended_stable</code> 分栏。</li>
+<li>到期 TechState 只标记“需复核”，不自动判定失效。</li>
+<li>显示五项 Stable gate、正反证据和 surprise bucket。</li>
+<li>广域采集占比不得低于 80%，定向采集不得高于 20%。定向反馈只能增加检索，不能减少广域来源。</li>
+</ul>
+<h3 id="64">6.4 机会与实验<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<ul>
+<li>机会列表按现有确定性评分排序，支持状态、类型和展示桶过滤。</li>
+<li>详情包含七维评分、Fact/Inference/Hypothesis、正反证据、失效条件和最小实验。</li>
+<li>observe/validate/active 三列组合，容量默认 <code>5/2/1</code>，允许 active 为 0。</li>
+<li>实验展示 1–14 天周期、指标、继续/停止条件和证据。</li>
+</ul>
+<h3 id="65">6.5 任务与调度<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
+<ul>
+<li>展示任务状态、Cron、时区、下一执行、最近结果和运行历史。</li>
+<li>V1 可应用字段：<code>enabled</code>、Cron 表达式、时区、run-now。</li>
+<li>V1 禁止网页修改 Payload、命令、模型、收件人或直接删除任务。</li>
+<li>复杂自然语言需求先转成结构化草案；超出 allowlist 的部分只生成操作建议，不自动应用。</li>
+</ul>
+<h3 id="66">6.6 审批中心<a class="headerlink" href="#66" title="Permanent link">&para;</a></h3>
+<ul>
+<li>统一管理任务变更、长期偏好、Memory、Skill、自我提升建议和策略变更。</li>
+<li>展示当前值、目标值、影响范围、下一运行时间、模型/费用影响、快照和回滚方案。</li>
+<li>支持批准、拒绝、过期、验证失败和回滚记录。</li>
+</ul>
+<h3 id="67">6.7 报告<a class="headerlink" href="#67" title="Permanent link">&para;</a></h3>
+<ul>
+<li>本机查看完整私有 daily/weekly/six-week/quarterly 报告。</li>
+<li>查看知识库脱敏版、GitHub Pages 发布状态和最后成功部署时间。</li>
+<li>GitHub Pages 始终只读，不承载控制接口或私有运行状态。</li>
+</ul>
+<h3 id="68">6.8 监控与审计<a class="headerlink" href="#68" title="Permanent link">&para;</a></h3>
+<ul>
+<li>运行探针、任务心跳、钉钉投递、事故状态、重启计数和日志轮转状态。</li>
+<li>显示版本与模板漂移，但不自动升级 OpenClaw、Hermes 或 ngrok。</li>
+<li>路径映射为 <code>profile://</code>、<code>kb://</code>，URL 删除 userinfo、query 和 fragment。</li>
+</ul>
+<h2 id="7">7. 实时数据流<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Runtime Probe 在服务端每 10 秒运行短超时只读检查；失败一次先标 <code>unknown</code>，连续失败才进入 degraded/down。</li>
+<li>数据计数和新鲜度每 30 秒重算，文件系统事件经过 debounce，并每 60 秒做一次 reconciliation。</li>
+<li>Opportunity OS 的 <code>events.jsonl</code> 由 Event Tailer 顺序读取；SSE 只发送 <code>{event_id,type,entity_id,at}</code>，正文由受权 API 单独拉取。</li>
+<li>SSE 支持 <code>Last-Event-ID</code> 重连、半行 JSON、文件轮转和重复事件去重。</li>
+<li>GET 请求不得调用会 <code>initialize()</code> 或 <code>touch()</code> 的 MCP <code>_store()</code>，确保读取无副作用。</li>
+</ul>
+<h2 id="8">8. 任务修改与审批模型<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>统一状态机：</p>
+<pre><code class="language-text">draft → previewed → awaiting_approval → approved → applying
+      → verified → applied
+      → failed → rolled_back
+</code></pre>
+<p>每个 Change Request 至少包含：</p>
+<ul>
+<li><code>kind</code>、<code>target</code>、标准化 Patch、数据等级。</li>
+<li><code>base_revision</code>/ETag、Payload Digest、有效期和一次性 nonce。</li>
+<li>影响范围、下一执行时间、模型/费用影响、副作用和回滚点。</li>
+<li>actor、request-id、创建/批准/应用/验证时间。</li>
+</ul>
+<p>安全规则：</p>
+<ul>
+<li>审批绑定完整 Patch Digest，批准后内容变化必须重新审批。</li>
+<li>应用前 compare-and-swap；目标已变化则拒绝覆盖。</li>
+<li>单写者锁串行修改；应用后 read-after-write 验证。</li>
+<li>任务删除不在 V1；先停用并保留旧定义。</li>
+<li>任何任意 Shell、任意路径、密钥、收件人和模型修改都不进入通用网页控制接口。</li>
+</ul>
+<h3 id="81-hermes">8.1 Hermes 需求层级<a class="headerlink" href="#81-hermes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>落点</th>
+<th>审批与回滚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>临时需求</td>
+<td>单次 Dashboard 任务或 Hermes Session</td>
+<td>只读任务可直接运行；写状态/模型调用先预览；取消即丢弃未提交草案</td>
+</tr>
+<tr>
+<td>长期偏好</td>
+<td><code>USER.md</code></td>
+<td>逐条审批，下一新 Session 验证；按唯一文本移除或恢复快照</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Pending Memory</td>
+<td>保持 <code>write_approval=true</code>；批准前做内容与威胁扫描</td>
+</tr>
+<tr>
+<td>Skill</td>
+<td>Profile 私有 Skill</td>
+<td>永远 Stage，独立 Diff、扫描和测试；一次只应用一个 Skill</td>
+</tr>
+<tr>
+<td>调度</td>
+<td>OpenClaw Cron</td>
+<td>修改频率/时区/启停均二次确认；先 disable、不删除</td>
+</tr>
+<tr>
+<td>评分/容量</td>
+<td>版本化策略代码</td>
+<td>最高等级审批，全量 Dry-run、测试和快照；增加 <code>scoring_policy_version</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-hermes">9. Hermes 自我提升策略<a class="headerlink" href="#9-hermes" title="Permanent link">&para;</a></h2>
+<p>系统启用 <code>user_profile_enabled</code>，但分阶段控制自动 Review：</p>
+<ol>
+<li>首先显式设置 <code>memory.nudge_interval=0</code> 和 <code>skills.creation_nudge_interval=0</code>，保持 Memory/Skill 写审批、Skill guard 和 <code>profile_build=off</code>。</li>
+<li>用户在仪表盘批准少量 USER 条目；默认只显示条目数量，正文需单独展开。</li>
+<li>生产 Cron 使用非交互 Wrapper 时不触发 Memory/Skill 自改；分析改进只写入 <code>improvement proposal</code> 草案。</li>
+<li>完成费用审计、每日上限和回滚验证后，才在受监督 Canary Session 中恢复 Memory Review；输出仍进入 Pending。</li>
+<li>紧急停用时将两个 nudge 设为 0、关闭 user_profile、拒绝 Pending；删除数据需要另行审批。</li>
+</ol>
+<p>这样可以利用 Hermes 的学习能力，又避免非交互 <code>-z</code> 运行绕过审批后直接改变 Memory 或 Skill。</p>
+<h2 id="10-openclawhermes">10. OpenClaw、Hermes 与知识库自动节奏<a class="headerlink" href="#10-openclawhermes" title="Permanent link">&para;</a></h2>
+<p>建议统一时序：</p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>08:00–13:00</td>
+<td>保留现有技术、论文、GitHub 与社交信号广域采集</td>
+</tr>
+<tr>
+<td>18:30</td>
+<td>Hermes daily；周日跳过</td>
+</tr>
+<tr>
+<td>周日 19:00</td>
+<td>Hermes weekly 完整复盘</td>
+</tr>
+<tr>
+<td>周日 20:30</td>
+<td>Knowledge Base Lint</td>
+</tr>
+<tr>
+<td>21:00</td>
+<td>晚间摘要；仅重大变化即时推送</td>
+</tr>
+<tr>
+<td>22:00</td>
+<td>每日知识提炼，不再内嵌同步</td>
+</tr>
+<tr>
+<td>22:30</td>
+<td>唯一一次 <code>sync_kb.sh</code></td>
+</tr>
+<tr>
+<td>22:45</td>
+<td>仅在 build、push、Pages deploy 全部成功后推送结果与链接</td>
+</tr>
+<tr>
+<td>23:00</td>
+<td>Token/调用统计；费用未知时不估算</td>
+</tr>
+</tbody>
+</table>
+<p>Hermes Wrapper 只接受固定枚举：<code>daily / weekly / biweekly / six-week / quarterly</code>，包含：</p>
+<ul>
+<li>固定 Profile、Skill、PATH、工作目录和数据边界。</li>
+<li>原子锁、周期幂等键、run-id、start/end/status/error-class/duration 心跳。</li>
+<li>daily 内层约 20 分钟、外层 25 分钟；weekly 内层约 45 分钟、外层 50 分钟。</li>
+<li>不启用 terminal、file、browser、delegation、cronjob 或 messaging。</li>
+<li>不使用 Hermes Cron，不让 Hermes 修改 OpenClaw 配置。</li>
+</ul>
+<h2 id="11-openclaw">11. 报告输出与反哺 OpenClaw<a class="headerlink" href="#11-openclaw" title="Permanent link">&para;</a></h2>
+<h3 id="111">11.1 私有输出<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
+<p>完整机会、方向、实验、Review、USER/MEMORY、来源选择与详细日志保留在：</p>
+<ul>
+<li><code>profile://opportunity-os/</code></li>
+<li><code>profile://bridge/</code></li>
+</ul>
+<h3 id="112">11.2 知识库输出<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
+<p>通过 Sanitizer 生成：</p>
+<ul>
+<li><code>wiki/syntheses/个人机会发现仪表盘.md</code></li>
+<li><code>wiki/syntheses/个人机会发现周报-YYYY-MM-DD.md</code></li>
+<li><code>wiki/syntheses/技术新鲜度观察.md</code></li>
+<li><code>wiki/syntheses/方向实验复盘-YYYY-Www.md</code></li>
+</ul>
+<p>新 Wiki 页面必须符合知识库模板、自评不低于 7.0、更新对应 <code>index.md</code> 和 <code>log.md</code>。<code>raw/</code> 永远只读。发布只能调用既有 <code>sync_kb.sh</code>，不得手动复制、Git push 或运行 MkDocs deploy。</p>
+<h3 id="113-openclaw">11.3 反哺 OpenClaw<a class="headerlink" href="#113-openclaw" title="Permanent link">&para;</a></h3>
+<p>私有 Bridge 文件保存 14 天 TTL：</p>
+<ul>
+<li><code>openclaw-handoff.json</code></li>
+<li><code>source-feedback.json</code></li>
+<li><code>experiment-evidence-request.json</code></li>
+</ul>
+<p>OpenClaw 可据此增加定向搜索，但不能删除或减少广域来源。Bridge 不允许直接修改 OpenClaw Cron、Provider、密钥或安全配置。</p>
+<h2 id="12">12. 监控、告警与自恢复<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<h3 id="121">12.1 告警等级<a class="headerlink" href="#121" title="Permanent link">&para;</a></h3>
+<ul>
+<li>P0：隐私泄漏风险、控制面未授权访问、核心服务不可用——立即钉钉。</li>
+<li>P1：任务失败、报告严重逾期、发布失败——首次进入 FIRING 时钉钉。</li>
+<li>P2：短暂超时、单来源异常——自动重试，连续失败后升级。</li>
+<li>P3：普通变化——只进入仪表盘和摘要。</li>
+</ul>
+<h3 id="122-incident">12.2 Incident 状态机<a class="headerlink" href="#122-incident" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Key 为 <code>source + task + error_class</code>。</li>
+<li>连续 2–3 次失败才进入 FIRING；P0 和 KB 发布失败可首次告警。</li>
+<li>相同事故 4–6 小时内去重；恢复连续成功 2 次后只发一次 RECOVERED。</li>
+<li>Gateway 重启最多 1 次/小时、2 次/天；超限后停止自动重启并标记需要人工处理。</li>
+<li>日志只轮转和按保留期清理，不在故障处理中直接删除。</li>
+<li>OpenClaw 完全退出时无法通过自身钉钉实时通知；由 LaunchAgent 恢复，启动 Hook 补发“曾中断并已恢复”。</li>
+</ul>
+<h3 id="123">12.3 钉钉安全与可靠性<a class="headerlink" href="#123" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>dmPolicy=allowlist</code>，只允许唯一 owner。</li>
+<li>群聊默认 <code>disabled</code>；如后续启用，必须显式限定群 ID 和 sender。</li>
+<li><code>contextVisibility=allowlist_quote</code>。</li>
+<li>任务变更采用两阶段确认：同一 sender/session 在 5 分钟内返回精确 nonce。</li>
+<li>启用任务级 Failure Alert；不使用会抑制失败告警的 <code>bestEffort</code>。</li>
+<li>修复 HTTP 400 根因并完成一次主动推送验收，不能只检查 Queue 写入。</li>
+</ul>
+<h2 id="13">13. 知识库同步可靠性修复<a class="headerlink" href="#13" title="Permanent link">&para;</a></h2>
+<p><code>sync_kb.sh</code> 需要保持为唯一发布入口，但内部改为：</p>
+<ul>
+<li>使用单实例锁和严格阶段退出码。</li>
+<li>build、Git push、Pages deploy 任一失败即停止，不输出成功。</li>
+<li>只暂存本任务拥有的路径，不使用会包含用户无关改动的宽泛提交。</li>
+<li>不自动覆盖用户修改的 <code>mkdocs.yml</code>，检测到漂移时失败并报告。</li>
+<li>不修改全局 Git 代理。</li>
+<li>按 <code>AGENTS.md</code> 同步声明的根文件，并验证 <code>docs/raw/</code>、索引和链接。</li>
+<li>生成机器可读结果供 Dashboard 和钉钉使用。</li>
+</ul>
+<h2 id="14">14. 安全与隐私分级<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>等级</th>
+<th>示例</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Secret</td>
+<td><code>.env</code>、<code>auth.json</code>、API/OAuth Token、Cookie、Authorization、带凭据 URL</td>
+<td>Broker 原则上不读正文；只检查存在性/权限；永不进入 UI/日志/Git</td>
+</tr>
+<tr>
+<td>Local Private</td>
+<td>机会标题、实验、个人评分、USER/MEMORY、会话、任务原文、详细日志</td>
+<td>OAuth + App Session 后按需显示；<code>no-store</code>；不公开导出</td>
+</tr>
+<tr>
+<td>Public Safe</td>
+<td>软件版本、粗粒度健康布尔、策略版本、聚合计数、脱敏报告</td>
+<td>Sanitizer allowlist 后可进入知识库</td>
+</tr>
+</tbody>
+</table>
+<p>内容级扫描必须覆盖自由文本和 URL query；不能只依赖有限的敏感字段名。公开 ID 使用导出盐散列，文件路径隐藏用户名，错误正文映射为错误码和 trace ID。</p>
+<h2 id="15">15. 错误处理与降级<a class="headerlink" href="#15" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Probe 超时首先显示 unknown，避免把沙箱或短暂网络问题误报为 down。</li>
+<li>OpenClaw 不可用时，Hermes 私有只读数据和 Dashboard 诊断仍可查看；写操作禁用。</li>
+<li>Hermes 不可用时，OpenClaw 任务与知识库状态仍可管理；Hermes 任务进入可重试失败态。</li>
+<li>ngrok 不可用时，loopback 应急入口可用；外网写操作不可降级为匿名访问。</li>
+<li>钉钉不可用时告警进入持久队列，恢复后补发；Dashboard 始终显示 delivery 状态。</li>
+<li>GitHub Pages 发布失败时保留本地脱敏报告并显示“未发布”，不得宣称同步成功。</li>
+<li>任何自动回滚失败都进入 P0/P1，停止后续同类写操作。</li>
+</ul>
+<h2 id="16">16. 测试与验收<a class="headerlink" href="#16" title="Permanent link">&para;</a></h2>
+<h3 id="161">16.1 单元测试<a class="headerlink" href="#161" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Read Repository 无初始化副作用、路径逃逸和私有字段泄漏。</li>
+<li>DTO allowlist、内容级 Secret 扫描、URL/路径脱敏。</li>
+<li>Freshness、容量、评分版本和反信息茧房约束。</li>
+<li>Approval TTL、Digest、ETag/CAS、重复 nonce、回滚。</li>
+<li>Incident 去重、冷却、恢复和重启上限。</li>
+<li>Event Tailer 的断点续传、半行、轮转、重复事件和 reconciliation。</li>
+</ul>
+<h3 id="162">16.2 集成测试<a class="headerlink" href="#162" title="Permanent link">&para;</a></h3>
+<ul>
+<li>使用临时 Hermes Home、临时 Opportunity OS 和 Fake OpenClaw Adapter，不接触真实 Profile 或知识库。</li>
+<li>OpenClaw CLI 使用固定 Node PATH；验证 list/status/runs/edit/enable/disable/run 契约。</li>
+<li>Hermes Wrapper 验证超时、非零退出、锁冲突、重复周期和心跳。</li>
+<li>同步脚本注入 build/push/deploy 失败，确认不会假成功或提交无关改动。</li>
+</ul>
+<h3 id="163">16.3 安全测试<a class="headerlink" href="#163" title="Permanent link">&para;</a></h3>
+<ul>
+<li>非 allowlist GitHub 用户、恶意 Host/Origin、CSRF、GET mutation、过期/重复 nonce 全部拒绝。</li>
+<li>HTML、网络响应、浏览器存储、日志和审计不含 Gateway Token、API Key、收件人或完整 Payload。</li>
+<li>owner DM 可用，非 owner 和群聊被拒绝。</li>
+<li>仪表盘 GET 不产生文件写入。</li>
+</ul>
+<h3 id="164">16.4 端到端验收<a class="headerlink" href="#164" title="Permanent link">&para;</a></h3>
+<ol>
+<li>本机与外部网络浏览器均能通过 GitHub OAuth 登录。</li>
+<li>OpenClaw/Hermes/Opportunity OS/KB/ngrok 状态与宿主机实测一致。</li>
+<li>修改 Cron 或启停任务会显示 Diff、审批、应用和验证结果。</li>
+<li>Hermes daily/weekly 能幂等运行并生成私有报告、脱敏 Wiki 和推送。</li>
+<li>注入 Hermes、OpenClaw、钉钉、同步和 ngrok 故障，告警只发一次，恢复只发一次。</li>
+<li>主动钉钉消息实际送达，历史 HTTP 400 根因已修复或明确隔离。</li>
+<li>重启 Mac 后 OpenClaw、Dashboard、ngrok 自动启动，Cron 和恢复通知正常。</li>
+<li>Git 工作区中用户原有脏文件保持不变。</li>
+</ol>
+<h2 id="17">17. 实施顺序与停顿点<a class="headerlink" href="#17" title="Permanent link">&para;</a></h2>
+<p>实施在同一计划内连续完成：</p>
+<ol>
+<li>测试基线、纯只读 Repository 与隐私 Sanitizer。</li>
+<li>Dashboard API、SSE、UI 和本机会话。</li>
+<li>Task/Approval/审计与 OpenClaw/Hermes Adapter。</li>
+<li>Hermes Wrapper、自动节奏、报告与 Bridge。</li>
+<li>钉钉安全、Failure Alert、Incident Sentinel 和同步可靠性。</li>
+<li>ngrok GitHub OAuth、LaunchAgent 和外网验证。</li>
+<li>故障注入、重启验收、文档和状态查看说明。</li>
+</ol>
+<p>仅在以下情况暂停要求用户输入：</p>
+<ul>
+<li>ngrok 登录或 Authtoken。</li>
+<li>确认 GitHub owner 身份。</li>
+<li>钉钉 owner allowlist 无法从现有可信会话安全解析。</li>
+<li>需要付费、创建新外部账号或扩大授权范围。</li>
+</ul>
+<p>所有 Secret 必须由用户在可见终端或官方浏览器页面输入，不在隐藏终端、聊天消息或日志中粘贴。</p>
+<h2 id="18">18. 非目标<a class="headerlink" href="#18" title="Permanent link">&para;</a></h2>
+<ul>
+<li>不匿名公开 Dashboard。</li>
+<li>不把控制面放入 GitHub Pages。</li>
+<li>不启用 Hermes messaging 或 Hermes Cron。</li>
+<li>不提供任意 Shell、任意文件编辑或任务删除。</li>
+<li>不自动升级 OpenClaw、Hermes、ngrok 或模型。</li>
+<li>不将 SmartInspector 设为机会发现主轴，也不预设唯一发展方向。</li>
+<li>不使用 Cloudflare Quick Tunnel 或 Tailscale Funnel。</li>
+<li>不在首阶段制作 Electron/Tauri 桌面壳。</li>
+</ul>
+<h2 id="19">19. 外部依据<a class="headerlink" href="#19" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://ngrok.com/docs/pricing-limits/free-plan-limits">ngrok 免费版限制</a></li>
+<li><a href="https://ngrok.com/docs/traffic-policy/examples/oauth-protection">ngrok OAuth Traffic Policy</a></li>
+<li><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/">Cloudflare Quick Tunnel 限制</a></li>
+<li><a href="https://developers.cloudflare.com/cloudflare-one/setup/secure-private-apps/private-web-app/">Cloudflare 私有 Web 应用</a></li>
+<li><a href="https://tailscale.com/docs/features/tailscale-funnel/how-to/host-websites">Tailscale Serve 与 Funnel</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 06:29:23 UTC">2026年7月19日</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 只在首页生效
+  const contentEl = document.querySelector('.md-content__inner');
+  if (!contentEl) return;
+
+  // 检查是否是首页（Home）
+  const isHome = document.location.pathname === '/' ||
+                 document.location.pathname === '/index.html' ||
+                 document.location.pathname.endsWith('/knowledge/') ||
+                 document.location.pathname.endsWith('/knowledge/index.html') ||
+                 document.location.pathname.endsWith('/knowledge-base/') ||
+                 document.location.pathname.endsWith('/knowledge-base/index.html');
+  if (!isHome) return;
+
+  // 从 site.data 或页面数据构建文章列表
+  // MkDocs Material 不会自动暴露所有页面的 frontmatter，
+  // 所以我们用一个内联的数据对象
+  const articles = window.__kb_articles || [];
+  if (articles.length === 0) return;
+
+  // 构建分类数据
+  const categories = {
+    all: { label: '全部', count: articles.length },
+    concepts: { label: 'Concepts', count: 0 },
+    entities: { label: 'Entities', count: 0 },
+    sources: { label: 'Sources', count: 0 },
+    syntheses: { label: 'Syntheses', count: 0 }
+  };
+
+  const tagSet = new Set();
+  articles.forEach(a => {
+    if (categories[a.category]) categories[a.category].count++;
+    (a.tags || []).forEach(t => tagSet.add(t));
+  });
+
+  // 问候语
+  const hour = new Date().getHours();
+  let greeting = '晚上好';
+  if (hour >= 5 && hour < 12) greeting = '早上好';
+  else if (hour >= 12 && hour < 18) greeting = '下午好';
+
+  // 构建统计 HTML
+  const statsHtml = Object.entries(categories).map(([key, val]) =>
+    `<div class="kb-stat"><span class="kb-stat-num">${val.count}</span><span>${val.label}</span></div>`
+  ).join('');
+
+  // 构建筛选按钮
+  const filtersHtml = Object.entries(categories).map(([key, val]) =>
+    `<button class="kb-filter-btn${key === 'all' ? ' active' : ''}" data-filter="${key}">${val.label} (${val.count})</button>`
+  ).join('');
+
+  // 构建排序按钮
+  const sortHtml = `
+    <div class="kb-sort-bar">
+      <span>排序：</span>
+      <button class="kb-sort-btn active" data-sort="rating">评分 ↓</button>
+      <button class="kb-sort-btn" data-sort="date">最新</button>
+      <button class="kb-sort-btn" data-sort="name">名称</button>
+    </div>
+  `;
+
+  // 构建卡片
+  function renderCards(items) {
+    if (items.length === 0) {
+      return '<div class="kb-no-results">没有找到匹配的文章</div>';
+    }
+    return items.map(a => `
+      <a class="kb-card" href="${a.url}">
+        <div class="kb-card-header">
+          <span class="kb-card-category ${a.category}">${categories[a.category]?.label || a.category}</span>
+          <span class="kb-card-rating">★ ${a.rating || '-'}</span>
+        </div>
+        <h3 class="kb-card-title">${a.title}</h3>
+        <p class="kb-card-desc">${a.description || ''}</p>
+        <div class="kb-card-tags">
+          ${(a.tags || []).map(t => `<span class="kb-card-tag">${t}</span>`).join('')}
+        </div>
+        ${a.date ? `<div class="kb-card-date">${a.date}</div>` : ''}
+      </a>
+    `).join('');
+  }
+
+  // 组装 Dashboard
+  const dashboardHtml = `
+    <div class="kb-dashboard">
+      <div class="kb-greeting">
+        <h1>${greeting}，知识探索者！</h1>
+        <p>共收录 ${articles.length} 篇知识文章，持续更新中</p>
+      </div>
+      <div class="kb-search">
+        <input type="text" id="kb-search-input" placeholder="搜索文章标题、描述或标签...">
+      </div>
+      <div class="kb-filters" id="kb-filters">${filtersHtml}</div>
+      ${sortHtml}
+      <div class="kb-cards" id="kb-cards">${renderCards(articles)}</div>
+    </div>
+  `;
+
+  // 替换首页内容
+  contentEl.innerHTML = dashboardHtml;
+
+  // 筛选逻辑
+  let currentFilter = 'all';
+  let currentSort = 'rating';
+  let searchTerm = '';
+
+  function getFiltered() {
+    let items = articles;
+    if (currentFilter !== 'all') {
+      items = items.filter(a => a.category === currentFilter);
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      items = items.filter(a =>
+        (a.title || '').toLowerCase().includes(q) ||
+        (a.description || '').toLowerCase().includes(q) ||
+        (a.tags || []).some(t => t.toLowerCase().includes(q))
+      );
+    }
+    // 排序
+    if (currentSort === 'rating') {
+      items.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (currentSort === 'date') {
+      items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    } else if (currentSort === 'name') {
+      items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    }
+    return items;
+  }
+
+  function refresh() {
+    document.getElementById('kb-cards').innerHTML = renderCards(getFiltered());
+  }
+
+  // 事件绑定
+  document.getElementById('kb-filters').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-filter-btn')) return;
+    this.querySelectorAll('.kb-filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    refresh();
+  });
+
+  document.getElementById('kb-search-input').addEventListener('input', function(e) {
+    searchTerm = e.target.value;
+    refresh();
+  });
+
+  document.querySelector('.kb-sort-bar').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-sort-btn')) return;
+    this.querySelectorAll('.kb-sort-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentSort = e.target.dataset.sort;
+    refresh();
+  });
+});
+</script>
+
+  </body>
+</html>
