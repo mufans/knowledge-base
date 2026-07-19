@@ -1,4 +1,5 @@
 - 2026-07-19 | lint | raw/inbox/2026-07-19-知识库Lint审查.md | 知识库Lint审查完成（总分7.25/10，结构6.5/10，质量8/10）
+- 2026-07-19 | 生产力工具推荐 | raw/inbox/2026-04-23-生产力工具.md | 采集10个开源生产力工具（来源：GitHub Topics），标注3个【强烈推荐】：AppFlowy(74k⭐)、Memos(61.6k⭐)、Espanso(14.1k⭐)
 - 2026-07-19 技术新闻热点采集完成 | raw/inbox/2026-07-19-新闻热点.md | 10条分类新闻（AI/大模型、编程/开发工具、移动端、云原生/后端、开源/硬件）
 - 2026-07-19 技术动态采集完成 | raw/inbox/2026-07-19-技术动态.md | 26条（InfoQ 20 + OSChina 4 + Dev.to 5 + Solidot 2，去重后26条）
 - 2026-07-19 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-19-*.json（35篇） | 扫描完成，30篇score≥7。创建2篇新wiki页面：entities/LangGraph.md（自评8.35）、sources/Gemini-Managed-Agents.md（自评7.63）。跳过28篇：已有wiki页面覆盖（LangChain/CowAgent/OpenHands/Hermes-Agent/mem0/Dify/MetaGPT/deer-flow/browser-use/Goose/Cherry-Studio/awesome-llm-apps/JeecgBoot/RAGFlow/nanobot/LlamaFactory/headroom/pi-agent/AgentGPT等20篇）、方向不匹配（RF芯片/AI安全/AI小说/Google Vids/Google搜索/UK政策等8篇）
@@ -87,6 +88,7 @@
 2026-07-19 | audit | ~/.openclaw/openclaw.json, ~/.openclaw/cron/, wiki/syntheses/Hermes-vs-OpenClaw对比分析.md | 审计OpenClaw当前配置与任务运行状态，评估Hermes并行试点价值（未修改系统配置）
 2026-07-19 | research | Hermes v0.18.2官方发布说明与文档 | 不参考本地Hermes分析页，基于最新官方版本重新评估搭建价值（未修改Wiki与系统配置）
 2026-07-19 | research | OpenCode Go、火山方舟Coding Plan、DeepSeek API官方文档 | 确定Hermes试点Provider设计：OpenCode Go主模型 + DeepSeek官方API fallback
+2026-07-19 | design | docs/superpowers/specs/2026-07-19-hermes-knowledge-lab-design.md | 完成Hermes knowledge-lab隔离试点设计，明确凭据必须由用户交互式输入
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-AI论文.md | 创建entities/PalmClaw.md（自评8.40）、更新concepts/Agentic-Search-Retrieval.md（合并GRASP粒度感知搜索策略）
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-社交媒体.md | 创建entities/Moonshine-AI.md（自评7.75）、entities/Transcribe-cpp.md（自评7.80）
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-技术动态.md | 创建entities/Google-Genkit-Agents-API.md（自评7.80）
@@ -94,3 +96,24 @@
 - 2026-07-19 | update | - | 修复index.md：补充Headroom/ChatGPT-Work/Pi-Agent-Toolkit/Multi-Agent-Collaboration-Survey/RAG-Evaluation-Practical/MentalThink到对应目录索引
 
 2026-07-19 | 周度成长报告 | reports/weekly-growth-2026-07-19.md | 代码0提交、新增wiki~7页、采集6篇。重点：OpenClaw审计+Hermes评估+知识库Lint审查。下周聚焦：知识库索引优化+SI进展+深度对比
+
+2026-07-19 | Claude Blog采集 | raw/inbox/2026-07-19-Claude博客.md | 采集5篇，最高分9.5
+2026-07-19 | design | docs/superpowers/specs/2026-07-19-hermes-opportunity-discovery-os-design.md | 完成Hermes个人方向与机会发现系统完整设计，明确一次性连续实施、反信息茧房和稳定优先的新鲜度原则
+2026-07-19 | plan | docs/superpowers/plans/2026-07-19-hermes-opportunity-discovery-os.md | 用户批准设计后完成Hermes个人方向与机会发现系统端到端实施计划
+
+## 2026-07-19 社交媒体AI动态
+
+- [Open source AI must win](https://opensourceaimustwin.com/?share=v2) - 开源AI必须赢，1603 points HN热议
+- [AI agent bankrupted their operator](https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/) - AI Agent扫描DN42烧光运营商预算
+- [An AI agent published a hit piece on me](https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/) - AI Agent写文章羞辱PR关闭者
+- [Web Speed - MCP web-map registry for AI agents](https://www.getwebspeed.io/) - MCP原生AI Agent网页地图
+- [NavixMind - Android agent runs Python locally](https://github.com/alexandertaboriskiy/navixmind) - 开源端侧AI Agent
+- [Free On-Device AI SDK for Mobile NPUs](https://github.com/zetic-ai/ZETIC_MLange_apps) - 移动NPU端侧AI SDK
+- [Zuver - Agentic AI framework under 10MB](https://zuver.cc) - 轻量级Go Agent框架
+- [AI Agent MCP security discussion](https://news.ycombinator.com/item?id=47827684) - MCP Agent安全讨论
+
+> 来源：HN / 2026-07-19 13:00 采集
+2026-07-19 | implementation | integrations/hermes-opportunity-os/**, ~/.hermes/profiles/opportunity-discovery | 部署Hermes v0.18.2个人机会发现系统：OpenCode Go主模型、DeepSeek fallback、专用Skill与双MCP、反信息茧房机会卡、技术新鲜度基线、手动复盘模板和无密钥回滚快照；64项测试通过，未修改OpenClaw或raw
+2026-07-19 | design | docs/superpowers/specs/2026-07-19-hermes-openclaw-dashboard-design.md | 完成Hermes×OpenClaw个人成长控制台设计：ngrok GitHub OAuth外网访问、实时状态、受控任务修改、自动分析、知识库输出、钉钉告警与自恢复
+2026-07-19 | plan | docs/superpowers/plans/2026-07-19-hermes-openclaw-dashboard.md | 完成Hermes×OpenClaw个人成长控制台实施计划：13个TDD任务、子代理交付边界、生产部署与回滚验收
+2026-07-19 | maintenance | .gitignore | 忽略实施worktree与brainstorm临时文件，防止子代理和可视化产物污染知识库提交
