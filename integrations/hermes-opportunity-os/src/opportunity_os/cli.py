@@ -1,11 +1,21 @@
 import argparse
 import json
 import tarfile
+import webbrowser
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
+from urllib.parse import urlsplit
 
-from opportunity_os.errors import OpportunityOSError
+import uvicorn
+
+from opportunity_os.dashboard.app import DashboardDependencies, create_app
+from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
+from opportunity_os.dashboard.config import DashboardConfig
+from opportunity_os.dashboard.read_model import DashboardReadModel
+from opportunity_os.dashboard.repositories import PrivateStateReadRepository
+from opportunity_os.errors import OpportunityOSError, ValidationError
 from opportunity_os.reports import render_review
 from opportunity_os.signals import SignalReader
 from opportunity_os.store import PrivateStore
@@ -32,6 +42,29 @@ def _snapshot(store: PrivateStore) -> Path:
                 continue
             archive.add(path, arcname=str(Path("opportunity-os") / path.relative_to(store.home)), recursive=False)
     return destination
+
+
+def _dashboard_config(home: str | Path) -> DashboardConfig:
+    configured = DashboardConfig.from_env()
+    return replace(configured, dashboard_home=Path(home).expanduser().resolve() / "dashboard")
+
+
+def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> DashboardDependencies:
+    read_model = DashboardReadModel(PrivateStateReadRepository(home), probes=())
+    sessions = SessionStore(config.dashboard_home)
+    return DashboardDependencies(read_model=read_model, sessions=sessions, csrf=CsrfGuard())
+
+
+def _require_loopback_host(host: str) -> None:
+    if host not in {"127.0.0.1", "::1"}:
+        raise ValidationError("dashboard serve must bind to a loopback address")
+
+
+def _require_loopback_url(url: str) -> str:
+    parsed = urlsplit(url)
+    if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "::1", "localhost"}:
+        raise ValidationError("dashboard open requires a loopback HTTP URL")
+    return url.rstrip("/")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -69,6 +102,18 @@ def build_parser() -> argparse.ArgumentParser:
     snapshot = subparsers.add_parser("snapshot")
     snapshot.add_argument("--home", required=True)
     snapshot.add_argument("--format", choices=("text", "json"), default="text")
+
+    dashboard = subparsers.add_parser("dashboard")
+    dashboard_commands = dashboard.add_subparsers(dest="dashboard_command", required=True)
+
+    serve = dashboard_commands.add_parser("serve")
+    serve.add_argument("--home", required=True)
+    serve.add_argument("--host", default="127.0.0.1")
+    serve.add_argument("--port", type=int, default=8765)
+
+    open_dashboard = dashboard_commands.add_parser("open")
+    open_dashboard.add_argument("--home", required=True)
+    open_dashboard.add_argument("--url", default="http://127.0.0.1:8765")
     return parser
 
 
@@ -102,6 +147,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == "snapshot":
             path = _snapshot(_store(args))
             _emit({"snapshot": str(path)}, args.format)
+        elif args.command == "dashboard" and args.dashboard_command == "serve":
+            _require_loopback_host(args.host)
+            config = _dashboard_config(args.home)
+            app = create_app(config, _dashboard_dependencies(args.home, config))
+            uvicorn.run(app, host=args.host, port=args.port)
+        elif args.command == "dashboard" and args.dashboard_command == "open":
+            url = _require_loopback_url(args.url)
+            config = _dashboard_config(args.home)
+            token = SessionStore(config.dashboard_home).create_bootstrap()
+            webbrowser.open(f"{url}/#bootstrap={token}")
+            _emit({"opened": True, "url": url}, "json")
         return 0
     except OpportunityOSError as error:
         _emit({"ok": False, "error": str(error)}, "json")

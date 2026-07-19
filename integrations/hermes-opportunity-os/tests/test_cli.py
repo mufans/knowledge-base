@@ -1,8 +1,12 @@
 import json
 import tarfile
 from pathlib import Path
+from urllib.parse import urlsplit
+
+import pytest
 
 from opportunity_os.cli import main
+from opportunity_os.dashboard.auth import SessionStore
 from opportunity_os.models import Review
 from opportunity_os.store import PrivateStore
 
@@ -69,3 +73,53 @@ def test_render_review_latest_and_snapshot(tmp_path: Path, capsys) -> None:
         names = archive.getnames()
     assert any(name.endswith("portfolio.json") for name in names)
     assert not any(".env" in name or "/snapshots/" in name for name in names)
+
+
+def test_dashboard_serve_builds_app_and_binds_only_loopback(tmp_path: Path, monkeypatch) -> None:
+    captured = {}
+
+    def fake_run(app, *, host, port):
+        captured.update(app=app, host=host, port=port)
+
+    monkeypatch.setattr("uvicorn.run", fake_run)
+
+    result = main([
+        "dashboard", "serve", "--home", str(tmp_path / "private"),
+        "--host", "127.0.0.1", "--port", "8765",
+    ])
+
+    assert result == 0
+    assert captured["host"] == "127.0.0.1"
+    assert captured["port"] == 8765
+    assert captured["app"].docs_url is None
+
+
+@pytest.mark.parametrize("host", ["0.0.0.0", "192.168.1.20", "assigned.ngrok-free.app"])
+def test_dashboard_serve_rejects_non_loopback_bind(tmp_path: Path, host: str, capsys) -> None:
+    result = main([
+        "dashboard", "serve", "--home", str(tmp_path / "private"), "--host", host,
+    ])
+
+    assert result == 2
+    assert "loopback" in json.loads(capsys.readouterr().out)["error"]
+
+
+def test_dashboard_open_persists_bootstrap_without_printing_token(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    opened = []
+    monkeypatch.setattr("webbrowser.open", lambda url: opened.append(url) or True)
+    home = tmp_path / "private"
+
+    result = main([
+        "dashboard", "open", "--home", str(home), "--url", "http://127.0.0.1:8765",
+    ])
+    output = capsys.readouterr().out
+
+    assert result == 0
+    assert len(opened) == 1
+    fragment = urlsplit(opened[0]).fragment
+    assert fragment.startswith("bootstrap=")
+    token = fragment.removeprefix("bootstrap=")
+    assert token not in output
+    assert SessionStore(home / "dashboard").exchange_bootstrap(token) is not None
