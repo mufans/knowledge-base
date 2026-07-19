@@ -201,7 +201,15 @@ def reconcile_incomplete_operations(
             continue
 
         def classify(current: TaskSummary) -> ChangeRequest:
-            pre_mutation = change.operation_phase in {"intent_pending", "intent_written"}
+            phase = change.operation_phase
+            if phase not in {"intent_pending", "intent_written", "mutation_started"}:
+                return approvals.recover_operation(
+                    change.operation_id,
+                    outcome="indeterminate",
+                    reason="operation_phase_unknown",
+                    manual_review=True,
+                )
+            pre_mutation = phase in {"intent_pending", "intent_written"}
             if change.kind == "run_now":
                 if pre_mutation:
                     return approvals.recover_operation(
@@ -220,20 +228,27 @@ def reconcile_incomplete_operations(
                 getattr(current, field) == expected
                 for field, expected in change.patch.items()
             )
+            if pre_mutation:
+                if not target_matches and secrets.compare_digest(
+                    current.revision, change.base_revision
+                ):
+                    return approvals.recover_operation(
+                        change.operation_id,
+                        outcome="failed",
+                        reason="interrupted_before_mutation",
+                        manual_review=False,
+                    )
+                return approvals.recover_operation(
+                    change.operation_id,
+                    outcome="indeterminate",
+                    reason="state_changed_before_mutation",
+                    manual_review=True,
+                )
             if target_matches:
                 return approvals.recover_operation(
                     change.operation_id,
                     outcome="applied",
                     reason="target_already_applied",
-                    manual_review=False,
-                )
-            if pre_mutation and secrets.compare_digest(
-                current.revision, change.base_revision
-            ):
-                return approvals.recover_operation(
-                    change.operation_id,
-                    outcome="failed",
-                    reason="interrupted_before_mutation",
                     manual_review=False,
                 )
             return approvals.recover_operation(

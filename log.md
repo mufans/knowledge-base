@@ -107,5 +107,7 @@
 2026-07-19 | development | integrations/hermes-opportunity-os/dashboard | 完成Task 6两阶段审批、CAS任务控制、字段级脱敏审计与CSRF网页流程（真实OpenClaw仅执行只读合同检查）
 2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6独立审查未通过：发现审批到期、CAS TOCTOU、审计私有文本与审计落盘原子性问题（243项测试通过）
 2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6修复复审未通过：I1/I2（attestation边界内）/I3/M1/M2已验证，applying崩溃窗口未入outbox且无法恢复（269项测试通过）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6恢复复审未通过：applying恢复已覆盖但pre-CLI外部同目标写入会被错误归因为Dashboard applied（277项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6审批到期、单写者attestation与任务锁、严格调度验证、durable audit outbox及有界回收（269项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6 applying崩溃恢复：phase持久化、只读reconciliation、indeterminate/manual review与幂等终态补账（277项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6 recovery分类顺序：仅mutation_started且目标匹配可归因applied，pre-CLI外部变更与legacy phase转manual review（280项测试通过）

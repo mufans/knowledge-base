@@ -722,6 +722,71 @@ def test_recovery_before_cli_marks_interrupted_without_mutation(tmp_path: Path) 
     assert adapter.edits == []
 
 
+def test_recovery_pre_cli_external_same_target_requires_manual_review(
+    tmp_path: Path,
+) -> None:
+    adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
+    applying, _, _ = _applying_change(approvals, adapter)
+    approvals.mark_intent_written(applying.operation_id)
+    adapter.raw = {
+        **adapter.raw,
+        "enabled": False,
+        "updatedAtMs": int(adapter.raw["updatedAtMs"]) + 1,
+    }
+
+    reconcile_incomplete_operations(approvals, audit, coordinator)
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "indeterminate"
+    assert recovered["manual_review"] is True
+    assert recovered["terminal_reason"] == "state_changed_before_mutation"
+    assert adapter.edits == []
+
+
+def test_recovery_pre_cli_external_different_target_requires_manual_review(
+    tmp_path: Path,
+) -> None:
+    adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
+    applying, _, _ = _applying_change(approvals, adapter)
+    approvals.mark_intent_written(applying.operation_id)
+    adapter.raw = {
+        **adapter.raw,
+        "schedule": {"kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Shanghai"},
+        "updatedAtMs": int(adapter.raw["updatedAtMs"]) + 1,
+    }
+
+    reconcile_incomplete_operations(approvals, audit, coordinator)
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "indeterminate"
+    assert recovered["manual_review"] is True
+    assert recovered["terminal_reason"] == "state_changed_before_mutation"
+    assert adapter.edits == []
+
+
+def test_recovery_legacy_phase_with_matching_target_requires_manual_review(
+    tmp_path: Path,
+) -> None:
+    adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
+    applying, _, _ = _applying_change(approvals, adapter)
+    payload = json.loads(approvals.path.read_text())
+    payload["requests"][applying.id]["operation_phase"] = None
+    approvals.path.write_text(json.dumps(payload), encoding="utf-8")
+    adapter.raw = {
+        **adapter.raw,
+        "enabled": False,
+        "updatedAtMs": int(adapter.raw["updatedAtMs"]) + 1,
+    }
+
+    reconcile_incomplete_operations(approvals, audit, coordinator)
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "indeterminate"
+    assert recovered["manual_review"] is True
+    assert recovered["terminal_reason"] == "operation_phase_unknown"
+    assert adapter.edits == []
+
+
 def test_recovery_after_edit_cli_matching_target_finalizes_applied(tmp_path: Path) -> None:
     adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
     applying, _, _ = _applying_change(approvals, adapter)
