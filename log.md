@@ -161,3 +161,4 @@
 2026-07-20 | maintenance | wiki/entities/llm_wiki.md, /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 将描述性wikilink语法改为行内代码；同步脚本仅检查可写Wiki层且排除围栏/行内代码，避免修改Raw原文或误抦截Metal属性
 2026-07-20 | maintenance | /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 遵循仓库build-only约定，不再暂存被忽略的docs/site产物；MkDocs校验改用临时目录，main仅提交知识库源文件，gh-pages仍由原生gh-deploy发布
 2026-07-20 | maintenance | /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 发布前对历史跟踪的site构建产物执行干净性保护，gh-deploy成功后仅恢复其生成改动，避免自动同步留下脏工作区
+2026-07-20 | config-fix | integrations/hermes-opportunity-os/deployment/openclaw/cron-jobs.json | 将Opportunity OS每日发现从周一至周六校正为文档约定的工作日周一至周五，并仅对账受管OpenClaw任务
