@@ -159,3 +159,4 @@
 2026-07-20 | security-fix | integrations/hermes-opportunity-os/dashboard, integrations/hermes-opportunity-os/deployment | 定位远程403根因为Uvicorn信任X-Forwarded-For后误判ngrok本机对端；禁用proxy_headers并恢复GitHub OAuth owner-v3，用户已实际登录成功，已删除临时Basic Auth凭据
 2026-07-20 | monitoring | integrations/hermes-opportunity-os/automation, integrations/hermes-opportunity-os/dashboard | 将Dashboard与ngrok只读探针纳入OpenClaw原生healthcheck Cron失败告警链；OpenClaw、Hermes、Dashboard、ngrok四组件全部healthy，原生Cron实际运行status=ok（全量348项测试通过）
 2026-07-20 | maintenance | wiki/entities/llm_wiki.md, /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 将描述性wikilink语法改为行内代码；同步脚本仅检查可写Wiki层且排除围栏/行内代码，避免修改Raw原文或误抦截Metal属性
+2026-07-20 | maintenance | /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 遵循仓库build-only约定，不再暂存被忽略的docs/site产物；MkDocs校验改用临时目录，main仅提交知识库源文件，gh-pages仍由原生gh-deploy发布
