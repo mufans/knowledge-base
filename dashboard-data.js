@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-19 20:09:32
-// Total articles: 221
+// Generated: 2026-07-19 22:16:58
+// Total articles: 224
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -166,6 +166,37 @@ window.__kb_articles = [
     "description": "Superpowers是一套完整的Agent编码开发方法论，集成技能框架、子Agent驱动开发、TDD和代码审查，支持Claude Code/Codex/Cursor等主流平台",
     "date": "2026-07-19",
     "url": "wiki/entities/superpowers"
+  },
+  {
+    "title": "Anthropic AI代码迁移方法论 — 六步流程",
+    "category": "sources",
+    "tags": [
+      "Code-Migration",
+      "AI-Engineering",
+      "Claude-Code",
+      "Loop-Engineering",
+      "Anthropic"
+    ],
+    "rating": 9.2,
+    "description": "Anthropic用Claude Code完成大型代码迁移的六步方法论：Bun百万行Zig→Rust两周完成、Mike 16.5万行Python→TypeScript一个周末，核心洞察是'修流程而非修代码'",
+    "date": "2026-07-19",
+    "url": "wiki/sources/Anthropic-AI-Code-Migration"
+  },
+  {
+    "title": "Agentic AI安全评估四问框架 — Anthropic CISO指南",
+    "category": "sources",
+    "tags": [
+      "Agent-Security",
+      "CISO",
+      "Prompt-Injection",
+      "Anthropic",
+      "Least-Agency",
+      "Identity-Spectrum"
+    ],
+    "rating": 9.1,
+    "description": "Anthropic Deputy CISO Jason Clinton提出的AI Agent安全评估四问框架：不受信内容/动作范围/爆炸半径/可观测性，以及agentic identity spectrum（服务账户vs人凭证）",
+    "date": "2026-07-19",
+    "url": "wiki/sources/Anthropic-CISO-Agent-Security-Guide"
   },
   {
     "title": "Agent工作流模式：顺序/并行/评估优化",
@@ -855,6 +886,21 @@ window.__kb_articles = [
     "description": "Anthropic各团队（工程、安全、法务、营销、数据）使用Claude Code的真实案例集，展示了Agentic Coding从开发工具演变为通用生产力工具的路径",
     "date": "2026-05-27",
     "url": "wiki/sources/Claude-Code-Anthropic-内部实践"
+  },
+  {
+    "title": "Claude Code模型选择与Effort Level配置指南",
+    "category": "sources",
+    "tags": [
+      "Claude-Code",
+      "Model-Selection",
+      "Effort-Level",
+      "Agentic-Coding",
+      "Anthropic"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic官方解读Claude Code的两个调节旋钮：Model=能力范围（Fable/Opus/Sonnet选型），Effort=工作深度（控制读取文件数、验证步骤、多步推进程度）",
+    "date": "2026-07-19",
+    "url": "wiki/sources/Claude-Code-Effort-Model-Guide"
   },
   {
     "title": "Ello：<1000ms实时AI教学系统架构",

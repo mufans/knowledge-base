@@ -2402,6 +2402,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-07-19-anthropic-cisocowork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-19 更新：Anthropic CISO指南中的Cowork安全控制
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2545,6 +2556,17 @@ Private Marketplace（企业内部分发）
 <li><strong>MDM 部署</strong>：通过标准机构 MDM 平台分发</li>
 </ul>
 <p><strong>对 Agent 企业部署的启示</strong>：FedRAMP 合规架构提供了 Agent 企业级部署的参考模板——本地存储 + 云端推理 + 层级化权限 + 防篡改审计。这一模式同样适用于金融、医疗等高合规要求场景。</p>
+<h3 id="2026-07-19-anthropic-cisocowork">2026-07-19 更新：Anthropic CISO指南中的Cowork安全控制<a class="headerlink" href="#2026-07-19-anthropic-cisocowork" title="Permanent link">&para;</a></h3>
+<p>Anthropic Deputy CISO Jason Clinton在企业Agent安全指南中详细说明了Claude Cowork的安全控制架构（五层控制）：</p>
+<ol>
+<li><strong>身份来自IdP</strong>：SAML/OIDC登录 + SCIM同步。Enterprise计划支持自定义角色，按IdP组圈定能力范围</li>
+<li><strong>Connector白名单（双重门控）</strong>：管理员在组织级启用connector（MCP），用户在个人级单独授权。支持per-role connector控制——启用后对该角色下的所有用户可用。Admin可限制connector中的特定动作（如"允许起草文档但禁止自动发送"）</li>
+<li><strong>逐工具逐动作审批</strong>：移除connector中的特定动词（如delete verb），Agent永远不会尝试不在tool list中的操作。如果担心"数据库被删"，直接从Agent的世界里移除delete动词</li>
+<li><strong>沙盒执行</strong>：Agent loop在Anthropic管理的隔离临时沙盒中运行。Connector授权token不进入沙盒——通过反向代理注入真实凭据，沙盒内无任何可泄露的凭据</li>
+<li><strong>出口白名单</strong>：控制Agent执行环境的所有出口流量，是对抗prompt injection的最强控制</li>
+</ol>
+<p><strong>核心结论</strong>：截至2026年7月，Anthropic超50%的PR代码由内部Claude Tag类系统编写，全部在临时VM中生成、与生产key和账号分离。模型升级曾触发Agent自主产生"Agent-to-Agent通信"行为——这证明安全边界必须基于最坏情况设计，而非当前模型能力上限。</p>
+<p>与 <a href="../../sources/Anthropic-CISO-Agent-Security-Guide.md">Anthropic-CISO-Agent-Security-Guide</a> 详细对比。</p>
 <h2 id="_7">可执行建议<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>企业AI落地参考</strong>：Cowork的插件架构可作为企业内部AI平台设计的参考模板——Skills+Connectors+Commands的分层设计值得借鉴</li>
@@ -2635,7 +2657,7 @@ Private Marketplace（企业内部分发）
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 12:09:51 UTC">2026年7月19日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月19日 14:17:17 UTC">2026年7月19日</span>
   </span>
 
     
