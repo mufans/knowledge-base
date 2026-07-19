@@ -1,5 +1,6 @@
 import argparse
 import json
+import sys
 import tarfile
 import webbrowser
 from dataclasses import replace
@@ -23,6 +24,14 @@ from opportunity_os.dashboard.conversations import (
 )
 from opportunity_os.dashboard.events import EventHub
 from opportunity_os.dashboard.incidents import IncidentSentinel
+from opportunity_os.dashboard.im import (
+    ImCommandRouter,
+    ImReply,
+    ImServerConfig,
+    InputError,
+    PrivateImReadBackend,
+    parse_im_command,
+)
 from opportunity_os.dashboard.probes import CommandRunner, HermesProbe, OpenClawProbe
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
@@ -30,6 +39,13 @@ from opportunity_os.errors import OpportunityOSError, ValidationError
 from opportunity_os.reports import render_review
 from opportunity_os.signals import SignalReader
 from opportunity_os.store import PrivateStore
+
+
+DEFAULT_IM_SERVER_CONFIG = (
+    Path.home() / ".hermes" / "opportunity-os" / "dashboard" / "im-config.json"
+)
+IM_ENVELOPE_KEYS = frozenset({"text", "sender_id", "session_id", "chat_type"})
+MAX_IM_ENVELOPE_BYTES = 4_096
 
 
 def _emit(payload, output_format: str = "text") -> None:
@@ -116,6 +132,32 @@ def _monitor(args: argparse.Namespace) -> Monitor:
     )
 
 
+def _im_router() -> ImCommandRouter:
+    config = ImServerConfig.load(DEFAULT_IM_SERVER_CONFIG)
+    return ImCommandRouter(
+        owner_id=config.owner_id,
+        dashboard_url=config.dashboard_url,
+        allowed_dashboard_hosts=config.allowed_dashboard_hosts,
+        state_home=config.private_home / "dashboard",
+        read_backend=PrivateImReadBackend(config.private_home),
+    )
+
+
+def _read_im_envelope() -> dict[str, str]:
+    rendered = sys.stdin.read(MAX_IM_ENVELOPE_BYTES + 1)
+    if len(rendered.encode("utf-8")) > MAX_IM_ENVELOPE_BYTES:
+        raise InputError("stdin_envelope_too_large")
+    try:
+        payload = json.loads(rendered)
+    except (json.JSONDecodeError, TypeError) as error:
+        raise InputError("stdin_envelope_invalid_json") from error
+    if not isinstance(payload, dict) or frozenset(payload) != IM_ENVELOPE_KEYS:
+        raise InputError("stdin_envelope_schema_invalid")
+    if any(not isinstance(payload[key], str) for key in IM_ENVELOPE_KEYS):
+        raise InputError("stdin_envelope_schema_invalid")
+    return payload
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="opportunity-os")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -163,6 +205,9 @@ def build_parser() -> argparse.ArgumentParser:
     open_dashboard = dashboard_commands.add_parser("open")
     open_dashboard.add_argument("--home", required=True)
     open_dashboard.add_argument("--url", default="http://127.0.0.1:8765")
+
+    im_command = dashboard_commands.add_parser("im-command")
+    im_command.add_argument("--stdin-json", action="store_true")
 
     monitor = subparsers.add_parser("monitor")
     monitor_commands = monitor.add_subparsers(dest="monitor_command", required=True)
@@ -234,6 +279,23 @@ def main(argv: Sequence[str] | None = None) -> int:
             token = SessionStore(config.dashboard_home).create_bootstrap()
             webbrowser.open(f"{url}/#bootstrap={token}")
             _emit({"opened": True, "url": url}, "json")
+        elif args.command == "dashboard" and args.dashboard_command == "im-command":
+            if not args.stdin_json:
+                raise InputError("stdin_json_required")
+            envelope = _read_im_envelope()
+            preliminary = parse_im_command(envelope["text"])
+            if preliminary.kind == "chat_fallback":
+                reply = ImReply(status="chat_fallback", text="chat_fallback")
+            else:
+                router = _im_router()
+                command = router.parse(envelope["text"])
+                reply = router.execute(
+                    command,
+                    sender_id=envelope["sender_id"],
+                    session_id=envelope["session_id"],
+                    chat_type=envelope["chat_type"],
+                )
+            _emit(reply.to_dict(), "json")
         elif args.command == "monitor" and args.monitor_command == "once":
             result = _monitor(args).run_once()
             _emit(result.to_dict(), args.format)
