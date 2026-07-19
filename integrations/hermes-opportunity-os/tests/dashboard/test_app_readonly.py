@@ -82,7 +82,9 @@ def test_production_dashboard_uses_marker_probes_and_never_runs_external_command
 
     snapshot = _dashboard_dependencies(home, config).read_model.snapshot()
 
-    assert [item.component for item in snapshot.components] == ["openclaw", "hermes"]
+    assert [item.component for item in snapshot.components] == [
+        "openclaw", "hermes", "dashboard", "ngrok",
+    ]
     assert all(item.status == "unknown" for item in snapshot.components)
     assert all(item.error_code == "health_snapshot_missing" for item in snapshot.components)
 

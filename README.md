@@ -82,6 +82,28 @@ knowledge/
 4. **质量检查** — 覆盖度、摘要质量、评分合理性、链接格式、信息真实性
 5. **输出** — 保存到wiki/ + 更新index.md + 同步GitHub Pages
 
+## Hermes 个人机会发现系统
+
+知识库之上运行一层个人机会发现系统，目标是持续发现方向、累积正反证据和设计低成本实验，而不是把信息范围锁定在某个项目或预设技术路线。
+
+| 层 | 原生责任 | 本系统的薄适配 |
+|---|---|---|
+| OpenClaw | 广域信息采集、Cron 调度、重试、钉钉交付与失败告警、网关重启 | 只注册带所有权标记的机会发现任务 |
+| Hermes | Profile、Session、Memory、Skill、Curator 与自我改进审批 | 固定 `opportunity-discovery` Profile 与最小工具集 |
+| Opportunity OS | — | 机会卡、实验、方向组合、技术新鲜度、脱敏知识库输出和只读仪表盘 |
+
+生产节奏由 OpenClaw 唯一调度：工作日 18:30 执行每日发现，周日 19:00 执行每周复盘，每 10 分钟执行聚合健康检查。实时热点保留在 Frontier；只有官方稳定发布、文档完整、最小兼容测试、无严重已知问题和有回滚路径全部满足后，才进入 Stable 建议。
+
+常用本地状态入口：
+
+```bash
+openclaw gateway status
+openclaw cron list --all
+hermes -p opportunity-discovery dashboard --status
+launchctl print gui/501/com.opportunity-os.dashboard
+uv run --directory integrations/hermes-opportunity-os python -m opportunity_os.deployment ngrok-status
+```
+
 ## 质量规范
 
 ### 每篇wiki页面必须包含
@@ -159,4 +181,4 @@ knowledge/
 
 ---
 
-*由 OpenClaw 每日自动化流水线维护 · 最后更新：2026-04-26*
+*由 OpenClaw 每日自动化流水线维护 · 最后更新：2026-07-20*

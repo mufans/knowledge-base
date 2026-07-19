@@ -1,14 +1,14 @@
-# Replace the placeholder with the single GitHub account email authorized to view the dashboard.
-# GitHub users with private email cannot use email allow-list authorization.
+# Restrict managed GitHub OAuth by stable provider user id, not email.
 on_http_request:
   - actions:
       - type: oauth
         config:
           provider: github
+          auth_id: opportunity-os-owner-v3
           idle_session_timeout: 15m
           max_session_duration: 8h
   - expressions:
-      - "!(actions.ngrok.oauth.identity.email in ['__OWNER_GITHUB_EMAIL__'])"
+      - "actions.ngrok.oauth.identity.provider_user_id != '__OWNER_GITHUB_PROVIDER_USER_ID__'"
     actions:
       - type: deny
         config:

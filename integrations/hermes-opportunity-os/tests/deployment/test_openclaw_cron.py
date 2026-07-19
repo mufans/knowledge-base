@@ -47,6 +47,9 @@ def test_manifest_has_three_native_jobs_and_native_failure_alerts() -> None:
     assert all("If the exec exits non-zero" in job.message for job in manifest.jobs)
     assert all("fail the Cron task" in job.message for job in manifest.jobs)
     assert all("do not convert" in job.message for job in manifest.jobs)
+    installed_cli = "/Users/liujun/Nutstore Files/我的坚果云/knowledge/integrations/hermes-opportunity-os/.venv/bin/opportunity-os"
+    assert all(installed_cli in job.message for job in manifest.jobs)
+    assert all("Do not invoke a shell" in job.message for job in manifest.jobs)
     assert all(job.description.startswith("[managed-by:opportunity-os/v1] ") for job in manifest.jobs)
 
 

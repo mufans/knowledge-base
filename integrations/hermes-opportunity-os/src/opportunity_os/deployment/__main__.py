@@ -13,6 +13,7 @@ from opportunity_os.deployment.remote_access import (
     DashboardLaunchAgent,
     NgrokLocalStatus,
     NgrokService,
+    read_github_provider_user_id,
     read_origin_credential,
     write_ngrok_config,
     write_github_policy,
@@ -42,15 +43,16 @@ def _parser() -> argparse.ArgumentParser:
     dashboard.add_argument("--apply", action="store_true")
 
     policy = commands.add_parser("ngrok-policy")
-    policy.add_argument("--owner-email", required=True)
+    policy.add_argument("--owner-github-id-file", type=Path, required=True)
     policy.add_argument("--origin-credential-file", type=Path, required=True)
     policy.add_argument("--destination", type=Path, required=True)
     policy.add_argument("--apply", action="store_true")
 
     config = commands.add_parser("ngrok-config")
     config.add_argument("--authtoken-file", type=Path, required=True)
-    config.add_argument("--owner-email-file", type=Path, required=True)
+    config.add_argument("--owner-github-id-file", type=Path, required=True)
     config.add_argument("--origin-credential-file", type=Path, required=True)
+    config.add_argument("--remote-host", required=True)
     config.add_argument("--destination", type=Path, required=True)
     config.add_argument("--port", type=int, default=8765)
     config.add_argument("--apply", action="store_true")
@@ -94,7 +96,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.command == "ngrok-policy":
         result = write_github_policy(
             args.destination,
-            args.owner_email,
+            read_github_provider_user_id(args.owner_github_id_file),
             read_origin_credential(args.origin_credential_file),
             apply=args.apply,
         )
@@ -103,8 +105,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         result = write_ngrok_config(
             args.destination,
             authtoken_file=args.authtoken_file,
-            owner_email_file=args.owner_email_file,
+            owner_github_id_file=args.owner_github_id_file,
             origin_credential_file=args.origin_credential_file,
+            remote_host=args.remote_host,
             port=args.port,
             apply=args.apply,
         )

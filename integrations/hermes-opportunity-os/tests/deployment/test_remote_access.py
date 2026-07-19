@@ -22,23 +22,25 @@ def _render_valid_template() -> str:
     return (
         NGROK_TEMPLATE.read_text(encoding="utf-8")
         .replace("__NGROK_AUTHTOKEN__", "test-runtime-value")
-        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com")
+        .replace("__OWNER_GITHUB_PROVIDER_USER_ID__", "7991387")
         .replace("__DASHBOARD_ORIGIN_CREDENTIAL__", ORIGIN_CREDENTIAL)
+        .replace("__NGROK_REMOTE_HOST__", "owner.ngrok-free.app")
     )
 
 
 def test_github_policy_authenticates_then_denies_every_other_identity() -> None:
-    rendered = render_github_policy("owner@example.com", ORIGIN_CREDENTIAL)
+    rendered = render_github_policy("7991387", ORIGIN_CREDENTIAL)
     assert "provider: github" in rendered
-    assert "actions.ngrok.oauth.identity.email" in rendered
-    assert "owner@example.com" in rendered
+    assert "auth_id: opportunity-os-owner-v3" in rendered
+    assert "actions.ngrok.oauth.identity.provider_user_id" in rendered
+    assert "7991387" in rendered
     assert "type: deny" in rendered
     assert "x-opportunity-origin" in rendered
     assert rendered.index("type: oauth") < rendered.index("type: deny") < rendered.index("type: add-headers")
     assert "client_secret" not in rendered
 
 
-@pytest.mark.parametrize("identity", ["", "a' || true", "two@example.com,three@example.com", "line\nbreak"])
+@pytest.mark.parametrize("identity", ["", "0", "-1", "mufans", "1' || true", "line\nbreak"])
 def test_github_policy_rejects_unsafe_identity(identity: str) -> None:
     with pytest.raises(ValueError):
         render_github_policy(identity, ORIGIN_CREDENTIAL)
@@ -218,13 +220,13 @@ def test_ngrok_rejects_commented_out_oauth_and_deny(tmp_path: Path) -> None:
         "endpoints:\n"
         "  - name: opportunity-os-dashboard\n"
         "    description: Owner-only Opportunity OS dashboard\n"
-        "    url: https://\n"
+        "    url: https://owner.ngrok-free.app\n"
         "    upstream:\n"
         "      url: http://127.0.0.1:8765\n"
         "      protocol: http1\n"
         "# provider: github\n"
         "# type: oauth\n"
-        "# actions.ngrok.oauth.identity.email\n"
+        "# actions.ngrok.oauth.identity.provider_user_id\n"
         "# type: deny\n",
         encoding="utf-8",
     )
@@ -291,15 +293,15 @@ def test_repository_has_no_custom_ngrok_launch_agent() -> None:
     assert "ngrok.plist" not in text
 
 
-def test_ngrok_v3_template_is_complete_random_https_and_loopback_only() -> None:
+def test_ngrok_v3_template_requires_stable_https_host_and_loopback_only() -> None:
     text = NGROK_TEMPLATE.read_text(encoding="utf-8")
     assert "version: 3" in text
     assert "authtoken: __NGROK_AUTHTOKEN__" in text
     assert "name: opportunity-os-dashboard" in text
-    assert "url: https://" in text
+    assert "url: https://__NGROK_REMOTE_HOST__" in text
     assert "url: http://127.0.0.1:8765" in text
     assert "provider: github" in text
-    assert "__OWNER_GITHUB_EMAIL__" in text
+    assert "__OWNER_GITHUB_PROVIDER_USER_ID__" in text
     assert "type: deny" in text
     assert "type: add-headers" in text
     assert "x-opportunity-origin: __DASHBOARD_ORIGIN_CREDENTIAL__" in text
@@ -326,8 +328,9 @@ def test_ngrok_document_allows_only_oauth_owner_deny_then_one_origin_header() ->
 def test_structured_ngrok_renderer_quotes_values_and_never_leaves_placeholders() -> None:
     rendered = render_ngrok_config(
         authtoken="token:with#yaml-characters",
-        owner_email="owner@example.com",
+        owner_github_id="7991387",
         origin_credential=ORIGIN_CREDENTIAL,
+        remote_host="owner.ngrok-free.app",
         port=8765,
     )
     assert "__NGROK_" not in rendered
@@ -338,12 +341,12 @@ def test_structured_ngrok_renderer_quotes_values_and_never_leaves_placeholders()
 
 def test_ngrok_config_writer_reads_private_regular_files_and_writes_0600(tmp_path: Path) -> None:
     token = tmp_path / "token"
-    owner = tmp_path / "owner"
+    owner = tmp_path / "owner-github-id"
     credential = tmp_path / "origin"
     destination = tmp_path / "runtime" / "ngrok.yml"
     for path, value in (
         (token, "runtime-token"),
-        (owner, "owner@example.com"),
+        (owner, "7991387"),
         (credential, ORIGIN_CREDENTIAL),
     ):
         path.write_text(value + "\n", encoding="utf-8")
@@ -352,8 +355,9 @@ def test_ngrok_config_writer_reads_private_regular_files_and_writes_0600(tmp_pat
     result = write_ngrok_config(
         destination,
         authtoken_file=token,
-        owner_email_file=owner,
+        owner_github_id_file=owner,
         origin_credential_file=credential,
+        remote_host="owner.ngrok-free.app",
         apply=True,
     )
 
@@ -364,9 +368,9 @@ def test_ngrok_config_writer_reads_private_regular_files_and_writes_0600(tmp_pat
 
 def test_ngrok_config_writer_rejects_symlink_or_group_readable_secret(tmp_path: Path) -> None:
     token = tmp_path / "token"
-    owner = tmp_path / "owner"
+    owner = tmp_path / "owner-github-id"
     credential = tmp_path / "origin"
-    for path, value in ((token, "token"), (owner, "owner@example.com"), (credential, ORIGIN_CREDENTIAL)):
+    for path, value in ((token, "token"), (owner, "7991387"), (credential, ORIGIN_CREDENTIAL)):
         path.write_text(value, encoding="utf-8")
         path.chmod(0o600)
     symlink = tmp_path / "token-link"
@@ -375,8 +379,9 @@ def test_ngrok_config_writer_rejects_symlink_or_group_readable_secret(tmp_path: 
         write_ngrok_config(
             tmp_path / "ngrok.yml",
             authtoken_file=symlink,
-            owner_email_file=owner,
+            owner_github_id_file=owner,
             origin_credential_file=credential,
+            remote_host="owner.ngrok-free.app",
             apply=True,
         )
     owner.chmod(0o640)
@@ -384,8 +389,9 @@ def test_ngrok_config_writer_rejects_symlink_or_group_readable_secret(tmp_path: 
         write_ngrok_config(
             tmp_path / "ngrok.yml",
             authtoken_file=token,
-            owner_email_file=owner,
+            owner_github_id_file=owner,
             origin_credential_file=credential,
+            remote_host="owner.ngrok-free.app",
             apply=True,
         )
 

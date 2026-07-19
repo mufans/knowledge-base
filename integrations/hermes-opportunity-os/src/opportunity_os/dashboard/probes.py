@@ -10,9 +10,11 @@ from pathlib import Path
 
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.schemas import ComponentHealth
+from opportunity_os.deployment.remote_access import NgrokLocalStatus
 
 
 OPENCLAW_EXECUTABLE_PATH = "/opt/homebrew/opt/node@22/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+HERMES_EXECUTABLE = str(Path.home() / ".local" / "bin" / "hermes")
 ComponentName = Literal["openclaw", "hermes", "opportunity_os", "dashboard", "ngrok", "knowledge_publish"]
 
 
@@ -147,4 +149,47 @@ class HermesProbe(CommandProbe):
     """Validate the local Hermes profile without invoking any provider."""
 
     component: ComponentName = "hermes"
-    argv = ("hermes", "-p", "opportunity-discovery", "config", "check")
+    argv = (HERMES_EXECUTABLE, "-p", "opportunity-discovery", "config", "check")
+
+
+class DashboardProbe(CommandProbe):
+    """Check only the loopback Dashboard HTTP listener."""
+
+    component: ComponentName = "dashboard"
+    argv = (
+        "/usr/bin/curl", "--fail", "--silent", "--show-error", "--max-time", "3",
+        "http://127.0.0.1:8765/",
+    )
+
+
+class NgrokProbe:
+    """Require exactly one tunnel from ngrok's loopback-only agent API."""
+
+    component: ComponentName = "ngrok"
+
+    def __init__(self, config: DashboardConfig, status: NgrokLocalStatus | None = None) -> None:
+        self._config = config
+        self._status = status or NgrokLocalStatus()
+
+    def check(self) -> ComponentHealth:
+        checked_at = datetime.now(timezone.utc)
+        started = time.monotonic()
+        try:
+            status = self._status.read()
+        except RuntimeError:
+            return ComponentHealth(
+                component=self.component,
+                status="down",
+                checked_at=checked_at,
+                duration_ms=_duration_ms(started),
+                error_code="probe_failed",
+            )
+        healthy = status.running and status.tunnel_count == 1
+        return ComponentHealth(
+            component=self.component,
+            status="healthy" if healthy else "down",
+            checked_at=checked_at,
+            last_success_at=checked_at if healthy else None,
+            duration_ms=_duration_ms(started),
+            error_code=None if healthy else "probe_failed",
+        )

@@ -20,11 +20,11 @@ import yaml
 from opportunity_os.deployment.common import ExecutionResult, Runner, execute, require_absolute_path
 
 
-_EMAIL = re.compile(r"^[A-Za-z0-9.!#$%&*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9.-]{0,251}[A-Za-z0-9])?$")
-_SERVICE_ACTIONS = frozenset({"install", "start", "restart"})
+_GITHUB_PROVIDER_USER_ID = re.compile(r"^[1-9][0-9]{0,19}$")
 _OWNER_EXPRESSION = re.compile(
-    r"^!\(actions\.ngrok\.oauth\.identity\.email in \['([^']+)'\]\)$"
+    r"^actions\.ngrok\.oauth\.identity\.provider_user_id != '([1-9][0-9]{0,19})'$"
 )
+_SERVICE_ACTIONS = frozenset({"install", "start", "restart"})
 _ORIGIN_CREDENTIAL = re.compile(r"^[A-Za-z0-9_-]{43,128}$")
 _REMOTE_HOST = re.compile(
     r"(?=.{1,253}\Z)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+"
@@ -58,9 +58,9 @@ _UniqueKeySafeLoader.add_constructor(
 )
 
 
-def _validate_identity(identity: str) -> None:
-    if not isinstance(identity, str) or len(identity) > 254 or not _EMAIL.fullmatch(identity):
-        raise ValueError("GitHub OAuth identity must be one safe email address")
+def _validate_github_provider_user_id(identity: str) -> None:
+    if not isinstance(identity, str) or _GITHUB_PROVIDER_USER_ID.fullmatch(identity) is None:
+        raise ValueError("GitHub OAuth identity must be one numeric provider user id")
 
 
 def _validate_origin_credential(value: str) -> None:
@@ -79,7 +79,7 @@ def _validate_remote_host(value: str) -> None:
 
 
 def _traffic_policy(identity: str, origin_credential: str) -> dict[str, object]:
-    _validate_identity(identity)
+    _validate_github_provider_user_id(identity)
     _validate_origin_credential(origin_credential)
     return {
         "on_http_request": [
@@ -88,13 +88,14 @@ def _traffic_policy(identity: str, origin_credential: str) -> dict[str, object]:
                     "type": "oauth",
                     "config": {
                         "provider": "github",
+                        "auth_id": "opportunity-os-owner-v3",
                         "idle_session_timeout": "15m",
                         "max_session_duration": "8h",
                     },
                 }]
             },
             {
-                "expressions": [f"!(actions.ngrok.oauth.identity.email in ['{identity}'])"],
+                "expressions": [f"actions.ngrok.oauth.identity.provider_user_id != '{identity}'"],
                 "actions": [{"type": "deny", "config": {"status_code": 403}}],
             },
             {
@@ -294,11 +295,18 @@ def read_origin_credential(source: str | Path) -> str:
     return value
 
 
+def read_github_provider_user_id(source: str | Path) -> str:
+    value = _read_private_value(source, label="owner GitHub provider user id")
+    _validate_github_provider_user_id(value)
+    return value
+
+
 def render_ngrok_config(
     *,
     authtoken: str,
-    owner_email: str,
+    owner_github_id: str,
     origin_credential: str,
+    remote_host: str,
     port: int = 8765,
 ) -> str:
     if (
@@ -309,8 +317,9 @@ def render_ngrok_config(
         or any(character in authtoken for character in "\r\n\x00")
     ):
         raise ValueError("ngrok authtoken is invalid")
-    _validate_identity(owner_email)
+    _validate_github_provider_user_id(owner_github_id)
     _validate_origin_credential(origin_credential)
+    _validate_remote_host(remote_host)
     if type(port) is not int or not 1024 <= port <= 65535:
         raise ValueError("dashboard port must be between 1024 and 65535")
     document = {
@@ -324,9 +333,9 @@ def render_ngrok_config(
         "endpoints": [{
             "name": "opportunity-os-dashboard",
             "description": "Owner-only Opportunity OS dashboard",
-            "url": "https://",
+            "url": f"https://{remote_host}",
             "upstream": {"url": f"http://127.0.0.1:{port}", "protocol": "http1"},
-            "traffic_policy": _traffic_policy(owner_email, origin_credential),
+            "traffic_policy": _traffic_policy(owner_github_id, origin_credential),
         }],
     }
     rendered = yaml.safe_dump(document, sort_keys=False)
@@ -338,8 +347,9 @@ def write_ngrok_config(
     destination: str | Path,
     *,
     authtoken_file: str | Path,
-    owner_email_file: str | Path,
+    owner_github_id_file: str | Path,
     origin_credential_file: str | Path,
+    remote_host: str,
     port: int = 8765,
     apply: bool = False,
 ) -> InstallResult:
@@ -348,8 +358,9 @@ def write_ngrok_config(
         raise ValueError("ngrok config destination must be YAML")
     rendered = render_ngrok_config(
         authtoken=_read_private_value(authtoken_file, label="ngrok authtoken"),
-        owner_email=_read_private_value(owner_email_file, label="owner email"),
+        owner_github_id=read_github_provider_user_id(owner_github_id_file),
         origin_credential=read_origin_credential(origin_credential_file),
+        remote_host=remote_host,
         port=port,
     ).encode("utf-8")
     if not apply:
@@ -458,12 +469,15 @@ class NgrokService:
         expected_endpoint_keys = {"name", "description", "url", "upstream", "traffic_policy"}
         if not isinstance(endpoint, dict) or set(endpoint) != expected_endpoint_keys:
             raise ValueError("invalid ngrok dashboard endpoint")
+        endpoint_url = endpoint.get("url")
         if (
             endpoint.get("name") != "opportunity-os-dashboard"
             or endpoint.get("description") != "Owner-only Opportunity OS dashboard"
-            or endpoint.get("url") != "https://"
+            or not isinstance(endpoint_url, str)
+            or not endpoint_url.startswith("https://")
         ):
             raise ValueError("invalid ngrok dashboard endpoint identity")
+        _validate_remote_host(endpoint_url.removeprefix("https://"))
         upstream = endpoint.get("upstream")
         if not isinstance(upstream, dict) or set(upstream) != {"url", "protocol"}:
             raise ValueError("invalid ngrok dashboard upstream")
@@ -489,12 +503,13 @@ class NgrokService:
         if not isinstance(oauth, dict) or set(oauth) != {"type", "config"} or oauth.get("type") != "oauth":
             raise ValueError("ngrok config must enforce GitHub OAuth first")
         oauth_config = oauth.get("config")
-        expected_oauth_keys = {"provider", "idle_session_timeout", "max_session_duration"}
+        expected_oauth_keys = {"provider", "auth_id", "idle_session_timeout", "max_session_duration"}
         if (
             not isinstance(oauth_config, dict)
             or set(oauth_config) != expected_oauth_keys
             or oauth_config != {
                 "provider": "github",
+                "auth_id": "opportunity-os-owner-v3",
                 "idle_session_timeout": "15m",
                 "max_session_duration": "8h",
             }
@@ -507,7 +522,7 @@ class NgrokService:
         if not isinstance(expressions, list) or len(expressions) != 1 or not isinstance(expressions[0], str):
             raise ValueError("ngrok config must deny every non-owner identity")
         match = _OWNER_EXPRESSION.fullmatch(expressions[0])
-        if match is None or _EMAIL.fullmatch(match.group(1)) is None or match.group(1) == "__OWNER_GITHUB_EMAIL__":
+        if match is None or _GITHUB_PROVIDER_USER_ID.fullmatch(match.group(1)) is None or match.group(1) == "__OWNER_GITHUB_PROVIDER_USER_ID__":
             raise ValueError("ngrok config must deny every non-owner identity")
         if not isinstance(deny_actions, list) or len(deny_actions) != 1:
             raise ValueError("ngrok config must deny every non-owner identity")

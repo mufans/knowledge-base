@@ -9,8 +9,8 @@ agent:
 endpoints:
   - name: opportunity-os-dashboard
     description: Owner-only Opportunity OS dashboard
-    # Scheme-only URL asks ngrok to allocate a random HTTPS address.
-    url: https://
+    # Bind the account-assigned development domain so restarts keep one URL.
+    url: https://__NGROK_REMOTE_HOST__
     upstream:
       url: http://127.0.0.1:8765
       protocol: http1
@@ -20,10 +20,11 @@ endpoints:
             - type: oauth
               config:
                 provider: github
+                auth_id: opportunity-os-owner-v3
                 idle_session_timeout: 15m
                 max_session_duration: 8h
         - expressions:
-            - "!(actions.ngrok.oauth.identity.email in ['__OWNER_GITHUB_EMAIL__'])"
+            - "actions.ngrok.oauth.identity.provider_user_id != '__OWNER_GITHUB_PROVIDER_USER_ID__'"
           actions:
             - type: deny
               config:

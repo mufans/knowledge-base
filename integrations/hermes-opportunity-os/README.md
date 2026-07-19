@@ -14,7 +14,8 @@ OpenClaw（唯一生产调度与采集）
 
 - 本目录只保存无秘密的代码、测试、Skill 和 Profile 模板。
 - 个人机会、实验、方向、求职反馈与复盘只保存在 Hermes 私有目录。
-- 不修改 OpenClaw，不安装 Hermes Cron，不写 `raw/` 或 `wiki/`。
+- 不安装 Hermes Cron，不写 `raw/`；生产调度、钉钉交付和失败告警仅由 OpenClaw 原生能力负责。
+- 只有通过 AGENTS 质量和脱敏校验的综合结果才可导出到 `wiki/`；私人机会、反馈和实验细节不进入公开知识库。
 - OpenCode Go 为常态模型，DeepSeek 官方 API 为服务错误、限额或鉴权故障的 fallback。
 
 ## 安装后路径
@@ -63,7 +64,7 @@ hermes -p opportunity-discovery chat --skills opportunity-discovery
 - 每六周：`执行方向组合复盘，最多 5 个观察、2 个验证、1 个主动方向，允许没有主动方向。`
 - 每季度：`执行假设清零复核、来源效果审查和 Stable 基线审查。`
 
-这些提示不会自动运行。生产调度仍由 OpenClaw 单独管理。
+这些提示便于手动互动。生产环境已由 OpenClaw 单独管理 daily、weekly 和 healthcheck 三个受管 Cron；Hermes 不再创建另一套调度。
 
 同样的五档手动模板保存在 `profile/cadence/`。部署时复制到 Profile 私人目录的 `cadence/`；文件本身不注册 Hermes Cron，也不会触发 OpenClaw 任务。
 

@@ -138,8 +138,8 @@ def test_snapshot_excludes_dashboard_runtime_but_keeps_business_state(tmp_path: 
 def test_dashboard_serve_builds_app_and_binds_only_loopback(tmp_path: Path, monkeypatch) -> None:
     captured = {}
 
-    def fake_run(app, *, host, port):
-        captured.update(app=app, host=host, port=port)
+    def fake_run(app, *, host, port, proxy_headers):
+        captured.update(app=app, host=host, port=port, proxy_headers=proxy_headers)
 
     monkeypatch.setattr("uvicorn.run", fake_run)
 
@@ -151,6 +151,7 @@ def test_dashboard_serve_builds_app_and_binds_only_loopback(tmp_path: Path, monk
     assert result == 0
     assert captured["host"] == "127.0.0.1"
     assert captured["port"] == 8765
+    assert captured["proxy_headers"] is False
     assert captured["app"].docs_url is None
 
 

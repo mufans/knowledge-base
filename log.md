@@ -153,3 +153,8 @@
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 加固原生OpenClaw调度下的Hermes单次运行完成证据：周期/run绑定marker、旧产物拒绝、cadence业务验证、固定toolset、安全可执行文件与并发失败保真（整合全量322项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/deployment | 修复原生部署审查：Cron受管marker/同名碰撞fail-closed与mode=none幂等归一，ngrok v3 YAML结构化OAuth owner校验、全mutation前官方config check及loopback状态API（专项40项、全量333项测试通过）
 2026-07-19 | security-fix | integrations/hermes-opportunity-os/deployment | 闭合Dashboard远程认证：ngrok严格OAuth/owner/origin-header规则、0600结构化配置、LaunchAgent远程环境及安全凭据文件读取（全量344项测试通过）
+2026-07-20 | deploy | integrations/hermes-opportunity-os, ~/.hermes/profiles/opportunity-discovery, ~/.openclaw | 完成Hermes Opportunity OS生产部署：Dashboard与ngrok官方服务自启动、稳定HTTPS入口、OpenClaw原生daily/weekly/healthcheck Cron、钉钉交付与失败告警；真实healthcheck运行成功
+2026-07-20 | security-fix | integrations/hermes-opportunity-os/deployment | 远程owner认证改用GitHub OAuth稳定provider_user_id，避免私密邮箱导致403；固定ngrok开发域名并保持OAuth/owner/origin三层校验（全量346项测试通过）
+2026-07-20 | maintenance | README.md, integrations/hermes-opportunity-os/README.md, /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 更新OpenClaw/Hermes/Opportunity OS原生能力边界、生产节奏和状态命令；加固唯一GitHub Pages同步脚本的fail-closed与限定暂存范围
+2026-07-20 | security-fix | integrations/hermes-opportunity-os/dashboard, integrations/hermes-opportunity-os/deployment | 定位远程403根因为Uvicorn信任X-Forwarded-For后误判ngrok本机对端；禁用proxy_headers并恢复GitHub OAuth owner-v3，用户已实际登录成功，已删除临时Basic Auth凭据
+2026-07-20 | monitoring | integrations/hermes-opportunity-os/automation, integrations/hermes-opportunity-os/dashboard | 将Dashboard与ngrok只读探针纳入OpenClaw原生healthcheck Cron失败告警链；OpenClaw、Hermes、Dashboard、ngrok四组件全部healthy，原生Cron实际运行status=ok（全量348项测试通过）

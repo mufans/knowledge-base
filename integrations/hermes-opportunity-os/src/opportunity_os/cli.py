@@ -21,7 +21,13 @@ from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.events import EventHub
-from opportunity_os.dashboard.probes import CommandRunner, HermesProbe, OpenClawProbe
+from opportunity_os.dashboard.probes import (
+    CommandRunner,
+    DashboardProbe,
+    HermesProbe,
+    NgrokProbe,
+    OpenClawProbe,
+)
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.dashboard.tasks import OpenClawTaskAdapter
@@ -72,6 +78,8 @@ def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> Dashbo
         probes=(
             LastHealthProbe(marker, "openclaw"),
             LastHealthProbe(marker, "hermes"),
+            LastHealthProbe(marker, "dashboard"),
+            LastHealthProbe(marker, "ngrok"),
         ),
     )
     sessions = SessionStore(config.dashboard_home)
@@ -102,7 +110,12 @@ def _healthcheck(args: argparse.Namespace) -> HealthCheck:
     config = _dashboard_config(args.home)
     command_runner = CommandRunner()
     return HealthCheck(
-        probes=(OpenClawProbe(config, command_runner), HermesProbe(config, command_runner)),
+        probes=(
+            OpenClawProbe(config, command_runner),
+            HermesProbe(config, command_runner),
+            DashboardProbe(config, command_runner),
+            NgrokProbe(config),
+        ),
         marker=config.dashboard_home / "last-health.json",
     )
 
@@ -238,7 +251,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             _require_loopback_host(args.host)
             config = _dashboard_config(args.home)
             app = create_app(config, _dashboard_dependencies(args.home, config))
-            uvicorn.run(app, host=args.host, port=args.port)
+            uvicorn.run(app, host=args.host, port=args.port, proxy_headers=False)
         elif args.command == "dashboard" and args.dashboard_command == "open":
             url = _require_loopback_url(args.url)
             config = _dashboard_config(args.home)
