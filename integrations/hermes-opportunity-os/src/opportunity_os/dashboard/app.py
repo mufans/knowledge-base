@@ -2,23 +2,31 @@
 
 from __future__ import annotations
 
+import asyncio
+import json
 import secrets
 from dataclasses import dataclass
 from ipaddress import ip_address
+from pathlib import Path
 from typing import Protocol
 from urllib.parse import urlsplit
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
+from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from opportunity_os.dashboard.auth import CsrfGuard, Session, SessionInfo, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
+from opportunity_os.dashboard.events import DashboardEvent, EventHub
 from opportunity_os.dashboard.schemas import DashboardSnapshot
 
 
 SESSION_COOKIE = "opportunity_dashboard_session"
 ORIGIN_CREDENTIAL_HEADER = "x-dashboard-origin-credential"
 LOOPBACK_HOSTS = frozenset({"127.0.0.1", "::1", "localhost"})
+SSE_HEARTBEAT_SECONDS = 20
+_DASHBOARD_DIR = Path(__file__).resolve().parent
 
 
 class DashboardSnapshotReader(Protocol):
@@ -30,6 +38,7 @@ class DashboardDependencies:
     read_model: DashboardSnapshotReader
     sessions: SessionStore
     csrf: CsrfGuard
+    event_hub: EventHub | None = None
 
 
 class BootstrapExchange(BaseModel):
@@ -95,7 +104,9 @@ def _set_session_cookie(response: Response, token: str, session: Session) -> Non
 def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> FastAPI:
     """Create a fail-closed dashboard app with no framework documentation routes."""
     app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+    app.mount("/static", StaticFiles(directory=_DASHBOARD_DIR / "static"), name="static")
     remote_host = config.remote_host.casefold() if config.remote_host else None
+    event_hub = dependencies.event_hub or EventHub(config.dashboard_home / "event-cursor")
 
     @app.middleware("http")
     async def authentication_boundary(request: Request, call_next):
@@ -152,6 +163,10 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     def health() -> dict[str, bool]:
         return {"ok": True}
 
+    @app.get("/", response_class=FileResponse)
+    def index() -> FileResponse:
+        return FileResponse(_DASHBOARD_DIR / "templates" / "index.html", media_type="text/html")
+
     @app.post("/auth/local/exchange", response_model=SessionInfo)
     def local_exchange(exchange: BootstrapExchange, response: Response) -> SessionInfo:
         issued = dependencies.sessions.exchange_bootstrap(exchange.token)
@@ -167,6 +182,50 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     @app.get("/api/v1/status", response_model=DashboardSnapshot)
     def status(_: Session = Depends(require_session)) -> DashboardSnapshot:
         return dependencies.read_model.snapshot()
+
+    @app.get("/api/v1/events")
+    def events(
+        request: Request,
+        _: Session = Depends(require_session),
+        last_event_id: str | None = Header(default=None, alias="Last-Event-ID"),
+    ) -> StreamingResponse:
+        cursor = last_event_id or request.query_params.get("last_event_id")
+        if cursor is not None and not cursor.isdigit():
+            raise HTTPException(status_code=400, detail="invalid_event_cursor")
+
+        async def stream():
+            active_cursor = cursor
+            while True:
+                subscription = event_hub.subscribe(active_cursor)
+                try:
+                    while True:
+                        if await request.is_disconnected():
+                            return
+                        try:
+                            event: DashboardEvent = await asyncio.wait_for(
+                                anext(subscription), timeout=SSE_HEARTBEAT_SECONDS
+                            )
+                        except TimeoutError:
+                            yield ": heartbeat\n\n"
+                            break
+                        except StopAsyncIteration:
+                            return
+                        active_cursor = event.id
+                        data = json.dumps(
+                            event.wire_payload(),
+                            ensure_ascii=False,
+                            separators=(",", ":"),
+                            sort_keys=True,
+                        )
+                        yield f"id: {event.id}\nevent: {event.type}\ndata: {data}\n\n"
+                finally:
+                    await subscription.aclose()
+
+        return StreamingResponse(
+            stream(),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"},
+        )
 
     @app.post("/api/v1/session/refresh", response_model=SessionInfo)
     def refresh_session(session: Session = Depends(require_csrf_session)) -> SessionInfo:
