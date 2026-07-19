@@ -246,17 +246,24 @@ class DeliveryQueue:
         ttl: timedelta = timedelta(days=30),
         lease_duration: timedelta = timedelta(minutes=5),
         max_entries: int = 1024,
+        max_tombstones: int = 4096,
         allowed_dashboard_hosts: tuple[str, ...] = (),
     ) -> None:
         self.path = Path(state_path).expanduser()
         if not self.path.is_absolute() or ".." in self.path.parts:
             raise BoundaryError("delivery state path must be absolute and traversal-free")
-        if ttl <= timedelta(0) or lease_duration <= timedelta(0) or not 1 <= max_entries <= 4096:
+        if (
+            ttl <= timedelta(0)
+            or lease_duration <= timedelta(0)
+            or not 1 <= max_entries <= 4096
+            or not 1 <= max_tombstones <= 4096
+        ):
             raise ValidationError("delivery retention bounds are invalid")
         self.now = now or (lambda: datetime.now(timezone.utc))
         self.ttl = ttl
         self.lease_duration = lease_duration
         self.max_entries = max_entries
+        self.max_tombstones = max_tombstones
         self.allowed_dashboard_hosts = validate_allowed_dashboard_hosts(allowed_dashboard_hosts)
 
     def _directory(self) -> int:
@@ -316,71 +323,212 @@ class DeliveryQueue:
             updated_at=updated_at,
         )
 
+    @staticmethod
+    def _synthetic_delivery_id(idempotency_key: str) -> str:
+        return f"delivery_{uuid.uuid5(uuid.NAMESPACE_URL, f'delivery:{idempotency_key}')}"
+
+    def _tombstone_record(
+        self,
+        idempotency_key: str,
+        tombstone: dict[str, object],
+        summary: AlertSummary,
+    ) -> DeliveryRecord:
+        delivered_at = _parse_optional_time(tombstone.get("delivered_at"), "tombstone delivery")
+        if delivered_at is None:
+            raise ValidationError("delivery tombstone timestamp is invalid")
+        receipt_id = tombstone.get("receipt_id")
+        if not isinstance(receipt_id, str):
+            raise ValidationError("delivery tombstone receipt is invalid")
+        return DeliveryRecord(
+            delivery_id=self._synthetic_delivery_id(idempotency_key),
+            idempotency_key=idempotency_key,
+            state="delivered",
+            summary=summary,
+            receipt_id=receipt_id,
+            error_code=None,
+            attempt_token=None,
+            lease_until=None,
+            created_at=delivered_at,
+            updated_at=delivered_at,
+        )
+
     def _load(
         self, directory_fd: int, current: datetime
-    ) -> tuple[dict[str, dict[str, object]], dict[str, str]]:
+    ) -> tuple[
+        dict[str, dict[str, object]],
+        dict[str, str],
+        dict[str, dict[str, object]],
+    ]:
         try:
             payload = read_json_at(directory_fd, self.path.name, max_bytes=STATE_MAX_BYTES)
         except FileNotFoundError:
-            payload = {"version": 2, "deliveries": {}, "receipts": {}}
+            payload = {
+                "version": 3,
+                "deliveries": {},
+                "receipts": {},
+                "delivered_tombstones": {},
+            }
         except json.JSONDecodeError as error:
             raise ValidationError("delivery state contains invalid JSON") from error
-        if payload.get("version") == 1 and isinstance(payload.get("deliveries"), dict):
-            migrated = {}
-            for key, value in payload["deliveries"].items():
-                if not isinstance(value, dict):
-                    raise ValidationError("delivery state record is invalid")
-                migrated[key] = {**value, "attempt_token": None, "lease_until": None}
-            payload = {"version": 2, "deliveries": migrated, "receipts": {}}
-        if (
-            payload.get("version") != 2
-            or not isinstance(payload.get("deliveries"), dict)
-            or not isinstance(payload.get("receipts"), dict)
-        ):
+        version = payload.get("version")
+        expected_fields = {
+            1: {"version", "deliveries"},
+            2: {"version", "deliveries", "receipts"},
+            3: {"version", "deliveries", "receipts", "delivered_tombstones"},
+        }
+        if version not in expected_fields or set(payload) != expected_fields[version]:
             raise ValidationError("delivery state schema is invalid")
-        records: dict[str, dict[str, object]] = {}
-        for key, value in payload["deliveries"].items():
+        if not isinstance(payload["deliveries"], dict):
+            raise ValidationError("delivery records must be an object")
+        raw_records: dict[str, dict[str, object]] = {}
+        raw_receipts: dict[str, str] = {}
+        delivered_by_key: dict[str, DeliveryRecord] = {}
+        records_by_idempotency: dict[str, DeliveryRecord] = {}
+        for key, raw_value in payload["deliveries"].items():
+            value = raw_value
             if not isinstance(key, str) or not isinstance(value, dict):
                 raise ValidationError("delivery state record is invalid")
+            if version == 1:
+                value = {**value, "attempt_token": None, "lease_until": None}
             record = self._record(value)
             if key != record.delivery_id:
                 raise ValidationError("delivery map key is invalid")
-            if record.state not in {"delivered", "failed"} or current - record.updated_at <= self.ttl:
-                records[key] = value
-        expected_receipts = {
+            if record.idempotency_key in records_by_idempotency:
+                raise ValidationError("delivery state contains a duplicate idempotency key")
+            records_by_idempotency[record.idempotency_key] = record
+            raw_records[key] = value
+            if record.state == "delivered":
+                assert record.receipt_id is not None
+                if record.receipt_id in raw_receipts:
+                    raise ValidationError("delivery state contains a duplicate receipt")
+                raw_receipts[record.receipt_id] = key
+                delivered_by_key[record.idempotency_key] = record
+
+        if version in {2, 3}:
+            if not isinstance(payload["receipts"], dict) or payload["receipts"] != raw_receipts:
+                raise ValidationError("delivery receipt index is invalid")
+
+        tombstones: dict[str, dict[str, object]] = {}
+        if version in {1, 2}:
+            for idempotency_key, record in delivered_by_key.items():
+                tombstones[idempotency_key] = {
+                    "receipt_id": record.receipt_id,
+                    "delivered_at": record.updated_at.isoformat(),
+                }
+        else:
+            raw_tombstones = payload["delivered_tombstones"]
+            if not isinstance(raw_tombstones, dict):
+                raise ValidationError("delivery tombstones must be an object")
+            if len(raw_tombstones) > self.max_tombstones:
+                raise CapacityError("delivery tombstone capacity is exceeded")
+            seen_tombstone_receipts: dict[str, str] = {}
+            for idempotency_key, tombstone in raw_tombstones.items():
+                if (
+                    not isinstance(idempotency_key, str)
+                    or IDEMPOTENCY_KEY.fullmatch(idempotency_key) is None
+                    or not isinstance(tombstone, dict)
+                    or set(tombstone) != {"receipt_id", "delivered_at"}
+                ):
+                    raise ValidationError("delivery tombstone schema is invalid")
+                receipt_id = tombstone["receipt_id"]
+                if (
+                    not isinstance(receipt_id, str)
+                    or not receipt_id.startswith("rcpt_")
+                    or OPAQUE_ID.fullmatch(receipt_id) is None
+                ):
+                    raise ValidationError("delivery tombstone receipt is invalid")
+                delivered_at = _parse_optional_time(
+                    tombstone["delivered_at"], "tombstone delivery"
+                )
+                if delivered_at is None:
+                    raise ValidationError("delivery tombstone timestamp is invalid")
+                if receipt_id in seen_tombstone_receipts:
+                    raise ValidationError(
+                        "delivery state contains a duplicate tombstone receipt"
+                    )
+                seen_tombstone_receipts[receipt_id] = idempotency_key
+                tombstones[idempotency_key] = tombstone
+
+            for idempotency_key, record in records_by_idempotency.items():
+                tombstone = tombstones.get(idempotency_key)
+                if record.state != "delivered" and tombstone is not None:
+                    raise ValidationError("non-delivered record conflicts with a tombstone")
+                if record.state != "delivered":
+                    continue
+                if (
+                    tombstone is None
+                    or tombstone.get("receipt_id") != record.receipt_id
+                    or _parse_optional_time(
+                        tombstone.get("delivered_at"), "tombstone delivery"
+                    )
+                    != record.updated_at
+                ):
+                    raise ValidationError("delivered record is missing its tombstone")
+            for receipt_id, delivery_id in raw_receipts.items():
+                record = self._record(raw_records[delivery_id])
+                tombstone_owner = seen_tombstone_receipts.get(receipt_id)
+                if tombstone_owner is not None and tombstone_owner != record.idempotency_key:
+                    raise ValidationError("receipt is reused by a delivery tombstone")
+
+        if len(tombstones) > self.max_tombstones:
+            raise CapacityError("delivery tombstone capacity is exceeded")
+
+        records = {
+            key: value
+            for key, value in raw_records.items()
+            if self._record(value).state not in {"delivered", "failed"}
+            or current - self._record(value).updated_at <= self.ttl
+        }
+        active_receipts = {
             str(value["receipt_id"]): key
             for key, value in records.items()
             if value.get("state") == "delivered"
         }
-        if payload["receipts"] and payload["receipts"] != expected_receipts:
+        if len(active_receipts) != sum(
+            1 for value in records.values() if value.get("state") == "delivered"
+        ):
             raise ValidationError("delivery receipt index is invalid")
-        return records, expected_receipts
+        return records, active_receipts, tombstones
 
     def _persist(
         self,
         directory_fd: int,
         records: dict[str, dict[str, object]],
         receipts: dict[str, str],
+        tombstones: dict[str, dict[str, object]],
     ) -> None:
         atomic_json_at(
             directory_fd,
             self.path.name,
-            {"version": 2, "deliveries": records, "receipts": receipts},
+            {
+                "version": 3,
+                "deliveries": records,
+                "receipts": receipts,
+                "delivered_tombstones": tombstones,
+            },
             mode=0o600,
             max_bytes=STATE_MAX_BYTES,
         )
 
     def _mutate(
         self,
-        operation: Callable[[dict[str, dict[str, object]], dict[str, str], datetime], T],
+        operation: Callable[
+            [
+                dict[str, dict[str, object]],
+                dict[str, str],
+                dict[str, dict[str, object]],
+                datetime,
+            ],
+            T,
+        ],
     ) -> T:
         current = _utc(self.now())
         directory_fd = self._directory()
         try:
             with exclusive_arbitration(directory_fd, ".deliveries.lock"):
-                records, receipts = self._load(directory_fd, current)
-                result = operation(records, receipts, current)
-                self._persist(directory_fd, records, receipts)
+                records, receipts, tombstones = self._load(directory_fd, current)
+                result = operation(records, receipts, tombstones, current)
+                self._persist(directory_fd, records, receipts, tombstones)
                 return result
         finally:
             os.close(directory_fd)
@@ -392,13 +540,16 @@ class DeliveryQueue:
             raise ValidationError("delivery summary must be validated")
         canonical = AlertSummary.from_dict(summary.to_dict(), self.allowed_dashboard_hosts)
 
-        def operation(records, receipts, current):
+        def operation(records, receipts, tombstones, current):
             for value in records.values():
                 if value.get("idempotency_key") == idempotency_key:
                     existing = self._record(value)
                     if existing.summary.to_dict() != canonical.to_dict():
                         raise ValidationError("idempotency key cannot change delivery payload")
                     return existing
+            tombstone = tombstones.get(idempotency_key)
+            if tombstone is not None:
+                return self._tombstone_record(idempotency_key, tombstone, canonical)
             if len(records) >= self.max_entries:
                 raise CapacityError("delivery queue capacity is exhausted")
             delivery_id = f"delivery_{uuid.uuid4()}"
@@ -420,9 +571,14 @@ class DeliveryQueue:
         return self._mutate(operation)
 
     def claim(self, delivery_id: str) -> DeliveryClaim | None:
-        def operation(records, receipts, current):
+        def operation(records, receipts, tombstones, current):
             value = records.get(delivery_id)
             if value is None:
+                if any(
+                    self._synthetic_delivery_id(idempotency_key) == delivery_id
+                    for idempotency_key in tombstones
+                ):
+                    return None
                 raise ValidationError("delivery id is unknown")
             record = self._record(value)
             if record.state == "delivered":
@@ -449,7 +605,7 @@ class DeliveryQueue:
         if not isinstance(attempt_token, str) or not attempt_token.startswith("attempt_") or OPAQUE_ID.fullmatch(attempt_token) is None:
             raise ValidationError("delivery attempt token is invalid")
 
-        def operation(records, receipts, current):
+        def operation(records, receipts, tombstones, current):
             value = records.get(delivery_id)
             if value is None:
                 raise ValidationError("delivery id is unknown")
@@ -460,7 +616,24 @@ class DeliveryQueue:
                 owner = receipts.get(attempt.receipt_id)
                 if owner is not None and owner != delivery_id:
                     raise ValidationError("delivery receipt is already assigned")
+                for tombstone_key, tombstone in tombstones.items():
+                    if (
+                        tombstone.get("receipt_id") == attempt.receipt_id
+                        and tombstone_key != record.idempotency_key
+                    ):
+                        raise ValidationError("delivery receipt is already assigned to a tombstone")
+                if (
+                    record.idempotency_key not in tombstones
+                    and len(tombstones) >= self.max_tombstones
+                ):
+                    raise CapacityError(
+                        "delivery tombstone capacity is full; maintenance is required"
+                    )
                 receipts[attempt.receipt_id] = delivery_id
+                tombstones[record.idempotency_key] = {
+                    "receipt_id": attempt.receipt_id,
+                    "delivered_at": current.isoformat(),
+                }
                 value.update(
                     state="delivered", receipt_id=attempt.receipt_id, error_code=None,
                     attempt_token=None, lease_until=None, updated_at=current.isoformat(),
@@ -480,7 +653,7 @@ class DeliveryQueue:
         directory_fd = self._directory()
         try:
             with exclusive_arbitration(directory_fd, ".deliveries.lock"):
-                records, _ = self._load(directory_fd, current)
+                records, _, _ = self._load(directory_fd, current)
                 if delivery_id not in records:
                     raise ValidationError("delivery id is unknown")
                 return self._record(records[delivery_id])
@@ -492,7 +665,7 @@ class DeliveryQueue:
         directory_fd = self._directory()
         try:
             with exclusive_arbitration(directory_fd, ".deliveries.lock"):
-                records, _ = self._load(directory_fd, current)
+                records, _, _ = self._load(directory_fd, current)
                 return tuple(
                     self._record(value)
                     for value in records.values()
@@ -508,7 +681,7 @@ class DeliveryQueue:
         directory_fd = self._directory()
         try:
             with exclusive_arbitration(directory_fd, ".deliveries.lock"):
-                records, _ = self._load(directory_fd, current)
+                records, _, _ = self._load(directory_fd, current)
                 for value in records.values():
                     if value.get("idempotency_key") == idempotency_key:
                         return self._record(value)

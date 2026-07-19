@@ -14,12 +14,13 @@ from opportunity_os.automation.monitor import (
     DeliveryAttempt,
     DeliveryClaim,
     DeliveryQueue,
+    DeliveryRecord,
     Monitor,
 )
 from opportunity_os.dashboard.events import EventHub
 from opportunity_os.dashboard.incidents import IncidentSentinel
 from opportunity_os.dashboard.schemas import ComponentHealth
-from opportunity_os.errors import ValidationError
+from opportunity_os.errors import CapacityError, ValidationError
 
 
 NOW = datetime(2026, 7, 19, 10, 0, tzinfo=timezone.utc)
@@ -562,3 +563,201 @@ def test_boot_hook_cli_uses_fixture_recovery_probe_and_never_runs_restart(
     assert result == 0
     assert calls == [(boot_id, True, fixture.probes[0])]
     assert json.loads(capsys.readouterr().out) == {"delivery": None}
+
+
+def _deliver(
+    queue: DeliveryQueue,
+    idempotency_key: str,
+    receipt_id: str,
+) -> DeliveryRecord:
+    generated = queue.generate(idempotency_key, safe_summary())
+    claim = queue.claim(generated.delivery_id)
+    assert claim is not None
+    return queue.complete(
+        generated.delivery_id,
+        DeliveryAttempt(True, receipt_id, None),
+        claim.attempt_token,
+    )
+
+
+def test_version2_empty_receipt_index_is_rejected_even_when_delivered_exists(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "deliveries.json"
+    queue = DeliveryQueue(
+        path, now=lambda: NOW, allowed_dashboard_hosts=("owner.ngrok-free.app",)
+    )
+    _deliver(
+        queue,
+        "inc_123e4567-e89b-12d3-a456-426614174000:firing",
+        "rcpt_123e4567-e89b-12d3-a456-426614174000",
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["receipts"] = {}
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValidationError, match="receipt index"):
+        queue.outstanding()
+
+
+def test_raw_duplicate_receipt_is_rejected_before_ttl_pruning(tmp_path: Path) -> None:
+    path = tmp_path / "deliveries.json"
+    queue = DeliveryQueue(
+        path, now=lambda: NOW, allowed_dashboard_hosts=("owner.ngrok-free.app",)
+    )
+    delivered = _deliver(
+        queue,
+        "inc_123e4567-e89b-12d3-a456-426614174000:firing",
+        "rcpt_123e4567-e89b-12d3-a456-426614174000",
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    original = payload["deliveries"][delivered.delivery_id]
+    duplicate_id = "delivery_223e4567-e89b-12d3-a456-426614174000"
+    duplicate = {
+        **original,
+        "delivery_id": duplicate_id,
+        "idempotency_key": "inc_223e4567-e89b-12d3-a456-426614174000:firing",
+        "updated_at": (NOW - timedelta(days=60)).isoformat(),
+    }
+    payload["deliveries"][duplicate_id] = duplicate
+    payload["receipts"] = {original["receipt_id"]: duplicate_id}
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValidationError, match="duplicate receipt"):
+        queue.outstanding()
+
+
+@pytest.mark.parametrize(
+    "idempotency_key",
+    [
+        "inc_123e4567-e89b-12d3-a456-426614174000:firing",
+        "boot_123e4567-e89b-12d3-a456-426614174000:recovered",
+    ],
+)
+def test_delivered_tombstone_prevents_send_after_record_ttl(
+    tmp_path: Path, idempotency_key: str
+) -> None:
+    clock = Clock()
+    path = tmp_path / "deliveries.json"
+    queue = DeliveryQueue(
+        path, now=clock, ttl=timedelta(days=1),
+        allowed_dashboard_hosts=("owner.ngrok-free.app",),
+    )
+    delivered = _deliver(
+        queue, idempotency_key, "rcpt_123e4567-e89b-12d3-a456-426614174000"
+    )
+    clock.value += timedelta(days=2)
+
+    replay = queue.generate(idempotency_key, safe_summary())
+
+    assert replay.state == "delivered"
+    assert replay.receipt_id == delivered.receipt_id
+    assert queue.claim(replay.delivery_id) is None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert payload["deliveries"] == {}
+    assert payload["receipts"] == {}
+    assert payload["delivered_tombstones"][idempotency_key]["receipt_id"] == delivered.receipt_id
+
+
+def test_receipt_uniqueness_survives_delivery_record_ttl(tmp_path: Path) -> None:
+    clock = Clock()
+    queue = DeliveryQueue(
+        tmp_path / "deliveries.json", now=clock, ttl=timedelta(days=1),
+        allowed_dashboard_hosts=("owner.ngrok-free.app",),
+    )
+    receipt = "rcpt_123e4567-e89b-12d3-a456-426614174000"
+    _deliver(queue, "inc_123e4567-e89b-12d3-a456-426614174000:firing", receipt)
+    clock.value += timedelta(days=2)
+    second = queue.generate(
+        "inc_223e4567-e89b-12d3-a456-426614174000:firing", safe_summary()
+    )
+    claim = queue.claim(second.delivery_id)
+    assert claim is not None
+
+    with pytest.raises(ValidationError, match="receipt"):
+        queue.complete(second.delivery_id, DeliveryAttempt(True, receipt, None), claim.attempt_token)
+
+
+def test_tombstone_capacity_fails_closed_without_deleting_old_marker(tmp_path: Path) -> None:
+    path = tmp_path / "deliveries.json"
+    queue = DeliveryQueue(
+        path, now=lambda: NOW, max_tombstones=1,
+        allowed_dashboard_hosts=("owner.ngrok-free.app",),
+    )
+    _deliver(
+        queue,
+        "inc_123e4567-e89b-12d3-a456-426614174000:firing",
+        "rcpt_123e4567-e89b-12d3-a456-426614174000",
+    )
+    second = queue.generate(
+        "inc_223e4567-e89b-12d3-a456-426614174000:firing", safe_summary()
+    )
+    claim = queue.claim(second.delivery_id)
+    assert claim is not None
+
+    with pytest.raises(CapacityError, match="tombstone"):
+        queue.complete(
+            second.delivery_id,
+            DeliveryAttempt(
+                True, "rcpt_223e4567-e89b-12d3-a456-426614174000", None
+            ),
+            claim.attempt_token,
+        )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert len(payload["delivered_tombstones"]) == 1
+
+
+@pytest.mark.parametrize("source_version", [1, 2])
+def test_legacy_delivery_state_migrates_explicitly_and_builds_tombstone(
+    tmp_path: Path, source_version: int
+) -> None:
+    path = tmp_path / "deliveries.json"
+    queue = DeliveryQueue(
+        path, now=lambda: NOW, allowed_dashboard_hosts=("owner.ngrok-free.app",)
+    )
+    delivered = _deliver(
+        queue,
+        "inc_123e4567-e89b-12d3-a456-426614174000:firing",
+        "rcpt_123e4567-e89b-12d3-a456-426614174000",
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["version"] = source_version
+    payload.pop("delivered_tombstones", None)
+    if source_version == 1:
+        payload.pop("receipts", None)
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    queue.generate(
+        "inc_223e4567-e89b-12d3-a456-426614174000:firing", safe_summary()
+    )
+
+    migrated = json.loads(path.read_text(encoding="utf-8"))
+    assert migrated["version"] == 3
+    assert migrated["delivered_tombstones"][delivered.idempotency_key]["receipt_id"] == delivered.receipt_id
+
+
+def test_version3_rejects_missing_or_mismatched_tombstone_and_duplicate_tombstone_receipt(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "deliveries.json"
+    queue = DeliveryQueue(
+        path, now=lambda: NOW, allowed_dashboard_hosts=("owner.ngrok-free.app",)
+    )
+    delivered = _deliver(
+        queue,
+        "inc_123e4567-e89b-12d3-a456-426614174000:firing",
+        "rcpt_123e4567-e89b-12d3-a456-426614174000",
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    tombstone = payload["delivered_tombstones"].pop(delivered.idempotency_key)
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValidationError, match="tombstone"):
+        queue.outstanding()
+
+    payload["delivered_tombstones"][delivered.idempotency_key] = tombstone
+    payload["delivered_tombstones"][
+        "inc_223e4567-e89b-12d3-a456-426614174000:firing"
+    ] = {**tombstone}
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValidationError, match="duplicate.*tombstone receipt"):
+        queue.outstanding()
