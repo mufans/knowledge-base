@@ -1,6 +1,7 @@
 - 2026-07-19 | lint | raw/inbox/2026-07-19-知识库Lint审查.md | 知识库Lint审查完成（总分7.25/10，结构6.5/10，质量8/10）
 - 2026-07-19 技术新闻热点采集完成 | raw/inbox/2026-07-19-新闻热点.md | 10条分类新闻（AI/大模型、编程/开发工具、移动端、云原生/后端、开源/硬件）
 - 2026-07-19 技术动态采集完成 | raw/inbox/2026-07-19-技术动态.md | 26条（InfoQ 20 + OSChina 4 + Dev.to 5 + Solidot 2，去重后26条）
+- 2026-07-19 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-19-*.json（35篇） | 扫描完成，30篇score≥7。创建2篇新wiki页面：entities/LangGraph.md（自评8.35）、sources/Gemini-Managed-Agents.md（自评7.63）。跳过28篇：已有wiki页面覆盖（LangChain/CowAgent/OpenHands/Hermes-Agent/mem0/Dify/MetaGPT/deer-flow/browser-use/Goose/Cherry-Studio/awesome-llm-apps/JeecgBoot/RAGFlow/nanobot/LlamaFactory/headroom/pi-agent/AgentGPT等20篇）、方向不匹配（RF芯片/AI安全/AI小说/Google Vids/Google搜索/UK政策等8篇）
 - 2026-06-04 GitHub项目采集完成，API+Active，精选0个项目
 - 2026-06-04 技术新闻热点采集完成，raw/inbox/2026-06-04-新闻热点.md，10条分类新闻（AI/大模型、编程/开发工具、移动端、云原生/后端、开源/硬件）
 - 2026-06-04 技术动态采集完成，raw/inbox/2026-06-04-技术动态.md，17条技术动态（AI框架、编程工具、量子计算、移动端、芯片算力、开源生态）
@@ -85,6 +86,7 @@
 - 2026-07-19: 社交媒体AI动态采集 → [2026-07-19-社交媒体.md](raw/inbox/2026-07-19-社交媒体.md)（HN Top 30采集12条；Reddit/X因网络限制未获取）
 2026-07-19 | audit | ~/.openclaw/openclaw.json, ~/.openclaw/cron/, wiki/syntheses/Hermes-vs-OpenClaw对比分析.md | 审计OpenClaw当前配置与任务运行状态，评估Hermes并行试点价值（未修改系统配置）
 2026-07-19 | research | Hermes v0.18.2官方发布说明与文档 | 不参考本地Hermes分析页，基于最新官方版本重新评估搭建价值（未修改Wiki与系统配置）
+2026-07-19 | research | OpenCode Go、火山方舟Coding Plan、DeepSeek API官方文档 | 确定Hermes试点Provider设计：OpenCode Go主模型 + DeepSeek官方API fallback
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-AI论文.md | 创建entities/PalmClaw.md（自评8.40）、更新concepts/Agentic-Search-Retrieval.md（合并GRASP粒度感知搜索策略）
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-社交媒体.md | 创建entities/Moonshine-AI.md（自评7.75）、entities/Transcribe-cpp.md（自评7.80）
 - 2026-07-19 | ingest | raw/inbox/2026-07-19-技术动态.md | 创建entities/Google-Genkit-Agents-API.md（自评7.80）

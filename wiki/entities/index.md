@@ -59,6 +59,7 @@
 - [cc-switch](cc-switch.md) (2026-05-11)
 - [Reasonix](Reasonix.md) (2026-05-11)
 - [LangChain](LangChain.md) (2026-05-12)
+- [LangGraph](LangGraph.md) (2026-07-19)
 - [AgentGPT](AgentGPT.md) (2026-05-12)
 - [JeecgBoot](JeecgBoot.md) (2026-05-12)
 - [OpenMythos](OpenMythos.md) (2026-05-12)
