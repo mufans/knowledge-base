@@ -2,32 +2,58 @@ import json
 import os
 import subprocess
 import threading
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
 from concurrent.futures import ThreadPoolExecutor
 
-from opportunity_os.automation.hermes_runner import CadenceRunner
+from opportunity_os.automation.hermes_runner import CADENCE_TIMEOUTS, CadenceRunner
 from opportunity_os.errors import ValidationError
 
 
 NOW = datetime(2026, 7, 19, 10, 0, tzinfo=timezone.utc)
 
 
-class FakeCommandRunner:
-    def __init__(self, *, returncode: int = 0, stderr: str = "") -> None:
+def make_hermes_executable(tmp_path: Path, body: str = "#!/bin/sh\nexit 0\n") -> Path:
+    executable = tmp_path / "bin" / "hermes"
+    executable.parent.mkdir(parents=True, exist_ok=True)
+    executable.write_text(body, encoding="utf-8")
+    executable.chmod(0o700)
+    return executable
+
+
+class ImmediateProcess:
+    def __init__(self, returncode: int = 0) -> None:
+        self.pid = os.getpid()
         self.returncode = returncode
-        self.stderr = stderr
-        self.calls: list[tuple[list[str], int]] = []
 
-    def __call__(self, argv: list[str], timeout: int) -> subprocess.CompletedProcess[str]:
-        self.calls.append((list(argv), timeout))
-        return subprocess.CompletedProcess(argv, self.returncode, stdout="ok", stderr=self.stderr)
+    def wait(self, timeout: float | None = None) -> int:
+        return self.returncode
+
+    def poll(self) -> int:
+        return self.returncode
 
 
-def make_runner(tmp_path: Path, command: FakeCommandRunner | None = None) -> CadenceRunner:
-    return CadenceRunner(tmp_path / "private", command_runner=command or FakeCommandRunner(), now=lambda: NOW)
+class CapturingProcessFactory:
+    def __init__(self, returncodes: list[int] | None = None) -> None:
+        self.returncodes = list(returncodes or [0])
+        self.calls: list[tuple[list[str], dict]] = []
+
+    def __call__(self, argv: list[str], **kwargs) -> ImmediateProcess:
+        self.calls.append((list(argv), dict(kwargs)))
+        return ImmediateProcess(self.returncodes.pop(0))
+
+
+def make_runner(tmp_path: Path, factory: CapturingProcessFactory | None = None) -> CadenceRunner:
+    return CadenceRunner(
+        tmp_path / "private",
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=factory or CapturingProcessFactory(),
+        now=lambda: NOW,
+    )
 
 
 @pytest.mark.parametrize("cadence", ["daily", "weekly", "biweekly", "six-week", "quarterly"])
@@ -49,25 +75,25 @@ def test_period_key_rejects_path_traversal_and_ambiguous_values(tmp_path: Path, 
 
 
 def test_duplicate_period_is_skipped_across_runner_instances(tmp_path: Path) -> None:
-    command = FakeCommandRunner()
-    first = make_runner(tmp_path, command).run("weekly", "2026-W29")
-    second = make_runner(tmp_path, command).run("weekly", "2026-W29")
+    factory = CapturingProcessFactory([0])
+    first = make_runner(tmp_path, factory).run("weekly", "2026-W29")
+    second = make_runner(tmp_path, factory).run("weekly", "2026-W29")
 
     assert first.status == "success"
     assert second.status == "skipped_duplicate"
-    assert len(command.calls) == 1
+    assert len(factory.calls) == 1
     assert first.idempotency_key == "weekly:2026-W29"
 
 
 def test_runner_uses_fixed_quiet_non_yolo_hermes_argv_and_safe_prompt(tmp_path: Path) -> None:
-    command = FakeCommandRunner()
-    make_runner(tmp_path, command).run("daily", "2026-07-19")
+    factory = CapturingProcessFactory()
+    make_runner(tmp_path, factory).run("daily", "2026-07-19")
 
-    argv, timeout = command.calls[0]
-    assert argv[:6] == ["hermes", "-p", "opportunity-discovery", "chat", "-Q", "-q"]
+    argv, _ = factory.calls[0]
+    assert Path(argv[0]).name == "hermes"
+    assert argv[1:6] == ["-p", "opportunity-discovery", "chat", "-Q", "-q"]
     assert "--yolo" not in argv
     assert not any(term in argv for term in ("message", "cron", "gateway"))
-    assert timeout == 1500
     prompt = argv[-1]
     for required in ("广域输入", "反对证据", "意外发现", "不得执行任何外部行动", "改进建议草案"):
         assert required in prompt
@@ -81,9 +107,7 @@ def test_runner_uses_fixed_quiet_non_yolo_hermes_argv_and_safe_prompt(tmp_path: 
 def test_every_cadence_has_an_explicit_bounded_timeout(
     tmp_path: Path, cadence: str, expected_timeout: int
 ) -> None:
-    command = FakeCommandRunner()
-    make_runner(tmp_path, command).run(cadence, "2026-07-19")
-    assert command.calls[0][1] == expected_timeout
+    assert CADENCE_TIMEOUTS[cadence] == expected_timeout
 
 
 def test_active_atomic_mkdir_lock_returns_locked_without_invoking_hermes(tmp_path: Path) -> None:
@@ -93,12 +117,18 @@ def test_active_atomic_mkdir_lock_returns_locked_without_invoking_hermes(tmp_pat
     (lock / "owner.json").write_text(
         json.dumps({"pid": os.getpid(), "started_at": NOW.isoformat(), "run_id": "other"}), encoding="utf-8"
     )
-    command = FakeCommandRunner()
+    factory = CapturingProcessFactory()
 
-    record = CadenceRunner(home, command_runner=command, now=lambda: NOW).run("daily", "2026-07-19")
+    record = CadenceRunner(
+        home,
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=factory,
+        now=lambda: NOW,
+    ).run("daily", "2026-07-19")
 
     assert record.status == "locked"
-    assert command.calls == []
+    assert factory.calls == []
 
 
 def test_stale_dead_owner_lock_is_reclaimed(tmp_path: Path) -> None:
@@ -109,21 +139,26 @@ def test_stale_dead_owner_lock_is_reclaimed(tmp_path: Path) -> None:
         json.dumps({"pid": 999_999_999, "started_at": "2026-07-19T08:00:00+00:00", "run_id": "dead"}),
         encoding="utf-8",
     )
-    command = FakeCommandRunner()
+    factory = CapturingProcessFactory()
 
-    record = CadenceRunner(home, command_runner=command, now=lambda: NOW, stale_after_seconds=60).run(
+    record = CadenceRunner(
+        home,
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=factory,
+        now=lambda: NOW,
+        stale_after_seconds=60,
+    ).run(
         "daily", "2026-07-19"
     )
 
     assert record.status == "success"
-    assert len(command.calls) == 1
+    assert len(factory.calls) == 1
 
 
 def test_heartbeat_is_atomic_0600_and_records_terminal_success(tmp_path: Path) -> None:
     home = tmp_path / "private"
-    record = CadenceRunner(home, command_runner=FakeCommandRunner(), now=lambda: NOW).run(
-        "daily", "2026-07-19"
-    )
+    record = make_runner(tmp_path).run("daily", "2026-07-19")
     heartbeat = home / "dashboard" / "heartbeats" / "daily.json"
     payload = json.loads(heartbeat.read_text(encoding="utf-8"))
 
@@ -135,33 +170,35 @@ def test_heartbeat_is_atomic_0600_and_records_terminal_success(tmp_path: Path) -
 
 def test_nonzero_and_timeout_are_persisted_as_terminal_failures(tmp_path: Path) -> None:
     home = tmp_path / "private"
-    failed = CadenceRunner(home, command_runner=FakeCommandRunner(returncode=7, stderr="private detail"), now=lambda: NOW)
-    failure_record = failed.run("daily", "2026-07-19")
-
-    class TimeoutRunner(FakeCommandRunner):
-        def __call__(self, argv: list[str], timeout: int) -> subprocess.CompletedProcess[str]:
-            raise subprocess.TimeoutExpired(argv, timeout, output="secret", stderr="private")
-
-    timeout_record = CadenceRunner(home, command_runner=TimeoutRunner(), now=lambda: NOW).run(
-        "weekly", "2026-W29"
+    failed = CadenceRunner(
+        home,
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=CapturingProcessFactory([7]),
+        now=lambda: NOW,
     )
+    failure_record = failed.run("daily", "2026-07-19")
 
     assert failure_record.status == "failed"
     assert failure_record.error_class == "nonzero_exit"
-    assert timeout_record.status == "timeout"
-    assert timeout_record.error_class == "timeout"
-    rendered = json.dumps([failure_record.to_dict(), timeout_record.to_dict()])
+    rendered = json.dumps(failure_record.to_dict())
     assert "private detail" not in rendered
     assert "secret" not in rendered
 
 
 def test_unexpected_runner_exception_is_a_secret_free_terminal_failure(tmp_path: Path) -> None:
-    class BrokenRunner(FakeCommandRunner):
-        def __call__(self, argv: list[str], timeout: int) -> subprocess.CompletedProcess[str]:
+    class BrokenFactory(CapturingProcessFactory):
+        def __call__(self, argv: list[str], **kwargs) -> ImmediateProcess:
             raise RuntimeError("provider token=abcdefghijklmnop")
 
     home = tmp_path / "private"
-    record = CadenceRunner(home, command_runner=BrokenRunner(), now=lambda: NOW).run("daily", "2026-07-19")
+    record = CadenceRunner(
+        home,
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=BrokenFactory(),
+        now=lambda: NOW,
+    ).run("daily", "2026-07-19")
     heartbeat = json.loads((home / "dashboard" / "heartbeats" / "daily.json").read_text(encoding="utf-8"))
 
     assert record.status == "failed"
@@ -174,16 +211,20 @@ def test_same_period_concurrency_invokes_hermes_only_once(tmp_path: Path) -> Non
     entered = threading.Event()
     release = threading.Event()
 
-    class BlockingRunner(FakeCommandRunner):
-        def __call__(self, argv: list[str], timeout: int) -> subprocess.CompletedProcess[str]:
-            self.calls.append((list(argv), timeout))
-            entered.set()
+    class BlockingProcess(ImmediateProcess):
+        def wait(self, timeout: float | None = None) -> int:
             assert release.wait(2)
-            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+            return 0
 
-    command = BlockingRunner()
-    first_runner = make_runner(tmp_path, command)
-    second_runner = make_runner(tmp_path, command)
+    class BlockingFactory(CapturingProcessFactory):
+        def __call__(self, argv: list[str], **kwargs) -> BlockingProcess:
+            self.calls.append((list(argv), dict(kwargs)))
+            entered.set()
+            return BlockingProcess()
+
+    factory = BlockingFactory()
+    first_runner = make_runner(tmp_path, factory)
+    second_runner = make_runner(tmp_path, factory)
     with ThreadPoolExecutor(max_workers=2) as pool:
         first = pool.submit(first_runner.run, "weekly", "2026-W29")
         assert entered.wait(2)
@@ -193,4 +234,190 @@ def test_same_period_concurrency_invokes_hermes_only_once(tmp_path: Path) -> Non
         first_record = first.result(timeout=2)
 
     assert {first_record.status, second_record.status} == {"success", "locked"}
-    assert len(command.calls) == 1
+    assert len(factory.calls) == 1
+
+
+def test_popen_contract_uses_real_absolute_hermes_minimal_env_cwd_and_exact_argv(tmp_path: Path) -> None:
+    executable = make_hermes_executable(tmp_path)
+    working_directory = tmp_path / "work"
+    working_directory.mkdir()
+    factory = CapturingProcessFactory()
+    runner = CadenceRunner(
+        tmp_path / "private",
+        hermes_path=executable,
+        working_directory=working_directory,
+        process_factory=factory,
+        now=lambda: NOW,
+    )
+
+    assert runner.run("daily", "2026-07-19").status == "success"
+    argv, options = factory.calls[0]
+    assert argv[:6] == [str(executable.resolve()), "-p", "opportunity-discovery", "chat", "-Q", "-q"]
+    assert argv[6:10] == ["--source", "tool", "--skills", "opportunity-discovery"]
+    assert "--yolo" not in argv
+    assert options["cwd"] == str(working_directory.resolve())
+    assert options["env"] == {
+        "HOME": str(Path.home()),
+        "LANG": "C.UTF-8",
+        "PATH": f"{executable.parent.resolve()}:/usr/bin:/bin",
+    }
+    assert options["start_new_session"] is True
+    assert options["stdin"] is subprocess.DEVNULL
+    assert options["stdout"] is subprocess.DEVNULL
+    assert options["stderr"] is subprocess.DEVNULL
+
+
+def test_default_argv_keeps_fixed_home_local_bin_entry_after_realpath_validation(
+    tmp_path: Path, monkeypatch
+) -> None:
+    fake_home = tmp_path / "home"
+    target = fake_home / "runtime" / "hermes"
+    target.parent.mkdir(parents=True)
+    target.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    target.chmod(0o700)
+    entry = fake_home / ".local" / "bin" / "hermes"
+    entry.parent.mkdir(parents=True)
+    entry.symlink_to(target)
+    monkeypatch.setattr(Path, "home", lambda: fake_home)
+    factory = CapturingProcessFactory()
+    runner = CadenceRunner(
+        tmp_path / "private",
+        working_directory=tmp_path,
+        process_factory=factory,
+        now=lambda: NOW,
+    )
+
+    assert runner.run("daily", "2026-07-19").status == "success"
+    argv, options = factory.calls[0]
+    assert argv[0] == str(entry)
+    assert options["env"]["PATH"].startswith(f"{entry.parent}:")
+
+
+@pytest.mark.parametrize("path_kind", ["relative", "wrong_basename", "symlink"])
+def test_hermes_executable_must_be_absolute_real_executable_named_hermes(tmp_path: Path, path_kind: str) -> None:
+    real = make_hermes_executable(tmp_path)
+    if path_kind == "relative":
+        candidate = Path("bin/hermes")
+    elif path_kind == "wrong_basename":
+        candidate = real.with_name("not-hermes")
+        candidate.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+        candidate.chmod(0o700)
+    else:
+        target = real.with_name("actual-binary")
+        real.rename(target)
+        real.symlink_to(target)
+        candidate = real
+
+    with pytest.raises(ValidationError):
+        CadenceRunner(tmp_path / "private", hermes_path=candidate, working_directory=tmp_path)
+
+
+def test_failed_and_timeout_periods_retry_until_success_with_monotonic_attempt(tmp_path: Path) -> None:
+    executable = make_hermes_executable(tmp_path)
+    factory = CapturingProcessFactory([7, 0])
+    runner = CadenceRunner(
+        tmp_path / "private",
+        hermes_path=executable,
+        working_directory=tmp_path,
+        process_factory=factory,
+        now=lambda: NOW,
+    )
+
+    first = runner.run("daily", "2026-07-19")
+    second = runner.run("daily", "2026-07-19")
+    duplicate = runner.run("daily", "2026-07-19")
+
+    assert (first.status, first.attempt) == ("failed", 1)
+    assert (second.status, second.attempt) == ("success", 2)
+    assert (duplicate.status, duplicate.attempt) == ("skipped_duplicate", 2)
+    assert len(factory.calls) == 2
+    persisted = json.loads((tmp_path / "private" / "dashboard" / "runs" / "daily" / "2026-07-19.json").read_text())
+    assert (persisted["status"], persisted["attempt"]) == ("success", 2)
+
+
+def test_persisted_timeout_is_retryable_and_does_not_block_next_attempt(tmp_path: Path) -> None:
+    home = tmp_path / "private"
+    record_path = home / "dashboard" / "runs" / "daily" / "2026-07-19.json"
+    record_path.parent.mkdir(parents=True)
+    record_path.write_text(
+        json.dumps({"status": "timeout", "attempt": 3, "run_id": "old-timeout"}), encoding="utf-8"
+    )
+    factory = CapturingProcessFactory([0])
+    runner = CadenceRunner(
+        home,
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=factory,
+        now=lambda: NOW,
+    )
+
+    record = runner.run("daily", "2026-07-19")
+
+    assert (record.status, record.attempt) == ("success", 4)
+    assert len(factory.calls) == 1
+
+
+def test_running_heartbeat_refreshes_periodically_and_stops_at_terminal(tmp_path: Path) -> None:
+    executable = make_hermes_executable(tmp_path, "#!/bin/sh\nsleep 0.35\n")
+    home = tmp_path / "private"
+    runner = CadenceRunner(
+        home,
+        hermes_path=executable,
+        working_directory=tmp_path,
+        heartbeat_interval_seconds=0.05,
+    )
+    result = []
+    thread = threading.Thread(target=lambda: result.append(runner.run("daily", "2026-07-19")))
+    thread.start()
+    heartbeat = home / "dashboard" / "heartbeats" / "daily.json"
+    deadline = time.monotonic() + 2
+    observed_updates = set()
+    while thread.is_alive() and time.monotonic() < deadline:
+        if heartbeat.exists():
+            payload = json.loads(heartbeat.read_text(encoding="utf-8"))
+            if payload["status"] == "running":
+                observed_updates.add(payload["updated_at"])
+        time.sleep(0.02)
+    thread.join(timeout=2)
+
+    assert not thread.is_alive()
+    assert result[0].status == "success"
+    assert len(observed_updates) >= 2
+    terminal = json.loads(heartbeat.read_text(encoding="utf-8"))
+    assert terminal["status"] == "success"
+    terminal_mtime = heartbeat.stat().st_mtime_ns
+    time.sleep(0.1)
+    assert heartbeat.stat().st_mtime_ns == terminal_mtime
+
+
+def test_timeout_terminates_entire_process_group_including_grandchild(tmp_path: Path, monkeypatch) -> None:
+    executable = make_hermes_executable(
+        tmp_path,
+        "#!/bin/sh\ntrap 'exit 0' TERM\nsh -c 'trap \"\" TERM; sleep 30' &\necho $! > child.pid\nwait\n",
+    )
+    monkeypatch.setitem(
+        __import__("opportunity_os.automation.hermes_runner", fromlist=["CADENCE_TIMEOUTS"]).CADENCE_TIMEOUTS,
+        "daily",
+        0.8,
+    )
+    runner = CadenceRunner(
+        tmp_path / "private",
+        hermes_path=executable,
+        working_directory=tmp_path,
+        heartbeat_interval_seconds=0.05,
+        termination_grace_seconds=0.1,
+    )
+
+    record = runner.run("daily", "2026-07-19")
+    child_pid = int((tmp_path / "child.pid").read_text(encoding="utf-8"))
+    deadline = time.monotonic() + 2
+    while time.monotonic() < deadline:
+        try:
+            os.kill(child_pid, 0)
+        except ProcessLookupError:
+            break
+        time.sleep(0.02)
+
+    assert record.status == "timeout"
+    with pytest.raises(ProcessLookupError):
+        os.kill(child_pid, 0)

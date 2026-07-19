@@ -113,3 +113,4 @@
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6 recovery分类顺序：仅mutation_started且目标匹配可归因applied，pre-CLI外部变更与legacy phase转manual review（280项测试通过）
 2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6最终复审通过：phase顺序归因与零mutation恢复已验证，I1-I4/M1/M2无回归（280项测试通过）
 2026-07-19 | implement | integrations/hermes-opportunity-os/automation | 完成Task 7固定Hermes节奏、幂等锁与心跳、安全Profile、自我改进约束、AGENTS合规知识库导出及14天私有Bridge（338项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 加固Task 7进程组超时清理、成功态幂等重试、周期心跳、no-follow导出锁、Bridge语义与JSON边界及TTL清理（365项测试通过）

@@ -2,6 +2,7 @@ import json
 import math
 import os
 import re
+import socket
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -161,6 +162,15 @@ def test_render_rejects_private_data_in_unused_fields_and_nonfinite_scores(tmp_p
         exporter.render(report)
 
 
+def test_render_requires_top_level_composite_score_at_least_seven(tmp_path: Path) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    report = valid_report(
+        score={"技术深度": 8, "实用价值": 8, "时效性": 8, "领域匹配": 8, "综合": 6.9}
+    )
+    with pytest.raises(ValidationError):
+        exporter.render(report)
+
+
 def test_symlinked_syntheses_or_owned_page_is_rejected(tmp_path: Path) -> None:
     exporter, root, _ = make_exporter(tmp_path)
     outside = tmp_path / "outside"
@@ -174,6 +184,78 @@ def test_symlinked_syntheses_or_owned_page_is_rejected(tmp_path: Path) -> None:
     with pytest.raises(BoundaryError):
         exporter.export("dashboard", valid_report())
     assert list(outside.iterdir()) == []
+
+
+def test_private_home_symlink_is_rejected_before_lock_or_bridge_write(tmp_path: Path) -> None:
+    root = knowledge_fixture(tmp_path)
+    outside = tmp_path / "outside-private"
+    outside.mkdir()
+    private_link = tmp_path / "private-link"
+    private_link.symlink_to(outside, target_is_directory=True)
+
+    with pytest.raises(BoundaryError):
+        KnowledgeExporter(root, private_home=private_link, now=lambda: NOW)
+    assert list(outside.iterdir()) == []
+
+
+def test_symlinked_private_locks_directory_is_rejected_without_touching_target(tmp_path: Path) -> None:
+    exporter, _, private = make_exporter(tmp_path)
+    private.mkdir()
+    outside = tmp_path / "outside-locks"
+    outside.mkdir()
+    sentinel = outside / "sentinel"
+    sentinel.write_text("unchanged", encoding="utf-8")
+    (private / "locks").symlink_to(outside, target_is_directory=True)
+
+    with pytest.raises(BoundaryError):
+        exporter.export("dashboard", valid_report())
+    assert sentinel.read_text(encoding="utf-8") == "unchanged"
+    assert {path.name for path in outside.iterdir()} == {"sentinel"}
+
+
+def write_export_lock(private: Path, *, pid: int, started_at: str, token: str = "owner") -> Path:
+    lock = private / "locks" / "kb-export.lock"
+    lock.mkdir(parents=True)
+    owner = {"token": token, "pid": pid, "host": socket.gethostname(), "started_at": started_at}
+    owner_path = lock / "owner.json"
+    owner_path.write_text(json.dumps(owner), encoding="utf-8")
+    owner_path.chmod(0o600)
+    return lock
+
+
+def test_export_live_owner_lock_is_never_reclaimed(tmp_path: Path) -> None:
+    exporter, _, private = make_exporter(tmp_path)
+    lock = write_export_lock(private, pid=os.getpid(), started_at="2020-01-01T00:00:00+00:00")
+    exporter = KnowledgeExporter(
+        exporter.knowledge_root,
+        private_home=private,
+        now=lambda: NOW,
+        lock_stale_after_seconds=0.01,
+        lock_wait_seconds=0.05,
+    )
+
+    with pytest.raises(ValidationError):
+        exporter.export("dashboard", valid_report())
+    assert lock.is_dir()
+    assert json.loads((lock / "owner.json").read_text())["pid"] == os.getpid()
+
+
+def test_export_stale_dead_owner_lock_is_atomically_reclaimed(tmp_path: Path) -> None:
+    exporter, root, private = make_exporter(tmp_path)
+    write_export_lock(private, pid=999_999_999, started_at="2020-01-01T00:00:00+00:00")
+    exporter = KnowledgeExporter(
+        root,
+        private_home=private,
+        now=lambda: NOW,
+        lock_stale_after_seconds=0.01,
+        lock_wait_seconds=0.2,
+    )
+
+    page = exporter.export("dashboard", valid_report())
+
+    assert page.is_file()
+    assert not (private / "locks" / "kb-export.lock").exists()
+    assert not list((private / "locks").glob(".kb-export.stale.*"))
 
 
 def test_concurrent_exports_do_not_duplicate_index_or_truncate_log(tmp_path: Path) -> None:
@@ -219,6 +301,28 @@ def test_bridge_targeted_searches_never_exceed_twenty_percent_or_remove_broad_so
             broad_sources=["official", "paper", "github"],
             targeted_searches=["targeted"],
         )
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"action": "remove", "sources": ["community"]},
+        {"operation": "delete", "target": "broad_sources"},
+        {"nested": {"动作": "移除", "来源": ["社区"]}},
+        {"nested": {"操作": "删除", "信源": ["社区"]}},
+        {"policy": {"verb": "drop", "source_ids": ["community"]}},
+        {"policy": {"verb": "丢弃", "广域来源": ["社区"]}},
+    ],
+)
+def test_bridge_semantically_rejects_all_broad_source_removal_shapes(tmp_path: Path, payload: dict) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "source-feedback.json",
+            payload,
+            broad_sources=["official", "paper", "github", "community"],
+            targeted_searches=[],
+        )
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "source-feedback.json",
@@ -239,6 +343,63 @@ def test_bridge_rejects_secrets_in_source_lists(tmp_path: Path) -> None:
         )
 
 
+@pytest.mark.parametrize(
+    "invalid",
+    [float("nan"), float("inf"), b"bytes", object(), {"nested": [float("-inf")] }],
+)
+def test_bridge_recursively_rejects_non_json_and_nonfinite_values(tmp_path: Path, invalid: object) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "openclaw-handoff.json",
+            {"request": invalid},
+            broad_sources=["official", "paper", "github", "community"],
+            targeted_searches=[],
+        )
+
+
+def test_bridge_rejects_private_paths_anywhere_in_payload_or_lists(tmp_path: Path) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "openclaw-handoff.json",
+            {"nested": {"request": "/Users/person/private"}},
+            broad_sources=["official", "paper", "github", "community"],
+            targeted_searches=[],
+        )
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "openclaw-handoff.json",
+            {"request": "补充证据"},
+            broad_sources=["official", "paper", "github", "community"],
+            targeted_searches=["/Users/person/query"],
+        )
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "openclaw-handoff.json",
+            {"/Users/person/key": "value"},
+            broad_sources=["official", "paper", "github", "community"],
+            targeted_searches=[],
+        )
+
+
+def test_targeted_ratio_accepts_exact_twenty_percent_and_rejects_above(tmp_path: Path) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    assert exporter.write_bridge(
+        "source-feedback.json",
+        {"request": "补充证据"},
+        broad_sources=["a", "b", "c", "d"],
+        targeted_searches=["target"],
+    ).is_file()
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "source-feedback.json",
+            {"request": "补充证据"},
+            broad_sources=["a", "b", "c", "d"],
+            targeted_searches=["target-1", "target-2"],
+        )
+
+
 def test_expired_bridge_is_not_returned(tmp_path: Path) -> None:
     exporter, _, _ = make_exporter(tmp_path)
     exporter.write_bridge(
@@ -246,3 +407,4 @@ def test_expired_bridge_is_not_returned(tmp_path: Path) -> None:
     )
     future = KnowledgeExporter(exporter.knowledge_root, private_home=exporter.private_home, now=lambda: NOW + timedelta(days=15))
     assert future.read_bridge("openclaw-handoff.json") is None
+    assert not (exporter.private_home / "bridge" / "openclaw-handoff.json").exists()

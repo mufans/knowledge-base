@@ -1,12 +1,12 @@
-"""Fixed Hermes cadence wrapper with durable lock and heartbeat state."""
+"""Fixed Hermes cadence wrapper with process-group timeout containment."""
 
 from __future__ import annotations
 
-import errno
 import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import tempfile
 import time
@@ -56,43 +56,75 @@ class RunRecord:
     ended_at: str | None
     duration_seconds: float | None
     error_class: str | None
+    attempt: int = 1
+    updated_at: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
 
 
-CommandRunner = Callable[[list[str], int], subprocess.CompletedProcess[str]]
-
-
-def _default_command_runner(argv: list[str], timeout: int) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        argv,
-        capture_output=True,
-        text=True,
-        timeout=timeout,
-        check=False,
-        close_fds=True,
-    )
+ProcessFactory = Callable[..., subprocess.Popen]
 
 
 class CadenceRunner:
-    """Run a fixed Hermes profile exactly once per cadence period."""
+    """Run a fixed Hermes profile, retrying only unsuccessful periods."""
 
     def __init__(
         self,
         home: str | Path,
         *,
-        command_runner: CommandRunner | None = None,
+        hermes_path: str | Path | None = None,
+        working_directory: str | Path | None = None,
+        process_factory: ProcessFactory | None = None,
         now: Callable[[], datetime] | None = None,
-        stale_after_seconds: int = 3900,
+        stale_after_seconds: float = 3900,
+        heartbeat_interval_seconds: float = 5,
+        termination_grace_seconds: float = 5,
     ) -> None:
         self.home = Path(home).expanduser().resolve()
         self.runtime_home = self.home / "dashboard"
-        self.command_runner = command_runner or _default_command_runner
+        self.hermes_path = self._validate_hermes_path(
+            Path.home() / ".local" / "bin" / "hermes" if hermes_path is None else Path(hermes_path)
+        )
+        default_working_directory = Path(__file__).resolve().parents[3]
+        self.working_directory = self._validate_working_directory(
+            default_working_directory if working_directory is None else Path(working_directory)
+        )
+        self.process_factory = process_factory or subprocess.Popen
         self.now = now or (lambda: datetime.now(timezone.utc))
         if stale_after_seconds <= 0:
             raise ValidationError("stale_after_seconds 必须大于零")
+        if heartbeat_interval_seconds <= 0:
+            raise ValidationError("heartbeat_interval_seconds 必须大于零")
+        if termination_grace_seconds <= 0:
+            raise ValidationError("termination_grace_seconds 必须大于零")
         self.stale_after_seconds = stale_after_seconds
+        self.heartbeat_interval_seconds = heartbeat_interval_seconds
+        self.termination_grace_seconds = termination_grace_seconds
+
+    @staticmethod
+    def _validate_hermes_path(path: Path) -> Path:
+        if not path.is_absolute() or path.name != "hermes":
+            raise ValidationError("Hermes executable 必须是绝对路径")
+        try:
+            resolved = path.resolve(strict=True)
+        except OSError as error:
+            raise ValidationError("Hermes executable 不存在") from error
+        if resolved.name != "hermes" or not resolved.is_file() or not os.access(resolved, os.X_OK):
+            raise ValidationError("Hermes executable 必须解析为可执行的 hermes 文件")
+        return path
+
+    @staticmethod
+    def _validate_working_directory(path: Path) -> Path:
+        if not path.is_absolute():
+            raise ValidationError("working_directory 必须是绝对路径")
+        try:
+            resolved = path.resolve(strict=True)
+        except OSError as error:
+            raise ValidationError("working_directory 不存在") from error
+        if not resolved.is_dir():
+            raise ValidationError("working_directory 必须是目录")
+        return resolved
 
     @staticmethod
     def _validate(cadence: str, period_key: str) -> None:
@@ -107,7 +139,7 @@ class CadenceRunner:
         descriptor, temporary = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
         try:
             with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
-                json.dump(payload, handle, ensure_ascii=False, sort_keys=True)
+                json.dump(payload, handle, ensure_ascii=False, sort_keys=True, allow_nan=False)
                 handle.write("\n")
                 handle.flush()
                 os.fsync(handle.fileno())
@@ -183,58 +215,120 @@ class CadenceRunner:
     def _record_path(self, cadence: str, period_key: str) -> Path:
         return self.runtime_home / "runs" / cadence / f"{period_key}.json"
 
-    def _existing_terminal(self, cadence: str, period_key: str) -> bool:
-        path = self._record_path(cadence, period_key)
+    def _read_record(self, cadence: str, period_key: str) -> dict[str, object] | None:
         try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload = json.loads(self._record_path(cadence, period_key).read_text(encoding="utf-8"))
         except (FileNotFoundError, OSError, ValueError, json.JSONDecodeError):
-            return False
-        return payload.get("status") in {"success", "failed", "timeout"}
+            return None
+        return payload if isinstance(payload, dict) else None
 
     @staticmethod
-    def _argv(cadence: str, period_key: str) -> list[str]:
-        prompt = (
-            f"运行周期：{cadence}:{period_key}。\n"
-            f"{_CADENCE_INSTRUCTIONS[cadence]}\n"
-            f"{_COMMON_PROMPT}"
+    def _argv(hermes_path: Path, cadence: str, period_key: str) -> list[str]:
+        prompt = f"运行周期：{cadence}:{period_key}。\n{_CADENCE_INSTRUCTIONS[cadence]}\n{_COMMON_PROMPT}"
+        return [
+            str(hermes_path),
+            "-p",
+            "opportunity-discovery",
+            "chat",
+            "-Q",
+            "-q",
+            "--source",
+            "tool",
+            "--skills",
+            "opportunity-discovery",
+            prompt,
+        ]
+
+    def _minimal_env(self) -> dict[str, str]:
+        return {
+            "HOME": str(Path.home()),
+            "LANG": "C.UTF-8",
+            "PATH": f"{self.hermes_path.parent}:/usr/bin:/bin",
+        }
+
+    def _heartbeat(self, record: RunRecord) -> None:
+        payload = record.to_dict()
+        payload["updated_at"] = self.now().astimezone(timezone.utc).isoformat()
+        self._atomic_json(self.runtime_home / "heartbeats" / f"{record.cadence}.json", payload)
+
+    def _terminate_process_group(self, process: subprocess.Popen) -> None:
+        try:
+            process_group = os.getpgid(process.pid)
+        except ProcessLookupError:
+            return
+        try:
+            os.killpg(process_group, signal.SIGTERM)
+        except ProcessLookupError:
+            return
+        deadline = time.monotonic() + self.termination_grace_seconds
+        while time.monotonic() < deadline:
+            try:
+                os.killpg(process_group, 0)
+            except ProcessLookupError:
+                return
+            time.sleep(min(0.05, max(0.0, deadline - time.monotonic())))
+        try:
+            os.killpg(process_group, signal.SIGKILL)
+        except ProcessLookupError:
+            return
+        try:
+            process.wait(timeout=self.termination_grace_seconds)
+        except subprocess.TimeoutExpired:
+            return
+
+    def _execute(self, running: RunRecord) -> tuple[str, str | None]:
+        process = self.process_factory(
+            self._argv(self.hermes_path, running.cadence, running.period_key),
+            cwd=str(self.working_directory),
+            env=self._minimal_env(),
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True,
+            close_fds=True,
         )
-        return ["hermes", "-p", "opportunity-discovery", "chat", "-Q", "-q", prompt]
+        deadline = time.monotonic() + CADENCE_TIMEOUTS[running.cadence]
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                self._terminate_process_group(process)
+                return "timeout", "timeout"
+            try:
+                returncode = process.wait(timeout=min(self.heartbeat_interval_seconds, remaining))
+            except subprocess.TimeoutExpired:
+                self._heartbeat(running)
+                continue
+            if returncode == 0:
+                return "success", None
+            return "failed", "nonzero_exit"
 
     def run(self, cadence: str, period_key: str) -> RunRecord:
         self._validate(cadence, period_key)
         run_id = uuid.uuid4().hex
-        started = self.now().astimezone(timezone.utc)
-        started_at = started.isoformat()
+        started_at = self.now().astimezone(timezone.utc).isoformat()
         key = f"{cadence}:{period_key}"
-
         lock_path = self._acquire_lock(cadence, run_id, started_at)
         if lock_path is None:
-            return RunRecord(run_id, cadence, period_key, key, "locked", started_at, started_at, 0.0, "lock_conflict")
+            return RunRecord(run_id, cadence, period_key, key, "locked", started_at, started_at, 0.0, "lock_conflict", 0)
         monotonic_start = time.monotonic()
         try:
-            if self._existing_terminal(cadence, period_key):
+            existing = self._read_record(cadence, period_key)
+            if existing and existing.get("status") == "success":
+                attempt = int(existing.get("attempt", 1))
                 return RunRecord(
-                    run_id, cadence, period_key, key, "skipped_duplicate", started_at, started_at, 0.0, None
+                    run_id, cadence, period_key, key, "skipped_duplicate", started_at, started_at, 0.0, None, attempt
                 )
-
-            running = RunRecord(run_id, cadence, period_key, key, "running", started_at, None, None, None)
-            self._atomic_json(self.runtime_home / "heartbeats" / f"{cadence}.json", running.to_dict())
-            status = "success"
-            error_class = None
+            attempt = int(existing.get("attempt", 0)) + 1 if existing else 1
+            running = RunRecord(
+                run_id, cadence, period_key, key, "running", started_at, None, None, None, attempt, started_at
+            )
+            self._heartbeat(running)
             try:
-                result = self.command_runner(self._argv(cadence, period_key), CADENCE_TIMEOUTS[cadence])
-                if result.returncode != 0:
-                    status = "failed"
-                    error_class = "nonzero_exit"
-            except subprocess.TimeoutExpired:
-                status = "timeout"
-                error_class = "timeout"
+                status, error_class = self._execute(running)
             except OSError as error:
                 status = "failed"
-                error_class = "executable_unavailable" if error.errno == errno.ENOENT else "execution_error"
+                error_class = "executable_unavailable" if error.errno == 2 else "execution_error"
             except Exception:
-                # Command adapters are an integration boundary. Persist only a
-                # fixed class; exception text can contain provider or path data.
                 status = "failed"
                 error_class = "execution_error"
 
@@ -249,9 +343,15 @@ class CadenceRunner:
                 ended_at=ended_at,
                 duration_seconds=round(time.monotonic() - monotonic_start, 6),
                 error_class=error_class,
+                attempt=attempt,
+                updated_at=ended_at,
             )
-            self._atomic_json(self._record_path(cadence, period_key), record.to_dict())
-            self._atomic_json(self.runtime_home / "heartbeats" / f"{cadence}.json", record.to_dict())
+            # A success is immutable. This also fails closed if another writer
+            # violated the cadence lock while this attempt was running.
+            current = self._read_record(cadence, period_key)
+            if not current or current.get("status") != "success":
+                self._atomic_json(self._record_path(cadence, period_key), record.to_dict())
+            self._heartbeat(record)
             return record
         finally:
             self._release_lock(lock_path, run_id)

@@ -6,6 +6,8 @@ import json
 import math
 import os
 import re
+import socket
+import stat
 import tempfile
 import time
 import uuid
@@ -40,12 +42,37 @@ class KnowledgeExporter:
         *,
         private_home: str | Path,
         now: Callable[[], datetime] | None = None,
+        lock_stale_after_seconds: float = 3900,
+        lock_wait_seconds: float = 5,
     ) -> None:
         self.knowledge_root = Path(knowledge_root).expanduser().resolve()
-        self.private_home = Path(private_home).expanduser().resolve()
-        if self.private_home == self.knowledge_root or self.private_home.is_relative_to(self.knowledge_root):
+        private_path = Path(private_home).expanduser()
+        if not private_path.is_absolute():
+            raise BoundaryError("private bridge 必须使用绝对路径")
+        if ".." in private_path.parts:
+            raise BoundaryError("private bridge 路径不得包含父目录跳转")
+        self.private_home = private_path
+        self._reject_symlink_components(self.private_home)
+        resolved_private = self.private_home.resolve(strict=False)
+        if resolved_private == self.knowledge_root or resolved_private.is_relative_to(self.knowledge_root):
             raise BoundaryError("private bridge 必须位于知识库之外")
+        if lock_stale_after_seconds <= 0 or lock_wait_seconds <= 0:
+            raise ValidationError("export lock timeout 必须大于零")
+        self.lock_stale_after_seconds = lock_stale_after_seconds
+        self.lock_wait_seconds = lock_wait_seconds
         self.now = now or (lambda: datetime.now(timezone.utc))
+
+    @staticmethod
+    def _reject_symlink_components(path: Path) -> None:
+        current = Path(path.anchor)
+        for part in path.parts[1:]:
+            current /= part
+            try:
+                mode = current.lstat().st_mode
+            except FileNotFoundError:
+                continue
+            if stat.S_ISLNK(mode):
+                raise BoundaryError(f"拒绝私人目录符号链接: {current.name}")
 
     @staticmethod
     def _safe_number(value: object, label: str) -> float:
@@ -70,17 +97,71 @@ class KnowledgeExporter:
 
     @classmethod
     def _contains_private_path(cls, value: object) -> bool:
-        return any(isinstance(item, str) and PRIVATE_PATH_PATTERN.search(item) for _, item in cls._nested_items(value))
+        return any(
+            (isinstance(key, str) and PRIVATE_PATH_PATTERN.search(key))
+            or (isinstance(item, str) and PRIVATE_PATH_PATTERN.search(item))
+            for key, item in cls._nested_items(value)
+        )
 
     @classmethod
     def _requests_broad_source_removal(cls, value: object) -> bool:
-        for key, _ in cls._nested_items(value):
-            if key is None:
-                continue
-            normalized = re.sub(r"[^a-z]", "", str(key).casefold())
-            if "source" in normalized and any(action in normalized for action in ("remove", "delete", "drop")):
-                return True
-        return False
+        deletion_terms = ("remove", "delete", "drop", "discard", "exclude", "删除", "移除", "去除", "丢弃", "屏蔽")
+        source_terms = ("source", "sources", "broad", "来源", "信源", "广域")
+
+        def inspect(item: object) -> bool:
+            if isinstance(item, Mapping):
+                local = json.dumps(item, ensure_ascii=False, sort_keys=True, allow_nan=False).casefold()
+                if any(term in local for term in deletion_terms) and any(term in local for term in source_terms):
+                    return True
+                for key, nested in item.items():
+                    normalized = re.sub(r"[^a-z\u4e00-\u9fff]", "", str(key).casefold())
+                    if normalized in {"action", "operation", "verb", "动作", "操作"} and isinstance(nested, str):
+                        allowed = ("add", "request", "search", "supplement", "增加", "新增", "补充", "检索", "请求")
+                        if not any(term in nested.casefold() for term in allowed):
+                            return True
+                    if inspect(nested):
+                        return True
+            elif isinstance(item, (list, tuple)):
+                return any(inspect(nested) for nested in item)
+            return False
+
+        try:
+            return inspect(value)
+        except (TypeError, ValueError):
+            # Invalid JSON is rejected separately; fail closed here too.
+            return True
+
+    @classmethod
+    def _validate_json_domain(cls, value: object, *, depth: int = 0) -> None:
+        if depth > 16:
+            raise ValidationError("bridge JSON 嵌套过深")
+        if value is None or isinstance(value, (bool, str)):
+            if isinstance(value, str) and len(value) > 16_384:
+                raise ValidationError("bridge 字符串过长")
+            return
+        if isinstance(value, int) and not isinstance(value, bool):
+            if abs(value) > 1_000_000_000_000_000:
+                raise ValidationError("bridge 整数超出允许范围")
+            return
+        if isinstance(value, float):
+            if not math.isfinite(value) or abs(value) > 1_000_000_000_000:
+                raise ValidationError("bridge 浮点数必须有限且有界")
+            return
+        if isinstance(value, Mapping):
+            if len(value) > 256:
+                raise ValidationError("bridge 对象字段过多")
+            for key, item in value.items():
+                if not isinstance(key, str) or not key or len(key) > 128:
+                    raise ValidationError("bridge 对象 key 必须是有界非空字符串")
+                cls._validate_json_domain(item, depth=depth + 1)
+            return
+        if isinstance(value, list):
+            if len(value) > 1024:
+                raise ValidationError("bridge 列表过长")
+            for item in value:
+                cls._validate_json_domain(item, depth=depth + 1)
+            return
+        raise ValidationError("bridge 仅允许 JSON domain 值")
 
     @staticmethod
     def _validate_public_text(value: object) -> str:
@@ -104,6 +185,7 @@ class KnowledgeExporter:
         return text
 
     def render(self, report: Mapping[str, object]) -> str:
+        self._validate_json_domain(report)
         if contains_secret(report) or self._contains_private_path(report):
             raise ValidationError("报告包含敏感字段、秘密或私人路径")
         title = self._validate_public_text(report.get("title"))
@@ -138,6 +220,8 @@ class KnowledgeExporter:
         if not isinstance(scores, Mapping) or set(scores) != set(SCORE_DIMENSIONS):
             raise ValidationError("score 维度不完整")
         score_values = {name: self._safe_number(scores[name], name) for name in SCORE_DIMENSIONS}
+        if score_values["综合"] < 7.0:
+            raise ValidationError("页面综合评分低于 7.0")
 
         sections = report.get("sections")
         if not isinstance(sections, Mapping) or set(sections) != set(REQUIRED_SECTIONS):
@@ -210,6 +294,91 @@ class KnowledgeExporter:
         if path.is_symlink():
             raise BoundaryError(f"拒绝符号链接路径: {path.name}")
 
+    def _open_private_home(self) -> int:
+        current_fd = os.open(self.private_home.anchor, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        try:
+            for part in self.private_home.parts[1:]:
+                try:
+                    next_fd = os.open(
+                        part,
+                        os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                        dir_fd=current_fd,
+                    )
+                except FileNotFoundError:
+                    try:
+                        os.mkdir(part, mode=0o700, dir_fd=current_fd)
+                    except FileExistsError:
+                        pass
+                    try:
+                        next_fd = os.open(
+                            part,
+                            os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                            dir_fd=current_fd,
+                        )
+                    except OSError as error:
+                        raise BoundaryError("无法安全创建 private home") from error
+                except OSError as error:
+                    raise BoundaryError("private home 路径包含不安全组件") from error
+                os.close(current_fd)
+                current_fd = next_fd
+            return current_fd
+        except Exception:
+            os.close(current_fd)
+            raise
+
+    def _open_private_subdir(self, name: str) -> int:
+        home_fd = self._open_private_home()
+        try:
+            try:
+                os.mkdir(name, mode=0o700, dir_fd=home_fd)
+            except FileExistsError:
+                pass
+            try:
+                return os.open(name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=home_fd)
+            except OSError as error:
+                raise BoundaryError(f"拒绝不安全的 private/{name} 目录") from error
+        finally:
+            os.close(home_fd)
+
+    @staticmethod
+    def _read_json_at(directory_fd: int, name: str) -> dict[str, object]:
+        descriptor = os.open(name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory_fd)
+        try:
+            with os.fdopen(descriptor, "r", encoding="utf-8", closefd=False) as handle:
+                payload = json.load(handle)
+        finally:
+            os.close(descriptor)
+        if not isinstance(payload, dict):
+            raise ValidationError("private JSON 顶层必须是 object")
+        return payload
+
+    @staticmethod
+    def _write_json_at(directory_fd: int, name: str, payload: Mapping[str, object], *, mode: int = 0o600) -> None:
+        rendered = json.dumps(payload, ensure_ascii=False, sort_keys=True, allow_nan=False) + "\n"
+        temporary = f".{name}.{uuid.uuid4().hex}.tmp"
+        descriptor = os.open(
+            temporary,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+            mode,
+            dir_fd=directory_fd,
+        )
+        try:
+            encoded = rendered.encode("utf-8")
+            written = 0
+            while written < len(encoded):
+                written += os.write(descriptor, encoded[written:])
+            os.fsync(descriptor)
+            os.fchmod(descriptor, mode)
+        finally:
+            os.close(descriptor)
+        try:
+            os.rename(temporary, name, src_dir_fd=directory_fd, dst_dir_fd=directory_fd)
+        finally:
+            try:
+                os.unlink(temporary, dir_fd=directory_fd)
+            except FileNotFoundError:
+                pass
+
     def _validate_repository_contract(self) -> None:
         agents = self.knowledge_root / "AGENTS.md"
         purpose = self.knowledge_root / "purpose.md"
@@ -254,24 +423,125 @@ class KnowledgeExporter:
             return f"方向实验复盘-{period_key}.md"
         raise ValidationError("报告类型或 period_key 不在固定允许列表中")
 
-    def _acquire_export_lock(self) -> Path:
-        locks = self.private_home / "locks"
-        locks.mkdir(parents=True, exist_ok=True, mode=0o700)
-        lock = locks / "kb-export.lock"
-        deadline = time.monotonic() + 5
+    @staticmethod
+    def _pid_alive(pid: object) -> bool:
+        if not isinstance(pid, int) or pid <= 0:
+            return False
+        try:
+            os.kill(pid, 0)
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True
+        return True
+
+    def _export_lock_is_stale(self, locks_fd: int) -> bool:
+        try:
+            lock_fd = os.open(
+                "kb-export.lock",
+                os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                dir_fd=locks_fd,
+            )
+        except FileNotFoundError:
+            return False
+        except OSError as error:
+            raise BoundaryError("拒绝不安全的 export lock") from error
+        try:
+            try:
+                owner = self._read_json_at(lock_fd, "owner.json")
+                started = datetime.fromisoformat(str(owner["started_at"]))
+                if started.tzinfo is None:
+                    return False
+                age = (self.now().astimezone(timezone.utc) - started.astimezone(timezone.utc)).total_seconds()
+                owner_dead = owner.get("host") == socket.gethostname() and not self._pid_alive(owner.get("pid"))
+                return age > self.lock_stale_after_seconds and owner_dead
+            except FileNotFoundError:
+                lock_stat = os.stat("kb-export.lock", dir_fd=locks_fd, follow_symlinks=False)
+                return self.now().timestamp() - lock_stat.st_mtime > self.lock_stale_after_seconds
+            except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError):
+                return False
+        finally:
+            os.close(lock_fd)
+
+    @staticmethod
+    def _cleanup_stale_lock(locks_fd: int, stale_name: str) -> None:
+        stale_fd = os.open(stale_name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd)
+        try:
+            try:
+                os.unlink("owner.json", dir_fd=stale_fd)
+            except FileNotFoundError:
+                pass
+        finally:
+            os.close(stale_fd)
+        try:
+            os.rmdir(stale_name, dir_fd=locks_fd)
+        except OSError:
+            pass
+
+    def _acquire_export_lock(self) -> tuple[int, str]:
+        locks_fd = self._open_private_subdir("locks")
+        deadline = time.monotonic() + self.lock_wait_seconds
         while True:
             try:
-                lock.mkdir(mode=0o700)
-                return lock
+                os.mkdir("kb-export.lock", mode=0o700, dir_fd=locks_fd)
             except FileExistsError:
+                if self._export_lock_is_stale(locks_fd):
+                    stale_name = f".kb-export.stale.{uuid.uuid4().hex}"
+                    try:
+                        os.rename(
+                            "kb-export.lock", stale_name, src_dir_fd=locks_fd, dst_dir_fd=locks_fd
+                        )
+                    except FileNotFoundError:
+                        continue
+                    self._cleanup_stale_lock(locks_fd, stale_name)
+                    continue
                 if time.monotonic() >= deadline:
+                    os.close(locks_fd)
                     raise ValidationError("知识库导出锁超时")
                 time.sleep(0.01)
+                continue
+            token = uuid.uuid4().hex
+            lock_fd = os.open(
+                "kb-export.lock", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd
+            )
+            try:
+                self._write_json_at(
+                    lock_fd,
+                    "owner.json",
+                    {
+                        "token": token,
+                        "pid": os.getpid(),
+                        "host": socket.gethostname(),
+                        "started_at": self.now().astimezone(timezone.utc).isoformat(),
+                    },
+                )
+            finally:
+                os.close(lock_fd)
+            return locks_fd, token
+
+    def _release_export_lock(self, locks_fd: int, token: str) -> None:
+        try:
+            try:
+                lock_fd = os.open(
+                    "kb-export.lock", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd
+                )
+            except FileNotFoundError:
+                return
+            try:
+                owner = self._read_json_at(lock_fd, "owner.json")
+                if owner.get("token") != token:
+                    return
+                os.unlink("owner.json", dir_fd=lock_fd)
+            finally:
+                os.close(lock_fd)
+            os.rmdir("kb-export.lock", dir_fd=locks_fd)
+        finally:
+            os.close(locks_fd)
 
     def export(self, kind: str, report: Mapping[str, object], *, period_key: str | None = None) -> Path:
         filename = self._page_name(kind, period_key)
         content = self.render(report)
-        lock = self._acquire_export_lock()
+        locks_fd, lock_token = self._acquire_export_lock()
         try:
             self._validate_repository_contract()
             syntheses = self.knowledge_root / "wiki" / "syntheses"
@@ -308,10 +578,7 @@ class KnowledgeExporter:
                 os.close(descriptor)
             return page
         finally:
-            try:
-                lock.rmdir()
-            except OSError:
-                pass
+            self._release_export_lock(locks_fd, lock_token)
 
     @staticmethod
     def _validate_bridge_name(name: str) -> None:
@@ -327,45 +594,65 @@ class KnowledgeExporter:
         targeted_searches: Sequence[str],
     ) -> Path:
         self._validate_bridge_name(name)
-        if contains_secret(payload) or contains_secret([list(broad_sources), list(targeted_searches)]):
+        broad = list(broad_sources)
+        targeted = list(targeted_searches)
+        self._validate_json_domain(payload)
+        self._validate_json_domain(broad)
+        self._validate_json_domain(targeted)
+        if (
+            contains_secret(payload)
+            or contains_secret([broad, targeted])
+            or self._contains_private_path(payload)
+            or self._contains_private_path([broad, targeted])
+        ):
             raise ValidationError("bridge 不得包含秘密")
         if self._requests_broad_source_removal(payload):
             raise ValidationError("bridge 不得移除广域来源")
-        if not broad_sources or any(not isinstance(item, str) or not item.strip() for item in broad_sources):
+        if not broad or any(not isinstance(item, str) or not item.strip() for item in broad):
             raise ValidationError("broad_sources 不能为空")
-        if any(not isinstance(item, str) or not item.strip() for item in targeted_searches):
+        if any(not isinstance(item, str) or not item.strip() for item in targeted):
             raise ValidationError("targeted_searches 格式无效")
-        if len(targeted_searches) > len(broad_sources) / 4:
+        if len(targeted) * 5 > len(broad) + len(targeted):
             raise ValidationError("定向搜索占比不得超过 20%")
 
-        bridge = self.private_home / "bridge"
-        bridge.mkdir(parents=True, exist_ok=True, mode=0o700)
-        self._reject_symlink(bridge)
-        path = bridge / name
-        self._reject_symlink(path)
         created = self.now().astimezone(timezone.utc)
         document = {
             "schema_version": 1,
             "created_at": created.isoformat(),
             "expires_at": (created + timedelta(days=14)).isoformat(),
-            "broad_sources": list(broad_sources),
-            "targeted_searches": list(targeted_searches),
+            "broad_sources": broad,
+            "targeted_searches": targeted,
             "payload": dict(payload),
         }
-        self._atomic_text(path, json.dumps(document, ensure_ascii=False, sort_keys=True) + "\n", mode=0o600)
-        return path
+        self._validate_json_domain(document)
+        if len(json.dumps(document, ensure_ascii=False, sort_keys=True, allow_nan=False).encode("utf-8")) > 65_536:
+            raise ValidationError("bridge JSON 总大小超过 64 KiB")
+        bridge_fd = self._open_private_subdir("bridge")
+        try:
+            self._write_json_at(bridge_fd, name, document)
+        finally:
+            os.close(bridge_fd)
+        return self.private_home / "bridge" / name
 
     def read_bridge(self, name: str) -> dict[str, object] | None:
         self._validate_bridge_name(name)
-        path = self.private_home / "bridge" / name
-        self._reject_symlink(path)
+        bridge_fd = self._open_private_subdir("bridge")
         try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload = self._read_json_at(bridge_fd, name)
             expires = datetime.fromisoformat(str(payload["expires_at"]))
         except FileNotFoundError:
             return None
         except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as error:
             raise ValidationError("bridge 文件损坏") from error
-        if expires.tzinfo is None or self.now().astimezone(timezone.utc) >= expires.astimezone(timezone.utc):
-            return None
-        return payload
+        finally:
+            if "expires" not in locals():
+                os.close(bridge_fd)
+        try:
+            if expires.tzinfo is None:
+                raise ValidationError("bridge expires_at 缺少 timezone")
+            if self.now().astimezone(timezone.utc) >= expires.astimezone(timezone.utc):
+                os.unlink(name, dir_fd=bridge_fd)
+                return None
+            return payload
+        finally:
+            os.close(bridge_fd)
