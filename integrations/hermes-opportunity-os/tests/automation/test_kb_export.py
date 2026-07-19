@@ -14,6 +14,16 @@ from opportunity_os.errors import BoundaryError, ValidationError
 
 
 NOW = datetime(2026, 7, 19, 10, 0, tzinfo=timezone.utc)
+OPAQUE_ID = "opportunity:550e8400-e29b-41d4-a716-446655440000"
+EXPERIMENT_ID = "experiment:123e4567-e89b-42d3-a456-426614174000"
+
+
+def valid_bridge_payload(name: str) -> dict[str, object]:
+    if name == "openclaw-handoff.json":
+        return {"operation": "add_handoff_refs", "entity_ids": [OPAQUE_ID]}
+    if name == "source-feedback.json":
+        return {"operation": "add_targeted_searches"}
+    return {"operation": "add_evidence_queries", "experiment_ids": [EXPERIMENT_ID]}
 
 
 def knowledge_fixture(tmp_path: Path) -> Path:
@@ -312,7 +322,7 @@ def test_private_bridge_files_are_0600_and_expire_in_fourteen_days(tmp_path: Pat
     exporter, _, private = make_exporter(tmp_path)
     path = exporter.write_bridge(
         name,
-        {"request": "补充端侧 Agent 反证"},
+        valid_bridge_payload(name),
         broad_sources=["official", "paper", "github", "community"],
         targeted_searches=["端侧 Agent 失败案例"],
     )
@@ -330,76 +340,17 @@ def test_bridge_targeted_searches_never_exceed_twenty_percent_or_remove_broad_so
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "source-feedback.json",
-            {"request": "过度定向"},
+            valid_bridge_payload("source-feedback.json"),
             broad_sources=["official", "paper", "github"],
             targeted_searches=["targeted"],
         )
-
-
-@pytest.mark.parametrize(
-    "payload",
-    [
-        {"action": "remove", "sources": ["community"]},
-        {"operation": "delete", "target": "broad_sources"},
-        {"nested": {"动作": "移除", "来源": ["社区"]}},
-        {"nested": {"操作": "删除", "信源": ["社区"]}},
-        {"policy": {"verb": "drop", "source_ids": ["community"]}},
-        {"policy": {"verb": "丢弃", "广域来源": ["社区"]}},
-    ],
-)
-def test_bridge_semantically_rejects_all_broad_source_removal_shapes(tmp_path: Path, payload: dict) -> None:
-    exporter, _, _ = make_exporter(tmp_path)
-    with pytest.raises(ValidationError):
-        exporter.write_bridge(
-            "source-feedback.json",
-            payload,
-            broad_sources=["official", "paper", "github", "community"],
-            targeted_searches=[],
-        )
-
-
-@pytest.mark.parametrize(
-    "verb",
-    [
-        "reduce", "decrease", "disable", "narrow", "limit", "shrink", "suppress",
-        "减少", "降低", "禁用", "缩减", "限制", "收窄", "屏蔽",
-    ],
-)
-def test_bridge_rejects_extended_broad_source_reduction_semantics(tmp_path: Path, verb: str) -> None:
-    exporter, _, _ = make_exporter(tmp_path)
-    with pytest.raises(ValidationError):
-        exporter.write_bridge(
-            "source-feedback.json",
-            {"nested": {"action": verb, "broad_sources": ["community"]}},
-            broad_sources=["official", "paper", "github", "community"],
-            targeted_searches=[],
-        )
-
-
-def test_reduction_words_without_source_semantics_do_not_false_positive(tmp_path: Path) -> None:
-    exporter, _, _ = make_exporter(tmp_path)
-    path = exporter.write_bridge(
-        "source-feedback.json",
-        {"request": "降低实验成本，不改变采集范围"},
-        broad_sources=["official", "paper", "github", "community"],
-        targeted_searches=[],
-    )
-    assert path.is_file()
-    with pytest.raises(ValidationError):
-        exporter.write_bridge(
-            "source-feedback.json",
-            {"policy": {"sources_to_remove": ["community"]}},
-            broad_sources=["official", "paper", "github", "community"],
-            targeted_searches=[],
-        )
-
 
 def test_bridge_rejects_secrets_in_source_lists(tmp_path: Path) -> None:
     exporter, _, _ = make_exporter(tmp_path)
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "openclaw-handoff.json",
-            {"request": "补充证据"},
+            valid_bridge_payload("openclaw-handoff.json"),
             broad_sources=["official", "paper", "github", "token=abcdefghijklmnop"],
             targeted_searches=[],
         )
@@ -414,7 +365,7 @@ def test_bridge_recursively_rejects_non_json_and_nonfinite_values(tmp_path: Path
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "openclaw-handoff.json",
-            {"request": invalid},
+            {"operation": invalid},
             broad_sources=["official", "paper", "github", "community"],
             targeted_searches=[],
         )
@@ -432,7 +383,7 @@ def test_bridge_rejects_private_paths_anywhere_in_payload_or_lists(tmp_path: Pat
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "openclaw-handoff.json",
-            {"request": "补充证据"},
+            valid_bridge_payload("openclaw-handoff.json"),
             broad_sources=["official", "paper", "github", "community"],
             targeted_searches=["/Users/person/query"],
         )
@@ -449,14 +400,14 @@ def test_targeted_ratio_accepts_exact_twenty_percent_and_rejects_above(tmp_path:
     exporter, _, _ = make_exporter(tmp_path)
     assert exporter.write_bridge(
         "source-feedback.json",
-        {"request": "补充证据"},
+        valid_bridge_payload("source-feedback.json"),
         broad_sources=["a", "b", "c", "d"],
         targeted_searches=["target"],
     ).is_file()
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "source-feedback.json",
-            {"request": "补充证据"},
+            valid_bridge_payload("source-feedback.json"),
             broad_sources=["a", "b", "c", "d"],
             targeted_searches=["target-1", "target-2"],
         )
@@ -468,7 +419,7 @@ def test_bridge_source_collections_must_be_supported_non_string_arrays(tmp_path:
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "source-feedback.json",
-            {"request": "补充证据"},
+            valid_bridge_payload("source-feedback.json"),
             broad_sources=bad_sources,
             targeted_searches=[],
         )
@@ -491,7 +442,7 @@ def test_bridge_sources_reject_normalized_duplicates_and_broad_target_overlap(
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "source-feedback.json",
-            {"request": "补充证据"},
+            valid_bridge_payload("source-feedback.json"),
             broad_sources=broad,
             targeted_searches=targeted,
         )
@@ -501,7 +452,7 @@ def test_bridge_accepts_supported_tuple_sources_and_preserves_exact_ratio_bounda
     exporter, _, _ = make_exporter(tmp_path)
     path = exporter.write_bridge(
         "source-feedback.json",
-        {"request": "补充证据"},
+        valid_bridge_payload("source-feedback.json"),
         broad_sources=("official", "paper", "github", "community"),
         targeted_searches=("target",),
     )
@@ -511,8 +462,77 @@ def test_bridge_accepts_supported_tuple_sources_and_preserves_exact_ratio_bounda
 def test_expired_bridge_is_not_returned(tmp_path: Path) -> None:
     exporter, _, _ = make_exporter(tmp_path)
     exporter.write_bridge(
-        "openclaw-handoff.json", {"request": "test"}, broad_sources=["a", "b", "c", "d"], targeted_searches=[]
+        "openclaw-handoff.json",
+        valid_bridge_payload("openclaw-handoff.json"),
+        broad_sources=["a", "b", "c", "d"],
+        targeted_searches=[],
     )
     future = KnowledgeExporter(exporter.knowledge_root, private_home=exporter.private_home, now=lambda: NOW + timedelta(days=15))
     assert future.read_bridge("openclaw-handoff.json") is None
     assert not (exporter.private_home / "bridge" / "openclaw-handoff.json").exists()
+
+
+@pytest.mark.parametrize(
+    ("name", "payload"),
+    [
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": [OPAQUE_ID]}),
+        ("source-feedback.json", {"operation": "add_targeted_searches"}),
+        (
+            "experiment-evidence-request.json",
+            {"operation": "add_evidence_queries", "experiment_ids": [EXPERIMENT_ID]},
+        ),
+    ],
+)
+def test_bridge_accepts_only_typed_additive_payloads_and_generates_locked_policy(
+    tmp_path: Path, name: str, payload: dict
+) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    path = exporter.write_bridge(
+        name,
+        payload,
+        broad_sources=["official", "paper", "github", "community"],
+        targeted_searches=["端侧 Agent 失败案例"],
+    )
+    document = json.loads(path.read_text(encoding="utf-8"))
+
+    assert document["payload"] == payload
+    assert document["policy"] == {"mode": "add_only", "broad_sources_locked": True}
+
+
+@pytest.mark.parametrize(
+    ("name", "payload"),
+    [
+        ("source-feedback.json", {}),
+        ("source-feedback.json", {"operation": "turn off"}),
+        ("source-feedback.json", {"operation": "停用"}),
+        ("source-feedback.json", {"operation": "关闭"}),
+        ("source-feedback.json", {"action": "turn off"}),
+        ("source-feedback.json", {"request": "关闭 broad sources"}),
+        ("source-feedback.json", {"instructions": "disable collection"}),
+        ("source-feedback.json", {"operation": "add_targeted_searches", "unknown": True}),
+        ("source-feedback.json", {"operation": {"name": "add_targeted_searches"}}),
+        ("openclaw-handoff.json", {"operation": "add_targeted_searches"}),
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": ["../private"]}),
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": ["opp:not-a-uuid"]}),
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": OPAQUE_ID}),
+        (
+            "experiment-evidence-request.json",
+            {"operation": "add_evidence_queries", "experiment_ids": ["experiment:fake"]},
+        ),
+        (
+            "experiment-evidence-request.json",
+            {"operation": "add_evidence_queries", "experiment_ids": [{"id": EXPERIMENT_ID}]},
+        ),
+    ],
+)
+def test_bridge_rejects_legacy_free_text_wrong_enum_unknown_nested_and_fake_ids(
+    tmp_path: Path, name: str, payload: dict
+) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            name,
+            payload,
+            broad_sources=["official", "paper", "github", "community"],
+            targeted_searches=["target"],
+        )

@@ -115,3 +115,4 @@
 2026-07-19 | implement | integrations/hermes-opportunity-os/automation | 完成Task 7固定Hermes节奏、幂等锁与心跳、安全Profile、自我改进约束、AGENTS合规知识库导出及14天私有Bridge（338项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 加固Task 7进程组超时清理、成功态幂等重试、周期心跳、no-follow导出锁、Bridge语义与JSON边界及TTL清理（365项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 完成Task 7监督异常进程组清理、全路径openat边界、flock锁仲裁及Bridge来源缩减与去重防护（400项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 将Task 7 Bridge收敛为逐文件typed additive schema、安全opaque UUID与服务端add-only来源锁策略（398项测试通过）

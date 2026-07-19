@@ -27,6 +27,23 @@ BRIDGE_NAMES = {
     "source-feedback.json",
     "experiment-evidence-request.json",
 }
+BRIDGE_PAYLOAD_SCHEMAS: dict[str, tuple[str, frozenset[str], str | None]] = {
+    "openclaw-handoff.json": (
+        "add_handoff_refs",
+        frozenset({"operation", "entity_ids"}),
+        "entity_ids",
+    ),
+    "source-feedback.json": (
+        "add_targeted_searches",
+        frozenset({"operation"}),
+        None,
+    ),
+    "experiment-evidence-request.json": (
+        "add_evidence_queries",
+        frozenset({"operation", "experiment_ids"}),
+        "experiment_ids",
+    ),
+}
 REQUIRED_SECTIONS = ("核心概念", "设计原理", "关键实现", "关联分析", "可执行建议")
 SCORE_DIMENSIONS = ("技术深度", "实用价值", "时效性", "领域匹配", "综合")
 SELF_DIMENSIONS = ("摘要质量", "技术深度", "相关性", "原创性", "格式规范")
@@ -35,6 +52,10 @@ TAG_PATTERN = re.compile(r"^#[A-Za-z][A-Za-z0-9_-]*$")
 CHINESE_PATTERN = re.compile(r"[\u3400-\u9fff]")
 PRIVATE_PATH_PATTERN = re.compile(r"(?:/Users/|/home/|~/(?:\.hermes|\.config)|profile://|\\Users\\)", re.IGNORECASE)
 MARKDOWN_LINK_PATTERN = re.compile(r"\[([^\]\n]+)\]\(([^)\n]+)\)")
+OPAQUE_ID_PATTERN = re.compile(
+    r"^[a-z][a-z0-9-]{1,31}:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-"
+    r"[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+)
 
 
 class KnowledgeExporter:
@@ -104,61 +125,6 @@ class KnowledgeExporter:
             or (isinstance(item, str) and PRIVATE_PATH_PATTERN.search(item))
             for key, item in cls._nested_items(value)
         )
-
-    @classmethod
-    def _requests_broad_source_removal(cls, value: object) -> bool:
-        reduction_terms = {
-            "remove", "delete", "drop", "discard", "exclude", "reduce", "decrease",
-            "disable", "narrow", "limit", "shrink", "suppress",
-        }
-        chinese_reductions = ("删除", "移除", "去除", "丢弃", "减少", "降低", "禁用", "缩减", "限制", "收窄", "屏蔽")
-
-        def fragments(item: object) -> list[str]:
-            result: list[str] = []
-            if isinstance(item, Mapping):
-                for key, nested in item.items():
-                    result.append(str(key))
-                    result.extend(fragments(nested))
-            elif isinstance(item, list):
-                for nested in item:
-                    result.extend(fragments(nested))
-            elif isinstance(item, str):
-                result.append(item)
-            return result
-
-        def inspect(item: object) -> bool:
-            if isinstance(item, Mapping):
-                local_fragments = [unicodedata.normalize("NFKC", part).casefold() for part in fragments(item)]
-                words = {
-                    word
-                    for part in local_fragments
-                    for word in re.findall(r"[a-z]+|[\u4e00-\u9fff]+", part)
-                }
-                compact = " ".join(local_fragments).replace("_", "")
-                has_reduction = bool(words & reduction_terms) or any(
-                    term in compact for term in chinese_reductions
-                )
-                has_source = (
-                    bool(words & {"source", "sources"})
-                    or "broadsources" in compact
-                    or "来源" in compact
-                    or "信源" in compact
-                    or "广域来源" in compact
-                )
-                if has_reduction and has_source:
-                    return True
-                for nested in item.values():
-                    if inspect(nested):
-                        return True
-            elif isinstance(item, list):
-                return any(inspect(nested) for nested in item)
-            return False
-
-        try:
-            return inspect(value)
-        except (TypeError, ValueError):
-            # Invalid JSON is rejected separately; fail closed here too.
-            return True
 
     @classmethod
     def _validate_json_domain(cls, value: object, *, depth: int = 0) -> None:
@@ -641,6 +607,29 @@ class KnowledgeExporter:
         if name not in BRIDGE_NAMES:
             raise ValidationError("bridge 文件名不在固定允许列表中")
 
+    @classmethod
+    def _validate_bridge_payload(cls, name: str, payload: object) -> dict[str, object]:
+        if not isinstance(payload, Mapping):
+            raise ValidationError("bridge payload 必须是 object")
+        cls._validate_json_domain(payload)
+        operation, allowed_keys, id_field = BRIDGE_PAYLOAD_SCHEMAS[name]
+        if "operation" not in payload or not set(payload).issubset(allowed_keys):
+            raise ValidationError("bridge payload 字段不符合固定 schema")
+        if payload["operation"] != operation:
+            raise ValidationError("bridge operation 不在该文件的固定允许值中")
+
+        validated: dict[str, object] = {"operation": operation}
+        if id_field is not None and id_field in payload:
+            identifiers = payload[id_field]
+            if not isinstance(identifiers, list):
+                raise ValidationError(f"{id_field} 必须是 JSON array")
+            if any(not isinstance(item, str) or not OPAQUE_ID_PATTERN.fullmatch(item) for item in identifiers):
+                raise ValidationError(f"{id_field} 只能包含安全的前缀 UUID")
+            if len(set(identifiers)) != len(identifiers):
+                raise ValidationError(f"{id_field} 不得包含重复项")
+            validated[id_field] = list(identifiers)
+        return validated
+
     def write_bridge(
         self,
         name: str,
@@ -656,16 +645,14 @@ class KnowledgeExporter:
         )
         if broad_keys & targeted_keys:
             raise ValidationError("broad_sources 与 targeted_searches 不得重叠")
-        self._validate_json_domain(payload)
+        validated_payload = self._validate_bridge_payload(name, payload)
         if (
-            contains_secret(payload)
+            contains_secret(validated_payload)
             or contains_secret([broad, targeted])
-            or self._contains_private_path(payload)
+            or self._contains_private_path(validated_payload)
             or self._contains_private_path([broad, targeted])
         ):
             raise ValidationError("bridge 不得包含秘密")
-        if self._requests_broad_source_removal(payload):
-            raise ValidationError("bridge 不得移除广域来源")
         if not broad or any(not isinstance(item, str) or not item.strip() for item in broad):
             raise ValidationError("broad_sources 不能为空")
         if any(not isinstance(item, str) or not item.strip() for item in targeted):
@@ -680,7 +667,8 @@ class KnowledgeExporter:
             "expires_at": (created + timedelta(days=14)).isoformat(),
             "broad_sources": broad,
             "targeted_searches": targeted,
-            "payload": dict(payload),
+            "payload": validated_payload,
+            "policy": {"mode": "add_only", "broad_sources_locked": True},
         }
         self._validate_json_domain(document)
         if len(json.dumps(document, ensure_ascii=False, sort_keys=True, allow_nan=False).encode("utf-8")) > 65_536:

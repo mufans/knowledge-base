@@ -69,3 +69,20 @@ def test_operating_rhythm_resists_cocoon_self_mutation_and_external_action() -> 
         "不得修改 Memory 或 Skill", "改进建议草案", "不得执行任何外部行动",
     ):
         assert required in text
+
+
+def test_operating_rhythm_documents_typed_additive_bridge_contract() -> None:
+    text = (REFERENCES / "operating-rhythm.md").read_text(encoding="utf-8")
+
+    for required in (
+        "typed additive operation",
+        "add_handoff_refs",
+        "add_targeted_searches",
+        "add_evidence_queries",
+        "request",
+        "action",
+        "instructions",
+        "mode: add_only",
+        "broad_sources_locked: true",
+    ):
+        assert required in text
