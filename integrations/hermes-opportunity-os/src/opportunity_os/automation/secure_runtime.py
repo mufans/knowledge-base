@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator, Mapping
 
-from opportunity_os.errors import BoundaryError, ValidationError
+from opportunity_os.errors import BoundaryError, CapacityError, ValidationError
 
 
 SAFE_NAME = re.compile(r"^[A-Za-z0-9._-]+$")
@@ -62,9 +62,18 @@ def open_child_directory(parent_fd: int, name: str) -> int:
         raise BoundaryError(f"runtime child directory is unsafe: {name}") from error
 
 
-def atomic_json_at(directory_fd: int, name: str, payload: Mapping[str, object], *, mode: int = 0o600) -> None:
+def atomic_json_at(
+    directory_fd: int,
+    name: str,
+    payload: Mapping[str, object],
+    *,
+    mode: int = 0o600,
+    max_bytes: int = 1_048_576,
+) -> None:
     _safe_name(name)
     rendered = json.dumps(payload, ensure_ascii=False, sort_keys=True, allow_nan=False).encode("utf-8") + b"\n"
+    if max_bytes < 2 or len(rendered) > max_bytes:
+        raise CapacityError("runtime JSON exceeds its encoded size limit")
     temporary = f".{name}.{uuid.uuid4().hex}.tmp"
     descriptor = os.open(
         temporary,
@@ -82,6 +91,7 @@ def atomic_json_at(directory_fd: int, name: str, payload: Mapping[str, object], 
         os.close(descriptor)
     try:
         os.rename(temporary, name, src_dir_fd=directory_fd, dst_dir_fd=directory_fd)
+        os.fsync(directory_fd)
     finally:
         try:
             os.unlink(temporary, dir_fd=directory_fd)

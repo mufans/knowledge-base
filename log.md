@@ -118,3 +118,4 @@
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 将Task 7 Bridge收敛为逐文件typed additive schema、安全opaque UUID与服务端add-only来源锁策略（398项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 收紧Task 7 Bridge精确字段：entity/experiment ID数组必填非空，并锁定小写专属UUID前缀（409项测试通过）
 2026-07-19 | implement | integrations/hermes-opportunity-os/monitoring | 完成Task 8持久化Incident滞回去重、RestartBudget、receipt驱动投递、安全告警摘要、SSE事故元数据与boot恢复通知（439项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/monitoring | 修复Task 8 transactional incident outbox、delivery claim/lease与receipt对账、boot幂等重试、future clock、URL allowlist、CLI退出码及状态写容量持久性（461项测试通过）

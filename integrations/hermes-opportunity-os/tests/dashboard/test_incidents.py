@@ -8,6 +8,7 @@ from pathlib import Path
 
 import pytest
 
+from opportunity_os.automation.secure_runtime import atomic_json_at, open_absolute_directory
 from opportunity_os.dashboard.incidents import IncidentSentinel, RestartBudget
 from opportunity_os.errors import BoundaryError, CapacityError, ValidationError
 
@@ -46,6 +47,32 @@ def test_incident_fires_once_and_recovers_once_across_instances(tmp_path: Path) 
 
     assert path.stat().st_mode & 0o777 == 0o600
     assert list(path.parent.glob("*.tmp")) == []
+
+
+def test_firing_and_recovery_notifications_are_transactional_persistent_outbox(tmp_path: Path) -> None:
+    path = tmp_path / "incidents.json"
+    sentinel = IncidentSentinel(path, now=lambda: NOW)
+    sentinel.observe("hermes:daily:timeout", False, "P1", "timeout")
+    firing = sentinel.observe("hermes:daily:timeout", False, "P1", "timeout")
+
+    pending = IncidentSentinel(path, now=lambda: NOW).pending_notifications()
+    assert len(pending) == 1
+    assert pending[0].idempotency_key == f"{firing.incident_id}:firing"
+    assert set(pending[0].to_dict()) == {
+        "idempotency_key", "incident_id", "kind", "error_code", "impact",
+        "last_success", "run_id", "dashboard_url", "suggested_action", "created_at",
+    }
+    assert "hermes:daily:timeout" not in json.dumps(pending[0].to_dict())
+
+    assert sentinel.observe("hermes:daily:timeout", True, "P1", "timeout").kind == "recovering"
+    recovered = sentinel.observe("hermes:daily:timeout", True, "P1", "timeout")
+    pending = sentinel.pending_notifications()
+    assert [item.idempotency_key for item in pending] == [
+        f"{firing.incident_id}:firing",
+        f"{recovered.incident_id}:recovered",
+    ]
+    sentinel.ack_notification(pending[0].idempotency_key)
+    assert [item.kind for item in sentinel.pending_notifications()] == ["recovered"]
 
 
 @pytest.mark.parametrize(
@@ -161,3 +188,40 @@ def test_restart_budget_rejects_free_text_and_naive_time(
 ) -> None:
     with pytest.raises(ValidationError):
         RestartBudget(tmp_path / "budget.json").allow(component, at)
+
+
+def test_restart_budget_fails_closed_on_any_future_persisted_attempt(tmp_path: Path) -> None:
+    path = tmp_path / "budget.json"
+    path.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "components": {
+                    "openclaw": [
+                        (NOW - timedelta(hours=25)).isoformat(),
+                        (NOW + timedelta(minutes=1)).isoformat(),
+                    ]
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValidationError, match="future"):
+        RestartBudget(path).allow("openclaw", NOW)
+
+
+def test_atomic_json_enforces_encoded_size_before_replace_and_fsyncs_directory(
+    tmp_path: Path, monkeypatch
+) -> None:
+    directory_fd = open_absolute_directory(tmp_path)
+    calls = []
+    real_fsync = os.fsync
+    monkeypatch.setattr(os, "fsync", lambda fd: calls.append(fd) or real_fsync(fd))
+    try:
+        with pytest.raises(CapacityError):
+            atomic_json_at(directory_fd, "bounded.json", {"value": "x" * 200}, max_bytes=64)
+        assert not (tmp_path / "bounded.json").exists()
+        atomic_json_at(directory_fd, "bounded.json", {"value": "ok"}, max_bytes=64)
+        assert directory_fd in calls
+    finally:
+        os.close(directory_fd)

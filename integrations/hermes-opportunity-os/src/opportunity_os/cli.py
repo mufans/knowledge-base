@@ -97,13 +97,22 @@ def _require_loopback_url(url: str) -> str:
 def _monitor(args: argparse.Namespace) -> Monitor:
     config = _dashboard_config(args.home)
     command_runner = CommandRunner()
+    allowed_hosts = tuple(args.allowed_dashboard_host)
     return Monitor(
-        sentinel=IncidentSentinel(config.dashboard_home / "incidents.json"),
-        deliveries=DeliveryQueue(config.dashboard_home / "deliveries.json"),
+        sentinel=IncidentSentinel(
+            config.dashboard_home / "incidents.json",
+            dashboard_url=args.dashboard_url,
+            allowed_dashboard_hosts=allowed_hosts,
+        ),
+        deliveries=DeliveryQueue(
+            config.dashboard_home / "deliveries.json",
+            allowed_dashboard_hosts=allowed_hosts,
+        ),
         probes=(OpenClawProbe(config, command_runner), HermesProbe(config, command_runner)),
         delivery=DeferredDelivery(),
         event_hub=EventHub(config.dashboard_home / "event-cursor"),
         dashboard_url=args.dashboard_url,
+        allowed_dashboard_hosts=allowed_hosts,
     )
 
 
@@ -162,6 +171,7 @@ def build_parser() -> argparse.ArgumentParser:
     monitor_once.add_argument(
         "--dashboard-url", default="http://127.0.0.1:8765/monitoring"
     )
+    monitor_once.add_argument("--allowed-dashboard-host", action="append", default=[])
     monitor_once.add_argument("--format", choices=("text", "json"), default="json")
     monitor_boot = monitor_commands.add_parser("boot-hook")
     monitor_boot.add_argument("--home", required=True)
@@ -170,6 +180,7 @@ def build_parser() -> argparse.ArgumentParser:
     monitor_boot.add_argument(
         "--dashboard-url", default="http://127.0.0.1:8765/monitoring"
     )
+    monitor_boot.add_argument("--allowed-dashboard-host", action="append", default=[])
     monitor_boot.add_argument("--format", choices=("text", "json"), default="json")
 
     automation = subparsers.add_parser("automation")
@@ -226,6 +237,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == "monitor" and args.monitor_command == "once":
             result = _monitor(args).run_once()
             _emit(result.to_dict(), args.format)
+            return 0 if result.ok else 1
         elif args.command == "monitor" and args.monitor_command == "boot-hook":
             monitor_service = _monitor(args)
             result = monitor_service.boot_hook(
@@ -234,6 +246,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 recovery_probe=monitor_service.probes[0],
             )
             _emit({"delivery": result.to_dict() if result is not None else None}, args.format)
+            if result is not None and result.state != "delivered":
+                return 1
         elif args.command == "automation" and args.automation_command == "run":
             record = CadenceRunner(args.home).run(args.cadence, args.period_key)
             _emit(record.to_dict(), args.format)

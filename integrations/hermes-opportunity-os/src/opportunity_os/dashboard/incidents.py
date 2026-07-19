@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable, Literal
+from urllib.parse import urlsplit, urlunsplit
 
 from opportunity_os.automation.secure_runtime import (
     atomic_json_at,
@@ -71,6 +73,75 @@ COMPONENTS = frozenset(
 )
 THRESHOLDS: dict[Severity, int] = {"P0": 1, "P1": 2, "P2": 3}
 STATE_MAX_BYTES = 512 * 1024
+_UUID_ID = re.compile(
+    r"^(?:inc|run)_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+)
+_NOTIFICATION_KEY = re.compile(
+    r"^inc_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}:(?:firing|recovered)$"
+)
+_HOST = re.compile(r"^[a-z0-9](?:[a-z0-9.-]{0,251}[a-z0-9])?$")
+_IMPACT_BY_SOURCE = {
+    "openclaw": ("control_plane_unavailable", "inspect_dashboard"),
+    "hermes": ("analysis_unavailable", "retry_task"),
+    "opportunity_os": ("analysis_unavailable", "inspect_dashboard"),
+    "dashboard": ("control_plane_unavailable", "inspect_dashboard"),
+    "ngrok": ("remote_access_unavailable", "verify_access"),
+    "knowledge_publish": ("publishing_unavailable", "retry_task"),
+    "delivery": ("delivery_unavailable", "verify_delivery"),
+    "automation": ("analysis_unavailable", "retry_task"),
+}
+
+
+def validate_allowed_dashboard_hosts(hosts: tuple[str, ...]) -> tuple[str, ...]:
+    if not isinstance(hosts, tuple) or len(hosts) > 16:
+        raise ValidationError("dashboard host allowlist is invalid")
+    if any(
+        not isinstance(host, str)
+        or not _HOST.fullmatch(host)
+        or host != host.casefold()
+        or "." not in host
+        or ".." in host
+        for host in hosts
+    ):
+        raise ValidationError("dashboard host allowlist contains a noncanonical host")
+    if len(set(hosts)) != len(hosts):
+        raise ValidationError("dashboard host allowlist contains duplicates")
+    return hosts
+
+
+def canonical_dashboard_url(value: str, allowed_hosts: tuple[str, ...] = ()) -> str:
+    allowed_hosts = validate_allowed_dashboard_hosts(allowed_hosts)
+    if not isinstance(value, str) or not value or value.strip() != value or len(value) > 512:
+        raise ValidationError("dashboard URL is invalid")
+    if any(character.isspace() for character in value):
+        raise ValidationError("dashboard URL contains whitespace")
+    try:
+        parsed = urlsplit(value)
+        port = parsed.port
+    except ValueError as error:
+        raise ValidationError("dashboard URL port is invalid") from error
+    if parsed.username is not None or parsed.password is not None or parsed.query or parsed.fragment:
+        raise ValidationError("dashboard URL may not contain credentials, query, or fragment")
+    if port is not None and not 1 <= port <= 65535:
+        raise ValidationError("dashboard URL port is outside the valid range")
+    if parsed.path != "/monitoring" or not parsed.hostname:
+        raise ValidationError("dashboard URL path or host is invalid")
+    host = parsed.hostname
+    loopback = host in {"127.0.0.1", "::1", "localhost"}
+    if parsed.scheme == "http":
+        if not loopback:
+            raise ValidationError("HTTP dashboard URL must be exact loopback")
+    elif parsed.scheme == "https":
+        if loopback or host not in allowed_hosts or port not in {None, 443}:
+            raise ValidationError("HTTPS dashboard host or port is not allowlisted")
+    else:
+        raise ValidationError("dashboard URL scheme is invalid")
+    canonical_host = f"[{host}]" if ":" in host else host
+    canonical_netloc = canonical_host if port is None else f"{canonical_host}:{port}"
+    canonical = urlunsplit((parsed.scheme, canonical_netloc, parsed.path, "", ""))
+    if value != canonical:
+        raise ValidationError("dashboard URL must use canonical spelling")
+    return canonical
 
 
 def _utc(value: datetime) -> datetime:
@@ -110,6 +181,68 @@ class IncidentTransition:
     notify: bool = False
 
 
+@dataclass(frozen=True, slots=True)
+class IncidentNotification:
+    idempotency_key: str
+    incident_id: str
+    kind: Literal["firing", "recovered"]
+    error_code: str
+    impact: str
+    last_success: datetime | None
+    run_id: str
+    dashboard_url: str
+    suggested_action: str
+    created_at: datetime
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "idempotency_key": self.idempotency_key,
+            "incident_id": self.incident_id,
+            "kind": self.kind,
+            "error_code": self.error_code,
+            "impact": self.impact,
+            "last_success": self.last_success.isoformat() if self.last_success else None,
+            "run_id": self.run_id,
+            "dashboard_url": self.dashboard_url,
+            "suggested_action": self.suggested_action,
+            "created_at": self.created_at.isoformat(),
+        }
+
+    @classmethod
+    def from_dict(cls, value: object) -> "IncidentNotification":
+        fields = {
+            "idempotency_key", "incident_id", "kind", "error_code", "impact",
+            "last_success", "run_id", "dashboard_url", "suggested_action", "created_at",
+        }
+        if not isinstance(value, dict) or set(value) != fields:
+            raise ValidationError("incident notification schema is invalid")
+        incident_id = value["incident_id"]
+        kind = value["kind"]
+        if not isinstance(incident_id, str) or not incident_id.startswith("inc_") or _UUID_ID.fullmatch(incident_id) is None:
+            raise ValidationError("notification incident id is invalid")
+        if kind not in {"firing", "recovered"} or value["idempotency_key"] != f"{incident_id}:{kind}":
+            raise ValidationError("notification idempotency identity is invalid")
+        if value["error_code"] not in ERROR_CLASSES:
+            raise ValidationError("notification error code is invalid")
+        if value["impact"] not in {item[0] for item in _IMPACT_BY_SOURCE.values()}:
+            raise ValidationError("notification impact is invalid")
+        if value["suggested_action"] not in {item[1] for item in _IMPACT_BY_SOURCE.values()}:
+            raise ValidationError("notification action is invalid")
+        if not isinstance(value["run_id"], str) or not value["run_id"].startswith("run_") or _UUID_ID.fullmatch(value["run_id"]) is None:
+            raise ValidationError("notification run id is invalid")
+        last_success = None if value["last_success"] is None else _parse_time(value["last_success"])
+        created_at = _parse_time(value["created_at"])
+        if not isinstance(value["dashboard_url"], str):
+            raise ValidationError("notification dashboard URL is invalid")
+        return cls(
+            idempotency_key=str(value["idempotency_key"]), incident_id=incident_id,
+            kind=kind, error_code=str(value["error_code"]), impact=str(value["impact"]),
+            last_success=last_success, run_id=str(value["run_id"]),
+            dashboard_url=str(value["dashboard_url"]),
+            suggested_action=str(value["suggested_action"]), created_at=created_at,
+        )
+
+
 class _LockedJsonState:
     def __init__(self, path: str | Path, lock_name: str) -> None:
         self.path = Path(path).expanduser()
@@ -131,7 +264,9 @@ class _LockedJsonState:
             raise ValidationError("runtime state contains invalid JSON") from error
 
     def _write(self, directory_fd: int, payload: dict[str, object]) -> None:
-        atomic_json_at(directory_fd, self.path.name, payload, mode=0o600)
+        atomic_json_at(
+            directory_fd, self.path.name, payload, mode=0o600, max_bytes=STATE_MAX_BYTES
+        )
 
 
 class IncidentSentinel(_LockedJsonState):
@@ -145,20 +280,39 @@ class IncidentSentinel(_LockedJsonState):
         cooldown: timedelta = timedelta(hours=6),
         ttl: timedelta = timedelta(days=30),
         max_entries: int = 512,
+        max_notifications: int = 1024,
+        dashboard_url: str = "http://127.0.0.1:8765/monitoring",
+        allowed_dashboard_hosts: tuple[str, ...] = (),
     ) -> None:
         super().__init__(state_path, ".incidents.lock")
         if cooldown <= timedelta(0) or ttl <= timedelta(0):
             raise ValidationError("incident cooldown and TTL must be positive")
         if not 1 <= max_entries <= 4096:
             raise ValidationError("incident capacity is out of bounds")
+        if not 1 <= max_notifications <= 4096:
+            raise ValidationError("incident notification capacity is out of bounds")
         self.now = now or (lambda: datetime.now(timezone.utc))
         self.cooldown = cooldown
         self.ttl = ttl
         self.max_entries = max_entries
+        self.max_notifications = max_notifications
+        self.allowed_dashboard_hosts = validate_allowed_dashboard_hosts(allowed_dashboard_hosts)
+        self.dashboard_url = canonical_dashboard_url(dashboard_url, self.allowed_dashboard_hosts)
 
-    def _load(self, directory_fd: int, current: datetime) -> dict[str, dict[str, object]]:
-        payload = self._read(directory_fd, {"version": 1, "incidents": {}})
-        if payload.get("version") != 1 or not isinstance(payload.get("incidents"), dict):
+    def _load(
+        self, directory_fd: int, current: datetime
+    ) -> tuple[dict[str, dict[str, object]], dict[str, dict[str, object]]]:
+        payload = self._read(
+            directory_fd, {"version": 2, "incidents": {}, "notification_outbox": {}}
+        )
+        migrated_from_v1 = payload.get("version") == 1 and isinstance(payload.get("incidents"), dict)
+        if migrated_from_v1:
+            payload = {"version": 2, "incidents": payload["incidents"], "notification_outbox": {}}
+        if (
+            payload.get("version") != 2
+            or not isinstance(payload.get("incidents"), dict)
+            or not isinstance(payload.get("notification_outbox"), dict)
+        ):
             raise ValidationError("incident state schema is invalid")
         records: dict[str, dict[str, object]] = {}
         for key, value in payload["incidents"].items():
@@ -187,7 +341,48 @@ class IncidentSentinel(_LockedJsonState):
             updated = _parse_time(value.get("updated_at"))
             if current - updated <= self.ttl or value.get("phase") == "firing":
                 records[key] = value
-        return records
+        outbox: dict[str, dict[str, object]] = {}
+        for idempotency_key, value in payload["notification_outbox"].items():
+            notification = IncidentNotification.from_dict(value)
+            if idempotency_key != notification.idempotency_key:
+                raise ValidationError("incident outbox key is invalid")
+            canonical_dashboard_url(notification.dashboard_url, self.allowed_dashboard_hosts)
+            outbox[idempotency_key] = value
+        if migrated_from_v1:
+            for key, record in records.items():
+                if record.get("phase") != "firing":
+                    continue
+                incident_id = str(record["incident_id"])
+                idempotency_key = f"{incident_id}:firing"
+                source = key.split(":", 1)[0]
+                impact, action = _IMPACT_BY_SOURCE[source]
+                notification = IncidentNotification(
+                    idempotency_key=idempotency_key,
+                    incident_id=incident_id,
+                    kind="firing",
+                    error_code=str(record["error_class"]),
+                    impact=impact,
+                    last_success=None,
+                    run_id=f"run_{incident_id.removeprefix('inc_')}",
+                    dashboard_url=self.dashboard_url,
+                    suggested_action=action,
+                    created_at=_parse_time(record["updated_at"]),
+                )
+                outbox[idempotency_key] = notification.to_dict()
+        if len(outbox) > self.max_notifications:
+            raise CapacityError("incident notification outbox exceeds capacity")
+        return records, outbox
+
+    def _persist(
+        self,
+        directory_fd: int,
+        records: dict[str, dict[str, object]],
+        outbox: dict[str, dict[str, object]],
+    ) -> None:
+        self._write(
+            directory_fd,
+            {"version": 2, "incidents": records, "notification_outbox": outbox},
+        )
 
     @staticmethod
     def _transition(record: dict[str, object], key: str, kind: TransitionKind, notify: bool = False) -> IncidentTransition:
@@ -206,6 +401,9 @@ class IncidentSentinel(_LockedJsonState):
         ok: bool,
         severity: Severity,
         error_class: str,
+        *,
+        last_success: datetime | None = None,
+        run_id: str | None = None,
     ) -> IncidentTransition:
         _validate_key(key, error_class)
         if severity not in THRESHOLDS:
@@ -213,10 +411,18 @@ class IncidentSentinel(_LockedJsonState):
         if not isinstance(ok, bool):
             raise ValidationError("ok must be boolean")
         current = _utc(self.now())
+        if last_success is not None:
+            last_success = _utc(last_success)
+        if run_id is not None and (
+            not isinstance(run_id, str)
+            or not run_id.startswith("run_")
+            or _UUID_ID.fullmatch(run_id) is None
+        ):
+            raise ValidationError("incident notification run id must be opaque")
         directory_fd = self._directory()
         try:
             with exclusive_arbitration(directory_fd, self.lock_name):
-                records = self._load(directory_fd, current)
+                records, outbox = self._load(directory_fd, current)
                 record = records.get(key)
                 if record is None:
                     if len(records) >= self.max_entries:
@@ -282,7 +488,27 @@ class IncidentSentinel(_LockedJsonState):
                             record["phase"] = "pending"
                             transition = self._transition(record, key, "pending")
 
-                self._write(directory_fd, {"version": 1, "incidents": records})
+                if transition.notify:
+                    idempotency_key = f"{transition.incident_id}:{transition.kind}"
+                    if idempotency_key not in outbox:
+                        if len(outbox) >= self.max_notifications:
+                            raise CapacityError("incident notification outbox is full")
+                        source = key.split(":", 1)[0]
+                        impact, action = _IMPACT_BY_SOURCE[source]
+                        notification = IncidentNotification(
+                            idempotency_key=idempotency_key,
+                            incident_id=transition.incident_id,
+                            kind=transition.kind,  # type: ignore[arg-type]
+                            error_code=transition.error_class,
+                            impact=impact,
+                            last_success=last_success,
+                            run_id=run_id or f"run_{transition.incident_id.removeprefix('inc_')}",
+                            dashboard_url=self.dashboard_url,
+                            suggested_action=action,
+                            created_at=current,
+                        )
+                        outbox[idempotency_key] = notification.to_dict()
+                self._persist(directory_fd, records, outbox)
                 return transition
         finally:
             os.close(directory_fd)
@@ -294,7 +520,7 @@ class IncidentSentinel(_LockedJsonState):
         directory_fd = self._directory()
         try:
             with exclusive_arbitration(directory_fd, self.lock_name):
-                records = self._load(directory_fd, current)
+                records, _ = self._load(directory_fd, current)
                 return tuple(
                     key
                     for key, value in records.items()
@@ -311,8 +537,33 @@ class IncidentSentinel(_LockedJsonState):
         directory_fd = self._directory()
         try:
             with exclusive_arbitration(directory_fd, self.lock_name):
-                records = self._load(directory_fd, current)
+                records, _ = self._load(directory_fd, current)
                 return tuple(key for key in records if key.startswith(f"{source}:{task}:"))
+        finally:
+            os.close(directory_fd)
+
+    def pending_notifications(self) -> tuple[IncidentNotification, ...]:
+        current = _utc(self.now())
+        directory_fd = self._directory()
+        try:
+            with exclusive_arbitration(directory_fd, self.lock_name):
+                _, outbox = self._load(directory_fd, current)
+                return tuple(IncidentNotification.from_dict(value) for value in outbox.values())
+        finally:
+            os.close(directory_fd)
+
+    def ack_notification(self, idempotency_key: str) -> bool:
+        if not isinstance(idempotency_key, str) or _NOTIFICATION_KEY.fullmatch(idempotency_key) is None:
+            raise ValidationError("incident notification idempotency key is invalid")
+        current = _utc(self.now())
+        directory_fd = self._directory()
+        try:
+            with exclusive_arbitration(directory_fd, self.lock_name):
+                records, outbox = self._load(directory_fd, current)
+                removed = outbox.pop(idempotency_key, None) is not None
+                if removed:
+                    self._persist(directory_fd, records, outbox)
+                return removed
         finally:
             os.close(directory_fd)
 
@@ -340,10 +591,12 @@ class RestartBudget(_LockedJsonState):
                 for stored_component, stored_attempts in payload["components"].items():
                     if stored_component not in COMPONENTS or not isinstance(stored_attempts, list):
                         raise ValidationError("restart budget record is invalid")
+                    parsed_attempts = [_parse_time(item) for item in stored_attempts]
+                    if any(value > current for value in parsed_attempts):
+                        raise ValidationError("restart budget contains a future attempt")
                     retained = [
-                        value
-                        for value in (_parse_time(item) for item in stored_attempts)
-                        if timedelta(0) <= current - value < timedelta(hours=24)
+                        value for value in parsed_attempts
+                        if current - value < timedelta(hours=24)
                     ]
                     if retained:
                         components[stored_component] = [value.isoformat() for value in retained]
