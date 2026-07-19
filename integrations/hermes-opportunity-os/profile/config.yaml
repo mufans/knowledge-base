@@ -1,0 +1,60 @@
+model:
+  provider: opencode-go
+  default: deepseek-v4-flash
+  context_length: 1000000
+
+fallback_providers:
+  - provider: deepseek
+    model: deepseek-v4-flash
+
+agent:
+  max_turns: 24
+  disabled_toolsets:
+    - terminal
+    - file
+    - browser
+    - delegation
+    - cronjob
+    - messaging
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: false
+  write_approval: true
+
+skills:
+  guard_agent_created: true
+  write_approval: true
+
+approvals:
+  mode: manual
+
+display:
+  language: zh
+  tool_progress: new
+
+onboarding:
+  profile_build: "off"
+
+mcp_servers:
+  opportunity_os:
+    command: uv
+    args:
+      - run
+      - --directory
+      - "/Users/liujun/Nutstore Files/我的坚果云/knowledge/integrations/hermes-opportunity-os"
+      - python
+      - mcp_server.py
+    env:
+      KNOWLEDGE_BASE_PATH: "/Users/liujun/Nutstore Files/我的坚果云/knowledge"
+      OPPORTUNITY_OS_HOME: "/Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os"
+  knowledge:
+    command: uv
+    args:
+      - run
+      - --directory
+      - "/Users/liujun/Nutstore Files/我的坚果云/knowledge/mcp_server"
+      - python
+      - server.py
+    env:
+      KNOWLEDGE_BASE_PATH: "/Users/liujun/Nutstore Files/我的坚果云/knowledge"
