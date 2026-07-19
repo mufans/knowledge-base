@@ -4,6 +4,7 @@ from pathlib import Path
 
 SKILL = Path(__file__).parents[1] / "skills" / "opportunity-discovery" / "SKILL.md"
 REFERENCES = SKILL.parent / "references"
+PROFILE_CONFIG = Path(__file__).parents[1] / "profile" / "config.yaml"
 
 
 def test_skill_has_valid_compact_frontmatter_and_required_sections() -> None:
@@ -37,3 +38,9 @@ def test_evidence_contract_names_exact_source_tier_values() -> None:
     assert "不得使用 `A`、`B`、`C`" in policy
     assert "`kind` 只能是 `fact`、`inference`、`hypothesis`" in contracts
     assert "`stance` 只能是 `support` 或 `oppose`" in contracts
+
+
+def test_profile_template_pins_current_hermes_config_schema() -> None:
+    text = PROFILE_CONFIG.read_text(encoding="utf-8")
+
+    assert text.startswith("_config_version: 33\n")

@@ -1,3 +1,5 @@
+_config_version: 33
+
 model:
   provider: opencode-go
   default: deepseek-v4-flash
