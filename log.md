@@ -160,3 +160,4 @@
 2026-07-20 | monitoring | integrations/hermes-opportunity-os/automation, integrations/hermes-opportunity-os/dashboard | 将Dashboard与ngrok只读探针纳入OpenClaw原生healthcheck Cron失败告警链；OpenClaw、Hermes、Dashboard、ngrok四组件全部healthy，原生Cron实际运行status=ok（全量348项测试通过）
 2026-07-20 | maintenance | wiki/entities/llm_wiki.md, /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 将描述性wikilink语法改为行内代码；同步脚本仅检查可写Wiki层且排除围栏/行内代码，避免修改Raw原文或误抦截Metal属性
 2026-07-20 | maintenance | /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 遵循仓库build-only约定，不再暂存被忽略的docs/site产物；MkDocs校验改用临时目录，main仅提交知识库源文件，gh-pages仍由原生gh-deploy发布
+2026-07-20 | maintenance | /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 发布前对历史跟踪的site构建产物执行干净性保护，gh-deploy成功后仅恢复其生成改动，避免自动同步留下脏工作区
