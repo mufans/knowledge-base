@@ -85,6 +85,20 @@ def _enum_sets(value):
     return found
 
 
+def _named_property_schemas(value, name):
+    found = []
+    if isinstance(value, dict):
+        properties = value.get("properties", {})
+        if name in properties:
+            found.append(properties[name])
+        for child in value.values():
+            found.extend(_named_property_schemas(child, name))
+    elif isinstance(value, list):
+        for child in value:
+            found.extend(_named_property_schemas(child, name))
+    return found
+
+
 def test_mcp_nested_inputs_publish_exact_machine_readable_schemas(monkeypatch, tmp_path: Path) -> None:
     server = load_server(monkeypatch, tmp_path)
     schemas = {
@@ -115,5 +129,12 @@ def test_mcp_nested_inputs_publish_exact_machine_readable_schemas(monkeypatch, t
         "rollback_path_ready", "strength", "broad", "surprise",
     ):
         assert f'"{field}"' in encoded
+
+    for field in (
+        "market_demand", "experience_advantage", "growth_potential", "low_cost_validation",
+        "long_term_asset", "cashflow_potential", "interest_signal",
+    ):
+        score_schemas = _named_property_schemas(schemas["save_opportunity"], field)
+        assert any(item.get("minimum") == 0 and item.get("maximum") == 10 for item in score_schemas)
 
     assert '"supporting_evidence": {"items": {"additionalProperties": true' not in encoded

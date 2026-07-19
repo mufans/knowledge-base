@@ -1,17 +1,23 @@
 from dataclasses import asdict, dataclass, fields
+from typing import Annotated
+
+from pydantic import Field
 
 from opportunity_os.errors import ValidationError
 
 
+Score = Annotated[float, Field(ge=0, le=10)]
+
+
 @dataclass(frozen=True, slots=True)
 class OpportunityScores:
-    market_demand: float
-    experience_advantage: float
-    growth_potential: float
-    low_cost_validation: float
-    long_term_asset: float
-    cashflow_potential: float
-    interest_signal: float
+    market_demand: Score
+    experience_advantage: Score
+    growth_potential: Score
+    low_cost_validation: Score
+    long_term_asset: Score
+    cashflow_potential: Score
+    interest_signal: Score
 
     WEIGHTS = {
         "market_demand": 0.25,
