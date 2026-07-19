@@ -16,6 +16,7 @@ from fastapi.testclient import TestClient
 from opportunity_os.dashboard.app import (
     DashboardDependencies,
     create_app,
+    reconcile_incomplete_operations,
     replay_audit_outbox,
 )
 from opportunity_os.dashboard.approvals import ApprovalService
@@ -656,6 +657,257 @@ def test_cli_mutation_exception_persists_failed_terminal_and_audit(tmp_path: Pat
     assert records[-2]["status"] == "applying"
     assert records[-1]["status"] == "failed"
     assert records[-1]["operation_id"] == records[-2]["operation_id"]
+
+
+def _applying_change(
+    approvals: ApprovalService,
+    adapter: MutableTaskAdapter,
+    *,
+    run_now: bool = False,
+):
+    owner = "a" * 64
+    session = "b" * 64
+    base_revision = adapter.list()[0].revision
+    request = (
+        approvals.preview_run_now(
+            "job-1",
+            base_revision=base_revision,
+            owner_id=owner,
+            session_id=session,
+        )
+        if run_now
+        else approvals.preview(
+            "job-1",
+            {"enabled": False},
+            base_revision=base_revision,
+            owner_id=owner,
+            session_id=session,
+        )
+    )
+    approvals.approve(
+        request.id,
+        request.digest,
+        nonce=request.nonce,
+        owner_id=owner,
+        session_id=session,
+    )
+    applying = approvals.start_apply(
+        request.id,
+        observed_revision=base_revision,
+        owner_id=owner,
+        session_id=session,
+    )
+    return applying, owner, session
+
+
+def _recovery_stack(tmp_path: Path):
+    adapter = MutableTaskAdapter()
+    approvals = ApprovalService(tmp_path / "approvals.json")
+    audit = AuditLog(tmp_path / "audit.jsonl")
+    coordinator = TaskMutationCoordinator(adapter, tmp_path / "locks")
+    return adapter, approvals, audit, coordinator
+
+
+def test_recovery_before_cli_marks_interrupted_without_mutation(tmp_path: Path) -> None:
+    adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
+    applying, _, _ = _applying_change(approvals, adapter)
+    approvals.mark_intent_written(applying.operation_id)
+
+    assert reconcile_incomplete_operations(approvals, audit, coordinator) == 1
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "failed"
+    assert recovered["terminal_reason"] == "interrupted_before_mutation"
+    assert recovered["operation_phase"] == "terminal"
+    assert adapter.edits == []
+
+
+def test_recovery_after_edit_cli_matching_target_finalizes_applied(tmp_path: Path) -> None:
+    adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
+    applying, _, _ = _applying_change(approvals, adapter)
+    approvals.mark_intent_written(applying.operation_id)
+    approvals.mark_mutation_started(applying.operation_id)
+    adapter.raw = {
+        **adapter.raw,
+        "enabled": False,
+        "updatedAtMs": int(adapter.raw["updatedAtMs"]) + 1,
+    }
+
+    assert reconcile_incomplete_operations(approvals, audit, coordinator) == 1
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "applied"
+    assert recovered["terminal_reason"] == "target_already_applied"
+    assert recovered["audit_pending"] is False
+    assert adapter.edits == []
+
+
+def test_recovery_started_edit_with_conflicting_state_requires_manual_review(
+    tmp_path: Path,
+) -> None:
+    adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
+    applying, _, _ = _applying_change(approvals, adapter)
+    approvals.mark_intent_written(applying.operation_id)
+    approvals.mark_mutation_started(applying.operation_id)
+    adapter.raw = {
+        **adapter.raw,
+        "schedule": {"kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Shanghai"},
+        "updatedAtMs": int(adapter.raw["updatedAtMs"]) + 1,
+    }
+
+    reconcile_incomplete_operations(approvals, audit, coordinator)
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "indeterminate"
+    assert recovered["manual_review"] is True
+    assert recovered["terminal_reason"] == "state_conflict_after_mutation_started"
+    assert adapter.edits == []
+
+
+def test_recovery_never_replays_started_run_now(tmp_path: Path) -> None:
+    adapter, approvals, audit, coordinator = _recovery_stack(tmp_path)
+    applying, _, _ = _applying_change(approvals, adapter, run_now=True)
+    approvals.mark_intent_written(applying.operation_id)
+    approvals.mark_mutation_started(applying.operation_id)
+
+    reconcile_incomplete_operations(approvals, audit, coordinator)
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "indeterminate"
+    assert recovered["manual_review"] is True
+    assert recovered["terminal_reason"] == "run_now_may_have_executed"
+    assert adapter.edits == []
+
+
+def test_recovery_terminal_audit_failure_replays_idempotently_later(tmp_path: Path) -> None:
+    adapter = MutableTaskAdapter()
+    approvals = ApprovalService(tmp_path / "approvals.json")
+    audit = FailingAuditLog(tmp_path / "audit.jsonl")
+    coordinator = TaskMutationCoordinator(adapter, tmp_path / "locks")
+    applying, _, _ = _applying_change(approvals, adapter)
+    approvals.mark_intent_written(applying.operation_id)
+    approvals.mark_mutation_started(applying.operation_id)
+    adapter.raw = {
+        **adapter.raw,
+        "enabled": False,
+        "updatedAtMs": int(adapter.raw["updatedAtMs"]) + 1,
+    }
+    audit.fail_statuses.add("applied")
+
+    assert reconcile_incomplete_operations(approvals, audit, coordinator) == 1
+    stored = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert stored["state"] == "applied"
+    assert stored["audit_pending"] is True
+    audit.fail_statuses.clear()
+
+    assert reconcile_incomplete_operations(approvals, audit, coordinator) == 0
+    assert reconcile_incomplete_operations(approvals, audit, coordinator) == 0
+    stored = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert stored["audit_pending"] is False
+    records = [json.loads(line) for line in audit.path.read_text().splitlines()]
+    assert len([record for record in records if record["status"] == "applied"]) == 1
+    assert adapter.edits == []
+
+
+def test_app_lifespan_reconciles_pre_cli_crash_on_restart(tmp_path: Path) -> None:
+    config = DashboardConfig(
+        dashboard_home=tmp_path / "dashboard",
+        remote_host="assigned.ngrok-free.app",
+        origin_credential="origin-secret-for-tests",
+    )
+    adapter = MutableTaskAdapter()
+    approvals = ApprovalService(config.dashboard_home / "approvals.json")
+    audit = AuditLog(config.dashboard_home / "audit.jsonl")
+    applying, _, _ = _applying_change(approvals, adapter)
+    approvals.mark_intent_written(applying.operation_id)
+    dependencies = DashboardDependencies(
+        read_model=FakeReadModel(),
+        sessions=SessionStore(config.dashboard_home),
+        csrf=CsrfGuard(),
+        task_adapter=adapter,
+        approvals=approvals,
+        audit_log=audit,
+        single_writer_attested=True,
+    )
+
+    with TestClient(create_app(config, dependencies)):
+        pass
+
+    recovered = json.loads(approvals.path.read_text())["requests"][applying.id]
+    assert recovered["state"] == "failed"
+    assert recovered["terminal_reason"] == "interrupted_before_mutation"
+    assert adapter.edits == []
+
+
+def test_task_list_lazily_reconciles_pre_cli_crash_without_blocking_read(
+    tmp_path: Path,
+) -> None:
+    client, csrf, adapter, approvals, _ = _control_api(
+        tmp_path, single_writer_attested=True
+    )
+    change = _approved_change(client, csrf)
+    stored = _stored_change(approvals, str(change["id"]))
+    applying = approvals.start_apply(
+        str(change["id"]),
+        observed_revision=str(change["base_revision"]),
+        owner_id=stored["owner_id"],
+        session_id=stored["session_id"],
+    )
+    approvals.mark_intent_written(applying.operation_id)
+
+    response = client.get("/api/v1/tasks")
+
+    assert response.status_code == 200
+    recovered = _stored_change(approvals, str(change["id"]))
+    assert recovered["state"] == "failed"
+    assert recovered["terminal_reason"] == "interrupted_before_mutation"
+    assert adapter.edits == []
+
+
+def test_apply_api_exposes_started_run_now_as_manual_review_without_retry(
+    tmp_path: Path,
+) -> None:
+    client, csrf, adapter, approvals, _ = _control_api(
+        tmp_path, single_writer_attested=True
+    )
+    task = client.get("/api/v1/tasks").json()[0]
+    change = client.post(
+        "/api/v1/tasks/job-1/run-now/preview",
+        json={"base_revision": task["revision"]},
+        headers=_mutation_headers(csrf),
+    ).json()
+    assert client.post(
+        f'/api/v1/approvals/{change["id"]}/approve',
+        json={"digest": change["digest"], "nonce": change["nonce"]},
+        headers=_mutation_headers(csrf),
+    ).status_code == 200
+    stored = _stored_change(approvals, str(change["id"]))
+    applying = approvals.start_apply(
+        str(change["id"]),
+        observed_revision=task["revision"],
+        owner_id=stored["owner_id"],
+        session_id=stored["session_id"],
+    )
+    approvals.mark_intent_written(applying.operation_id)
+    approvals.mark_mutation_started(applying.operation_id)
+
+    first = client.post(
+        f'/api/v1/approvals/{change["id"]}/apply',
+        json={},
+        headers=_mutation_headers(csrf),
+    )
+    second = client.post(
+        f'/api/v1/approvals/{change["id"]}/apply',
+        json={},
+        headers=_mutation_headers(csrf),
+    )
+
+    assert first.status_code == 200
+    assert first.json()["state"] == "indeterminate"
+    assert first.json()["manual_review"] is True
+    assert first.json()["terminal_reason"] == "run_now_may_have_executed"
+    assert second.json()["operation_id"] == first.json()["operation_id"]
+    assert adapter.edits == []
 
 
 def test_frontend_uses_json_csrf_and_exact_patch_allowlist() -> None:

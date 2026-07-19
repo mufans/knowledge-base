@@ -139,6 +139,9 @@ class ChangeRequestResponse(BaseModel):
     expires_at: str
     operation_id: str | None
     audit_pending: bool
+    operation_phase: str | None
+    terminal_reason: str | None
+    manual_review: bool
 
 
 def _change_response(change: ChangeRequest, *, include_nonce: bool) -> ChangeRequestResponse:
@@ -154,6 +157,9 @@ def _change_response(change: ChangeRequest, *, include_nonce: bool) -> ChangeReq
         expires_at=change.expires_at.isoformat(),
         operation_id=change.operation_id,
         audit_pending=change.audit_pending,
+        operation_phase=change.operation_phase,
+        terminal_reason=change.terminal_reason,
+        manual_review=change.manual_review,
     )
 
 
@@ -166,6 +172,7 @@ def replay_audit_outbox(approvals: ApprovalService, audit: AuditLog) -> int:
             "failed",
             "expired",
             "conflict",
+            "indeterminate",
         }:
             continue
         audit.append(
@@ -180,6 +187,72 @@ def replay_audit_outbox(approvals: ApprovalService, audit: AuditLog) -> int:
         approvals.mark_audited(change.operation_id)
         replayed += 1
     return replayed
+
+
+def reconcile_incomplete_operations(
+    approvals: ApprovalService,
+    audit: AuditLog,
+    coordinator: TaskMutationCoordinator,
+) -> int:
+    """Classify in-flight operations by read-only task state; never replay a mutation."""
+    reconciled = 0
+    for change in approvals.pending_operations():
+        if change.operation_id is None:
+            continue
+
+        def classify(current: TaskSummary) -> ChangeRequest:
+            pre_mutation = change.operation_phase in {"intent_pending", "intent_written"}
+            if change.kind == "run_now":
+                if pre_mutation:
+                    return approvals.recover_operation(
+                        change.operation_id,
+                        outcome="failed",
+                        reason="interrupted_before_mutation",
+                        manual_review=False,
+                    )
+                return approvals.recover_operation(
+                    change.operation_id,
+                    outcome="indeterminate",
+                    reason="run_now_may_have_executed",
+                    manual_review=True,
+                )
+            target_matches = all(
+                getattr(current, field) == expected
+                for field, expected in change.patch.items()
+            )
+            if target_matches:
+                return approvals.recover_operation(
+                    change.operation_id,
+                    outcome="applied",
+                    reason="target_already_applied",
+                    manual_review=False,
+                )
+            if pre_mutation and secrets.compare_digest(
+                current.revision, change.base_revision
+            ):
+                return approvals.recover_operation(
+                    change.operation_id,
+                    outcome="failed",
+                    reason="interrupted_before_mutation",
+                    manual_review=False,
+                )
+            return approvals.recover_operation(
+                change.operation_id,
+                outcome="indeterminate",
+                reason="state_conflict_after_mutation_started",
+                manual_review=True,
+            )
+
+        try:
+            coordinator.inspect(change.target, classify)
+            reconciled += 1
+        except (OSError, TaskAdapterError, ApprovalError):
+            continue
+    try:
+        replay_audit_outbox(approvals, audit)
+    except (OSError, ValueError, ApprovalError):
+        pass
+    return reconciled
 
 
 def _hostname(value: str) -> str | None:
@@ -273,6 +346,12 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     async def lifespan(_: FastAPI):
         if dependencies.approvals is not None and dependencies.audit_log is not None:
             try:
+                if dependencies.single_writer_attested and task_coordinator is not None:
+                    reconcile_incomplete_operations(
+                        dependencies.approvals,
+                        dependencies.audit_log,
+                        task_coordinator,
+                    )
                 replay_audit_outbox(dependencies.approvals, dependencies.audit_log)
             except (OSError, ValueError, ApprovalError):
                 pass
@@ -371,6 +450,18 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         except Exception as error:
             raise HTTPException(status_code=503, detail="audit_outbox_unavailable") from error
 
+    def require_reconciled_operations(
+        approvals: ApprovalService,
+        audit: AuditLog,
+        coordinator: TaskMutationCoordinator,
+    ) -> None:
+        reconcile_incomplete_operations(approvals, audit, coordinator)
+        if approvals.pending_operations():
+            raise HTTPException(status_code=503, detail="operation_recovery_pending")
+        if approvals.manual_reviews():
+            raise HTTPException(status_code=503, detail="operation_manual_review_required")
+        require_drained_outbox(approvals, audit)
+
     def safe_control_error(error: Exception) -> HTTPException:
         if isinstance(error, (KeyError, IsolationError)):
             return HTTPException(status_code=404, detail="change_request_not_found")
@@ -435,7 +526,12 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
 
     @app.get("/api/v1/tasks", response_model=list[TaskSummary])
     def tasks(_: Session = Depends(require_session)) -> list[TaskSummary]:
-        adapter, _, _ = control_services()
+        adapter, approvals, audit = control_services()
+        if dependencies.single_writer_attested and task_coordinator is not None:
+            try:
+                reconcile_incomplete_operations(approvals, audit, task_coordinator)
+            except Exception:
+                pass
         try:
             return adapter.list()
         except Exception as error:
@@ -532,8 +628,8 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         session: Session = Depends(require_csrf_session),
     ) -> ChangeRequestResponse:
         adapter, approvals, audit = control_services()
-        require_attested_writer()
-        require_drained_outbox(approvals, audit)
+        coordinator = require_attested_writer()
+        require_reconciled_operations(approvals, audit, coordinator)
         try:
             existing = next(
                 (
@@ -583,6 +679,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         adapter, approvals, audit = control_services()
         coordinator = require_attested_writer()
         try:
+            reconcile_incomplete_operations(approvals, audit, coordinator)
             change = next(
                 (
                     item
@@ -595,7 +692,13 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
             )
             if change is None:
                 raise KeyError(request_id)
-            if change.state in {"applied", "failed", "expired", "conflict"}:
+            if change.state in {
+                "applied",
+                "failed",
+                "expired",
+                "conflict",
+                "indeterminate",
+            }:
                 try:
                     replay_audit_outbox(approvals, audit)
                 except Exception:
@@ -616,8 +719,12 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                     raise ConflictError("task revision conflict")
                 if refreshed.state == "failed":
                     raise StateError("task mutation previously failed")
+                if refreshed.state == "indeterminate":
+                    return _change_response(refreshed, include_nonce=False)
                 return _change_response(refreshed, include_nonce=False)
-            require_drained_outbox(approvals, audit)
+            if change.state == "applying":
+                raise HTTPException(status_code=503, detail="operation_recovery_pending")
+            require_reconciled_operations(approvals, audit, coordinator)
             started: ChangeRequest | None = None
 
             def mutate() -> TaskCommandStatus:
@@ -638,6 +745,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                         operation_id=started.operation_id,
                         prepared=True,
                     )
+                    approvals.mark_intent_written(started.operation_id)
                 except Exception:
                     approvals.finish_apply(
                         request_id,
@@ -647,15 +755,18 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                     )
                     raise
                 if started.kind == "run_now":
+                    approvals.mark_mutation_started(started.operation_id)
                     result = adapter.run_now(started.target)
                     if not result.ok:
                         raise TaskAdapterError("run_now_failed")
                     return result
                 if frozenset(started.patch) == {"enabled"}:
+                    approvals.mark_mutation_started(started.operation_id)
                     result = adapter.edit_enabled(
                         started.target, bool(started.patch["enabled"])
                     )
                 else:
+                    approvals.mark_mutation_started(started.operation_id)
                     result = adapter.edit_schedule(
                         started.target,
                         str(started.patch["cron"]),

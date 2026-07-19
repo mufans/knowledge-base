@@ -299,3 +299,23 @@ class TaskMutationCoordinator:
                 return result
             finally:
                 fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+
+    def inspect(
+        self,
+        job_id: str,
+        inspector: Callable[[TaskSummary], _MutationResult],
+    ) -> _MutationResult:
+        """Read one canonical task under the shared lock without invoking a mutation."""
+        lock_path = self._lock_path(job_id)
+        with self._thread_lock, lock_path.open("a+", encoding="utf-8") as lock_file:
+            os.chmod(lock_path, 0o600)
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+            try:
+                current = next(
+                    (task for task in self.adapter.list() if task.job_id == job_id), None
+                )
+                if current is None:
+                    raise TaskAdapterError("task_not_found")
+                return inspector(current)
+            finally:
+                fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)

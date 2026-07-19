@@ -61,7 +61,9 @@ ChangeState = Literal[
     "failed",
     "expired",
     "conflict",
+    "indeterminate",
 ]
+OperationPhase = Literal["intent_pending", "intent_written", "mutation_started", "terminal"]
 
 
 class ChangeRequest(BaseModel):
@@ -87,6 +89,10 @@ class ChangeRequest(BaseModel):
     operation_id: str | None = None
     audit_pending: bool = False
     audit_diff: dict[str, object] = Field(default_factory=dict)
+    operation_phase: OperationPhase | None = None
+    operation_started_at: datetime | None = None
+    terminal_reason: str | None = None
+    manual_review: bool = False
 
 
 def _validate_opaque(value: str, field: str) -> str:
@@ -166,7 +172,9 @@ class ApprovalService:
     MAX_STORE_BYTES = 1 * 1_024 * 1_024
     TERMINAL_RETENTION = timedelta(days=7)
     MAX_TERMINAL_REQUESTS = 200
-    _TERMINAL_STATES = frozenset({"applied", "failed", "expired", "conflict"})
+    _TERMINAL_STATES = frozenset(
+        {"applied", "failed", "expired", "conflict", "indeterminate"}
+    )
 
     def __init__(
         self,
@@ -246,6 +254,7 @@ class ApprovalService:
         request.terminal_at = now
         request.operation_id = request.operation_id or f"op_{uuid.uuid4()}"
         request.audit_pending = True
+        request.operation_phase = "terminal"
 
     def _purge(self, payload: dict[str, dict[str, object]]) -> bool:
         changed = False
@@ -473,6 +482,10 @@ class ApprovalService:
             request.state = "applying"
             request.operation_id = request.operation_id or f"op_{uuid.uuid4()}"
             request.audit_pending = False
+            request.operation_phase = "intent_pending"
+            request.operation_started_at = self._clock()
+            request.terminal_reason = None
+            request.manual_review = False
             self._store(payload, request)
             self._write(payload)
             return request
@@ -491,6 +504,73 @@ class ApprovalService:
             if request.state != "applying":
                 raise StateError("change request is not applying")
             self._terminalize(request, outcome)
+            request.terminal_reason = "completed" if outcome == "applied" else "mutation_failed"
+            if outcome == "applied":
+                request.applied_at = self._clock()
+            self._store(payload, request)
+            self._write(payload)
+            return request
+
+    def _mark_phase(self, operation_id: str, phase: OperationPhase) -> ChangeRequest:
+        with self._transaction() as payload:
+            request = next(
+                (
+                    self._load(payload, key)
+                    for key in payload["requests"]
+                    if payload["requests"][key].get("operation_id") == operation_id
+                ),
+                None,
+            )
+            if request is None:
+                raise KeyError(operation_id)
+            if request.state != "applying":
+                raise StateError("operation is not applying")
+            allowed = {
+                "intent_pending": "intent_written",
+                "intent_written": "mutation_started",
+            }
+            if allowed.get(request.operation_phase) != phase:
+                raise StateError("operation phase transition is invalid")
+            request.operation_phase = phase
+            self._store(payload, request)
+            self._write(payload)
+            return request
+
+    def mark_intent_written(self, operation_id: str | None) -> ChangeRequest:
+        if operation_id is None:
+            raise StateError("operation id is missing")
+        return self._mark_phase(operation_id, "intent_written")
+
+    def mark_mutation_started(self, operation_id: str | None) -> ChangeRequest:
+        if operation_id is None:
+            raise StateError("operation id is missing")
+        return self._mark_phase(operation_id, "mutation_started")
+
+    def recover_operation(
+        self,
+        operation_id: str,
+        *,
+        outcome: Literal["applied", "failed", "indeterminate"],
+        reason: str,
+        manual_review: bool,
+    ) -> ChangeRequest:
+        """Persist a recovery outcome before any terminal audit is attempted."""
+        with self._transaction() as payload:
+            request = next(
+                (
+                    self._load(payload, key)
+                    for key in payload["requests"]
+                    if payload["requests"][key].get("operation_id") == operation_id
+                ),
+                None,
+            )
+            if request is None:
+                raise KeyError(operation_id)
+            if request.state != "applying":
+                return request
+            self._terminalize(request, outcome)
+            request.terminal_reason = reason
+            request.manual_review = manual_review
             if outcome == "applied":
                 request.applied_at = self._clock()
             self._store(payload, request)
@@ -523,6 +603,16 @@ class ApprovalService:
             if changed:
                 self._write(payload)
         return [request for request in requests if request.audit_pending]
+
+    def pending_operations(self) -> list[ChangeRequest]:
+        with self._transaction() as payload:
+            requests = [self._load(payload, key) for key in sorted(payload["requests"])]
+        return [request for request in requests if request.state == "applying"]
+
+    def manual_reviews(self) -> list[ChangeRequest]:
+        with self._transaction() as payload:
+            requests = [self._load(payload, key) for key in sorted(payload["requests"])]
+        return [request for request in requests if request.manual_review]
 
     def mark_audited(self, operation_id: str) -> None:
         with self._transaction() as payload:

@@ -27,7 +27,14 @@ _OPERATION_ID = re.compile(
 )
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 AuditStatus = Literal[
-    "previewed", "approved", "applying", "applied", "failed", "conflict", "expired"
+    "previewed",
+    "approved",
+    "applying",
+    "applied",
+    "failed",
+    "conflict",
+    "expired",
+    "indeterminate",
 ]
 
 
@@ -125,6 +132,7 @@ class AuditLog:
             "failed",
             "conflict",
             "expired",
+            "indeterminate",
         }:
             raise ValueError("audit status is invalid")
         if operation_id is not None and _OPERATION_ID.fullmatch(operation_id) is None:
