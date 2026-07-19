@@ -44,3 +44,28 @@ def test_profile_template_pins_current_hermes_config_schema() -> None:
     text = PROFILE_CONFIG.read_text(encoding="utf-8")
 
     assert text.startswith("_config_version: 33\n")
+
+
+def test_profile_template_has_safe_unattended_learning_defaults() -> None:
+    text = PROFILE_CONFIG.read_text(encoding="utf-8")
+
+    for required in (
+        "memory_enabled: true",
+        "user_profile_enabled: true",
+        "write_approval: true",
+        "nudge_interval: 0",
+        "guard_agent_created: true",
+        "creation_nudge_interval: 0",
+        'profile_build: "off"',
+    ):
+        assert required in text
+
+
+def test_operating_rhythm_resists_cocoon_self_mutation_and_external_action() -> None:
+    text = (REFERENCES / "operating-rhythm.md").read_text(encoding="utf-8")
+
+    for required in (
+        "广域输入", "不少于 80%", "定向补充", "不超过 20%", "反对证据", "意外发现",
+        "不得修改 Memory 或 Skill", "改进建议草案", "不得执行任何外部行动",
+    ):
+        assert required in text

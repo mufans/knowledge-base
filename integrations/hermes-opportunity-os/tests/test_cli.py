@@ -6,6 +6,7 @@ from urllib.parse import urlsplit
 import pytest
 
 from opportunity_os.cli import main
+from opportunity_os.automation.hermes_runner import RunRecord
 from opportunity_os.dashboard.auth import SessionStore
 from opportunity_os.models import Review
 from opportunity_os.store import PrivateStore
@@ -147,3 +148,35 @@ def test_dashboard_open_persists_bootstrap_without_printing_token(
     token = fragment.removeprefix("bootstrap=")
     assert token not in output
     assert SessionStore(home / "dashboard").exchange_bootstrap(token) is not None
+
+
+def test_automation_run_cli_uses_fixture_runner_without_provider_call(tmp_path: Path, monkeypatch, capsys) -> None:
+    calls = []
+
+    class FixtureRunner:
+        def __init__(self, home) -> None:
+            calls.append(("init", Path(home)))
+
+        def run(self, cadence, period_key) -> RunRecord:
+            calls.append(("run", cadence, period_key))
+            return RunRecord(
+                run_id="fixture-run",
+                cadence=cadence,
+                period_key=period_key,
+                idempotency_key=f"{cadence}:{period_key}",
+                status="success",
+                started_at="2026-07-19T10:00:00+00:00",
+                ended_at="2026-07-19T10:00:01+00:00",
+                duration_seconds=1.0,
+                error_class=None,
+            )
+
+    monkeypatch.setattr("opportunity_os.cli.CadenceRunner", FixtureRunner)
+    result = main([
+        "automation", "run", "--home", str(tmp_path / "private"), "--cadence", "weekly",
+        "--period-key", "2026-W29", "--format", "json",
+    ])
+
+    assert result == 0
+    assert calls == [("init", tmp_path / "private"), ("run", "weekly", "2026-W29")]
+    assert json.loads(capsys.readouterr().out)["status"] == "success"

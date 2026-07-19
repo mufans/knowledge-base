@@ -10,6 +10,7 @@ from urllib.parse import urlsplit
 
 import uvicorn
 
+from opportunity_os.automation.hermes_runner import CADENCE_TIMEOUTS, CadenceRunner
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
@@ -137,6 +138,14 @@ def build_parser() -> argparse.ArgumentParser:
     open_dashboard = dashboard_commands.add_parser("open")
     open_dashboard.add_argument("--home", required=True)
     open_dashboard.add_argument("--url", default="http://127.0.0.1:8765")
+
+    automation = subparsers.add_parser("automation")
+    automation_commands = automation.add_subparsers(dest="automation_command", required=True)
+    automation_run = automation_commands.add_parser("run")
+    automation_run.add_argument("--home", required=True)
+    automation_run.add_argument("--cadence", required=True, choices=tuple(CADENCE_TIMEOUTS))
+    automation_run.add_argument("--period-key", required=True)
+    automation_run.add_argument("--format", choices=("text", "json"), default="json")
     return parser
 
 
@@ -181,6 +190,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             token = SessionStore(config.dashboard_home).create_bootstrap()
             webbrowser.open(f"{url}/#bootstrap={token}")
             _emit({"opened": True, "url": url}, "json")
+        elif args.command == "automation" and args.automation_command == "run":
+            record = CadenceRunner(args.home).run(args.cadence, args.period_key)
+            _emit(record.to_dict(), args.format)
+            return 0 if record.status in {"success", "skipped_duplicate"} else 1
         return 0
     except OpportunityOSError as error:
         _emit({"ok": False, "error": str(error)}, "json")

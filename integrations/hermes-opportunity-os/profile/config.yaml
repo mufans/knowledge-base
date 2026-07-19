@@ -21,12 +21,14 @@ agent:
 
 memory:
   memory_enabled: true
-  user_profile_enabled: false
+  user_profile_enabled: true
   write_approval: true
+  nudge_interval: 0
 
 skills:
   guard_agent_created: true
   write_approval: true
+  creation_nudge_interval: 0
 
 approvals:
   mode: manual
