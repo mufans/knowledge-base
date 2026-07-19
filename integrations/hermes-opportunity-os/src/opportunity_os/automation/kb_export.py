@@ -10,12 +10,14 @@ import socket
 import stat
 import tempfile
 import time
+import unicodedata
 import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable, Mapping, Sequence
 from urllib.parse import urlsplit
 
+from opportunity_os.automation.secure_runtime import exclusive_arbitration
 from opportunity_os.errors import BoundaryError, ValidationError
 from opportunity_os.sanitizer import contains_secret
 
@@ -105,23 +107,50 @@ class KnowledgeExporter:
 
     @classmethod
     def _requests_broad_source_removal(cls, value: object) -> bool:
-        deletion_terms = ("remove", "delete", "drop", "discard", "exclude", "删除", "移除", "去除", "丢弃", "屏蔽")
-        source_terms = ("source", "sources", "broad", "来源", "信源", "广域")
+        reduction_terms = {
+            "remove", "delete", "drop", "discard", "exclude", "reduce", "decrease",
+            "disable", "narrow", "limit", "shrink", "suppress",
+        }
+        chinese_reductions = ("删除", "移除", "去除", "丢弃", "减少", "降低", "禁用", "缩减", "限制", "收窄", "屏蔽")
+
+        def fragments(item: object) -> list[str]:
+            result: list[str] = []
+            if isinstance(item, Mapping):
+                for key, nested in item.items():
+                    result.append(str(key))
+                    result.extend(fragments(nested))
+            elif isinstance(item, list):
+                for nested in item:
+                    result.extend(fragments(nested))
+            elif isinstance(item, str):
+                result.append(item)
+            return result
 
         def inspect(item: object) -> bool:
             if isinstance(item, Mapping):
-                local = json.dumps(item, ensure_ascii=False, sort_keys=True, allow_nan=False).casefold()
-                if any(term in local for term in deletion_terms) and any(term in local for term in source_terms):
+                local_fragments = [unicodedata.normalize("NFKC", part).casefold() for part in fragments(item)]
+                words = {
+                    word
+                    for part in local_fragments
+                    for word in re.findall(r"[a-z]+|[\u4e00-\u9fff]+", part)
+                }
+                compact = " ".join(local_fragments).replace("_", "")
+                has_reduction = bool(words & reduction_terms) or any(
+                    term in compact for term in chinese_reductions
+                )
+                has_source = (
+                    bool(words & {"source", "sources"})
+                    or "broadsources" in compact
+                    or "来源" in compact
+                    or "信源" in compact
+                    or "广域来源" in compact
+                )
+                if has_reduction and has_source:
                     return True
-                for key, nested in item.items():
-                    normalized = re.sub(r"[^a-z\u4e00-\u9fff]", "", str(key).casefold())
-                    if normalized in {"action", "operation", "verb", "动作", "操作"} and isinstance(nested, str):
-                        allowed = ("add", "request", "search", "supplement", "增加", "新增", "补充", "检索", "请求")
-                        if not any(term in nested.casefold() for term in allowed):
-                            return True
+                for nested in item.values():
                     if inspect(nested):
                         return True
-            elif isinstance(item, (list, tuple)):
+            elif isinstance(item, list):
                 return any(inspect(nested) for nested in item)
             return False
 
@@ -162,6 +191,27 @@ class KnowledgeExporter:
                 cls._validate_json_domain(item, depth=depth + 1)
             return
         raise ValidationError("bridge 仅允许 JSON domain 值")
+
+    @classmethod
+    def _normalize_source_collection(
+        cls, value: object, *, label: str
+    ) -> tuple[list[str], set[str]]:
+        if not isinstance(value, (list, tuple)):
+            raise ValidationError(f"{label} 必须是受支持的非字符串数组")
+        items = list(value)
+        cls._validate_json_domain(items)
+        cleaned: list[str] = []
+        normalized: set[str] = set()
+        for item in items:
+            if not isinstance(item, str) or not item.strip():
+                raise ValidationError(f"{label} 只能包含非空字符串")
+            stripped = item.strip()
+            key = unicodedata.normalize("NFKC", stripped).casefold()
+            if key in normalized:
+                raise ValidationError(f"{label} 不得包含规范化重复项")
+            normalized.add(key)
+            cleaned.append(stripped)
+        return cleaned, normalized
 
     @staticmethod
     def _validate_public_text(value: object) -> str:
@@ -482,59 +532,65 @@ class KnowledgeExporter:
         locks_fd = self._open_private_subdir("locks")
         deadline = time.monotonic() + self.lock_wait_seconds
         while True:
-            try:
-                os.mkdir("kb-export.lock", mode=0o700, dir_fd=locks_fd)
-            except FileExistsError:
-                if self._export_lock_is_stale(locks_fd):
-                    stale_name = f".kb-export.stale.{uuid.uuid4().hex}"
-                    try:
+            acquired = False
+            with exclusive_arbitration(locks_fd, ".kb-export-arbitration.lock"):
+                try:
+                    os.mkdir("kb-export.lock", mode=0o700, dir_fd=locks_fd)
+                    acquired = True
+                except FileExistsError:
+                    if self._export_lock_is_stale(locks_fd):
+                        stale_name = f".kb-export.stale.{uuid.uuid4().hex}"
                         os.rename(
                             "kb-export.lock", stale_name, src_dir_fd=locks_fd, dst_dir_fd=locks_fd
                         )
-                    except FileNotFoundError:
-                        continue
-                    self._cleanup_stale_lock(locks_fd, stale_name)
-                    continue
-                if time.monotonic() >= deadline:
-                    os.close(locks_fd)
-                    raise ValidationError("知识库导出锁超时")
-                time.sleep(0.01)
-                continue
-            token = uuid.uuid4().hex
-            lock_fd = os.open(
-                "kb-export.lock", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd
-            )
-            try:
-                self._write_json_at(
-                    lock_fd,
-                    "owner.json",
-                    {
-                        "token": token,
-                        "pid": os.getpid(),
-                        "host": socket.gethostname(),
-                        "started_at": self.now().astimezone(timezone.utc).isoformat(),
-                    },
-                )
-            finally:
-                os.close(lock_fd)
-            return locks_fd, token
+                        self._cleanup_stale_lock(locks_fd, stale_name)
+                        os.mkdir("kb-export.lock", mode=0o700, dir_fd=locks_fd)
+                        acquired = True
+                if acquired:
+                    token = uuid.uuid4().hex
+                    lock_fd = os.open(
+                        "kb-export.lock",
+                        os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                        dir_fd=locks_fd,
+                    )
+                    try:
+                        self._write_json_at(
+                            lock_fd,
+                            "owner.json",
+                            {
+                                "token": token,
+                                "pid": os.getpid(),
+                                "host": socket.gethostname(),
+                                "started_at": self.now().astimezone(timezone.utc).isoformat(),
+                            },
+                        )
+                    finally:
+                        os.close(lock_fd)
+                    return locks_fd, token
+            if time.monotonic() >= deadline:
+                os.close(locks_fd)
+                raise ValidationError("知识库导出锁超时")
+            time.sleep(0.01)
 
     def _release_export_lock(self, locks_fd: int, token: str) -> None:
         try:
-            try:
-                lock_fd = os.open(
-                    "kb-export.lock", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd
-                )
-            except FileNotFoundError:
-                return
-            try:
-                owner = self._read_json_at(lock_fd, "owner.json")
-                if owner.get("token") != token:
+            with exclusive_arbitration(locks_fd, ".kb-export-arbitration.lock"):
+                try:
+                    lock_fd = os.open(
+                        "kb-export.lock",
+                        os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                        dir_fd=locks_fd,
+                    )
+                except FileNotFoundError:
                     return
-                os.unlink("owner.json", dir_fd=lock_fd)
-            finally:
-                os.close(lock_fd)
-            os.rmdir("kb-export.lock", dir_fd=locks_fd)
+                try:
+                    owner = self._read_json_at(lock_fd, "owner.json")
+                    if owner.get("token") != token:
+                        return
+                    os.unlink("owner.json", dir_fd=lock_fd)
+                finally:
+                    os.close(lock_fd)
+                os.rmdir("kb-export.lock", dir_fd=locks_fd)
         finally:
             os.close(locks_fd)
 
@@ -594,11 +650,13 @@ class KnowledgeExporter:
         targeted_searches: Sequence[str],
     ) -> Path:
         self._validate_bridge_name(name)
-        broad = list(broad_sources)
-        targeted = list(targeted_searches)
+        broad, broad_keys = self._normalize_source_collection(broad_sources, label="broad_sources")
+        targeted, targeted_keys = self._normalize_source_collection(
+            targeted_searches, label="targeted_searches"
+        )
+        if broad_keys & targeted_keys:
+            raise ValidationError("broad_sources 与 targeted_searches 不得重叠")
         self._validate_json_domain(payload)
-        self._validate_json_domain(broad)
-        self._validate_json_domain(targeted)
         if (
             contains_secret(payload)
             or contains_secret([broad, targeted])

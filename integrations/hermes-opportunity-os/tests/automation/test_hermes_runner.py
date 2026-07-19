@@ -10,7 +10,7 @@ import pytest
 from concurrent.futures import ThreadPoolExecutor
 
 from opportunity_os.automation.hermes_runner import CADENCE_TIMEOUTS, CadenceRunner
-from opportunity_os.errors import ValidationError
+from opportunity_os.errors import BoundaryError, ValidationError
 
 
 NOW = datetime(2026, 7, 19, 10, 0, tzinfo=timezone.utc)
@@ -421,3 +421,149 @@ def test_timeout_terminates_entire_process_group_including_grandchild(tmp_path: 
     assert record.status == "timeout"
     with pytest.raises(ProcessLookupError):
         os.kill(child_pid, 0)
+
+
+def test_heartbeat_supervision_failure_terminates_child_and_grandchild_before_unlock(
+    tmp_path: Path, monkeypatch
+) -> None:
+    executable = make_hermes_executable(
+        tmp_path,
+        "#!/bin/sh\ntrap 'exit 0' TERM\nsh -c 'trap \"\" TERM; sleep 30' &\necho $! > child.pid\nwait\n",
+    )
+    runner = CadenceRunner(
+        tmp_path / "private",
+        hermes_path=executable,
+        working_directory=tmp_path,
+        heartbeat_interval_seconds=0.05,
+        termination_grace_seconds=0.1,
+    )
+    original_heartbeat = runner._heartbeat
+    calls = 0
+
+    def failing_heartbeat(heartbeats_fd, record) -> None:
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            deadline = time.monotonic() + 1
+            while not (tmp_path / "child.pid").exists() and time.monotonic() < deadline:
+                time.sleep(0.01)
+            assert (tmp_path / "child.pid").is_file()
+            raise OSError("simulated heartbeat failure")
+        original_heartbeat(heartbeats_fd, record)
+
+    monkeypatch.setattr(runner, "_heartbeat", failing_heartbeat)
+    child_pid = None
+    try:
+        record = runner.run("daily", "2026-07-19")
+        child_pid = int((tmp_path / "child.pid").read_text(encoding="utf-8"))
+        deadline = time.monotonic() + 2
+        while time.monotonic() < deadline:
+            try:
+                os.kill(child_pid, 0)
+            except ProcessLookupError:
+                break
+            time.sleep(0.02)
+
+        assert record.status == "failed"
+        with pytest.raises(ProcessLookupError):
+            os.kill(child_pid, 0)
+        assert not (tmp_path / "private" / "dashboard" / "locks" / "daily.lock").exists()
+    finally:
+        if child_pid is not None:
+            try:
+                os.killpg(os.getpgid(child_pid), 9)
+            except ProcessLookupError:
+                pass
+
+
+@pytest.mark.parametrize("link_kind", ["home", "dashboard", "locks", "runs", "heartbeats"])
+def test_cadence_runtime_rejects_symlink_components_before_any_target_write(
+    tmp_path: Path, link_kind: str
+) -> None:
+    external = tmp_path / "knowledge" / "raw"
+    external.mkdir(parents=True)
+    sentinel = external / "sentinel.md"
+    sentinel.write_text("unchanged", encoding="utf-8")
+    before = (sentinel.read_bytes(), external.stat().st_mtime_ns)
+    private = tmp_path / "private"
+    if link_kind == "home":
+        private.symlink_to(external, target_is_directory=True)
+    else:
+        private.mkdir()
+        dashboard = private / "dashboard"
+        if link_kind == "dashboard":
+            dashboard.symlink_to(external, target_is_directory=True)
+        else:
+            dashboard.mkdir()
+            (dashboard / link_kind).symlink_to(external, target_is_directory=True)
+    runner = CadenceRunner(
+        private,
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=CapturingProcessFactory(),
+        now=lambda: NOW,
+    )
+
+    with pytest.raises(BoundaryError):
+        runner.run("daily", "2026-07-19")
+    assert before == (sentinel.read_bytes(), external.stat().st_mtime_ns)
+
+
+def test_cadence_arbitration_file_is_permanent_nofollow_and_0600(tmp_path: Path) -> None:
+    runner = make_runner(tmp_path)
+    assert runner.run("daily", "2026-07-19").status == "success"
+    arbitration = tmp_path / "private" / "dashboard" / "locks" / ".cadence-arbitration.lock"
+
+    assert arbitration.is_file() and not arbitration.is_symlink()
+    assert arbitration.stat().st_mode & 0o777 == 0o600
+
+
+def test_two_cadence_contenders_cannot_steal_new_lock_after_stale_takeover(tmp_path: Path) -> None:
+    home = tmp_path / "private"
+    stale = home / "dashboard" / "locks" / "daily.lock"
+    stale.mkdir(parents=True)
+    (stale / "owner.json").write_text(
+        json.dumps({"pid": 999_999_999, "started_at": "2020-01-01T00:00:00+00:00"}),
+        encoding="utf-8",
+    )
+    entered = threading.Event()
+    release = threading.Event()
+
+    class BlockingProcess(ImmediateProcess):
+        def wait(self, timeout: float | None = None) -> int:
+            assert release.wait(2)
+            return 0
+
+    class BlockingFactory(CapturingProcessFactory):
+        def __call__(self, argv: list[str], **kwargs) -> BlockingProcess:
+            self.calls.append((list(argv), dict(kwargs)))
+            entered.set()
+            return BlockingProcess()
+
+    factory = BlockingFactory()
+    first = CadenceRunner(
+        home,
+        hermes_path=make_hermes_executable(tmp_path),
+        working_directory=tmp_path,
+        process_factory=factory,
+        now=lambda: NOW,
+        stale_after_seconds=1,
+    )
+    second = CadenceRunner(
+        home,
+        hermes_path=tmp_path / "bin" / "hermes",
+        working_directory=tmp_path,
+        process_factory=factory,
+        now=lambda: NOW,
+        stale_after_seconds=1,
+    )
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        first_future = pool.submit(first.run, "daily", "2026-07-19")
+        assert entered.wait(2)
+        second_future = pool.submit(second.run, "daily", "2026-07-19")
+        second_record = second_future.result(timeout=2)
+        release.set()
+        first_record = first_future.result(timeout=2)
+
+    assert {first_record.status, second_record.status} == {"success", "locked"}
+    assert len(factory.calls) == 1

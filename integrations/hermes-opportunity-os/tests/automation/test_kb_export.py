@@ -258,6 +258,39 @@ def test_export_stale_dead_owner_lock_is_atomically_reclaimed(tmp_path: Path) ->
     assert not list((private / "locks").glob(".kb-export.stale.*"))
 
 
+def test_export_arbitration_file_is_permanent_nofollow_and_0600(tmp_path: Path) -> None:
+    exporter, _, private = make_exporter(tmp_path)
+    exporter.export("dashboard", valid_report())
+    arbitration = private / "locks" / ".kb-export-arbitration.lock"
+
+    assert arbitration.is_file() and not arbitration.is_symlink()
+    assert arbitration.stat().st_mode & 0o777 == 0o600
+
+
+def test_two_export_contenders_serialize_stale_takeover_without_stealing_new_lock(tmp_path: Path) -> None:
+    exporter, root, private = make_exporter(tmp_path)
+    write_export_lock(private, pid=999_999_999, started_at="2020-01-01T00:00:00+00:00")
+    exporter = KnowledgeExporter(
+        root,
+        private_home=private,
+        now=lambda: NOW,
+        lock_stale_after_seconds=1,
+        lock_wait_seconds=2,
+    )
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        pages = list(
+            pool.map(
+                lambda _: exporter.export("weekly", valid_report(), period_key="2026-07-19"),
+                range(2),
+            )
+        )
+
+    assert pages[0] == pages[1]
+    assert not (private / "locks" / "kb-export.lock").exists()
+    assert not list((private / "locks").glob(".kb-export.stale.*"))
+
+
 def test_concurrent_exports_do_not_duplicate_index_or_truncate_log(tmp_path: Path) -> None:
     exporter, root, _ = make_exporter(tmp_path)
 
@@ -323,6 +356,35 @@ def test_bridge_semantically_rejects_all_broad_source_removal_shapes(tmp_path: P
             broad_sources=["official", "paper", "github", "community"],
             targeted_searches=[],
         )
+
+
+@pytest.mark.parametrize(
+    "verb",
+    [
+        "reduce", "decrease", "disable", "narrow", "limit", "shrink", "suppress",
+        "减少", "降低", "禁用", "缩减", "限制", "收窄", "屏蔽",
+    ],
+)
+def test_bridge_rejects_extended_broad_source_reduction_semantics(tmp_path: Path, verb: str) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "source-feedback.json",
+            {"nested": {"action": verb, "broad_sources": ["community"]}},
+            broad_sources=["official", "paper", "github", "community"],
+            targeted_searches=[],
+        )
+
+
+def test_reduction_words_without_source_semantics_do_not_false_positive(tmp_path: Path) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    path = exporter.write_bridge(
+        "source-feedback.json",
+        {"request": "降低实验成本，不改变采集范围"},
+        broad_sources=["official", "paper", "github", "community"],
+        targeted_searches=[],
+    )
+    assert path.is_file()
     with pytest.raises(ValidationError):
         exporter.write_bridge(
             "source-feedback.json",
@@ -398,6 +460,52 @@ def test_targeted_ratio_accepts_exact_twenty_percent_and_rejects_above(tmp_path:
             broad_sources=["a", "b", "c", "d"],
             targeted_searches=["target-1", "target-2"],
         )
+
+
+@pytest.mark.parametrize("bad_sources", ["official", b"official", {"official": True}, iter(["official"])])
+def test_bridge_source_collections_must_be_supported_non_string_arrays(tmp_path: Path, bad_sources) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "source-feedback.json",
+            {"request": "补充证据"},
+            broad_sources=bad_sources,
+            targeted_searches=[],
+        )
+
+
+@pytest.mark.parametrize(
+    ("broad", "targeted"),
+    [
+        (["official", " official "], []),
+        (["Official", "official"], []),
+        (["ＯＦＦＩＣＩＡＬ", "official"], []),
+        (["official", "paper", "github", "community"], ["Target", " target "]),
+        (["Official", "paper", "github", "community"], [" official "]),
+    ],
+)
+def test_bridge_sources_reject_normalized_duplicates_and_broad_target_overlap(
+    tmp_path: Path, broad: list[str], targeted: list[str]
+) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    with pytest.raises(ValidationError):
+        exporter.write_bridge(
+            "source-feedback.json",
+            {"request": "补充证据"},
+            broad_sources=broad,
+            targeted_searches=targeted,
+        )
+
+
+def test_bridge_accepts_supported_tuple_sources_and_preserves_exact_ratio_boundary(tmp_path: Path) -> None:
+    exporter, _, _ = make_exporter(tmp_path)
+    path = exporter.write_bridge(
+        "source-feedback.json",
+        {"request": "补充证据"},
+        broad_sources=("official", "paper", "github", "community"),
+        targeted_searches=("target",),
+    )
+    assert path.is_file()
 
 
 def test_expired_bridge_is_not_returned(tmp_path: Path) -> None:

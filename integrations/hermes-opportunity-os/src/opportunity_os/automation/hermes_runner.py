@@ -5,10 +5,9 @@ from __future__ import annotations
 import json
 import os
 import re
-import shutil
 import signal
+import socket
 import subprocess
-import tempfile
 import time
 import uuid
 from dataclasses import asdict, dataclass
@@ -16,7 +15,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
-from opportunity_os.errors import ValidationError
+from opportunity_os.automation.secure_runtime import (
+    atomic_json_at,
+    exclusive_arbitration,
+    open_absolute_directory,
+    open_child_directory,
+    read_json_at,
+)
+from opportunity_os.errors import BoundaryError, ValidationError
 
 
 CADENCE_TIMEOUTS = {
@@ -81,7 +87,10 @@ class CadenceRunner:
         heartbeat_interval_seconds: float = 5,
         termination_grace_seconds: float = 5,
     ) -> None:
-        self.home = Path(home).expanduser().resolve()
+        home_path = Path(home).expanduser()
+        if not home_path.is_absolute() or ".." in home_path.parts:
+            raise BoundaryError("cadence home 必须是绝对且无父目录跳转的路径")
+        self.home = home_path
         self.runtime_home = self.home / "dashboard"
         self.hermes_path = self._validate_hermes_path(
             Path.home() / ".local" / "bin" / "hermes" if hermes_path is None else Path(hermes_path)
@@ -133,22 +142,23 @@ class CadenceRunner:
         if not isinstance(period_key, str) or not PERIOD_KEY_PATTERN.fullmatch(period_key):
             raise ValidationError("period_key 格式无效")
 
-    @staticmethod
-    def _atomic_json(path: Path, payload: dict[str, object]) -> None:
-        path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-        descriptor, temporary = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    def _open_runtime_directories(self) -> tuple[int, int, int]:
+        home_fd = open_absolute_directory(self.home)
+        dashboard_fd = None
+        opened: list[int] = []
         try:
-            with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
-                json.dump(payload, handle, ensure_ascii=False, sort_keys=True, allow_nan=False)
-                handle.write("\n")
-                handle.flush()
-                os.fsync(handle.fileno())
-            os.chmod(temporary, 0o600)
-            os.replace(temporary, path)
-            os.chmod(path, 0o600)
+            dashboard_fd = open_child_directory(home_fd, "dashboard")
+            for name in ("locks", "runs", "heartbeats"):
+                opened.append(open_child_directory(dashboard_fd, name))
+            return opened[0], opened[1], opened[2]
+        except Exception:
+            for descriptor in opened:
+                os.close(descriptor)
+            raise
         finally:
-            if os.path.exists(temporary):
-                os.unlink(temporary)
+            if dashboard_fd is not None:
+                os.close(dashboard_fd)
+            os.close(home_fd)
 
     @staticmethod
     def _pid_alive(pid: object) -> bool:
@@ -162,65 +172,127 @@ class CadenceRunner:
             return True
         return True
 
-    def _lock_is_stale(self, lock_path: Path) -> bool:
+    def _lock_is_stale(self, locks_fd: int, cadence: str) -> bool:
+        lock_name = f"{cadence}.lock"
         try:
-            owner = json.loads((lock_path / "owner.json").read_text(encoding="utf-8"))
+            lock_fd = os.open(
+                lock_name,
+                os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                dir_fd=locks_fd,
+            )
+        except FileNotFoundError:
+            return False
+        except OSError as error:
+            raise BoundaryError("cadence lock 是不安全路径") from error
+        try:
+            owner = read_json_at(lock_fd, "owner.json")
             started = datetime.fromisoformat(str(owner["started_at"]))
             if started.tzinfo is None:
                 return False
             age = (self.now().astimezone(timezone.utc) - started.astimezone(timezone.utc)).total_seconds()
-            return age > self.stale_after_seconds and not self._pid_alive(owner.get("pid"))
-        except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError):
+            same_host = owner.get("host", socket.gethostname()) == socket.gethostname()
+            return age > self.stale_after_seconds and same_host and not self._pid_alive(owner.get("pid"))
+        except FileNotFoundError:
             try:
-                age = self.now().timestamp() - lock_path.stat().st_mtime
+                lock_stat = os.stat(lock_name, dir_fd=locks_fd, follow_symlinks=False)
             except OSError:
                 return False
-            return age > self.stale_after_seconds
-
-    def _acquire_lock(self, cadence: str, run_id: str, started_at: str) -> Path | None:
-        locks = self.runtime_home / "locks"
-        locks.mkdir(parents=True, exist_ok=True, mode=0o700)
-        lock_path = locks / f"{cadence}.lock"
-        for _ in range(2):
-            try:
-                lock_path.mkdir(mode=0o700)
-            except FileExistsError:
-                if not self._lock_is_stale(lock_path):
-                    return None
-                stale = locks / f".{cadence}.stale.{uuid.uuid4().hex}"
-                try:
-                    lock_path.rename(stale)
-                except FileNotFoundError:
-                    continue
-                shutil.rmtree(stale)
-                continue
-            self._atomic_json(
-                lock_path / "owner.json",
-                {"pid": os.getpid(), "run_id": run_id, "started_at": started_at},
-            )
-            return lock_path
-        return None
+            return self.now().timestamp() - lock_stat.st_mtime > self.stale_after_seconds
+        except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError):
+            return False
+        finally:
+            os.close(lock_fd)
 
     @staticmethod
-    def _release_lock(lock_path: Path, run_id: str) -> None:
+    def _cleanup_stale_lock(locks_fd: int, stale_name: str) -> None:
+        stale_fd = os.open(
+            stale_name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd
+        )
         try:
-            owner = json.loads((lock_path / "owner.json").read_text(encoding="utf-8"))
-            if owner.get("run_id") != run_id:
+            for entry in os.listdir(stale_fd):
+                if entry == "owner.json" or (entry.startswith(".owner.json.") and entry.endswith(".tmp")):
+                    try:
+                        os.unlink(entry, dir_fd=stale_fd)
+                    except FileNotFoundError:
+                        pass
+        finally:
+            os.close(stale_fd)
+        try:
+            os.rmdir(stale_name, dir_fd=locks_fd)
+        except OSError:
+            pass
+
+    def _acquire_lock(self, locks_fd: int, cadence: str, run_id: str, started_at: str) -> str | None:
+        lock_name = f"{cadence}.lock"
+        with exclusive_arbitration(locks_fd, ".cadence-arbitration.lock"):
+            try:
+                os.mkdir(lock_name, mode=0o700, dir_fd=locks_fd)
+            except FileExistsError:
+                if not self._lock_is_stale(locks_fd, cadence):
+                    return None
+                stale_name = f".{cadence}.stale.{uuid.uuid4().hex}"
+                os.rename(lock_name, stale_name, src_dir_fd=locks_fd, dst_dir_fd=locks_fd)
+                self._cleanup_stale_lock(locks_fd, stale_name)
+                os.mkdir(lock_name, mode=0o700, dir_fd=locks_fd)
+            token = uuid.uuid4().hex
+            lock_fd = os.open(
+                lock_name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd
+            )
+            try:
+                atomic_json_at(
+                    lock_fd,
+                    "owner.json",
+                    {
+                        "token": token,
+                        "pid": os.getpid(),
+                        "host": socket.gethostname(),
+                        "run_id": run_id,
+                        "started_at": started_at,
+                    },
+                )
+            finally:
+                os.close(lock_fd)
+            return token
+
+    @staticmethod
+    def _release_lock(locks_fd: int, cadence: str, token: str) -> None:
+        lock_name = f"{cadence}.lock"
+        with exclusive_arbitration(locks_fd, ".cadence-arbitration.lock"):
+            try:
+                lock_fd = os.open(
+                    lock_name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=locks_fd
+                )
+            except FileNotFoundError:
                 return
-            (lock_path / "owner.json").unlink()
-            lock_path.rmdir()
-        except (FileNotFoundError, OSError, ValueError, json.JSONDecodeError):
-            return
+            try:
+                owner = read_json_at(lock_fd, "owner.json")
+                if owner.get("token") != token:
+                    return
+                os.unlink("owner.json", dir_fd=lock_fd)
+            finally:
+                os.close(lock_fd)
+            os.rmdir(lock_name, dir_fd=locks_fd)
 
     def _record_path(self, cadence: str, period_key: str) -> Path:
         return self.runtime_home / "runs" / cadence / f"{period_key}.json"
 
-    def _read_record(self, cadence: str, period_key: str) -> dict[str, object] | None:
+    def _read_record(self, runs_fd: int, cadence: str, period_key: str) -> dict[str, object] | None:
+        cadence_fd = open_child_directory(runs_fd, cadence)
         try:
-            payload = json.loads(self._record_path(cadence, period_key).read_text(encoding="utf-8"))
+            payload = read_json_at(cadence_fd, f"{period_key}.json")
         except (FileNotFoundError, OSError, ValueError, json.JSONDecodeError):
             return None
-        return payload if isinstance(payload, dict) else None
+        finally:
+            os.close(cadence_fd)
+        return payload
+
+    @staticmethod
+    def _write_record(runs_fd: int, record: RunRecord) -> None:
+        cadence_fd = open_child_directory(runs_fd, record.cadence)
+        try:
+            atomic_json_at(cadence_fd, f"{record.period_key}.json", record.to_dict())
+        finally:
+            os.close(cadence_fd)
 
     @staticmethod
     def _argv(hermes_path: Path, cadence: str, period_key: str) -> list[str]:
@@ -246,10 +318,10 @@ class CadenceRunner:
             "PATH": f"{self.hermes_path.parent}:/usr/bin:/bin",
         }
 
-    def _heartbeat(self, record: RunRecord) -> None:
+    def _heartbeat(self, heartbeats_fd: int, record: RunRecord) -> None:
         payload = record.to_dict()
         payload["updated_at"] = self.now().astimezone(timezone.utc).isoformat()
-        self._atomic_json(self.runtime_home / "heartbeats" / f"{record.cadence}.json", payload)
+        atomic_json_at(heartbeats_fd, f"{record.cadence}.json", payload)
 
     def _terminate_process_group(self, process: subprocess.Popen) -> None:
         try:
@@ -276,43 +348,66 @@ class CadenceRunner:
         except subprocess.TimeoutExpired:
             return
 
-    def _execute(self, running: RunRecord) -> tuple[str, str | None]:
-        process = self.process_factory(
-            self._argv(self.hermes_path, running.cadence, running.period_key),
-            cwd=str(self.working_directory),
-            env=self._minimal_env(),
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            start_new_session=True,
-            close_fds=True,
-        )
-        deadline = time.monotonic() + CADENCE_TIMEOUTS[running.cadence]
-        while True:
-            remaining = deadline - time.monotonic()
-            if remaining <= 0:
-                self._terminate_process_group(process)
-                return "timeout", "timeout"
-            try:
-                returncode = process.wait(timeout=min(self.heartbeat_interval_seconds, remaining))
-            except subprocess.TimeoutExpired:
-                self._heartbeat(running)
-                continue
-            if returncode == 0:
-                return "success", None
-            return "failed", "nonzero_exit"
+    def _execute(self, heartbeats_fd: int, running: RunRecord) -> tuple[str, str | None]:
+        process = None
+        try:
+            process = self.process_factory(
+                self._argv(self.hermes_path, running.cadence, running.period_key),
+                cwd=str(self.working_directory),
+                env=self._minimal_env(),
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                start_new_session=True,
+                close_fds=True,
+            )
+            deadline = time.monotonic() + CADENCE_TIMEOUTS[running.cadence]
+            while True:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    self._terminate_process_group(process)
+                    return "timeout", "timeout"
+                try:
+                    returncode = process.wait(timeout=min(self.heartbeat_interval_seconds, remaining))
+                except subprocess.TimeoutExpired:
+                    self._heartbeat(heartbeats_fd, running)
+                    continue
+                if returncode == 0:
+                    return "success", None
+                return "failed", "nonzero_exit"
+        finally:
+            if process is not None:
+                try:
+                    alive = process.poll() is None
+                except Exception:
+                    alive = True
+                if alive:
+                    self._terminate_process_group(process)
 
     def run(self, cadence: str, period_key: str) -> RunRecord:
         self._validate(cadence, period_key)
         run_id = uuid.uuid4().hex
         started_at = self.now().astimezone(timezone.utc).isoformat()
         key = f"{cadence}:{period_key}"
-        lock_path = self._acquire_lock(cadence, run_id, started_at)
-        if lock_path is None:
-            return RunRecord(run_id, cadence, period_key, key, "locked", started_at, started_at, 0.0, "lock_conflict", 0)
-        monotonic_start = time.monotonic()
+        locks_fd, runs_fd, heartbeats_fd = self._open_runtime_directories()
+        lock_token = None
         try:
-            existing = self._read_record(cadence, period_key)
+            lock_token = self._acquire_lock(locks_fd, cadence, run_id, started_at)
+            if lock_token is None:
+                return RunRecord(
+                    run_id,
+                    cadence,
+                    period_key,
+                    key,
+                    "locked",
+                    started_at,
+                    started_at,
+                    0.0,
+                    "lock_conflict",
+                    0,
+                )
+            monotonic_start = time.monotonic()
+            existing = self._read_record(runs_fd, cadence, period_key)
             if existing and existing.get("status") == "success":
                 attempt = int(existing.get("attempt", 1))
                 return RunRecord(
@@ -322,9 +417,9 @@ class CadenceRunner:
             running = RunRecord(
                 run_id, cadence, period_key, key, "running", started_at, None, None, None, attempt, started_at
             )
-            self._heartbeat(running)
+            self._heartbeat(heartbeats_fd, running)
             try:
-                status, error_class = self._execute(running)
+                status, error_class = self._execute(heartbeats_fd, running)
             except OSError as error:
                 status = "failed"
                 error_class = "executable_unavailable" if error.errno == 2 else "execution_error"
@@ -348,10 +443,16 @@ class CadenceRunner:
             )
             # A success is immutable. This also fails closed if another writer
             # violated the cadence lock while this attempt was running.
-            current = self._read_record(cadence, period_key)
+            current = self._read_record(runs_fd, cadence, period_key)
             if not current or current.get("status") != "success":
-                self._atomic_json(self._record_path(cadence, period_key), record.to_dict())
-            self._heartbeat(record)
+                self._write_record(runs_fd, record)
+            self._heartbeat(heartbeats_fd, record)
             return record
         finally:
-            self._release_lock(lock_path, run_id)
+            try:
+                if lock_token is not None:
+                    self._release_lock(locks_fd, cadence, lock_token)
+            finally:
+                os.close(locks_fd)
+                os.close(runs_fd)
+                os.close(heartbeats_fd)
