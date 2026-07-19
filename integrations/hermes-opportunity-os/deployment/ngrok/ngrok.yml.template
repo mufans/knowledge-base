@@ -28,3 +28,8 @@ endpoints:
             - type: deny
               config:
                 status_code: 403
+        - actions:
+            - type: add-headers
+              config:
+                headers:
+                  x-opportunity-origin: __DASHBOARD_ORIGIN_CREDENTIAL__

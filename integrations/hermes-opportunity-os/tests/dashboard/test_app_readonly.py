@@ -53,6 +53,28 @@ def test_dashboard_keeps_auth_boundary_and_no_framework_docs(tmp_path) -> None:
     assert client.get("/healthz", headers={"host": "attacker.example"}).status_code == 400
 
 
+def test_remote_dashboard_accepts_only_ngrok_origin_header_after_loopback_proxy(tmp_path) -> None:
+    sessions = SessionStore(tmp_path / "dashboard")
+    credential = "A" * 43
+    config = DashboardConfig(
+        dashboard_home=tmp_path / "dashboard",
+        remote_host="owner.ngrok-free.app",
+        origin_credential=credential,
+    )
+    app = create_app(config, DashboardDependencies(ReadModel(), sessions, CsrfGuard()))
+    client = TestClient(
+        app,
+        base_url="https://owner.ngrok-free.app",
+        client=("127.0.0.1", 5000),
+    )
+
+    assert client.get("/").status_code == 401
+    assert client.get("/", headers={"X-Dashboard-Origin-Credential": credential}).status_code == 401
+    response = client.get("/", headers={"X-Opportunity-Origin": credential})
+    assert response.status_code == 200
+    assert "opportunity_dashboard_session" in response.cookies
+
+
 def test_production_dashboard_uses_marker_probes_and_never_runs_external_commands(tmp_path) -> None:
     home = tmp_path / "private"
     PrivateStore(home).initialize()

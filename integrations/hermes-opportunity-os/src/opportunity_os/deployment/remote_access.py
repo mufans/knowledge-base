@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ipaddress
 import json
 import os
 import plistlib
@@ -24,7 +25,13 @@ _SERVICE_ACTIONS = frozenset({"install", "start", "restart"})
 _OWNER_EXPRESSION = re.compile(
     r"^!\(actions\.ngrok\.oauth\.identity\.email in \['([^']+)'\]\)$"
 )
+_ORIGIN_CREDENTIAL = re.compile(r"^[A-Za-z0-9_-]{43,128}$")
+_REMOTE_HOST = re.compile(
+    r"(?=.{1,253}\Z)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+"
+    r"[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?"
+)
 _MAX_CONFIG_BYTES = 262_144
+_MAX_SECRET_BYTES = 4096
 
 
 class _UniqueKeySafeLoader(yaml.SafeLoader):
@@ -51,31 +58,70 @@ _UniqueKeySafeLoader.add_constructor(
 )
 
 
-def render_github_policy(identity: str) -> str:
+def _validate_identity(identity: str) -> None:
     if not isinstance(identity, str) or len(identity) > 254 or not _EMAIL.fullmatch(identity):
         raise ValueError("GitHub OAuth identity must be one safe email address")
-    return (
-        "on_http_request:\n"
-        "  - actions:\n"
-        "      - type: oauth\n"
-        "        config:\n"
-        "          provider: github\n"
-        "          idle_session_timeout: 15m\n"
-        "          max_session_duration: 8h\n"
-        "  - expressions:\n"
-        f"      - \"!(actions.ngrok.oauth.identity.email in ['{identity}'])\"\n"
-        "    actions:\n"
-        "      - type: deny\n"
-        "        config:\n"
-        "          status_code: 403\n"
-    )
 
 
-def write_github_policy(destination: str | Path, identity: str, *, apply: bool = False) -> InstallResult:
+def _validate_origin_credential(value: str) -> None:
+    if not isinstance(value, str) or _ORIGIN_CREDENTIAL.fullmatch(value) is None:
+        raise ValueError("origin credential must be 43-128 URL-safe random characters")
+
+
+def _validate_remote_host(value: str) -> None:
+    if not isinstance(value, str) or value != value.casefold() or _REMOTE_HOST.fullmatch(value) is None:
+        raise ValueError("remote host must be one lowercase DNS hostname")
+    try:
+        ipaddress.ip_address(value)
+    except ValueError:
+        return
+    raise ValueError("remote host must not be an IP address")
+
+
+def _traffic_policy(identity: str, origin_credential: str) -> dict[str, object]:
+    _validate_identity(identity)
+    _validate_origin_credential(origin_credential)
+    return {
+        "on_http_request": [
+            {
+                "actions": [{
+                    "type": "oauth",
+                    "config": {
+                        "provider": "github",
+                        "idle_session_timeout": "15m",
+                        "max_session_duration": "8h",
+                    },
+                }]
+            },
+            {
+                "expressions": [f"!(actions.ngrok.oauth.identity.email in ['{identity}'])"],
+                "actions": [{"type": "deny", "config": {"status_code": 403}}],
+            },
+            {
+                "actions": [{
+                    "type": "add-headers",
+                    "config": {"headers": {"x-opportunity-origin": origin_credential}},
+                }]
+            },
+        ]
+    }
+
+
+def render_github_policy(identity: str, origin_credential: str) -> str:
+    return yaml.safe_dump(_traffic_policy(identity, origin_credential), sort_keys=False)
+
+
+def write_github_policy(
+    destination: str | Path,
+    identity: str,
+    origin_credential: str,
+    *,
+    apply: bool = False,
+) -> InstallResult:
     target = require_absolute_path(destination)
     if target.suffix not in {".yml", ".yaml"}:
         raise ValueError("traffic policy destination must be YAML")
-    rendered = render_github_policy(identity).encode("utf-8")
+    rendered = render_github_policy(identity, origin_credential).encode("utf-8")
     if not apply:
         return InstallResult(target, False)
     target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -143,9 +189,21 @@ class NgrokLocalStatus:
 class DashboardLaunchAgent:
     LABEL = "com.opportunity-os.dashboard"
 
-    def __init__(self, *, executable: str | Path, private_home: str | Path, port: int = 8765) -> None:
+    def __init__(
+        self,
+        *,
+        executable: str | Path,
+        private_home: str | Path,
+        remote_host: str,
+        origin_credential: str,
+        port: int = 8765,
+    ) -> None:
         self.executable = require_absolute_path(executable, basename="opportunity-os")
         self.private_home = require_absolute_path(private_home)
+        _validate_remote_host(remote_host)
+        _validate_origin_credential(origin_credential)
+        self.remote_host = remote_host
+        self.origin_credential = origin_credential
         if type(port) is not int or not 1024 <= port <= 65535:
             raise ValueError("dashboard port must be between 1024 and 65535")
         self.port = port
@@ -164,6 +222,11 @@ class DashboardLaunchAgent:
             "ProcessType": "Background",
             "ThrottleInterval": 10,
             "WorkingDirectory": str(self.private_home),
+            "EnvironmentVariables": {
+                "DASHBOARD_HOME": str(self.private_home),
+                "DASHBOARD_REMOTE_HOST": self.remote_host,
+                "DASHBOARD_ORIGIN_CREDENTIAL": self.origin_credential,
+            },
         }
         return plistlib.dumps(payload, fmt=plistlib.FMT_XML, sort_keys=True)
 
@@ -198,6 +261,120 @@ class DashboardLaunchAgent:
                 except FileNotFoundError:
                     pass
         return InstallResult(target, True)
+
+
+def _read_private_value(source: str | Path, *, label: str) -> str:
+    path = require_absolute_path(source)
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    descriptor = os.open(path, flags)
+    try:
+        info = os.fstat(descriptor)
+        if not stat.S_ISREG(info.st_mode) or not 0 < info.st_size <= _MAX_SECRET_BYTES:
+            raise ValueError(f"{label} file must be one small regular file")
+        if info.st_mode & 0o077:
+            raise ValueError(f"{label} file permissions must be 0600 or stricter")
+        raw = os.read(descriptor, _MAX_SECRET_BYTES + 1)
+    finally:
+        os.close(descriptor)
+    try:
+        value = raw.decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise ValueError(f"{label} file must be UTF-8") from error
+    value = value.removesuffix("\n")
+    if not value or "\n" in value or "\r" in value or "\x00" in value:
+        raise ValueError(f"{label} file must contain exactly one value")
+    return value
+
+
+def read_origin_credential(source: str | Path) -> str:
+    value = _read_private_value(source, label="origin credential")
+    _validate_origin_credential(value)
+    return value
+
+
+def render_ngrok_config(
+    *,
+    authtoken: str,
+    owner_email: str,
+    origin_credential: str,
+    port: int = 8765,
+) -> str:
+    if (
+        not isinstance(authtoken, str)
+        or not authtoken
+        or len(authtoken) > _MAX_SECRET_BYTES
+        or not authtoken.isprintable()
+        or any(character in authtoken for character in "\r\n\x00")
+    ):
+        raise ValueError("ngrok authtoken is invalid")
+    _validate_identity(owner_email)
+    _validate_origin_credential(origin_credential)
+    if type(port) is not int or not 1024 <= port <= 65535:
+        raise ValueError("dashboard port must be between 1024 and 65535")
+    document = {
+        "version": 3,
+        "agent": {
+            "authtoken": authtoken,
+            "update_channel": "stable",
+            "update_check": True,
+            "web_addr": "127.0.0.1:4040",
+        },
+        "endpoints": [{
+            "name": "opportunity-os-dashboard",
+            "description": "Owner-only Opportunity OS dashboard",
+            "url": "https://",
+            "upstream": {"url": f"http://127.0.0.1:{port}", "protocol": "http1"},
+            "traffic_policy": _traffic_policy(owner_email, origin_credential),
+        }],
+    }
+    rendered = yaml.safe_dump(document, sort_keys=False)
+    NgrokService._validate_config_document(rendered)
+    return rendered
+
+
+def write_ngrok_config(
+    destination: str | Path,
+    *,
+    authtoken_file: str | Path,
+    owner_email_file: str | Path,
+    origin_credential_file: str | Path,
+    port: int = 8765,
+    apply: bool = False,
+) -> InstallResult:
+    target = require_absolute_path(destination)
+    if target.suffix not in {".yml", ".yaml"}:
+        raise ValueError("ngrok config destination must be YAML")
+    rendered = render_ngrok_config(
+        authtoken=_read_private_value(authtoken_file, label="ngrok authtoken"),
+        owner_email=_read_private_value(owner_email_file, label="owner email"),
+        origin_credential=read_origin_credential(origin_credential_file),
+        port=port,
+    ).encode("utf-8")
+    if not apply:
+        return InstallResult(target, False)
+    target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    if target.parent.is_symlink() or not target.parent.is_dir():
+        raise ValueError("ngrok config parent must be a non-symlink directory")
+    if target.exists() and not stat.S_ISREG(target.lstat().st_mode):
+        raise ValueError("ngrok config destination must be a regular file")
+    descriptor, temporary = tempfile.mkstemp(prefix=f".{target.name}.", dir=target.parent)
+    try:
+        os.fchmod(descriptor, 0o600)
+        with os.fdopen(descriptor, "wb", closefd=True) as handle:
+            handle.write(rendered)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, target)
+        temporary = ""
+    finally:
+        if temporary:
+            try:
+                os.unlink(temporary)
+            except FileNotFoundError:
+                pass
+    return InstallResult(target, True)
 
 
 class NgrokService:
@@ -281,7 +458,11 @@ class NgrokService:
         expected_endpoint_keys = {"name", "description", "url", "upstream", "traffic_policy"}
         if not isinstance(endpoint, dict) or set(endpoint) != expected_endpoint_keys:
             raise ValueError("invalid ngrok dashboard endpoint")
-        if endpoint.get("name") != "opportunity-os-dashboard" or endpoint.get("url") != "https://":
+        if (
+            endpoint.get("name") != "opportunity-os-dashboard"
+            or endpoint.get("description") != "Owner-only Opportunity OS dashboard"
+            or endpoint.get("url") != "https://"
+        ):
             raise ValueError("invalid ngrok dashboard endpoint identity")
         upstream = endpoint.get("upstream")
         if not isinstance(upstream, dict) or set(upstream) != {"url", "protocol"}:
@@ -296,9 +477,9 @@ class NgrokService:
         if not isinstance(policy, dict) or set(policy) != {"on_http_request"}:
             raise ValueError("ngrok config must enforce GitHub OAuth")
         rules = policy["on_http_request"]
-        if not isinstance(rules, list) or len(rules) != 2:
-            raise ValueError("ngrok config must enforce OAuth before owner authorization")
-        oauth_rule, deny_rule = rules
+        if not isinstance(rules, list) or len(rules) != 3:
+            raise ValueError("ngrok config must enforce OAuth, owner authorization and origin header")
+        oauth_rule, deny_rule, header_rule = rules
         if not isinstance(oauth_rule, dict) or set(oauth_rule) != {"actions"}:
             raise ValueError("ngrok config must enforce GitHub OAuth first")
         oauth_actions = oauth_rule["actions"]
@@ -309,7 +490,15 @@ class NgrokService:
             raise ValueError("ngrok config must enforce GitHub OAuth first")
         oauth_config = oauth.get("config")
         expected_oauth_keys = {"provider", "idle_session_timeout", "max_session_duration"}
-        if not isinstance(oauth_config, dict) or set(oauth_config) != expected_oauth_keys or oauth_config.get("provider") != "github":
+        if (
+            not isinstance(oauth_config, dict)
+            or set(oauth_config) != expected_oauth_keys
+            or oauth_config != {
+                "provider": "github",
+                "idle_session_timeout": "15m",
+                "max_session_duration": "8h",
+            }
+        ):
             raise ValueError("ngrok config must enforce GitHub OAuth first")
         if not isinstance(deny_rule, dict) or set(deny_rule) != {"expressions", "actions"}:
             raise ValueError("ngrok config must deny every non-owner identity")
@@ -330,3 +519,25 @@ class NgrokService:
             or deny.get("config") != {"status_code": 403}
         ):
             raise ValueError("ngrok config must deny every non-owner identity")
+        if not isinstance(header_rule, dict) or set(header_rule) != {"actions"}:
+            raise ValueError("ngrok config must add only the dashboard origin header third")
+        header_actions = header_rule["actions"]
+        if not isinstance(header_actions, list) or len(header_actions) != 1:
+            raise ValueError("ngrok config must add only the dashboard origin header third")
+        header_action = header_actions[0]
+        if (
+            not isinstance(header_action, dict)
+            or set(header_action) != {"type", "config"}
+            or header_action.get("type") != "add-headers"
+        ):
+            raise ValueError("ngrok config must add only the dashboard origin header third")
+        header_config = header_action.get("config")
+        if not isinstance(header_config, dict) or set(header_config) != {"headers"}:
+            raise ValueError("ngrok config must add only the dashboard origin header third")
+        headers = header_config["headers"]
+        if not isinstance(headers, dict) or set(headers) != {"x-opportunity-origin"}:
+            raise ValueError("ngrok config must add only the dashboard origin header third")
+        credential = headers["x-opportunity-origin"]
+        if not isinstance(credential, str) or credential == "__DASHBOARD_ORIGIN_CREDENTIAL__":
+            raise ValueError("dashboard origin credential placeholder must be replaced")
+        _validate_origin_credential(credential)

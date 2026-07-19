@@ -3,40 +3,60 @@ from pathlib import Path
 
 import pytest
 
+from opportunity_os.deployment.__main__ import main as deployment_main
 from opportunity_os.deployment.remote_access import (
     DashboardLaunchAgent,
     NgrokLocalStatus,
     NgrokService,
+    render_ngrok_config,
     render_github_policy,
+    write_ngrok_config,
 )
 
 
 NGROK_TEMPLATE = Path(__file__).parents[2] / "deployment/ngrok/ngrok.yml.template"
+ORIGIN_CREDENTIAL = "A" * 43
+
+
+def _render_valid_template() -> str:
+    return (
+        NGROK_TEMPLATE.read_text(encoding="utf-8")
+        .replace("__NGROK_AUTHTOKEN__", "test-runtime-value")
+        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com")
+        .replace("__DASHBOARD_ORIGIN_CREDENTIAL__", ORIGIN_CREDENTIAL)
+    )
 
 
 def test_github_policy_authenticates_then_denies_every_other_identity() -> None:
-    rendered = render_github_policy("owner@example.com")
+    rendered = render_github_policy("owner@example.com", ORIGIN_CREDENTIAL)
     assert "provider: github" in rendered
     assert "actions.ngrok.oauth.identity.email" in rendered
     assert "owner@example.com" in rendered
     assert "type: deny" in rendered
-    assert rendered.index("type: oauth") < rendered.index("type: deny")
+    assert "x-opportunity-origin" in rendered
+    assert rendered.index("type: oauth") < rendered.index("type: deny") < rendered.index("type: add-headers")
     assert "client_secret" not in rendered
 
 
 @pytest.mark.parametrize("identity", ["", "a' || true", "two@example.com,three@example.com", "line\nbreak"])
 def test_github_policy_rejects_unsafe_identity(identity: str) -> None:
     with pytest.raises(ValueError):
-        render_github_policy(identity)
+        render_github_policy(identity, ORIGIN_CREDENTIAL)
 
 
-def test_dashboard_launch_agent_is_loopback_only_and_has_no_secrets(tmp_path: Path) -> None:
+def test_dashboard_launch_agent_is_loopback_only_and_closes_remote_origin_gate(tmp_path: Path) -> None:
     executable = tmp_path / "opportunity-os"
     executable.write_text("", encoding="utf-8")
     executable.chmod(0o700)
     home = tmp_path / "private-home"
     home.mkdir()
-    agent = DashboardLaunchAgent(executable=executable, private_home=home, port=8765)
+    agent = DashboardLaunchAgent(
+        executable=executable,
+        private_home=home,
+        port=8765,
+        remote_host="owner.ngrok-free.app",
+        origin_credential=ORIGIN_CREDENTIAL,
+    )
 
     payload = plistlib.loads(agent.render())
 
@@ -52,8 +72,35 @@ def test_dashboard_launch_agent_is_loopback_only_and_has_no_secrets(tmp_path: Pa
         "8765",
     ]
     assert payload["RunAtLoad"] is True
-    assert "EnvironmentVariables" not in payload
-    assert b"token" not in agent.render().lower()
+    assert payload["EnvironmentVariables"] == {
+        "DASHBOARD_HOME": str(home),
+        "DASHBOARD_REMOTE_HOST": "owner.ngrok-free.app",
+        "DASHBOARD_ORIGIN_CREDENTIAL": ORIGIN_CREDENTIAL,
+    }
+
+
+@pytest.mark.parametrize(
+    ("remote_host", "credential"),
+    [
+        ("https://owner.ngrok-free.app", ORIGIN_CREDENTIAL),
+        ("owner.ngrok-free.app:443", ORIGIN_CREDENTIAL),
+        ("127.0.0.1", ORIGIN_CREDENTIAL),
+        ("owner.ngrok-free.app", "short"),
+        ("owner.ngrok-free.app", "x" * 42 + "!"),
+    ],
+)
+def test_dashboard_launch_agent_rejects_unsafe_remote_inputs(
+    tmp_path: Path, remote_host: str, credential: str
+) -> None:
+    executable = tmp_path / "opportunity-os"
+    home = tmp_path / "private-home"
+    with pytest.raises(ValueError):
+        DashboardLaunchAgent(
+            executable=executable,
+            private_home=home,
+            remote_host=remote_host,
+            origin_credential=credential,
+        )
 
 
 def test_dashboard_launch_agent_defaults_to_dry_run_and_installs_atomically(tmp_path: Path) -> None:
@@ -63,7 +110,12 @@ def test_dashboard_launch_agent_defaults_to_dry_run_and_installs_atomically(tmp_
     home = tmp_path / "state"
     home.mkdir()
     destination = tmp_path / "LaunchAgents" / "com.opportunity-os.dashboard.plist"
-    agent = DashboardLaunchAgent(executable=executable, private_home=home)
+    agent = DashboardLaunchAgent(
+        executable=executable,
+        private_home=home,
+        remote_host="owner.ngrok-free.app",
+        origin_credential=ORIGIN_CREDENTIAL,
+    )
 
     assert agent.install(destination).applied is False
     assert not destination.exists()
@@ -79,7 +131,12 @@ def test_dashboard_launch_agent_rejects_nonstandard_destination(tmp_path: Path) 
     executable.chmod(0o700)
     home = tmp_path / "state"
     home.mkdir()
-    agent = DashboardLaunchAgent(executable=executable, private_home=home)
+    agent = DashboardLaunchAgent(
+        executable=executable,
+        private_home=home,
+        remote_host="owner.ngrok-free.app",
+        origin_credential=ORIGIN_CREDENTIAL,
+    )
     with pytest.raises(ValueError):
         agent.install(tmp_path / "wrong.plist", apply=True)
 
@@ -114,12 +171,7 @@ def test_ngrok_defaults_to_dry_run_and_sanitizes_environment(tmp_path: Path) -> 
         return type("Result", (), {"returncode": 0, "stdout": "ok", "stderr": ""})()
 
     config = tmp_path / "ngrok.yml"
-    config.write_text(
-        NGROK_TEMPLATE.read_text(encoding="utf-8")
-        .replace("__NGROK_AUTHTOKEN__", "test-runtime-value")
-        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com"),
-        encoding="utf-8",
-    )
+    config.write_text(_render_valid_template(), encoding="utf-8")
     config.chmod(0o600)
     service = NgrokService(
         executable=Path("/usr/local/bin/ngrok"),
@@ -144,12 +196,7 @@ def test_ngrok_checks_config_before_every_mutating_service_action(tmp_path: Path
         return type("Result", (), {"returncode": 0, "stdout": "ok", "stderr": ""})()
 
     config = tmp_path / "ngrok.yml"
-    config.write_text(
-        NGROK_TEMPLATE.read_text(encoding="utf-8")
-        .replace("__NGROK_AUTHTOKEN__", "runtime-token")
-        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com"),
-        encoding="utf-8",
-    )
+    config.write_text(_render_valid_template(), encoding="utf-8")
     config.chmod(0o600)
     service = NgrokService(executable="/usr/local/bin/ngrok", config=config, runner=runner, environ={})
 
@@ -189,11 +236,7 @@ def test_ngrok_rejects_commented_out_oauth_and_deny(tmp_path: Path) -> None:
 
 
 def test_ngrok_rejects_multiple_endpoints_or_duplicate_yaml_keys(tmp_path: Path) -> None:
-    valid = (
-        NGROK_TEMPLATE.read_text(encoding="utf-8")
-        .replace("__NGROK_AUTHTOKEN__", "runtime-token")
-        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com")
-    )
+    valid = _render_valid_template()
     multiple = tmp_path / "multiple.yml"
     multiple.write_text(valid + "\n  - name: shadow\n    upstream:\n      url: http://127.0.0.1:9999\n", encoding="utf-8")
     multiple.chmod(0o600)
@@ -258,4 +301,113 @@ def test_ngrok_v3_template_is_complete_random_https_and_loopback_only() -> None:
     assert "provider: github" in text
     assert "__OWNER_GITHUB_EMAIL__" in text
     assert "type: deny" in text
+    assert "type: add-headers" in text
+    assert "x-opportunity-origin: __DASHBOARD_ORIGIN_CREDENTIAL__" in text
+    assert text.index("type: oauth") < text.index("type: deny") < text.index("type: add-headers")
     assert "client_secret" not in text
+
+
+def test_ngrok_document_allows_only_oauth_owner_deny_then_one_origin_header() -> None:
+    NgrokService._validate_config_document(_render_valid_template())
+    for mutation in (
+        _render_valid_template().replace("type: add-headers", "type: oauth", 1),
+        _render_valid_template().replace("x-opportunity-origin:", "x-shadow-header:", 1),
+        _render_valid_template().replace(
+            f"x-opportunity-origin: {ORIGIN_CREDENTIAL}",
+            f"x-opportunity-origin: {ORIGIN_CREDENTIAL}\n                x-extra: forbidden",
+            1,
+        ),
+        _render_valid_template().replace(ORIGIN_CREDENTIAL, "__DASHBOARD_ORIGIN_CREDENTIAL__", 1),
+    ):
+        with pytest.raises(ValueError):
+            NgrokService._validate_config_document(mutation)
+
+
+def test_structured_ngrok_renderer_quotes_values_and_never_leaves_placeholders() -> None:
+    rendered = render_ngrok_config(
+        authtoken="token:with#yaml-characters",
+        owner_email="owner@example.com",
+        origin_credential=ORIGIN_CREDENTIAL,
+        port=8765,
+    )
+    assert "__NGROK_" not in rendered
+    assert "__OWNER_" not in rendered
+    assert "__DASHBOARD_" not in rendered
+    NgrokService._validate_config_document(rendered)
+
+
+def test_ngrok_config_writer_reads_private_regular_files_and_writes_0600(tmp_path: Path) -> None:
+    token = tmp_path / "token"
+    owner = tmp_path / "owner"
+    credential = tmp_path / "origin"
+    destination = tmp_path / "runtime" / "ngrok.yml"
+    for path, value in (
+        (token, "runtime-token"),
+        (owner, "owner@example.com"),
+        (credential, ORIGIN_CREDENTIAL),
+    ):
+        path.write_text(value + "\n", encoding="utf-8")
+        path.chmod(0o600)
+
+    result = write_ngrok_config(
+        destination,
+        authtoken_file=token,
+        owner_email_file=owner,
+        origin_credential_file=credential,
+        apply=True,
+    )
+
+    assert result.applied is True
+    assert destination.stat().st_mode & 0o777 == 0o600
+    NgrokService(executable="/usr/local/bin/ngrok", config=destination)._validate_config()
+
+
+def test_ngrok_config_writer_rejects_symlink_or_group_readable_secret(tmp_path: Path) -> None:
+    token = tmp_path / "token"
+    owner = tmp_path / "owner"
+    credential = tmp_path / "origin"
+    for path, value in ((token, "token"), (owner, "owner@example.com"), (credential, ORIGIN_CREDENTIAL)):
+        path.write_text(value, encoding="utf-8")
+        path.chmod(0o600)
+    symlink = tmp_path / "token-link"
+    symlink.symlink_to(token)
+    with pytest.raises((OSError, ValueError)):
+        write_ngrok_config(
+            tmp_path / "ngrok.yml",
+            authtoken_file=symlink,
+            owner_email_file=owner,
+            origin_credential_file=credential,
+            apply=True,
+        )
+    owner.chmod(0o640)
+    with pytest.raises(ValueError, match="permissions"):
+        write_ngrok_config(
+            tmp_path / "ngrok.yml",
+            authtoken_file=token,
+            owner_email_file=owner,
+            origin_credential_file=credential,
+            apply=True,
+        )
+
+
+def test_deployment_cli_reads_origin_credential_from_file_without_argv_or_output(
+    tmp_path: Path, capsys
+) -> None:
+    credential_file = tmp_path / "origin"
+    credential_file.write_text(ORIGIN_CREDENTIAL, encoding="utf-8")
+    credential_file.chmod(0o600)
+    destination = tmp_path / "LaunchAgents" / "com.opportunity-os.dashboard.plist"
+
+    result = deployment_main([
+        "dashboard-agent",
+        "--executable", str(tmp_path / "opportunity-os"),
+        "--private-home", str(tmp_path / "private"),
+        "--destination", str(destination),
+        "--remote-host", "owner.ngrok-free.app",
+        "--origin-credential-file", str(credential_file),
+    ])
+
+    output = capsys.readouterr().out
+    assert result == 0
+    assert ORIGIN_CREDENTIAL not in output
+    assert "origin-credential" not in output

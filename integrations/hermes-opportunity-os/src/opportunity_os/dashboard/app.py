@@ -30,7 +30,7 @@ from opportunity_os.dashboard.tasks import (
 
 
 SESSION_COOKIE = "opportunity_dashboard_session"
-ORIGIN_CREDENTIAL_HEADER = "x-dashboard-origin-credential"
+ORIGIN_CREDENTIAL_HEADER = "x-opportunity-origin"
 LOOPBACK_HOSTS = frozenset({"127.0.0.1", "::1", "localhost"})
 SSE_HEARTBEAT_SECONDS = 20
 _DASHBOARD_DIR = Path(__file__).resolve().parent
