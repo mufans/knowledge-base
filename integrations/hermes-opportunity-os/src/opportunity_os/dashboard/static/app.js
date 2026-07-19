@@ -202,6 +202,11 @@ function rememberEvent(event) {
 }
 
 function attachEventHandlers(eventSource) {
+  eventSource.addEventListener("bridge.unavailable", () => {
+    eventSource.close();
+    markDisconnected();
+    scheduleReconnect();
+  });
   eventSource.addEventListener("state.invalidated", event => {
     rememberEvent(event);
     refreshCurrent().catch(markDisconnected);
@@ -226,6 +231,12 @@ function markDisconnected() {
   renderCurrent();
 }
 
+function scheduleReconnect() {
+  window.clearTimeout(reconnectTimer);
+  reconnectTimer = window.setTimeout(connectEvents, reconnectDelay);
+  reconnectDelay = Math.min(reconnectDelay * 2, 30_000);
+}
+
 function connectEvents() {
   const url = new URL("/api/v1/events", window.location.origin);
   if (lastEventId) url.searchParams.set("last_event_id", lastEventId);
@@ -236,13 +247,16 @@ function connectEvents() {
     reconnectDelay = 1_000;
     document.querySelector("#connection-label").textContent = "实时连接已加密";
     renderCurrent();
+    refreshCurrent().catch(() => {
+      source.close();
+      markDisconnected();
+      scheduleReconnect();
+    });
   };
   source.onerror = () => {
     source.close();
     markDisconnected();
-    window.clearTimeout(reconnectTimer);
-    reconnectTimer = window.setTimeout(connectEvents, reconnectDelay);
-    reconnectDelay = Math.min(reconnectDelay * 2, 30_000);
+    scheduleReconnect();
   };
 }
 

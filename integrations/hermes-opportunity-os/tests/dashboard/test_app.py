@@ -14,7 +14,7 @@ from fastapi.testclient import TestClient
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
-from opportunity_os.dashboard.events import DashboardEvent, EventHub
+from opportunity_os.dashboard.events import DashboardEvent, EventHub, EventJournalTailer
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.dashboard.schemas import DashboardSnapshot
@@ -579,3 +579,104 @@ def test_lifecycle_bridge_mutation_emits_safe_sse_then_status_can_be_refetched(
         refreshed = integration_client.get("/api/v1/status")
         assert refreshed.status_code == 200
         assert refreshed.json()["portfolio_counts"]["observe"] == 1
+
+
+def test_initial_bridge_failure_is_visible_in_health_and_sse_503(
+    monkeypatch, tmp_path: Path
+) -> None:
+    journal = tmp_path / "events.jsonl"
+    journal.touch()
+    dashboard_home = tmp_path / "dashboard"
+    sessions = SessionStore(dashboard_home)
+    hub = EventHub(dashboard_home / "event-cursor")
+    tailer = EventJournalTailer(journal, hub, backoff_initial=0.05, backoff_max=0.1)
+
+    def denied() -> None:
+        raise PermissionError("/private/secret/events.jsonl")
+
+    monkeypatch.setattr(tailer, "start", denied)
+    dependencies = DashboardDependencies(
+        read_model=FakeReadModel(),
+        sessions=sessions,
+        csrf=CsrfGuard(),
+        event_hub=hub,
+        event_tailer=tailer,
+    )
+
+    with TestClient(
+        create_app(DashboardConfig(dashboard_home=dashboard_home), dependencies),
+        base_url="http://127.0.0.1:8765",
+        client=("127.0.0.1", 51000),
+    ) as failed_client:
+        health = failed_client.get("/healthz")
+        assert health.json() == {"ok": False, "event_bridge": "unavailable"}
+        bootstrap = sessions.create_bootstrap()
+        assert failed_client.post(
+            "/auth/local/exchange", json={"token": bootstrap}
+        ).status_code == 200
+        response = failed_client.get("/api/v1/events")
+        assert response.status_code == 503
+        assert response.json() == {"detail": "event_bridge_unavailable"}
+        assert "/private" not in response.text
+        assert "PermissionError" not in response.text
+
+
+def test_running_bridge_failure_sends_safe_control_event_then_disconnects(
+    tmp_path: Path,
+) -> None:
+    class ControlHub(EventHub):
+        tailer: EventJournalTailer
+
+        async def subscribe(self, last_event_id: str | None):
+            self.tailer.health.set_unavailable("io_failure")
+            if False:
+                yield
+
+    journal = tmp_path / "events.jsonl"
+    journal.touch()
+    dashboard_home = tmp_path / "dashboard"
+    sessions = SessionStore(dashboard_home)
+    hub = ControlHub(dashboard_home / "event-cursor")
+    tailer = EventJournalTailer(journal, hub)
+    hub.tailer = tailer
+    dependencies = DashboardDependencies(
+        read_model=FakeReadModel(),
+        sessions=sessions,
+        csrf=CsrfGuard(),
+        event_hub=hub,
+        event_tailer=tailer,
+    )
+
+    with TestClient(
+        create_app(DashboardConfig(dashboard_home=dashboard_home), dependencies),
+        base_url="http://127.0.0.1:8765",
+        client=("127.0.0.1", 51000),
+    ) as control_client:
+        bootstrap = sessions.create_bootstrap()
+        assert control_client.post(
+            "/auth/local/exchange", json={"token": bootstrap}
+        ).status_code == 200
+        response = control_client.get("/api/v1/events")
+
+    assert response.status_code == 200
+    assert "event: bridge.unavailable" in response.text
+    data = json.loads(re.search(r"^data: (.+)$", response.text, re.MULTILINE).group(1))
+    assert data == {"status": "unavailable"}
+    assert "io_failure" not in response.text
+    assert "events.jsonl" not in response.text
+
+
+def test_frontend_handles_bridge_control_disconnect_and_refetches_on_recovery() -> None:
+    app_js = (
+        Path(__file__).parents[2]
+        / "src"
+        / "opportunity_os"
+        / "dashboard"
+        / "static"
+        / "app.js"
+    ).read_text(encoding="utf-8")
+
+    assert 'addEventListener("bridge.unavailable"' in app_js
+    assert "scheduleReconnect" in app_js
+    on_open = app_js[app_js.index("source.onopen") : app_js.index("source.onerror")]
+    assert "refreshCurrent" in on_open

@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from types import MappingProxyType
+from typing import Literal
 
 
 MAX_EVENTS = 1_000
@@ -82,6 +83,57 @@ class DashboardEvent:
         }
 
 
+BridgeState = Literal["starting", "ready", "unavailable", "stopped"]
+BridgeErrorCode = Literal["io_failure"]
+
+
+@dataclass(frozen=True, slots=True)
+class BridgeHealthSnapshot:
+    state: BridgeState
+    error_code: BridgeErrorCode | None
+    revision: int
+
+
+class EventBridgeHealth:
+    """In-memory readiness state containing safe enums and no exception details."""
+
+    def __init__(self) -> None:
+        self.state: BridgeState = "starting"
+        self.error_code: BridgeErrorCode | None = None
+        self.revision = 0
+        self._changed: asyncio.Event | None = None
+
+    def snapshot(self) -> BridgeHealthSnapshot:
+        return BridgeHealthSnapshot(self.state, self.error_code, self.revision)
+
+    def _transition(self, state: BridgeState, error_code: BridgeErrorCode | None = None) -> None:
+        if self.state == state and self.error_code == error_code:
+            return
+        self.state = state
+        self.error_code = error_code
+        self.revision += 1
+        if self._changed is not None:
+            self._changed.set()
+        self._changed = asyncio.Event()
+
+    def set_ready(self) -> None:
+        self._transition("ready")
+
+    def set_unavailable(self, error_code: BridgeErrorCode = "io_failure") -> None:
+        self._transition("unavailable", error_code)
+
+    def set_stopped(self) -> None:
+        self._transition("stopped")
+
+    async def wait_after(self, revision: int) -> BridgeHealthSnapshot:
+        while self.revision <= revision:
+            if self._changed is None:
+                self._changed = asyncio.Event()
+            changed = self._changed
+            await changed.wait()
+        return self.snapshot()
+
+
 @dataclass(frozen=True, slots=True)
 class _Subscriber:
     queue: asyncio.Queue[DashboardEvent]
@@ -146,8 +198,12 @@ class EventHub:
                 payload=MappingProxyType(metadata),
                 at=datetime.now(timezone.utc),
             )
+            try:
+                self._persist_cursor()
+            except OSError:
+                self._cursor -= 1
+                raise
             self._events.append(event)
-            self._persist_cursor()
             subscribers = tuple(self._subscribers)
 
         for subscriber in subscribers:
@@ -193,12 +249,20 @@ class EventJournalTailer:
         event_hub: EventHub,
         *,
         poll_interval: float = 0.25,
+        backoff_initial: float = 0.25,
+        backoff_max: float = 5.0,
     ) -> None:
         if not 0.01 <= poll_interval <= 5:
             raise ValueError("poll_interval must be between 0.01 and 5 seconds")
+        if not 0.01 <= backoff_initial <= backoff_max <= 30:
+            raise ValueError("backoff must satisfy 0.01 <= initial <= max <= 30 seconds")
         self.journal_path = Path(journal_path).expanduser().resolve()
         self.event_hub = event_hub
         self.poll_interval = poll_interval
+        self.backoff_initial = backoff_initial
+        self.backoff_max = backoff_max
+        self.retry_delay = backoff_initial
+        self.health = EventBridgeHealth()
         self._initialized = False
         self._identity: tuple[int, int] | None = None
         self._position = 0
@@ -223,6 +287,16 @@ class EventJournalTailer:
         self._pending = b""
         self._initialized = True
         self._capture_anchor()
+
+    def initialize(self) -> bool:
+        try:
+            self.start()
+        except OSError:
+            self.health.set_unavailable()
+            return False
+        self.retry_delay = self.backoff_initial
+        self.health.set_ready()
+        return True
 
     def _reset_for_file(self, identity: tuple[int, int], *, position: int = 0) -> None:
         self._identity = identity
@@ -267,8 +341,7 @@ class EventJournalTailer:
         self.event_hub.publish("state.invalidated", {"scope": "private_state"})
         return True
 
-    def poll_once(self) -> int:
-        """Read one bounded chunk and return the number of safe events published."""
+    def _poll_once(self) -> int:
         if not self._initialized:
             self.start()
             return 0
@@ -315,8 +388,49 @@ class EventJournalTailer:
             self._pending = b""
         return sum(self._publish_record(record) for record in records)
 
-    async def run(self) -> None:
-        self.start()
-        while True:
-            self.poll_once()
-            await asyncio.sleep(self.poll_interval)
+    def poll_once(self) -> int:
+        """Read one bounded chunk, rolling back the read cursor on I/O failure."""
+        checkpoint = (
+            self._identity,
+            self._position,
+            self._pending,
+            self._anchor_start,
+            self._anchor_digest,
+        )
+        try:
+            return self._poll_once()
+        except OSError:
+            (
+                self._identity,
+                self._position,
+                self._pending,
+                self._anchor_start,
+                self._anchor_digest,
+            ) = checkpoint
+            raise
+
+    async def run(self, *, initialized: bool = False) -> None:
+        needs_initialize = not initialized
+        try:
+            while True:
+                if self.health.state == "unavailable":
+                    await asyncio.sleep(self.retry_delay)
+                was_unavailable = self.health.state == "unavailable"
+                try:
+                    if needs_initialize:
+                        self.start()
+                        needs_initialize = False
+                    else:
+                        self.poll_once()
+                except OSError:
+                    self.health.set_unavailable()
+                    if was_unavailable:
+                        self.retry_delay = min(self.retry_delay * 2, self.backoff_max)
+                    else:
+                        self.retry_delay = self.backoff_initial
+                    continue
+                self.retry_delay = self.backoff_initial
+                self.health.set_ready()
+                await asyncio.sleep(self.poll_interval)
+        finally:
+            self.health.set_stopped()

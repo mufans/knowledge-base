@@ -131,3 +131,20 @@ def test_event_hub_accepts_only_documented_safe_events(
     event_hub: EventHub, event_type: str, payload: dict[str, object]
 ) -> None:
     assert event_hub.publish(event_type, payload).type == event_type
+
+
+def test_cursor_write_failure_rolls_back_event_and_identifier(
+    monkeypatch, event_hub: EventHub
+) -> None:
+    original_persist = event_hub._persist_cursor
+
+    def denied() -> None:
+        raise PermissionError("cursor path is private")
+
+    monkeypatch.setattr(event_hub, "_persist_cursor", denied)
+    with pytest.raises(PermissionError):
+        event_hub.publish("state.invalidated", {"scope": "private_state"})
+
+    assert event_hub.replay(None) == []
+    monkeypatch.setattr(event_hub, "_persist_cursor", original_persist)
+    assert event_hub.publish("state.invalidated", {"scope": "private_state"}).id == "1"

@@ -46,6 +46,7 @@ class DashboardDependencies:
     event_hub: EventHub | None = None
     event_journal_path: Path | None = None
     journal_poll_interval: float = 0.25
+    event_tailer: EventJournalTailer | None = None
 
 
 class BootstrapExchange(BaseModel):
@@ -112,7 +113,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     """Create a fail-closed dashboard app with no framework documentation routes."""
     remote_host = config.remote_host.casefold() if config.remote_host else None
     event_hub = dependencies.event_hub or EventHub(config.dashboard_home / "event-cursor")
-    event_tailer = (
+    event_tailer = dependencies.event_tailer or (
         EventJournalTailer(
             dependencies.event_journal_path,
             event_hub,
@@ -121,10 +122,17 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         if dependencies.event_journal_path is not None
         else None
     )
+    if event_tailer is not None and event_tailer.event_hub is not event_hub:
+        raise ValueError("event tailer and SSE endpoint must share one event hub")
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
-        task = asyncio.create_task(event_tailer.run()) if event_tailer is not None else None
+        initialized = event_tailer.initialize() if event_tailer is not None else False
+        task = (
+            asyncio.create_task(event_tailer.run(initialized=initialized))
+            if event_tailer is not None
+            else None
+        )
         if task is not None:
             await asyncio.sleep(0)
         try:
@@ -137,6 +145,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
 
     app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
     app.state.event_hub = event_hub
+    app.state.event_bridge = event_tailer
     app.mount("/static", StaticFiles(directory=_DASHBOARD_DIR / "static"), name="static")
 
     @app.middleware("http")
@@ -193,8 +202,9 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         return session
 
     @app.get("/healthz")
-    def health() -> dict[str, bool]:
-        return {"ok": True}
+    def health() -> dict[str, bool | str]:
+        bridge_state = event_tailer.health.state if event_tailer is not None else "disabled"
+        return {"ok": bridge_state in {"ready", "disabled"}, "event_bridge": bridge_state}
 
     @app.get("/", response_class=FileResponse)
     def index(request: Request) -> FileResponse:
@@ -231,6 +241,8 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         cursor = last_event_id or request.query_params.get("last_event_id")
         if cursor is not None and not cursor.isdigit():
             raise HTTPException(status_code=400, detail="invalid_event_cursor")
+        if event_tailer is not None and event_tailer.health.state != "ready":
+            raise HTTPException(status_code=503, detail="event_bridge_unavailable")
 
         async def stream():
             active_cursor = cursor
@@ -240,14 +252,51 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                     while True:
                         if await request.is_disconnected():
                             return
-                        try:
-                            event: DashboardEvent = await asyncio.wait_for(
-                                anext(subscription), timeout=SSE_HEARTBEAT_SECONDS
+                        health_snapshot = (
+                            event_tailer.health.snapshot() if event_tailer is not None else None
+                        )
+                        if health_snapshot is not None and health_snapshot.state != "ready":
+                            yield 'event: bridge.unavailable\ndata: {"status":"unavailable"}\n\n'
+                            return
+                        event_task = asyncio.create_task(anext(subscription))
+                        health_task = (
+                            asyncio.create_task(
+                                event_tailer.health.wait_after(health_snapshot.revision)
                             )
-                        except TimeoutError:
+                            if event_tailer is not None and health_snapshot is not None
+                            else None
+                        )
+                        waiters = {event_task}
+                        if health_task is not None:
+                            waiters.add(health_task)
+                        done, pending = await asyncio.wait(
+                            waiters,
+                            timeout=SSE_HEARTBEAT_SECONDS,
+                            return_when=asyncio.FIRST_COMPLETED,
+                        )
+                        if not done:
+                            for task in pending:
+                                task.cancel()
+                                with suppress(asyncio.CancelledError, StopAsyncIteration):
+                                    await task
                             yield ": heartbeat\n\n"
                             break
+                        if health_task is not None and health_task in done:
+                            health_task.result()
+                            event_task.cancel()
+                            with suppress(asyncio.CancelledError, StopAsyncIteration):
+                                await event_task
+                            yield 'event: bridge.unavailable\ndata: {"status":"unavailable"}\n\n'
+                            return
+                        if health_task is not None:
+                            health_task.cancel()
+                            with suppress(asyncio.CancelledError):
+                                await health_task
+                        try:
+                            event: DashboardEvent = event_task.result()
                         except StopAsyncIteration:
+                            if event_tailer is not None and event_tailer.health.state != "ready":
+                                yield 'event: bridge.unavailable\ndata: {"status":"unavailable"}\n\n'
                             return
                         active_cursor = event.id
                         data = json.dumps(
