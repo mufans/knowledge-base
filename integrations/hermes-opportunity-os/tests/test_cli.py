@@ -1,4 +1,5 @@
 import json
+import io
 import tarfile
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -10,6 +11,28 @@ from opportunity_os.automation.hermes_runner import RunRecord
 from opportunity_os.dashboard.auth import SessionStore
 from opportunity_os.models import Review
 from opportunity_os.store import PrivateStore
+
+
+def test_domain_query_cli_rejects_duplicate_json_keys(tmp_path: Path, monkeypatch, capsys) -> None:
+    home = tmp_path / "private"
+    PrivateStore(home).initialize()
+    monkeypatch.setattr("sys.stdin", io.StringIO('{"query":"status","query":"learning"}'))
+
+    assert main(["domain", "query", "--home", str(home), "--stdin-json"]) == 2
+    assert json.loads(capsys.readouterr().out)["error"] == "stdin_duplicate_key"
+
+
+def test_domain_proposal_cli_returns_only_pending_metadata(tmp_path: Path, monkeypatch, capsys) -> None:
+    home = tmp_path / "private"
+    monkeypatch.setattr(
+        "sys.stdin",
+        io.StringIO(json.dumps({"kind": "feedback", "text": "保持广域技术采集"})),
+    )
+
+    assert main(["domain", "propose", "--home", str(home), "--stdin-json"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert set(payload) == {"id", "kind", "state"}
+    assert payload["state"] == "pending"
 
 
 FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "knowledge"

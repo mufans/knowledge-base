@@ -121,3 +121,4 @@
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/monitoring | 修复Task 8 transactional incident outbox、delivery claim/lease与receipt对账、boot幂等重试、future clock、URL allowlist、CLI退出码及状态写容量持久性（461项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/monitoring | 加固Task 8 Delivery raw-first校验、receipt索引与TTL同步裁剪、v1/v2迁移及永不静默淘汰的delivered tombstone防重与容量fail-closed（470项测试通过）
 2026-07-19 | implement | integrations/hermes-opportunity-os/dashboard-im | 完成Task 9 owner-only精确Hermes IM路由、持久化二阶段确认、私有pending proposal、typed fake action后端、固定stdin-json CLI与OpenClaw Skill安全边界
+2026-07-19 | refactor | integrations/hermes-opportunity-os | 删除与OpenClaw/Hermes重复的会话、审批、IM、Cron写入、事故恢复与投递实现；改为只读Cron、无状态健康检查、typed领域查询/提案与原生控制链接（284项测试通过）

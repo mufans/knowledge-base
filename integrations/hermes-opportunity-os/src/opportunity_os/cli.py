@@ -12,40 +12,24 @@ from urllib.parse import urlsplit
 import uvicorn
 
 from opportunity_os.automation.hermes_runner import CADENCE_TIMEOUTS, CadenceRunner
-from opportunity_os.automation.monitor import DeferredDelivery, DeliveryQueue, Monitor
+from opportunity_os.automation.healthcheck import HealthCheck
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
-from opportunity_os.dashboard.conversations import (
-    BoundedCommandRunner,
-    ConversationService,
-    HermesConversationAdapter,
-    OpenClawConversationAdapter,
-)
 from opportunity_os.dashboard.events import EventHub
-from opportunity_os.dashboard.incidents import IncidentSentinel
-from opportunity_os.dashboard.im import (
-    ImCommandRouter,
-    ImReply,
-    ImServerConfig,
-    InputError,
-    PrivateImReadBackend,
-    parse_im_command,
-)
 from opportunity_os.dashboard.probes import CommandRunner, HermesProbe, OpenClawProbe
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
+from opportunity_os.dashboard.tasks import OpenClawTaskAdapter
+from opportunity_os.domain_query import DomainQueryError, DomainQueryService, QUERY_NAMES
 from opportunity_os.errors import OpportunityOSError, ValidationError
+from opportunity_os.proposals import ProposalError, ProposalStore
 from opportunity_os.reports import render_review
 from opportunity_os.signals import SignalReader
 from opportunity_os.store import PrivateStore
 
 
-DEFAULT_IM_SERVER_CONFIG = (
-    Path.home() / ".hermes" / "opportunity-os" / "dashboard" / "im-config.json"
-)
-IM_ENVELOPE_KEYS = frozenset({"text", "sender_id", "session_id", "chat_type"})
-MAX_IM_ENVELOPE_BYTES = 4_096
+MAX_TYPED_INPUT_BYTES = 8_192
 
 
 def _emit(payload, output_format: str = "text") -> None:
@@ -81,20 +65,13 @@ def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> Dashbo
     read_model = DashboardReadModel(PrivateStateReadRepository(home), probes=())
     sessions = SessionStore(config.dashboard_home)
     event_hub = EventHub(config.dashboard_home / "event-cursor")
-    command_runner = BoundedCommandRunner()
-    conversations = ConversationService(
-        openclaw=OpenClawConversationAdapter(command_runner),
-        hermes=HermesConversationAdapter(command_runner),
-        event_hub=event_hub,
-        sessions_path=config.dashboard_home / "sessions.json",
-    )
     return DashboardDependencies(
         read_model=read_model,
         sessions=sessions,
         csrf=CsrfGuard(),
         event_hub=event_hub,
         event_journal_path=Path(home).expanduser().resolve() / "events.jsonl",
-        conversation_service=conversations,
+        task_adapter=OpenClawTaskAdapter(),
     )
 
 
@@ -110,51 +87,38 @@ def _require_loopback_url(url: str) -> str:
     return url.rstrip("/")
 
 
-def _monitor(args: argparse.Namespace) -> Monitor:
+def _healthcheck(args: argparse.Namespace) -> HealthCheck:
     config = _dashboard_config(args.home)
     command_runner = CommandRunner()
-    allowed_hosts = tuple(args.allowed_dashboard_host)
-    return Monitor(
-        sentinel=IncidentSentinel(
-            config.dashboard_home / "incidents.json",
-            dashboard_url=args.dashboard_url,
-            allowed_dashboard_hosts=allowed_hosts,
-        ),
-        deliveries=DeliveryQueue(
-            config.dashboard_home / "deliveries.json",
-            allowed_dashboard_hosts=allowed_hosts,
-        ),
+    return HealthCheck(
         probes=(OpenClawProbe(config, command_runner), HermesProbe(config, command_runner)),
-        delivery=DeferredDelivery(),
-        event_hub=EventHub(config.dashboard_home / "event-cursor"),
-        dashboard_url=args.dashboard_url,
-        allowed_dashboard_hosts=allowed_hosts,
+        marker=config.dashboard_home / "last-health.json",
     )
 
 
-def _im_router() -> ImCommandRouter:
-    config = ImServerConfig.load(DEFAULT_IM_SERVER_CONFIG)
-    return ImCommandRouter(
-        owner_id=config.owner_id,
-        dashboard_url=config.dashboard_url,
-        allowed_dashboard_hosts=config.allowed_dashboard_hosts,
-        state_home=config.private_home / "dashboard",
-        read_backend=PrivateImReadBackend(config.private_home),
-    )
+def _no_duplicates(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    value: dict[str, object] = {}
+    for key, item in pairs:
+        if key in value:
+            raise DomainQueryError("stdin_duplicate_key")
+        value[key] = item
+    return value
 
 
-def _read_im_envelope() -> dict[str, str]:
-    rendered = sys.stdin.read(MAX_IM_ENVELOPE_BYTES + 1)
-    if len(rendered.encode("utf-8")) > MAX_IM_ENVELOPE_BYTES:
-        raise InputError("stdin_envelope_too_large")
+def _read_typed_input(keys: frozenset[str]) -> dict[str, object]:
+    rendered = sys.stdin.read(MAX_TYPED_INPUT_BYTES + 1)
     try:
-        payload = json.loads(rendered)
+        encoded = rendered.encode("utf-8", errors="strict")
+    except UnicodeError as error:
+        raise DomainQueryError("stdin_invalid_unicode") from error
+    if len(encoded) > MAX_TYPED_INPUT_BYTES:
+        raise DomainQueryError("stdin_too_large")
+    try:
+        payload = json.loads(rendered, object_pairs_hook=_no_duplicates)
     except (json.JSONDecodeError, TypeError) as error:
-        raise InputError("stdin_envelope_invalid_json") from error
-    if not isinstance(payload, dict) or frozenset(payload) != IM_ENVELOPE_KEYS:
-        raise InputError("stdin_envelope_schema_invalid")
-    if any(not isinstance(payload[key], str) for key in IM_ENVELOPE_KEYS):
-        raise InputError("stdin_envelope_schema_invalid")
+        raise DomainQueryError("stdin_invalid_json") from error
+    if not isinstance(payload, dict) or frozenset(payload) != keys:
+        raise DomainQueryError("stdin_schema_invalid")
     return payload
 
 
@@ -206,27 +170,18 @@ def build_parser() -> argparse.ArgumentParser:
     open_dashboard.add_argument("--home", required=True)
     open_dashboard.add_argument("--url", default="http://127.0.0.1:8765")
 
-    im_command = dashboard_commands.add_parser("im-command")
-    im_command.add_argument("--stdin-json", action="store_true")
+    health = subparsers.add_parser("healthcheck")
+    health.add_argument("--home", required=True)
+    health.add_argument("--format", choices=("text", "json"), default="json")
 
-    monitor = subparsers.add_parser("monitor")
-    monitor_commands = monitor.add_subparsers(dest="monitor_command", required=True)
-    monitor_once = monitor_commands.add_parser("once")
-    monitor_once.add_argument("--home", required=True)
-    monitor_once.add_argument(
-        "--dashboard-url", default="http://127.0.0.1:8765/monitoring"
-    )
-    monitor_once.add_argument("--allowed-dashboard-host", action="append", default=[])
-    monitor_once.add_argument("--format", choices=("text", "json"), default="json")
-    monitor_boot = monitor_commands.add_parser("boot-hook")
-    monitor_boot.add_argument("--home", required=True)
-    monitor_boot.add_argument("--boot-id", required=True)
-    monitor_boot.add_argument("--interrupted", action="store_true")
-    monitor_boot.add_argument(
-        "--dashboard-url", default="http://127.0.0.1:8765/monitoring"
-    )
-    monitor_boot.add_argument("--allowed-dashboard-host", action="append", default=[])
-    monitor_boot.add_argument("--format", choices=("text", "json"), default="json")
+    domain = subparsers.add_parser("domain")
+    domain_commands = domain.add_subparsers(dest="domain_command", required=True)
+    domain_query = domain_commands.add_parser("query")
+    domain_query.add_argument("--home", required=True)
+    domain_query.add_argument("--stdin-json", action="store_true", required=True)
+    domain_proposal = domain_commands.add_parser("propose")
+    domain_proposal.add_argument("--home", required=True)
+    domain_proposal.add_argument("--stdin-json", action="store_true", required=True)
 
     automation = subparsers.add_parser("automation")
     automation_commands = automation.add_subparsers(dest="automation_command", required=True)
@@ -279,43 +234,31 @@ def main(argv: Sequence[str] | None = None) -> int:
             token = SessionStore(config.dashboard_home).create_bootstrap()
             webbrowser.open(f"{url}/#bootstrap={token}")
             _emit({"opened": True, "url": url}, "json")
-        elif args.command == "dashboard" and args.dashboard_command == "im-command":
-            if not args.stdin_json:
-                raise InputError("stdin_json_required")
-            envelope = _read_im_envelope()
-            preliminary = parse_im_command(envelope["text"])
-            if preliminary.kind == "chat_fallback":
-                reply = ImReply(status="chat_fallback", text="chat_fallback")
-            else:
-                router = _im_router()
-                command = router.parse(envelope["text"])
-                reply = router.execute(
-                    command,
-                    sender_id=envelope["sender_id"],
-                    session_id=envelope["session_id"],
-                    chat_type=envelope["chat_type"],
-                )
-            _emit(reply.to_dict(), "json")
-        elif args.command == "monitor" and args.monitor_command == "once":
-            result = _monitor(args).run_once()
-            _emit(result.to_dict(), args.format)
-            return 0 if result.ok else 1
-        elif args.command == "monitor" and args.monitor_command == "boot-hook":
-            monitor_service = _monitor(args)
-            result = monitor_service.boot_hook(
-                args.boot_id,
-                interrupted=args.interrupted,
-                recovery_probe=monitor_service.probes[0],
+        elif args.command == "healthcheck":
+            result = _healthcheck(args).run()
+            _emit(result, args.format)
+            return 0 if result["ok"] else 1
+        elif args.command == "domain" and args.domain_command == "query":
+            payload = _read_typed_input(frozenset({"query"}))
+            query = payload["query"]
+            if not isinstance(query, str) or query not in QUERY_NAMES:
+                raise DomainQueryError("unsupported_query")
+            _emit(DomainQueryService(args.home).query(query), "json")
+        elif args.command == "domain" and args.domain_command == "propose":
+            payload = _read_typed_input(frozenset({"kind", "text"}))
+            kind = payload["kind"]
+            if not isinstance(kind, str):
+                raise ProposalError("proposal_kind_invalid")
+            result = ProposalStore(Path(args.home) / "proposals" / "pending.json").add(
+                kind, payload["text"]  # type: ignore[arg-type]
             )
-            _emit({"delivery": result.to_dict() if result is not None else None}, args.format)
-            if result is not None and result.state != "delivered":
-                return 1
+            _emit({"id": result["id"], "kind": result["kind"], "state": "pending"}, "json")
         elif args.command == "automation" and args.automation_command == "run":
             record = CadenceRunner(args.home).run(args.cadence, args.period_key)
             _emit(record.to_dict(), args.format)
             return 0 if record.status in {"success", "skipped_duplicate"} else 1
         return 0
-    except OpportunityOSError as error:
+    except (OpportunityOSError, DomainQueryError, ProposalError) as error:
         _emit({"ok": False, "error": str(error)}, "json")
         return 2
 
