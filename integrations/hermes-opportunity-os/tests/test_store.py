@@ -223,6 +223,29 @@ def test_weekly_review_rejects_cocooned_mix(tmp_path: Path) -> None:
         store.save_review(review)
 
 
+def test_review_rejects_invalid_created_at_before_persistence(tmp_path: Path) -> None:
+    store = PrivateStore(tmp_path / "private")
+    store.initialize()
+
+    with pytest.raises(ValidationError, match="created_at"):
+        store.save_review(Review(
+            id="daily-invalid-time",
+            period="daily",
+            title="每日机会扫描",
+            summary="发现一项变化。",
+            opportunity_ids=[],
+            surprise_signal="新的变化。",
+            presentation_counts={"strength": 0, "broad": 0, "surprise": 0},
+            proposed_experiment_ids=[],
+            facts=["有官方发布"],
+            inferences=["需求可能增长"],
+            hypotheses=["值得验证"],
+            created_at="not-a-timestamp",
+        ))
+
+    assert not list((store.home / "reviews").glob("*.json"))
+
+
 def stable_state() -> TechState:
     return TechState(
         technology="Hermes Agent",

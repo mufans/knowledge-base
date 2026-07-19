@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass
-from datetime import date
+from datetime import date, datetime
 from typing import Any, Literal, TypedDict
 
 from opportunity_os.errors import ValidationError
@@ -225,6 +225,7 @@ class Review:
         _required_text(self.id, "复盘 ID")
         _required_text(self.title, "复盘标题")
         _required_text(self.summary, "复盘摘要")
+        _required_text(self.created_at, "created_at")
         if self.period not in {"daily", "weekly", "six_week", "quarterly"}:
             raise ValidationError("不支持的复盘周期")
         if set(self.presentation_counts) != {"strength", "broad", "surprise"}:
@@ -234,6 +235,10 @@ class Review:
         _required_list(self.facts, "Fact 列表")
         _required_list(self.inferences, "Inference 列表")
         _required_list(self.hypotheses, "Hypothesis 列表")
+        try:
+            datetime.fromisoformat(self.created_at)
+        except (TypeError, ValueError) as error:
+            raise ValidationError("created_at 必须是 ISO 8601 时间") from error
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
