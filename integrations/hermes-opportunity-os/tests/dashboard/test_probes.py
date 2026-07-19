@@ -61,3 +61,9 @@ def test_openclaw_probe_uses_only_the_gateway_status_command(
     assert result.status == "healthy"
     assert result.error_code is None
     assert fake_runner.calls == [(("openclaw", "gateway", "status"), 1.0)]
+
+
+@pytest.mark.parametrize("value", ["nan", "inf", "30.1"])
+def test_config_rejects_non_finite_or_unbounded_probe_timeouts(value: str) -> None:
+    with pytest.raises(ValueError):
+        DashboardConfig.from_env({"DASHBOARD_PROBE_TIMEOUT_SECONDS": value})
