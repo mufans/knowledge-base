@@ -89,12 +89,37 @@ def atomic_json_at(directory_fd: int, name: str, payload: Mapping[str, object], 
             pass
 
 
-def read_json_at(directory_fd: int, name: str) -> dict[str, object]:
+def read_json_at(
+    directory_fd: int,
+    name: str,
+    *,
+    max_bytes: int = 1_048_576,
+) -> dict[str, object]:
     _safe_name(name)
-    descriptor = os.open(name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory_fd)
+    if max_bytes < 2:
+        raise ValidationError("runtime JSON size limit is invalid")
     try:
-        with os.fdopen(descriptor, "r", encoding="utf-8", closefd=False) as handle:
-            payload = json.load(handle)
+        descriptor = os.open(name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory_fd)
+    except FileNotFoundError:
+        raise
+    except OSError as error:
+        raise BoundaryError("runtime JSON path is unsafe") from error
+    try:
+        stat_result = os.fstat(descriptor)
+        if stat_result.st_size > max_bytes:
+            raise ValidationError("runtime JSON exceeds its size limit")
+        chunks: list[bytes] = []
+        remaining = max_bytes + 1
+        while remaining:
+            chunk = os.read(descriptor, min(65_536, remaining))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        rendered = b"".join(chunks)
+        if len(rendered) > max_bytes:
+            raise ValidationError("runtime JSON exceeds its size limit")
+        payload = json.loads(rendered)
     finally:
         os.close(descriptor)
     if not isinstance(payload, dict):

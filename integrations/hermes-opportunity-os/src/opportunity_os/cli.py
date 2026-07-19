@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 import uvicorn
 
 from opportunity_os.automation.hermes_runner import CADENCE_TIMEOUTS, CadenceRunner
+from opportunity_os.automation.monitor import DeferredDelivery, DeliveryQueue, Monitor
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
@@ -21,6 +22,8 @@ from opportunity_os.dashboard.conversations import (
     OpenClawConversationAdapter,
 )
 from opportunity_os.dashboard.events import EventHub
+from opportunity_os.dashboard.incidents import IncidentSentinel
+from opportunity_os.dashboard.probes import CommandRunner, HermesProbe, OpenClawProbe
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.errors import OpportunityOSError, ValidationError
@@ -91,6 +94,19 @@ def _require_loopback_url(url: str) -> str:
     return url.rstrip("/")
 
 
+def _monitor(args: argparse.Namespace) -> Monitor:
+    config = _dashboard_config(args.home)
+    command_runner = CommandRunner()
+    return Monitor(
+        sentinel=IncidentSentinel(config.dashboard_home / "incidents.json"),
+        deliveries=DeliveryQueue(config.dashboard_home / "deliveries.json"),
+        probes=(OpenClawProbe(config, command_runner), HermesProbe(config, command_runner)),
+        delivery=DeferredDelivery(),
+        event_hub=EventHub(config.dashboard_home / "event-cursor"),
+        dashboard_url=args.dashboard_url,
+    )
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="opportunity-os")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -138,6 +154,23 @@ def build_parser() -> argparse.ArgumentParser:
     open_dashboard = dashboard_commands.add_parser("open")
     open_dashboard.add_argument("--home", required=True)
     open_dashboard.add_argument("--url", default="http://127.0.0.1:8765")
+
+    monitor = subparsers.add_parser("monitor")
+    monitor_commands = monitor.add_subparsers(dest="monitor_command", required=True)
+    monitor_once = monitor_commands.add_parser("once")
+    monitor_once.add_argument("--home", required=True)
+    monitor_once.add_argument(
+        "--dashboard-url", default="http://127.0.0.1:8765/monitoring"
+    )
+    monitor_once.add_argument("--format", choices=("text", "json"), default="json")
+    monitor_boot = monitor_commands.add_parser("boot-hook")
+    monitor_boot.add_argument("--home", required=True)
+    monitor_boot.add_argument("--boot-id", required=True)
+    monitor_boot.add_argument("--interrupted", action="store_true")
+    monitor_boot.add_argument(
+        "--dashboard-url", default="http://127.0.0.1:8765/monitoring"
+    )
+    monitor_boot.add_argument("--format", choices=("text", "json"), default="json")
 
     automation = subparsers.add_parser("automation")
     automation_commands = automation.add_subparsers(dest="automation_command", required=True)
@@ -190,6 +223,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             token = SessionStore(config.dashboard_home).create_bootstrap()
             webbrowser.open(f"{url}/#bootstrap={token}")
             _emit({"opened": True, "url": url}, "json")
+        elif args.command == "monitor" and args.monitor_command == "once":
+            result = _monitor(args).run_once()
+            _emit(result.to_dict(), args.format)
+        elif args.command == "monitor" and args.monitor_command == "boot-hook":
+            monitor_service = _monitor(args)
+            result = monitor_service.boot_hook(
+                args.boot_id,
+                interrupted=args.interrupted,
+                recovery_probe=monitor_service.probes[0],
+            )
+            _emit({"delivery": result.to_dict() if result is not None else None}, args.format)
         elif args.command == "automation" and args.automation_command == "run":
             record = CadenceRunner(args.home).run(args.cadence, args.period_key)
             _emit(record.to_dict(), args.format)
