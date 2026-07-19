@@ -2,7 +2,7 @@
 title: "multi-llm-mcp — 多LLM调用的MCP工具"
 category: "entities"
 tags: ["MCP", "multi-LLM", "Claude-Code", "Codex", "Agent-orchestration"]
-rating: 8.5
+rating: 9.0
 date: "2026-06-04"
 description: "MCP Server让Claude Code调用Codex执行任务，支持多模型统一调度"
 ---

@@ -2,7 +2,7 @@
 title: "自主AI研究：nanogpt速度跑的Agent实验"
 category: "sources"
 tags: ["Autonomous-AI", "Codex", "Claude-Code", "Optimizer", "nanoGPT", "Agent-Harness"]
-rating: 8.5
+rating: 9.0
 description: "PrimeIntellect让GPT-5.5和Claude Opus 4.7自主优化nanoGPT训练，Opus以2930步打破人类基线2990步。揭示了Agent在搜索优化上的强项和创新上的弱项"
 date: "2026-06-04"
 ---

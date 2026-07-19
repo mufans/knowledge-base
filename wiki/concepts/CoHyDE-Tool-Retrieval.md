@@ -2,7 +2,7 @@
 title: "CoHyDE：LLM Agent工具检索的迭代协同训练"
 category: "concepts"
 tags: ["Tool-Retrieval", "LLM-Agent", "Co-Training", "Dense-Encoding", "HyDE"]
-rating: 8.5
+rating: 9.0
 description: "CoHyDE通过LLM Rewriter与Dense Encoder的迭代协同训练，解决大规模API目录下Agent工具检索瓶颈"
 date: "2026-05-31"
 ---

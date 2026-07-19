@@ -2,7 +2,7 @@
 title: "Project Glasswing：AI驱动的软件安全漏洞发现"
 category: "entities"
 tags: ["Security", "Vulnerability-Discovery", "Anthropic", "Mythos", "AI-Safety"]
-rating: 8.5
+rating: 9.0
 description: "Anthropic的Project Glasswing使用Mythos Preview模型，一个月内发现超过1万个高/严重级别漏洞，AI安全能力质的飞跃"
 date: "2026-05-23"
 ---

@@ -2,7 +2,7 @@
 title: "Jet-Long：动态双焦点RoPE长上下文扩展"
 category: "concepts"
 tags: ["Long-Context", "RoPE", "Position-Encoding", "LLM", "Context-Extension"]
-rating: 8.5
+rating: 9.0
 description: "Jet-Long引入Dynamic Bifocal RoPE机制，通过双焦点位置编码实现低成本的LLM长上下文扩展，对Agent长记忆场景有重要价值"
 date: "2026-07-10"
 ---

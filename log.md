@@ -83,3 +83,10 @@
 2026-07-10 | ingest | web: Loop Engineering research | 创建 wiki/concepts/Loop-Engineering.md（自评9.05）
 2026-07-10 | ingest | web: AI热点采集（GPT-5.6/Fable 5/Grok 4.20） | 创建 wiki/entities/GPT-5.6.md（自评8.85）、Claude-Fable-5.md（8.35）、Grok-4.md（7.30）
 - 2026-07-19: 社交媒体AI动态采集 → [2026-07-19-社交媒体.md](raw/inbox/2026-07-19-社交媒体.md)（HN Top 30采集12条；Reddit/X因网络限制未获取）
+2026-07-19 | audit | ~/.openclaw/openclaw.json, ~/.openclaw/cron/, wiki/syntheses/Hermes-vs-OpenClaw对比分析.md | 审计OpenClaw当前配置与任务运行状态，评估Hermes并行试点价值（未修改系统配置）
+2026-07-19 | research | Hermes v0.18.2官方发布说明与文档 | 不参考本地Hermes分析页，基于最新官方版本重新评估搭建价值（未修改Wiki与系统配置）
+- 2026-07-19 | ingest | raw/inbox/2026-07-19-AI论文.md | 创建entities/PalmClaw.md（自评8.40）、更新concepts/Agentic-Search-Retrieval.md（合并GRASP粒度感知搜索策略）
+- 2026-07-19 | ingest | raw/inbox/2026-07-19-社交媒体.md | 创建entities/Moonshine-AI.md（自评7.75）、entities/Transcribe-cpp.md（自评7.80）
+- 2026-07-19 | ingest | raw/inbox/2026-07-19-技术动态.md | 创建entities/Google-Genkit-Agents-API.md（自评7.80）
+- 2026-07-19 | ingest | raw/inbox/2026-07-19-新闻热点.md + raw/inbox/2026-07-19-GitHub项目.md | 创建sources/ServiceTitan-AI-Migration-Practice.md（自评8.00）、entities/superpowers.md（自评8.00）
+- 2026-07-19 | update | - | 修复index.md：补充Headroom/ChatGPT-Work/Pi-Agent-Toolkit/Multi-Agent-Collaboration-Survey/RAG-Evaluation-Practical/MentalThink到对应目录索引

@@ -2,7 +2,7 @@
 title: "MMG2Skill — 从互联网指南蒸馏为Agent自我进化技能"
 category: "concepts"
 tags: ["skill-distillation", "self-evolving", "VLM-agent", "guide-to-skill", "closed-loop"]
-rating: 8.5
+rating: 9.0
 date: "2026-06-04"
 description: "Guide-to-Skill Learning范式，从互联网指南自动蒸馏Agent可执行技能，闭环框架+根因反馈持续进化"
 ---

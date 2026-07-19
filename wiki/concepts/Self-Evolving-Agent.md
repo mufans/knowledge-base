@@ -2,7 +2,7 @@
 title: "Self-Evolving Agent：自进化智能体范式"
 category: "concepts"
 tags: ["Self-Evolution", "Agent-Architecture", "Prompt-Optimization", "Skill-Learning", "RL"]
-rating: 8.5
+rating: 9.0
 description: "Agent通过自引用优化循环，自主扩展技能集、优化自身prompt、发现新算法的范式，代表Agent从静态工具到持续进化系统的转变"
 date: "2026-06-06"
 ---
