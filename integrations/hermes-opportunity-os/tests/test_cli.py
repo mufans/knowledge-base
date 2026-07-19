@@ -203,3 +203,33 @@ def test_automation_run_cli_uses_fixture_runner_without_provider_call(tmp_path: 
     assert result == 0
     assert calls == [("init", tmp_path / "private"), ("run", "weekly", "2026-W29")]
     assert json.loads(capsys.readouterr().out)["status"] == "success"
+
+
+def test_automation_run_cli_returns_nonzero_for_failed_hermes_invocation(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    class FixtureRunner:
+        def __init__(self, home) -> None:
+            pass
+
+        def run(self, cadence, period_key) -> RunRecord:
+            return RunRecord(
+                run_id="fixture-failure",
+                cadence=cadence,
+                period_key=period_key,
+                idempotency_key=f"{cadence}:{period_key}",
+                status="failed",
+                started_at="2026-07-19T10:00:00+00:00",
+                ended_at="2026-07-19T10:00:01+00:00",
+                duration_seconds=1.0,
+                error_class="nonzero_exit",
+            )
+
+    monkeypatch.setattr("opportunity_os.cli.CadenceRunner", FixtureRunner)
+    result = main([
+        "automation", "run", "--home", str(tmp_path / "private"), "--cadence", "daily",
+        "--period-key", "2026-07-19", "--format", "json",
+    ])
+
+    assert result == 1
+    assert json.loads(capsys.readouterr().out)["status"] == "failed"

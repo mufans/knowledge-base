@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 
 import uvicorn
 
-from opportunity_os.automation.hermes_runner import CADENCE_TIMEOUTS, CadenceRunner
+from opportunity_os.automation.hermes_runner import CADENCES, CadenceRunner
 from opportunity_os.automation.healthcheck import HealthCheck
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
@@ -187,7 +187,7 @@ def build_parser() -> argparse.ArgumentParser:
     automation_commands = automation.add_subparsers(dest="automation_command", required=True)
     automation_run = automation_commands.add_parser("run")
     automation_run.add_argument("--home", required=True)
-    automation_run.add_argument("--cadence", required=True, choices=tuple(CADENCE_TIMEOUTS))
+    automation_run.add_argument("--cadence", required=True, choices=tuple(sorted(CADENCES)))
     automation_run.add_argument("--period-key", required=True)
     automation_run.add_argument("--format", choices=("text", "json"), default="json")
     return parser
