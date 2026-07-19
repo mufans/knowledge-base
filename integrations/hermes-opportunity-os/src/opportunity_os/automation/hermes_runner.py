@@ -19,11 +19,16 @@ from opportunity_os.automation.secure_runtime import (
     open_child_directory,
     read_json_at,
 )
+from opportunity_os.automation.cadence_completion import CadenceCompletionStore
 from opportunity_os.errors import BoundaryError, ValidationError
 
 
 CADENCES = frozenset({"daily", "weekly", "biweekly", "six-week", "quarterly"})
 PERIOD_KEY_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9.-]{0,79}$")
+RUN_CONTEXT_PATTERN = re.compile(
+    r"运行上下文：([a-z-]+):([A-Za-z0-9][A-Za-z0-9.-]{0,79}):([a-f0-9]{32})"
+)
+HERMES_TOOLSETS = "web,knowledge,opportunity_os"
 
 _COMMON_PROMPT = """
 先读取未经个人偏好过滤的广域输入；广域输入不得被定向主题替代或减少。
@@ -99,7 +104,7 @@ class CadenceRunner:
             raise ValidationError("Hermes executable 不存在") from error
         if resolved.name != "hermes" or not resolved.is_file() or not os.access(resolved, os.X_OK):
             raise ValidationError("Hermes executable 必须解析为可执行的 hermes 文件")
-        return path
+        return resolved
 
     @staticmethod
     def _validate_working_directory(path: Path) -> Path:
@@ -166,8 +171,13 @@ class CadenceRunner:
         return True
 
     @staticmethod
-    def _argv(hermes_path: Path, cadence: str, period_key: str) -> list[str]:
-        prompt = f"运行周期：{cadence}:{period_key}。\n{_CADENCE_INSTRUCTIONS[cadence]}\n{_COMMON_PROMPT}"
+    def _argv(hermes_path: Path, cadence: str, period_key: str, run_id: str) -> list[str]:
+        prompt = (
+            f"运行上下文：{cadence}:{period_key}:{run_id}。\n"
+            f"{_CADENCE_INSTRUCTIONS[cadence]}\n{_COMMON_PROMPT}\n"
+            "保存当期必需业务产物后，必须把 complete_cadence 作为最后一个工具调用；"
+            "原样传入上述 cadence、period_key、run_id 与当期新产物 artifact_refs。"
+        )
         return [
             str(hermes_path),
             "-p",
@@ -177,6 +187,8 @@ class CadenceRunner:
             "-q",
             "--source",
             "tool",
+            "--toolsets",
+            HERMES_TOOLSETS,
             "--skills",
             "opportunity-discovery",
             prompt,
@@ -189,10 +201,10 @@ class CadenceRunner:
             "PATH": f"{self.hermes_path.parent}:/usr/bin:/bin",
         }
 
-    def _execute_once(self, cadence: str, period_key: str) -> tuple[str, str | None]:
+    def _execute_once(self, cadence: str, period_key: str, run_id: str) -> tuple[str, str | None]:
         try:
             process = self.process_factory(
-                self._argv(self.hermes_path, cadence, period_key),
+                self._argv(self.hermes_path, cadence, period_key, run_id),
                 cwd=str(self.working_directory),
                 env=self._minimal_env(),
                 stdin=subprocess.DEVNULL,
@@ -230,8 +242,16 @@ class CadenceRunner:
                     error_class=None,
                 )
 
+            CadenceCompletionStore(self.home, now=self.now).begin(cadence, period_key, run_id)
             monotonic_start = time.monotonic()
-            status, error_class = self._execute_once(cadence, period_key)
+            status, error_class = self._execute_once(cadence, period_key, run_id)
+            if status == "success":
+                try:
+                    CadenceCompletionStore(self.home).read(cadence, period_key, run_id)
+                except FileNotFoundError:
+                    status, error_class = "failed", "completion_missing"
+                except (BoundaryError, ValidationError, json.JSONDecodeError):
+                    status, error_class = "failed", "completion_invalid"
             ended_at = self.now().astimezone(timezone.utc).isoformat()
             record = RunRecord(
                 run_id=run_id,
@@ -245,6 +265,19 @@ class CadenceRunner:
                 error_class=error_class,
                 updated_at=ended_at,
             )
+            current = self._read_record(runs_fd, cadence, period_key)
+            if current is not None and self._is_matching_success(current, cadence, period_key):
+                return RunRecord(
+                    run_id=run_id,
+                    cadence=cadence,
+                    period_key=period_key,
+                    idempotency_key=idempotency_key,
+                    status="skipped_duplicate",
+                    started_at=started_at,
+                    ended_at=ended_at,
+                    duration_seconds=record.duration_seconds,
+                    error_class=None,
+                )
             self._write_record(runs_fd, record)
             return record
         finally:

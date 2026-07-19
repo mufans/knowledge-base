@@ -12,7 +12,11 @@ from urllib.parse import urlsplit
 import uvicorn
 
 from opportunity_os.automation.hermes_runner import CADENCES, CadenceRunner
-from opportunity_os.automation.healthcheck import HealthCheck
+from opportunity_os.automation.healthcheck import (
+    HealthCheck,
+    HealthMarkerError,
+    LastHealthProbe,
+)
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
@@ -62,7 +66,14 @@ def _dashboard_config(home: str | Path) -> DashboardConfig:
 
 
 def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> DashboardDependencies:
-    read_model = DashboardReadModel(PrivateStateReadRepository(home), probes=())
+    marker = config.dashboard_home / "last-health.json"
+    read_model = DashboardReadModel(
+        PrivateStateReadRepository(home),
+        probes=(
+            LastHealthProbe(marker, "openclaw"),
+            LastHealthProbe(marker, "hermes"),
+        ),
+    )
     sessions = SessionStore(config.dashboard_home)
     event_hub = EventHub(config.dashboard_home / "event-cursor")
     return DashboardDependencies(
@@ -243,7 +254,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             query = payload["query"]
             if not isinstance(query, str) or query not in QUERY_NAMES:
                 raise DomainQueryError("unsupported_query")
-            _emit(DomainQueryService(args.home).query(query), "json")
+            result = DomainQueryService(args.home).query(query)
+            print(json.dumps(result, ensure_ascii=False, separators=(",", ":"), sort_keys=True))
         elif args.command == "domain" and args.domain_command == "propose":
             payload = _read_typed_input(frozenset({"kind", "text"}))
             kind = payload["kind"]
@@ -258,8 +270,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             _emit(record.to_dict(), args.format)
             return 0 if record.status in {"success", "skipped_duplicate"} else 1
         return 0
-    except (OpportunityOSError, DomainQueryError, ProposalError) as error:
+    except (
+        OpportunityOSError,
+        DomainQueryError,
+        ProposalError,
+        HealthMarkerError,
+    ) as error:
         _emit({"ok": False, "error": str(error)}, "json")
+        return 2
+    except OSError:
+        _emit({"ok": False, "error": "runtime_io_failure"}, "json")
         return 2
 
 

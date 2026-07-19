@@ -1,11 +1,13 @@
 import json
 import os
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 import pytest
 
+from opportunity_os import domain_query
 from opportunity_os.domain_query import DomainQueryError, DomainQueryService
-from opportunity_os.proposals import ProposalError, ProposalStore
+from opportunity_os.proposals import MAX_STORE_BYTES, ProposalError, ProposalStore
 
 
 def _write(path, value):
@@ -53,8 +55,21 @@ def test_query_rejects_symlinked_state(tmp_path) -> None:
     target.write_text(original.read_text(encoding="utf-8"), encoding="utf-8")
     original.unlink()
     original.symlink_to(target)
-    with pytest.raises(OSError):
+    with pytest.raises(DomainQueryError, match="state_unavailable"):
         DomainQueryService(home).query("status")
+
+
+def test_query_rejects_unbounded_file_count_and_output(tmp_path, monkeypatch) -> None:
+    home = _home(tmp_path)
+    monkeypatch.setattr(domain_query, "MAX_STATE_FILES_PER_DIRECTORY", 1)
+    _write(home / "opportunities" / "opp-2.json", {"id": "opp-2"})
+    with pytest.raises(DomainQueryError, match="state_file_limit"):
+        DomainQueryService(home).query("status")
+
+    monkeypatch.setattr(domain_query, "MAX_STATE_FILES_PER_DIRECTORY", 256)
+    monkeypatch.setattr(domain_query, "MAX_QUERY_OUTPUT_BYTES", 32)
+    with pytest.raises(DomainQueryError, match="query_output_too_large"):
+        DomainQueryService(home).query("opportunities")
 
 
 def test_pending_proposal_is_bounded_private_and_expires_old_items(tmp_path) -> None:
@@ -73,7 +88,7 @@ def test_proposal_rejects_symlink(tmp_path) -> None:
     target.write_text('{"proposals":[]}', encoding="utf-8")
     link = tmp_path / "link.json"
     link.symlink_to(target)
-    with pytest.raises(OSError):
+    with pytest.raises(ProposalError, match="store_unavailable"):
         ProposalStore(link).add("feedback", "hello")
 
 
@@ -82,3 +97,30 @@ def test_proposal_fails_closed_on_corrupt_existing_store(tmp_path) -> None:
     path.write_text("not-json", encoding="utf-8")
     with pytest.raises(ProposalError, match="store_invalid"):
         ProposalStore(path).add("feedback", "hello")
+
+
+def test_proposal_rejects_fifo_and_oversized_store_without_blocking(tmp_path) -> None:
+    fifo = tmp_path / "pending.fifo"
+    os.mkfifo(fifo)
+    with pytest.raises(ProposalError, match="store_invalid"):
+        ProposalStore(fifo).add("feedback", "hello")
+
+    oversized = tmp_path / "oversized.json"
+    with oversized.open("wb") as handle:
+        handle.truncate(MAX_STORE_BYTES + 1)
+    with pytest.raises(ProposalError, match="store_invalid"):
+        ProposalStore(oversized).add("feedback", "hello")
+
+
+def test_concurrent_proposals_are_not_lost(tmp_path) -> None:
+    path = tmp_path / "pending.json"
+
+    def add(number: int) -> None:
+        ProposalStore(path).add("feedback", f"feedback-{number}")
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(add, range(40)))
+
+    records = json.loads(path.read_text(encoding="utf-8"))["proposals"]
+    assert len(records) == 40
+    assert {item["text"] for item in records} == {f"feedback-{number}" for number in range(40)}

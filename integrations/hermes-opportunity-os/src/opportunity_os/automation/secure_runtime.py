@@ -6,6 +6,7 @@ import fcntl
 import json
 import os
 import re
+import stat
 import uuid
 from contextlib import contextmanager
 from pathlib import Path
@@ -116,6 +117,8 @@ def read_json_at(
         raise BoundaryError("runtime JSON path is unsafe") from error
     try:
         stat_result = os.fstat(descriptor)
+        if not stat.S_ISREG(stat_result.st_mode):
+            raise BoundaryError("runtime JSON must be a regular file")
         if stat_result.st_size > max_bytes:
             raise ValidationError("runtime JSON exceeds its size limit")
         chunks: list[bytes] = []

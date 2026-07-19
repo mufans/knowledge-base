@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
@@ -6,6 +7,8 @@ from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.schemas import DashboardSnapshot
+from opportunity_os.cli import _dashboard_dependencies
+from opportunity_os.store import PrivateStore
 
 
 class ReadModel:
@@ -48,3 +51,26 @@ def test_dashboard_keeps_auth_boundary_and_no_framework_docs(tmp_path) -> None:
     assert client.get("/docs").status_code == 404
     assert client.get("/openapi.json").status_code == 404
     assert client.get("/healthz", headers={"host": "attacker.example"}).status_code == 400
+
+
+def test_production_dashboard_uses_marker_probes_and_never_runs_external_commands(tmp_path) -> None:
+    home = tmp_path / "private"
+    PrivateStore(home).initialize()
+    config = DashboardConfig(dashboard_home=home / "dashboard")
+
+    snapshot = _dashboard_dependencies(home, config).read_model.snapshot()
+
+    assert [item.component for item in snapshot.components] == ["openclaw", "hermes"]
+    assert all(item.status == "unknown" for item in snapshot.components)
+    assert all(item.error_code == "health_snapshot_missing" for item in snapshot.components)
+
+
+def test_frontend_fetches_readonly_cron_surfaces_and_has_no_removed_event_protocols() -> None:
+    source = (
+        Path(__file__).parents[2] / "src" / "opportunity_os" / "dashboard" / "static" / "app.js"
+    ).read_text(encoding="utf-8")
+    assert 'fetch("/api/v1/tasks"' in source
+    assert 'fetch("/api/v1/tasks/status"' in source
+    assert "/runs" in source
+    for removed in ("conversation.started", "conversation.completed", "conversation.failed", "incident.firing", "incident.recovered"):
+        assert removed not in source

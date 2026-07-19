@@ -18,7 +18,7 @@ def test_sse_replays_after_last_event_id(event_hub: EventHub) -> None:
         "component.updated", {"component": "hermes", "status": "healthy"}
     )
     second = event_hub.publish(
-        "incident.firing", {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"}
+        "component.updated", {"component": "openclaw", "status": "unknown"}
     )
 
     assert [event.id for event in event_hub.replay(first.id)] == [second.id]
@@ -44,7 +44,7 @@ def test_event_hub_persists_only_the_cursor(tmp_path: Path) -> None:
     cursor_path = tmp_path / "event-cursor"
     hub = EventHub(cursor_path)
     hub.publish(
-        "incident.firing", {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"}
+        "component.updated", {"component": "openclaw", "status": "down"}
     )
 
     assert cursor_path.read_text(encoding="utf-8") == "1\n"
@@ -62,8 +62,8 @@ def test_subscribe_replays_then_delivers_new_metadata(event_hub: EventHub) -> No
         subscription = event_hub.subscribe(None)
         replayed = await anext(subscription)
         event_hub.publish(
-            "incident.recovered",
-            {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"},
+            "component.updated",
+            {"component": "openclaw", "status": "healthy"},
         )
         live = await anext(subscription)
         await subscription.aclose()
@@ -76,11 +76,8 @@ def test_owner_scoped_events_are_not_visible_to_other_audiences(event_hub: Event
     owner_a = "a" * 64
     owner_b = "b" * 64
     private = event_hub.publish(
-        "conversation.started",
-        {
-            "task_id": "conv_123e4567-e89b-12d3-a456-426614174000",
-            "target": "hermes",
-        },
+        "component.updated",
+        {"component": "hermes", "status": "healthy"},
         audience=owner_a,
     )
     public = event_hub.publish("state.invalidated", {"scope": "private_state"})
@@ -123,9 +120,6 @@ def test_event_hub_enforces_exact_schema_per_event_type(
         ("component.updated", {"component": "A" * 128, "status": "healthy"}),
         ("component.updated", {"component": "hermes", "status": "private-target"}),
         ("component.updated", {"component": "hermes", "status": "A" * 128}),
-        ("incident.firing", {"incident_id": "private-review-about-acquisition-target"}),
-        ("incident.firing", {"incident_id": "customer@example.com"}),
-        ("incident.firing", {"incident_id": "A" * 128}),
     ],
 )
 def test_event_schema_rejects_descriptive_email_and_base64_like_values(
@@ -140,20 +134,26 @@ def test_event_schema_rejects_descriptive_email_and_base64_like_values(
     [
         ("state.invalidated", {"scope": "private_state"}),
         ("component.updated", {"component": "opportunity_os", "status": "degraded"}),
-        (
-            "incident.firing",
-            {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"},
-        ),
-        (
-            "incident.recovered",
-            {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"},
-        ),
     ],
 )
 def test_event_hub_accepts_only_documented_safe_events(
     event_hub: EventHub, event_type: str, payload: dict[str, object]
 ) -> None:
     assert event_hub.publish(event_type, payload).type == event_type
+
+
+@pytest.mark.parametrize(
+    "removed",
+    [
+        "conversation.started", "conversation.completed", "conversation.failed",
+        "incident.firing", "incident.recovered",
+    ],
+)
+def test_removed_native_duplicate_event_protocols_are_rejected(
+    event_hub: EventHub, removed: str
+) -> None:
+    with pytest.raises(ValueError, match="unsupported event type"):
+        event_hub.publish(removed, {})
 
 
 def test_cursor_write_failure_rolls_back_event_and_identifier(

@@ -8,6 +8,7 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 
 from opportunity_os.freshness import Confidence, StableGates, TechMaturity, TechState
+from opportunity_os.automation.cadence_completion import CadenceCompletionStore
 from opportunity_os.models import (
     CostLevel,
     Direction,
@@ -219,6 +220,25 @@ def save_review(
         created_at=created_at,
     )
     return _store().save_review(review)
+
+
+@mcp.tool()
+def complete_cadence(
+    cadence: str,
+    period_key: str,
+    run_id: str,
+    artifact_refs: list[str],
+) -> dict[str, Any]:
+    """Complete a non-interactive cadence only after saving its new required artifact.
+
+    This must be the final tool call. Copy cadence, period_key and run_id exactly
+    from the invocation prompt. artifact_refs must name newly saved private-state
+    objects as review:<id> or experiment:<id>; old artifacts are not valid evidence.
+    """
+    _store()
+    return CadenceCompletionStore(OPPORTUNITY_OS_HOME).complete(
+        cadence, period_key, run_id, artifact_refs
+    )
 
 
 @mcp.tool()

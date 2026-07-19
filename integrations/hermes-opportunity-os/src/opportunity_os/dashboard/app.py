@@ -23,8 +23,8 @@ from opportunity_os.dashboard.events import DashboardEvent, EventHub, EventJourn
 from opportunity_os.dashboard.schemas import DashboardSnapshot
 from opportunity_os.dashboard.tasks import (
     TaskAdapterError,
-    TaskCommandStatus,
     TaskRunsStatus,
+    TaskSchedulerStatus,
     TaskSummary,
 )
 
@@ -42,7 +42,7 @@ class DashboardSnapshotReader(Protocol):
 
 class DashboardTaskReader(Protocol):
     def list(self) -> list[TaskSummary]: ...
-    def status(self) -> TaskCommandStatus: ...
+    def status(self) -> TaskSchedulerStatus: ...
     def runs(self, job_id: str) -> TaskRunsStatus: ...
 
 
@@ -245,9 +245,12 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         except (TaskAdapterError, OSError, ValueError) as error:
             raise HTTPException(status_code=503, detail="openclaw_tasks_unavailable") from error
 
-    @app.get("/api/v1/tasks/status", response_model=TaskCommandStatus)
-    def task_status(_: Session = Depends(require_session)) -> TaskCommandStatus:
-        return task_reader().status()
+    @app.get("/api/v1/tasks/status", response_model=TaskSchedulerStatus)
+    def task_status(_: Session = Depends(require_session)) -> TaskSchedulerStatus:
+        try:
+            return task_reader().status()
+        except (TaskAdapterError, OSError, ValueError) as error:
+            raise HTTPException(status_code=503, detail="openclaw_tasks_unavailable") from error
 
     @app.get("/api/v1/tasks/{job_id}/runs", response_model=TaskRunsStatus)
     def task_runs(job_id: str, _: Session = Depends(require_session)) -> TaskRunsStatus:

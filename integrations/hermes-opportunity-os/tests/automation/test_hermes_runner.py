@@ -2,12 +2,14 @@ import inspect
 import json
 import os
 import subprocess
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
 
 import opportunity_os.automation.hermes_runner as hermes_runner
+from opportunity_os.automation.cadence_completion import CadenceCompletionStore
 from opportunity_os.automation.hermes_runner import CADENCES, CadenceRunner
 from opportunity_os.errors import BoundaryError, ValidationError
 
@@ -24,26 +26,67 @@ def make_hermes_executable(tmp_path: Path, body: str = "#!/bin/sh\nexit 0\n") ->
 
 
 class ImmediateProcess:
-    def __init__(self, returncode: int = 0) -> None:
+    def __init__(self, returncode: int = 0, on_wait=None) -> None:
         self.returncode = returncode
+        self.on_wait = on_wait
 
     def wait(self) -> int:
+        if self.on_wait is not None:
+            self.on_wait()
         return self.returncode
 
 
 class CapturingProcessFactory:
-    def __init__(self, returncodes: list[int] | None = None) -> None:
+    def __init__(
+        self,
+        returncodes: list[int] | None = None,
+        *,
+        home: Path | None = None,
+        complete_on_success: bool = True,
+    ) -> None:
         self.returncodes = list(returncodes or [0])
         self.calls: list[tuple[list[str], dict]] = []
+        self.home = home
+        self.complete_on_success = complete_on_success
 
     def __call__(self, argv: list[str], **kwargs) -> ImmediateProcess:
         self.calls.append((list(argv), dict(kwargs)))
-        return ImmediateProcess(self.returncodes.pop(0))
+        returncode = self.returncodes.pop(0)
+
+        def complete() -> None:
+            if returncode != 0 or not self.complete_on_success or self.home is None:
+                return
+            prompt = argv[-1]
+            match = hermes_runner.RUN_CONTEXT_PATTERN.search(prompt)
+            assert match is not None
+            cadence, period_key, run_id = match.groups()
+            if cadence == "biweekly":
+                kind, identifier = "experiment", f"experiment-{run_id[:8]}"
+                payload = {"id": identifier}
+            else:
+                kind, identifier = "review", f"review-{run_id[:8]}"
+                payload = {
+                    "id": identifier,
+                    "period": {"six-week": "six_week"}.get(cadence, cadence),
+                }
+            artifact_dir = self.home / f"{kind}s"
+            artifact_dir.mkdir(parents=True, exist_ok=True)
+            (artifact_dir / f"{identifier}.json").write_text(json.dumps(payload), encoding="utf-8")
+            CadenceCompletionStore(self.home, now=lambda: NOW).complete(
+                cadence, period_key, run_id, [f"{kind}:{identifier}"]
+            )
+
+        return ImmediateProcess(returncode, complete)
 
 
 def make_runner(tmp_path: Path, factory: CapturingProcessFactory | None = None) -> CadenceRunner:
+    home = tmp_path / "private"
+    if factory is None:
+        factory = CapturingProcessFactory(home=home)
+    elif factory.home is None:
+        factory.home = home
     return CadenceRunner(
-        tmp_path / "private",
+        home,
         hermes_path=make_hermes_executable(tmp_path),
         working_directory=tmp_path,
         process_factory=factory or CapturingProcessFactory(),
@@ -95,7 +138,7 @@ def test_runner_invokes_fixed_profile_and_skill_once_without_scheduler_options(t
     executable = make_hermes_executable(tmp_path)
     working_directory = tmp_path / "work"
     working_directory.mkdir()
-    factory = CapturingProcessFactory()
+    factory = CapturingProcessFactory(home=tmp_path / "private")
     runner = CadenceRunner(
         tmp_path / "private",
         hermes_path=executable,
@@ -108,7 +151,10 @@ def test_runner_invokes_fixed_profile_and_skill_once_without_scheduler_options(t
     assert len(factory.calls) == 1
     argv, options = factory.calls[0]
     assert argv[:6] == [str(executable.resolve()), "-p", "opportunity-discovery", "chat", "-Q", "-q"]
-    assert argv[6:10] == ["--source", "tool", "--skills", "opportunity-discovery"]
+    assert argv[6:12] == [
+        "--source", "tool", "--toolsets", "web,knowledge,opportunity_os",
+        "--skills", "opportunity-discovery",
+    ]
     assert "--yolo" not in argv
     assert not any(term in argv for term in ("message", "cron", "gateway"))
     assert options == {
@@ -127,6 +173,29 @@ def test_runner_invokes_fixed_profile_and_skill_once_without_scheduler_options(t
     for required in ("广域输入", "反对证据", "意外发现", "不得执行任何外部行动", "改进建议草案"):
         assert required in prompt
     assert "不得修改 Memory 或 Skill" in prompt
+    assert "complete_cadence" in prompt
+    assert hermes_runner.RUN_CONTEXT_PATTERN.search(prompt)
+
+
+def test_explicit_toolset_allowlist_excludes_dangerous_hermes_capabilities(tmp_path: Path) -> None:
+    factory = CapturingProcessFactory(home=tmp_path / "private")
+    assert make_runner(tmp_path, factory).run("daily", "2026-07-19").status == "success"
+    argv = factory.calls[0][0]
+    value = argv[argv.index("--toolsets") + 1].split(",")
+
+    assert value == ["web", "knowledge", "opportunity_os"]
+    assert set(value).isdisjoint({
+        "code_execution", "computer_use", "memory", "skills", "terminal", "file",
+        "delegation", "cronjob", "messaging", "browser",
+    })
+
+
+def test_zero_exit_without_matching_completion_marker_is_failed(tmp_path: Path) -> None:
+    factory = CapturingProcessFactory([0], home=tmp_path / "private", complete_on_success=False)
+
+    record = make_runner(tmp_path, factory).run("daily", "2026-07-19")
+
+    assert (record.status, record.error_class) == ("failed", "completion_missing")
 
 
 def test_unexpected_provider_error_is_persisted_without_secret_details(tmp_path: Path) -> None:
@@ -164,6 +233,43 @@ def test_success_record_is_atomic_0600_and_secret_free(tmp_path: Path) -> None:
     assert list(record_path.parent.glob("*.tmp")) == []
 
 
+def test_concurrent_failure_cannot_downgrade_matching_success(tmp_path: Path) -> None:
+    home = tmp_path / "private"
+    failure_started = threading.Event()
+    allow_failure = threading.Event()
+
+    class DelayedFailureFactory:
+        def __call__(self, argv: list[str], **kwargs) -> ImmediateProcess:
+            def wait_then_fail() -> None:
+                failure_started.set()
+                assert allow_failure.wait(timeout=5)
+
+            return ImmediateProcess(7, wait_then_fail)
+
+    success_factory = CapturingProcessFactory([0], home=home)
+    executable = make_hermes_executable(tmp_path)
+    failure_runner = CadenceRunner(
+        home, hermes_path=executable, working_directory=tmp_path,
+        process_factory=DelayedFailureFactory(), now=lambda: NOW,
+    )
+    success_runner = CadenceRunner(
+        home, hermes_path=executable, working_directory=tmp_path,
+        process_factory=success_factory, now=lambda: NOW,
+    )
+    outcomes = []
+    thread = threading.Thread(target=lambda: outcomes.append(failure_runner.run("daily", "2026-07-19")))
+    thread.start()
+    assert failure_started.wait(timeout=5)
+    successful = success_runner.run("daily", "2026-07-19")
+    allow_failure.set()
+    thread.join(timeout=5)
+
+    assert successful.status == "success"
+    assert outcomes[0].status == "skipped_duplicate"
+    payload = json.loads((home / "dashboard" / "runs" / "daily" / "2026-07-19.json").read_text())
+    assert payload["status"] == "success"
+
+
 def test_malformed_or_mismatched_success_record_fails_closed(tmp_path: Path) -> None:
     home = tmp_path / "private"
     record_path = home / "dashboard" / "runs" / "daily" / "2026-07-19.json"
@@ -174,6 +280,23 @@ def test_malformed_or_mismatched_success_record_fails_closed(tmp_path: Path) -> 
     with pytest.raises(ValidationError):
         make_runner(tmp_path, factory).run("daily", "2026-07-19")
     assert factory.calls == []
+
+
+def test_hermes_symlink_is_resolved_once_before_execution(tmp_path: Path) -> None:
+    target = make_hermes_executable(tmp_path)
+    link_dir = tmp_path / "linked-bin"
+    link_dir.mkdir()
+    link = link_dir / "hermes"
+    link.symlink_to(target)
+    factory = CapturingProcessFactory(home=tmp_path / "private")
+    runner = CadenceRunner(
+        tmp_path / "private", hermes_path=link, working_directory=tmp_path,
+        process_factory=factory, now=lambda: NOW,
+    )
+
+    runner.run("daily", "2026-07-19")
+
+    assert factory.calls[0][0][0] == str(target.resolve())
 
 
 @pytest.mark.parametrize("link_kind", ["home", "dashboard", "runs", "cadence", "record"])

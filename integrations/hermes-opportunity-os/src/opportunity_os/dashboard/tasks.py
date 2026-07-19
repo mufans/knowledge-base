@@ -13,7 +13,7 @@ from typing import Literal, Protocol
 from pydantic import BaseModel, ConfigDict
 
 from opportunity_os.dashboard.probes import CommandResult, CommandRunner
-from opportunity_os.dashboard.schedule_validation import normalize_schedule
+from opportunity_os.dashboard.schedule_validation import normalize_cron, normalize_timezone
 
 
 DEFAULT_OPENCLAW_EXECUTABLE = "/opt/homebrew/bin/openclaw"
@@ -48,13 +48,22 @@ class TaskCommandStatus(BaseModel):
     exit_code: int | None
     timed_out: bool
     duration_ms: int
-    error_code: Literal["timeout", "command_failed", "unavailable"] | None = None
+    error_code: Literal[
+        "timeout", "command_failed", "unavailable", "scheduler_disabled"
+    ] | None = None
     provider_status: Literal["unknown"] = "unknown"
     cost_status: Literal["unknown"] = "unknown"
 
 
 class TaskRunsStatus(TaskCommandStatus):
     run_count: int | None = None
+    schema_recognized: bool = False
+
+
+class TaskSchedulerStatus(TaskCommandStatus):
+    scheduler_enabled: bool | None = None
+    job_count: int | None = None
+    next_wake_at_ms: int | None = None
     schema_recognized: bool = False
 
 
@@ -141,13 +150,19 @@ class OpenClawTaskAdapter:
         cron: object = task.get("cron")
         tz: object = task.get("tz")
         if isinstance(schedule, dict):
-            cron = schedule.get("expr", schedule.get("cron"))
-            tz = schedule.get("tz", schedule.get("timezone"))
-        if (cron is None) != (tz is None):
+            kind = schedule.get("kind")
+            if kind in {None, "cron"}:
+                cron = schedule.get("expr", schedule.get("cron"))
+                tz = schedule.get("tz", schedule.get("timezone"))
+            else:
+                cron = None
+                tz = None
+        if cron is None and tz is not None:
             raise TaskAdapterError("invalid_task_schema")
-        if cron is not None and tz is not None:
+        if cron is not None:
             try:
-                cron, tz = normalize_schedule(cron, tz)
+                cron = normalize_cron(cron)
+                tz = normalize_timezone(tz) if tz is not None else None
             except ValueError as error:
                 raise TaskAdapterError("invalid_task_schema") from error
         return TaskSummary(
@@ -165,8 +180,43 @@ class OpenClawTaskAdapter:
             raise TaskAdapterError("invalid_task_schema")
         return [self._task_summary(task) for task in jobs]
 
-    def status(self) -> TaskCommandStatus:
-        return self._status(self._read(("status",)))
+    def status(self) -> TaskSchedulerStatus:
+        result = self._read(("status", "--json"))
+        command = self._status(result)
+        if not command.ok:
+            return TaskSchedulerStatus(**command.model_dump())
+        payload = self._json(result)
+        if not isinstance(payload, dict):
+            raise TaskAdapterError("invalid_status_schema")
+        enabled = payload.get("enabled")
+        jobs = payload.get("jobs")
+        next_wake = payload.get("nextWakeAtMs")
+        if (
+            type(enabled) is not bool
+            or not isinstance(jobs, int)
+            or isinstance(jobs, bool)
+            or jobs < 0
+            or (
+                next_wake is not None
+                and (
+                    not isinstance(next_wake, int)
+                    or isinstance(next_wake, bool)
+                    or next_wake < 0
+                )
+            )
+        ):
+            raise TaskAdapterError("invalid_status_schema")
+        return TaskSchedulerStatus(
+            ok=enabled,
+            exit_code=0,
+            timed_out=False,
+            duration_ms=result.duration_ms,
+            error_code=None if enabled else "scheduler_disabled",
+            scheduler_enabled=enabled,
+            job_count=jobs,
+            next_wake_at_ms=next_wake,
+            schema_recognized=True,
+        )
 
     def runs(self, job_id: str) -> TaskRunsStatus:
         result = self._read(

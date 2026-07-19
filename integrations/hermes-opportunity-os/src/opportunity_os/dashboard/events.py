@@ -27,13 +27,6 @@ _COMPONENTS = frozenset(
 )
 _COMPONENT_STATUSES = frozenset({"healthy", "degraded", "down", "unknown"})
 _INVALIDATION_SCOPES = frozenset({"private_state"})
-_INCIDENT_ID = re.compile(
-    r"^inc_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-)
-_CONVERSATION_TASK_ID = re.compile(
-    r"^conv_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-)
-_CONVERSATION_TARGETS = frozenset({"openclaw", "hermes"})
 _AUDIENCE_ID = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -49,35 +42,9 @@ def _is_invalidation_scope(value: object) -> bool:
     return isinstance(value, str) and value in _INVALIDATION_SCOPES
 
 
-def _is_incident_id(value: object) -> bool:
-    return isinstance(value, str) and _INCIDENT_ID.fullmatch(value) is not None
-
-
-def _is_conversation_task_id(value: object) -> bool:
-    return isinstance(value, str) and _CONVERSATION_TASK_ID.fullmatch(value) is not None
-
-
-def _is_conversation_target(value: object) -> bool:
-    return isinstance(value, str) and value in _CONVERSATION_TARGETS
-
-
 _EVENT_SCHEMAS = {
     "state.invalidated": {"scope": _is_invalidation_scope},
     "component.updated": {"component": _is_component, "status": _is_component_status},
-    "incident.firing": {"incident_id": _is_incident_id},
-    "incident.recovered": {"incident_id": _is_incident_id},
-    "conversation.started": {
-        "task_id": _is_conversation_task_id,
-        "target": _is_conversation_target,
-    },
-    "conversation.completed": {
-        "task_id": _is_conversation_task_id,
-        "target": _is_conversation_target,
-    },
-    "conversation.failed": {
-        "task_id": _is_conversation_task_id,
-        "target": _is_conversation_target,
-    },
 }
 _JOURNAL_EVENTS = frozenset(
     {

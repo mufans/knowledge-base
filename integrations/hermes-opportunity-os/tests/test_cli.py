@@ -35,6 +35,18 @@ def test_domain_proposal_cli_returns_only_pending_metadata(tmp_path: Path, monke
     assert payload["state"] == "pending"
 
 
+def test_domain_cli_fs_failure_is_typed_json_without_trace_or_path(tmp_path, monkeypatch, capsys) -> None:
+    missing = tmp_path / "private-secret-name"
+    monkeypatch.setattr("sys.stdin", io.StringIO('{"query":"status"}'))
+
+    assert main(["domain", "query", "--home", str(missing), "--stdin-json"]) == 2
+    captured = capsys.readouterr()
+    payload = json.loads(captured.out)
+    assert payload == {"ok": False, "error": "state_unavailable"}
+    assert captured.err == ""
+    assert str(missing) not in captured.out
+
+
 FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "knowledge"
 
 
