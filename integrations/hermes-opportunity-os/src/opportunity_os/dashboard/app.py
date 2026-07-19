@@ -21,6 +21,7 @@ from opportunity_os.dashboard.auth import CsrfGuard, Session, SessionInfo, Sessi
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.conversations import (
     ConversationAccepted,
+    ConversationBusyError,
     ConversationRequest,
     ConversationService,
     ConversationTask,
@@ -338,7 +339,13 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     ) -> ConversationAccepted:
         if dependencies.conversation_service is None:
             raise HTTPException(status_code=503, detail="conversation_service_unavailable")
-        return ConversationAccepted(task_id=dependencies.conversation_service.submit(conversation))
+        try:
+            task_id = dependencies.conversation_service.submit(conversation)
+        except ConversationBusyError as error:
+            raise HTTPException(
+                status_code=429, detail="conversation_capacity_reached"
+            ) from error
+        return ConversationAccepted(task_id=task_id)
 
     @app.get("/api/v1/conversations/{task_id}", response_model=ConversationTask)
     def conversation_task(

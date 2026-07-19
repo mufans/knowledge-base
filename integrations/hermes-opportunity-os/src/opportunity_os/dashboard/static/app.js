@@ -98,6 +98,11 @@ export function renderConversations(data = {}, state = "empty") {
   return `<div class="page" data-page="conversations" data-state="${normalizedState(state)}">${pageHeader("conversations", state)}
     <section class="assistant-grid"><article class="assistant-card"><p class="eyebrow">OPENCLAW</p><h2>知识与系统助手</h2><p>查询知识库、任务和系统状态。</p><span>只读入口</span></article>
     <article class="assistant-card accent"><p class="eyebrow">HERMES</p><h2>机会研究员</h2><p>深度分析、方向复盘与历史 Session。</p><span>调用前预览边界</span></article></section>
+    <section class="panel" aria-label="调用前边界"><p class="eyebrow">PREFLIGHT</p><h2>调用边界</h2>
+      <p><strong>Hermes profile:</strong> opportunity-discovery · <strong>source: tool</strong> · <strong>skills: opportunity-discovery</strong></p>
+      <p><strong>Provider / Model:</strong> 运行结果报告前均为 unknown · <strong>Cost status: unknown</strong></p>
+      <p><strong>Data scope:</strong> 当前会话与 Opportunity OS 工具边界；不启用 messaging、delivery 或自动写入。</p>
+    </section>
     <form id="conversation-form" class="panel" aria-label="提交安全会话">
       <label>研究入口<select name="target"><option value="openclaw">OpenClaw</option><option value="hermes">Hermes</option></select></label>
       <label>Session ID<input name="session_id" value="dashboard-main" maxlength="64" required></label>

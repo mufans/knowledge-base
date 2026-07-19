@@ -26,6 +26,7 @@ OPENCLAW_TIMEOUT_SECONDS = 600
 HERMES_TIMEOUT_SECONDS = 1_500
 DEFAULT_OPENCLAW_EXECUTABLE = "/opt/homebrew/bin/openclaw"
 DEFAULT_HERMES_EXECUTABLE = "hermes"
+DEFAULT_MAX_ACTIVE_TASKS = 2
 _SESSION_UNSAFE = re.compile(r"[^a-z0-9._-]+")
 _SAFE_RUNTIME_LABEL = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$")
 
@@ -36,6 +37,10 @@ class ConversationRunner(Protocol):
 
 class ConversationAdapter(Protocol):
     def send(self, session_id: str, message: str) -> "ConversationResult": ...
+
+
+class ConversationBusyError(RuntimeError):
+    """The bounded conversation executor has no safe capacity."""
 
 
 def normalize_session_id(value: str) -> str:
@@ -256,8 +261,10 @@ class OpenClawConversationAdapter(_BaseConversationAdapter):
         openclaw_path: str = DEFAULT_OPENCLAW_EXECUTABLE,
     ) -> None:
         super().__init__(runner)
-        if Path(openclaw_path).name != "openclaw":
-            raise ValueError("openclaw_path must name the openclaw executable")
+        if openclaw_path != DEFAULT_OPENCLAW_EXECUTABLE:
+            raise ValueError(
+                f"openclaw_path must be the fixed executable {DEFAULT_OPENCLAW_EXECUTABLE}"
+            )
         self._openclaw_path = openclaw_path
 
     def send(self, session_id: str, message: str) -> ConversationResult:
@@ -328,11 +335,16 @@ class ConversationService:
         hermes: ConversationAdapter,
         event_hub: EventHub,
         sessions_path: str | Path,
+        max_active_tasks: int = DEFAULT_MAX_ACTIVE_TASKS,
     ) -> None:
+        if max_active_tasks < 1 or max_active_tasks > 16:
+            raise ValueError("max_active_tasks must be between 1 and 16")
         self._adapters = {"openclaw": openclaw, "hermes": hermes}
         self._event_hub = event_hub
         self._sessions_path = Path(sessions_path)
         self._tasks: dict[str, ConversationTask] = {}
+        self._max_active_tasks = max_active_tasks
+        self._active_sessions: set[str] = set()
         self._lock = threading.RLock()
 
     @property
@@ -352,14 +364,26 @@ class ConversationService:
             updated_at=now,
         )
         with self._lock:
+            if (
+                len(self._active_sessions) >= self._max_active_tasks
+                or request.session_id in self._active_sessions
+            ):
+                raise ConversationBusyError("conversation capacity reached")
             self._tasks[task_id] = task
+            self._active_sessions.add(request.session_id)
         thread = threading.Thread(
             target=self._run,
             args=(task_id, request),
             name=f"conversation-{task_id}",
             daemon=True,
         )
-        thread.start()
+        try:
+            thread.start()
+        except RuntimeError:
+            with self._lock:
+                self._tasks.pop(task_id, None)
+                self._active_sessions.discard(request.session_id)
+            raise
         return task_id
 
     def get(self, task_id: str) -> ConversationTask:
@@ -377,30 +401,44 @@ class ConversationService:
             return task
 
     def _run(self, task_id: str, request: ConversationRequest) -> None:
-        self._replace(task_id, status="running")
-        self._event_hub.publish(
-            "conversation.started", {"task_id": task_id, "target": request.target}
-        )
         try:
-            result = self._adapters[request.target].send(request.session_id, request.message)
-        except Exception:
-            result = ConversationResult(
-                session_id=request.session_id,
-                final_text="",
-                token_status="unknown",
-                cost_status="unknown",
-                exit_code=None,
-                duration_ms=0,
-                error_code="adapter_failure",
+            self._replace(task_id, status="running")
+            self._publish_lifecycle(
+                "conversation.started", task_id=task_id, target=request.target
             )
-        succeeded = result.error_code is None and result.exit_code == 0
-        status = "succeeded" if succeeded else "failed"
-        self._replace(task_id, status=status, result=result)
-        self._persist_session(task_id, request.target, result, status)
-        self._event_hub.publish(
-            "conversation.completed" if succeeded else "conversation.failed",
-            {"task_id": task_id, "target": request.target},
-        )
+            try:
+                result = self._adapters[request.target].send(request.session_id, request.message)
+            except Exception:
+                result = ConversationResult(
+                    session_id=request.session_id,
+                    final_text="",
+                    token_status="unknown",
+                    cost_status="unknown",
+                    exit_code=None,
+                    duration_ms=0,
+                    error_code="adapter_failure",
+                )
+            succeeded = result.error_code is None and result.exit_code == 0
+            status = "succeeded" if succeeded else "failed"
+            self._replace(task_id, status=status, result=result)
+            try:
+                self._persist_session(task_id, request.target, result, status)
+            except (OSError, ValueError, TypeError, json.JSONDecodeError):
+                pass
+            self._publish_lifecycle(
+                "conversation.completed" if succeeded else "conversation.failed",
+                task_id=task_id,
+                target=request.target,
+            )
+        finally:
+            with self._lock:
+                self._active_sessions.discard(request.session_id)
+
+    def _publish_lifecycle(self, event_type: str, *, task_id: str, target: str) -> None:
+        try:
+            self._event_hub.publish(event_type, {"task_id": task_id, "target": target})
+        except OSError:
+            pass
 
     def _persist_session(
         self,

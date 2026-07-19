@@ -483,6 +483,11 @@ def test_conversation_renderer_contains_no_deliver_or_yolo_controls() -> None:
     assert 'name="message"' in app_js
     assert "--deliver" not in app_js
     assert "--yolo" not in app_js
+    assert "opportunity-discovery" in app_js
+    assert "source: tool" in app_js
+    assert "skills: opportunity-discovery" in app_js
+    assert "Provider / Model" in app_js
+    assert "Cost status: unknown" in app_js
 
 
 def test_hashchange_listener_is_installed_outside_retryable_start() -> None:

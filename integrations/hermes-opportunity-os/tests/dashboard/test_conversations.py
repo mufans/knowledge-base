@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import threading
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -16,6 +17,7 @@ from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.conversations import (
     MAX_MESSAGE_BYTES,
     ConversationRequest,
+    ConversationBusyError,
     ConversationResult,
     ConversationService,
     HermesConversationAdapter,
@@ -74,6 +76,11 @@ def test_openclaw_adapter_uses_fixed_gateway_agent_command(fake_runner: FakeRunn
         )
     ]
     assert "--deliver" not in fake_runner.calls[0][0]
+
+
+def test_openclaw_adapter_rejects_any_alternate_executable(fake_runner: FakeRunner) -> None:
+    with pytest.raises(ValueError, match="fixed executable"):
+        OpenClawConversationAdapter(fake_runner, openclaw_path="/tmp/openclaw")
 
 
 def test_hermes_adapter_uses_exact_quiet_profile_skill_command(fake_runner: FakeRunner) -> None:
@@ -334,6 +341,91 @@ def test_service_failure_event_contains_no_raw_stderr(tmp_path: Path) -> None:
     assert "stderr" not in json.dumps(task.model_dump(mode="json"))
 
 
+def test_service_bounds_active_calls_and_rejects_same_session(tmp_path: Path) -> None:
+    started = threading.Event()
+    release = threading.Event()
+
+    class BlockingAdapter(StubAdapter):
+        def send(self, session_id: str, message: str) -> ConversationResult:
+            started.set()
+            assert release.wait(timeout=2)
+            return super().send(session_id, message)
+
+    service = ConversationService(
+        openclaw=BlockingAdapter("openclaw"),
+        hermes=BlockingAdapter("hermes"),
+        event_hub=EventHub(tmp_path / "event-cursor"),
+        sessions_path=tmp_path / "sessions.json",
+        max_active_tasks=1,
+    )
+    request = ConversationRequest(target="hermes", session_id="main", message="status")
+
+    first = service.submit(request)
+    assert started.wait(timeout=1)
+    with pytest.raises(ConversationBusyError):
+        service.submit(request)
+    release.set()
+    assert _wait_for_terminal(service, first).status == "succeeded"
+
+
+def test_started_event_io_failure_does_not_block_adapter_or_terminal_state(tmp_path: Path) -> None:
+    class FailingFirstPublishHub:
+        def __init__(self) -> None:
+            self.calls: list[str] = []
+
+        def publish(self, event_type: str, payload: dict[str, str]):
+            self.calls.append(event_type)
+            if event_type == "conversation.started":
+                raise OSError("cursor unavailable")
+
+    hub = FailingFirstPublishHub()
+    adapter = StubAdapter("hermes")
+    service = ConversationService(
+        openclaw=adapter,
+        hermes=adapter,
+        event_hub=hub,  # type: ignore[arg-type]
+        sessions_path=tmp_path / "sessions.json",
+    )
+
+    task_id = service.submit(
+        ConversationRequest(target="hermes", session_id="main", message="status")
+    )
+    task = _wait_for_terminal(service, task_id)
+
+    assert task.status == "succeeded"
+    assert adapter.calls == [("main", "status")]
+    assert hub.calls == ["conversation.started", "conversation.completed"]
+
+
+def test_session_metadata_io_failure_does_not_suppress_terminal_event(
+    tmp_path: Path, monkeypatch
+) -> None:
+    hub = EventHub(tmp_path / "event-cursor")
+    adapter = StubAdapter("openclaw")
+    service = ConversationService(
+        openclaw=adapter,
+        hermes=adapter,
+        event_hub=hub,
+        sessions_path=tmp_path / "sessions.json",
+    )
+    monkeypatch.setattr(
+        service,
+        "_atomic_write",
+        lambda payload: (_ for _ in ()).throw(OSError("metadata unavailable")),
+    )
+
+    task_id = service.submit(
+        ConversationRequest(target="openclaw", session_id="main", message="status")
+    )
+    task = _wait_for_terminal(service, task_id)
+
+    assert task.status == "succeeded"
+    assert [item.type for item in hub.replay(None)] == [
+        "conversation.started",
+        "conversation.completed",
+    ]
+
+
 class FakeReadModel:
     def snapshot(self) -> DashboardSnapshot:
         return DashboardSnapshot(
@@ -442,3 +534,37 @@ def test_api_rejects_oversized_message_before_submission(tmp_path: Path) -> None
 
     assert response.status_code == 422
     assert service.tasks == {}
+
+
+def test_api_maps_conversation_capacity_to_429(tmp_path: Path) -> None:
+    class BusyService:
+        def submit(self, request: ConversationRequest) -> str:
+            raise ConversationBusyError("busy")
+
+    sessions = SessionStore(tmp_path / "dashboard")
+    app = create_app(
+        DashboardConfig(dashboard_home=tmp_path / "dashboard"),
+        DashboardDependencies(
+            read_model=FakeReadModel(),
+            sessions=sessions,
+            csrf=CsrfGuard(),
+            event_hub=EventHub(tmp_path / "event-cursor"),
+            conversation_service=BusyService(),  # type: ignore[arg-type]
+        ),
+    )
+    client = TestClient(app, base_url="http://127.0.0.1:8765", client=("127.0.0.1", 51000))
+    exchange = client.post(
+        "/auth/local/exchange", json={"token": sessions.create_bootstrap()}
+    )
+
+    response = client.post(
+        "/api/v1/conversations",
+        json={"target": "hermes", "session_id": "main", "message": "status"},
+        headers={
+            "origin": "http://127.0.0.1:8765",
+            "x-csrf-token": exchange.json()["csrf_token"],
+        },
+    )
+
+    assert response.status_code == 429
+    assert response.json() == {"detail": "conversation_capacity_reached"}
