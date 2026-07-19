@@ -239,6 +239,72 @@ export async function submitConversation(target, sessionId, message, csrf, fetch
   return response.json();
 }
 
+function validTaskPatch(patch) {
+  if (!patch || typeof patch !== "object" || Array.isArray(patch)) return false;
+  const keys = Object.keys(patch).sort();
+  if (keys.length === 1 && keys[0] === "enabled") return typeof patch.enabled === "boolean";
+  return keys.length === 2
+    && keys[0] === "cron"
+    && keys[1] === "tz"
+    && typeof patch.cron === "string"
+    && patch.cron.trim().length > 0
+    && typeof patch.tz === "string"
+    && patch.tz.trim().length > 0;
+}
+
+async function postTaskControl(url, body, csrf, fetchImpl) {
+  if (!csrf) throw new Error("csrf_required");
+  const response = await fetchImpl(url, {
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrf,
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) throw new Error(`task_control_${response.status}`);
+  return response.json();
+}
+
+export async function previewTaskChange(jobId, patch, baseRevision, csrf, fetchImpl = fetch) {
+  if (!validTaskPatch(patch)) throw new Error("invalid_task_patch");
+  return postTaskControl(
+    `/api/v1/tasks/${encodeURIComponent(jobId)}/changes/preview`,
+    {patch, base_revision: baseRevision},
+    csrf,
+    fetchImpl,
+  );
+}
+
+export async function previewRunNow(jobId, baseRevision, csrf, fetchImpl = fetch) {
+  return postTaskControl(
+    `/api/v1/tasks/${encodeURIComponent(jobId)}/run-now/preview`,
+    {base_revision: baseRevision},
+    csrf,
+    fetchImpl,
+  );
+}
+
+export async function approveTaskChange(requestId, digest, nonce, csrf, fetchImpl = fetch) {
+  return postTaskControl(
+    `/api/v1/approvals/${encodeURIComponent(requestId)}/approve`,
+    {digest, nonce},
+    csrf,
+    fetchImpl,
+  );
+}
+
+export async function applyTaskChange(requestId, csrf, fetchImpl = fetch) {
+  return postTaskControl(
+    `/api/v1/approvals/${encodeURIComponent(requestId)}/apply`,
+    {},
+    csrf,
+    fetchImpl,
+  );
+}
+
 async function refreshConversationTask(taskId) {
   const response = await fetch(`/api/v1/conversations/${encodeURIComponent(taskId)}`, {
     credentials: "same-origin",

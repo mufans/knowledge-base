@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import secrets
 from contextlib import asynccontextmanager, suppress
@@ -15,8 +16,19 @@ from urllib.parse import urlsplit
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
+from opportunity_os.dashboard.approvals import (
+    ApprovalError,
+    ApprovalService,
+    ChangeRequest,
+    ConflictError,
+    ExpiredError,
+    IsolationError,
+    StateError,
+    ValidationError,
+)
+from opportunity_os.dashboard.audit import AuditLog
 from opportunity_os.dashboard.auth import CsrfGuard, Session, SessionInfo, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.conversations import (
@@ -28,6 +40,12 @@ from opportunity_os.dashboard.conversations import (
 )
 from opportunity_os.dashboard.events import DashboardEvent, EventHub, EventJournalTailer
 from opportunity_os.dashboard.schemas import DashboardSnapshot
+from opportunity_os.dashboard.tasks import (
+    TaskAdapterError,
+    TaskCommandStatus,
+    TaskRunsStatus,
+    TaskSummary,
+)
 
 
 SESSION_COOKIE = "opportunity_dashboard_session"
@@ -45,6 +63,20 @@ class DashboardSnapshotReader(Protocol):
     def snapshot(self) -> DashboardSnapshot: ...
 
 
+class DashboardTaskAdapter(Protocol):
+    def list(self) -> list[TaskSummary]: ...
+
+    def status(self) -> TaskCommandStatus: ...
+
+    def runs(self, job_id: str) -> TaskRunsStatus: ...
+
+    def edit_enabled(self, job_id: str, enabled: bool) -> TaskCommandStatus: ...
+
+    def edit_schedule(self, job_id: str, cron: str, tz: str) -> TaskCommandStatus: ...
+
+    def run_now(self, job_id: str) -> TaskCommandStatus: ...
+
+
 @dataclass(frozen=True, slots=True)
 class DashboardDependencies:
     read_model: DashboardSnapshotReader
@@ -55,10 +87,67 @@ class DashboardDependencies:
     journal_poll_interval: float = 0.25
     event_tailer: EventJournalTailer | None = None
     conversation_service: ConversationService | None = None
+    task_adapter: DashboardTaskAdapter | None = None
+    approvals: ApprovalService | None = None
+    audit_log: AuditLog | None = None
 
 
 class BootstrapExchange(BaseModel):
     token: str
+
+
+class TaskPatchPreview(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    patch: dict[str, object]
+    base_revision: str
+
+
+class RunNowPreview(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    base_revision: str
+
+
+class ApprovalConfirmation(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    digest: str
+    nonce: str
+
+
+class EmptyMutation(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+
+class ChangeRequestResponse(BaseModel):
+    """Browser DTO deliberately excludes owner and session bindings."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    kind: str
+    target: str
+    patch: dict[str, object]
+    base_revision: str
+    digest: str
+    nonce: str | None
+    state: str
+    expires_at: str
+
+
+def _change_response(change: ChangeRequest, *, include_nonce: bool) -> ChangeRequestResponse:
+    return ChangeRequestResponse(
+        id=change.id,
+        kind=change.kind,
+        target=change.target,
+        patch=change.patch,
+        base_revision=change.base_revision,
+        digest=change.digest,
+        nonce=change.nonce if include_nonce else None,
+        state=change.state,
+        expires_at=change.expires_at.isoformat(),
+    )
 
 
 def _hostname(value: str) -> str | None:
@@ -120,6 +209,14 @@ def _set_session_cookie(response: Response, token: str, session: Session) -> Non
 def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> FastAPI:
     """Create a fail-closed dashboard app with no framework documentation routes."""
     remote_host = config.remote_host.casefold() if config.remote_host else None
+    owner_seed = (
+        config.origin_credential.encode("utf-8")
+        if config.origin_credential
+        else b"loopback-single-owner"
+    )
+    owner_scope = hashlib.sha256(
+        b"opportunity-os/dashboard-owner/v1\0" + owner_seed
+    ).hexdigest()
     event_hub = dependencies.event_hub or EventHub(config.dashboard_home / "event-cursor")
     event_tailer = dependencies.event_tailer or (
         EventJournalTailer(
@@ -210,6 +307,46 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
             raise HTTPException(status_code=403, detail="csrf_required")
         return session
 
+    def control_services() -> tuple[DashboardTaskAdapter, ApprovalService, AuditLog]:
+        if (
+            dependencies.task_adapter is None
+            or dependencies.approvals is None
+            or dependencies.audit_log is None
+        ):
+            raise HTTPException(status_code=503, detail="task_control_unavailable")
+        return dependencies.task_adapter, dependencies.approvals, dependencies.audit_log
+
+    def safe_control_error(error: Exception) -> HTTPException:
+        if isinstance(error, (KeyError, IsolationError)):
+            return HTTPException(status_code=404, detail="change_request_not_found")
+        if isinstance(error, ExpiredError):
+            return HTTPException(status_code=410, detail="approval_expired")
+        if isinstance(error, (ConflictError, StateError)):
+            return HTTPException(status_code=409, detail="approval_conflict")
+        if isinstance(error, ValidationError | ValueError):
+            return HTTPException(status_code=422, detail="invalid_task_change")
+        if isinstance(error, TaskAdapterError):
+            return HTTPException(status_code=503, detail="openclaw_task_unavailable")
+        if isinstance(error, ApprovalError):
+            return HTTPException(status_code=409, detail="approval_failed")
+        return HTTPException(status_code=503, detail="task_control_failed")
+
+    def current_task(adapter: DashboardTaskAdapter, job_id: str) -> TaskSummary:
+        try:
+            task = next((item for item in adapter.list() if item.job_id == job_id), None)
+        except Exception as error:
+            raise safe_control_error(error) from error
+        if task is None:
+            raise HTTPException(status_code=404, detail="task_not_found")
+        return task
+
+    def task_diff(task: TaskSummary, patch: dict[str, object]) -> dict[str, object]:
+        before = {"enabled": task.enabled, "cron": task.cron, "tz": task.tz}
+        return {
+            field: {"before": before[field], "after": value}
+            for field, value in patch.items()
+        }
+
     @app.get("/healthz")
     def health() -> dict[str, bool | str]:
         bridge_state = event_tailer.health.state if event_tailer is not None else "disabled"
@@ -240,6 +377,201 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
     @app.get("/api/v1/status", response_model=DashboardSnapshot)
     def status(_: Session = Depends(require_session)) -> DashboardSnapshot:
         return dependencies.read_model.snapshot()
+
+    @app.get("/api/v1/tasks", response_model=list[TaskSummary])
+    def tasks(_: Session = Depends(require_session)) -> list[TaskSummary]:
+        adapter, _, _ = control_services()
+        try:
+            return adapter.list()
+        except Exception as error:
+            raise safe_control_error(error) from error
+
+    @app.get("/api/v1/tasks/status", response_model=TaskCommandStatus)
+    def task_status(_: Session = Depends(require_session)) -> TaskCommandStatus:
+        adapter, _, _ = control_services()
+        try:
+            return adapter.status()
+        except Exception as error:
+            raise safe_control_error(error) from error
+
+    @app.get("/api/v1/tasks/{job_id}/runs", response_model=TaskRunsStatus)
+    def task_runs(job_id: str, _: Session = Depends(require_session)) -> TaskRunsStatus:
+        adapter, _, _ = control_services()
+        try:
+            return adapter.runs(job_id)
+        except Exception as error:
+            raise safe_control_error(error) from error
+
+    @app.post(
+        "/api/v1/tasks/{job_id}/changes/preview",
+        response_model=ChangeRequestResponse,
+    )
+    def preview_task_change(
+        job_id: str,
+        preview: TaskPatchPreview,
+        session: Session = Depends(require_csrf_session),
+    ) -> ChangeRequestResponse:
+        adapter, approvals, audit = control_services()
+        task = current_task(adapter, job_id)
+        if not secrets.compare_digest(task.revision, preview.base_revision):
+            raise HTTPException(status_code=409, detail="task_revision_conflict")
+        try:
+            change = approvals.preview(
+                job_id,
+                preview.patch,
+                base_revision=preview.base_revision,
+                owner_id=owner_scope,
+                session_id=session.key,
+            )
+            audit.append(
+                actor=owner_scope,
+                request_id=change.id,
+                target=job_id,
+                status="previewed",
+                diff=task_diff(task, change.patch),
+            )
+            return _change_response(change, include_nonce=True)
+        except Exception as error:
+            raise safe_control_error(error) from error
+
+    @app.post(
+        "/api/v1/tasks/{job_id}/run-now/preview",
+        response_model=ChangeRequestResponse,
+    )
+    def preview_run_now(
+        job_id: str,
+        preview: RunNowPreview,
+        session: Session = Depends(require_csrf_session),
+    ) -> ChangeRequestResponse:
+        adapter, approvals, audit = control_services()
+        task = current_task(adapter, job_id)
+        if not secrets.compare_digest(task.revision, preview.base_revision):
+            raise HTTPException(status_code=409, detail="task_revision_conflict")
+        try:
+            change = approvals.preview_run_now(
+                job_id,
+                base_revision=preview.base_revision,
+                owner_id=owner_scope,
+                session_id=session.key,
+            )
+            audit.append(
+                actor=owner_scope,
+                request_id=change.id,
+                target=job_id,
+                status="previewed",
+                diff={},
+            )
+            return _change_response(change, include_nonce=True)
+        except Exception as error:
+            raise safe_control_error(error) from error
+
+    @app.post(
+        "/api/v1/approvals/{request_id}/approve",
+        response_model=ChangeRequestResponse,
+    )
+    def approve_change(
+        request_id: str,
+        confirmation: ApprovalConfirmation,
+        session: Session = Depends(require_csrf_session),
+    ) -> ChangeRequestResponse:
+        adapter, approvals, audit = control_services()
+        try:
+            existing = next(
+                (
+                    item
+                    for item in approvals.list_for(
+                        owner_id=owner_scope, session_id=session.key
+                    )
+                    if item.id == request_id
+                ),
+                None,
+            )
+            if existing is None:
+                raise KeyError(request_id)
+            current = current_task(adapter, existing.target)
+            change = approvals.approve(
+                request_id,
+                confirmation.digest,
+                nonce=confirmation.nonce,
+                owner_id=owner_scope,
+                session_id=session.key,
+            )
+            audit.append(
+                actor=owner_scope,
+                request_id=change.id,
+                target=change.target,
+                status="approved",
+                diff=task_diff(current, change.patch),
+            )
+            return _change_response(change, include_nonce=False)
+        except Exception as error:
+            raise safe_control_error(error) from error
+
+    @app.post(
+        "/api/v1/approvals/{request_id}/apply",
+        response_model=ChangeRequestResponse,
+    )
+    def apply_change(
+        request_id: str,
+        _: EmptyMutation,
+        session: Session = Depends(require_csrf_session),
+    ) -> ChangeRequestResponse:
+        adapter, approvals, audit = control_services()
+        try:
+            change = next(
+                (
+                    item
+                    for item in approvals.list_for(
+                        owner_id=owner_scope, session_id=session.key
+                    )
+                    if item.id == request_id
+                ),
+                None,
+            )
+            if change is None:
+                raise KeyError(request_id)
+            before = current_task(adapter, change.target)
+
+            def mutate(approved: ChangeRequest) -> None:
+                if approved.kind == "run_now":
+                    result = adapter.run_now(approved.target)
+                    if not result.ok:
+                        raise TaskAdapterError("run_now_failed")
+                    return
+                if frozenset(approved.patch) == {"enabled"}:
+                    result = adapter.edit_enabled(
+                        approved.target, bool(approved.patch["enabled"])
+                    )
+                else:
+                    result = adapter.edit_schedule(
+                        approved.target,
+                        str(approved.patch["cron"]),
+                        str(approved.patch["tz"]),
+                    )
+                if not result.ok:
+                    raise TaskAdapterError("task_edit_failed")
+                observed = current_task(adapter, approved.target)
+                for field, expected in approved.patch.items():
+                    if getattr(observed, field) != expected:
+                        raise TaskAdapterError("task_verification_failed")
+
+            applied = approvals.apply(
+                request_id,
+                observed_revision=before.revision,
+                owner_id=owner_scope,
+                session_id=session.key,
+                apply_change=mutate,
+            )
+            audit.append(
+                actor=owner_scope,
+                request_id=applied.id,
+                target=applied.target,
+                status="applied",
+                diff=task_diff(before, applied.patch),
+            )
+            return _change_response(applied, include_nonce=False)
+        except Exception as error:
+            raise safe_control_error(error) from error
 
     @app.get("/api/v1/events")
     def events(
