@@ -1,0 +1,15 @@
+# Replace the placeholder with the single GitHub account email authorized to view the dashboard.
+# GitHub users with private email cannot use email allow-list authorization.
+on_http_request:
+  - actions:
+      - type: oauth
+        config:
+          provider: github
+          idle_session_timeout: 15m
+          max_session_duration: 8h
+  - expressions:
+      - "!(actions.ngrok.oauth.identity.email in ['__OWNER_GITHUB_EMAIL__'])"
+    actions:
+      - type: deny
+        config:
+          status_code: 403
