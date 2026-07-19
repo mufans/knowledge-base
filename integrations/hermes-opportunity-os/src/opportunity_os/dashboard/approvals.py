@@ -17,7 +17,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
+
+from opportunity_os.dashboard.schedule_validation import normalize_schedule
 
 
 APPROVAL_TTL = timedelta(minutes=5)
@@ -52,7 +54,13 @@ class StateError(ApprovalError):
 
 ChangeKind = Literal["task_patch", "run_now"]
 ChangeState = Literal[
-    "awaiting_approval", "approved", "applying", "applied", "failed", "expired"
+    "awaiting_approval",
+    "approved",
+    "applying",
+    "applied",
+    "failed",
+    "expired",
+    "conflict",
 ]
 
 
@@ -75,6 +83,10 @@ class ChangeRequest(BaseModel):
     expires_at: datetime
     approved_at: datetime | None = None
     applied_at: datetime | None = None
+    terminal_at: datetime | None = None
+    operation_id: str | None = None
+    audit_pending: bool = False
+    audit_diff: dict[str, object] = Field(default_factory=dict)
 
 
 def _validate_opaque(value: str, field: str) -> str:
@@ -104,12 +116,10 @@ def _normalize_patch(patch: dict[str, object]) -> dict[str, object]:
             raise ValidationError("enabled must be a boolean")
         return {"enabled": patch["enabled"]}
     if keys == {"cron", "tz"}:
-        cron = patch["cron"]
-        tz = patch["tz"]
-        if not isinstance(cron, str) or not cron.strip() or len(cron.encode("utf-8")) > 256:
-            raise ValidationError("cron must be a bounded non-empty string")
-        if not isinstance(tz, str) or not tz.strip() or len(tz.encode("utf-8")) > 128:
-            raise ValidationError("tz must be a bounded non-empty string")
+        try:
+            cron, tz = normalize_schedule(patch["cron"], patch["tz"])
+        except ValueError as error:
+            raise ValidationError(str(error)) from error
         return {"cron": cron, "tz": tz}
     raise ValidationError("patch must be exactly enabled or cron plus tz")
 
@@ -151,9 +161,12 @@ def _expected_digest(request: ChangeRequest) -> str:
 
 
 class ApprovalService:
-    """Atomic, owner/session-scoped approval storage with compare-and-swap apply."""
+    """Atomic owner/session state with revision-checked, attestation-gated apply."""
 
     MAX_STORE_BYTES = 1 * 1_024 * 1_024
+    TERMINAL_RETENTION = timedelta(days=7)
+    MAX_TERMINAL_REQUESTS = 200
+    _TERMINAL_STATES = frozenset({"applied", "failed", "expired", "conflict"})
 
     def __init__(
         self,
@@ -227,6 +240,43 @@ class ApprovalService:
     def _store(payload: dict[str, dict[str, object]], request: ChangeRequest) -> None:
         payload["requests"][request.id] = request.model_dump(mode="json")
 
+    def _terminalize(self, request: ChangeRequest, state: ChangeState) -> None:
+        now = self._clock()
+        request.state = state
+        request.terminal_at = now
+        request.operation_id = request.operation_id or f"op_{uuid.uuid4()}"
+        request.audit_pending = True
+
+    def _purge(self, payload: dict[str, dict[str, object]]) -> bool:
+        changed = False
+        now = self._clock()
+        requests = payload["requests"]
+        loaded: list[ChangeRequest] = []
+        for request_id in list(requests):
+            request = self._load(payload, request_id)
+            if request.state in {"awaiting_approval", "approved"} and now >= request.expires_at:
+                self._terminalize(request, "expired")
+                self._store(payload, request)
+                changed = True
+            loaded.append(request)
+        terminal = sorted(
+            (
+                item
+                for item in loaded
+                if item.state in self._TERMINAL_STATES and not item.audit_pending
+            ),
+            key=lambda item: item.terminal_at or item.created_at,
+            reverse=True,
+        )
+        retained_ids = {item.id for item in terminal[: self.MAX_TERMINAL_REQUESTS]}
+        cutoff = now - self.TERMINAL_RETENTION
+        for request in terminal:
+            terminal_at = request.terminal_at or request.created_at
+            if request.id not in retained_ids or terminal_at < cutoff:
+                del requests[request.id]
+                changed = True
+        return changed
+
     @staticmethod
     def _assert_binding(request: ChangeRequest, owner_id: str, session_id: str) -> None:
         if not secrets.compare_digest(request.owner_id, owner_id) or not secrets.compare_digest(
@@ -248,6 +298,7 @@ class ApprovalService:
         base_revision: str,
         owner_id: str = "0" * 64,
         session_id: str = "0" * 64,
+        audit_diff: dict[str, object] | None = None,
     ) -> ChangeRequest:
         normalized = _normalize_patch(patch)
         return self._preview(
@@ -257,6 +308,7 @@ class ApprovalService:
             base_revision=base_revision,
             owner_id=owner_id,
             session_id=session_id,
+            audit_diff=audit_diff or {},
         )
 
     def preview_run_now(
@@ -267,6 +319,7 @@ class ApprovalService:
         owner_id: str = "0" * 64,
         session_id: str = "0" * 64,
         patch: dict[str, object] | None = None,
+        audit_diff: dict[str, object] | None = None,
     ) -> ChangeRequest:
         if patch is not None:
             raise ValidationError("run_now does not accept a mutable patch")
@@ -277,6 +330,7 @@ class ApprovalService:
             base_revision=base_revision,
             owner_id=owner_id,
             session_id=session_id,
+            audit_diff=audit_diff or {},
         )
 
     def _preview(
@@ -288,6 +342,7 @@ class ApprovalService:
         base_revision: str,
         owner_id: str,
         session_id: str,
+        audit_diff: dict[str, object],
     ) -> ChangeRequest:
         now = self._clock()
         target = _validate_target(target)
@@ -315,8 +370,10 @@ class ApprovalService:
             state="awaiting_approval",
             created_at=now,
             expires_at=now + APPROVAL_TTL,
+            audit_diff=audit_diff,
         )
         with self._transaction() as payload:
+            self._purge(payload)
             self._store(payload, request)
             self._write(payload)
         return request
@@ -338,8 +395,8 @@ class ApprovalService:
             self._assert_digest(request)
             if request.state != "awaiting_approval":
                 raise StateError("change request is not awaiting approval")
-            if self._clock() > request.expires_at:
-                request.state = "expired"
+            if self._clock() >= request.expires_at:
+                self._terminalize(request, "expired")
                 self._store(payload, request)
                 self._write(payload)
                 raise ExpiredError("approval nonce expired")
@@ -363,6 +420,38 @@ class ApprovalService:
         session_id: str = "0" * 64,
         apply_change: Callable[[ChangeRequest], object] | None = None,
     ) -> ChangeRequest:
+        request = self.start_apply(
+            request_id,
+            observed_revision=observed_revision,
+            owner_id=owner_id,
+            session_id=session_id,
+        )
+        try:
+            if apply_change is not None:
+                apply_change(request)
+        except Exception:
+            self.finish_apply(
+                request_id,
+                outcome="failed",
+                owner_id=owner_id,
+                session_id=session_id,
+            )
+            raise
+        return self.finish_apply(
+            request_id,
+            outcome="applied",
+            owner_id=owner_id,
+            session_id=session_id,
+        )
+
+    def start_apply(
+        self,
+        request_id: str,
+        *,
+        observed_revision: str,
+        owner_id: str = "0" * 64,
+        session_id: str = "0" * 64,
+    ) -> ChangeRequest:
         _validate_opaque(owner_id, "owner_id")
         _validate_opaque(session_id, "session_id")
         with self._transaction() as payload:
@@ -371,33 +460,97 @@ class ApprovalService:
             self._assert_digest(request)
             if request.state != "approved":
                 raise StateError("change request is not approved")
-            if not secrets.compare_digest(request.base_revision, observed_revision):
-                raise ConflictError("target revision changed after preview")
-            request.state = "applying"
-            self._store(payload, request)
-            self._write(payload)
-            try:
-                if apply_change is not None:
-                    apply_change(request)
-            except Exception:
-                request.state = "failed"
+            if self._clock() >= request.expires_at:
+                self._terminalize(request, "expired")
                 self._store(payload, request)
                 self._write(payload)
-                raise
-            request.state = "applied"
-            request.applied_at = self._clock()
+                raise ExpiredError("approval expired before apply")
+            if not secrets.compare_digest(request.base_revision, observed_revision):
+                self._terminalize(request, "conflict")
+                self._store(payload, request)
+                self._write(payload)
+                raise ConflictError("target revision changed after preview")
+            request.state = "applying"
+            request.operation_id = request.operation_id or f"op_{uuid.uuid4()}"
+            request.audit_pending = False
             self._store(payload, request)
             self._write(payload)
             return request
+
+    def finish_apply(
+        self,
+        request_id: str,
+        *,
+        outcome: Literal["applied", "failed"],
+        owner_id: str = "0" * 64,
+        session_id: str = "0" * 64,
+    ) -> ChangeRequest:
+        with self._transaction() as payload:
+            request = self._load(payload, request_id)
+            self._assert_binding(request, owner_id, session_id)
+            if request.state != "applying":
+                raise StateError("change request is not applying")
+            self._terminalize(request, outcome)
+            if outcome == "applied":
+                request.applied_at = self._clock()
+            self._store(payload, request)
+            self._write(payload)
+            return request
+
+    def record_terminal(
+        self,
+        request_id: str,
+        *,
+        outcome: Literal["failed", "expired", "conflict"],
+        owner_id: str = "0" * 64,
+        session_id: str = "0" * 64,
+    ) -> ChangeRequest:
+        """Persist a safe terminal outcome when no CLI mutation was started."""
+        with self._transaction() as payload:
+            request = self._load(payload, request_id)
+            self._assert_binding(request, owner_id, session_id)
+            if request.state not in {"awaiting_approval", "approved"}:
+                raise StateError("change request cannot enter this terminal state")
+            self._terminalize(request, outcome)
+            self._store(payload, request)
+            self._write(payload)
+            return request
+
+    def pending_audits(self) -> list[ChangeRequest]:
+        with self._transaction() as payload:
+            changed = self._purge(payload)
+            requests = [self._load(payload, key) for key in sorted(payload["requests"])]
+            if changed:
+                self._write(payload)
+        return [request for request in requests if request.audit_pending]
+
+    def mark_audited(self, operation_id: str) -> None:
+        with self._transaction() as payload:
+            match = next(
+                (
+                    self._load(payload, key)
+                    for key in payload["requests"]
+                    if payload["requests"][key].get("operation_id") == operation_id
+                ),
+                None,
+            )
+            if match is None:
+                raise KeyError(operation_id)
+            match.audit_pending = False
+            self._store(payload, match)
+            self._write(payload)
 
     def list_for(self, *, owner_id: str, session_id: str) -> list[ChangeRequest]:
         _validate_opaque(owner_id, "owner_id")
         _validate_opaque(session_id, "session_id")
         with self._transaction() as payload:
+            changed = self._purge(payload)
             requests = [
                 self._load(payload, request_id)
                 for request_id in sorted(payload["requests"])
             ]
+            if changed:
+                self._write(payload)
         return [
             request
             for request in requests

@@ -45,6 +45,7 @@ from opportunity_os.dashboard.tasks import (
     TaskCommandStatus,
     TaskRunsStatus,
     TaskSummary,
+    TaskMutationCoordinator,
 )
 
 
@@ -90,6 +91,8 @@ class DashboardDependencies:
     task_adapter: DashboardTaskAdapter | None = None
     approvals: ApprovalService | None = None
     audit_log: AuditLog | None = None
+    single_writer_attested: bool = False
+    task_coordinator: TaskMutationCoordinator | None = None
 
 
 class BootstrapExchange(BaseModel):
@@ -134,6 +137,8 @@ class ChangeRequestResponse(BaseModel):
     nonce: str | None
     state: str
     expires_at: str
+    operation_id: str | None
+    audit_pending: bool
 
 
 def _change_response(change: ChangeRequest, *, include_nonce: bool) -> ChangeRequestResponse:
@@ -147,7 +152,34 @@ def _change_response(change: ChangeRequest, *, include_nonce: bool) -> ChangeReq
         nonce=change.nonce if include_nonce else None,
         state=change.state,
         expires_at=change.expires_at.isoformat(),
+        operation_id=change.operation_id,
+        audit_pending=change.audit_pending,
     )
+
+
+def replay_audit_outbox(approvals: ApprovalService, audit: AuditLog) -> int:
+    """Idempotently append durable terminal outcomes and clear pending markers."""
+    replayed = 0
+    for change in approvals.pending_audits():
+        if change.operation_id is None or change.state not in {
+            "applied",
+            "failed",
+            "expired",
+            "conflict",
+        }:
+            continue
+        audit.append(
+            actor=change.owner_id,
+            request_id=change.id,
+            target=change.target,
+            status=change.state,
+            diff=change.audit_diff,
+            operation_id=change.operation_id,
+            prepared=True,
+        )
+        approvals.mark_audited(change.operation_id)
+        replayed += 1
+    return replayed
 
 
 def _hostname(value: str) -> str | None:
@@ -218,6 +250,13 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         b"opportunity-os/dashboard-owner/v1\0" + owner_seed
     ).hexdigest()
     event_hub = dependencies.event_hub or EventHub(config.dashboard_home / "event-cursor")
+    task_coordinator = dependencies.task_coordinator or (
+        TaskMutationCoordinator(
+            dependencies.task_adapter, config.dashboard_home / "task-locks"
+        )
+        if dependencies.task_adapter is not None
+        else None
+    )
     event_tailer = dependencies.event_tailer or (
         EventJournalTailer(
             dependencies.event_journal_path,
@@ -232,6 +271,11 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
+        if dependencies.approvals is not None and dependencies.audit_log is not None:
+            try:
+                replay_audit_outbox(dependencies.approvals, dependencies.audit_log)
+            except (OSError, ValueError, ApprovalError):
+                pass
         initialized = event_tailer.initialize() if event_tailer is not None else False
         task = (
             asyncio.create_task(event_tailer.run(initialized=initialized))
@@ -315,6 +359,17 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         ):
             raise HTTPException(status_code=503, detail="task_control_unavailable")
         return dependencies.task_adapter, dependencies.approvals, dependencies.audit_log
+
+    def require_attested_writer() -> TaskMutationCoordinator:
+        if not dependencies.single_writer_attested or task_coordinator is None:
+            raise HTTPException(status_code=503, detail="single_writer_not_attested")
+        return task_coordinator
+
+    def require_drained_outbox(approvals: ApprovalService, audit: AuditLog) -> None:
+        try:
+            replay_audit_outbox(approvals, audit)
+        except Exception as error:
+            raise HTTPException(status_code=503, detail="audit_outbox_unavailable") from error
 
     def safe_control_error(error: Exception) -> HTTPException:
         if isinstance(error, (KeyError, IsolationError)):
@@ -422,6 +477,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                 base_revision=preview.base_revision,
                 owner_id=owner_scope,
                 session_id=session.key,
+                audit_diff=audit.prepare_diff(task_diff(task, preview.patch)),
             )
             audit.append(
                 actor=owner_scope,
@@ -453,6 +509,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                 base_revision=preview.base_revision,
                 owner_id=owner_scope,
                 session_id=session.key,
+                audit_diff={},
             )
             audit.append(
                 actor=owner_scope,
@@ -475,6 +532,8 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         session: Session = Depends(require_csrf_session),
     ) -> ChangeRequestResponse:
         adapter, approvals, audit = control_services()
+        require_attested_writer()
+        require_drained_outbox(approvals, audit)
         try:
             existing = next(
                 (
@@ -488,7 +547,11 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
             )
             if existing is None:
                 raise KeyError(request_id)
-            current = current_task(adapter, existing.target)
+            if existing.state == "expired":
+                try:
+                    replay_audit_outbox(approvals, audit)
+                finally:
+                    raise ExpiredError("approval expired")
             change = approvals.approve(
                 request_id,
                 confirmation.digest,
@@ -501,7 +564,8 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                 request_id=change.id,
                 target=change.target,
                 status="approved",
-                diff=task_diff(current, change.patch),
+                diff=change.audit_diff,
+                prepared=True,
             )
             return _change_response(change, include_nonce=False)
         except Exception as error:
@@ -517,6 +581,7 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         session: Session = Depends(require_csrf_session),
     ) -> ChangeRequestResponse:
         adapter, approvals, audit = control_services()
+        coordinator = require_attested_writer()
         try:
             change = next(
                 (
@@ -530,44 +595,142 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
             )
             if change is None:
                 raise KeyError(request_id)
-            before = current_task(adapter, change.target)
+            if change.state in {"applied", "failed", "expired", "conflict"}:
+                try:
+                    replay_audit_outbox(approvals, audit)
+                except Exception:
+                    pass
+                refreshed = next(
+                    (
+                        item
+                        for item in approvals.list_for(
+                            owner_id=owner_scope, session_id=session.key
+                        )
+                        if item.id == request_id
+                    ),
+                    change,
+                )
+                if refreshed.state == "expired":
+                    raise ExpiredError("approval expired")
+                if refreshed.state == "conflict":
+                    raise ConflictError("task revision conflict")
+                if refreshed.state == "failed":
+                    raise StateError("task mutation previously failed")
+                return _change_response(refreshed, include_nonce=False)
+            require_drained_outbox(approvals, audit)
+            started: ChangeRequest | None = None
 
-            def mutate(approved: ChangeRequest) -> None:
-                if approved.kind == "run_now":
-                    result = adapter.run_now(approved.target)
+            def mutate() -> TaskCommandStatus:
+                nonlocal started
+                started = approvals.start_apply(
+                    request_id,
+                    observed_revision=change.base_revision,
+                    owner_id=owner_scope,
+                    session_id=session.key,
+                )
+                try:
+                    audit.append(
+                        actor=owner_scope,
+                        request_id=started.id,
+                        target=started.target,
+                        status="applying",
+                        diff=started.audit_diff,
+                        operation_id=started.operation_id,
+                        prepared=True,
+                    )
+                except Exception:
+                    approvals.finish_apply(
+                        request_id,
+                        outcome="failed",
+                        owner_id=owner_scope,
+                        session_id=session.key,
+                    )
+                    raise
+                if started.kind == "run_now":
+                    result = adapter.run_now(started.target)
                     if not result.ok:
                         raise TaskAdapterError("run_now_failed")
-                    return
-                if frozenset(approved.patch) == {"enabled"}:
+                    return result
+                if frozenset(started.patch) == {"enabled"}:
                     result = adapter.edit_enabled(
-                        approved.target, bool(approved.patch["enabled"])
+                        started.target, bool(started.patch["enabled"])
                     )
                 else:
                     result = adapter.edit_schedule(
-                        approved.target,
-                        str(approved.patch["cron"]),
-                        str(approved.patch["tz"]),
+                        started.target,
+                        str(started.patch["cron"]),
+                        str(started.patch["tz"]),
                     )
                 if not result.ok:
                     raise TaskAdapterError("task_edit_failed")
-                observed = current_task(adapter, approved.target)
-                for field, expected in approved.patch.items():
-                    if getattr(observed, field) != expected:
-                        raise TaskAdapterError("task_verification_failed")
+                return result
 
-            applied = approvals.apply(
+            try:
+                coordinator.mutate(
+                    change.target,
+                    expected_revision=change.base_revision,
+                    mutation=mutate,
+                    verify=lambda observed: all(
+                        getattr(observed, field) == expected
+                        for field, expected in change.patch.items()
+                    ),
+                )
+            except Exception as mutation_error:
+                if started is not None:
+                    current = next(
+                        (
+                            item
+                            for item in approvals.list_for(
+                                owner_id=owner_scope, session_id=session.key
+                            )
+                            if item.id == request_id
+                        ),
+                        None,
+                    )
+                    if current is not None and current.state == "applying":
+                        approvals.finish_apply(
+                            request_id,
+                            outcome="failed",
+                            owner_id=owner_scope,
+                            session_id=session.key,
+                        )
+                elif isinstance(mutation_error, TaskAdapterError) and str(
+                    mutation_error
+                ) == "revision_conflict":
+                    approvals.record_terminal(
+                        request_id,
+                        outcome="conflict",
+                        owner_id=owner_scope,
+                        session_id=session.key,
+                    )
+                try:
+                    replay_audit_outbox(approvals, audit)
+                except Exception:
+                    pass
+                if isinstance(mutation_error, TaskAdapterError) and str(
+                    mutation_error
+                ) == "revision_conflict":
+                    raise ConflictError("target revision changed after preview") from mutation_error
+                raise
+            applied = approvals.finish_apply(
                 request_id,
-                observed_revision=before.revision,
+                outcome="applied",
                 owner_id=owner_scope,
                 session_id=session.key,
-                apply_change=mutate,
             )
-            audit.append(
-                actor=owner_scope,
-                request_id=applied.id,
-                target=applied.target,
-                status="applied",
-                diff=task_diff(before, applied.patch),
+            try:
+                replay_audit_outbox(approvals, audit)
+            except Exception:
+                pass
+            applied = next(
+                (
+                    item
+                    for item in approvals.list_for(
+                        owner_id=owner_scope, session_id=session.key
+                    )
+                    if item.id == request_id
+                ),
+                applied,
             )
             return _change_response(applied, include_nonce=False)
         except Exception as error:

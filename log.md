@@ -105,3 +105,5 @@
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 5 OpenClaw原生session跨owner隔离：稳定opaque ID派生且仅公开alias（206项测试通过）
 2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 5最终复审通过：跨owner OpenClaw原生session派生隔离、I1/I2无回归（206项测试通过）
 2026-07-19 | development | integrations/hermes-opportunity-os/dashboard | 完成Task 6两阶段审批、CAS任务控制、字段级脱敏审计与CSRF网页流程（真实OpenClaw仅执行只读合同检查）
+2026-07-19 | review | integrations/hermes-opportunity-os/dashboard | Task 6独立审查未通过：发现审批到期、CAS TOCTOU、审计私有文本与审计落盘原子性问题（243项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/dashboard | 修复Task 6审批到期、单写者attestation与任务锁、严格调度验证、durable audit outbox及有界回收（269项测试通过）

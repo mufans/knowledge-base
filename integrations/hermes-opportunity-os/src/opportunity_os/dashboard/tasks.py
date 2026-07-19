@@ -4,12 +4,18 @@ from __future__ import annotations
 
 import hashlib
 import json
+import fcntl
+import os
 import re
-from typing import Literal, Protocol
+import threading
+from collections.abc import Callable
+from pathlib import Path
+from typing import Literal, Protocol, TypeVar
 
 from pydantic import BaseModel, ConfigDict
 
 from opportunity_os.dashboard.probes import CommandResult
+from opportunity_os.dashboard.schedule_validation import normalize_schedule
 
 
 DEFAULT_OPENCLAW_EXECUTABLE = "/opt/homebrew/bin/openclaw"
@@ -63,7 +69,7 @@ def _safe_job_id(value: str) -> str:
 
 
 def task_revision(task: dict[str, object]) -> str:
-    """Hash canonical full task JSON and its explicit updatedAtMs CAS component."""
+    """Hash canonical full task JSON and its explicit updatedAtMs revision component."""
     if not isinstance(task, dict):
         raise TaskAdapterError("invalid_task_schema")
     updated_at = task.get("updatedAtMs")
@@ -93,7 +99,7 @@ class OpenClawTaskAdapter:
 
     def __init__(
         self,
-        runner: TaskRunner,
+        runner: TaskRunner | None = None,
         *,
         openclaw_path: str = DEFAULT_OPENCLAW_EXECUTABLE,
     ) -> None:
@@ -101,6 +107,10 @@ class OpenClawTaskAdapter:
             raise ValueError(
                 f"openclaw_path must be the fixed executable {DEFAULT_OPENCLAW_EXECUTABLE}"
             )
+        if runner is None:
+            from opportunity_os.dashboard.conversations import BoundedCommandRunner
+
+            runner = BoundedCommandRunner()
         self._runner = runner
         self._openclaw_path = openclaw_path
 
@@ -170,10 +180,13 @@ class OpenClawTaskAdapter:
         if isinstance(schedule, dict):
             cron = schedule.get("expr", schedule.get("cron"))
             tz = schedule.get("tz", schedule.get("timezone"))
-        if cron is not None and (not isinstance(cron, str) or len(cron.encode("utf-8")) > 256):
+        if (cron is None) != (tz is None):
             raise TaskAdapterError("invalid_task_schema")
-        if tz is not None and (not isinstance(tz, str) or len(tz.encode("utf-8")) > 128):
-            raise TaskAdapterError("invalid_task_schema")
+        if cron is not None and tz is not None:
+            try:
+                cron, tz = normalize_schedule(cron, tz)
+            except ValueError as error:
+                raise TaskAdapterError("invalid_task_schema") from error
         return TaskSummary(
             job_id=job_id,
             enabled=enabled,
@@ -225,10 +238,7 @@ class OpenClawTaskAdapter:
         )
 
     def edit_schedule(self, job_id: str, cron: str, tz: str) -> TaskCommandStatus:
-        if not isinstance(cron, str) or not cron.strip() or len(cron.encode("utf-8")) > 256:
-            raise ValueError("cron must be a bounded non-empty string")
-        if not isinstance(tz, str) or not tz.strip() or len(tz.encode("utf-8")) > 128:
-            raise ValueError("tz must be a bounded non-empty string")
+        cron, tz = normalize_schedule(cron, tz)
         return self._status(
             self._run(
                 ("edit", _safe_job_id(job_id), "--cron", cron, "--tz", tz),
@@ -240,3 +250,52 @@ class OpenClawTaskAdapter:
         return self._status(
             self._run(("run", _safe_job_id(job_id)), WRITE_TIMEOUT_SECONDS)
         )
+
+
+_MutationResult = TypeVar("_MutationResult")
+
+
+class TaskMutationCoordinator:
+    """Serialize attested broker writes and perform the final revision read under flock."""
+
+    def __init__(self, adapter: OpenClawTaskAdapter, lock_dir: str | Path) -> None:
+        self.adapter = adapter
+        self.lock_dir = Path(lock_dir).expanduser().resolve()
+        self.lock_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+        os.chmod(self.lock_dir, 0o700)
+        self._thread_lock = threading.RLock()
+
+    def _lock_path(self, job_id: str) -> Path:
+        safe_id = _safe_job_id(job_id)
+        digest = hashlib.sha256(safe_id.encode("ascii")).hexdigest()
+        return self.lock_dir / f"task-{digest}.lock"
+
+    def mutate(
+        self,
+        job_id: str,
+        *,
+        expected_revision: str,
+        mutation: Callable[[], _MutationResult],
+        verify: Callable[[TaskSummary], bool],
+    ) -> _MutationResult:
+        lock_path = self._lock_path(job_id)
+        with self._thread_lock, lock_path.open("a+", encoding="utf-8") as lock_file:
+            os.chmod(lock_path, 0o600)
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+            try:
+                before = next(
+                    (task for task in self.adapter.list() if task.job_id == job_id), None
+                )
+                if before is None:
+                    raise TaskAdapterError("task_not_found")
+                if before.revision != expected_revision:
+                    raise TaskAdapterError("revision_conflict")
+                result = mutation()
+                after = next(
+                    (task for task in self.adapter.list() if task.job_id == job_id), None
+                )
+                if after is None or not verify(after):
+                    raise TaskAdapterError("task_verification_failed")
+                return result
+            finally:
+                fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)

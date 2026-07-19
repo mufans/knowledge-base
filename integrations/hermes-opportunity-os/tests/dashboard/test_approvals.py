@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import stat
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -191,6 +192,47 @@ def test_nonce_expires_after_five_minutes(
         )
 
 
+def test_nonce_is_expired_at_the_exact_deadline(
+    service: ApprovalService, clock: MutableClock
+) -> None:
+    request = _preview(service)
+    clock.now = request.expires_at
+
+    with pytest.raises(ExpiredError):
+        service.approve(
+            request.id,
+            request.digest,
+            nonce=request.nonce,
+            owner_id=OWNER_A,
+            session_id=SESSION_A,
+        )
+    assert service.list_for(owner_id=OWNER_A, session_id=SESSION_A)[0].state == "expired"
+
+
+def test_approved_request_cannot_apply_at_or_after_expiry(
+    service: ApprovalService, clock: MutableClock
+) -> None:
+    request = _preview(service)
+    service.approve(
+        request.id,
+        request.digest,
+        nonce=request.nonce,
+        owner_id=OWNER_A,
+        session_id=SESSION_A,
+    )
+    clock.now = request.expires_at
+
+    with pytest.raises(ExpiredError):
+        service.apply(
+            request.id,
+            observed_revision="r1",
+            owner_id=OWNER_A,
+            session_id=SESSION_A,
+            apply_change=lambda _: pytest.fail("expired request must not mutate"),
+        )
+    assert service.list_for(owner_id=OWNER_A, session_id=SESSION_A)[0].state == "expired"
+
+
 def test_tampering_with_persisted_patch_breaks_digest(service: ApprovalService) -> None:
     request = _preview(service)
     payload = json.loads(service.path.read_text(encoding="utf-8"))
@@ -237,6 +279,127 @@ def test_apply_runs_once_and_records_terminal_state(service: ApprovalService) ->
         )
 
 
+def test_terminal_retention_purges_old_requests_but_never_applying(
+    service: ApprovalService, clock: MutableClock
+) -> None:
+    terminal = _preview(service)
+    service.approve(
+        terminal.id,
+        terminal.digest,
+        nonce=terminal.nonce,
+        owner_id=OWNER_A,
+        session_id=SESSION_A,
+    )
+    applied = service.apply(
+        terminal.id,
+        observed_revision="r1",
+        owner_id=OWNER_A,
+        session_id=SESSION_A,
+    )
+    assert applied.operation_id is not None
+    service.mark_audited(applied.operation_id)
+    active = _preview(service, {"enabled": True})
+    service.approve(
+        active.id,
+        active.digest,
+        nonce=active.nonce,
+        owner_id=OWNER_A,
+        session_id=SESSION_A,
+    )
+    service.start_apply(
+        active.id,
+        observed_revision="r1",
+        owner_id=OWNER_A,
+        session_id=SESSION_A,
+    )
+    clock.now += ApprovalService.TERMINAL_RETENTION + timedelta(seconds=1)
+
+    retained = service.list_for(owner_id=OWNER_A, session_id=SESSION_A)
+
+    assert [item.id for item in retained] == [active.id]
+    assert retained[0].state == "applying"
+
+
+def test_terminal_retention_never_drops_pending_audit_outbox(
+    service: ApprovalService, clock: MutableClock
+) -> None:
+    request = _preview(service)
+    service.approve(
+        request.id,
+        request.digest,
+        nonce=request.nonce,
+        owner_id=OWNER_A,
+        session_id=SESSION_A,
+    )
+    service.apply(
+        request.id,
+        observed_revision="r1",
+        owner_id=OWNER_A,
+        session_id=SESSION_A,
+    )
+    clock.now += ApprovalService.TERMINAL_RETENTION + timedelta(days=1)
+
+    retained = service.list_for(owner_id=OWNER_A, session_id=SESSION_A)
+
+    assert [item.id for item in retained] == [request.id]
+    assert retained[0].audit_pending is True
+
+
+def test_terminal_count_is_bounded_after_audit_is_durable(
+    service: ApprovalService,
+    clock: MutableClock,
+) -> None:
+    service.MAX_TERMINAL_REQUESTS = 2
+    created: list[str] = []
+    for enabled in (True, False, True):
+        request = _preview(service, {"enabled": enabled})
+        service.approve(
+            request.id,
+            request.digest,
+            nonce=request.nonce,
+            owner_id=OWNER_A,
+            session_id=SESSION_A,
+        )
+        applied = service.apply(
+            request.id,
+            observed_revision="r1",
+            owner_id=OWNER_A,
+            session_id=SESSION_A,
+        )
+        assert applied.operation_id is not None
+        service.mark_audited(applied.operation_id)
+        created.append(request.id)
+        clock.now += timedelta(seconds=1)
+
+    retained = service.list_for(owner_id=OWNER_A, session_id=SESSION_A)
+
+    assert len(retained) == 2
+    assert created[0] not in {item.id for item in retained}
+
+
+@pytest.mark.parametrize(
+    ("patch", "message"),
+    [
+        ({"cron": "private@example.com", "tz": "Asia/Shanghai"}, "cron"),
+        ({"cron": "0 8 * * *\nmessage", "tz": "Asia/Shanghai"}, "cron"),
+        ({"cron": "0 8 * * *", "tz": "private@example.com"}, "tz"),
+        ({"cron": "0 8 * * *", "tz": "../../etc/passwd"}, "tz"),
+        ({"cron": "0 8 * * * *", "tz": "Asia/Shanghai"}, "cron"),
+    ],
+)
+def test_preview_rejects_non_schedule_text(
+    service: ApprovalService, patch: dict[str, object], message: str
+) -> None:
+    with pytest.raises(ValidationError, match=message):
+        service.preview(
+            "job-1",
+            patch,
+            base_revision="r1",
+            owner_id=OWNER_A,
+            session_id=SESSION_A,
+        )
+
+
 def test_private_approval_store_is_atomic_mode_0600_and_bounded(
     service: ApprovalService,
 ) -> None:
@@ -261,8 +424,22 @@ def test_audit_log_keeps_only_opaque_actor_field_diff_and_status(tmp_path: Path)
     text = audit.path.read_text(encoding="utf-8")
     record = json.loads(text)
     assert record["actor"] == OWNER_A
-    assert record["diff"] == {"enabled": {"after": False, "before": True}}
-    assert set(record) == {"at", "actor", "request_id", "target", "status", "diff"}
+    assert record["diff"] == {
+        "enabled": {
+            "after_sha256": hashlib.sha256(b"false").hexdigest(),
+            "before_sha256": hashlib.sha256(b"true").hexdigest(),
+            "summary": "boolean_changed",
+        }
+    }
+    assert set(record) == {
+        "at",
+        "actor",
+        "request_id",
+        "target",
+        "status",
+        "diff",
+        "operation_id",
+    }
     assert stat.S_IMODE(audit.path.stat().st_mode) == 0o600
 
 
@@ -282,6 +459,28 @@ def test_audit_rejects_payload_recipient_token_or_private_content(
 
     with pytest.raises(ValueError):
         audit.append(
+            actor=OWNER_A,
+            request_id="chg_123e4567-e89b-12d3-a456-426614174000",
+            target="job-1",
+            status="failed",
+            diff=diff,
+        )
+
+
+@pytest.mark.parametrize(
+    "diff",
+    [
+        {"cron": {"before": "0 8 * * *", "after": "owner@example.com"}},
+        {"cron": {"before": "0 8 * * *", "after": "0 9 * * *\nprivate"}},
+        {"tz": {"before": "Asia/Shanghai", "after": "../../etc/passwd"}},
+        {"tz": {"before": "Asia/Shanghai", "after": "owner@example.com"}},
+    ],
+)
+def test_audit_rejects_free_text_disguised_as_schedule(
+    tmp_path: Path, diff: dict[str, object]
+) -> None:
+    with pytest.raises(ValueError):
+        AuditLog(tmp_path / "audit.jsonl").append(
             actor=OWNER_A,
             request_id="chg_123e4567-e89b-12d3-a456-426614174000",
             target="job-1",
