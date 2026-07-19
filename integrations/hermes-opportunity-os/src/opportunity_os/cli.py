@@ -13,6 +13,7 @@ import uvicorn
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
+from opportunity_os.dashboard.events import EventHub
 from opportunity_os.dashboard.read_model import DashboardReadModel
 from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.errors import OpportunityOSError, ValidationError
@@ -53,7 +54,14 @@ def _dashboard_config(home: str | Path) -> DashboardConfig:
 def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> DashboardDependencies:
     read_model = DashboardReadModel(PrivateStateReadRepository(home), probes=())
     sessions = SessionStore(config.dashboard_home)
-    return DashboardDependencies(read_model=read_model, sessions=sessions, csrf=CsrfGuard())
+    event_hub = EventHub(config.dashboard_home / "event-cursor")
+    return DashboardDependencies(
+        read_model=read_model,
+        sessions=sessions,
+        csrf=CsrfGuard(),
+        event_hub=event_hub,
+        event_journal_path=Path(home).expanduser().resolve() / "events.jsonl",
+    )
 
 
 def _require_loopback_host(host: str) -> None:

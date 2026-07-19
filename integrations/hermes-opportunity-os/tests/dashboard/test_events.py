@@ -14,8 +14,12 @@ def event_hub(tmp_path: Path) -> EventHub:
 
 
 def test_sse_replays_after_last_event_id(event_hub: EventHub) -> None:
-    first = event_hub.publish("component.updated", {"component": "hermes"})
-    second = event_hub.publish("incident.firing", {"incident_id": "inc-1"})
+    first = event_hub.publish(
+        "component.updated", {"component": "hermes", "status": "healthy"}
+    )
+    second = event_hub.publish(
+        "incident.firing", {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"}
+    )
 
     assert [event.id for event in event_hub.replay(first.id)] == [second.id]
 
@@ -27,7 +31,7 @@ def test_sse_rejects_private_body(event_hub: EventHub) -> None:
 
 def test_event_hub_keeps_only_one_thousand_events_in_memory(event_hub: EventHub) -> None:
     for number in range(1_005):
-        event_hub.publish("component.updated", {"entity_id": f"component-{number}"})
+        event_hub.publish("state.invalidated", {"scope": "private_state"})
 
     retained = event_hub.replay(None)
 
@@ -39,23 +43,28 @@ def test_event_hub_keeps_only_one_thousand_events_in_memory(event_hub: EventHub)
 def test_event_hub_persists_only_the_cursor(tmp_path: Path) -> None:
     cursor_path = tmp_path / "event-cursor"
     hub = EventHub(cursor_path)
-    hub.publish("incident.firing", {"incident_id": "inc-sensitive-identifier"})
+    hub.publish(
+        "incident.firing", {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"}
+    )
 
     assert cursor_path.read_text(encoding="utf-8") == "1\n"
     assert list(tmp_path.iterdir()) == [cursor_path]
     assert "incident" not in cursor_path.read_text(encoding="utf-8")
 
     restarted = EventHub(cursor_path)
-    assert restarted.publish("component.updated", {"component": "dashboard"}).id == "2"
+    assert restarted.publish("state.invalidated", {"scope": "private_state"}).id == "2"
 
 
 def test_subscribe_replays_then_delivers_new_metadata(event_hub: EventHub) -> None:
-    first = event_hub.publish("component.updated", {"component": "hermes"})
+    first = event_hub.publish("state.invalidated", {"scope": "private_state"})
 
     async def receive() -> list[str]:
         subscription = event_hub.subscribe(None)
         replayed = await anext(subscription)
-        event_hub.publish("incident.recovered", {"incident_id": "inc-1"})
+        event_hub.publish(
+            "incident.recovered",
+            {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"},
+        )
         live = await anext(subscription)
         await subscription.aclose()
         return [replayed.id, live.id]
@@ -66,14 +75,59 @@ def test_subscribe_replays_then_delivers_new_metadata(event_hub: EventHub) -> No
 @pytest.mark.parametrize(
     ("event_type", "payload"),
     [
-        ("review.updated", {"entity_id": "review-1", "body": "secret"}),
-        ("review.updated", {"entity_id": "review-1", "nested": {"token": "secret"}}),
-        ("review updated", {"entity_id": "review-1"}),
-        ("review.updated", {"entity_id": "contains spaces"}),
+        ("review.updated", {"review_id": "review_123e4567-e89b-12d3-a456-426614174000"}),
+        ("state.invalidated", {"scope": "private_state", "entity_id": "opaque"}),
+        ("state.invalidated", {}),
+        ("component.updated", {"component": "hermes"}),
+        ("component.updated", {"component": "hermes", "status": "healthy", "extra": 1}),
+        ("review updated", {"scope": "private_state"}),
     ],
 )
-def test_event_hub_rejects_non_metadata_events(
+def test_event_hub_enforces_exact_schema_per_event_type(
     event_hub: EventHub, event_type: str, payload: dict[str, object]
 ) -> None:
     with pytest.raises(ValueError):
         event_hub.publish(event_type, payload)
+
+
+@pytest.mark.parametrize(
+    ("event_type", "payload"),
+    [
+        ("state.invalidated", {"scope": "private-acquisition-target"}),
+        ("state.invalidated", {"scope": "customer@example.com"}),
+        ("state.invalidated", {"scope": "A" * 128}),
+        ("component.updated", {"component": "customer@example.com", "status": "healthy"}),
+        ("component.updated", {"component": "A" * 128, "status": "healthy"}),
+        ("component.updated", {"component": "hermes", "status": "private-target"}),
+        ("component.updated", {"component": "hermes", "status": "A" * 128}),
+        ("incident.firing", {"incident_id": "private-review-about-acquisition-target"}),
+        ("incident.firing", {"incident_id": "customer@example.com"}),
+        ("incident.firing", {"incident_id": "A" * 128}),
+    ],
+)
+def test_event_schema_rejects_descriptive_email_and_base64_like_values(
+    event_hub: EventHub, event_type: str, payload: dict[str, object]
+) -> None:
+    with pytest.raises(ValueError, match="event payload"):
+        event_hub.publish(event_type, payload)
+
+
+@pytest.mark.parametrize(
+    ("event_type", "payload"),
+    [
+        ("state.invalidated", {"scope": "private_state"}),
+        ("component.updated", {"component": "opportunity_os", "status": "degraded"}),
+        (
+            "incident.firing",
+            {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"},
+        ),
+        (
+            "incident.recovered",
+            {"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"},
+        ),
+    ],
+)
+def test_event_hub_accepts_only_documented_safe_events(
+    event_hub: EventHub, event_type: str, payload: dict[str, object]
+) -> None:
+    assert event_hub.publish(event_type, payload).type == event_type

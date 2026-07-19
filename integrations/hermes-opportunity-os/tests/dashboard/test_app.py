@@ -4,6 +4,7 @@ import json
 import re
 import shutil
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -14,7 +15,11 @@ from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.events import DashboardEvent, EventHub
+from opportunity_os.dashboard.read_model import DashboardReadModel
+from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.dashboard.schemas import DashboardSnapshot
+from opportunity_os.models import Direction
+from opportunity_os.store import PrivateStore
 
 
 class FakeReadModel:
@@ -239,7 +244,7 @@ def test_sse_honors_last_event_id_and_emits_metadata_only(
             yield DashboardEvent(
                 id="42",
                 type="incident.firing",
-                payload={"incident_id": "inc-1"},
+                payload={"incident_id": "inc_123e4567-e89b-12d3-a456-426614174000"},
                 at=datetime(2026, 7, 19, tzinfo=timezone.utc),
             )
 
@@ -267,7 +272,7 @@ def test_sse_honors_last_event_id_and_emits_metadata_only(
     assert data == {
         "at": "2026-07-19T00:00:00+00:00",
         "event_id": "42",
-        "incident_id": "inc-1",
+        "incident_id": "inc_123e4567-e89b-12d3-a456-426614174000",
         "type": "incident.firing",
     }
 
@@ -366,6 +371,211 @@ def test_browser_reconnects_with_backoff_and_refetches_after_events() -> None:
     assert "Math.min(reconnectDelay * 2" in app_js
     assert "last_event_id" in app_js
     assert 'addEventListener("component.updated"' in app_js
+    assert 'addEventListener("state.invalidated"' in app_js
     assert 'addEventListener("incident.firing"' in app_js
     assert "refreshOverview" in app_js
     assert "refreshMonitoring" in app_js
+
+
+def test_frontend_event_types_exactly_match_backend_safe_schema() -> None:
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("Node.js is required for the event contract test")
+    app_js = Path(__file__).parents[2] / "src" / "opportunity_os" / "dashboard" / "static" / "app.js"
+    runner = """
+import fs from 'node:fs';
+const source = fs.readFileSync(process.argv[1], 'utf8');
+const module = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+console.log(JSON.stringify(module.eventTypes));
+"""
+
+    result = subprocess.run(
+        [node, "--input-type=module", "-e", runner, str(app_js)],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=10,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout) == [
+        "state.invalidated",
+        "component.updated",
+        "incident.firing",
+        "incident.recovered",
+    ]
+    source = app_js.read_text(encoding="utf-8")
+    for event_type in json.loads(result.stdout):
+        assert f'addEventListener("{event_type}"' in source
+    for unsupported in ("task.updated", "approval.updated", "report.updated", "review.updated"):
+        assert unsupported not in source
+
+
+def test_hashchange_listener_is_installed_outside_retryable_start() -> None:
+    app_js = (
+        Path(__file__).parents[2]
+        / "src"
+        / "opportunity_os"
+        / "dashboard"
+        / "static"
+        / "app.js"
+    ).read_text(encoding="utf-8")
+
+    listener = 'window.addEventListener("hashchange"'
+    assert app_js.count(listener) == 1
+    assert app_js.index(listener) < app_js.index("async function start()")
+
+
+def test_origin_credential_is_rejected_from_non_loopback_peer(
+    config: DashboardConfig, sessions: SessionStore
+) -> None:
+    dependencies = DashboardDependencies(read_model=FakeReadModel(), sessions=sessions, csrf=CsrfGuard())
+    untrusted_client = TestClient(
+        create_app(config, dependencies),
+        base_url="https://assigned.ngrok-free.app",
+        client=("203.0.113.7", 51000),
+    )
+
+    response = untrusted_client.get(
+        "/api/v1/status",
+        headers={"x-dashboard-origin-credential": "origin-secret-for-tests"},
+    )
+
+    assert response.status_code == 403
+
+
+def test_browser_uses_proxy_issued_cookie_for_navigation_and_eventsource(
+    config: DashboardConfig, sessions: SessionStore
+) -> None:
+    class FiniteHub:
+        async def subscribe(self, last_event_id: str | None):
+            yield DashboardEvent(
+                id="1",
+                type="state.invalidated",
+                payload={"scope": "private_state"},
+                at=datetime(2026, 7, 19, tzinfo=timezone.utc),
+            )
+
+    class LoopbackCredentialProxy:
+        """Test-only stand-in for Task 11's ngrok upstream header policy."""
+
+        def __init__(self, upstream):
+            self.upstream = upstream
+            self.browser_headers: list[dict[bytes, bytes]] = []
+
+        async def __call__(self, scope, receive, send):
+            if scope["type"] != "http":
+                await self.upstream(scope, receive, send)
+                return
+            self.browser_headers.append(dict(scope["headers"]))
+            headers = [
+                item
+                for item in scope["headers"]
+                if item[0].lower() != b"x-dashboard-origin-credential"
+            ]
+            headers.append(
+                (b"x-dashboard-origin-credential", b"origin-secret-for-tests")
+            )
+            trusted_scope = {
+                **scope,
+                "headers": headers,
+                "client": ("127.0.0.1", 42000),
+            }
+            await self.upstream(trusted_scope, receive, send)
+
+    dependencies = DashboardDependencies(
+        read_model=FakeReadModel(), sessions=sessions, csrf=CsrfGuard(), event_hub=FiniteHub()
+    )
+    proxy = LoopbackCredentialProxy(create_app(config, dependencies))
+    browser = TestClient(
+        proxy,
+        base_url="https://assigned.ngrok-free.app",
+        client=("198.51.100.9", 55000),
+    )
+
+    document = browser.get("/")
+
+    assert document.status_code == 200
+    assert "opportunity_dashboard_session" in document.headers["set-cookie"]
+    assert "Secure" in document.headers["set-cookie"]
+    event_source = browser.get("/api/v1/events")
+    assert event_source.status_code == 200
+    assert "event: state.invalidated" in event_source.text
+    assert all(
+        b"x-dashboard-origin-credential" not in browser_request
+        for browser_request in proxy.browser_headers
+    )
+    assert b"cookie" in proxy.browser_headers[-1]
+
+    app_js = (
+        Path(__file__).parents[2]
+        / "src"
+        / "opportunity_os"
+        / "dashboard"
+        / "static"
+        / "app.js"
+    ).read_text(encoding="utf-8").casefold()
+    assert "x-dashboard-origin-credential" not in app_js
+
+
+def test_lifecycle_bridge_mutation_emits_safe_sse_then_status_can_be_refetched(
+    tmp_path: Path,
+) -> None:
+    class OneShotEventHub(EventHub):
+        async def subscribe(self, last_event_id: str | None):
+            subscription = super().subscribe(last_event_id)
+            try:
+                yield await anext(subscription)
+            finally:
+                await subscription.aclose()
+
+    store = PrivateStore(tmp_path / "private")
+    store.initialize()
+    dashboard_home = tmp_path / "dashboard"
+    sessions = SessionStore(dashboard_home)
+    hub = OneShotEventHub(dashboard_home / "event-cursor")
+    dependencies = DashboardDependencies(
+        read_model=DashboardReadModel(PrivateStateReadRepository(store.home), probes=()),
+        sessions=sessions,
+        csrf=CsrfGuard(),
+        event_hub=hub,
+        event_journal_path=store.home / "events.jsonl",
+        journal_poll_interval=0.01,
+    )
+    app = create_app(DashboardConfig(dashboard_home=dashboard_home), dependencies)
+
+    with TestClient(
+        app,
+        base_url="http://127.0.0.1:8765",
+        client=("127.0.0.1", 51000),
+    ) as integration_client:
+        bootstrap = sessions.create_bootstrap()
+        assert integration_client.post(
+            "/auth/local/exchange", json={"token": bootstrap}
+        ).status_code == 200
+        store.set_direction(
+            Direction(
+                "private-acquisition-direction",
+                "私有收购方向",
+                "observe",
+                [],
+                "私有依据",
+                "2026-08-30",
+            )
+        )
+        deadline = time.monotonic() + 2
+        while not hub.replay(None) and time.monotonic() < deadline:
+            time.sleep(0.01)
+        assert hub.replay(None), "journal bridge did not publish within two seconds"
+        response = integration_client.get("/api/v1/events")
+
+        assert response.status_code == 200
+        assert "event: state.invalidated" in response.text
+        data = json.loads(re.search(r"^data: (.+)$", response.text, re.MULTILINE).group(1))
+        assert data["scope"] == "private_state"
+        assert "direction" not in json.dumps(data)
+        assert "收购" not in json.dumps(data, ensure_ascii=False)
+
+        refreshed = integration_client.get("/api/v1/status")
+        assert refreshed.status_code == 200
+        assert refreshed.json()["portfolio_counts"]["observe"] == 1

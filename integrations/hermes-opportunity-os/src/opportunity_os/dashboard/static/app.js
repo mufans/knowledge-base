@@ -3,6 +3,10 @@ export const routes = [
   "tasks", "approvals", "reports", "monitoring",
 ];
 
+export const eventTypes = Object.freeze([
+  "state.invalidated", "component.updated", "incident.firing", "incident.recovered",
+]);
+
 const pageMeta = {
   overview: ["总览", "SYSTEM OVERVIEW", "掌握系统健康、机会组合与下一步行动。"],
   conversations: ["实时会话", "CONVERSATIONS", "在明确的数据边界内连接 OpenClaw 与 Hermes。"],
@@ -198,9 +202,13 @@ function rememberEvent(event) {
 }
 
 function attachEventHandlers(eventSource) {
+  eventSource.addEventListener("state.invalidated", event => {
+    rememberEvent(event);
+    refreshCurrent().catch(markDisconnected);
+  });
   eventSource.addEventListener("component.updated", event => {
     rememberEvent(event);
-    refreshOverview().catch(markDisconnected);
+    Promise.all([refreshOverview(), refreshMonitoring()]).catch(markDisconnected);
   });
   eventSource.addEventListener("incident.firing", event => {
     rememberEvent(event);
@@ -209,12 +217,6 @@ function attachEventHandlers(eventSource) {
   eventSource.addEventListener("incident.recovered", event => {
     rememberEvent(event);
     Promise.all([refreshOverview(), refreshMonitoring()]).catch(markDisconnected);
-  });
-  ["task.updated", "approval.updated", "report.updated", "review.updated"].forEach(type => {
-    eventSource.addEventListener(type, event => {
-      rememberEvent(event);
-      refreshCurrent().catch(markDisconnected);
-    });
   });
 }
 
@@ -257,8 +259,15 @@ async function exchangeBootstrap() {
   if (!response.ok) throw new Error("bootstrap_failed");
 }
 
-async function start() {
+function installNavigation() {
   window.addEventListener("hashchange", () => renderCurrent({focus: true}));
+}
+
+if (typeof window !== "undefined" && typeof document !== "undefined") {
+  installNavigation();
+}
+
+async function start() {
   try {
     await exchangeBootstrap();
     if (!routes.includes(window.location.hash.slice(1))) window.location.hash = "overview";

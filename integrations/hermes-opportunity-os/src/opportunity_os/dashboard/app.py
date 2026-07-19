@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import secrets
+from contextlib import asynccontextmanager, suppress
 from dataclasses import dataclass
 from ipaddress import ip_address
 from pathlib import Path
@@ -18,7 +19,7 @@ from pydantic import BaseModel
 
 from opportunity_os.dashboard.auth import CsrfGuard, Session, SessionInfo, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
-from opportunity_os.dashboard.events import DashboardEvent, EventHub
+from opportunity_os.dashboard.events import DashboardEvent, EventHub, EventJournalTailer
 from opportunity_os.dashboard.schemas import DashboardSnapshot
 
 
@@ -27,6 +28,10 @@ ORIGIN_CREDENTIAL_HEADER = "x-dashboard-origin-credential"
 LOOPBACK_HOSTS = frozenset({"127.0.0.1", "::1", "localhost"})
 SSE_HEARTBEAT_SECONDS = 20
 _DASHBOARD_DIR = Path(__file__).resolve().parent
+
+# Remote deployment contract: this process remains loopback-bound. Task 11's
+# ngrok policy must strip any browser-supplied value and inject this credential
+# on every upstream request. The app trusts it only from a loopback peer.
 
 
 class DashboardSnapshotReader(Protocol):
@@ -39,6 +44,8 @@ class DashboardDependencies:
     sessions: SessionStore
     csrf: CsrfGuard
     event_hub: EventHub | None = None
+    event_journal_path: Path | None = None
+    journal_poll_interval: float = 0.25
 
 
 class BootstrapExchange(BaseModel):
@@ -103,10 +110,34 @@ def _set_session_cookie(response: Response, token: str, session: Session) -> Non
 
 def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> FastAPI:
     """Create a fail-closed dashboard app with no framework documentation routes."""
-    app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
-    app.mount("/static", StaticFiles(directory=_DASHBOARD_DIR / "static"), name="static")
     remote_host = config.remote_host.casefold() if config.remote_host else None
     event_hub = dependencies.event_hub or EventHub(config.dashboard_home / "event-cursor")
+    event_tailer = (
+        EventJournalTailer(
+            dependencies.event_journal_path,
+            event_hub,
+            poll_interval=dependencies.journal_poll_interval,
+        )
+        if dependencies.event_journal_path is not None
+        else None
+    )
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        task = asyncio.create_task(event_tailer.run()) if event_tailer is not None else None
+        if task is not None:
+            await asyncio.sleep(0)
+        try:
+            yield
+        finally:
+            if task is not None:
+                task.cancel()
+                with suppress(asyncio.CancelledError):
+                    await task
+
+    app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
+    app.state.event_hub = event_hub
+    app.mount("/static", StaticFiles(directory=_DASHBOARD_DIR / "static"), name="static")
 
     @app.middleware("http")
     async def authentication_boundary(request: Request, call_next):
@@ -120,6 +151,8 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
                 return Response(status_code=403)
 
         if not is_local:
+            if not _is_loopback_peer(request):
+                return Response(status_code=403)
             supplied = request.headers.get(ORIGIN_CREDENTIAL_HEADER)
             if not supplied or not config.origin_credential or not secrets.compare_digest(
                 supplied, config.origin_credential
@@ -164,8 +197,14 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
         return {"ok": True}
 
     @app.get("/", response_class=FileResponse)
-    def index() -> FileResponse:
-        return FileResponse(_DASHBOARD_DIR / "templates" / "index.html", media_type="text/html")
+    def index(request: Request) -> FileResponse:
+        response = FileResponse(_DASHBOARD_DIR / "templates" / "index.html", media_type="text/html")
+        if request.state.remote_origin_authenticated:
+            session = dependencies.sessions.resolve(request.cookies.get(SESSION_COOKIE))
+            if session is None:
+                issued = dependencies.sessions.create_session("remote")
+                _set_session_cookie(response, issued.token, issued.session)
+        return response
 
     @app.post("/auth/local/exchange", response_model=SessionInfo)
     def local_exchange(exchange: BootstrapExchange, response: Response) -> SessionInfo:
