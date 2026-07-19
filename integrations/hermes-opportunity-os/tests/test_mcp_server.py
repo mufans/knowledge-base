@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -69,3 +70,50 @@ def test_save_opportunity_tool_description_names_evidence_source_tiers() -> None
         "kind=fact|inference|hypothesis", "stance=support|oppose",
     ):
         assert value in description
+
+
+def _enum_sets(value):
+    found = []
+    if isinstance(value, dict):
+        if "enum" in value:
+            found.append(set(value["enum"]))
+        for child in value.values():
+            found.extend(_enum_sets(child))
+    elif isinstance(value, list):
+        for child in value:
+            found.extend(_enum_sets(child))
+    return found
+
+
+def test_mcp_nested_inputs_publish_exact_machine_readable_schemas(monkeypatch, tmp_path: Path) -> None:
+    server = load_server(monkeypatch, tmp_path)
+    schemas = {
+        name: server.mcp._tool_manager.get_tool(name).parameters
+        for name in ("save_opportunity", "record_experiment", "set_direction", "record_tech_state", "save_review")
+    }
+    encoded = json.dumps(schemas, ensure_ascii=False)
+    enums = _enum_sets(schemas)
+
+    for expected in (
+        {"fact", "inference", "hypothesis"},
+        {"support", "oppose"},
+        {"official", "primary", "secondary", "community"},
+        {"career", "technology", "product", "service", "open_source", "content", "network", "cross_domain"},
+        {"strength", "broad", "surprise"},
+        {"none", "low", "medium"},
+        {"observe", "validate", "active"},
+        {"frontier", "stable"},
+        {"low", "medium", "high"},
+        {"daily", "weekly", "six_week", "quarterly"},
+    ):
+        assert expected in enums
+
+    for field in (
+        "market_demand", "experience_advantage", "growth_potential", "low_cost_validation",
+        "long_term_asset", "cashflow_potential", "interest_signal", "official_stable_release",
+        "complete_documentation", "compatibility_test_passed", "no_severe_known_issue",
+        "rollback_path_ready", "strength", "broad", "surprise",
+    ):
+        assert f'"{field}"' in encoded
+
+    assert '"supporting_evidence": {"items": {"additionalProperties": true' not in encoded

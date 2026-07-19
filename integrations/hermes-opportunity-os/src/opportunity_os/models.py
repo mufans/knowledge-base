@@ -1,9 +1,28 @@
 from dataclasses import asdict, dataclass
 from datetime import date
-from typing import Any
+from typing import Any, Literal, TypedDict
 
 from opportunity_os.errors import ValidationError
 from opportunity_os.scoring import OpportunityScores
+
+
+EvidenceKind = Literal["fact", "inference", "hypothesis"]
+EvidenceStance = Literal["support", "oppose"]
+SourceTier = Literal["official", "primary", "secondary", "community"]
+CostLevel = Literal["none", "low", "medium"]
+OpportunityType = Literal[
+    "career", "technology", "product", "service", "open_source", "content", "network", "cross_domain"
+]
+PresentationBucket = Literal["strength", "broad", "surprise"]
+OpportunityStatus = Literal["candidate", "observing", "validating", "active", "paused", "stopped"]
+DirectionStatus = Literal["observe", "validate", "active"]
+ReviewPeriod = Literal["daily", "weekly", "six_week", "quarterly"]
+
+
+class PresentationCounts(TypedDict):
+    strength: int
+    broad: int
+    surprise: int
 
 
 def _required_text(value: str, label: str) -> None:
@@ -18,13 +37,13 @@ def _required_list(value: list[Any], label: str) -> None:
 
 @dataclass(frozen=True, slots=True)
 class Evidence:
-    kind: str
-    stance: str
+    kind: EvidenceKind
+    stance: EvidenceStance
     claim: str
     source_name: str
     source_url: str
     observed_at: str
-    source_tier: str = "official"
+    source_tier: SourceTier = "official"
 
     def __post_init__(self) -> None:
         if self.kind not in {"fact", "inference", "hypothesis"}:
@@ -55,7 +74,7 @@ class Experiment:
     hypothesis: str
     starts_at: str
     ends_at: str
-    cost_level: str
+    cost_level: CostLevel
     action: str
     success_metric: str
     continue_criteria: list[str]
@@ -89,9 +108,9 @@ class Experiment:
 class Opportunity:
     id: str
     title: str
-    opportunity_type: str
+    opportunity_type: OpportunityType
     summary: str
-    presentation_bucket: str
+    presentation_bucket: PresentationBucket
     supporting_evidence: list[Evidence]
     opposing_evidence: list[Evidence]
     invalidation_conditions: list[str]
@@ -100,7 +119,7 @@ class Opportunity:
     continue_criteria: list[str]
     stop_criteria: list[str]
     scores: OpportunityScores
-    status: str = "candidate"
+    status: OpportunityStatus = "candidate"
 
     def __post_init__(self) -> None:
         for value, label in (
@@ -166,7 +185,7 @@ class Opportunity:
 class Direction:
     id: str
     title: str
-    status: str
+    status: DirectionStatus
     opportunity_ids: list[str]
     rationale: str
     next_review_at: str
@@ -190,12 +209,12 @@ class Direction:
 @dataclass(frozen=True, slots=True)
 class Review:
     id: str
-    period: str
+    period: ReviewPeriod
     title: str
     summary: str
     opportunity_ids: list[str]
     surprise_signal: str
-    presentation_counts: dict[str, int]
+    presentation_counts: PresentationCounts
     proposed_experiment_ids: list[str]
     facts: list[str]
     inferences: list[str]

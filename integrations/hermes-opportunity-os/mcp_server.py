@@ -7,8 +7,21 @@ from typing import Any
 
 from mcp.server.fastmcp import FastMCP
 
-from opportunity_os.freshness import StableGates, TechState
-from opportunity_os.models import Direction, Evidence, Experiment, Opportunity, Review
+from opportunity_os.freshness import Confidence, StableGates, TechMaturity, TechState
+from opportunity_os.models import (
+    CostLevel,
+    Direction,
+    DirectionStatus,
+    Evidence,
+    Experiment,
+    Opportunity,
+    OpportunityStatus,
+    OpportunityType,
+    PresentationBucket,
+    PresentationCounts,
+    Review,
+    ReviewPeriod,
+)
 from opportunity_os.reports import render_review as render_review_markdown
 from opportunity_os.scoring import OpportunityScores
 from opportunity_os.signals import SignalReader
@@ -46,17 +59,17 @@ def get_signal(relative_path: str) -> dict[str, str]:
 @mcp.tool()
 def save_opportunity(
     title: str,
-    opportunity_type: str,
+    opportunity_type: OpportunityType,
     summary: str,
-    presentation_bucket: str,
-    supporting_evidence: list[dict[str, Any]],
-    opposing_evidence: list[dict[str, Any]],
+    presentation_bucket: PresentationBucket,
+    supporting_evidence: list[Evidence],
+    opposing_evidence: list[Evidence],
     invalidation_conditions: list[str],
     experience_fit: str,
-    experiment: dict[str, Any],
+    experiment: Experiment,
     continue_criteria: list[str],
     stop_criteria: list[str],
-    scores: dict[str, float],
+    scores: OpportunityScores,
 ) -> dict[str, Any]:
     """Validate and persist a complete opportunity card in private state.
 
@@ -72,20 +85,20 @@ def save_opportunity(
         opportunity_type=opportunity_type,
         summary=summary,
         presentation_bucket=presentation_bucket,
-        supporting_evidence=[Evidence.from_dict(item) for item in supporting_evidence],
-        opposing_evidence=[Evidence.from_dict(item) for item in opposing_evidence],
+        supporting_evidence=[item if isinstance(item, Evidence) else Evidence.from_dict(item) for item in supporting_evidence],
+        opposing_evidence=[item if isinstance(item, Evidence) else Evidence.from_dict(item) for item in opposing_evidence],
         invalidation_conditions=invalidation_conditions,
         experience_fit=experience_fit,
-        minimum_experiment=Experiment.from_dict(experiment),
+        minimum_experiment=experiment if isinstance(experiment, Experiment) else Experiment.from_dict(experiment),
         continue_criteria=continue_criteria,
         stop_criteria=stop_criteria,
-        scores=OpportunityScores.from_dict(scores),
+        scores=scores if isinstance(scores, OpportunityScores) else OpportunityScores.from_dict(scores),
     )
     return _store().save_opportunity(opportunity)
 
 
 @mcp.tool()
-def list_opportunities(status: str | None = None) -> list[dict[str, Any]]:
+def list_opportunities(status: OpportunityStatus | None = None) -> list[dict[str, Any]]:
     """List private opportunity cards sorted by deterministic score."""
     return _store().list_opportunities(status)
 
@@ -98,12 +111,12 @@ def record_experiment(
     hypothesis: str,
     started_at: str,
     ends_at: str,
-    cost_level: str,
+    cost_level: CostLevel,
     action: str,
     success_metric: str,
     continue_criteria: list[str],
     stop_criteria: list[str],
-    evidence: list[dict[str, Any]],
+    evidence: list[Evidence],
 ) -> dict[str, Any]:
     """Persist a 1-14 day experiment and its supporting or opposing evidence."""
     experiment = Experiment(
@@ -121,7 +134,7 @@ def record_experiment(
         experiment_id=experiment_id,
         opportunity_id=opportunity_id,
         experiment=experiment,
-        evidence=evidence,
+        evidence=[item.to_dict() if isinstance(item, Evidence) else item for item in evidence],
     )
 
 
@@ -129,7 +142,7 @@ def record_experiment(
 def set_direction(
     direction_id: str,
     title: str,
-    status: str,
+    status: DirectionStatus,
     opportunity_ids: list[str],
     rationale: str,
     next_review_at: str,
@@ -151,12 +164,12 @@ def record_tech_state(
     technology: str,
     known_latest: str,
     recommended_stable: str,
-    maturity: str,
+    maturity: TechMaturity,
     official_sources: list[str],
     observed_at: str,
     review_due_at: str,
-    confidence: str,
-    stable_gates: dict[str, bool],
+    confidence: Confidence,
+    stable_gates: StableGates,
     rollback_path: str,
 ) -> dict[str, Any]:
     """Record latest and stable versions without unsafe automatic promotion."""
@@ -169,7 +182,7 @@ def record_tech_state(
         observed_at=observed_at,
         review_due_at=review_due_at,
         confidence=confidence,
-        stable_gates=StableGates.from_dict(stable_gates),
+        stable_gates=stable_gates if isinstance(stable_gates, StableGates) else StableGates.from_dict(stable_gates),
         rollback_path=rollback_path,
     )
     return _store().record_tech_state(state)
@@ -177,12 +190,12 @@ def record_tech_state(
 
 @mcp.tool()
 def save_review(
-    period: str,
+    period: ReviewPeriod,
     title: str,
     summary: str,
     opportunity_ids: list[str],
     surprise_signal: str,
-    presentation_counts: dict[str, int],
+    presentation_counts: PresentationCounts,
     proposed_experiment_ids: list[str],
     facts: list[str],
     inferences: list[str],

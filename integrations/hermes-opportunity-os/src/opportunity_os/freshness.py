@@ -1,8 +1,12 @@
 from dataclasses import asdict, dataclass
 from datetime import date
-from typing import Any
+from typing import Any, Literal
 
 from opportunity_os.errors import ValidationError
+
+
+TechMaturity = Literal["frontier", "stable"]
+Confidence = Literal["low", "medium", "high"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,11 +34,11 @@ class TechState:
     technology: str
     known_latest: str
     recommended_stable: str
-    maturity: str
+    maturity: TechMaturity
     official_sources: list[str]
     observed_at: str
     review_due_at: str
-    confidence: str
+    confidence: Confidence
     stable_gates: StableGates
     rollback_path: str
 
