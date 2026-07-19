@@ -14,13 +14,13 @@ from opportunity_os.errors import BoundaryError, ValidationError
 
 
 NOW = datetime(2026, 7, 19, 10, 0, tzinfo=timezone.utc)
-OPAQUE_ID = "opportunity:550e8400-e29b-41d4-a716-446655440000"
+ENTITY_ID = "entity:550e8400-e29b-41d4-a716-446655440000"
 EXPERIMENT_ID = "experiment:123e4567-e89b-42d3-a456-426614174000"
 
 
 def valid_bridge_payload(name: str) -> dict[str, object]:
     if name == "openclaw-handoff.json":
-        return {"operation": "add_handoff_refs", "entity_ids": [OPAQUE_ID]}
+        return {"operation": "add_handoff_refs", "entity_ids": [ENTITY_ID]}
     if name == "source-feedback.json":
         return {"operation": "add_targeted_searches"}
     return {"operation": "add_evidence_queries", "experiment_ids": [EXPERIMENT_ID]}
@@ -475,7 +475,7 @@ def test_expired_bridge_is_not_returned(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     ("name", "payload"),
     [
-        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": [OPAQUE_ID]}),
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": [ENTITY_ID]}),
         ("source-feedback.json", {"operation": "add_targeted_searches"}),
         (
             "experiment-evidence-request.json",
@@ -512,9 +512,44 @@ def test_bridge_accepts_only_typed_additive_payloads_and_generates_locked_policy
         ("source-feedback.json", {"operation": "add_targeted_searches", "unknown": True}),
         ("source-feedback.json", {"operation": {"name": "add_targeted_searches"}}),
         ("openclaw-handoff.json", {"operation": "add_targeted_searches"}),
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs"}),
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": []}),
+        (
+            "openclaw-handoff.json",
+            {"operation": "add_handoff_refs", "entity_ids": [ENTITY_ID], "extra": True},
+        ),
         ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": ["../private"]}),
         ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": ["opp:not-a-uuid"]}),
-        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": OPAQUE_ID}),
+        (
+            "openclaw-handoff.json",
+            {"operation": "add_handoff_refs", "entity_ids": [EXPERIMENT_ID]},
+        ),
+        (
+            "openclaw-handoff.json",
+            {"operation": "add_handoff_refs", "entity_ids": [ENTITY_ID.upper()]},
+        ),
+        (
+            "openclaw-handoff.json",
+            {"operation": "add_handoff_refs", "entity_ids": [ENTITY_ID, ENTITY_ID]},
+        ),
+        ("openclaw-handoff.json", {"operation": "add_handoff_refs", "entity_ids": ENTITY_ID}),
+        ("experiment-evidence-request.json", {"operation": "add_evidence_queries"}),
+        (
+            "experiment-evidence-request.json",
+            {"operation": "add_evidence_queries", "experiment_ids": []},
+        ),
+        (
+            "experiment-evidence-request.json",
+            {"operation": "add_evidence_queries", "experiment_ids": [ENTITY_ID]},
+        ),
+        (
+            "experiment-evidence-request.json",
+            {"operation": "add_evidence_queries", "experiment_ids": [EXPERIMENT_ID.upper()]},
+        ),
+        (
+            "experiment-evidence-request.json",
+            {"operation": "add_evidence_queries", "experiment_ids": [EXPERIMENT_ID, EXPERIMENT_ID]},
+        ),
         (
             "experiment-evidence-request.json",
             {"operation": "add_evidence_queries", "experiment_ids": ["experiment:fake"]},

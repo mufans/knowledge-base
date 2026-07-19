@@ -27,21 +27,24 @@ BRIDGE_NAMES = {
     "source-feedback.json",
     "experiment-evidence-request.json",
 }
-BRIDGE_PAYLOAD_SCHEMAS: dict[str, tuple[str, frozenset[str], str | None]] = {
+BRIDGE_PAYLOAD_SCHEMAS: dict[str, tuple[str, frozenset[str], str | None, str | None]] = {
     "openclaw-handoff.json": (
         "add_handoff_refs",
         frozenset({"operation", "entity_ids"}),
         "entity_ids",
+        "entity",
     ),
     "source-feedback.json": (
         "add_targeted_searches",
         frozenset({"operation"}),
+        None,
         None,
     ),
     "experiment-evidence-request.json": (
         "add_evidence_queries",
         frozenset({"operation", "experiment_ids"}),
         "experiment_ids",
+        "experiment",
     ),
 }
 REQUIRED_SECTIONS = ("核心概念", "设计原理", "关键实现", "关联分析", "可执行建议")
@@ -52,8 +55,8 @@ TAG_PATTERN = re.compile(r"^#[A-Za-z][A-Za-z0-9_-]*$")
 CHINESE_PATTERN = re.compile(r"[\u3400-\u9fff]")
 PRIVATE_PATH_PATTERN = re.compile(r"(?:/Users/|/home/|~/(?:\.hermes|\.config)|profile://|\\Users\\)", re.IGNORECASE)
 MARKDOWN_LINK_PATTERN = re.compile(r"\[([^\]\n]+)\]\(([^)\n]+)\)")
-OPAQUE_ID_PATTERN = re.compile(
-    r"^[a-z][a-z0-9-]{1,31}:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-"
+UUID_PATTERN = re.compile(
+    r"^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-"
     r"[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
 )
 
@@ -612,20 +615,27 @@ class KnowledgeExporter:
         if not isinstance(payload, Mapping):
             raise ValidationError("bridge payload 必须是 object")
         cls._validate_json_domain(payload)
-        operation, allowed_keys, id_field = BRIDGE_PAYLOAD_SCHEMAS[name]
-        if "operation" not in payload or not set(payload).issubset(allowed_keys):
+        operation, exact_keys, id_field, id_prefix = BRIDGE_PAYLOAD_SCHEMAS[name]
+        if set(payload) != exact_keys:
             raise ValidationError("bridge payload 字段不符合固定 schema")
         if payload["operation"] != operation:
             raise ValidationError("bridge operation 不在该文件的固定允许值中")
 
         validated: dict[str, object] = {"operation": operation}
-        if id_field is not None and id_field in payload:
+        if id_field is not None and id_prefix is not None:
             identifiers = payload[id_field]
-            if not isinstance(identifiers, list):
-                raise ValidationError(f"{id_field} 必须是 JSON array")
-            if any(not isinstance(item, str) or not OPAQUE_ID_PATTERN.fullmatch(item) for item in identifiers):
-                raise ValidationError(f"{id_field} 只能包含安全的前缀 UUID")
-            if len(set(identifiers)) != len(identifiers):
+            if not isinstance(identifiers, list) or not identifiers:
+                raise ValidationError(f"{id_field} 必须是非空 JSON array")
+            prefix = f"{id_prefix}:"
+            if any(
+                not isinstance(item, str)
+                or not item.startswith(prefix)
+                or not UUID_PATTERN.fullmatch(item[len(prefix):])
+                for item in identifiers
+            ):
+                raise ValidationError(f"{id_field} 只能包含 {id_prefix}:<lowercase UUID>")
+            normalized = [unicodedata.normalize("NFKC", item).casefold() for item in identifiers]
+            if len(set(normalized)) != len(normalized):
                 raise ValidationError(f"{id_field} 不得包含重复项")
             validated[id_field] = list(identifiers)
         return validated
