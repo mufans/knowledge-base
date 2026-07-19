@@ -35,3 +35,5 @@ def test_evidence_contract_names_exact_source_tier_values() -> None:
         assert f"`{value}`" in contracts
     assert "Fact 只能使用 `official` 或 `primary`" in policy
     assert "不得使用 `A`、`B`、`C`" in policy
+    assert "`kind` 只能是 `fact`、`inference`、`hypothesis`" in contracts
+    assert "`stance` 只能是 `support` 或 `oppose`" in contracts

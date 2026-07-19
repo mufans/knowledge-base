@@ -64,5 +64,8 @@ def test_save_opportunity_tool_description_names_evidence_source_tiers() -> None
     spec.loader.exec_module(module)
     description = module.save_opportunity.__doc__ or ""
 
-    for value in ("official", "primary", "secondary", "community", "Fact"):
+    for value in (
+        "official", "primary", "secondary", "community", "Fact",
+        "kind=fact|inference|hypothesis", "stance=support|oppose",
+    ):
         assert value in description

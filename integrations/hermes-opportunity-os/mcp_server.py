@@ -60,6 +60,8 @@ def save_opportunity(
 ) -> dict[str, Any]:
     """Validate and persist a complete opportunity card in private state.
 
+    Every evidence item uses kind=fact|inference|hypothesis and
+    stance=support|oppose; these values are not source tiers.
     Every evidence item uses source_tier=official|primary|secondary|community.
     Fact evidence requires official or primary; never use A/B/C tier aliases.
     """
