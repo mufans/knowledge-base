@@ -57,7 +57,7 @@ def build_parser() -> argparse.ArgumentParser:
     signals.add_argument("--today")
     signals.add_argument("--format", choices=("text", "json"), default="json")
 
-    status = subparsers.add_parser("status")
+    status = subparsers.add_parser("status", help="Return aggregate-only private-state metadata.")
     status.add_argument("--home", required=True)
     status.add_argument("--format", choices=("text", "json"), default="text")
 

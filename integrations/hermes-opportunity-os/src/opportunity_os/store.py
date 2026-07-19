@@ -10,13 +10,10 @@ from typing import Any
 from opportunity_os.errors import BoundaryError, CapacityError, ValidationError
 from opportunity_os.freshness import TechState
 from opportunity_os.models import Direction, Evidence, Experiment, Opportunity, Review
+from opportunity_os.sanitizer import SENSITIVE_FIELDS
 
 
 ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_-]{1,79}$")
-SENSITIVE_FIELDS = {
-    "api_key", "apikey", "token", "password", "secret", "cash_amount",
-    "private_contact", "application_message",
-}
 DIRECTION_CAPACITY = {"observe": 5, "validate": 2, "active": 1}
 
 
@@ -201,13 +198,17 @@ class PrivateStore:
         return self._read_json(path)
 
     def system_status(self) -> dict[str, Any]:
-        portfolio = self.get_portfolio()
+        self._ensure_initialized()
+        portfolio = self._read_json(self.portfolio_path)
+        counts = {status: 0 for status in DIRECTION_CAPACITY}
+        for direction in portfolio["directions"]:
+            counts[direction["status"]] += 1
         return {
             "opportunity_count": len(list((self.home / "opportunities").glob("*.json"))),
             "experiment_count": len(list((self.home / "experiments").glob("*.json"))),
             "review_count": len(list((self.home / "reviews").glob("*.json"))),
             "tech_state_count": len(list((self.home / "tech_states").glob("*.json"))),
-            "portfolio": portfolio,
+            "portfolio": {"counts": counts, "capacity": dict(DIRECTION_CAPACITY)},
         }
 
     @staticmethod

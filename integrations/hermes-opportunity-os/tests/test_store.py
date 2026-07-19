@@ -145,6 +145,19 @@ def test_zero_active_direction_is_valid(tmp_path: Path) -> None:
     assert store.get_portfolio()["counts"]["active"] == 0
 
 
+def test_public_status_never_returns_directions(tmp_path: Path) -> None:
+    store = PrivateStore(tmp_path / "private")
+    store.initialize()
+
+    status = store.system_status()
+
+    assert status["portfolio"] == {
+        "counts": {"observe": 0, "validate": 0, "active": 0},
+        "capacity": {"observe": 5, "validate": 2, "active": 1},
+    }
+    assert "directions" not in repr(status)
+
+
 def test_daily_review_requires_a_surprise(tmp_path: Path) -> None:
     store = PrivateStore(tmp_path / "private")
     store.initialize()
