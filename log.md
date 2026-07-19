@@ -158,3 +158,4 @@
 2026-07-20 | maintenance | README.md, integrations/hermes-opportunity-os/README.md, /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 更新OpenClaw/Hermes/Opportunity OS原生能力边界、生产节奏和状态命令；加固唯一GitHub Pages同步脚本的fail-closed与限定暂存范围
 2026-07-20 | security-fix | integrations/hermes-opportunity-os/dashboard, integrations/hermes-opportunity-os/deployment | 定位远程403根因为Uvicorn信任X-Forwarded-For后误判ngrok本机对端；禁用proxy_headers并恢复GitHub OAuth owner-v3，用户已实际登录成功，已删除临时Basic Auth凭据
 2026-07-20 | monitoring | integrations/hermes-opportunity-os/automation, integrations/hermes-opportunity-os/dashboard | 将Dashboard与ngrok只读探针纳入OpenClaw原生healthcheck Cron失败告警链；OpenClaw、Hermes、Dashboard、ngrok四组件全部healthy，原生Cron实际运行status=ok（全量348项测试通过）
+2026-07-20 | maintenance | wiki/entities/llm_wiki.md, /Users/liujun/.openclaw/workspace/scripts/sync_kb.sh | 将描述性wikilink语法改为行内代码；同步脚本仅检查可写Wiki层且排除围栏/行内代码，避免修改Raw原文或误抦截Metal属性
