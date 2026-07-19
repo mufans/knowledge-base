@@ -65,6 +65,8 @@ hermes -p opportunity-discovery chat --skills opportunity-discovery
 
 这些提示不会自动运行。生产调度仍由 OpenClaw 单独管理。
 
+同样的五档手动模板保存在 `profile/cadence/`。部署时复制到 Profile 私人目录的 `cadence/`；文件本身不注册 Hermes Cron，也不会触发 OpenClaw 任务。
+
 ## 新鲜度与采用
 
 `known_latest` 表示已知最新，`recommended_stable` 表示建议采用。任何新版本默认进入 Frontier，只有官方稳定发布、文档完整、最小兼容测试通过、无严重已知问题和回滚路径五项均通过才晋升 Stable。`review_due_at` 到期只触发复核。
