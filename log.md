@@ -125,3 +125,4 @@
 2026-07-19 | refactor | integrations/hermes-opportunity-os/automation | Task 7改为OpenClaw唯一调度/失败管理者：Hermes runner仅单次固定Profile/Skill调用、成功周期幂等与安全RunRecord，删除锁、心跳、超时、重试和进程组监督（266项非deployment测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os | 修复原生能力去重复审查问题：原子有界健康marker与新鲜度读取、typed无路径错误、官方Cron只读状态/前端、domain与proposal限额并发安全，并删除conversation/incident残留协议（305项测试通过）
 2026-07-19 | review-fix | integrations/hermes-opportunity-os/automation | 加固原生OpenClaw调度下的Hermes单次运行完成证据：周期/run绑定marker、旧产物拒绝、cadence业务验证、固定toolset、安全可执行文件与并发失败保真（整合全量322项测试通过）
+2026-07-19 | review-fix | integrations/hermes-opportunity-os/deployment | 修复原生部署审查：Cron受管marker/同名碰撞fail-closed与mode=none幂等归一，ngrok v3 YAML结构化OAuth owner校验、全mutation前官方config check及loopback状态API（专项40项、全量333项测试通过）

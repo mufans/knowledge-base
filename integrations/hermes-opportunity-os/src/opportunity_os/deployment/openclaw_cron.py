@@ -23,6 +23,7 @@ _ALLOWED_JOB_KEYS = {
 }
 _ALLOWED_ALERT_KEYS = {"enabled", "after", "cooldown", "exclude_skipped", "channel", "to"}
 _TARGET = re.compile(r"^[A-Za-z0-9_:@.-]{1,256}$")
+_MANAGED_DESCRIPTION_PREFIX = "[managed-by:opportunity-os/v1] "
 
 
 def _secure_json(path: Path) -> object:
@@ -119,7 +120,7 @@ class CronJob:
             raise ValueError("delivery must target one safe DingTalk owner")
         return cls(
             name=name,
-            description=_text(value["description"], "description", maximum=300),
+            description=_managed_description(value["description"]),
             cron=cron,
             timezone=timezone,
             message=_text(value["message"], "message", maximum=4000),
@@ -131,6 +132,13 @@ class CronJob:
             delivery_to=delivery_to,
             failure_alert=FailureAlert.parse(value["failure_alert"]),
         )
+
+
+def _managed_description(value: object) -> str:
+    description = _text(value, "description", maximum=300)
+    if not description.startswith(_MANAGED_DESCRIPTION_PREFIX):
+        raise ValueError("managed job description is missing the ownership marker")
+    return description
 
 
 @dataclass(frozen=True, slots=True)
@@ -377,8 +385,13 @@ def _materially_equal(current: CurrentJob, desired: CronJob) -> bool:
         and current.agent == "main"
         and current.wake_mode == "now"
         and current.tools == ("exec",)
-        and current.delivery_channel == (desired.delivery_channel if desired.delivery == "announce" else None)
-        and current.delivery_to == (desired.delivery_to if desired.delivery == "announce" else None)
+        and (
+            desired.delivery == "none"
+            or (
+                current.delivery_channel == desired.delivery_channel
+                and current.delivery_to == desired.delivery_to
+            )
+        )
         and current.failure_mode == "announce"
         and current.failure_channel == desired.failure_alert.channel
         and current.failure_to == desired.failure_alert.to
@@ -401,8 +414,19 @@ def reconcile(manifest: CronManifest, client: OpenClawCronClient, *, apply: bool
             if any(target.startswith("__") and target.endswith("__") for target in targets):
                 raise ValueError("owner placeholder must be replaced before apply")
     current = client.list()
-    by_name = {job.name: job for job in current}
+    grouped: dict[str, list[CurrentJob]] = {}
+    for current_job in current:
+        grouped.setdefault(current_job.name, []).append(current_job)
     desired_names = {job.name for job in manifest.jobs}
+    for name, matches in grouped.items():
+        is_managed = any(job.description.startswith(_MANAGED_DESCRIPTION_PREFIX) for job in matches)
+        if len(matches) > 1 and (name in desired_names or is_managed):
+            raise RuntimeError(f"duplicate OpenClaw job name: {name}")
+    for desired_job in manifest.jobs:
+        matches = grouped.get(desired_job.name, [])
+        if matches and not matches[0].description.startswith(_MANAGED_DESCRIPTION_PREFIX):
+            raise RuntimeError(f"unmanaged name collision: {desired_job.name}")
+    by_name = {name: jobs[0] for name, jobs in grouped.items() if len(jobs) == 1}
     actions: list[ReconcileAction] = []
     for job in manifest.jobs:
         existing = by_name.get(job.name)
@@ -413,7 +437,12 @@ def reconcile(manifest: CronManifest, client: OpenClawCronClient, *, apply: bool
         elif existing.enabled != job.enabled:
             actions.append(ReconcileAction("enable" if job.enabled else "disable", job.name, existing.identifier))
     for job in current:
-        if job.name.startswith("opportunity-os-") and job.name not in desired_names and job.enabled:
+        if (
+            job.name.startswith("opportunity-os-")
+            and job.description.startswith(_MANAGED_DESCRIPTION_PREFIX)
+            and job.name not in desired_names
+            and job.enabled
+        ):
             actions.append(ReconcileAction("disable", job.name, job.identifier))
 
     if apply:

@@ -47,6 +47,7 @@ def test_manifest_has_three_native_jobs_and_native_failure_alerts() -> None:
     assert all("If the exec exits non-zero" in job.message for job in manifest.jobs)
     assert all("fail the Cron task" in job.message for job in manifest.jobs)
     assert all("do not convert" in job.message for job in manifest.jobs)
+    assert all(job.description.startswith("[managed-by:opportunity-os/v1] ") for job in manifest.jobs)
 
 
 def test_manifest_rejects_unknown_fields_and_shell_like_names(tmp_path: Path) -> None:
@@ -141,6 +142,7 @@ def test_obsolete_managed_jobs_are_disabled_not_deleted(tmp_path: Path) -> None:
             {
                 "id": "old-id",
                 "name": "opportunity-os-old",
+                "description": "[managed-by:opportunity-os/v1] retired",
                 "enabled": True,
                 "schedule": {"kind": "cron", "expr": "0 1 * * *", "tz": "Asia/Shanghai"},
                 "payload": {"kind": "agentTurn", "message": "old"},
@@ -155,6 +157,85 @@ def test_obsolete_managed_jobs_are_disabled_not_deleted(tmp_path: Path) -> None:
 
     assert ["/usr/local/bin/openclaw", "cron", "disable", "old-id"] in [call[0] for call in runner.calls]
     assert not any("rm" in call[0] for call in runner.calls)
+
+
+def test_unmarked_opportunity_os_job_is_never_disabled(tmp_path: Path) -> None:
+    current = {
+        "jobs": [
+            {
+                "id": "user-id",
+                "name": "opportunity-os-user-experiment",
+                "description": "created manually by the owner",
+                "enabled": True,
+                "schedule": {"kind": "cron", "expr": "0 1 * * *", "tz": "Asia/Shanghai"},
+                "payload": {"kind": "agentTurn", "message": "user job"},
+                "sessionTarget": "isolated",
+            }
+        ]
+    }
+    runner = RecordingRunner([json.dumps(current)])
+    client = OpenClawCronClient(executable="/usr/local/bin/openclaw", runner=runner, environ={})
+
+    result = reconcile(CronManifest.load(configured_manifest(tmp_path)), client)
+
+    assert not any(action.name == "opportunity-os-user-experiment" for action in result.actions)
+
+
+def test_exact_name_collision_with_unmarked_job_fails_closed() -> None:
+    desired = CronManifest.load(MANIFEST).jobs[0]
+    current = {
+        "jobs": [
+            {
+                "id": "user-id",
+                "name": desired.name,
+                "description": "manually created, not managed",
+                "enabled": True,
+                "schedule": {"kind": "cron", "expr": desired.cron, "tz": desired.timezone},
+                "payload": {"kind": "agentTurn", "message": "do not overwrite"},
+                "sessionTarget": "isolated",
+            }
+        ]
+    }
+    runner = RecordingRunner([json.dumps(current)])
+    client = OpenClawCronClient(executable="/usr/bin/openclaw", runner=runner, environ={})
+
+    with pytest.raises(RuntimeError, match="unmanaged name collision"):
+        reconcile(CronManifest((desired,)), client)
+
+
+def test_duplicate_exact_name_fails_closed() -> None:
+    desired = CronManifest.load(MANIFEST).jobs[0]
+    base = {
+        "name": desired.name,
+        "description": desired.description,
+        "enabled": True,
+        "schedule": {"kind": "cron", "expr": desired.cron, "tz": desired.timezone},
+        "payload": {"kind": "agentTurn", "message": desired.message},
+        "sessionTarget": "isolated",
+    }
+    current = {"jobs": [{**base, "id": "one"}, {**base, "id": "two"}]}
+    runner = RecordingRunner([json.dumps(current)])
+    client = OpenClawCronClient(executable="/usr/bin/openclaw", runner=runner, environ={})
+
+    with pytest.raises(RuntimeError, match="duplicate OpenClaw job name"):
+        reconcile(CronManifest((desired,)), client)
+
+
+def test_duplicate_obsolete_managed_name_fails_closed(tmp_path: Path) -> None:
+    obsolete = {
+        "name": "opportunity-os-retired",
+        "description": "[managed-by:opportunity-os/v1] retired",
+        "enabled": True,
+        "schedule": {"kind": "cron", "expr": "0 1 * * *", "tz": "Asia/Shanghai"},
+        "payload": {"kind": "agentTurn", "message": "retired"},
+        "sessionTarget": "isolated",
+    }
+    current = {"jobs": [{**obsolete, "id": "one"}, {**obsolete, "id": "two"}]}
+    runner = RecordingRunner([json.dumps(current)])
+    client = OpenClawCronClient(executable="/usr/bin/openclaw", runner=runner, environ={})
+
+    with pytest.raises(RuntimeError, match="duplicate OpenClaw job name"):
+        reconcile(CronManifest.load(configured_manifest(tmp_path)), client)
 
 
 def test_apply_refuses_unresolved_owner_placeholder() -> None:
@@ -224,4 +305,41 @@ def test_reconcile_is_idempotent_against_openclaw_native_job_shape() -> None:
     }
     runner = RecordingRunner([json.dumps(current)])
     client = OpenClawCronClient(executable="/usr/bin/openclaw", runner=runner, environ={})
+    assert reconcile(CronManifest((desired,)), client).actions == ()
+
+
+def test_no_delivery_ignores_openclaw_default_last_channel() -> None:
+    desired = next(job for job in CronManifest.load(MANIFEST).jobs if job.delivery == "none")
+    current = {
+        "jobs": [
+            {
+                "id": "health-id",
+                "agentId": "main",
+                "name": desired.name,
+                "description": desired.description,
+                "enabled": desired.enabled,
+                "wakeMode": "now",
+                "schedule": {"kind": "cron", "expr": desired.cron, "tz": desired.timezone},
+                "payload": {
+                    "kind": "agentTurn",
+                    "message": desired.message,
+                    "timeoutSeconds": desired.timeout_seconds,
+                    "toolsAllow": ["exec"],
+                },
+                "delivery": {"mode": "none", "channel": "last"},
+                "failureAlert": {
+                    "after": desired.failure_alert.after,
+                    "cooldownMs": 3_600_000,
+                    "includeSkipped": False,
+                    "mode": "announce",
+                    "channel": desired.failure_alert.channel,
+                    "to": desired.failure_alert.to,
+                },
+                "sessionTarget": desired.session,
+            }
+        ]
+    }
+    runner = RecordingRunner([json.dumps(current)])
+    client = OpenClawCronClient(executable="/usr/bin/openclaw", runner=runner, environ={})
+
     assert reconcile(CronManifest((desired,)), client).actions == ()

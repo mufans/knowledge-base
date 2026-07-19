@@ -9,7 +9,12 @@ from typing import Sequence
 
 from opportunity_os.deployment.kb_sync import KnowledgeSync
 from opportunity_os.deployment.openclaw_cron import CronManifest, OpenClawCronClient, reconcile
-from opportunity_os.deployment.remote_access import DashboardLaunchAgent, NgrokService, write_github_policy
+from opportunity_os.deployment.remote_access import (
+    DashboardLaunchAgent,
+    NgrokLocalStatus,
+    NgrokService,
+    write_github_policy,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -38,10 +43,11 @@ def _parser() -> argparse.ArgumentParser:
     policy.add_argument("--apply", action="store_true")
 
     ngrok = commands.add_parser("ngrok-service")
-    ngrok.add_argument("action", choices=("install", "start", "restart", "status"))
+    ngrok.add_argument("action", choices=("install", "start", "restart"))
     ngrok.add_argument("--ngrok", type=Path, required=True)
     ngrok.add_argument("--config", type=Path, required=True)
     ngrok.add_argument("--apply", action="store_true")
+    commands.add_parser("ngrok-status")
     return parser
 
 
@@ -71,9 +77,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.command == "ngrok-policy":
         result = write_github_policy(args.destination, args.owner_email, apply=args.apply)
         payload = {"applied": result.applied, "destination": str(result.destination)}
-    else:
+    elif args.command == "ngrok-service":
         result = NgrokService(executable=args.ngrok, config=args.config).run(args.action, apply=args.apply)
         payload = {"applied": result.applied, "argv": list(result.argv), "returncode": result.returncode}
+    else:
+        status = NgrokLocalStatus().read()
+        payload = {"running": status.running, "tunnel_count": status.tunnel_count}
     print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
     return 0
 

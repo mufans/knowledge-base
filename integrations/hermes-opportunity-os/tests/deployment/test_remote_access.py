@@ -5,6 +5,7 @@ import pytest
 
 from opportunity_os.deployment.remote_access import (
     DashboardLaunchAgent,
+    NgrokLocalStatus,
     NgrokService,
     render_github_policy,
 )
@@ -94,7 +95,6 @@ def test_ngrok_uses_official_service_commands_only() -> None:
     ]
     assert service.command("start") == ["/opt/homebrew/bin/ngrok", "service", "start"]
     assert service.command("restart") == ["/opt/homebrew/bin/ngrok", "service", "restart"]
-    assert service.command("status") == ["/opt/homebrew/bin/ngrok", "service", "status"]
     assert service.check_command() == [
         "/opt/homebrew/bin/ngrok",
         "config",
@@ -103,7 +103,7 @@ def test_ngrok_uses_official_service_commands_only() -> None:
         "/Users/example/.config/ngrok/ngrok.yml",
     ]
     with pytest.raises(ValueError):
-        service.command("stop")
+        service.command("status")
 
 
 def test_ngrok_defaults_to_dry_run_and_sanitizes_environment(tmp_path: Path) -> None:
@@ -115,7 +115,9 @@ def test_ngrok_defaults_to_dry_run_and_sanitizes_environment(tmp_path: Path) -> 
 
     config = tmp_path / "ngrok.yml"
     config.write_text(
-        "version: 3\nagent:\n  authtoken: test-runtime-value\nendpoints:\n  - name: opportunity-os-dashboard\n    url: https://\n    upstream:\n      url: http://127.0.0.1:8765\n    traffic_policy:\n      on_http_request:\n        - actions:\n            - type: oauth\n              config:\n                provider: github\n        - expressions:\n            - \"!(actions.ngrok.oauth.identity.email in ['owner@example.com'])\"\n          actions:\n            - type: deny\n",
+        NGROK_TEMPLATE.read_text(encoding="utf-8")
+        .replace("__NGROK_AUTHTOKEN__", "test-runtime-value")
+        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com"),
         encoding="utf-8",
     )
     config.chmod(0o600)
@@ -131,6 +133,103 @@ def test_ngrok_defaults_to_dry_run_and_sanitizes_environment(tmp_path: Path) -> 
     assert [call[0][1:3] for call in calls] == [["config", "check"], ["service", "install"]]
     assert calls[0][1]["shell"] is False
     assert calls[0][1]["env"] == {"HOME": "/Users/example", "PATH": "/usr/bin"}
+
+
+@pytest.mark.parametrize("action", ["install", "start", "restart"])
+def test_ngrok_checks_config_before_every_mutating_service_action(tmp_path: Path, action: str) -> None:
+    calls = []
+
+    def runner(argv, **kwargs):
+        calls.append(list(argv))
+        return type("Result", (), {"returncode": 0, "stdout": "ok", "stderr": ""})()
+
+    config = tmp_path / "ngrok.yml"
+    config.write_text(
+        NGROK_TEMPLATE.read_text(encoding="utf-8")
+        .replace("__NGROK_AUTHTOKEN__", "runtime-token")
+        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com"),
+        encoding="utf-8",
+    )
+    config.chmod(0o600)
+    service = NgrokService(executable="/usr/local/bin/ngrok", config=config, runner=runner, environ={})
+
+    service.run(action, apply=True)
+
+    assert calls[0] == ["/usr/local/bin/ngrok", "config", "check", "--config", str(config)]
+    assert calls[1] == service.command(action)
+
+
+def test_ngrok_rejects_commented_out_oauth_and_deny(tmp_path: Path) -> None:
+    config = tmp_path / "ngrok.yml"
+    config.write_text(
+        "version: 3\n"
+        "agent:\n"
+        "  authtoken: runtime-token\n"
+        "  update_channel: stable\n"
+        "  update_check: true\n"
+        "  web_addr: 127.0.0.1:4040\n"
+        "endpoints:\n"
+        "  - name: opportunity-os-dashboard\n"
+        "    description: Owner-only Opportunity OS dashboard\n"
+        "    url: https://\n"
+        "    upstream:\n"
+        "      url: http://127.0.0.1:8765\n"
+        "      protocol: http1\n"
+        "# provider: github\n"
+        "# type: oauth\n"
+        "# actions.ngrok.oauth.identity.email\n"
+        "# type: deny\n",
+        encoding="utf-8",
+    )
+    config.chmod(0o600)
+    service = NgrokService(executable="/usr/local/bin/ngrok", config=config, runner=lambda *a, **k: None)
+
+    with pytest.raises(ValueError):
+        service.run("install", apply=True)
+
+
+def test_ngrok_rejects_multiple_endpoints_or_duplicate_yaml_keys(tmp_path: Path) -> None:
+    valid = (
+        NGROK_TEMPLATE.read_text(encoding="utf-8")
+        .replace("__NGROK_AUTHTOKEN__", "runtime-token")
+        .replace("__OWNER_GITHUB_EMAIL__", "owner@example.com")
+    )
+    multiple = tmp_path / "multiple.yml"
+    multiple.write_text(valid + "\n  - name: shadow\n    upstream:\n      url: http://127.0.0.1:9999\n", encoding="utf-8")
+    multiple.chmod(0o600)
+    with pytest.raises(ValueError, match="exactly one endpoint"):
+        NgrokService(executable="/usr/local/bin/ngrok", config=multiple)._validate_config()
+
+    duplicate = tmp_path / "duplicate.yml"
+    duplicate.write_text(valid.replace("version: 3", "version: 3\nversion: 3", 1), encoding="utf-8")
+    duplicate.chmod(0o600)
+    with pytest.raises(ValueError, match="duplicate YAML key"):
+        NgrokService(executable="/usr/local/bin/ngrok", config=duplicate)._validate_config()
+
+
+def test_ngrok_local_status_uses_only_loopback_api() -> None:
+    calls = []
+
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self, maximum):
+            assert maximum == 262_145
+            return b'{"tunnels":[{"public_url":"https://example.ngrok.app"}]}'
+
+    def opener(request, *, timeout):
+        calls.append((request.full_url, timeout))
+        return Response()
+
+    result = NgrokLocalStatus(opener=opener).read()
+
+    assert calls == [("http://127.0.0.1:4040/api/tunnels", 3)]
+    assert result.running is True
+    assert result.tunnel_count == 1
 
 
 def test_ngrok_apply_rejects_non_loopback_or_unauthenticated_config(tmp_path: Path) -> None:
