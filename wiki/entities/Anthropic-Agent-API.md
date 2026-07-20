@@ -80,6 +80,28 @@ date: "2026-05-17"
 
 **设计理念**：对于需要完全自定义的 Agent，自建 Loop 适合；对于可预测、复杂度低的 Agent 工作负载，Managed Agents 避免了随模型演变迭代调整 harness 的重复劳动。
 
+### 2026-07-20 更新：Built-in Memory for Claude Managed Agents
+
+2026年4月23日，Anthropic 为 Claude Managed Agents 推出**内置记忆层（Built-in Memory）**，public beta 阶段。Agent 现在可以跨会话学习和积累经验：
+
+- **记忆存储为文件**：Agent 的记忆以文件形式持久化，开发者可随时导出、管理
+- **API 可管理**：通过 Claude Console 或 CLI 部署带记忆的 Agent，记忆内容可通过 API 读写
+- **智能优化存储**：采用 intelligence-optimized memory layer，在性能和灵活性之间平衡
+- **开发者完全控制**：记忆内容可导出、审查，Agent 保留什么完全由开发者控制
+
+**核心意义**：记忆是 Agent 从无状态工具走向有状态协作者的关键一步。此前 Managed Agents 每次会话都是从头开始，无法复用之前的经验。内置记忆使 Agent 可以像人类一样积累经验，逐步提升任务执行效率。对[AI-Memory-Systems](../concepts/AI-Memory-Systems.md) 主题而言，这是商业化 Agent 记忆的里程碑——文件级存储意味着开发者可以构建自定义记忆管理策略，而非受限于固定记忆格式。
+
+### 2026-07-20 更新：Enterprise Managed Auth for MCP Connectors
+
+2026年6月18日，Anthropic 推出**企业级 MCP 连接器授权管理（Enterprise-Managed Auth）**，允许管理员通过身份提供商（IdP）集中配置 MCP 连接器授权。首个支持的 IdP 是 Okta：
+
+- **开箱即用**：用户首次登录时自动获得连接器访问权限，无需手动配置
+- **集中授权**：授权策略由组织统一配置，而非分散到每个用户
+- **开放扩展**：任何身份提供商或 MCP Provider 均可实现企业级授权，通过开放的 MCP 授权规范扩展
+- **可用范围**：Claude Team 和 Enterprise 计划的 Beta 功能
+
+**核心意义**：企业级 MCP 授权管理解决了此前 MCP 连接器在企业部署中的关键瓶颈——授权碎片化。结合 [Self-Hosted Sandboxes + MCP Tunnels](#2026-05-22-更新self-hosted-sandboxes--mcp-tunnels)，Managed Agents 的企业级部署拼图逐步完整。
+
 ### 2026-06-02 更新：托管式智能体与主动式工作流
 
 Anthropic在 Code With Claude 活动上发布了**托管式智能体（Managed Agents）**和**主动式工作流（Proactive Workflows）**：
@@ -96,7 +118,7 @@ Anthropic在 Code With Claude 活动上发布了**托管式智能体（Managed A
 - 与 [Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md) 对比：Claude Code的MCP客户端需要本地配置（stdio/sse/http），API层面的MCP Connector提供了云端原生方案
 - 与 [Claude-Ecosystem-Tools](../concepts/Claude-Ecosystem-Tools.md) 互补：从工具生态层面分析了Claude的工具体系
 - 对 [OpenClaw](OpenClaw.md) 的启示：OpenClaw的MCP集成可以参考API层的MCP Connector设计，简化用户配置
-- Extended Prompt Caching 对Agent成本优化意义重大，与 [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) 直接相关
+- Extended Prompt Caching 对Agent成本优化意义巨大，与 [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) 直接相关
 
 ### 2026-05-19 更新：Claude Platform on AWS 正式GA
 

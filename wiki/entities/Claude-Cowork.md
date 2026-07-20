@@ -133,3 +133,13 @@ Anthropic GTM产品经理Jared Sires的案例进一步验证了**非技术人员
 - **角色转型**：Jared从Account Executive转为GTM Product Manager，专职为销售团队构建Claude驱动的解决方案
 - **技术栈**：Claude API + Claude Cowork插件系统，打包为销售团队可复用的插件
 - **关键洞察**："the most empowering thing I've ever experienced"——非技术人员的Agent开发体验，验证了Cowork降低AI工具构建门槛的产品定位
+
+### 2026-07-20 更新：移动端与 Web 端上线
+
+2026年7月7日，Claude Cowork 开始向 **移动端和 Web 端** 滚动上线：
+
+- **多端同步**：工作会话和文件跨设备同步，手机/平板/浏览器均可访问
+- **后台持续运行**：交给 Claude 的任务在关闭笔记本后继续执行，决策仍需用户确认
+- **分批开放**：Beta 优先面向 Max 用户开放，后续逐步扩大到更多计划
+
+**核心意义**：Cowork 从桌面 CLI 扩展到移动+Web 是题中应有之义。但对用户而言，真正的增量价值是后台持续运行的能力——"close the laptop, work keeps going" 意味着 Agent 从"实时协作者"升级为"后台自主执行者"。对经常移动办公的用户而言，这是 AI Agent 从桌面工具向全天候助手的自然演进。
