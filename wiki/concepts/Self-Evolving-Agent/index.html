@@ -2388,6 +2388,23 @@ document.addEventListener('DOMContentLoaded', function() {
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="关联分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2026-07-20-seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-20 更新：SEED — 自进化在线策略蒸馏
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2475,9 +2492,15 @@ score: 技术深度8/10 | 实用价值7/10 | 时效性9/10 | 领域匹配9/10 | 
 <li><a href="../Context-Engineering/">Context-Engineering</a>：上下文工程是自进化的基础设施</li>
 <li><a href="../EfficientAgent/">EfficientAgent</a>：高效Agent设计与自进化的效率权衡</li>
 </ul>
+<h3 id="2026-07-20-seed">2026-07-20 更新：SEED — 自进化在线策略蒸馏<a class="headerlink" href="#2026-07-20-seed" title="Permanent link">&para;</a></h3>
+<p><a href="https://arxiv.org/abs/2607.14777">SEED: Self-Evolving On-Policy Distillation for Agentic Reinforcement Learning</a> 提出将 LLM 作为交互式 Agent 训练的<strong>自进化在线策略蒸馏</strong>方法：</p>
+<ul>
+<li><strong>核心思路</strong>：在 Agent 执行任务的过程中，实时收集其策略（policy）的交互轨迹（on-policy data），通过知识蒸馏将其转化为更高效的 next-token-prediction 训练信号。核心创新在于 self-evolving——Agent 同时作为数据收集者和策略改进者，形成持续的自我提升闭环。</li>
+</ul>
+<p><strong>与已有三篇论文的关系</strong>：SEED 不同于 MLEvolve（算法发现）、EvoDS（技能学习）和 SePO（prompt 优化），而是从 RL 训练层面切入——不是让 Agent 在推理时自进化，而是在<strong>训练阶段</strong>通过 on-policy distillation 实现自进化。这一视角补充了 Self-Evolving Agent 从推理时自进化到训练时自进化的完整图景。</p>
 <h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>关注EvoDS的技能学习机制</strong>：其agentic RL方法可直接借鉴到移动端AI Agent场景——让端侧Agent学习用户使用习惯并自动扩展技能</li>
+<li><strong>关注EvoDS的技能学习机制</strong></li>
 <li><strong>SePO的自引用设计值得实践</strong>：在自己的Agent系统中，将system prompt优化自动化，减少手工调参</li>
 <li><strong>监控自进化Agent的安全边界</strong>：自引用优化可能导致prompt漂移，需要设置约束和检查点</li>
 <li><strong>结合<a href="../Context-Engineering/">Context-Engineering</a></strong>：自进化依赖高质量上下文管理，两者结合是当前Agent架构的前沿方向</li>
@@ -2554,7 +2577,7 @@ score: 技术深度8/10 | 实用价值7/10 | 时效性9/10 | 领域匹配9/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月20日 00:47:06 UTC">2026年7月20日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月20日 14:15:46 UTC">2026年7月20日</span>
   </span>
 
     

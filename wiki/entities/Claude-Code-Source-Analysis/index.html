@@ -1515,8 +1515,30 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-07-20-bunrust-v21181" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-20 更新：Bun/Rust 运行时迁移 (v2.1.181+)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自评
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3160,8 +3182,30 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-07-20-bunrust-v21181" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-20 更新：Bun/Rust 运行时迁移 (v2.1.181+)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自评
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3518,6 +3562,68 @@ for await (const event of stream) {
 <p>关联：
 - <a href="../Anthropic-Agent-API/">Anthropic-Agent-API</a> — API层Agent能力
 - <a href="../OpenCode-Agent/">OpenCode-Agent</a> — 开源替代方案</p>
+<h3 id="2026-07-20-bunrust-v21181">2026-07-20 更新：Bun/Rust 运行时迁移 (v2.1.181+)<a class="headerlink" href="#2026-07-20-bunrust-v21181" title="Permanent link">&para;</a></h3>
+<p>2026年6月17日，Claude Code v2.1.181 起切换到 <strong>Rust 重写的 Bun 运行时</strong>（Bun v1.4.0-canary）：</p>
+<ul>
+<li><strong>运行时变更</strong>：从 Zig 实现的 Bun 迁移到 Rust 实现的 Bun，Simon Willison 通过 <code>strings ~/.local/bin/claude | grep -Eo 'src/[a-z_./-]+\\.rs'</code> 验证了 563 个 <code>.rs</code> 源码文件的存在</li>
+<li><strong>性能提升</strong>：Linux 上启动速度提升约 10%，macOS 上几乎无感知</li>
+<li><strong>版本号</strong>：内置的 Bun 版本为 v1.4.0（当前公开最新为 v1.3.14），证明是 canary 预览版本</li>
+<li><strong>核心团队评价</strong>："Boring is good"——Rust 重写对用户来说是无感的，恰恰说明迁移成功</li>
+</ul>
+<p><strong>核心意义</strong>：Bun 从 Zig 到 Rust 的重写反映了运行时层面的技术路线选择。对 Claude Code 用户来说这一变化基本透明，但对关注 <a href="../OpenClaw/">OpenClaw</a> 等 Agent 工具链的开发者而言，Rust 在 Agent 基础设施层的渗透趋势值得关注。</p>
+<p>参考：<a href="https://simonwillison.net/2026/Jul/19/claude-code-in-bun-in-rust/">Simon Willison: Claude Code uses Bun written in Rust now</a></p>
+<h2 id="_19">自评<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>分数</th>
+<th>权重</th>
+<th>加权</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>摘要质量</td>
+<td>9</td>
+<td>0.25</td>
+<td>2.25</td>
+</tr>
+<tr>
+<td>技术深度</td>
+<td>9</td>
+<td>0.25</td>
+<td>2.25</td>
+</tr>
+<tr>
+<td>相关性</td>
+<td>10</td>
+<td>0.20</td>
+<td>2.00</td>
+</tr>
+<tr>
+<td>原创性</td>
+<td>8</td>
+<td>0.15</td>
+<td>1.20</td>
+</tr>
+<tr>
+<td>格式规范</td>
+<td>8</td>
+<td>0.15</td>
+<td>1.20</td>
+</tr>
+<tr>
+<td><strong>加权总分</strong></td>
+<td></td>
+<td></td>
+<td><strong>8.90</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>评分说明：摘要涵盖架构全貌和启动流程细节；技术深度来自反编译源码级别的分析；相关性极高（Claude Code是核心关注工具）；原创性体现在源码级模式提炼；格式规范完善。</p>
+</blockquote>
 
 
 
@@ -3538,7 +3644,7 @@ for await (const event of stream) {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月20日 00:47:06 UTC">2026年7月20日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月20日 14:15:46 UTC">2026年7月20日</span>
   </span>
 
     
