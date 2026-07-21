@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-20 22:30:57
-// Total articles: 224
+// Generated: 2026-07-21 22:12:48
+// Total articles: 229
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -474,6 +474,21 @@ window.__kb_articles = [
     "url": "wiki/entities/ChatGPT-Work"
   },
   {
+    "title": "Claude Apps Gateway - 企业级AI访问控制网关",
+    "category": "entities",
+    "tags": [
+      "Claude",
+      "Gateway",
+      "Enterprise",
+      "OIDC",
+      "SSO"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic为Claude Code推出的自托管控制网关，支持SSO登录、集中策略、角色权限和成本归属，可接入Amazon Bedrock和Google Cloud",
+    "date": "2026-07-21",
+    "url": "wiki/entities/Claude-Apps-Gateway"
+  },
+  {
     "title": "Colibri：纯C MoE推理引擎",
     "category": "entities",
     "tags": [
@@ -532,6 +547,21 @@ window.__kb_articles = [
     "description": "在 Android 上使用 Qwen3.5-0.8B 的离线文档 AI，完全本地运行",
     "date": "2026-05-17",
     "url": "wiki/entities/EdgeDox"
+  },
+  {
+    "title": "Graphify - 代码库到知识图谱",
+    "category": "entities",
+    "tags": [
+      "Code-Analysis",
+      "Knowledge-Graph",
+      "AST",
+      "LLM",
+      "Developer-Tools"
+    ],
+    "rating": 9.0,
+    "description": "92k+星的开源项目，通过确定性AST解析将代码库、文档和SQL Schema转化为可查询知识图谱，无需向量存储",
+    "date": "2026-07-21",
+    "url": "wiki/entities/Graphify"
   },
   {
     "title": "Hermes Agent 深度分析报告",
@@ -1145,6 +1175,21 @@ window.__kb_articles = [
     "url": "wiki/syntheses/SmartPerfetto-vs-SmartInspector对比分析"
   },
   {
+    "title": "Claude Code Routines - 云端自动化任务编排",
+    "category": "entities",
+    "tags": [
+      "Claude Code",
+      "Automation",
+      "CI-CD",
+      "Agent",
+      "Scheduling"
+    ],
+    "rating": 8.75,
+    "description": "Claude Code的内置任务编排系统，支持定时/API/事件触发，在云端基础设施上运行可重复的自动化工作流",
+    "date": "2026-07-21",
+    "url": "wiki/entities/Claude-Code-Routines"
+  },
+  {
     "title": "AI Agent Self-Improving",
     "category": "concepts",
     "tags": [
@@ -1308,6 +1353,20 @@ window.__kb_articles = [
     "description": "Prompt Caching 的常见陷阱和最佳实践，避免缓存失效",
     "date": "2026-05-01",
     "url": "wiki/concepts/Prompt-Caching-Pitfalls"
+  },
+  {
+    "title": "RESOURCE2SKILL - 从多模态资源中提炼可执行Agent技能",
+    "category": "concepts",
+    "tags": [
+      "Agent-Skills",
+      "Multimodal",
+      "Skill-Distillation",
+      "LLM"
+    ],
+    "rating": 8.5,
+    "description": "一种从人类创建的多模态资源（教程、文档、视频）中自动化提炼可执行Agent技能的方法",
+    "date": "2026-07-21",
+    "url": "wiki/concepts/Resource2Skill"
   },
   {
     "title": "STALE：LLM Agent记忆时效性检测",
@@ -2693,6 +2752,20 @@ window.__kb_articles = [
     "description": "Andrew Godwin提出将传统用户输入约束方法论应用于LLM输出控制，通过token概率采样约束和CFG/正则实现确定性输出",
     "date": "2026-06-04",
     "url": "wiki/sources/Constraining-LLMs-Structured-Output"
+  },
+  {
+    "title": "环境无关的API调用Agent合成数据生成",
+    "category": "sources",
+    "tags": [
+      "API-Calling",
+      "Synthetic-Data",
+      "Agent-Training",
+      "LLM"
+    ],
+    "rating": 8.0,
+    "description": "一种无需真实执行环境即可生成高质量API调用Agent训练数据的方法，大幅降低Agent训练的数据门槛",
+    "date": "2026-07-21",
+    "url": "wiki/sources/Env-Free-Synthetic-Data-API-Calling"
   },
   {
     "title": "LLMs for Secure Source Code — Claude Opus 源码安全扫描最佳实践",
