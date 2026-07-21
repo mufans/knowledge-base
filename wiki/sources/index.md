@@ -59,3 +59,4 @@
 - [Anthropic-AI-Code-Migration](Anthropic-AI-Code-Migration.md) (2026-07-19)
 - [Anthropic-CISO-Agent-Security-Guide](Anthropic-CISO-Agent-Security-Guide.md) (2026-07-19)
 - [Claude-Code-Effort-Model-Guide](Claude-Code-Effort-Model-Guide.md) (2026-07-19)
+- [Env-Free-Synthetic-Data-API-Calling](Env-Free-Synthetic-Data-API-Calling.md) (2026-07-21)

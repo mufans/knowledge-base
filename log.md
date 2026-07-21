@@ -1,3 +1,11 @@
+- 2026-07-21 | ingest | raw/inbox/2026-07-21-Claude博客.md | 创建entities/Claude-Code-Routines.md（自评8.55）、entities/Claude-Apps-Gateway.md（自评8.30）、更新entities/Claude-Cowork.md（合并使用数据分析+营销实践）
+- 2026-07-21 | ingest | raw/inbox/2026-07-21-GitHub项目.md + raw/inbox/2026-07-21-新闻热点.md | 创建entities/Graphify.md（自评8.38）
+- 2026-07-21 | ingest | raw/inbox/2026-07-21-AI论文.md | 创建sources/Env-Free-Synthetic-Data-API-Calling.md（自评7.98）、concepts/Resource2Skill.md（自评7.90）
+- 2026-07-21 | skip | raw/inbox/2026-07-21-技术动态.md | A2UI v0.9/Grab Palana等标题级内容，技术细节不足，评分<7.0
+- 2026-07-21 | skip | raw/inbox/2026-07-21-新闻热点.md | OpenMontage/Kimi K3等与技术动态/社交媒体重复，已覆盖无新内容
+- 2026-07-21 | skip | raw/inbox/2026-07-21-社交媒体.md | OpenCode/EdgeDox/ExecuTorch已有对应页面；AI Agent安全讨论话题级内容无深入技术细节；OWL+MCP/Chainlit/ZT MCP信息过薄
+- 2026-07-21 | skip | raw/inbox/2026-07-21-GitHub项目.md | 均为低星系统级项目，与AI Agent+移动端交叉领域不匹配
+- 2026-07-21 | Claude Blog采集 | raw/inbox/2026-07-21-Claude博客.md | 5篇，全9.0分：Claude Code Routines、Gateway for Bedrock/GCP、Enterprise管理增强、Cowork使用数据分析、营销团队Cowork实践
 - 2026-07-20 | 技术动态采集 | raw/inbox/2026-07-20-技术动态.md | 15条（InfoQ 12 + Dev.to 2 + Solidot 1），覆盖AI大模型、AI Agent工程化、端侧AI芯片、云原生开源
 - 2026-07-19 | lint | raw/inbox/2026-07-19-知识库Lint审查.md | 知识库Lint审查完成（总分7.25/10，结构6.5/10，质量8/10）
 - 2026-07-19 | 生产力工具推荐 | raw/inbox/2026-04-23-生产力工具.md | 采集10个开源生产力工具（来源：GitHub Topics），标注3个【强烈推荐】：AppFlowy(74k⭐)、Memos(61.6k⭐)、Espanso(14.1k⭐)
@@ -175,3 +183,16 @@
 2026-07-20 | skip | raw/inbox/2026-07-20-Claude博客.md | Loop Engineering已有深入页面，无实质性更新
 2026-07-20 | skip | raw/inbox/2026-07-20-技术动态.md | 新闻标题级内容为主，缺乏可提炼的技术深度，无评分≥7.0条目
 2026-07-20 | skip | raw/inbox/2026-07-20-社交媒体.md | Codex上下文缩减为误导性标题（实际是GPT-5.6模型元数据刷新）；Moonshine/Transcribe已有页面；Blender/概率计算不匹配研究方向；AI建议研究/数据中心争议等非技术内容
+
+## 2026-07-21 📰 新闻热点
+
+采集了 HN（超时）、Solidot、InfoQ、36氪、GitHub Trending，整理 5 类 10 条热点。
+
+**AI/大模型**：Kimi K3 登顶 Arena（3万亿参数开放权重模型）；Meta+英伟达投资 CuspAI
+**编程/开发工具**：Graphify 92k⭐代码库→知识图谱；Qoder 占 AI 编程入口半壁江山
+**移动端**：谷歌 A2UI v0.9 生成式 UI 标准；字节 Seed Audio 1.0
+**云原生/后端**：微软 Azure 部署 AMD Helios；Grab Palana K8s AI Agent 平台
+**开源/硬件**：OpenMontage 40k⭐视频制作系统；Firefox 153.0 ESR 发布
+- 2026-07-21 技术动态采集完成（InfoQ/Solidot/Dev.to，共14条）
+
+2026-07-21 | Claude Blog采集 | raw/inbox/2026-07-21-Claude博客.md | 采集5篇，最高分9.0- 2026-07-21 | 社交媒体AI动态采集 | raw/inbox/2026-07-21-社交媒体.md | 11条HN精选（Reddit/X因代理限制未采集到），覆盖AI Agent安全、编码Agent、端侧AI、MCP生态

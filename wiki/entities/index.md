@@ -117,3 +117,6 @@
 - [Google-Genkit-Agents-API](Google-Genkit-Agents-API.md) (2026-07-19)
 - [Transcribe-cpp](Transcribe-cpp.md) (2026-07-19)
 - [superpowers](superpowers.md) (2026-07-19)
+- [Claude-Code-Routines](Claude-Code-Routines.md) (2026-07-21)
+- [Claude-Apps-Gateway](Claude-Apps-Gateway.md) (2026-07-21)
+- [Graphify](Graphify.md) (2026-07-21)
