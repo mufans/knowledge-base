@@ -1,3 +1,13 @@
+## 2026-07-22 知识提炼
+2026-07-22 | ingest | raw/inbox/2026-07-22-Claude博客.md | 创建entities/Datadog-Temper.md（自评8.85）
+2026-07-22 | ingest | raw/inbox/2026-07-22-社交媒体.md | 创建entities/Gigatoken.md（自评7.45）
+2026-07-22 | update | raw/inbox/2026-07-22-Claude博客.md | 更新sources/Anthropic-CISO-Agent-Security-Guide.md（合并AI-Native SDLC安全实践）
+2026-07-22 | update | raw/inbox/2026-07-22-技术动态.md | 更新entities/OpenCode-Agent.md（合并OpenCode 2.0重写）
+2026-07-22 | skip | raw/inbox/2026-07-22-AI论文.md | 论文标题级内容，缺乏创建高质量wiki页面所需的技术细节；Env-Free-Synthetic-Data已有页面
+2026-07-22 | skip | raw/inbox/2026-07-22-新闻热点.md | 与raw/inbox/2026-07-22-技术动态.md内容高度重叠，新闻标题级，缺乏技术深度
+2026-07-22 | skip | raw/inbox/2026-07-22-GitHub项目.md | 3个项目中2个为垃圾repo，Poolside Laguna S 2.1无足够技术细节
+
+- 2026-07-22 | inbox | raw/inbox/2026-07-22-社交媒体.md | 社交媒体AI技术动态采集：HN AI Agent话题（OpenCode/Windows11 Agent/Agent安全等）+ Reddit LLM/人工子版块（Laguna S 2.1/Gigatoken/Microsoft Kimi等）
 - 2026-07-21 | ingest | raw/inbox/2026-07-21-Claude博客.md | 创建entities/Claude-Code-Routines.md（自评8.55）、entities/Claude-Apps-Gateway.md（自评8.30）、更新entities/Claude-Cowork.md（合并使用数据分析+营销实践）
 - 2026-07-21 | ingest | raw/inbox/2026-07-21-GitHub项目.md + raw/inbox/2026-07-21-新闻热点.md | 创建entities/Graphify.md（自评8.38）
 - 2026-07-21 | ingest | raw/inbox/2026-07-21-AI论文.md | 创建sources/Env-Free-Synthetic-Data-API-Calling.md（自评7.98）、concepts/Resource2Skill.md（自评7.90）
@@ -196,3 +206,18 @@
 - 2026-07-21 技术动态采集完成（InfoQ/Solidot/Dev.to，共14条）
 
 2026-07-21 | Claude Blog采集 | raw/inbox/2026-07-21-Claude博客.md | 采集5篇，最高分9.0- 2026-07-21 | 社交媒体AI动态采集 | raw/inbox/2026-07-21-社交媒体.md | 11条HN精选（Reddit/X因代理限制未采集到），覆盖AI Agent安全、编码Agent、端侧AI、MCP生态
+
+
+---
+## 2026-07-22 新闻热点
+📡 InfoQ/Solidot/36氪/GitHub
+- [2026-07-22-新闻热点.md](raw/inbox/2026-07-22-新闻热点.md)
+- 2026-07-22 技术动态采集：共36条，来源InfoQ/OSChina/DEV/Solidot
+
+2026-07-22 | Claude Blog采集 | raw/inbox/2026-07-22-Claude博客.md | 采集5篇，最高分9.5
+
+---
+## 2026-07-22 生产力工具推荐
+📡 freeCodeCamp/社区精选
+- [2026-04-23-生产力工具.md](raw/inbox/2026-04-23-生产力工具.md)
+- 2026-07-22 每周生产力工具推荐：10款工具（Notion AI/Glean/QuillBot/Transkriptor/Cardscanner + 开源5款），3个强烈推荐

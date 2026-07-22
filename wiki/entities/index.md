@@ -120,3 +120,5 @@
 - [Claude-Code-Routines](Claude-Code-Routines.md) (2026-07-21)
 - [Claude-Apps-Gateway](Claude-Apps-Gateway.md) (2026-07-21)
 - [Graphify](Graphify.md) (2026-07-21)
+- [Datadog-Temper](Datadog-Temper.md) (2026-07-22)
+- [Gigatoken](Gigatoken.md) (2026-07-22)

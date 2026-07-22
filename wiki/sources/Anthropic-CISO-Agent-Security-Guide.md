@@ -97,6 +97,42 @@ Claude Cowork的威胁模型：Agent执行环境（远程）+ 本地桥接（文
 - Agent-to-Agent安全治理与 [Hermes-vs-OpenClaw对比分析](../../syntheses/Hermes-vs-OpenClaw对比分析.md) 中的多Agent安全有关联
 - Prompt injection防护可参考 [AI-Agent沙箱方案讨论](AI-Agent沙箱方案讨论.md)
 
+### 2026-07-22 更新：AI-Native SDLC安全实践
+
+来源：[How Anthropic secures its AI-native software development lifecycle](https://claude.com/blog/how-anthropic-secures-its-ai-native-software-development-lifecycle)
+
+Anthropic Deputy CISO Jason Clinton 补充了 Anthropic 内部 AI-native SDLC 的安全实践，核心数据和技术细节如下：
+
+### 规模数据
+
+- 工程师平均每季度交付的代码量是 2021-2025 年期间的 **8 倍**
+- Claude 编写了 **80%** 合并到代码库中的代码
+- **超过 50%** 的代码由内部 Claude Tag 系统自动合并（人类工程师负责设定意图和最终审批）
+
+### 安全策略架构
+
+1. **左移安全，全面集成到代码生成阶段**：安全指南直接编码到 `CLAUDE.md` 文件和组织级 Skills 中，代码生成的第一个瞬间就遵循最佳实践
+2. **硬访问和身份边界**：通过 SSO/OIDC 和细粒度权限控制爆炸半径
+3. **自动化确定性 + Agent 化混合审查**：生产前后分别进行确定性检查和 Agent 化审查
+4. **最高杠杆点插入人工流程**：把关人出现在最关键的决策点
+
+### 闭环安全改进机制
+
+> 一旦 Agent 发现某个 bug 类别，相关的 `CLAUDE.md` 文件会被更新，防止未来再生成同类代码。
+
+这是关键创新：安全发现不是一次性的修复，而是**反馈到生成源头**，形成持续改进的闭环。
+
+### 威胁模型
+
+Anthropic 设计安全控制针对三类威胁：
+1. **被攻破或被 Prompt Injection 的 Agent 引入恶意变更**
+2. **供应链和依赖投毒**：Agent 作为可信输入摄入
+3. **传统应用漏洞以更高速度出现**
+
+### 与之前框架的关系
+
+本篇文章是 [Zero Trust for Agents 框架](https://claude.com/blog/anthropic-zero-trust-ai-agents) 的实现配套——所有安全设计都基于该框架的安全设计思想。
+
 ## 可执行建议
 
 1. **四问框架是Agent安全评估的起点**：任何Agent项目上线前，管理者/开发者都可以用这4个问题快速评估风险等级，不需要安全专家
