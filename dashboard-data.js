@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-21 22:31:24
-// Total articles: 229
+// Generated: 2026-07-22 22:12:54
+// Total articles: 231
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -108,6 +108,21 @@ window.__kb_articles = [
     "description": "Anthropic推出的企业级AI协作平台，支持插件化定制、私有市场和跨应用编排，将Claude Code能力扩展到非技术用户",
     "date": "2026-05-24",
     "url": "wiki/entities/Claude-Cowork"
+  },
+  {
+    "title": "Datadog Temper — AI Agent万能机床",
+    "category": "entities",
+    "tags": [
+      "Agent-Infrastructure",
+      "Specification-Driven",
+      "Agent-Framework",
+      "Datadog",
+      "Claude-Code"
+    ],
+    "rating": 9.5,
+    "description": "Datadog构建的AI Agent万能机床Temper：Agent生成规范而非代码，内核通过四层分析验证后部署运行，消除验证和运行之间的漂移",
+    "date": "2026-07-22",
+    "url": "wiki/entities/Datadog-Temper"
   },
   {
     "title": "ExecuTorch: Meta端侧AI推理框架",
@@ -2439,6 +2454,20 @@ window.__kb_articles = [
     "url": "wiki/entities/GPT-5.5"
   },
   {
+    "title": "Gigatoken — 高性能开源Tokenizer",
+    "category": "entities",
+    "tags": [
+      "Tokenizer",
+      "Performance",
+      "OpenSource",
+      "LLM-Infrastructure"
+    ],
+    "rating": 8.0,
+    "description": "开源Tokenizer Gigatoken，速度约为Tiktoken的100倍、HuggingFace tokenizers的500-1000倍，大幅降低LLM推理的tokenization开销",
+    "date": "2026-07-22",
+    "url": "wiki/entities/Gigatoken"
+  },
+  {
     "title": "Grok 4",
     "category": "entities",
     "tags": [
@@ -2557,6 +2586,20 @@ window.__kb_articles = [
     "description": "Moonshine AI的micro模型在500KB以内实现语音识别与合成，支持微控制器运行，是端侧AI语音的关键进展",
     "date": "2026-07-19",
     "url": "wiki/entities/Moonshine-AI"
+  },
+  {
+    "title": "OpenCode Agent",
+    "category": "entities",
+    "tags": [
+      "Coding-Agent",
+      "OpenSource",
+      "LLM",
+      "CLI"
+    ],
+    "rating": 8.0,
+    "description": "开源AI编程Agent工具，支持多种LLM后端，终端界面",
+    "date": "2026-05-17",
+    "url": "wiki/entities/OpenCode-Agent"
   },
   {
     "title": "Pi Agent Toolkit",
@@ -2959,20 +3002,6 @@ window.__kb_articles = [
     "description": "Mojo语言发布1.0 Beta，主打AI场景下Python兼容+系统级性能的统一",
     "date": "2026-05-09",
     "url": "wiki/entities/Mojo-1.0"
-  },
-  {
-    "title": "OpenCode Agent",
-    "category": "entities",
-    "tags": [
-      "Coding-Agent",
-      "OpenSource",
-      "LLM",
-      "CLI"
-    ],
-    "rating": 7.5,
-    "description": "开源AI编程Agent工具，支持多种LLM后端，终端界面",
-    "date": "2026-05-17",
-    "url": "wiki/entities/OpenCode-Agent"
   },
   {
     "title": "UI-KOBE",
