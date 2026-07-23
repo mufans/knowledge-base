@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-22 22:31:05
-// Total articles: 231
+// Generated: 2026-07-23 22:12:15
+// Total articles: 233
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -562,6 +562,20 @@ window.__kb_articles = [
     "description": "在 Android 上使用 Qwen3.5-0.8B 的离线文档 AI，完全本地运行",
     "date": "2026-05-17",
     "url": "wiki/entities/EdgeDox"
+  },
+  {
+    "title": "GPT 5.6",
+    "category": "entities",
+    "tags": [
+      "GPT",
+      "OpenAI",
+      "工具",
+      "性能"
+    ],
+    "rating": 9.0,
+    "description": "tags: #GPT-5.6 #OpenAI #Frontier-Model #Multi-Agent #Sol #Terra #Luna",
+    "date": "2026-07-10",
+    "url": "wiki/entities/GPT-5.6"
   },
   {
     "title": "Graphify - 代码库到知识图谱",
@@ -1274,6 +1288,20 @@ window.__kb_articles = [
     "url": "wiki/concepts/Agent-MetaSKILLs"
   },
   {
+    "title": "Agentic Resource Discovery (ARD) — AI Agent统一资源发现规范",
+    "category": "concepts",
+    "tags": [
+      "MCP",
+      "Agent-Infrastructure",
+      "Tool-Discovery",
+      "Standard-Protocol"
+    ],
+    "rating": 8.5,
+    "description": "Google联合微软、GitHub等企业发布的开放标准，让AI Agent能够跨组织自动发现、验证和访问外部工具、API和服务",
+    "date": "2026-07-23",
+    "url": "wiki/concepts/Agentic-Resource-Discovery"
+  },
+  {
     "title": "Agentic Search 检索范式",
     "category": "concepts",
     "tags": [
@@ -1342,6 +1370,20 @@ window.__kb_articles = [
     "description": "MentalThink通过SVG作为LLM的可视化工件画布，让模型在视觉符号空间中逐步构建推理链，对Agent内部推理可视化有重要启发",
     "date": "2026-07-10",
     "url": "wiki/concepts/MentalThink"
+  },
+  {
+    "title": "NexForge — 需求驱动的Agent任务合成",
+    "category": "concepts",
+    "tags": [
+      "Agent-Training",
+      "Task-Synthesis",
+      "LLM-Post-Training",
+      "Scalable-Agents"
+    ],
+    "rating": 8.5,
+    "description": "通过需求驱动的自动任务合成机制，为LLM后训练阶段规模化生成可执行的Agent训练数据",
+    "date": "2026-07-23",
+    "url": "wiki/concepts/NexForge"
   },
   {
     "title": "PersonalAI：知识图谱存储与检索的个性化 LLM 方案",
@@ -1496,6 +1538,19 @@ window.__kb_articles = [
     "url": "wiki/entities/AgentGPT"
   },
   {
+    "title": "Claude Fable 5",
+    "category": "entities",
+    "tags": [
+      "Claude",
+      "GitHub",
+      "开源项目"
+    ],
+    "rating": 8.5,
+    "description": "tags: #Claude-Fable-5 #Anthropic #Adaptive-Reasoning #Max-Effort #Frontier-Model",
+    "date": "2026-07-10",
+    "url": "wiki/entities/Claude-Fable-5"
+  },
+  {
     "title": "Codex Mobile: OpenAI编程Agent进入移动端",
     "category": "entities",
     "tags": [
@@ -1629,20 +1684,6 @@ window.__kb_articles = [
     "description": "GKE Agent Sandbox 安全沙箱方案",
     "date": "2026-05-01",
     "url": "wiki/entities/GKE-Agent-Sandbox"
-  },
-  {
-    "title": "GPT 5.6",
-    "category": "entities",
-    "tags": [
-      "GPT",
-      "OpenAI",
-      "工具",
-      "性能"
-    ],
-    "rating": 8.5,
-    "description": "tags: #GPT-5.6 #OpenAI #Frontier-Model #Multi-Agent #Sol #Terra #Luna",
-    "date": "2026-07-10",
-    "url": "wiki/entities/GPT-5.6"
   },
   {
     "title": "GoClick",
@@ -2398,19 +2439,6 @@ window.__kb_articles = [
     "description": "tags: #AIClient #MultiModel #TypeScript #DesktopApp",
     "date": "2026-05-07",
     "url": "wiki/entities/Cherry-Studio"
-  },
-  {
-    "title": "Claude Fable 5",
-    "category": "entities",
-    "tags": [
-      "Claude",
-      "GitHub",
-      "开源项目"
-    ],
-    "rating": 8.0,
-    "description": "tags: #Claude-Fable-5 #Anthropic #Adaptive-Reasoning #Max-Effort #Frontier-Model",
-    "date": "2026-07-10",
-    "url": "wiki/entities/Claude-Fable-5"
   },
   {
     "title": "CopilotKit: Agent前端栈与AG-UI协议",

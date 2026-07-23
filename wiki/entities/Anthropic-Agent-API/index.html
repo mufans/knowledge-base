@@ -2469,6 +2469,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         
           <li class="md-nav__item">
+  <a href="#2026-07-23-dreaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-23 更新：Dreaming 自我进化能力
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2026-05-22-self-hosted-sandboxes-mcp-tunnels" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2710,6 +2721,41 @@ score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 
 - Claude Platform on AWS = Anthropic运营，数据在AWS边界外处理，功能最全
 - Claude on Amazon Bedrock = AWS运营，数据在AWS边界内处理，适合严格数据驻留要求</p>
 <p><strong>Compliance API</strong>（2026-03-30发布）：管理员可通过API获取组织级审计日志，追踪用户活动、配置变更，支持合规审查。</p>
+<h3 id="2026-07-23-dreaming">2026-07-23 更新：Dreaming 自我进化能力<a class="headerlink" href="#2026-07-23-dreaming" title="Permanent link">&para;</a></h3>
+<p>2026年5月19日，Claude Managed Agents 推出了 <strong>Dreaming</strong> 功能（Research Preview 阶段）。Dreaming 是一种定时执行的进程，自动审查 Agent 的会话记录和记忆存储，提取模式并更新记忆，使 Agent 能够随时间自我改进。</p>
+<p><strong>核心机制</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>触发方式</td>
+<td>定时调度（周期执行）</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>历史会话 + 记忆存储</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>提取的模式 + 更新的记忆</td>
+</tr>
+<tr>
+<td>控制粒度</td>
+<td>自动更新 或 人工审核后更新</td>
+</tr>
+</tbody>
+</table>
+<p><strong>设计意义</strong>：
+- 从"被动记忆"到"主动学习"：Dreaming 是 
+  <a href="../../concepts/AI-Agent-Self-Improving/">AI-Agent-Self-Improving</a> 的具体实现路径
+- 自动化记忆策展：不再依赖人工 review 和更新记忆
+- 与现有记忆系统协同：Dreaming 修复并增强已有的记忆，而非重建</p>
+<p><strong>与 Self-Improving Agent 的关系</strong>：此前的 <a href="../../concepts/AI-Agent-Self-Improving/">AI-Agent-Self-Improving</a> 页面讨论了 self-improvement 的架构设想，Dreaming 提供了 Anthropic 官方的具体实现——定时审查模式 + 自动更新记忆。这验证了 self-improving agent 方向是从理论研究走向产品化的关键一步。</p>
 <h3 id="2026-05-22-self-hosted-sandboxes-mcp-tunnels">2026-05-22 更新：Self-Hosted Sandboxes + MCP Tunnels<a class="headerlink" href="#2026-05-22-self-hosted-sandboxes-mcp-tunnels" title="Permanent link">&para;</a></h3>
 <p>Anthropic于5月19日发布Claude Managed Agents重大更新，新增<strong>自托管沙箱</strong>和<strong>MCP隧道</strong>两项核心能力：</p>
 <table>
@@ -2819,7 +2865,7 @@ score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月22日 14:31:18 UTC">2026年7月22日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月23日 14:12:30 UTC">2026年7月23日</span>
   </span>
 
     
