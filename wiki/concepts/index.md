@@ -52,4 +52,6 @@
 - [Loop-Engineering](Loop-Engineering.md) (2026-07-10)
 - [Jet-Long-Dynamic-RoPE](Jet-Long-Dynamic-RoPE.md) (2026-07-10)
 - [MentalThink](MentalThink.md)
+- [Agentic-Resource-Discovery](Agentic-Resource-Discovery.md) (2026-07-23)
+- [NexForge](NexForge.md) (2026-07-23)
 - [Resource2Skill](Resource2Skill.md) (2026-07-21)

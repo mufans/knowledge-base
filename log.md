@@ -1,3 +1,14 @@
+## 2026-07-23 知识提炼
+2026-07-23 | ingest | raw/inbox/2026-07-23-AI论文.md | 创建concepts/NexForge.md（自评7.35）
+2026-07-23 | ingest | raw/inbox/2026-07-23-技术动态.md | 创建concepts/Agentic-Resource-Discovery.md（自评7.85）
+2026-07-23 | update | raw/inbox/2026-07-23-Claude博客.md | 更新entities/Anthropic-Agent-API.md（合并Dreaming自我进化能力）
+2026-07-23 | update | raw/inbox/2026-07-23-社交媒体.md | 更新entities/Claude-Fable-5.md（合并Jacobian猜想反例）
+2026-07-23 | update | raw/inbox/2026-07-23-新闻热点.md | 更新entities/GPT-5.6.md（合并Sol安全测试事件——自主侵入生产系统）
+2026-07-23 | skip | raw/inbox/2026-07-23-GitHub项目.md | 4个项目均低于7.0（低星工具项目，与AI Agent+移动端交叉领域不匹配）
+2026-07-23 | skip | raw/inbox/2026-07-23-技术动态.md | Bento/MCP Observability/Skills Explained/DoorDash/OpenSQZ Glass/Miora/支付宝xUI等评分<7.0（产品公告/标题级内容，技术细节不足）
+2026-07-23 | skip | raw/inbox/2026-07-23-新闻热点.md | 与技术动态/社交媒体内容重叠（OpenCode/GigaToken/CNCF已有页面），无评分≥7.0新条目
+2026-07-23 | skip | raw/inbox/2026-07-23-社交媒体.md | Cactus Hybrid/MindControl/Pelicanmaxxing等评分<7.0（标题级、细节不足）；GigaToken已有页面
+
 ## 2026-07-22 知识提炼
 2026-07-22 | ingest | raw/inbox/2026-07-22-Claude博客.md | 创建entities/Datadog-Temper.md（自评8.85）
 2026-07-22 | ingest | raw/inbox/2026-07-22-社交媒体.md | 创建entities/Gigatoken.md（自评7.45）
@@ -220,4 +231,20 @@
 ## 2026-07-22 生产力工具推荐
 📡 freeCodeCamp/社区精选
 - [2026-04-23-生产力工具.md](raw/inbox/2026-04-23-生产力工具.md)
-- 2026-07-22 每周生产力工具推荐：10款工具（Notion AI/Glean/QuillBot/Transkriptor/Cardscanner + 开源5款），3个强烈推荐
+- 2026-07-22 每周生产力工具推荐：10款工具（Notion AI/Glean/QuillBot/Transkriptor/Cardscanner + 开源5款），3个强烈推荐- 2026-07-23 [新闻热点] 10条技术新闻（AI/大模型2条、编程/开发工具2条、移动端2条、云原生/后端2条、开源/硬件2条）
+- 2026-07-23 [技术动态采集] 采集自 InfoQ/OSChina/Solidot/Dev.to，共24条
+
+2026-07-23 | Claude Blog采集 | raw/inbox/2026-07-23-Claude博客.md | 采集5篇，最高分9.0
+## 2026-07-23 社交媒体AI动态
+
+- 📰 HN: Claude Fable 破解 Jacobian 猜想，陶哲轩用ChatGPT分析 (719pts)
+- 📰 HN: AI labs pelicanmaxxing — 规模化策略分析 (440pts)
+- 📰 HN: GigaToken 1000x快分词器开源 (419pts)
+- 📰 HN: Bento — Claude Code构建的单HTML PPT工具 (726pts)
+- 🔴 Reddit: AI逃出沙箱入侵公司 (233↑)
+- 🔴 Reddit: Jensen Huang为中国AI辩护
+- 🔴 Reddit: Agent自主性越高越不敢信任
+- 🦙 Reddit LLM: OpenAI HuggingFace攻击事件
+- 🦙 Reddit LLM: Kimi K3引发美国安全政策辩论
+- 🦙 Reddit LLM: 奥地利政府上线Mistral AI平台
+- 🦙 Reddit LLM: Arcee AI 1T参数开源模型GS1
