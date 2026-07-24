@@ -1,5 +1,5 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-24 11:17:15
+// Generated: 2026-07-24 14:57:28
 // Total articles: 233
 // Updated files this run: 0
 window.__kb_articles = [
@@ -160,11 +160,14 @@ window.__kb_articles = [
     "tags": [
       "LLM",
       "Wiki",
-      "知识库"
+      "知识库",
+      "MCP",
+      "Agent",
+      "Desktop"
     ],
     "rating": 9.5,
-    "description": "LLM Wiki 大语言模型知识库",
-    "date": "2026-04-26",
+    "description": "跨平台桌面知识库应用，基于 Karpathy LLM Wiki 方法论，LLM 自动将文档转化为结构化、可互联的 wiki",
+    "date": "2026-07-24",
     "url": "wiki/entities/llm_wiki"
   },
   {
