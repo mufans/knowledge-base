@@ -260,4 +260,4 @@
   - 🦞 马斯克开源Grok Build
 - 2026-07-24 技术动态：采集15条，来源 InfoQ/Solidot/DEV/OSChina
 
-2026-07-24 | Claude Blog采集 | raw/inbox/2026-07-24-Claude博客.md | 采集5篇，最高分9.5
+2026-07-24 | Claude Blog采集 | raw/inbox/2026-07-24-Claude博客.md | 采集5篇，最高分9.5[2026-07-24] 社交媒体AI动态日报 → [2026-07-24-社交媒体.md](knowledge/raw/inbox/2026-07-24-社交媒体.md)
