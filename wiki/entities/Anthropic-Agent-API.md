@@ -187,9 +187,22 @@ Anthropic于5月19日发布Claude Managed Agents重大更新，新增**自托管
 
 **MCP Tunnels**：允许Agent连接企业内部的MCP服务器，无需将服务暴露到公网。结合自托管沙箱，形成完整的"Agent在企业边界内工作"方案。
 
-## 可执行建议
+### 2026-07-24 更新：Managed Agents 定时调度 + 安全凭据 Vaults
 
-1. **立即评估Code Execution API**：如果SI项目需要数据分析能力，这比自建沙箱执行环境成本低得多（50小时/天免费）
+来源：[New in Claude Managed Agents: run agents on a schedule and store environment variables in vaults](https://claude.com/blog/whats-new-in-claude-managed-agents)
+
+2026年6月9日，Claude Managed Agents 推出两项新能力：**定时调度（Scheduled Deployments）** 和 **凭据 Vaults**，均处于 Public Beta 阶段。
+
+**Scheduled Deployments（定时调度）**：
+- Agent 可按 Cron 表达式自动执行，完成重复性工作
+- 每次调度触发时，Agent 启动新会话并完成任务，无需自建调度器或托管基础设施
+- 适用于：夜间数据同步、每周合规扫描、每日摘要生成
+- 支持暂停、恢复、归档调度，以及手动按需触发
+
+**Vaults（安全凭据存储）**：
+- Agent 可安全访问 CLI 工具和其他认证服务所需的凭据
+- 凭据以加密方式存储在 Vault 中，Agent 运行时自动注入
+- 解决了 Agent 自动化场景中：如果SI项目需要数据分析能力，这比自建沙箱执行环境成本低得多（50小时/天免费）
 2. **MCP Connector替代自建client**：目前连接MCP服务器需要写客户端代码，API层Connector可直接使用，减少维护成本
 3. **Files API用于知识库场景**：知识库项目的文档可以上传一次反复使用，避免每次请求都传文件
 4. **Extended Caching用于长流程Agent**：如果构建多步骤Agent工作流，1小时TTL缓存可大幅降低成本（最高90%）

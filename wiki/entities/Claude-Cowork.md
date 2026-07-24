@@ -172,3 +172,25 @@ Anthropic营销运营团队（Ian Chan和Annabel Custer）分享了Cowork在企�
 - **分批开放**：Beta 优先面向 Max 用户开放，后续逐步扩大到更多计划
 
 **核心意义**：Cowork 从桌面 CLI 扩展到移动+Web 是题中应有之义。但对用户而言，真正的增量价值是后台持续运行的能力——"close the laptop, work keeps going" 意味着 Agent 从"实时协作者"升级为"后台自主执行者"。对经常移动办公的用户而言，这是 AI Agent 从桌面工具向全天候助手的自然演进。
+
+### 2026-07-24 更新：全量桌面体验上云 + 企业级部署控制
+
+来源：[The full Claude Desktop experience on AWS, Google Cloud, and Microsoft Foundry](https://claude.com/blog/the-full-claude-desktop-experience-on-aws-google-cloud-and-microsoft-foundry)
+
+2026年6月22日，Anthropic 宣布 Claude Desktop Chat 功能上线 AWS、Google Cloud 和 Microsoft Foundry 部署方案。此前这三个云平台仅有 Claude Cowork 和 Claude Code，现在 Chat 也可在企业自控推理环境中运行。
+
+**全桌面三件套上云**：
+- **Chat**：快速问答和问题思考，使用企业自控推理
+- **Claude Cowork**：跨经批准的来源研究、操作设备上文件、构建交付成果
+- **Claude Code**：工程师的 Agent 编码终端（非 CLI 形式）
+
+**各表面独立策略控制**：每个产品（Chat/Cowork/Code）有独立的 policy key，管理员可精确控制谁用什么功能。非技术团队用 Chat+Cowork，工程师用 Code，后续逐步扩大。
+
+**企业级部署控制：**
+- **SSO**：支持 IAM Identity Center、Workforce Identity Federation、Microsoft Entra ID、任意 OIDC 提供商（如 Okta），不依赖共享密钥或云凭据
+- **MDM 策略模板**：从设置 UI 导出策略模板，通过 Intune、GPO 或 Jamf 分发。提供离线安装包覆盖气隙环境
+- **预部署验证**：在全组织推广前，可测试所有 Connector、确认可用模型、验证连接
+- **模型守卫**：即使在配置错误时，也能确保推理始终路由到 Claude（包括 GovCloud）
+- **M365 Connector**：通过企业自有 Entra 应用接入邮件和文档，支持 GCC High/DoD 端点，可选本地 Connector 模式（连接不离开设备与 Microsoft 之间）
+
+**核心意义**：企业从零散部署 Agent 工具转向统一管理——一个身份、一套策略、多表面选择性开放。"一个部署覆盖所有角色" 的产品思路对 Agent 产品设计有参考价值：不用追求单一万能界面，而是让不同角色在各自习惯的界面上使用同一底层能力。

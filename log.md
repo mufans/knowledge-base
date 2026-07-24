@@ -1,3 +1,14 @@
+## 2026-07-24 知识提炼
+2026-07-24 | ingest | raw/inbox/2026-07-24-Claude博客.md | 创建concepts/Verification-Loops.md（自评8.60）
+2026-07-24 | update | raw/inbox/2026-07-24-Claude博客.md | 更新entities/Claude-Cowork.md（合并全量桌面三件套上云+企业级部署控制）
+2026-07-24 | update | raw/inbox/2026-07-24-Claude博客.md | 更新entities/Anthropic-Agent-API.md（合并Managed Agents定时调度+安全凭据Vaults）
+2026-07-24 | skip | raw/inbox/2026-07-24-AI论文.md | OO Agents/AutoIndex/AREX/ICAE-Bench/ConsiSpace/SeededGrasp/SLAI T-Rex/Beyond-Relevance检索等评分<7.0（论文摘要过薄，方向不匹配或已有对应页面）
+2026-07-24 | skip | raw/inbox/2026-07-24-Claude博客.md | Outtake cyber investigator评分<7.0（案例描述过薄，技术深度不足）
+2026-07-24 | skip | raw/inbox/2026-07-24-GitHub项目.md | 所有项目评分<7.0（低星项目，技术细节不足，与AI Agent+移动端交叉领域不匹配）
+2026-07-24 | skip | raw/inbox/2026-07-24-技术动态.md | Guru Build/OpeCode重写/GPT-5.6/ARD已有页面覆盖；CodeBuddy NPC标题级无正文；Brain2Qwerty/Kairos 3.1/Apple App Store增量/美国陆军Token等方向不匹配或深度不足
+2026-07-24 | skip | raw/inbox/2026-07-24-新闻热点.md | 与技术动态/社交媒体内容重叠，无评分≥7.0新条目
+2026-07-24 | skip | raw/inbox/2026-07-24-社交媒体.md | Echo multi-model pooling与Weak-Model-Orchestration概念重叠；Palmier Pro/Claude-thermos/OneCLI/Screenpipe/Turo等缺乏技术深度（信息源过薄）；DeepSeek V4 Flash/audio.cpp/Why Software Factories Fail已有对应页面
+
 ## 2026-07-23 知识提炼
 2026-07-23 | ingest | raw/inbox/2026-07-23-AI论文.md | 创建concepts/NexForge.md（自评7.35）
 2026-07-23 | ingest | raw/inbox/2026-07-23-技术动态.md | 创建concepts/Agentic-Resource-Discovery.md（自评7.85）

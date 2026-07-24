@@ -21,6 +21,7 @@
 - [TNL-Persistent-Plan-Mode](TNL-Persistent-Plan-Mode.md) (2026-05-03)
 - [AST-Driven-AI-Editing](AST-Driven-AI-Editing.md) (2026-05-03)
 - [AI-Memory-Systems](AI-Memory-Systems.md) (2026-05-07)
+- [Verification-Loops](Verification-Loops.md) (2026-07-24)
 - [Vibe-Coding-Agent-Engineering-Convergence](Vibe-Coding-Agent-Engineering-Convergence.md) (2026-05-07)
 - [Agent-Control-Flow](Agent-Control-Flow.md) (2026-05-08)
 - [Natural-Language-Autoencoders](Natural-Language-Autoencoders.md) (2026-05-08)
