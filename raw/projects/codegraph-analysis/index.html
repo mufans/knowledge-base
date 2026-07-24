@@ -1,0 +1,3302 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal knowledge repository and project analysis">
+      
+      
+        <meta name="author" content="mufans">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CodeGraph 深度分析报告 - Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../../overrides/dashboard-data.js"></script>
+<script>
+// 在页面加载后，用 frontmatter date 替换/补充日期显示
+document.addEventListener('DOMContentLoaded', function() {
+  // 从页面 meta 标签或 frontmatter data 获取 date
+  const pageContent = document.querySelector('.md-content__inner');
+  if (!pageContent) return;
+  
+  // MkDocs Material 会把 YAML frontmatter 的 date 放在 article 标签的 data-date 属性
+  // 或者我们可以从 page.meta 中获取});
+</script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link rel="stylesheet" href="../../../overrides/styles/dashboard.css">
+  <style>
+    /* 显示 frontmatter date 替代 git date */
+    .md-source-date { display: none !important; }
+    .kb-frontmatter-date {
+      font-size: 0.8rem;
+      color: var(--md-default-fg-color--light);
+      margin-left: 0.5rem;
+    }
+  </style>
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#codegraph" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Knowledge Base" class="md-header__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CodeGraph 深度分析报告
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../wiki/concepts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Wiki
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../inbox/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Raw
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Knowledge Base" class="md-nav__button md-logo" aria-label="Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Knowledge Base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/AI-Agent-Self-Improving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Agent-Self-Improving
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Claude-Ecosystem-Tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Ecosystem-Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Context-Window-Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-Window-Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/DeepEP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Memory-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory-Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/PersonalAI-KG-Retrieval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PersonalAI-KG-Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Pretext-js/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pretext-js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Prompt-Caching-Pitfalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt-Caching-Pitfalls
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Real-world-AI-Applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real-world-AI-Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Self-RAG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Auto-Creation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Auto-Creation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Skill-Evaluation-Framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill-Evaluation-Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/Weak-Model-Orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weak-Model-Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/concepts/andrej-karpathy-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    andrej-karpathy-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/entities/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Entities
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Claude-Code-Source-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude-Code-Source-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/DeepSeek-V4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek-V4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Fewshell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fewshell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GKE-Agent-Sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GKE-Agent-Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GPT-5.5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPT-5.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Ghostty-Leaving-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ghostty-Leaving-GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/GoClick/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GoClick
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hermes-Agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Hy-MT-Offline-Translation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hy-MT-Offline-Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/OpenClaw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Operit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/SmartPerfetto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/Warp-Terminal-Analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Warp-Terminal-Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/claude-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-mem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/deer-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    deer-flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/harmonist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    harmonist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/llm_wiki/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    llm_wiki
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/mattpocock-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mattpocock-skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/ml-intern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ml-intern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/open-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    open-design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/entities/trycua-cua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    trycua-cua
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/sources/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/AI-Code-Tool-Pricing-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Code-Tool-Pricing-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Coding-Agents-Critique-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coding-Agents-Critique-2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/Hermes-Agent-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-Agent-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenClaw-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenClaw-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper-V2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper-V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/OpenMobile-Paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenMobile-Paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/claude-context-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    claude-context-源码分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/sources/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95-2026%E5%B9%B44%E6%9C%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐书单-2026年4月
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../wiki/syntheses/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syntheses
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Syntheses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Agent-Dev-Tools-2026-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent-Dev-Tools-2026-04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/Hermes-vs-OpenClaw%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hermes-vs-OpenClaw对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wiki/syntheses/SmartPerfetto-vs-SmartInspector%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartPerfetto-vs-SmartInspector对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Raw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Raw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../inbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 项目概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 技术栈
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 架构设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 架构设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三大核心子系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三大核心子系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP 服务器 (三模式架构)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代码解析引擎 (Kernel Routing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQLite 图谱存储
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 核心功能详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 核心功能详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 图谱构建流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 MCP 工具集
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 框架感知路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 跨语言桥接
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 自动伸缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 安装器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 同类项目对比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 代码质量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 适用场景
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 适用场景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        应该用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不应该用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 学习价值
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 局限性
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 行业定位与趋势判断
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+
+                  
+
+
+
+<h1 id="codegraph">CodeGraph 深度分析报告<a class="headerlink" href="#codegraph" title="Permanent link">&para;</a></h1>
+<ul>
+<li><strong>项目</strong>: <a href="https://github.com/colbymchenry/codegraph">colbymchenry/codegraph</a></li>
+<li><strong>版本</strong>: v1.5.0</li>
+<li><strong>许可</strong>: MIT</li>
+<li><strong>分析日期</strong>: 2026-07-24</li>
+</ul>
+<hr />
+<h2 id="1">1. 项目概述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>CodeGraph 是一个预构建的代码知识图谱系统，专为 AI 编码助手设计。核心理念：<strong>与其让 AI agent 每次逐文件搜索代码结构，不如预先索引好代码图谱，agent 一次查询就能拿到精确的上下文</strong>。</p>
+<p>解决的问题：AI agent 在理解大型代码库时，需要大量 tool calls（grep/glob/Read）来发现代码结构。CodeGraph 把这些工作提前做好，将结果存入 SQLite，通过 MCP 协议提供给 agent。</p>
+<p>目标用户：使用 AI 编码助手的开发者（Claude Code、Cursor、Codex、Gemini CLI 等 8+ 个 agent 工具）。</p>
+<hr />
+<h2 id="2">2. 技术栈<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>编程语言</strong></td>
+<td>TypeScript (CLI, 173 .ts 文件) + Rust (内核解析引擎)</td>
+</tr>
+<tr>
+<td><strong>代码解析</strong></td>
+<td>tree-sitter (WASM 回退) + Rust 原生内核 (20 种语言)</td>
+</tr>
+<tr>
+<td><strong>存储</strong></td>
+<td>SQLite (节点/边/文件/搜索索引)</td>
+</tr>
+<tr>
+<td><strong>通信协议</strong></td>
+<td>MCP (Model Context Protocol)</td>
+</tr>
+<tr>
+<td><strong>CLI 框架</strong></td>
+<td>Commander</td>
+</tr>
+<tr>
+<td><strong>交互 UI</strong></td>
+<td>@clack/prompts</td>
+</tr>
+<tr>
+<td><strong>测试</strong></td>
+<td>vitest (160 个测试文件)</td>
+</tr>
+<tr>
+<td><strong>CI</strong></td>
+<td>GitHub Actions (attested builds)</td>
+</tr>
+<tr>
+<td><strong>构建</strong></td>
+<td>tsc + Rust cargo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 架构设计<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="_1">目录结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<pre><code>codegraph/
+├── src/
+│   ├── bin/              # CLI 入口 (Commander, 15+ 命令)
+│   ├── mcp/              # MCP 服务器 (20+ 文件, 三种运行模式)
+│   ├── extraction/       # 代码解析引擎
+│   │   ├── kernel/       # Rust 内核路由 + 编解码
+│   │   ├── languages/    # 每种语言的 tree-sitter 解析器
+│   │   └── wasm/         # WASM 解析器 (回退路径)
+│   ├── db/               # SQLite schema, queries, migrations
+│   ├── graph/            # 图谱操作 (调用链、影响半径)
+│   ├── sync/             # 文件监听 + 自动同步
+│   ├── resolution/
+│   │   └── frameworks/   # 25+ 框架感知路由解析器
+│   ├── search/           # FTS5 全文搜索
+│   ├── installer/        # 多 agent 安装器
+│   ├── telemetry/        # 遥测 (Cloudflare Worker)
+│   ├── ui/               # 终端 UI (进度条, glyphs)
+│   └── upgrade/          # 自动升级
+├── codegraph-kernel/     # Rust 原生内核
+│   └── src/
+│       ├── lib.rs        # 主入口
+│       ├── tsjs/         # TypeScript/JS 提取器
+│       ├── python.rs     # Python 提取器
+│       ├── java.rs       # Java 提取器
+│       └── ...           # 每种语言一个 Rust 模块
+├── __tests__/            # 160 个测试文件
+└── docs/
+    ├── design/           # 设计文档 (25+ 篇)
+    └── benchmarks/       # 基准测试
+</code></pre>
+<h3 id="_2">三大核心子系统<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="mcp">MCP 服务器 (三模式架构)<a class="headerlink" href="#mcp" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Direct</strong></td>
+<td>单进程服务一个 MCP 客户端</td>
+<td>无 .codegraph/ 目录时回退</td>
+</tr>
+<tr>
+<td><strong>Proxy</strong></td>
+<td>stdio↔socket 管道，连接共享 daemon</td>
+<td>多终端共享一个索引</td>
+</tr>
+<tr>
+<td><strong>Daemon</strong></td>
+<td>后台常驻进程，Unix socket/Named pipe 服务多个 proxy</td>
+<td>生产使用，支持多会话</td>
+</tr>
+</tbody>
+</table>
+<p>Daemon 模式关键设计：
+- <strong>独立的进程组</strong>，不是宿主进程的子进程——终端关闭不影响其他客户端
+- <strong>PPID watchdog</strong>：如果宿主进程被 SIGKILL，proxy 自动退出
+- <strong>空闲超时</strong>：客户端数为 0 时自动回收
+- <strong>Unix socket 锁文件</strong>防重复启动</p>
+<h4 id="kernel-routing">代码解析引擎 (Kernel Routing)<a class="headerlink" href="#kernel-routing" title="Permanent link">&para;</a></h4>
+<p>Rust 内核路由系统：
+- 每种语言通过 <strong>byte-for-byte 输出等价性测试</strong>后，才能从 WASM 迁移到 Rust 内核
+- 迁移顺序：TypeScript/JS → Java/Python/Go → C/C++/Rust/C#/Ruby/PHP → Swift/Kotlin/R → ...
+- 回退机制：文件解析出错时自动降级到 WASM 路径
+- <strong>preParse 钩子</strong>：C/C++ 宏展开、Metal/CUDA 属性处理等，在发给内核前处理
+- <strong>PostPass</strong>：TS 侧的后处理钩子，处理 tree-sitter queries 无法表达的逻辑</p>
+<h4 id="sqlite">SQLite 图谱存储<a class="headerlink" href="#sqlite" title="Permanent link">&para;</a></h4>
+<p>核心表结构：</p>
+<pre><code>nodes            → 代码符号 (函数、类、变量等, 22 种 node_kind)
+edges            → 关系 (调用、继承、包含等, 12 种 edge_kind)
+files            → 跟踪的源文件
+unresolved_refs  → 未解析的引用 (增量解析用)
+fts5_virtual     → 全文搜索
+</code></pre>
+<p>每个 node 包含：qualified_name、file_path、位置、签名、docstring、可见性、是否导出等。
+edge 包含：source→target 关系、行号、元数据。</p>
+<hr />
+<h2 id="4">4. 核心功能详解<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 图谱构建流程<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<pre><code>源文件 → 文件检测(watch/git hook) → Tree-sitter AST 解析
+  → Rust kernel 或 WASM → node/edge 提取
+  → 框架感知路由解析 (Express/Spring/Django 等)
+  → 跨语言桥接 (iOS/RN) → SQLite 写入
+  → 未解析引用重试 → 完成
+</code></pre>
+<p>首次构建：
+- <strong>小项目 (100 文件)</strong>: 秒级
+- <strong>中项目 (4000 文件)</strong>: ~100秒
+- <strong>大项目 (VS Code, ~11k 文件)</strong>: 稍长
+- <strong>超大项目 (Linux kernel, 70k 文件)</strong>: 2 核 VPS 下 &lt;12 分钟</p>
+<p>增量更新：
+- 文件 watcher 使用原生 OS 事件（FSEvents/inotify/ReadDirectoryChangesW）
+- 修改单个文件后的同步时间：约 0.3-0.4 秒</p>
+<h3 id="42-mcp">4.2 MCP 工具集<a class="headerlink" href="#42-mcp" title="Permanent link">&para;</a></h3>
+<p>agent 通过以下 tools 消费图谱：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codegraph_explore</code></td>
+<td>查询符号及其关联 (一次性返回 entry point + 相关代码)</td>
+</tr>
+<tr>
+<td><code>codegraph_callers</code></td>
+<td>查找谁调用了这个函数</td>
+</tr>
+<tr>
+<td><code>codegraph_callees</code></td>
+<td>查找这个函数调用了谁</td>
+</tr>
+<tr>
+<td><code>codegraph_impact</code></td>
+<td>分析修改某符号的影响范围</td>
+</tr>
+<tr>
+<td><code>codegraph_query</code></td>
+<td>FTS5 全文搜索</td>
+</tr>
+<tr>
+<td><code>codegraph_files</code></td>
+<td>项目文件结构</td>
+</tr>
+<tr>
+<td><code>codegraph_context</code></td>
+<td>为某个任务构建上下文</td>
+</tr>
+<tr>
+<td><code>codegraph_affected</code></td>
+<td>受变更影响的测试文件</td>
+</tr>
+</tbody>
+</table>
+<p>设计亮点：每个工具的输出限制在 15000 字符，防止 agent context 膨胀。</p>
+<h3 id="43">4.3 框架感知路由<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p>25+ 个框架解析器，覆盖主流 Web 框架：</p>
+<table>
+<thead>
+<tr>
+<th>语言</th>
+<th>框架</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JavaScript/TypeScript</td>
+<td>Express, NestJS, React, Svelte, Vue, Astro</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Django, Flask, FastAPI</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>Rails</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>Spring, Play</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>Gin, GoFrame</td>
+</tr>
+<tr>
+<td>Rust</td>
+<td>Cargo workspace</td>
+</tr>
+<tr>
+<td>C#</td>
+<td>ASP.NET</td>
+</tr>
+<tr>
+<td>Swift</td>
+<td>SwiftUI, UIKit, Vapor</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>Laravel, Drupal</td>
+</tr>
+</tbody>
+</table>
+<p>功能：将 URL 路径模式自动链接到对应的 handler 函数，agent 可以直接问"处理 <code>/api/users</code> 的是哪个函数"。</p>
+<h3 id="44">4.4 跨语言桥接<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Swift ↔ Objective-C</strong>: 桥接头文件解析</li>
+<li><strong>React Native Legacy Bridge</strong>: Native 模块→JS 方法映射</li>
+<li><strong>TurboModules</strong>: 类型化 Native 模块</li>
+<li><strong>Fabric View Components</strong>: Native 视图组件</li>
+<li><strong>Expo Modules</strong>: Expo 模块系统</li>
+</ul>
+<h3 id="45">4.5 自动伸缩<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<p>根据机器配置自适应：
+- <strong>核心数识别</strong>: cgroup-aware，不会在 2 核 VPS 上开 64 个 worker
+- <strong>内存检测</strong>: 根据可用内存调整分析缓存大小
+- <strong>花销衡量</strong>: 根据项目大小动态决定是否启用并行解析</p>
+<h3 id="46">4.6 安装器<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
+<p><code>codegraph install</code> 命令自动检测和配置：
+- Claude Code (<code>.claude/settings.json</code> + Claude Code skills)
+- Cursor (<code>.cursor/rules/</code>)
+- Codex CLI
+- OpenCode
+- Hermes Agent
+- Gemini CLI
+- Antigravity IDE
+- Kiro</p>
+<p>每个 agent 写入 MCP 配置 + 系统提示（instruction），让 agent 知道在什么情况下调用 codegraph。</p>
+<hr />
+<h2 id="5">5. 同类项目对比<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>CodeGraph</th>
+<th>Context7</th>
+<th>Cursor 内置索引</th>
+<th>传统 grep/Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>预构建图谱</strong></td>
+<td>✅ Rust 内核</td>
+<td>❌ 实时</td>
+<td>✅ (有索引)</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>跨语言</strong></td>
+<td>30+ (含 Rust 内核)</td>
+<td>仅支持</td>
+<td>主要 JS/TS</td>
+<td>不相关</td>
+</tr>
+<tr>
+<td><strong>调用链追踪</strong></td>
+<td>✅ callers/callees</td>
+<td>❌</td>
+<td>✅ 有限</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>框架感知</strong></td>
+<td>✅ 25+ 框架</td>
+<td>❌</td>
+<td>✅ 有限</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>模糊半径分析</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>100% 本地</strong></td>
+<td>✅</td>
+<td>❌ (需云API)</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>MCP 协议</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>开源</strong></td>
+<td>✅ MIT</td>
+<td>❌ 专有</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>增量更新</strong></td>
+<td>✅ 原生事件监听</td>
+<td>✅</td>
+<td>✅</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p><strong>差异化优势</strong>：
+- 唯一一个用 Rust 内核做原生解析的开源代码图谱工具
+- 框架感知路由是独特的差异化——其他工具主要做符号级索引，不识别路由模式
+- 跨语言桥接（iOS/RN）是社区痛点，很少工具覆盖
+- 基准测试最全面（7 个真实开源项目，每种 4 次取中位数）</p>
+<hr />
+<h2 id="6">6. 代码质量<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>代码可读性</strong></td>
+<td>优秀。TypeScript 代码注释丰富，JSDoc 完备，代码风格统一</td>
+</tr>
+<tr>
+<td><strong>测试覆盖</strong></td>
+<td>160 个测试文件，涵盖 CLI、MCP、搜索、框架解析、安全等</td>
+</tr>
+<tr>
+<td><strong>文档完善度</strong></td>
+<td>极高。README 全面，25+ 篇设计文档，完整的 CLI 参考，CHANGELOG，TELEMETRY 说明</td>
+</tr>
+<tr>
+<td><strong>CI/CD</strong></td>
+<td>GitHub Actions，attested builds，npm provenance</td>
+</tr>
+<tr>
+<td><strong>错误处理</strong></td>
+<td>完善。MCP 层有 NotIndexedError / PathRefusalError 分类，CLI 有 fatal handler</td>
+</tr>
+<tr>
+<td><strong>安全</strong></td>
+<td>路径安全检查（validatePathWithinRoot），输入长度限制</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>大量的 benchmark 数据，持续优化</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7">7. 适用场景<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<h3 id="_3">应该用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>大型代码库</strong> (&gt;1000 文件)：agent 逐文件搜索的成本极高</li>
+<li><strong>多语言项目</strong> (iOS Android hybrid、RN)</li>
+<li><strong>需要快速理解他人代码</strong>：一次 explore 拿到 entry point + 调用链</li>
+<li><strong>频繁与 agent 交互的团队</strong>：索引一次，多次使用，成本摊薄</li>
+</ul>
+<h3 id="_4">不应该用<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>极小型项目</strong> (&lt;50 文件)：索引开销可能超过节省</li>
+<li><strong>一次性阅读的代码</strong>：临时 clone 查看，不值得花时间索引</li>
+<li><strong>设备资源极有限</strong>：虽然做了自适应，但需要几百 MB 存储</li>
+<li><strong>纯粹的二进制/配置文件项目</strong>：代码分析没有意义</li>
+</ul>
+<hr />
+<h2 id="8">8. 学习价值<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>从架构层面能学到的：</p>
+<ol>
+<li>
+<p><strong>Rust ↔ TypeScript 混合架构</strong>：Rust 做性能敏感的核心引擎，TS 做 CLI 和集成，边界清晰。迁移策略（byte-for-byte 等价性测试）是工程质量的典范</p>
+</li>
+<li>
+<p><strong>MCP 服务器三模式设计</strong>：Direct/Proxy/Daemon 三个模式覆盖了从开发到生产的所有场景。Daemon 模式的进程隔离和 PPID watchdog 设计非常扎实</p>
+</li>
+<li>
+<p><strong>增量更新策略</strong>：不是每次全量重索引，而是通过文件哈希 + 原生事件监听只处理变化的文件</p>
+</li>
+<li>
+<p><strong>解析引擎路由模式</strong>：WASM → Rust 内核的渐进式迁移，每种语言都有严格的迁移门控，保证不会因内核 Bug 导致数据错误</p>
+</li>
+<li>
+<p><strong>框架感知的二次解析</strong>：基础 AST 解析后，通过框架特定 resolver 做二次加工，将 URL 路径与 handler 关联。这个分层避免了 "一次解析解决所有问题" 的陷阱</p>
+</li>
+<li>
+<p><strong>SQLite schema 设计</strong>：节点+边的基础图模型，FTS5 全文索引，unresolved_refs 的增量解析策略</p>
+</li>
+</ol>
+<hr />
+<h2 id="9">9. 局限性<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>首次索引耗时</strong>：大项目需要几分钟到十几分钟，对于快速迭代有影响</li>
+<li><strong>存储开销</strong>：图谱数据库占用磁盘空间值得关注（VS Code 11k 文件生成 265k tokens 的查询响应）</li>
+<li><strong>MCP 通信开销</strong>：MCP 协议本身有固定的 overhead，短查询场景下可能不划算</li>
+<li><strong>动态语言限制</strong>：Python/Ruby 等动态类型的调用链分析天生有局限性（monkey patching、eval 等）</li>
+<li><strong>tree-sitter 支持边界</strong>：某些语言的高级语法特性 tree-sitter 支持不完整，可能漏掉信息</li>
+<li><strong>单项目范围</strong>：不支持跨项目/跨仓库的图谱查询</li>
+<li><strong>社区成熟度</strong>：项目较新（虽然活动度很高，105 issues, 238 PRs），生态还在成长</li>
+</ol>
+<hr />
+<h2 id="10">10. 行业定位与趋势判断<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<p>CodeGraph 处于 <strong>AI 编码工具基础设施层</strong>，定位是为各类 AI agent 提供共享的代码理解能力。这个位置有几个趋势判断：</p>
+<ol>
+<li><strong>代码图谱将变成标准基础设施</strong>：就像 LSP 是编辑器的标准协议一样，预构建的代码图谱会成为 agent 的标准上下文来源</li>
+<li><strong>MCP 是关键的协议桥梁</strong>：随着 MCP 生态壮大，CodeGraph 这种 MCP-first 的工具会占据生态位</li>
+<li><strong>Rust 在 AI 工具链中崛起</strong>：从代码解析到 LLM 推理，Rust 正在成为 AI 工具链的首选性能语言</li>
+<li><strong>框架感知是分水岭</strong>：基础符号索引已经普及，但框架感知的解析（路由、ORM、DI 容器）是下一阶段的竞争点</li>
+<li><strong>100% 本地化是差异化优势</strong>：在企业级场景中，数据不出域是硬性要求</li>
+</ol>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月24日 03:17:30 UTC">2026年7月24日</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 只在首页生效
+  const contentEl = document.querySelector('.md-content__inner');
+  if (!contentEl) return;
+
+  // 检查是否是首页（Home）
+  const isHome = document.location.pathname === '/' ||
+                 document.location.pathname === '/index.html' ||
+                 document.location.pathname.endsWith('/knowledge/') ||
+                 document.location.pathname.endsWith('/knowledge/index.html') ||
+                 document.location.pathname.endsWith('/knowledge-base/') ||
+                 document.location.pathname.endsWith('/knowledge-base/index.html');
+  if (!isHome) return;
+
+  // 从 site.data 或页面数据构建文章列表
+  // MkDocs Material 不会自动暴露所有页面的 frontmatter，
+  // 所以我们用一个内联的数据对象
+  const articles = window.__kb_articles || [];
+  if (articles.length === 0) return;
+
+  // 构建分类数据
+  const categories = {
+    all: { label: '全部', count: articles.length },
+    concepts: { label: 'Concepts', count: 0 },
+    entities: { label: 'Entities', count: 0 },
+    sources: { label: 'Sources', count: 0 },
+    syntheses: { label: 'Syntheses', count: 0 }
+  };
+
+  const tagSet = new Set();
+  articles.forEach(a => {
+    if (categories[a.category]) categories[a.category].count++;
+    (a.tags || []).forEach(t => tagSet.add(t));
+  });
+
+  // 问候语
+  const hour = new Date().getHours();
+  let greeting = '晚上好';
+  if (hour >= 5 && hour < 12) greeting = '早上好';
+  else if (hour >= 12 && hour < 18) greeting = '下午好';
+
+  // 构建统计 HTML
+  const statsHtml = Object.entries(categories).map(([key, val]) =>
+    `<div class="kb-stat"><span class="kb-stat-num">${val.count}</span><span>${val.label}</span></div>`
+  ).join('');
+
+  // 构建筛选按钮
+  const filtersHtml = Object.entries(categories).map(([key, val]) =>
+    `<button class="kb-filter-btn${key === 'all' ? ' active' : ''}" data-filter="${key}">${val.label} (${val.count})</button>`
+  ).join('');
+
+  // 构建排序按钮
+  const sortHtml = `
+    <div class="kb-sort-bar">
+      <span>排序：</span>
+      <button class="kb-sort-btn active" data-sort="rating">评分 ↓</button>
+      <button class="kb-sort-btn" data-sort="date">最新</button>
+      <button class="kb-sort-btn" data-sort="name">名称</button>
+    </div>
+  `;
+
+  // 构建卡片
+  function renderCards(items) {
+    if (items.length === 0) {
+      return '<div class="kb-no-results">没有找到匹配的文章</div>';
+    }
+    return items.map(a => `
+      <a class="kb-card" href="${a.url}">
+        <div class="kb-card-header">
+          <span class="kb-card-category ${a.category}">${categories[a.category]?.label || a.category}</span>
+          <span class="kb-card-rating">★ ${a.rating || '-'}</span>
+        </div>
+        <h3 class="kb-card-title">${a.title}</h3>
+        <p class="kb-card-desc">${a.description || ''}</p>
+        <div class="kb-card-tags">
+          ${(a.tags || []).map(t => `<span class="kb-card-tag">${t}</span>`).join('')}
+        </div>
+        ${a.date ? `<div class="kb-card-date">${a.date}</div>` : ''}
+      </a>
+    `).join('');
+  }
+
+  // 组装 Dashboard
+  const dashboardHtml = `
+    <div class="kb-dashboard">
+      <div class="kb-greeting">
+        <h1>${greeting}，知识探索者！</h1>
+        <p>共收录 ${articles.length} 篇知识文章，持续更新中</p>
+      </div>
+      <div class="kb-search">
+        <input type="text" id="kb-search-input" placeholder="搜索文章标题、描述或标签...">
+      </div>
+      <div class="kb-filters" id="kb-filters">${filtersHtml}</div>
+      ${sortHtml}
+      <div class="kb-cards" id="kb-cards">${renderCards(articles)}</div>
+    </div>
+  `;
+
+  // 替换首页内容
+  contentEl.innerHTML = dashboardHtml;
+
+  // 筛选逻辑
+  let currentFilter = 'all';
+  let currentSort = 'rating';
+  let searchTerm = '';
+
+  function getFiltered() {
+    let items = articles;
+    if (currentFilter !== 'all') {
+      items = items.filter(a => a.category === currentFilter);
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      items = items.filter(a =>
+        (a.title || '').toLowerCase().includes(q) ||
+        (a.description || '').toLowerCase().includes(q) ||
+        (a.tags || []).some(t => t.toLowerCase().includes(q))
+      );
+    }
+    // 排序
+    if (currentSort === 'rating') {
+      items.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (currentSort === 'date') {
+      items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    } else if (currentSort === 'name') {
+      items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    }
+    return items;
+  }
+
+  function refresh() {
+    document.getElementById('kb-cards').innerHTML = renderCards(getFiltered());
+  }
+
+  // 事件绑定
+  document.getElementById('kb-filters').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-filter-btn')) return;
+    this.querySelectorAll('.kb-filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    refresh();
+  });
+
+  document.getElementById('kb-search-input').addEventListener('input', function(e) {
+    searchTerm = e.target.value;
+    refresh();
+  });
+
+  document.querySelector('.kb-sort-bar').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('kb-sort-btn')) return;
+    this.querySelectorAll('.kb-sort-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentSort = e.target.dataset.sort;
+    refresh();
+  });
+});
+</script>
+
+  </body>
+</html>
