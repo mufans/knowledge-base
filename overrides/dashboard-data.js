@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-24 14:57:28
-// Total articles: 233
+// Generated: 2026-07-24 22:12:04
+// Total articles: 234
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -63,6 +63,21 @@ window.__kb_articles = [
     "description": "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界",
     "date": "2026-05-26",
     "url": "wiki/concepts/Claude-Agent-Harness-Patterns"
+  },
+  {
+    "title": "Verification Loops — Agent编码的自动验证闭环",
+    "category": "concepts",
+    "tags": [
+      "Claude-Code",
+      "Verification",
+      "Agent-Engineering",
+      "CI-CD",
+      "Skills"
+    ],
+    "rating": 9.5,
+    "description": "Anthropic提出的Agent编码验证闭环模式：通过Skills将手动检查步骤编码为自动化验证流程，在Agent执行过程中自动校验并修复代码质量",
+    "date": "2026-07-24",
+    "url": "wiki/concepts/Verification-Loops"
   },
   {
     "title": "Anthropic Agent API 新能力",

@@ -2496,6 +2496,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-07-24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-24 更新：全量桌面体验上云 + 企业级部署控制
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2697,6 +2708,21 @@ Private Marketplace（企业内部分发）
 <li><strong>分批开放</strong>：Beta 优先面向 Max 用户开放，后续逐步扩大到更多计划</li>
 </ul>
 <p><strong>核心意义</strong>：Cowork 从桌面 CLI 扩展到移动+Web 是题中应有之义。但对用户而言，真正的增量价值是后台持续运行的能力——"close the laptop, work keeps going" 意味着 Agent 从"实时协作者"升级为"后台自主执行者"。对经常移动办公的用户而言，这是 AI Agent 从桌面工具向全天候助手的自然演进。</p>
+<h3 id="2026-07-24">2026-07-24 更新：全量桌面体验上云 + 企业级部署控制<a class="headerlink" href="#2026-07-24" title="Permanent link">&para;</a></h3>
+<p>来源：<a href="https://claude.com/blog/the-full-claude-desktop-experience-on-aws-google-cloud-and-microsoft-foundry">The full Claude Desktop experience on AWS, Google Cloud, and Microsoft Foundry</a></p>
+<p>2026年6月22日，Anthropic 宣布 Claude Desktop Chat 功能上线 AWS、Google Cloud 和 Microsoft Foundry 部署方案。此前这三个云平台仅有 Claude Cowork 和 Claude Code，现在 Chat 也可在企业自控推理环境中运行。</p>
+<p><strong>全桌面三件套上云</strong>：
+- <strong>Chat</strong>：快速问答和问题思考，使用企业自控推理
+- <strong>Claude Cowork</strong>：跨经批准的来源研究、操作设备上文件、构建交付成果
+- <strong>Claude Code</strong>：工程师的 Agent 编码终端（非 CLI 形式）</p>
+<p><strong>各表面独立策略控制</strong>：每个产品（Chat/Cowork/Code）有独立的 policy key，管理员可精确控制谁用什么功能。非技术团队用 Chat+Cowork，工程师用 Code，后续逐步扩大。</p>
+<p><strong>企业级部署控制：</strong>
+- <strong>SSO</strong>：支持 IAM Identity Center、Workforce Identity Federation、Microsoft Entra ID、任意 OIDC 提供商（如 Okta），不依赖共享密钥或云凭据
+- <strong>MDM 策略模板</strong>：从设置 UI 导出策略模板，通过 Intune、GPO 或 Jamf 分发。提供离线安装包覆盖气隙环境
+- <strong>预部署验证</strong>：在全组织推广前，可测试所有 Connector、确认可用模型、验证连接
+- <strong>模型守卫</strong>：即使在配置错误时，也能确保推理始终路由到 Claude（包括 GovCloud）
+- <strong>M365 Connector</strong>：通过企业自有 Entra 应用接入邮件和文档，支持 GCC High/DoD 端点，可选本地 Connector 模式（连接不离开设备与 Microsoft 之间）</p>
+<p><strong>核心意义</strong>：企业从零散部署 Agent 工具转向统一管理——一个身份、一套策略、多表面选择性开放。"一个部署覆盖所有角色" 的产品思路对 Agent 产品设计有参考价值：不用追求单一万能界面，而是让不同角色在各自习惯的界面上使用同一底层能力。</p>
 
 
 
@@ -2717,7 +2743,7 @@ Private Marketplace（企业内部分发）
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月24日 06:57:42 UTC">2026年7月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月24日 14:12:19 UTC">2026年7月24日</span>
   </span>
 
     

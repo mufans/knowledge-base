@@ -2490,6 +2490,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-07-24-managed-agents-vaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-24 更新：Managed Agents 定时调度 + 安全凭据 Vaults
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2497,17 +2508,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        可执行建议
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         自评
@@ -2786,14 +2786,22 @@ score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 
 - 用户完全控制：网络策略、审计日志、安全工具、资源规格、运行时镜像</p>
 <p><strong>核心意义</strong>：此前Managed Agents的工具执行在Anthropic管理的沙箱中，企业无法完全控制敏感数据的边界。现在工具执行移至企业基础设施内，文件和代码库不离开企业边界。Agent从"实验工具"走向企业级部署的关键一步——安全边界问题得到实质性解决。</p>
 <p><strong>MCP Tunnels</strong>：允许Agent连接企业内部的MCP服务器，无需将服务暴露到公网。结合自托管沙箱，形成完整的"Agent在企业边界内工作"方案。</p>
-<h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>立即评估Code Execution API</strong>：如果SI项目需要数据分析能力，这比自建沙箱执行环境成本低得多（50小时/天免费）</li>
-<li><strong>MCP Connector替代自建client</strong>：目前连接MCP服务器需要写客户端代码，API层Connector可直接使用，减少维护成本</li>
-<li><strong>Files API用于知识库场景</strong>：知识库项目的文档可以上传一次反复使用，避免每次请求都传文件</li>
-<li><strong>Extended Caching用于长流程Agent</strong>：如果构建多步骤Agent工作流，1小时TTL缓存可大幅降低成本（最高90%）</li>
-</ol>
-<h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="2026-07-24-managed-agents-vaults">2026-07-24 更新：Managed Agents 定时调度 + 安全凭据 Vaults<a class="headerlink" href="#2026-07-24-managed-agents-vaults" title="Permanent link">&para;</a></h3>
+<p>来源：<a href="https://claude.com/blog/whats-new-in-claude-managed-agents">New in Claude Managed Agents: run agents on a schedule and store environment variables in vaults</a></p>
+<p>2026年6月9日，Claude Managed Agents 推出两项新能力：<strong>定时调度（Scheduled Deployments）</strong> 和 <strong>凭据 Vaults</strong>，均处于 Public Beta 阶段。</p>
+<p><strong>Scheduled Deployments（定时调度）</strong>：
+- Agent 可按 Cron 表达式自动执行，完成重复性工作
+- 每次调度触发时，Agent 启动新会话并完成任务，无需自建调度器或托管基础设施
+- 适用于：夜间数据同步、每周合规扫描、每日摘要生成
+- 支持暂停、恢复、归档调度，以及手动按需触发</p>
+<p><strong>Vaults（安全凭据存储）</strong>：
+- Agent 可安全访问 CLI 工具和其他认证服务所需的凭据
+- 凭据以加密方式存储在 Vault 中，Agent 运行时自动注入
+- 解决了 Agent 自动化场景中：如果SI项目需要数据分析能力，这比自建沙箱执行环境成本低得多（50小时/天免费）
+2. <strong>MCP Connector替代自建client</strong>：目前连接MCP服务器需要写客户端代码，API层Connector可直接使用，减少维护成本
+3. <strong>Files API用于知识库场景</strong>：知识库项目的文档可以上传一次反复使用，避免每次请求都传文件
+4. <strong>Extended Caching用于长流程Agent</strong>：如果构建多步骤Agent工作流，1小时TTL缓存可大幅降低成本（最高90%）</p>
+<h2 id="_5">自评<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2865,7 +2873,7 @@ score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月24日 06:57:42 UTC">2026年7月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月24日 14:12:19 UTC">2026年7月24日</span>
   </span>
 
     
