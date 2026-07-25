@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="tags: #Claude-Fable-5 #Anthropic #Adaptive-Reasoning #Max-Effort #Frontier-Model">
+        <meta name="description" content="Anthropic前沿推理模型，采用自适应推理机制自动调整推理深度，在Cursor和Cognition企业场景验证为可无人值守运行的编码Agent">
       
       
         <meta name="author" content="mufans">
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 或者我们可以从 page.meta 中获取const dateEl = document.querySelector('.md-source-date');
   if (dateEl) {
     dateEl.style.display = '';
-    dateEl.textContent = '2026-07-10';
+    dateEl.textContent = '2026-07-25';
   }});
 </script>
 
@@ -2413,6 +2413,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-07-25-cursorcognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-25 更新：Cursor与Cognition的企业级信任验证
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2575,11 +2586,20 @@ score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 
 - Fable 5 展示了超越语言模型的数学推理能力——不仅是"计算"，而是"发现"和"证明"
 - 陶哲轩使用 ChatGPT 验证结果，标志着 AI 辅助数学研究的实际落地
 - 与 <a href="../GPT-5.6/">GPT-5.6</a> 的 Agent 编程和代码生成能力形成对比：不同模型在"智能"的侧重点上各有长短，Fable 在数学/科学推理上有独特优势</p>
+<h3 id="2026-07-25-cursorcognition">2026-07-25 更新：Cursor与Cognition的企业级信任验证<a class="headerlink" href="#2026-07-25-cursorcognition" title="Permanent link">&para;</a></h3>
+<p>两大AI编程工具厂商在Claude Blog上分享了Fable 5在生产环境中的信任验证结果：</p>
+<p><strong>Cursor（Nate Schmidt，模型评估负责人）</strong>：Nate的工作就是评估前沿模型处理长期、真实工程问题的能力。Cursor为Fable 5设计了CoderBench，专门测试模型在长耗时（多轮次）复杂编码任务上的表现。Fable 5在CoderBench上达成绩效基准，扩展了Cursor对Agentic coding的能力边界。核心信号：<strong>Fable 5能够处理最难的1%编码问题</strong>。</p>
+<p><strong>Cognition Devin（Silas Alberti，研究SVP）</strong>：Silas在Devin（Cognition的AI软件工程师产品）中测试了几乎所有Claude模型，<strong>Fable 5是第一个他愿意留下运行一整夜（8小时无人值守）并交付生产级代码的模型</strong>。这意味着Fable 5在长时间自主运行的可靠性上达到了质变——经过验证可以信任模型独立完成复杂工程任务。</p>
+<p><strong>事件意义</strong>：
+- Fable 5的可靠性已通过两个顶级AI编程产品（Cursor和Devin）的生产验证
+- 从"需要人工监督"到"可无人值守"——这是Agent可靠性的一个关键门槛突破
+- 与Sol在编程bench上的领先形成互补：Sol在评估指标上领先，Fable 5在长时间自主运行的稳定性上得到业界验证</p>
 <h2 id="_5">关联分析<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="../GPT-5.6/">GPT-5.6</a></strong>：直接竞品，Anthropic 与 OpenAI 的最新旗舰对决</li>
 <li><strong>Adaptive Reasoning vs 分级推理</strong>：两种设计哲学——自动 vs 手动，各有优劣</li>
 <li>Fable 5 在 AI Index 排名 #1 但被 Sol 在多个具体 bench 上超越，说明"综合排名"不代表"所有场景最优"</li>
+<li><strong>CursorBench vs Terminal-Bench</strong>：不同评测环境的设计差异反映了Agent能力评估的碎片化问题——"在哪个bench上赢"比"赢了多少分"更重要</li>
 </ul>
 <h2 id="_6">可执行建议<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <ol>
@@ -2656,7 +2676,7 @@ score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月24日 14:31:50 UTC">2026年7月24日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月25日 14:31:05 UTC">2026年7月25日</span>
   </span>
 
     

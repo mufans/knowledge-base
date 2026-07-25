@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-24 22:31:37
-// Total articles: 234
+// Generated: 2026-07-25 22:30:50
+// Total articles: 237
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -63,6 +63,21 @@ window.__kb_articles = [
     "description": "Anthropic官方推荐的Agent Harness设计三原则：利用已有能力、持续减负、谨慎设界",
     "date": "2026-05-26",
     "url": "wiki/concepts/Claude-Agent-Harness-Patterns"
+  },
+  {
+    "title": "NVIDIA OO Agents：面向对象Agent编程范式",
+    "category": "concepts",
+    "tags": [
+      "Agent-Framework",
+      "Object-Oriented",
+      "NVIDIA",
+      "Python",
+      "Tool-Calling"
+    ],
+    "rating": 9.5,
+    "description": "NVIDIA提出的Agent-as-Python-object编程范式，用Python原生对象替代prompt模板+tool schema的Agent开发方法",
+    "date": "2026-07-25",
+    "url": "wiki/concepts/NVIDIA-OO-Agents"
   },
   {
     "title": "Verification Loops — Agent编码的自动验证闭环",
@@ -462,6 +477,21 @@ window.__kb_articles = [
     "url": "wiki/entities/Android-CLI-AI-Agent"
   },
   {
+    "title": "Android Studio Quail 2：多Agent并行编程IDE",
+    "category": "entities",
+    "tags": [
+      "Android-Studio",
+      "Multi-Agent",
+      "AI-Coding",
+      "Google",
+      "Mobile-Dev"
+    ],
+    "rating": 9.0,
+    "description": "Android Studio Quail 2发布，Agent Mode全面重新设计支持多个AI对话并行运行，集成LeakCanary和Android Bench基准测试",
+    "date": "2026-07-25",
+    "url": "wiki/entities/Android-Studio-Quail-2"
+  },
+  {
     "title": "BraveGuard — Computer-Use Agent自适应安全防护框架",
     "category": "entities",
     "tags": [
@@ -520,6 +550,19 @@ window.__kb_articles = [
     "description": "Anthropic为Claude Code推出的自托管控制网关，支持SSO登录、集中策略、角色权限和成本归属，可接入Amazon Bedrock和Google Cloud",
     "date": "2026-07-21",
     "url": "wiki/entities/Claude-Apps-Gateway"
+  },
+  {
+    "title": "Claude Fable 5",
+    "category": "entities",
+    "tags": [
+      "Claude",
+      "GitHub",
+      "开源项目"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic前沿推理模型，采用自适应推理机制自动调整推理深度，在Cursor和Cognition企业场景验证为可无人值守运行的编码Agent",
+    "date": "2026-07-25",
+    "url": "wiki/entities/Claude-Fable-5"
   },
   {
     "title": "Colibri：纯C MoE推理引擎",
@@ -978,6 +1021,21 @@ window.__kb_articles = [
     "description": "Anthropic官方解读Claude Code的两个调节旋钮：Model=能力范围（Fable/Opus/Sonnet选型），Effort=工作深度（控制读取文件数、验证步骤、多步推进程度）",
     "date": "2026-07-19",
     "url": "wiki/sources/Claude-Code-Effort-Model-Guide"
+  },
+  {
+    "title": "Claude模型选择指南：Mythos/Fable/Opus/Sonnet/Haiku选型策略",
+    "category": "sources",
+    "tags": [
+      "Claude",
+      "Model-Selection",
+      "Effort-Level",
+      "Cost-Optimization",
+      "Anthropic"
+    ],
+    "rating": 9.0,
+    "description": "Anthropic官方Claude模型选择指南，涵盖Mythos/Fable/Opus/Sonnet/Haiku五类模型及Effort Level调优策略，以实际案例说明如何平衡质量、速度和成本",
+    "date": "2026-07-25",
+    "url": "wiki/sources/Claude-Model-Selection-Guide"
   },
   {
     "title": "Ello：<1000ms实时AI教学系统架构",
@@ -1554,19 +1612,6 @@ window.__kb_articles = [
     "description": "tags: #Autonomous-Agent #TypeScript #NextJS #LangChain #Browser-Agent",
     "date": "2026-05-12",
     "url": "wiki/entities/AgentGPT"
-  },
-  {
-    "title": "Claude Fable 5",
-    "category": "entities",
-    "tags": [
-      "Claude",
-      "GitHub",
-      "开源项目"
-    ],
-    "rating": 8.5,
-    "description": "tags: #Claude-Fable-5 #Anthropic #Adaptive-Reasoning #Max-Effort #Frontier-Model",
-    "date": "2026-07-10",
-    "url": "wiki/entities/Claude-Fable-5"
   },
   {
     "title": "Codex Mobile: OpenAI编程Agent进入移动端",
