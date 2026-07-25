@@ -1,3 +1,31 @@
+## 📊 周度成长报告 - 2026-07-25（第4周）
+
+### 核心指标
+| 指标 | 数值 | vs上周 |
+|------|------|--------|
+| 代码提交(SI) | 0 | → 持平 |
+| 新增wiki页面 | 33 (15 concepts + 18 sources) | ↑ 371% |
+| 采集文章(inbox) | 37 | ↑ 517% |
+
+### Top 5 技术收获
+1. **Jet-Long: 动态双焦点RoPE长上下文扩展** - 低成本扩展LLM上下文窗口
+2. **Agent工作流模式** - 顺序/并行/评估-优化三大范式
+3. **Self-Evolving Agent** - Agent自进化范式（MLEvolve/EvoDS/SePO）
+4. **CoHyDE 工具检索** - LLM Rewriter+Dense Encoder迭代协同训练
+5. **Agent MetaSKILLs** - 程序化技能扩展替代静态SKILL.md
+
+### ⚠️ 待办
+- DingTalk推送异常（robot凭证，需检查gateway配置）
+- SI项目连续两周零commit，需恢复编码节奏
+
+### 🎯 下周聚焦
+1. 修复DingTalk推送
+2. SI项目恢复小步提交
+3. inbox→wiki质量审查
+4. 深度消化1-2篇高价值论文
+
+---
+
 ## 2026-07-24 知识提炼
 2026-07-24 | ingest | raw/inbox/2026-07-24-Claude博客.md | 创建concepts/Verification-Loops.md（自评8.60）
 2026-07-24 | update | raw/inbox/2026-07-24-Claude博客.md | 更新entities/Claude-Cowork.md（合并全量桌面三件套上云+企业级部署控制）
@@ -272,3 +300,24 @@
 - 2026-07-24 技术动态：采集15条，来源 InfoQ/Solidot/DEV/OSChina
 
 2026-07-24 | Claude Blog采集 | raw/inbox/2026-07-24-Claude博客.md | 采集5篇，最高分9.5[2026-07-24] 社交媒体AI动态日报 → [2026-07-24-社交媒体.md](knowledge/raw/inbox/2026-07-24-社交媒体.md)
+
+- 2026-07-25 新闻热点已采集：AI/大模型(2条)、编程/开发工具(2条)、移动端(2条)、云原生/后端(2条)、开源/硬件(2条)
+- 2026-07-25 技术动态：采集20条，来源 InfoQ/Solidot/DEV/OSChina
+
+2026-07-25 | Claude Blog采集 | raw/inbox/2026-07-25-Claude博客.md | 采集5篇，最高分9.5
+## 2026-07-25 社交媒体AI动态
+- [2026-07-25-社交媒体.md](knowledge/raw/inbox/2026-07-25-社交媒体.md)
+- 来源: HN + Reddit r/artificial + r/LocalLLaMA
+- 关键词: Claude Opus 5, 开源模型监管, KV-cache, 端侧AI, AI透明度, AI Agent
+
+## 2026-07-25 知识提炼
+2026-07-25 | ingest | raw/inbox/2026-07-25-AI论文.md | 创建concepts/NVIDIA-OO-Agents.md（自评8.40）
+2026-07-25 | ingest | raw/inbox/2026-07-25-技术动态.md | 创建entities/Android-Studio-Quail-2.md（自评8.35）
+2026-07-25 | ingest | raw/inbox/2026-07-25-Claude博客.md | 创建sources/Claude-Model-Selection-Guide.md（自评8.65）
+2026-07-25 | update | raw/inbox/2026-07-25-Claude博客.md | 更新entities/Claude-Fable-5.md（合并Cursor与Cognition企业信任验证）
+2026-07-25 | skip | raw/inbox/2026-07-25-AI论文.md | ReferTrack/ICAE-Bench/FinanceComplexQA评分<7.0（方向不匹配）；Multi-Turn On-Policy Distillation已有Self-Evolving-Agent页面
+2026-07-25 | skip | raw/inbox/2026-07-25-Claude博客.md | Claude Certifications评分<7.0（企业商务新闻，技术深度不足）；Claude Voice Mode评分<6.5（产品公告，无技术细节）
+2026-07-25 | skip | raw/inbox/2026-07-25-GitHub项目.md | 3个项目均低于7.0（低星项目，技术细节不足，与AI Agent+移动端交叉领域不匹配）
+2026-07-25 | skip | raw/inbox/2026-07-25-技术动态.md | GPT-5.6 Sol/OpenCode重写已有页面覆盖；GKE安全蓝图/G#/菲尔兹奖加入OpenAI方向不匹配；80行Agent标题级无正文；Pinecone Nexus/CodeBuddy NPC InfoQ文章采集但技术细节不足以独立成页，合并到后续提炼
+2026-07-25 | skip | raw/inbox/2026-07-25-新闻热点.md | Claude Opus 5发布、GPT-5.6 Sol/OpenCode等内容与技术动态/社交媒体重叠；OpenSQZ等标题级无正文
+2026-07-25 | skip | raw/inbox/2026-07-25-社交媒体.md | CachyLLama/DKV/AMD Instella/Gemma 4 iPhone/Stripe OpenRouter/Stack v3等评分<7.0（话题提及级，技术细节不足）；NOVA symbolic AI方向不匹配

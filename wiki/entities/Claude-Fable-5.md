@@ -2,9 +2,9 @@
 title: "Claude Fable 5"
 category: "entities"
 tags: ["Claude", "GitHub", "开源项目"]
-rating: 8.5
-description: "tags: #Claude-Fable-5 #Anthropic #Adaptive-Reasoning #Max-Effort #Frontier-Model"
-date: "2026-07-10"
+rating: 9.0
+description: "Anthropic前沿推理模型，采用自适应推理机制自动调整推理深度，在Cursor和Cognition企业场景验证为可无人值守运行的编码Agent"
+date: "2026-07-25"
 ---
 
 # Claude Fable 5：Anthropic 前沿推理模型
@@ -70,11 +70,25 @@ Claude Fable 在 2026 年 7 月给出了 Jacobian 猜想的反例——数学界
 - 陶哲轩使用 ChatGPT 验证结果，标志着 AI 辅助数学研究的实际落地
 - 与 [GPT-5.6](GPT-5.6.md) 的 Agent 编程和代码生成能力形成对比：不同模型在"智能"的侧重点上各有长短，Fable 在数学/科学推理上有独特优势
 
+### 2026-07-25 更新：Cursor与Cognition的企业级信任验证
+
+两大AI编程工具厂商在Claude Blog上分享了Fable 5在生产环境中的信任验证结果：
+
+**Cursor（Nate Schmidt，模型评估负责人）**：Nate的工作就是评估前沿模型处理长期、真实工程问题的能力。Cursor为Fable 5设计了CoderBench，专门测试模型在长耗时（多轮次）复杂编码任务上的表现。Fable 5在CoderBench上达成绩效基准，扩展了Cursor对Agentic coding的能力边界。核心信号：**Fable 5能够处理最难的1%编码问题**。
+
+**Cognition Devin（Silas Alberti，研究SVP）**：Silas在Devin（Cognition的AI软件工程师产品）中测试了几乎所有Claude模型，**Fable 5是第一个他愿意留下运行一整夜（8小时无人值守）并交付生产级代码的模型**。这意味着Fable 5在长时间自主运行的可靠性上达到了质变——经过验证可以信任模型独立完成复杂工程任务。
+
+**事件意义**：
+- Fable 5的可靠性已通过两个顶级AI编程产品（Cursor和Devin）的生产验证
+- 从"需要人工监督"到"可无人值守"——这是Agent可靠性的一个关键门槛突破
+- 与Sol在编程bench上的领先形成互补：Sol在评估指标上领先，Fable 5在长时间自主运行的稳定性上得到业界验证
+
 ## 关联分析
 
 - **[GPT-5.6](GPT-5.6.md)**：直接竞品，Anthropic 与 OpenAI 的最新旗舰对决
 - **Adaptive Reasoning vs 分级推理**：两种设计哲学——自动 vs 手动，各有优劣
 - Fable 5 在 AI Index 排名 #1 但被 Sol 在多个具体 bench 上超越，说明"综合排名"不代表"所有场景最优"
+- **CursorBench vs Terminal-Bench**：不同评测环境的设计差异反映了Agent能力评估的碎片化问题——"在哪个bench上赢"比"赢了多少分"更重要
 
 ## 可执行建议
 

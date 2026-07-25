@@ -55,4 +55,5 @@
 - [MentalThink](MentalThink.md)
 - [Agentic-Resource-Discovery](Agentic-Resource-Discovery.md) (2026-07-23)
 - [NexForge](NexForge.md) (2026-07-23)
+- [NVIDIA-OO-Agents](NVIDIA-OO-Agents.md) (2026-07-25)
 - [Resource2Skill](Resource2Skill.md) (2026-07-21)
