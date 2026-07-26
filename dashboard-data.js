@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-25 22:30:50
-// Total articles: 237
+// Generated: 2026-07-26 22:14:14
+// Total articles: 238
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -406,6 +406,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/Multi-Agent-Systems-Design"
   },
   {
+    "title": "OpenForgeRL：Harness原生Agent的端到端RL训练",
+    "category": "concepts",
+    "tags": [
+      "RL-Training",
+      "Agent-Harness",
+      "OpenForgeRL",
+      "veRL",
+      "Kubernetes"
+    ],
+    "rating": 9.0,
+    "description": "微软开源框架，通过轻量代理+K8s编排将Claude Code/Codex等Agent Harness接入标准RL训练流程，解决复杂harness无法端到端训练的工程难题",
+    "date": "2026-07-26",
+    "url": "wiki/concepts/OpenForgeRL"
+  },
+  {
     "title": "Self-Evolving Agent：自进化智能体范式",
     "category": "concepts",
     "tags": [
@@ -556,12 +571,13 @@ window.__kb_articles = [
     "category": "entities",
     "tags": [
       "Claude",
-      "GitHub",
-      "开源项目"
+      "Anthropic",
+      "Frontier-Model",
+      "Agent-Architecture"
     ],
     "rating": 9.0,
-    "description": "Anthropic前沿推理模型，采用自适应推理机制自动调整推理深度，在Cursor和Cognition企业场景验证为可无人值守运行的编码Agent",
-    "date": "2026-07-25",
+    "description": "Anthropic前沿推理模型，采用自适应推理机制，在Cursor/Cognition/乐天三家企业验证了自验证、Taste Alignment和长时无人值守Agent运行能力",
+    "date": "2026-07-26",
     "url": "wiki/entities/Claude-Fable-5"
   },
   {
@@ -1280,6 +1296,20 @@ window.__kb_articles = [
     "url": "wiki/syntheses/SmartPerfetto-vs-SmartInspector对比分析"
   },
   {
+    "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",
+    "category": "concepts",
+    "tags": [
+      "Context-Engineering",
+      "Prompt-Design",
+      "Production-AI",
+      "Agent-Architecture"
+    ],
+    "rating": 8.8,
+    "description": "从Carta Healthcare 99%准确率到YC startup工作流，再到Claude 5代模型的'少即是多'范式：Context Engineering从'加什么'到'删什么'的演进",
+    "date": "2026-07-26",
+    "url": "wiki/concepts/Context-Engineering"
+  },
+  {
     "title": "Claude Code Routines - 云端自动化任务编排",
     "category": "entities",
     "tags": [
@@ -1390,20 +1420,6 @@ window.__kb_articles = [
     "description": "论文提出超越语义相似度的Agent检索新范式，通过直接语料交互替代传统向量匹配",
     "date": "2026-05-09",
     "url": "wiki/concepts/Agentic-Search-Retrieval"
-  },
-  {
-    "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",
-    "category": "concepts",
-    "tags": [
-      "Context-Engineering",
-      "Prompt-Design",
-      "Production-AI",
-      "Agent-Architecture"
-    ],
-    "rating": 8.5,
-    "description": "从Carta Healthcare 99%准确率和YC startup工作流中提炼的context engineering核心方法论：喂给模型什么比模型本身更重要",
-    "date": "2026-05-18",
-    "url": "wiki/concepts/Context-Engineering"
   },
   {
     "title": "LLM文档编辑腐蚀问题",

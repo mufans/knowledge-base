@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="从Carta Healthcare 99%准确率和YC startup工作流中提炼的context engineering核心方法论：喂给模型什么比模型本身更重要">
+        <meta name="description" content="从Carta Healthcare 99%准确率到YC startup工作流，再到Claude 5代模型的'少即是多'范式：Context Engineering从'加什么'到'删什么'的演进">
       
       
         <meta name="author" content="mufans">
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 或者我们可以从 page.meta 中获取const dateEl = document.querySelector('.md-source-date');
   if (dateEl) {
     dateEl.style.display = '';
-    dateEl.textContent = '2026-05-18';
+    dateEl.textContent = '2026-07-26';
   }});
 </script>
 
@@ -2352,6 +2352,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2026-07-26-claude-5context-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-07-26 更新：Claude 5代模型的Context Engineering新规则
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2424,8 +2435,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <h1 id="context-engineeringcarta-healthcareyc-startups">Context Engineering：从Carta Healthcare到YC Startups的实践<a class="headerlink" href="#context-engineeringcarta-healthcareyc-startups" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p>tags: #Context-Engineering #Prompt-Design #Production-AI #Agent-Architecture
-source: <a href="https://claude.com/blog/carta-healthcare-clinical-abstractor">Carta Healthcare</a> | <a href="https://claude.com/blog/building-companies-with-claude-code">YC Startups</a>
-score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.5/10</p>
+source: <a href="https://claude.com/blog/carta-healthcare-clinical-abstractor">Carta Healthcare</a> | <a href="https://claude.com/blog/building-companies-with-claude-code">YC Startups</a> | <a href="https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models">Claude Blog New Rules</a>
+score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.75/10</p>
 </blockquote>
 <h2 id="_1">核心概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>Context Engineering是指<strong>系统性地设计输入给LLM的上下文内容、顺序和范围</strong>，使其性能最大化。这不是简单的prompt技巧，而是一整套工程化流程：决定包含什么、排除什么、以什么顺序呈现。核心洞察：<strong>最好的prompt配错误的context = 错误的输出；简单的prompt配正确的context = 正确的输出</strong>。</p>
@@ -2454,6 +2465,24 @@ score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 
 <p><strong>3. 非技术创始人的语言优势</strong>
 - Vulcan的Jones（高中后没写过代码）用Claude Code赢了政府合同，4个月融了$11M
 - 洞察：语言能力和批判性思维比编程技能更重要——"如果你擅长组织有序列表、嵌套要点和清晰流程，你的prompt可能执行得更好"</p>
+<h3 id="2026-07-26-claude-5context-engineering">2026-07-26 更新：Claude 5代模型的Context Engineering新规则<a class="headerlink" href="#2026-07-26-claude-5context-engineering" title="Permanent link">&para;</a></h3>
+<p>Anthropic于2026年7月发布面向Claude 5代模型（Opus 5、Fable 5）的Context Engineering新规则，核心发现是：<strong>对于更强大的模型，更少的约束反而带来更好的结果</strong>。</p>
+<p><strong>关键发现</strong></p>
+<ol>
+<li>
+<p><strong>删除80%+系统提示词</strong>：Anthropic从Claude Code中删除了超过80%的系统提示词，在编码评估上没有任何可测量的性能损失。这与此前"提示词越详细越好"形成直接矛盾。</p>
+</li>
+<li>
+<p><strong>"Unhobbling" Claude（解除束缚）</strong>：团队在审查内部使用记录时发现，同一个请求中收到多条冲突指令——"适当写文档"来自系统提示，"不要加注释"来自用户请求，"遵循最佳实践"来自skills。多重约束相互矛盾，反而限制了模型的能力发挥。</p>
+</li>
+<li>
+<p><strong>旧的最佳实践已成迷思</strong>：为早期模型（Claude 3/4）设计的context engineering最佳实践，在Claude 5代模型上可能适得其反。模型能力的跃升要求重新审视每一条约束的必要性。</p>
+</li>
+<li>
+<p><strong><code>claude doctor</code> 自动调整</strong>：新增<code>/doctor</code>命令，自动扫描并优化skills和CLAUDE.md文件，删除过时或冲突的约束。</p>
+</li>
+</ol>
+<p><strong>trade-off分析</strong>：删减context的核心风险是失去行为控制（安全边界、品牌调性）。这不是简单的"全部删掉"，而是精准识别哪些约束对当前模型是必要的、哪些是历史遗留。对于企业级部署，需要在"充分信任模型能力"和"维持必要安全边界"之间找到新平衡。</p>
 <h2 id="_3">关键实现<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <pre><code class="language-python"># Carta Healthcare的context精确化模式
 # 不是简单的 &quot;find glucose value&quot;
@@ -2480,6 +2509,7 @@ for phase in plan.phases:
 <li><a href="../../entities/Claude-Code-Source-Analysis/">Claude-Code-Source-Analysis</a> — Claude Code的上下文管理</li>
 <li><a href="../Prompt-Caching-Pitfalls/">Prompt-Caching-Pitfalls</a> — Prompt缓存陷阱</li>
 <li><a href="../Agent-Control-Flow/">Agent-Control-Flow</a> — Agent流程控制模式</li>
+<li><a href="../Verification-Loops/">Verification-Loops</a> — Agent编码验证闭环，与context engineering形成互补</li>
 </ul>
 <h2 id="_5">可执行建议<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ol>
@@ -2488,6 +2518,8 @@ for phase in plan.phases:
 <li><strong>采用三阶段分离工作流</strong>：研究→规划→实现，每阶段独立session</li>
 <li><strong>消除上下文矛盾</strong>：使用前检查prompt中是否存在冲突信息</li>
 <li><strong>非技术人员也能高效使用AI</strong>：重点训练结构化表达能力而非编程技能</li>
+<li><strong>定期审查context约束</strong>：每次模型升级时，重新评估每条约束的必要性——如果删掉不影响质量就删掉</li>
+<li><strong>运行 <code>claude doctor</code></strong>：使用新命令自动优化skills和CLAUDE.md配置</li>
 </ol>
 <h2 id="_6">自评<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <table>
@@ -2508,9 +2540,9 @@ for phase in plan.phases:
 </tr>
 <tr>
 <td>技术深度</td>
-<td>8</td>
+<td>9</td>
 <td>0.25</td>
-<td>2.00</td>
+<td>2.25</td>
 </tr>
 <tr>
 <td>相关性</td>
@@ -2534,7 +2566,7 @@ for phase in plan.phases:
 <td><strong>加权总分</strong></td>
 <td></td>
 <td></td>
-<td><strong>8.60</strong></td>
+<td><strong>8.85</strong></td>
 </tr>
 </tbody>
 </table>
@@ -2558,7 +2590,7 @@ for phase in plan.phases:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月25日 14:31:05 UTC">2026年7月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月26日 14:14:29 UTC">2026年7月26日</span>
   </span>
 
     
