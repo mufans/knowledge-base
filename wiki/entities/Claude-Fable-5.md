@@ -1,10 +1,10 @@
 ---
 title: "Claude Fable 5"
 category: "entities"
-tags: ["Claude", "GitHub", "开源项目"]
+tags: ["Claude", "Anthropic", "Frontier-Model", "Agent-Architecture"]
 rating: 9.0
-description: "Anthropic前沿推理模型，采用自适应推理机制自动调整推理深度，在Cursor和Cognition企业场景验证为可无人值守运行的编码Agent"
-date: "2026-07-25"
+description: "Anthropic前沿推理模型，采用自适应推理机制，在Cursor/Cognition/乐天三家企业验证了自验证、Taste Alignment和长时无人值守Agent运行能力"
+date: "2026-07-26"
 ---
 
 # Claude Fable 5：Anthropic 前沿推理模型
@@ -12,7 +12,7 @@ date: "2026-07-25"
 > tags: #Claude-Fable-5 #Anthropic #Adaptive-Reasoning #Max-Effort #Frontier-Model
 > source: [Artificial Analysis](https://artificialanalysis.ai/models/claude-fable-5) | [OpenAI GPT-5.6发布引用](https://openai.com/index/gpt-5-6/)
 > project: [Anthropic](https://www.anthropic.com)
-> score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.75/10
+> score: 技术深度9/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 9.0/10
 
 ## 核心概念
 
@@ -82,6 +82,32 @@ Claude Fable 在 2026 年 7 月给出了 Jacobian 猜想的反例——数学界
 - Fable 5的可靠性已通过两个顶级AI编程产品（Cursor和Devin）的生产验证
 - 从"需要人工监督"到"可无人值守"——这是Agent可靠性的一个关键门槛突破
 - 与Sol在编程bench上的领先形成互补：Sol在评估指标上领先，Fable 5在长时间自主运行的稳定性上得到业界验证
+
+### 2026-07-26 更新：Rakuten企业级Agent实战——自验证与Taste Alignment
+
+Rakuten在Claude Blog上分享了使用Claude Fable 5构建企业级Agent的实战案例，揭示了Fable 5区别于前代模型的三项核心行为特征：
+
+**1. 自验证（Self-Verification）**：Fable 5在任务执行过程中持续检查自己的假设和中间结果。当任务状态中途发生变化时，Fable 5能自主发现并纠正错误的第一假设，而不是沿着错误路径执行数小时后才被发现。Rakuten AI总经理Yusuke Kaji描述："Fable 5在我凌晨2点指出之前就发现了自己的错误——所以我能安心睡觉。"
+
+**2. Taste Alignment（品味对齐）**：Kaji提出的新概念，指模型在模糊决策上做出的判断与团队偏好高度一致，即使只给出极简的指导。"Taste alignment with Fable is smoother than any previous model——比任何此前模型的对齐都要顺畅。"这意味着部署时不再需要事无巨细地定义每一条规则。
+
+**3. 回归第一性原理**：Fable 5会在每一步重新验证原始意图，而不是机械执行计划。当发现路径偏离时，自动回到first principles重新导航到正确结果，无需人工介入调整方向。
+
+**对Agent工程化的影响**：
+
+| 维度 | 此前模式 | Fable 5模式 |
+|------|---------|-------------|
+| 任务时长 | 分钟级（需监督） | 小时级→天级（无人值守） |
+| 委托单位 | 子任务（拆分好的chunk） | 完整任务（端到端） |
+| 人工介入 | 频繁的中途纠偏 | 最终决策签字，中途免干预 |
+| 工作模式 | 人分派→Agent执行→人检查 | 人做决策→Agent完成任务→人确认结果 |
+| 错误处理 | 人工发现并纠正偏差 | 模型自检自修，人只处理系统级问题 |
+
+**成本策略**：Rakuten采用任务完成率（task completion ratio）与单任务成本（cost per task）两项指标并行衡量，将Fable 5分配给那些额外能力能改变结果的任务，简单任务留给小模型。Fable 5的优势在于：用更少的tokens和更少的错误转向完成更多任务，且需要的人工指导更少。
+
+**Agent跨会话记忆**：Rakuten的Agent在运行间携带记忆——"Our agents with memory remember what went wrong in past sessions and avoid repeating those mistakes." 这使错误不再累积，团队需要关注的真正需要人处理的任务保持在可控水平。
+
+> 参考：[Rakuten案例](https://claude.com/blog/working-at-the-frontier-rakuten) | [Verification-Loops](../concepts/Verification-Loops.md) — Fable 5的自验证机制是Verification Loops理念的模型级实现
 
 ## 关联分析
 

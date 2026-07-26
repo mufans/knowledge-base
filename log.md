@@ -321,3 +321,19 @@
 2026-07-25 | skip | raw/inbox/2026-07-25-技术动态.md | GPT-5.6 Sol/OpenCode重写已有页面覆盖；GKE安全蓝图/G#/菲尔兹奖加入OpenAI方向不匹配；80行Agent标题级无正文；Pinecone Nexus/CodeBuddy NPC InfoQ文章采集但技术细节不足以独立成页，合并到后续提炼
 2026-07-25 | skip | raw/inbox/2026-07-25-新闻热点.md | Claude Opus 5发布、GPT-5.6 Sol/OpenCode等内容与技术动态/社交媒体重叠；OpenSQZ等标题级无正文
 2026-07-25 | skip | raw/inbox/2026-07-25-社交媒体.md | CachyLLama/DKV/AMD Instella/Gemma 4 iPhone/Stripe OpenRouter/Stack v3等评分<7.0（话题提及级，技术细节不足）；NOVA symbolic AI方向不匹配
+- 2026-07-26 新闻热点采集完成（AI/大模型2条 + 编程/开发工具2条 + 移动端2条 + 云原生/后端2条 + 开源/硬件2条）
+
+## 2026-07-26
+- [技术动态] 采集自 InfoQ、Solidot、dev.to，共19条
+
+2026-07-26 | Claude Blog采集 | raw/inbox/2026-07-26-Claude博客.md | 采集5篇，最高分9.5
+2026-07-26 | lint | raw/inbox/2026-07-26-知识库Lint审查.md | 知识库Lint审查完成（总分7.5/10，结构6.5/10，质量8.5/10）。根index.md重复章节3次未修，77个孤立页面需优化，新增12个优质页面。
+2026-07-26 | update | raw/inbox/2026-07-26-Claude博客.md | 更新concepts/Context-Engineering.md（合并Claude 5代模型Context Engineering新规则——删除80%系统提示词）
+2026-07-26 | update | raw/inbox/2026-07-26-Claude博客.md | 更新entities/Claude-Fable-5.md（合并Rakuten企业级Agent实战——自验证与Taste Alignment）
+2026-07-26 | ingest | raw/inbox/2026-07-26-AI论文.md | 创建concepts/OpenForgeRL.md（自评7.35）
+2026-07-26 | skip | raw/inbox/2026-07-26-AI论文.md | ReferTrack/ICAE-Bench/FinanceComplexQA/SeededGrasp等评分<7.0（方向不匹配或细节不足）；NVIDIA OO Agents/Multi-Turn On-Policy已有对应页面
+2026-07-26 | skip | raw/inbox/2026-07-26-Claude博客.md | Hebbia/Thomson Reuters/Base44三个案例评分<7.0（摘要过薄，仅片段级内容，技术深度不足）
+2026-07-26 | skip | raw/inbox/2026-07-26-GitHub项目.md | 2个项目均<7.0（低星项目，与AI Agent+移动端交叉领域不匹配）
+2026-07-26 | skip | raw/inbox/2026-07-26-技术动态.md | 全部19条评估：GPT-5.6 Sol/OpenCode重写/Android Studio Quail 2已有页面覆盖；Pinecone Nexus产品公告无技术深度；其余为新闻标题级，缺乏可提炼的技术实质
+2026-07-26 | skip | raw/inbox/2026-07-26-新闻热点.md | 与技术动态/Claude Blog内容重叠；ESP32 LLM为标题级无正文；DeepSeek融资/SK集团合作等业务新闻方向不匹配
+2026-07-26 | skip | raw/inbox/2026-07-26-知识库Lint审查.md | 内部审查报告，非知识内容

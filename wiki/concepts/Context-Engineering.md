@@ -2,16 +2,16 @@
 title: "Context Engineering：从Carta Healthcare到YC Startups的实践"
 category: "concepts"
 tags: ["Context-Engineering", "Prompt-Design", "Production-AI", "Agent-Architecture"]
-rating: 8.5
-description: "从Carta Healthcare 99%准确率和YC startup工作流中提炼的context engineering核心方法论：喂给模型什么比模型本身更重要"
-date: "2026-05-18"
+rating: 8.8
+description: "从Carta Healthcare 99%准确率到YC startup工作流，再到Claude 5代模型的'少即是多'范式：Context Engineering从'加什么'到'删什么'的演进"
+date: "2026-07-26"
 ---
 
 # Context Engineering：从Carta Healthcare到YC Startups的实践
 
 > tags: #Context-Engineering #Prompt-Design #Production-AI #Agent-Architecture
-> source: [Carta Healthcare](https://claude.com/blog/carta-healthcare-clinical-abstractor) | [YC Startups](https://claude.com/blog/building-companies-with-claude-code)
-> score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.5/10
+> source: [Carta Healthcare](https://claude.com/blog/carta-healthcare-clinical-abstractor) | [YC Startups](https://claude.com/blog/building-companies-with-claude-code) | [Claude Blog New Rules](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models)
+> score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.75/10
 
 ## 核心概念
 
@@ -49,6 +49,22 @@ Carta Healthcare的Lighthouse平台处理22,000+手术病例/年，达到 **98-9
 - Vulcan的Jones（高中后没写过代码）用Claude Code赢了政府合同，4个月融了$11M
 - 洞察：语言能力和批判性思维比编程技能更重要——"如果你擅长组织有序列表、嵌套要点和清晰流程，你的prompt可能执行得更好"
 
+### 2026-07-26 更新：Claude 5代模型的Context Engineering新规则
+
+Anthropic于2026年7月发布面向Claude 5代模型（Opus 5、Fable 5）的Context Engineering新规则，核心发现是：**对于更强大的模型，更少的约束反而带来更好的结果**。
+
+**关键发现**
+
+1. **删除80%+系统提示词**：Anthropic从Claude Code中删除了超过80%的系统提示词，在编码评估上没有任何可测量的性能损失。这与此前"提示词越详细越好"形成直接矛盾。
+
+2. **"Unhobbling" Claude（解除束缚）**：团队在审查内部使用记录时发现，同一个请求中收到多条冲突指令——"适当写文档"来自系统提示，"不要加注释"来自用户请求，"遵循最佳实践"来自skills。多重约束相互矛盾，反而限制了模型的能力发挥。
+
+3. **旧的最佳实践已成迷思**：为早期模型（Claude 3/4）设计的context engineering最佳实践，在Claude 5代模型上可能适得其反。模型能力的跃升要求重新审视每一条约束的必要性。
+
+4. **`claude doctor` 自动调整**：新增`/doctor`命令，自动扫描并优化skills和CLAUDE.md文件，删除过时或冲突的约束。
+
+**trade-off分析**：删减context的核心风险是失去行为控制（安全边界、品牌调性）。这不是简单的"全部删掉"，而是精准识别哪些约束对当前模型是必要的、哪些是历史遗留。对于企业级部署，需要在"充分信任模型能力"和"维持必要安全边界"之间找到新平衡。
+
 ## 关键实现
 
 ```python
@@ -80,6 +96,7 @@ for phase in plan.phases:
 - [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) — Claude Code的上下文管理
 - [Prompt-Caching-Pitfalls](Prompt-Caching-Pitfalls.md) — Prompt缓存陷阱
 - [Agent-Control-Flow](Agent-Control-Flow.md) — Agent流程控制模式
+- [Verification-Loops](Verification-Loops.md) — Agent编码验证闭环，与context engineering形成互补
 
 ## 可执行建议
 
@@ -88,14 +105,16 @@ for phase in plan.phases:
 3. **采用三阶段分离工作流**：研究→规划→实现，每阶段独立session
 4. **消除上下文矛盾**：使用前检查prompt中是否存在冲突信息
 5. **非技术人员也能高效使用AI**：重点训练结构化表达能力而非编程技能
+6. **定期审查context约束**：每次模型升级时，重新评估每条约束的必要性——如果删掉不影响质量就删掉
+7. **运行 `claude doctor`**：使用新命令自动优化skills和CLAUDE.md配置
 
 ## 自评
 
 | 维度 | 分数 | 权重 | 加权 |
 |------|------|------|------|
 | 摘要质量 | 9 | 0.25 | 2.25 |
-| 技术深度 | 8 | 0.25 | 2.00 |
+| 技术深度 | 9 | 0.25 | 2.25 |
 | 相关性 | 9 | 0.20 | 1.80 |
 | 原创性 | 8 | 0.15 | 1.20 |
 | 格式规范 | 9 | 0.15 | 1.35 |
-| **加权总分** | | | **8.60** |
+| **加权总分** | | | **8.85** |
