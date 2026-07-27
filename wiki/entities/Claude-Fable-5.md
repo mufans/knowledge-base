@@ -2,9 +2,9 @@
 title: "Claude Fable 5"
 category: "entities"
 tags: ["Claude", "Anthropic", "Frontier-Model", "Agent-Architecture"]
-rating: 9.0
-description: "Anthropic前沿推理模型，采用自适应推理机制，在Cursor/Cognition/乐天三家企业验证了自验证、Taste Alignment和长时无人值守Agent运行能力"
-date: "2026-07-26"
+rating: 9.2
+description: "Anthropic前沿推理模型，采用自适应推理机制，在Claude Cowork中支持目标导向委托模式，在Cursor/Cognition/乐天验证了自验证、Taste Alignment和长时无人值守Agent运行能力"
+date: "2026-07-27"
 ---
 
 # Claude Fable 5：Anthropic 前沿推理模型
@@ -109,14 +109,44 @@ Rakuten在Claude Blog上分享了使用Claude Fable 5构建企业级Agent的实�
 
 > 参考：[Rakuten案例](https://claude.com/blog/working-at-the-frontier-rakuten) | [Verification-Loops](../concepts/Verification-Loops.md) — Fable 5的自验证机制是Verification Loops理念的模型级实现
 
+### 2026-07-27 更新：Claude Cowork 中的 Fable 5 使用指南
+
+Anthropic 发布了 Claude Cowork 中 Fable 5 的官方使用指南，标志着Fable 5的交互模式从"写prompt让模型执行"进化为"像委托同事一样授权任务"。
+
+**1. 模型选择策略**：Fable 5不是Cowork的默认模型。默认是Sonnet 5（日常快速任务），Opus适合确定性的深度工作，**Fable 5专为最复杂、最模糊、此前模型无法完成的项目保留**。官方建议在以下场景使用Fable 5：需要用到多个工具、需要一系列判断决策、错误代价高的工作。
+
+**2. Effort设置与Fable 5的配合**：
+- **更高effort**：启动前更多规划，运行时更多检查——适合Claude独立完成的多步项目
+- **更低effort**：更快响应，保留Fable 5前沿智能——适合简单步骤组成的Agent任务
+- 关键发现：**Fable 5低effort ≥ 前代模型最高effort性能**
+
+**3. 上下文策略转变**：指导方式从"规则列表"变为"同事情境交代"——constraint只管不要做什么，context告诉工作为什么做。模型遇到决策点自行从context找答案。长对话消耗更多usage，建议新任务开新会话。
+
+**4. 委托模式升级**：
+- **委托方法**：给素材描述目标，模型自行决定执行路径
+- **委托流程**：Skills编码团队流程，Fable 5自动选Skill组合
+- **委托时机**：描述期望输出，模型自动创建周期性任务
+- 核心变化：从"写步骤让Claude执行"变为"描述目标让Claude自行规划"
+
+**5. 安全分类器机制**：Fable 5新增网络安全/生物学/化学分类器，触发时回退到Opus 4.8处理——会话级回退。设计保守，偶有无害请求误伤。
+
+**6. 思维过程可视化**：Cowork侧面板实时展示计划、文件、工具和skills使用情况，可早期发现问题并一句话纠正。
+
+> 参考：[Working with Claude Fable 5 in Claude Cowork](https://claude.com/blog/working-with-claude-fable-5-in-claude-cowork) | [Claude-Code-Effort-Model-Guide](../sources/Claude-Code-Effort-Model-Guide.md)
+
 ## 关联分析
 
-- **[GPT-5.6](GPT-5.6.md)**：直接竞品，Anthropic 与 OpenAI 的最新旗舰对决
+- **[GPT-5.6](GPT-5.6.md)**：直接竞品，Anthropic与OpenAI的最新旗舰对决
 - **Adaptive Reasoning vs 分级推理**：两种设计哲学——自动 vs 手动，各有优劣
-- Fable 5 在 AI Index 排名 #1 但被 Sol 在多个具体 bench 上超越，说明"综合排名"不代表"所有场景最优"
-- **CursorBench vs Terminal-Bench**：不同评测环境的设计差异反映了Agent能力评估的碎片化问题——"在哪个bench上赢"比"赢了多少分"更重要
+- Fable 5在AI Index排名#1但被Sol在多个bench上超越
+- **CursorBench vs Terminal-Bench**：不同评测环境设计差异反映Agent评估碎片化
 
 ## 可执行建议
+
+1. **选择策略**：Fable 5配低effort是性价比最优组合——保留前沿智能同时节省成本
+2. **任务委托**：从step-by-step prompt转向goal-oriented描述，给Fable 5更多自主规划空间
+3. **上下文策略**：提供对比样本（初稿vs终稿）让模型自建质量标准，减少显式约束
+4. **成本考量**：Sol在代码场景成本优势明显（~1/3），纯编程任务优先Sol，复杂知识工作场景用Fable 5
 
 1. **Fable 5 在综合推理上仍然是 SOTA**，特别是需要自适应深度推理的复杂知识工作场景
 2. **成本考量**：Sol 在代码生成场景下成本优势明显（约 1/3），纯编程任务优先考虑 Sol

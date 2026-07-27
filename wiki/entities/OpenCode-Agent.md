@@ -2,9 +2,9 @@
 title: "OpenCode Agent"
 category: "entities"
 tags: ["Coding-Agent", "OpenSource", "LLM", "CLI"]
-rating: 8.0
-description: "开源AI编程Agent工具，支持多种LLM后端，终端界面"
-date: "2026-05-17"
+rating: 8.5
+description: "开源AI编程Agent工具（16万Star），2026年7月2.0版从零重构：Bun→Node、Tauri→Electron、多标签并行、跨设备Agent网络"
+date: "2026-07-27"
 ---
 
 # OpenCode Agent
@@ -53,18 +53,24 @@ Trade-off：相比Claude Code的深度集成（与Anthropic API紧密耦合）�
 2. **Agent架构学习参考**：开源代码是学习Coding Agent实现的好材料
 3. **关注生态成熟度**：开源项目需要关注社区活跃度和维护状态
 
-### 2026-07-22 更新：OpenCode 2.0 彻底重写
+### 2026-07-22 更新：OpenCode 2.0 彻底重写（补充7月27日细节）
 
-来源：[16万Star的OpenCode彻底重写](https://www.infoq.cn/article/6yN5sFxOqoBX2h32YtjC)
+来源：[16万Star的OpenCode彻底重写](https://www.infoq.cn/article/6yN5sFxOqoBX2h32YtjC) | [技术动态2026-07-27](../../raw/inbox/2026-07-27-技术动态.md)
 
-OpenCode 在 2026 年 7 月发布 2.0 版本，进行了**从零开始的彻底重构**，核心变更：
+OpenCode 在 2026 年 7 月发布 2.0 版本（GitHub **16万 Star**），进行了**从零开始的彻底重构**。联合创始人 Dax Raad 在 Syntax.fm 播客上详解了重写背后的技术决策：
 
-- **API 全部重做**：所有对外 API 接口重新设计，不向后兼容
-- **Bun → Node**：运行时从 Bun 迁移回 Node.js，可能影响性能和启动速度
-- **桌面端 → Electron**：新增桌面应用支持，迁移到 Electron 框架
-- **Star 数**：达到 16 万，是开源 AI 编码 Agent 中社区最大的项目
+**1. API 全部重做**：此前API自然生长，2.0重新设计为精心规划的统一接口，不向后兼容
+**2. Bun → Node.js迁移**：Bun专属API导致内存占用过高（用户投诉随便打开就要2GB+内存），迁移回Node后服务器也能在Node环境运行，大幅降低内存和提升稳定性
+**3. 桌面端Tauri → Electron**：Tauri在macOS/Linux使用WebKit渲染，性能不如Chromium且一致性差；迁移到Node后，Electron内置Node进程运行服务器代码，实现统一渲染引擎
+**4. 多标签页并行**：用户可同时在多个标签页运行独立AI会话，每个标签页指定不同模型进行并排对比，打破此前排队等待的效率瓶颈
+**5. 服务常驻模式**：2.0默认以后台服务常驻运行，避免每次启动的冷启动开销
+**6. 跨设备Agent网络**：支持跨设备的智能体网络，弥补单一设备算力不足
 
-团队表示这次重写是对 OpenCode 领域的重新理解后的全面再造，Bun→Node 的回退可能是由于 Node 生态系统更成熟、兼容性更好。
+**技术哲学**：Dax强调"Decide to Care"——奢侈地过度设计一切，连一个简单的读取文件API都要调研所有可能的实现方式和先例。团队重写期间token消耗量暴涨5倍（不是因为模型更费token，而是因为是人都停不下来）。
+
+**推理利润率90%论**：Dax估算Anthropic/OpenAI推理利润率约90%，盈亏平衡点可在当前价格的1/10处。OpenCode作为推理中间商，某些开源模型仍能做到70%利润率。本地跑模型省不了钱——任何本地效率提升放到云端会便宜10倍，本地优势在于隐私而非成本。
+
+**模型路由被高估**：Dax认为模型路由赛道被高估，真正有效的方式不是路由系统切模型，而是让一个贵的主模型当"指挥官"——不亲自干活，只派发任务给便宜的子代理。新一代模型在这个编排模式上表现极好。
 
 ## 自评
 | 维度 | 分数 | 权重 | 加权 |

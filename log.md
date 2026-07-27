@@ -336,4 +336,24 @@
 2026-07-26 | skip | raw/inbox/2026-07-26-GitHub项目.md | 2个项目均<7.0（低星项目，与AI Agent+移动端交叉领域不匹配）
 2026-07-26 | skip | raw/inbox/2026-07-26-技术动态.md | 全部19条评估：GPT-5.6 Sol/OpenCode重写/Android Studio Quail 2已有页面覆盖；Pinecone Nexus产品公告无技术深度；其余为新闻标题级，缺乏可提炼的技术实质
 2026-07-26 | skip | raw/inbox/2026-07-26-新闻热点.md | 与技术动态/Claude Blog内容重叠；ESP32 LLM为标题级无正文；DeepSeek融资/SK集团合作等业务新闻方向不匹配
-2026-07-26 | skip | raw/inbox/2026-07-26-知识库Lint审查.md | 内部审查报告，非知识内容
+2026-07-26 | skip | raw/inbox/2026-07-26-知识库Lint审查.md | 内部审查报告，非知识内容- 2026-07-27 (📰 新闻热点) - 10条 | [查看](knowledge/raw/inbox/2026-07-27-新闻热点.md)
+- 2026-07-27：技术动态日报（InfoQ/Solidot/DEV/OSChina）→ [raw/inbox/2026-07-27-技术动态.md](raw/inbox/2026-07-27-技术动态.md)
+
+2026-07-27 | Claude Blog采集 | raw/inbox/2026-07-27-Claude博客.md | 采集2篇，最高分9.5
+## 2026-07-27 社交媒体AI技术动态
+
+- 来源: Hacker News (front page + Algolia API)
+- 采集条目: 15条
+- 重点: AI Agent安全风险 (production DB删除、私有repo泄露、伦理约束)、OpenCode开源、端侧AI SDK、Mobile AI Agent
+- ⚠️ X/Twitter 和 Reddit 本次未采集到
+
+2026-07-27 | ingest | raw/inbox/2026-07-27-AI论文.md | 创建wiki/concepts/Skill-Self-Play.md（自评8.25）
+2026-07-27 | skip | raw/inbox/2026-07-27-AI论文.md | ReferTrack/ICAE-Bench/Multi-Turn On-Policy等评分<7.0（方向不匹配或细节不足）；NVIDIA OO Agents已覆盖
+2026-07-27 | update | raw/inbox/2026-07-27-Claude博客.md | 更新entities/Claude-Fable-5.md（合并Claude Cowork Fable 5使用指南——委托模式/Effort设置/安全分类器）
+2026-07-27 | skip | raw/inbox/2026-07-27-Claude博客.md | Workload Identity Federation评分<7.0（产品公告级，缺乏技术深度）
+2026-07-27 | skip | raw/inbox/2026-07-27-GitHub项目.md | 5个项目均<7.0（低星，与AI Agent+移动端交叉领域不匹配）
+2026-07-27 | update | raw/inbox/2026-07-27-技术动态.md | 更新entities/OpenCode-Agent.md（补充2.0重写技术细节——Bun→Node/Tauri→Electron/多标签并行/推理利润率）
+2026-07-27 | skip | raw/inbox/2026-07-27-技术动态.md | 其余19条评估：AWS Loom/GitHub Issues缓存/GKE安全等均为新闻标题级，无实质技术内容；GPT-5.6 Sol/Android Studio Quail 2已有页面覆盖
+2026-07-27 | skip | raw/inbox/2026-07-27-社交媒体.md | 15条均为新闻事件/产品公告，无足够技术深度创建wiki页面（AI Agent安全事件为新闻级，Nexa SDK/Polpo/Mobile Observability等产品公告级）
+2026-07-27 | skip | raw/inbox/2026-07-27-新闻热点.md | 与技术动态/Claude Blog内容重叠；Pinecone Nexus产品公告无技术实质；AstrBot仅标题无正文
+
