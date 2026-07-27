@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="开源AI编程Agent工具，支持多种LLM后端，终端界面">
+        <meta name="description" content="开源AI编程Agent工具（16万Star），2026年7月2.0版从零重构：Bun→Node、Tauri→Electron、多标签并行、跨设备Agent网络">
       
       
         <meta name="author" content="mufans">
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 或者我们可以从 page.meta 中获取const dateEl = document.querySelector('.md-source-date');
   if (dateEl) {
     dateEl.style.display = '';
-    dateEl.textContent = '2026-05-17';
+    dateEl.textContent = '2026-07-27';
   }});
 </script>
 
@@ -2392,10 +2392,10 @@ document.addEventListener('DOMContentLoaded', function() {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#2026-07-22-opencode-20" class="md-nav__link">
+  <a href="#2026-07-22-opencode-20-727" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2026-07-22 更新：OpenCode 2.0 彻底重写
+        2026-07-22 更新：OpenCode 2.0 彻底重写（补充7月27日细节）
       
     </span>
   </a>
@@ -2497,16 +2497,18 @@ score: 技术深度7/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 
 <li><strong>Agent架构学习参考</strong>：开源代码是学习Coding Agent实现的好材料</li>
 <li><strong>关注生态成熟度</strong>：开源项目需要关注社区活跃度和维护状态</li>
 </ol>
-<h3 id="2026-07-22-opencode-20">2026-07-22 更新：OpenCode 2.0 彻底重写<a class="headerlink" href="#2026-07-22-opencode-20" title="Permanent link">&para;</a></h3>
-<p>来源：<a href="https://www.infoq.cn/article/6yN5sFxOqoBX2h32YtjC">16万Star的OpenCode彻底重写</a></p>
-<p>OpenCode 在 2026 年 7 月发布 2.0 版本，进行了<strong>从零开始的彻底重构</strong>，核心变更：</p>
-<ul>
-<li><strong>API 全部重做</strong>：所有对外 API 接口重新设计，不向后兼容</li>
-<li><strong>Bun → Node</strong>：运行时从 Bun 迁移回 Node.js，可能影响性能和启动速度</li>
-<li><strong>桌面端 → Electron</strong>：新增桌面应用支持，迁移到 Electron 框架</li>
-<li><strong>Star 数</strong>：达到 16 万，是开源 AI 编码 Agent 中社区最大的项目</li>
-</ul>
-<p>团队表示这次重写是对 OpenCode 领域的重新理解后的全面再造，Bun→Node 的回退可能是由于 Node 生态系统更成熟、兼容性更好。</p>
+<h3 id="2026-07-22-opencode-20-727">2026-07-22 更新：OpenCode 2.0 彻底重写（补充7月27日细节）<a class="headerlink" href="#2026-07-22-opencode-20-727" title="Permanent link">&para;</a></h3>
+<p>来源：<a href="https://www.infoq.cn/article/6yN5sFxOqoBX2h32YtjC">16万Star的OpenCode彻底重写</a> | <a href="../../../raw/inbox/2026-07-27-%E6%8A%80%E6%9C%AF%E5%8A%A8%E6%80%81/">技术动态2026-07-27</a></p>
+<p>OpenCode 在 2026 年 7 月发布 2.0 版本（GitHub <strong>16万 Star</strong>），进行了<strong>从零开始的彻底重构</strong>。联合创始人 Dax Raad 在 Syntax.fm 播客上详解了重写背后的技术决策：</p>
+<p><strong>1. API 全部重做</strong>：此前API自然生长，2.0重新设计为精心规划的统一接口，不向后兼容
+<strong>2. Bun → Node.js迁移</strong>：Bun专属API导致内存占用过高（用户投诉随便打开就要2GB+内存），迁移回Node后服务器也能在Node环境运行，大幅降低内存和提升稳定性
+<strong>3. 桌面端Tauri → Electron</strong>：Tauri在macOS/Linux使用WebKit渲染，性能不如Chromium且一致性差；迁移到Node后，Electron内置Node进程运行服务器代码，实现统一渲染引擎
+<strong>4. 多标签页并行</strong>：用户可同时在多个标签页运行独立AI会话，每个标签页指定不同模型进行并排对比，打破此前排队等待的效率瓶颈
+<strong>5. 服务常驻模式</strong>：2.0默认以后台服务常驻运行，避免每次启动的冷启动开销
+<strong>6. 跨设备Agent网络</strong>：支持跨设备的智能体网络，弥补单一设备算力不足</p>
+<p><strong>技术哲学</strong>：Dax强调"Decide to Care"——奢侈地过度设计一切，连一个简单的读取文件API都要调研所有可能的实现方式和先例。团队重写期间token消耗量暴涨5倍（不是因为模型更费token，而是因为是人都停不下来）。</p>
+<p><strong>推理利润率90%论</strong>：Dax估算Anthropic/OpenAI推理利润率约90%，盈亏平衡点可在当前价格的1/10处。OpenCode作为推理中间商，某些开源模型仍能做到70%利润率。本地跑模型省不了钱——任何本地效率提升放到云端会便宜10倍，本地优势在于隐私而非成本。</p>
+<p><strong>模型路由被高估</strong>：Dax认为模型路由赛道被高估，真正有效的方式不是路由系统切模型，而是让一个贵的主模型当"指挥官"——不亲自干活，只派发任务给便宜的子代理。新一代模型在这个编排模式上表现极好。</p>
 <h2 id="_7">自评<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2579,7 +2581,7 @@ score: 技术深度7/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月26日 14:31:27 UTC">2026年7月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月27日 14:15:00 UTC">2026年7月27日</span>
   </span>
 
     

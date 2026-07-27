@@ -1,7 +1,7 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-26 22:31:13
-// Total articles: 238
-// Updated files this run: 0
+// Generated: 2026-07-27 22:14:44
+// Total articles: 239
+// Updated files this run: 56
 window.__kb_articles = [
   {
     "title": "Claude Code Subagents 实战指南",
@@ -214,6 +214,20 @@ window.__kb_articles = [
     "description": "Superpowers是一套完整的Agent编码开发方法论，集成技能框架、子Agent驱动开发、TDD和代码审查，支持Claude Code/Codex/Cursor等主流平台",
     "date": "2026-07-19",
     "url": "wiki/entities/superpowers"
+  },
+  {
+    "title": "Claude Fable 5",
+    "category": "entities",
+    "tags": [
+      "Claude",
+      "Anthropic",
+      "Frontier-Model",
+      "Agent-Architecture"
+    ],
+    "rating": 9.2,
+    "description": "Anthropic前沿推理模型，采用自适应推理机制，在Claude Cowork中支持目标导向委托模式，在Cursor/Cognition/乐天验证了自验证、Taste Alignment和长时无人值守Agent运行能力",
+    "date": "2026-07-27",
+    "url": "wiki/entities/Claude-Fable-5"
   },
   {
     "title": "Anthropic AI代码迁移方法论 — 六步流程",
@@ -436,6 +450,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/Self-Evolving-Agent"
   },
   {
+    "title": "Skill Self-Play：LLM技能共进化框架",
+    "category": "concepts",
+    "tags": [
+      "Self-Play",
+      "LLM-Training",
+      "Skill-Evolution",
+      "Reinforcement-Learning",
+      "Agent-Capability"
+    ],
+    "rating": 9.0,
+    "description": "通过Proposer/Solver/Skill Controller三组件在RL循环中协同进化，让LLM在结构化验证与开放式探索之间实现技能自生长",
+    "date": "2026-07-27",
+    "url": "wiki/concepts/Skill-Self-Play"
+  },
+  {
     "title": "ThunderKittens GPU DSL",
     "category": "concepts",
     "tags": [
@@ -565,20 +594,6 @@ window.__kb_articles = [
     "description": "Anthropic为Claude Code推出的自托管控制网关，支持SSO登录、集中策略、角色权限和成本归属，可接入Amazon Bedrock和Google Cloud",
     "date": "2026-07-21",
     "url": "wiki/entities/Claude-Apps-Gateway"
-  },
-  {
-    "title": "Claude Fable 5",
-    "category": "entities",
-    "tags": [
-      "Claude",
-      "Anthropic",
-      "Frontier-Model",
-      "Agent-Architecture"
-    ],
-    "rating": 9.0,
-    "description": "Anthropic前沿推理模型，采用自适应推理机制，在Cursor/Cognition/乐天三家企业验证了自验证、Taste Alignment和长时无人值守Agent运行能力",
-    "date": "2026-07-26",
-    "url": "wiki/entities/Claude-Fable-5"
   },
   {
     "title": "Colibri：纯C MoE推理引擎",
@@ -1915,6 +1930,20 @@ window.__kb_articles = [
     "url": "wiki/entities/OpenClaw"
   },
   {
+    "title": "OpenCode Agent",
+    "category": "entities",
+    "tags": [
+      "Coding-Agent",
+      "OpenSource",
+      "LLM",
+      "CLI"
+    ],
+    "rating": 8.5,
+    "description": "开源AI编程Agent工具（16万Star），2026年7月2.0版从零重构：Bun→Node、Tauri→Electron、多标签并行、跨设备Agent网络",
+    "date": "2026-07-27",
+    "url": "wiki/entities/OpenCode-Agent"
+  },
+  {
     "title": "OpenMythos",
     "category": "entities",
     "tags": [
@@ -2693,20 +2722,6 @@ window.__kb_articles = [
     "description": "Moonshine AI的micro模型在500KB以内实现语音识别与合成，支持微控制器运行，是端侧AI语音的关键进展",
     "date": "2026-07-19",
     "url": "wiki/entities/Moonshine-AI"
-  },
-  {
-    "title": "OpenCode Agent",
-    "category": "entities",
-    "tags": [
-      "Coding-Agent",
-      "OpenSource",
-      "LLM",
-      "CLI"
-    ],
-    "rating": 8.0,
-    "description": "开源AI编程Agent工具，支持多种LLM后端，终端界面",
-    "date": "2026-05-17",
-    "url": "wiki/entities/OpenCode-Agent"
   },
   {
     "title": "Pi Agent Toolkit",
