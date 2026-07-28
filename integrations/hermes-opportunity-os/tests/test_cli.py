@@ -6,7 +6,7 @@ from urllib.parse import urlsplit
 
 import pytest
 
-from opportunity_os.cli import main
+from opportunity_os.cli import build_parser, main
 from opportunity_os.automation.hermes_runner import RunRecord
 from opportunity_os.dashboard.auth import SessionStore
 from opportunity_os.models import Review
@@ -73,6 +73,18 @@ def test_signals_command_returns_broad_json(tmp_path: Path, capsys) -> None:
     assert result == 0
     assert len(payload) == 3
     assert {item["category"] for item in payload} == {"technology", "cross_domain"}
+
+
+def test_knowledge_sync_command_is_registered() -> None:
+    parser = build_parser()
+    args = parser.parse_args([
+        "knowledge-sync",
+        "--home", "/private/tmp/opportunity-home",
+        "--knowledge-root", "/private/tmp/knowledge",
+    ])
+
+    assert args.command == "knowledge-sync"
+    assert args.days == 14
 
 
 def test_status_reports_invariants_without_private_content(tmp_path: Path, capsys) -> None:

@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "instructions": "独立阅读页面，不查看历史自评分或 calibration key；每项使用 1-5 分并写一句证据。",
+  "criteria": [
+    "信息增量是否明确",
+    "重要事实是否可追溯",
+    "Fact/Inference/Hypothesis 是否可区分",
+    "是否包含限制、反例或反方证据",
+    "是否带来可执行的学习、验证或项目行动",
+    "页面结构是否符合内容类型且无模板填充"
+  ],
+  "samples": [
+    {
+      "sample_id": "blind-01",
+      "title": "MMG2Skill — 从互联网指南蒸馏为Agent自我进化技能",
+      "path": "wiki/concepts/MMG2Skill.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-02",
+      "title": "弱模型协作架构",
+      "path": "wiki/concepts/Weak-Model-Orchestration.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-03",
+      "title": "Context Engineering：从Carta Healthcare到YC Startups的实践",
+      "path": "wiki/concepts/Context-Engineering.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-04",
+      "title": "Skill Self-Play：LLM技能共进化框架",
+      "path": "wiki/concepts/Skill-Self-Play.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-05",
+      "title": "awesome-llm-apps",
+      "path": "wiki/entities/awesome-llm-apps.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-06",
+      "title": "Mistral Medium 3.5：1280亿参数模型与云端智能体",
+      "path": "wiki/entities/Mistral-Medium-3.5.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-07",
+      "title": "CopilotKit: Agent前端栈与AG-UI协议",
+      "path": "wiki/entities/CopilotKit.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-08",
+      "title": "Anthropic Agent API 新能力",
+      "path": "wiki/entities/Anthropic-Agent-API.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-09",
+      "title": "推荐书单 — 2026年4月",
+      "path": "wiki/sources/推荐书单-2026年4月.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-10",
+      "title": "Pi Agent Rust 深度分析",
+      "path": "wiki/sources/pi-agent-rust-analysis.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-11",
+      "title": "自主AI研究：nanoGPT速度跑的Agent实验",
+      "path": "wiki/sources/Autonomous-AI-Research-NanoGPT.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-12",
+      "title": "OpenAI实时语音API的WebRTC技术债务",
+      "path": "wiki/sources/OpenAI-WebRTC-Problem.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-13",
+      "title": "Hermes vs OpenClaw 对比分析",
+      "path": "wiki/syntheses/Hermes-vs-OpenClaw对比分析.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-14",
+      "title": "AI Agent编排与开发工具生态（2026年4月）",
+      "path": "wiki/syntheses/Agent-Dev-Tools-2026-04.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-15",
+      "title": "SmartPerfetto vs SmartInspector 对比分析",
+      "path": "wiki/syntheses/SmartPerfetto-vs-SmartInspector对比分析.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    },
+    {
+      "sample_id": "blind-16",
+      "title": "MCP Server采用困境分析",
+      "path": "wiki/sources/MCP-Adoption-Challenges.md",
+      "reviewer_scores": {},
+      "reviewer_evidence": "",
+      "decision": ""
+    }
+  ]
+}

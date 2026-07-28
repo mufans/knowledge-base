@@ -78,10 +78,10 @@ ServiceTitan 首席 AI 工程师 David Stein 在 QCon 分享了一种反常识�
 
 ## 关联分析
 
-- 与 [Claude Code Source Analysis](../../entities/Claude-Code-Source-Analysis.md) 关联：Claude Code 不擅长处理巨型代码库，而本方案通过"任务分解"解决了这一限制
-- 与 [Loop-Engineering](../../concepts/Loop-Engineering.md) 理念一致：都强调 Agent 执行过程中的"检测→修复"循环
+- 与 [Claude Code Source Analysis](../entities/Claude-Code-Source-Analysis.md) 关联：Claude Code 不擅长处理巨型代码库，而本方案通过"任务分解"解决了这一限制
+- 与 [Loop-Engineering](../concepts/Loop-Engineering.md) 理念一致：都强调 Agent 执行过程中的"检测→修复"循环
 - 与 [Brex-Claude-Code-Practice](Brex-Claude-Code-Practice.md) 对比：Brex 侧重工程化使用 Claude Code，ServiceTitan 侧重大规模代码迁移的流程设计
-- 验证器设计思路可以应用到 [AppSmartInspector](../entities/AppSmartInspector.md) 的 Agent 自动测试流程中
+- 验证器设计思路可以应用到 AppSmartInspector 的 Agent 自动测试流程中
 
 ## 可执行建议
 

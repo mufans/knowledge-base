@@ -9,8 +9,15 @@ from typing import Any
 
 from opportunity_os.errors import BoundaryError, CapacityError, ValidationError
 from opportunity_os.freshness import TechState
+from opportunity_os.contracts import (
+    AnalysisContract,
+    UserOutcomeContract,
+    WikiCandidateContract,
+    stable_id,
+)
 from opportunity_os.models import Direction, Evidence, Experiment, Opportunity, Review
 from opportunity_os.sanitizer import SENSITIVE_FIELDS
+from opportunity_os.state_machine import normalize_state, validate_transition
 
 
 ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_-]{1,79}$")
@@ -45,7 +52,18 @@ class PrivateStore:
         return self.home / "portfolio.json"
 
     def initialize(self) -> None:
-        for name in ("opportunities", "experiments", "tech_states", "reviews", "snapshots", "cadence"):
+        for name in (
+            "opportunities",
+            "experiments",
+            "tech_states",
+            "reviews",
+            "snapshots",
+            "cadence",
+            "state_transitions",
+            "analyses",
+            "wiki_candidates",
+            "user_outcomes",
+        ):
             (self.home / name).mkdir(parents=True, exist_ok=True)
         events = self.home / "events.jsonl"
         events.touch(mode=0o600, exist_ok=True)
@@ -76,13 +94,28 @@ class PrivateStore:
             if os.path.exists(temp_name):
                 os.unlink(temp_name)
 
-    def _event(self, action: str, entity_type: str, entity_id: str) -> None:
+    def _event(
+        self,
+        action: str,
+        entity_type: str,
+        entity_id: str,
+        *,
+        run_id: str | None = None,
+        status: str | None = None,
+        reason: str | None = None,
+    ) -> None:
         record = {
             "at": datetime.now(timezone.utc).isoformat(),
             "action": action,
             "entity_id": entity_id,
             "entity_type": entity_type,
         }
+        if run_id is not None:
+            record["run_id"] = run_id
+        if status is not None:
+            record["status"] = status
+        if reason is not None:
+            record["reason"] = reason
         with (self.home / "events.jsonl").open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
 
@@ -101,11 +134,94 @@ class PrivateStore:
         self._event("save_opportunity", "opportunity", opportunity.id)
         return payload
 
+    def transition_opportunity(
+        self,
+        *,
+        opportunity_id: str,
+        to_state: str,
+        trigger_reason: str,
+        new_evidence_ids: list[str],
+        opposing_evidence_ids: list[str],
+        next_experiment_id: str | None,
+        user_decision: str | None,
+        automatic_rule: str | None,
+        run_id: str,
+        occurred_at: str | None = None,
+    ) -> dict[str, Any]:
+        self._ensure_initialized()
+        opportunity = self.get_opportunity(opportunity_id)
+        from_state = normalize_state(str(opportunity.get("status", "candidate")))
+        at = occurred_at or datetime.now(timezone.utc).isoformat()
+        transition = validate_transition(
+            {
+                "schema_version": 1,
+                "id": stable_id("transition", opportunity_id, from_state, to_state, at, run_id),
+                "opportunity_id": opportunity_id,
+                "from_state": from_state,
+                "to_state": to_state,
+                "trigger_reason": trigger_reason,
+                "new_evidence_ids": new_evidence_ids,
+                "opposing_evidence_ids": opposing_evidence_ids,
+                "next_experiment_id": next_experiment_id,
+                "user_decision": user_decision,
+                "automatic_rule": automatic_rule,
+                "occurred_at": at,
+                "run_id": run_id,
+            }
+        )
+        opportunity["status"] = transition.to_state
+        _reject_sensitive_fields(opportunity)
+        self._write_json(self.home / "opportunities" / f"{opportunity_id}.json", opportunity)
+        history_path = self.home / "state_transitions" / f"{opportunity_id}.jsonl"
+        history_path.parent.mkdir(parents=True, exist_ok=True)
+        with history_path.open("a", encoding="utf-8") as handle:
+            handle.write(transition.model_dump_json() + "\n")
+        os.chmod(history_path, 0o600)
+        self._event(
+            "transition_opportunity",
+            "opportunity",
+            opportunity_id,
+            run_id=run_id,
+            status=transition.to_state,
+            reason=trigger_reason,
+        )
+        return transition.model_dump(mode="json")
+
+    def save_analysis(self, analysis: AnalysisContract) -> dict[str, Any]:
+        return self._save_contract("analyses", "analysis", analysis.id, analysis.model_dump(mode="json"))
+
+    def save_wiki_candidate(self, candidate: WikiCandidateContract) -> dict[str, Any]:
+        return self._save_contract(
+            "wiki_candidates", "wiki_candidate", candidate.id, candidate.model_dump(mode="json")
+        )
+
+    def record_user_outcome(self, outcome: UserOutcomeContract) -> dict[str, Any]:
+        return self._save_contract(
+            "user_outcomes", "user_outcome", outcome.id, outcome.model_dump(mode="json")
+        )
+
+    def _save_contract(
+        self, directory: str, entity_type: str, identifier: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        self._ensure_initialized()
+        _validate_identifier(identifier)
+        _reject_sensitive_fields(payload)
+        self._write_json(self.home / directory / f"{identifier}.json", payload)
+        self._event(
+            f"save_{entity_type}",
+            entity_type,
+            identifier,
+            run_id=str(payload.get("run_id")) if payload.get("run_id") else None,
+        )
+        return payload
+
     def list_opportunities(self, status: str | None = None) -> list[dict[str, Any]]:
         self._ensure_initialized()
         result = [self._read_json(path) for path in sorted((self.home / "opportunities").glob("*.json"))]
+        for item in result:
+            item["status"] = normalize_state(str(item.get("status", "candidate")))
         if status:
-            result = [item for item in result if item.get("status") == status]
+            result = [item for item in result if item.get("status") == normalize_state(status)]
         return sorted(result, key=lambda item: (-float(item["total_score"]), item["id"]))
 
     def record_experiment(
@@ -208,6 +324,9 @@ class PrivateStore:
             "experiment_count": len(list((self.home / "experiments").glob("*.json"))),
             "review_count": len(list((self.home / "reviews").glob("*.json"))),
             "tech_state_count": len(list((self.home / "tech_states").glob("*.json"))),
+            "analysis_count": len(list((self.home / "analyses").glob("*.json"))),
+            "wiki_candidate_count": len(list((self.home / "wiki_candidates").glob("*.json"))),
+            "user_outcome_count": len(list((self.home / "user_outcomes").glob("*.json"))),
             "portfolio": {"counts": counts, "capacity": dict(DIRECTION_CAPACITY)},
         }
 

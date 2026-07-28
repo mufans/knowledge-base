@@ -39,12 +39,12 @@ date: "2026-05-03"
 - **Tree-sitter**：增量解析器，支持50+语言，可在编辑时实时更新AST
 - **节点定位**：通过AST路径（如 `Class[name=Foo].Method[name=bar].Param[0]`）精确定位编辑目标
 - **结构化diff**：基于AST的diff算法（如GumTree），只比较语义变化而非文本变化
-- **Zed编辑器**：[Zed 1.0](Zed-1.0.md) 已在内部使用AST感知的编辑模型
+- **Zed编辑器**：[Zed 1.0](../entities/Zed-1.0.md) 已在内部使用AST感知的编辑模型
 
 ## 关联分析
 
-- Coding Agent框架：[deer-flow](deer-flow.md) 的Agent编辑操作可受益于AST精确度
-- Zed编辑器：[Zed-1.0](Zed-1.0.md) 已集成AST感知能力
+- Coding Agent框架：[deer-flow](../entities/deer-flow.md) 的Agent编辑操作可受益于AST精确度
+- Zed编辑器：[Zed-1.0](../entities/Zed-1.0.md) 已集成AST感知能力
 - TNL约束：[TNL-Persistent-Plan-Mode](TNL-Persistent-Plan-Mode.md) 可定义"禁止格式变更"等MUST规则配合AST编辑
 
 ## 可执行建议

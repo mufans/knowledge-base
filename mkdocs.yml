@@ -67,7 +67,7 @@ nav:
 
 theme:
   name: material
-  custom_dir: docs/overrides
+  custom_dir: overrides
   palette:
     primary: blue
     accent: blue
@@ -85,6 +85,13 @@ plugins:
       type: date
       locale: zh
       fallback_to_build_date: true
+
+extra_css:
+  - assets/knowledge-home.css
+
+extra_javascript:
+  - assets/dashboard-data.js
+  - assets/knowledge-home.js
 
 markdown_extensions:
   - toc:

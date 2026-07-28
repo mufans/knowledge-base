@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "samples": [
+    {
+      "sample_id": "blind-01",
+      "page_type": "concept",
+      "citation_count": 2,
+      "has_opposing_evidence": false,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-02",
+      "page_type": "concept",
+      "citation_count": 1,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-03",
+      "page_type": "concept",
+      "citation_count": 3,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-04",
+      "page_type": "concept",
+      "citation_count": 1,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-05",
+      "page_type": "entitie",
+      "citation_count": 1,
+      "has_opposing_evidence": false,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-06",
+      "page_type": "entitie",
+      "citation_count": 2,
+      "has_opposing_evidence": false,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-07",
+      "page_type": "entitie",
+      "citation_count": 1,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-08",
+      "page_type": "entitie",
+      "citation_count": 3,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-09",
+      "page_type": "source",
+      "citation_count": 0,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-10",
+      "page_type": "source",
+      "citation_count": 2,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-11",
+      "page_type": "source",
+      "citation_count": 1,
+      "has_opposing_evidence": false,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-12",
+      "page_type": "source",
+      "citation_count": 1,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-13",
+      "page_type": "synthese",
+      "citation_count": 0,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-14",
+      "page_type": "synthese",
+      "citation_count": 1,
+      "has_opposing_evidence": false,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-15",
+      "page_type": "synthese",
+      "citation_count": 1,
+      "has_opposing_evidence": true,
+      "legacy_self_score_ignored": true
+    },
+    {
+      "sample_id": "blind-16",
+      "page_type": "source",
+      "citation_count": 1,
+      "has_opposing_evidence": false,
+      "legacy_self_score_ignored": true
+    }
+  ]
+}

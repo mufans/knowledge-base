@@ -7,6 +7,8 @@ description: "Andrew Godwin提出将传统用户输入约束方法论应用于LL
 date: "2026-06-04"
 ---
 
+# 用约束用户的思路约束LLM
+
 > tags: #LLM-Safety #Token-Constraints #Structured-Output #vLLM #Grammar-Guided
 > source: [Constraining LLMs Just Like Users](https://www.aeracode.org/2026/06/01/constraining-llms/)
 > score: 技术深度8/10 | 实用价值8/10 | 时效性7/10 | 领域匹配7/10 | 综合 7.5/10

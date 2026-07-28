@@ -21,6 +21,7 @@ from opportunity_os.automation.secure_runtime import (
 )
 from opportunity_os.automation.cadence_completion import CadenceCompletionStore
 from opportunity_os.errors import BoundaryError, ValidationError
+from opportunity_os.sanitizer import redact_text
 
 
 CADENCES = frozenset({"daily", "weekly", "biweekly", "six-week", "quarterly"})
@@ -60,6 +61,18 @@ class RunRecord:
     error_class: str | None
     attempt: int = 1
     updated_at: str | None = None
+    component: str = "hermes"
+    input_count: int | None = None
+    output_count: int | None = None
+    model: str | None = None
+    input_tokens: int | None = None
+    output_tokens: int | None = None
+    cost_usd: float | None = None
+    stdout_path: str | None = None
+    stderr_path: str | None = None
+    validation_errors: tuple[str, ...] = ()
+    delivery_error: str | None = None
+    rejection_reasons: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -185,41 +198,135 @@ class CadenceRunner:
             "chat",
             "-Q",
             "-q",
+            prompt,
             "--source",
             "tool",
             "--toolsets",
             HERMES_TOOLSETS,
             "--skills",
             "opportunity-discovery",
-            prompt,
         ]
+
+    @staticmethod
+    def _load_invocation(
+        home: Path, run_id: str
+    ) -> dict[str, object]:
+        invoc_path = home / "cadence" / "invocations" / f"{run_id}.json"
+        return json.loads(invoc_path.read_text())
+
+    @staticmethod
+    def _collect_new_artifacts(
+        home: Path, before: set[str]
+    ) -> list[str]:
+        new_refs: list[str] = []
+        for kind in ("review", "experiment"):
+            kind_dir = home / f"{kind}s"
+            if not kind_dir.is_dir():
+                continue
+            for child in sorted(kind_dir.iterdir()):
+                if child.suffix != ".json":
+                    continue
+                identifier = child.stem
+                ref = f"{kind}:{identifier}"
+                if ref not in before:
+                    new_refs.append(ref)
+        return new_refs
+
+    @staticmethod
+    def _auto_complete(
+        store: CadenceCompletionStore,
+        home: Path,
+        cadence: str,
+        period_key: str,
+        run_id: str,
+    ) -> None:
+        """Auto-complete when Hermes created new artifacts but didn't call complete_cadence."""
+        try:
+            store.read(cadence, period_key, run_id)
+            return
+        except FileNotFoundError:
+            pass
+        invocation = CadenceRunner._load_invocation(home, run_id)
+        before_set = set(invocation.get("artifact_refs_before", []))
+        new_refs = CadenceRunner._collect_new_artifacts(home, before_set)
+        if not new_refs:
+            raise ValidationError("cadence auto-complete: no new artifacts found")
+        store.complete(cadence, period_key, run_id, new_refs)
 
     def _minimal_env(self) -> dict[str, str]:
         return {
             "HOME": str(Path.home()),
             "LANG": "C.UTF-8",
-            "PATH": f"{self.hermes_path.parent}:/usr/bin:/bin",
+            "PATH": f"{self.hermes_path.parent}:/opt/homebrew/bin:/usr/bin:/bin",
+            "TZ": "Asia/Shanghai",
         }
 
-    def _execute_once(self, cadence: str, period_key: str, run_id: str) -> tuple[str, str | None]:
+    def _log_paths(self, run_id: str) -> tuple[Path, Path]:
+        directory = self.home / "logs" / "hermes"
+        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        if directory.resolve() != directory or not directory.is_relative_to(self.home):
+            raise BoundaryError("Hermes log directory is unsafe")
+        return directory / f"{run_id}.stdout.log", directory / f"{run_id}.stderr.log"
+
+    @staticmethod
+    def _redact_log(path: Path) -> None:
+        if not path.is_file():
+            return
+        rendered = path.read_text(encoding="utf-8", errors="replace")
+        if len(rendered) > 1_048_576:
+            rendered = rendered[:1_048_576] + "\n[TRUNCATED]\n"
+        path.write_text(redact_text(rendered), encoding="utf-8")
+        path.chmod(0o600)
+
+    def _execute_once(
+        self, cadence: str, period_key: str, run_id: str
+    ) -> tuple[str, str | None, str | None, str | None]:
+        stdout_handle = stderr_handle = None
+        stdout_path = stderr_path = None
         try:
+            stdout_target: object = subprocess.DEVNULL
+            stderr_target: object = subprocess.DEVNULL
+            if self.process_factory is subprocess.Popen:
+                stdout_path, stderr_path = self._log_paths(run_id)
+                stdout_handle = stdout_path.open("w", encoding="utf-8")
+                stderr_handle = stderr_path.open("w", encoding="utf-8")
+                os.chmod(stdout_path, 0o600)
+                os.chmod(stderr_path, 0o600)
+                stdout_target = stdout_handle
+                stderr_target = stderr_handle
             process = self.process_factory(
                 self._argv(self.hermes_path, cadence, period_key, run_id),
                 cwd=str(self.working_directory),
                 env=self._minimal_env(),
                 stdin=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
+                stdout=stdout_target,
+                stderr=stderr_target,
                 close_fds=True,
             )
             returncode = process.wait()
         except OSError as error:
-            return "failed", "executable_unavailable" if error.errno == 2 else "execution_error"
+            return (
+                "failed",
+                "executable_unavailable" if error.errno == 2 else "execution_error",
+                None,
+                None,
+            )
         except Exception:
-            return "failed", "execution_error"
+            return "failed", "execution_error", None, None
+        finally:
+            if stdout_handle is not None:
+                stdout_handle.close()
+            if stderr_handle is not None:
+                stderr_handle.close()
+            if stdout_path is not None:
+                self._redact_log(stdout_path)
+            if stderr_path is not None:
+                self._redact_log(stderr_path)
+        stdout_ref = f"logs/hermes/{run_id}.stdout.log" if stdout_path else None
+        stderr_ref = f"logs/hermes/{run_id}.stderr.log" if stderr_path else None
         if returncode == 0:
-            return "success", None
-        return "failed", "nonzero_exit"
+            return "success", None, stdout_ref, stderr_ref
+        return "failed", "nonzero_exit", stdout_ref, stderr_ref
 
     def run(self, cadence: str, period_key: str) -> RunRecord:
         self._validate(cadence, period_key)
@@ -242,14 +349,37 @@ class CadenceRunner:
                     error_class=None,
                 )
 
-            CadenceCompletionStore(self.home, now=self.now).begin(cadence, period_key, run_id)
+            store = CadenceCompletionStore(self.home, now=self.now)
+            store.begin(cadence, period_key, run_id)
             monotonic_start = time.monotonic()
-            status, error_class = self._execute_once(cadence, period_key, run_id)
+            status, error_class, stdout_path, stderr_path = self._execute_once(
+                cadence, period_key, run_id
+            )
+            output_count = 0
             if status == "success":
                 try:
-                    CadenceCompletionStore(self.home).read(cadence, period_key, run_id)
+                    marker = store.read(cadence, period_key, run_id)
+                    output_count = len(marker.get("artifact_refs", []))
                 except FileNotFoundError:
-                    status, error_class = "failed", "completion_missing"
+                    try:
+                        self._auto_complete(store, self.home, cadence, period_key, run_id)
+                    except ValidationError as error:
+                        error_class = (
+                            "completion_missing"
+                            if "no new artifacts found" in str(error)
+                            else "completion_invalid"
+                        )
+                        status = "failed"
+                    except (BoundaryError, OSError, json.JSONDecodeError):
+                        status, error_class = "failed", "completion_invalid"
+                    else:
+                        try:
+                            marker = store.read(cadence, period_key, run_id)
+                            output_count = len(marker.get("artifact_refs", []))
+                        except FileNotFoundError:
+                            status, error_class = "failed", "completion_missing"
+                        except (BoundaryError, ValidationError, json.JSONDecodeError):
+                            status, error_class = "failed", "completion_invalid"
                 except (BoundaryError, ValidationError, json.JSONDecodeError):
                     status, error_class = "failed", "completion_invalid"
             ended_at = self.now().astimezone(timezone.utc).isoformat()
@@ -264,6 +394,12 @@ class CadenceRunner:
                 duration_seconds=round(time.monotonic() - monotonic_start, 6),
                 error_class=error_class,
                 updated_at=ended_at,
+                output_count=output_count,
+                stdout_path=stdout_path,
+                stderr_path=stderr_path,
+                validation_errors=(error_class,)
+                if error_class in {"completion_missing", "completion_invalid"}
+                else (),
             )
             current = self._read_record(runs_fd, cadence, period_key)
             if current is not None and self._is_matching_success(current, cadence, period_key):

@@ -7,6 +7,7 @@ from typing import Any
 
 from mcp.server.fastmcp import FastMCP
 
+from opportunity_os.contracts import AnalysisContract, UserOutcomeContract, WikiCandidateContract
 from opportunity_os.freshness import Confidence, StableGates, TechMaturity, TechState
 from opportunity_os.automation.cadence_completion import CadenceCompletionStore
 from opportunity_os.models import (
@@ -102,6 +103,68 @@ def save_opportunity(
 def list_opportunities(status: OpportunityStatus | None = None) -> list[dict[str, Any]]:
     """List private opportunity cards sorted by deterministic score."""
     return _store().list_opportunities(status)
+
+
+@mcp.tool()
+def transition_opportunity(
+    opportunity_id: str,
+    to_state: OpportunityStatus,
+    trigger_reason: str,
+    new_evidence_ids: list[str],
+    opposing_evidence_ids: list[str],
+    next_experiment_id: str | None,
+    user_decision: str | None,
+    automatic_rule: str | None,
+    run_id: str,
+    occurred_at: str | None = None,
+) -> dict[str, Any]:
+    """Advance one opportunity through the audited lifecycle.
+
+    Valid progression is candidate -> researched -> validated -> active, then
+    completed/rejected/archived. Every transition records its reason, supporting
+    and opposing evidence, experiment, user or automatic decision, time and run ID.
+    """
+    return _store().transition_opportunity(
+        opportunity_id=opportunity_id,
+        to_state=to_state,
+        trigger_reason=trigger_reason,
+        new_evidence_ids=new_evidence_ids,
+        opposing_evidence_ids=opposing_evidence_ids,
+        next_experiment_id=next_experiment_id,
+        user_decision=user_decision,
+        automatic_rule=automatic_rule,
+        run_id=run_id,
+        occurred_at=occurred_at,
+    )
+
+
+@mcp.tool()
+def save_analysis(analysis: AnalysisContract) -> dict[str, Any]:
+    """Persist a schema v1 analysis with Fact/Inference/Hypothesis and opposing evidence."""
+    parsed = analysis if isinstance(analysis, AnalysisContract) else AnalysisContract.model_validate(analysis)
+    return _store().save_analysis(parsed)
+
+
+@mcp.tool()
+def save_wiki_candidate(candidate: WikiCandidateContract) -> dict[str, Any]:
+    """Save a private schema v1 Wiki candidate; this tool never publishes a page."""
+    parsed = (
+        candidate
+        if isinstance(candidate, WikiCandidateContract)
+        else WikiCandidateContract.model_validate(candidate)
+    )
+    return _store().save_wiki_candidate(parsed)
+
+
+@mcp.tool()
+def record_user_outcome(outcome: UserOutcomeContract) -> dict[str, Any]:
+    """Record adopted, ignored, rejected or revised user feedback for the loop."""
+    parsed = (
+        outcome
+        if isinstance(outcome, UserOutcomeContract)
+        else UserOutcomeContract.model_validate(outcome)
+    )
+    return _store().record_user_outcome(parsed)
 
 
 @mcp.tool()

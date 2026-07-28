@@ -104,7 +104,27 @@ class SessionStore:
             if datetime.fromisoformat(value["expires_at"]) <= now:  # type: ignore[index]
                 del sessions[key]
         for key, value in list(bootstraps.items()):
-            if datetime.fromisoformat(str(value)) <= now:
+            if isinstance(value, dict):
+                # Legacy bootstrap format: dict with expires_at timestamp
+                expires = value.get("expires_at")
+                if isinstance(expires, (int, float)):
+                    if datetime.fromtimestamp(expires, tz=timezone.utc) <= now:
+                        del bootstraps[key]
+                elif isinstance(expires, str):
+                    try:
+                        if datetime.fromisoformat(expires) <= now:
+                            del bootstraps[key]
+                    except ValueError:
+                        del bootstraps[key]
+                else:
+                    del bootstraps[key]
+            elif isinstance(value, str):
+                try:
+                    if datetime.fromisoformat(value) <= now:
+                        del bootstraps[key]
+                except ValueError:
+                    del bootstraps[key]
+            else:
                 del bootstraps[key]
 
     @staticmethod

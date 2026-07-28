@@ -73,7 +73,7 @@ device.openApp(packageName: String, action: String) → { success: Boolean }
 - 与 [EdgeAgent](EdgeAgent.md) 对比：EdgeAgent侧重云端协作的数据透传，PalmClaw是纯端侧独立运行
 - 与 [Codex-Mobile](Codex-Mobile.md) 对比：Codex-Mobile是移动端AI编程，PalmClaw是移动端Agent操作框架
 - 端侧Agent是 **AI Agent + 移动端开发** 的最佳交叉方向，PalmClaw提供了从GUI驱动到API驱动的范式转换
-- 设备工具设计理念与 [MCP](MCP.md) 的 Tool Calling 思路一致，只是运行环境从桌面/服务器换到了移动端
+- 设备工具设计理念与 [MCP](../sources/MCP-Tool-Development-Best-Practices.md) 的 Tool Calling 思路一致，只是运行环境从桌面/服务器换到了移动端
 
 ## 可执行建议
 

@@ -56,7 +56,7 @@ date: "2026-05-17"
 
 - 与 [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) 中Tool System的分析一致：Claude Code的 `maxResultSizeChars` 就是在控制工具输出大小
 - 与 [Anthropic-Agent-API](../entities/Anthropic-Agent-API.md) 的MCP Connector相关：API层自动处理工具发现，工具描述质量直接影响Agent的工具选择效果
-- 与 [Context-Window-Optimization](Context-Window-Optimization.md) 相关：工具输出优化本质上是上下文窗口优化的一部分
+- 与 [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) 相关：工具输出优化本质上是上下文窗口优化的一部分
 
 ## 可执行建议
 

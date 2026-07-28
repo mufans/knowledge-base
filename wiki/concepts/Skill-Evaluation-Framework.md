@@ -10,7 +10,7 @@ date: "2026-04-27"
 # 8 维度 Skill 量化评估框架
 
 > tags: #Skill-Evaluation #Agent #Quality-Metrics #MCP
-> source: [2026-04-26-技术动态](../raw/inbox/2026-04-26-技术动态.md)
+> source: [2026-04-26-技术动态](../../raw/inbox/2026-04-26-技术动态.md)
 > score: 技术深度7/10 | 实用价值9/10 | 时效性8/10 | 领域匹配8/10 | 综合 8.0/10
 
 ## 核心概念

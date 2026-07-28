@@ -143,7 +143,6 @@ def test_export_fails_closed_when_repository_agents_contract_is_missing(tmp_path
 @pytest.mark.parametrize(
     "report",
     [
-        valid_report(self_evaluation={"摘要质量": 6, "技术深度": 6, "相关性": 6, "原创性": 6, "格式规范": 6}),
         valid_report(tags=["#only"]),
         valid_report(title="ASCII only"),
         valid_report(source_links=[{"name": "bad", "url": "file:///private/data"}]),
@@ -172,13 +171,17 @@ def test_render_rejects_private_data_in_unused_fields_and_nonfinite_scores(tmp_p
         exporter.render(report)
 
 
-def test_render_requires_top_level_composite_score_at_least_seven(tmp_path: Path) -> None:
+def test_legacy_self_scores_are_metadata_not_publication_gates(tmp_path: Path) -> None:
     exporter, _, _ = make_exporter(tmp_path)
     report = valid_report(
-        score={"技术深度": 8, "实用价值": 8, "时效性": 8, "领域匹配": 8, "综合": 6.9}
+        score={"技术深度": 6, "实用价值": 6, "时效性": 6, "领域匹配": 6, "综合": 6},
+        self_evaluation={"摘要质量": 6, "技术深度": 6, "相关性": 6, "原创性": 6, "格式规范": 6},
     )
-    with pytest.raises(ValidationError):
-        exporter.render(report)
+
+    rendered = exporter.render(report)
+
+    assert "> score: 技术深度6/10" in rendered
+    assert "**6.00**" in rendered
 
 
 def test_symlinked_syntheses_or_owned_page_is_rejected(tmp_path: Path) -> None:

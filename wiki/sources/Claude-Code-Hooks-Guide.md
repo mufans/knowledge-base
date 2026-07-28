@@ -64,8 +64,8 @@ Hooks通过事件驱动解决这三类问题。设计上的trade-off：用配置
 
 ## 关联分析
 
-- 与 [Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md) 互补：源码分析揭示内部架构，Hooks是外部定制接口
-- 与 [everything-claude-code](everything-claude-code.md) 关联：Hooks是Claude Code高级用法的核心
+- 与 [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) 互补：源码分析揭示内部架构，Hooks是外部定制接口
+- 与 [everything-claude-code](../entities/everything-claude-code.md) 关联：Hooks是Claude Code高级用法的核心
 - 与 [Skill-Auto-Creation](../concepts/Skill-Auto-Creation.md) 关联：Hooks可自动化Skill的触发和执行
 
 ## 可执行建议

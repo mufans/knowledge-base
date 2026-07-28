@@ -4,7 +4,7 @@
 
 ## 关于
 
-这个知识库通过 **采集 → 分析 → 提炼** 的自动化流水线，持续构建结构化的个人技术知识图谱。由 OpenClaw Agent 自动维护，每日从多个信息源采集、筛选、提炼高价值技术内容。
+这个知识库通过 **Signal → Research Dossier → 独立评审 → 发布或拒绝** 的知识编译流程，持续构建 AI Agent × 移动端开发方向的公开知识资产。OpenClaw 负责确定性采集和调度，Hermes 负责正反分析与实验设计；公开页面必须通过引用、增量、重复和链接门禁。
 
 ## 设计理念
 
@@ -13,8 +13,9 @@
 **核心理念**：
 - **编译一次，持续复用** — 知识提炼一次，永久累积，而非每次查询从头检索（vs 传统RAG）
 - **Raw只读，Wiki可写** — 原始数据不可篡改，提炼层自由演进
-- **人策展，AI维护** — 方向由人决定，整理和维护由AI自动完成
-- **结构化积累** — 通过分类、标签、评分、交叉链接，让知识自然形成图谱
+- **人策展，AI维护** — 方向和最终公开决策由人掌握，AI 提供证据与候选
+- **结构化积累** — 通过页面类型、声明类型、证据与交叉链接形成知识图谱
+- **不发布也是成功** — 没有明确知识增量或证据不足时，流水线正常停止
 
 **与RAG的区别**：
 
@@ -66,21 +67,19 @@ knowledge/
 | 任务 | 时间 | 模型 | 方式 | 说明 |
 |------|------|------|------|------|
 | 新闻热点 | 08:00 | deepseek/deepseek-v4-flash | LLM | AI/大模型、编程工具、移动端、云原生、开源 |
-| 技术动态 | 09:30 | deepseek/deepseek-v4-flash | LLM | InfoQ、OSChina等技术社区 |
-| AI论文 | 10:00 | - | **Python脚本** | HuggingFace Daily Papers（0 token消耗） |
-| GitHub项目 | 10:30 | - | **Python脚本** | GitHub Search API（0 token消耗） |
-| 社交媒体 | 11:00 | deepseek/deepseek-v4-flash | LLM | AI技术动态筛选 |
+| 技术动态 | 10:00 | deepseek/deepseek-v4-flash | LLM | InfoQ、OSChina等技术社区 |
+| AI论文 | 11:00 | - | **Python脚本** | HuggingFace Daily Papers（0 token消耗） |
+| GitHub项目 | 12:00 | - | **Python脚本** | GitHub Search API（0 token消耗） |
+| 社交媒体 | 13:00 | deepseek/deepseek-v4-flash | LLM | AI技术动态筛选 |
 | 晚间总结 | 21:00 | deepseek/deepseek-v4-flash | LLM | 当日采集内容回顾 |
 
-## 提炼流程
+## 知识编译流程
 
-每日00:00由 deepseek/deepseek-v4-flash 执行深度知识提炼：
-
-1. **读取** — 加载当日采集文件 + 已有wiki内容
-2. **筛选** — 评估每条内容的价值（技术深度、实用价值、时效性、领域匹配）
-3. **提炼** — 高价值内容生成wiki页面（5个维度：概念→原理→实现→关联→建议）
-4. **质量检查** — 覆盖度、摘要质量、评分合理性、链接格式、信息真实性
-5. **输出** — 保存到wiki/ + 更新index.md + 同步GitHub Pages
+1. **Signal** — OpenClaw 将采集内容转换成带稳定 ID、时间和哈希的输入
+2. **Research Dossier** — Hermes 区分 Fact、Inference、Hypothesis，并整理支持与反方证据
+3. **Wiki Candidate** — Knowledge Compiler 先判断是否有增量、应更新旧页面还是创建综合分析
+4. **独立评审** — 检查事实引用、数字/API 追溯、限制与反例、重复、链接和研究方向
+5. **决策** — 发布、等待人工判断或拒绝；拒绝原因进入后续采集和实验反馈
 
 ## Hermes 个人机会发现系统
 
@@ -106,34 +105,12 @@ uv run --directory integrations/hermes-opportunity-os python -m opportunity_os.d
 
 ## 质量规范
 
-### 每篇wiki页面必须包含
-
-```markdown
-# 标题
-
-> tags: #tag1 #tag2 #tag3
-> source: [采集文件名](链接)
-> project: [项目名](GitHub URL)（如有）
-> score: 技术深度X/10 | 实用价值X/10 | 时效性X/10 | 领域匹配X/10 | 综合 X.X/10
-
-## 核心概念
-## 设计原理
-## 关键实现
-## 关联分析
-## 可执行建议
-```
-
-### 核心约束
-
-- ✅ 避免泛泛而谈，必须体现具体技术细节（算法名、参数值、代码行、性能数据）
-- ✅ 所有链接使用 `[名称](URL)` 格式，禁止裸URL
-- ✅ 提到已有wiki条目时使用交叉链接 `[Self-RAG](Self-RAG.md)`
-- ✅ 禁止 `[[]]` Obsidian格式，mkdocs不支持
-- ✅ 技术术语使用英文原文作为标签
-- ✅ 每个页面2-5个分类标签 + 多维度评分
-- ❌ 禁止百科式描述（"XX是一种XX技术"）
-- ❌ 禁止功能罗列（"XX有A、B、C功能"）
-- ❌ 禁止编造信息，所有技术声明必须有据可查
+- 页面按 concept、entity、source、synthesis 使用不同最低结构，不填充空章节
+- Fact、Inference、Hypothesis 必须明确区分，重要结论同时保留支持与反方证据
+- 数字、版本、性能和 API 声明引用覆盖率为 100%，其他重要事实目标不低于 90%
+- 发布时 Wiki broken links 必须为 0，优先更新已有页面并增加 synthesis
+- 历史自评分仅作浏览元数据，不再决定发布或默认排序
+- 所有链接使用 `[名称](URL)`；禁止裸 URL、`[[]]` 和不可验证的实现细节
 
 ## MCP Server
 
@@ -181,4 +158,4 @@ uv run --directory integrations/hermes-opportunity-os python -m opportunity_os.d
 
 ---
 
-*由 OpenClaw 每日自动化流水线维护 · 最后更新：2026-07-20*
+*由 OpenClaw、Hermes 与 Knowledge Compiler 协作维护 · 最后更新：2026-07-29*

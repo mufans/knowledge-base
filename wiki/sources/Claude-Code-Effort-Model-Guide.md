@@ -73,8 +73,8 @@ Effort控制的不只是思考时间，还包括：
 
 ## 关联分析
 
-- 与 [Claude-Code-Source-Analysis](../../entities/Claude-Code-Source-Analysis.md) 关联：了解Claude Code的架构有助于理解Effort Level的实现机制
-- 与 [learn-claude-code](../../entities/learn-claude-code.md) 关联：Effort Level是Claude Code核心配置之一
+- 与 [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) 关联：了解Claude Code的架构有助于理解Effort Level的实现机制
+- 与 [learn-claude-code](../entities/learn-claude-code.md) 关联：Effort Level是Claude Code核心配置之一
 - 与 [Anthropic-AI-Code-Migration](Anthropic-AI-Code-Migration.md) 关联：大规模迁移中，模型选择可能使用Fable/Opus搭配高Effort，而routine重构可能用Sonnet+默认Effort
 - Token成本优化参考 [GitHub-Token-Cost-Optimization](GitHub-Token-Cost-Optimization.md)：高Effort会增加token消耗，需要在效果和成本间权衡
 

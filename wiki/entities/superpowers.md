@@ -80,7 +80,7 @@ Superpowers 解决思路：**用规范化的开发流程约束 Agent 行为**，
 
 - 与 [OpenClaw 的 skill 机制](OpenClaw.md) 同出一辙：都是通过 Markdown/技能文件约束 Agent 行为。Superpowers 更侧重编码方法论，OpenClaw 侧重 Agent 运行环境
 - 其子Agent驱动开发模式与 [Claude Code 的 hook 机制](../sources/Claude-Code-Hooks-Guide.md) 形成对比：一为代码级 hook，一为方法论级约束
-- 两阶段审查（规范+质量）可以用于 [AppSmartInspector](../entities/AppSmartInspector.md) 的审查流程设计
+- 两阶段审查（规范+质量）可以用于 AppSmartInspector 的审查流程设计
 - TDD 强制循环与 [Loop-Engineering](../concepts/Loop-Engineering.md) 的检测-修复循环理念一致
 
 ## 可执行建议

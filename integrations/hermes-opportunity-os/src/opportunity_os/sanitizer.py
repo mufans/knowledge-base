@@ -60,3 +60,11 @@ def sanitize_public(value: object) -> object:
     if isinstance(value, str) and contains_secret(value):
         return REDACTED
     return value
+
+
+def redact_text(value: str) -> str:
+    """Redact secret-shaped substrings while preserving useful diagnostic context."""
+    result = value
+    for pattern in SECRET_PATTERNS:
+        result = pattern.sub(REDACTED, result)
+    return result

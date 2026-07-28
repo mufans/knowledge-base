@@ -99,7 +99,7 @@ TK 2.0 针对 Hopper 和 Blackwell GPU：
 
 - [CUDA-oxide](../entities/CUDA-oxide.md) — CUDA 相关项目
 - [ExecuTorch](../entities/ExecuTorch.md) — 端侧推理优化
-- [Transformer-Architecture-Evolution](Transformer-Architecture-Evolution.md) — Transformer 架构演进
+- [Transformer-Architecture-Evolution](../sources/Transformer-Architecture-Evolution.md) — Transformer 架构演进
 
 ## 可执行建议
 

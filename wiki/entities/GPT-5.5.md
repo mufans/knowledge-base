@@ -10,7 +10,7 @@ date: "2026-04-27"
 # GPT-5.5
 
 > tags: #GPT #LLM #Agent #OpenAI
-> source: [2026-04-26-技术动态](../raw/inbox/2026-04-26-技术动态.md)
+> source: [2026-04-26-技术动态](../../raw/inbox/2026-04-26-技术动态.md)
 > score: 技术深度6/10 | 实用价值8/10 | 时效性9/10 | 领域匹配8/10 | 综合 7.8/10
 
 ## 核心概念
@@ -27,12 +27,12 @@ Trade-off：更强的自主性 = 更难预测的执行路径，这对安全和�
 
 - 智能水平和能效比"大幅提升"（官方声称，具体 benchmark 待验证）
 - 能在模糊指令下自主执行任务——暗示内置了 chain-of-thought + tool-use 的端到端训练
-- 与 [Claude 生态工具](Claude-Ecosystem-Tools.md) 形成直接竞争，尤其在 Agent 编排领域
+- 与 [Claude 生态工具](../concepts/Claude-Ecosystem-Tools.md) 形成直接竞争，尤其在 Agent 编排领域
 
 ## 关联分析
 
 - 与 [DeepEP](../concepts/DeepEP.md) 代表的 MoE 高效通信形成互补：GPT-5.5 推高模型能力上限，DeepEP 类工作降低训练/推理成本
-- Agent 能力的增强直接影响 [AI Agent 自我改进](AI-Agent-Self-Improving.md) 的可行性边界
+- Agent 能力的增强直接影响 [AI Agent 自我改进](../concepts/AI-Agent-Self-Improving.md) 的可行性边界
 - 对移动端开发者的影响：更强的指令理解能力意味着自然语言驱动的 UI 构建更可行
 
 ### 2026-05-09 更新

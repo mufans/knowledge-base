@@ -10,7 +10,7 @@ date: "2026-07-10"
 # Headroom：Token压缩工具
 
 > tags: #Token-Optimization #成本优化 #MCP #Agent-Tool
-> source: [2026-07-10-GitHub项目](../raw/inbox/2026-07-10-GitHub项目.md)
+> source: [2026-07-10-GitHub项目](../../raw/inbox/2026-07-10-GitHub项目.md)
 > project: [headroomlabs-ai/headroom](https://github.com/headroomlabs-ai/headroom)
 > score: 技术深度7/10 | 实用价值10/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.5/10
 

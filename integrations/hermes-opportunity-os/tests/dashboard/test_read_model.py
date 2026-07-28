@@ -57,3 +57,5 @@ def test_read_model_never_exposes_paths_or_directions() -> None:
     }
     assert payload["pending_approvals"] == 0
     assert payload["active_incidents"] == 0
+    assert payload["pipeline_metrics"]["week_collected"] == 0
+    assert payload["opportunity_state_counts"] == {}

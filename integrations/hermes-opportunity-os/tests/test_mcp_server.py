@@ -54,7 +54,8 @@ def test_mcp_server_exposes_all_state_transition_tools(monkeypatch, tmp_path: Pa
 
     for tool_name in (
         "record_experiment", "set_direction", "get_portfolio", "record_tech_state", "save_review",
-        "complete_cadence",
+        "complete_cadence", "transition_opportunity", "save_analysis", "save_wiki_candidate",
+        "record_user_outcome",
     ):
         assert callable(getattr(server, tool_name))
 

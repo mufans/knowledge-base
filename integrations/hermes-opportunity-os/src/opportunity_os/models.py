@@ -14,7 +14,9 @@ OpportunityType = Literal[
     "career", "technology", "product", "service", "open_source", "content", "network", "cross_domain"
 ]
 PresentationBucket = Literal["strength", "broad", "surprise"]
-OpportunityStatus = Literal["candidate", "observing", "validating", "active", "paused", "stopped"]
+OpportunityStatus = Literal[
+    "candidate", "researched", "validated", "active", "completed", "rejected", "archived"
+]
 DirectionStatus = Literal["observe", "validate", "active"]
 ReviewPeriod = Literal["daily", "weekly", "six_week", "quarterly"]
 
@@ -135,7 +137,9 @@ class Opportunity:
             raise ValidationError("不支持的机会类型")
         if self.presentation_bucket not in {"strength", "broad", "surprise"}:
             raise ValidationError("presentation_bucket 必须是 strength、broad 或 surprise")
-        if self.status not in {"candidate", "observing", "validating", "active", "paused", "stopped"}:
+        if self.status not in {
+            "candidate", "researched", "validated", "active", "completed", "rejected", "archived"
+        }:
             raise ValidationError("不支持的机会状态")
         _required_list(self.supporting_evidence, "支持证据")
         _required_list(self.opposing_evidence, "反对证据")
@@ -174,6 +178,12 @@ class Opportunity:
     def from_dict(cls, value: dict[str, Any]) -> "Opportunity":
         payload = dict(value)
         payload.pop("total_score", None)
+        payload["status"] = {
+            "observing": "researched",
+            "validating": "validated",
+            "paused": "validated",
+            "stopped": "archived",
+        }.get(payload.get("status"), payload.get("status", "candidate"))
         payload["supporting_evidence"] = [Evidence.from_dict(item) for item in payload["supporting_evidence"]]
         payload["opposing_evidence"] = [Evidence.from_dict(item) for item in payload["opposing_evidence"]]
         payload["minimum_experiment"] = Experiment.from_dict(payload["minimum_experiment"])

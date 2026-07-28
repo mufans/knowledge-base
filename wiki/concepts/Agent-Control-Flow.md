@@ -64,7 +64,7 @@ def run_agent(task):
 
 - [Weak-Model-Orchestration](Weak-Model-Orchestration.md) — 用代码逻辑管理弱模型调用的编排模式
 - [Vibe-Coding-Agent-Engineering-Convergence](Vibe-Coding-Agent-Engineering-Convergence.md) — Vibe Coding与Agent工程的融合趋势
-- [AI-Agent沙箱方案讨论](../../sources/AI-Agent沙箱方案讨论.md) — Agent沙箱化的工程实践
+- [AI-Agent沙箱方案讨论](../sources/AI-Agent沙箱方案讨论.md) — Agent沙箱化的工程实践
 
 ## 可执行建议
 

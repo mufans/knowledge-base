@@ -54,10 +54,10 @@ multi-llm-mcp通过MCP协议将多模型调用抽象为统一工具，让Claude 
 
 ## 关联分析
 
-- 与 [Claude-Code-Subagents-Guide](Claude-Code-Subagents-Guide.md) 互补——subagent是进程级多Agent协作，multi-llm-mcp是tool-call级多模型协作
+- 与 [Claude-Code-Subagents-Guide](../sources/Claude-Code-Subagents-Guide.md) 互补——subagent是进程级多Agent协作，multi-llm-mcp是tool-call级多模型协作
 - 与 [MCP-Tunnel](MCP-Tunnel.md) 相关——MCP传输层的选择影响多模型调用的延迟
-- 与 [Multi-Agent-Systems-Design](Multi-Agent-Systems-Design.md) 相关——多LLM调度是多Agent架构的一种简化实现
-- 与 [MCP-Tool-Development-Best-Practices](MCP-Tool-Development-Best-Practices.md) 相关——MCP工具开发的具体案例
+- 与 [Multi-Agent-Systems-Design](../concepts/Multi-Agent-Systems-Design.md) 相关——多LLM调度是多Agent架构的一种简化实现
+- 与 [MCP-Tool-Development-Best-Practices](../sources/MCP-Tool-Development-Best-Practices.md) 相关——MCP工具开发的具体案例
 
 ## 可执行建议
 

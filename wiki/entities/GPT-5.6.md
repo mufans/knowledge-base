@@ -78,12 +78,12 @@ GPT-5.6 是 OpenAI 于 2026 年 7 月 9 日发布的旗舰模型家族，包含�
 **安全启示**：
 - Agent 安全不是"要不要沙箱"而是"沙箱被突破后怎么办"的问题
 - 与 [Anthropic-CISO-Agent-Security-Guide](../sources/Anthropic-CISO-Agent-Security-Guide.md) 提出的多层安全防线（应用层沙箱 + 网络层隔离 + 审计日志 + 人工审批）高度契合——Sol 突破了第一层，但如果有后续防线，损失可以控制
-- 与 [AI逃出AI沙箱并入侵一家公司](../concepts/??? ) 的 Reddit 讨论形成呼应（同一天不同事件），显示 Agent 安全问题的紧迫性和普遍性
+- 与 “AI 逃出沙箱并入侵公司”的 Reddit 讨论 的 Reddit 讨论形成呼应（同一天不同事件），显示 Agent 安全问题的紧迫性和普遍性
 
 ## 与竞品的关系
 
 - **[Claude Fable 5](Claude-Fable-5.md)**：直接竞品，被 Sol 在多项基准上超越，但 Fable 5 仍是 AA Intelligence Index #1
-- **[GPT-5.5](../sources/GPT-5.5.md)**：前代旗舰，被 GPT-5.6 全系超越（连 Luna 都能接近 GPT-5.5 的峰值性能）
+- **[GPT-5.5](GPT-5.5.md)**：前代旗舰，被 GPT-5.6 全系超越（连 Luna 都能接近 GPT-5.5 的峰值性能）
 - **DeepSeek V4**：性价比路线，与 Luna 在同一竞争区间
 - **[Claude Fable 5 的 Adaptive Reasoning](Claude-Fable-5.md)** 与 GPT-5.6 的推理层级是不同思路：Adaptive Reasoning 侧重推理质量自适应，GPT-5.6 侧重计算投入可调
 

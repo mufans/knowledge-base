@@ -33,7 +33,7 @@ Natural Language Autoencoders（NLA）是Anthropic发布的模型可解释性方
 ## 关联分析
 
 - [Real-world-AI-Applications](Real-world-AI-Applications.md) — AI安全的实际应用场景
-- [CISA-NSA-Agent-Security](../../sources/CISA-NSA-Agent-Security.md) — Agent安全相关的政策和技术框架
+- [CISA-NSA-Agent-Security](../sources/CISA-NSA-Agent-Security.md) — Agent安全相关的政策和技术框架
 
 ## 可执行建议
 

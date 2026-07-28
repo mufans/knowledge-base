@@ -76,8 +76,8 @@ Judge必须能**平等评估原始代码和目标代码**。构建步骤：
 ## 关联分析
 
 - 与 [ServiceTitan-AI-Migration-Practice](ServiceTitan-AI-Migration-Practice.md) 对比：ServiceTitan的"自愈循环"侧重任务分解粒度和验证器设计，而Anthropic的方法论更强调端到端迁移流程和Judge构建。两者共享"强验证器驱动"理念，但Anthropic增加了审查门（phase gates）和对抗性验证环节
-- 与 [Loop-Engineering](../../concepts/Loop-Engineering.md) 一致：核心哲学都是"修复流程而非修复输出"
-- 与 [Claude-Code-Source-Analysis](../../entities/Claude-Code-Source-Analysis.md) 关联：Claude Code的架构能力是这些迁移的基础设施
+- 与 [Loop-Engineering](../concepts/Loop-Engineering.md) 一致：核心哲学都是"修复流程而非修复输出"
+- 与 [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) 关联：Claude Code的架构能力是这些迁移的基础设施
 - 成本数据可以用于 [GitHub-Token-Cost-Optimization](GitHub-Token-Cost-Optimization.md) 的参考对比
 
 ## 可执行建议

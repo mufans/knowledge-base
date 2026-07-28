@@ -185,7 +185,7 @@ QuickJS 运行时架构：
 
 - 与 [pi-mono](../entities/pi-mono.md) 的关系：Rust 移植版，架构从 TypeScript monorepo 转向 Rust single-crate，扩展系统从 npm 包转向 QuickJS/WASM 运行时
 - 与 [Claude-Code](../entities/Claude-Code-Source-Analysis.md) 的对比：Claude Code 是闭源的 TypeScript 实现，pi_agent_rust 在启动速度、内存占用、扩展安全模型上有明确优势，但 Claude Code 有 Anthropic 官方 API 的深度集成优势
-- Hostcall 优化体系（AMAC + Superinstruction + Rewrite + S3-FIFO）对 AI Agent 运行时设计有参考价值，特别是 [MCP](../concepts/MCP-Protocol.md) 场景下的工具调用优化
+- Hostcall 优化体系（AMAC + Superinstruction + Rewrite + S3-FIFO）对 AI Agent 运行时设计有参考价值，特别是 [MCP](MCP-Tool-Development-Best-Practices.md) 场景下的工具调用优化
 - Context Compaction 策略可与 [Context-Window-Optimization](../concepts/Context-Window-Optimization.md) 方法论互补
 
 ## 竞品对比

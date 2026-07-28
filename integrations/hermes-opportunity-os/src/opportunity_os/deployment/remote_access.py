@@ -223,6 +223,8 @@ class DashboardLaunchAgent:
             "ProcessType": "Background",
             "ThrottleInterval": 10,
             "WorkingDirectory": str(self.private_home),
+            "StandardOutPath": str(self.private_home / "logs" / "dashboard" / "stdout.log"),
+            "StandardErrorPath": str(self.private_home / "logs" / "dashboard" / "stderr.log"),
             "EnvironmentVariables": {
                 "DASHBOARD_HOME": str(self.private_home),
                 "DASHBOARD_REMOTE_HOST": self.remote_host,
@@ -241,6 +243,10 @@ class DashboardLaunchAgent:
             raise ValueError("opportunity-os executable must exist and be executable")
         if not self.private_home.is_dir() or self.private_home.is_symlink():
             raise ValueError("private home must be an existing non-symlink directory")
+        log_directory = self.private_home / "logs" / "dashboard"
+        log_directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        if log_directory.is_symlink() or not log_directory.is_dir():
+            raise ValueError("dashboard log directory must be a non-symlink directory")
         target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         if target.parent.is_symlink() or not target.parent.is_dir():
             raise ValueError("LaunchAgent parent must be a non-symlink directory")

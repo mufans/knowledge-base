@@ -38,7 +38,7 @@ date: "2026-04-29"
 
 - 与[Context-Window-Optimization](../concepts/Context-Window-Optimization.md)直接相关——减少无效上下文=减少token消耗=降低成本
 - [DeepSeek V4](../entities/DeepSeek-V4.md)的90%成本降低承诺是对冲涨价的重要选项
-- [everything-claude-code](everything-claude-code.md)的优化策略可用于降低Claude Code的实际使用成本
+- [everything-claude-code](../entities/everything-claude-code.md)的优化策略可用于降低Claude Code的实际使用成本
 
 ## 可执行建议
 

@@ -74,6 +74,8 @@ def test_dashboard_launch_agent_is_loopback_only_and_closes_remote_origin_gate(t
         "8765",
     ]
     assert payload["RunAtLoad"] is True
+    assert payload["StandardOutPath"] == str(home / "logs/dashboard/stdout.log")
+    assert payload["StandardErrorPath"] == str(home / "logs/dashboard/stderr.log")
     assert payload["EnvironmentVariables"] == {
         "DASHBOARD_HOME": str(home),
         "DASHBOARD_REMOTE_HOST": "owner.ngrok-free.app",

@@ -7,6 +7,8 @@ description: "2026年6月Microsoft Build大会上，Satya Nadella提出计算范
 date: "2026-06-04"
 ---
 
+# Microsoft CEO：从OS/App到Agents的计算范式转变
+
 > tags: #Agent #Computing-Paradigm #Microsoft #Qualcomm #Project-Solara
 > source: [Microsoft CEO: We're moving from OS and apps to agents instead](https://9to5mac.com/2026/06/02/microsoft-ceo-were-moving-from-os-and-apps-to-agents-instead/)
 > score: 技术深度6/10 | 实用价值7/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.0/10

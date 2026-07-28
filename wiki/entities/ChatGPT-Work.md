@@ -10,7 +10,7 @@ date: "2026-07-10"
 # ChatGPT Work：跨应用Agent平台
 
 > tags: #Agent-Platform #GPT #OpenAI #Auto-Agent #Workflow
-> source: [2026-07-10-社交媒体](../raw/inbox/2026-07-10-社交媒体.md)
+> source: [2026-07-10-社交媒体](../../raw/inbox/2026-07-10-社交媒体.md)
 > project: [OpenAI ChatGPT Work](https://openai.com/index/chatgpt-for-your-most-ambitious-work/)
 > score: 技术深度7/10 | 实用价值9/10 | 时效性9/10 | 领域匹配8/10 | 综合 8.0/10
 
@@ -39,7 +39,7 @@ Trade-off：应用层操作 (GUI-driven) vs API 层集成：GUI 操作更通用�
 
 - 直接影响 [GPT-5.5](GPT-5.5.md) 的评估：GPT-5.6 + ChatGPT Work 共同构成了完整的 Agent 产品形态
 - 与 [Claude-Cowork](../entities/Claude-Cowork.md) 直接竞争：两者都是"随时待命 Agent"，但 ChatGPT Work 更侧重办公场景，Claude Cowork 更侧重编码场景
-- 与 [AutoGPT](../entities/AutoGPT.md) 等开源 Agent 框架的差异：ChatGPT Work 是封闭平台但体验更无缝
+- 与 AutoGPT 等开源 Agent 框架的差异：ChatGPT Work 是封闭平台但体验更无缝
 - [Agent-Cost-Crisis-2026](../sources/Agent-Cost-Crisis-2026.md) 中分析的 Agent 成本问题：ChatGPT Work 通过长规划减少轮次来压低成本
 
 ## 可执行建议

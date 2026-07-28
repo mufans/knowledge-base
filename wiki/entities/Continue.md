@@ -38,7 +38,7 @@ Continue 是一个开源的 AI 代码审查和辅助开发工具（32k+ GitHub s
 
 - 与 [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) 对比：Claude Code 更侧重代码生成和重构，Continue 更侧重代码审查和辅助
 - 与 [OpenClaw](../entities/OpenClaw.md) 的关系：OpenClaw 的 coding-agent skill 可以使用 Continue 作为子 Agent
-- 相关概念：[Vibe Coding](../concepts/)、[AST-Driven-AI-Editing](../concepts/AST-Driven-AI-Editing.md)
+- 相关概念：[Vibe Coding](../concepts/index.md)、[AST-Driven-AI-Editing](../concepts/AST-Driven-AI-Editing.md)
 
 ## 可执行建议
 

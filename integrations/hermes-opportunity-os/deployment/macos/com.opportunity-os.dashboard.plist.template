@@ -16,5 +16,7 @@
   <key>ProcessType</key><string>Background</string>
   <key>ThrottleInterval</key><integer>10</integer>
   <key>WorkingDirectory</key><string>__OPPORTUNITY_OS_HOME__</string>
+  <key>StandardOutPath</key><string>__OPPORTUNITY_OS_HOME__/logs/dashboard/stdout.log</string>
+  <key>StandardErrorPath</key><string>__OPPORTUNITY_OS_HOME__/logs/dashboard/stderr.log</string>
 </dict>
 </plist>

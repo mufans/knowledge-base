@@ -10,7 +10,7 @@ date: "2026-04-27"
 # PersonalAI：知识图谱存储与检索的个性化 LLM 方案
 
 > tags: #Knowledge-Graph #Personalization #LLM-Agent #RAG
-> source: [2026-04-26-AI论文](../raw/inbox/2026-04-26-AI论文.md)
+> source: [2026-04-26-AI论文](../../raw/inbox/2026-04-26-AI论文.md)
 > project: [arXiv 2506.17001](https://arxiv.org/abs/2506.17001)
 > score: 技术深度8/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 综合 8.0/10
 

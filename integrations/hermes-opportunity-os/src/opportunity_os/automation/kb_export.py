@@ -239,8 +239,6 @@ class KnowledgeExporter:
         if not isinstance(scores, Mapping) or set(scores) != set(SCORE_DIMENSIONS):
             raise ValidationError("score 维度不完整")
         score_values = {name: self._safe_number(scores[name], name) for name in SCORE_DIMENSIONS}
-        if score_values["综合"] < 7.0:
-            raise ValidationError("页面综合评分低于 7.0")
 
         sections = report.get("sections")
         if not isinstance(sections, Mapping) or set(sections) != set(REQUIRED_SECTIONS):
@@ -254,8 +252,6 @@ class KnowledgeExporter:
             raise ValidationError("自评维度不完整")
         self_values = {name: self._safe_number(self_evaluation[name], name) for name in SELF_DIMENSIONS}
         weighted = sum(self_values[name] * SELF_WEIGHTS[name] for name in SELF_DIMENSIONS)
-        if weighted < 7.0:
-            raise ValidationError("自评加权总分低于 7.0")
 
         lines = [
             f"# {title}",
@@ -407,10 +403,12 @@ class KnowledgeExporter:
         if not agents.is_file() or not purpose.is_file() or not raw.is_dir():
             raise ValidationError("知识库规则、purpose 或 raw 边界缺失")
         agents_text = agents.read_text(encoding="utf-8")
-        required_agents = (
+        base_markers = (
             "raw/",
             "wiki/syntheses",
             "log.md",
+        )
+        legacy_markers = (
             "## 核心概念",
             "## 设计原理",
             "## 关键实现",
@@ -418,8 +416,16 @@ class KnowledgeExporter:
             "## 可执行建议",
             "## 自评",
         )
-        if any(marker not in agents_text for marker in required_agents):
-            raise ValidationError("AGENTS.md 不包含受支持的 Wiki 模板契约")
+        compiler_markers = (
+            "页面最低结构（按类型）",
+            "`Fact`、`Inference`、`Hypothesis`",
+            "不得作为发布门禁",
+        )
+        if any(marker not in agents_text for marker in base_markers) or not (
+            all(marker in agents_text for marker in legacy_markers)
+            or all(marker in agents_text for marker in compiler_markers)
+        ):
+            raise ValidationError("AGENTS.md 不包含受支持的 Wiki 质量契约")
         purpose_text = purpose.read_text(encoding="utf-8")
         if "## 目标" not in purpose_text or "## 研究范围" not in purpose_text:
             raise ValidationError("purpose.md 缺少目标或研究范围")

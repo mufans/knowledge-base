@@ -10,7 +10,7 @@ date: "2026-07-10"
 # MentalThink：SVG思维画布推理
 
 > tags: #Visual-Reasoning #SVG #Agent-Internals #LLM-Thinking
-> source: [2026-07-10-AI论文](../raw/inbox/2026-07-10-AI论文.md)
+> source: [2026-07-10-AI论文](../../raw/inbox/2026-07-10-AI论文.md)
 > project: [MentalThink: Shaping Thoughts in Mental SVG World](https://github.com/...)
 > score: 技术深度8/10 | 实用价值7/10 | 时效性9/10 | 领域匹配7/10 | 综合 7.5/10
 
@@ -32,8 +32,8 @@ Trade-off：SVG 渲染和解析带来的 token 开销可能抵消部分视觉优
 
 ## 关联分析
 
-- 与 [Ornith-1.0 自构建脚手架](Ornith-Self-Scaffolding.md) 同为 Agent 推理过程创新：Ornith 管理工具调用，MentalThink 管理推理可视化
-- 对 [Claude Fable 5](Claude-Fable-5.md) 的"未知地图"方法论有参考价值：可视化推理链让 Agent 看见自己的未知区域
+- 与 Ornith-1.0 自构建脚手架 同为 Agent 推理过程创新：Ornith 管理工具调用，MentalThink 管理推理可视化
+- 对 [Claude Fable 5](../entities/Claude-Fable-5.md) 的"未知地图"方法论有参考价值：可视化推理链让 Agent 看见自己的未知区域
 - 作为 [Vibe Coding Agent Engineering 趋同](../concepts/Vibe-Coding-Agent-Engineering-Convergence.md) 的视觉推理实践示例
 
 ## 可执行建议

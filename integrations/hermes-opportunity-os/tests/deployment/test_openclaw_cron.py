@@ -30,12 +30,13 @@ class RecordingRunner:
         return type("Result", (), {"returncode": 0, "stdout": next(self.responses), "stderr": ""})()
 
 
-def test_manifest_has_three_native_jobs_and_native_failure_alerts() -> None:
+def test_manifest_has_four_native_jobs_and_native_failure_alerts() -> None:
     manifest = CronManifest.load(MANIFEST)
     assert {job.name for job in manifest.jobs} == {
         "opportunity-os-daily",
         "opportunity-os-weekly",
         "opportunity-os-healthcheck",
+        "opportunity-os-knowledge-sync",
     }
     assert all(job.failure_alert.enabled for job in manifest.jobs)
     assert all(job.failure_alert.exclude_skipped for job in manifest.jobs)
@@ -97,7 +98,7 @@ def test_reconcile_is_dry_run_by_default_and_never_uses_a_shell() -> None:
     result = reconcile(CronManifest.load(MANIFEST), client)
 
     assert result.applied is False
-    assert [action.kind for action in result.actions] == ["add", "add", "add"]
+    assert [action.kind for action in result.actions] == ["add", "add", "add", "add"]
     assert runner.calls == [
         (
             ["/opt/homebrew/bin/openclaw", "cron", "list", "--all", "--json"],
@@ -116,6 +117,8 @@ def test_apply_adds_jobs_then_configures_openclaw_native_failure_alerts(tmp_path
             "{}",
             json.dumps({"id": "job-health"}),
             "{}",
+            json.dumps({"id": "job-sync"}),
+            "{}",
         ]
     )
     client = OpenClawCronClient(
@@ -128,7 +131,7 @@ def test_apply_adds_jobs_then_configures_openclaw_native_failure_alerts(tmp_path
 
     assert result.applied is True
     mutation_argv = [argv for argv, _ in runner.calls[1:]]
-    assert len(mutation_argv) == 6
+    assert len(mutation_argv) == 8
     assert all(argv[:3] in (["/opt/homebrew/bin/openclaw", "cron", "add"], ["/opt/homebrew/bin/openclaw", "cron", "edit"]) for argv in mutation_argv)
     for argv in mutation_argv[1::2]:
         assert "--failure-alert" in argv
@@ -153,7 +156,7 @@ def test_obsolete_managed_jobs_are_disabled_not_deleted(tmp_path: Path) -> None:
             }
         ]
     }
-    runner = RecordingRunner([json.dumps(current), json.dumps({"id": "one"}), "{}", json.dumps({"id": "two"}), "{}", json.dumps({"id": "three"}), "{}", "{}"])
+    runner = RecordingRunner([json.dumps(current), json.dumps({"id": "one"}), "{}", json.dumps({"id": "two"}), "{}", json.dumps({"id": "three"}), "{}", json.dumps({"id": "four"}), "{}", "{}"])
     client = OpenClawCronClient(executable="/usr/local/bin/openclaw", runner=runner, environ={})
 
     reconcile(CronManifest.load(configured_manifest(tmp_path)), client, apply=True)

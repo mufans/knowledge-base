@@ -10,7 +10,7 @@ date: "2026-04-27"
 # mattpocock/skills
 
 > tags: #Claude-Code #Skills #Agent #Prompt-Engineering
-> source: [2026-04-26-新闻热点](../raw/inbox/2026-04-26-新闻热点.md)
+> source: [2026-04-26-新闻热点](../../raw/inbox/2026-04-26-新闻热点.md)
 > project: [mattpocock/skills](https://github.com/mattpocock/skills)
 > score: 技术深度7/10 | 实用价值9/10 | 时效性9/10 | 领域匹配9/10 | 综合 8.5/10
 

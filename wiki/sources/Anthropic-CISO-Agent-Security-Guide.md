@@ -94,7 +94,7 @@ Claude Cowork的威胁模型：Agent执行环境（远程）+ 本地桥接（文
 - 与 [Zero-Trust-AI-Agents-Anthropic](Zero-Trust-AI-Agents-Anthropic.md) 互补：该白皮书提出Zero Trust架构框架（三层架构/八阶段实施），本指南提供更实战化的四问评估和身份光谱模型
 - 与 [Claude-Cowork](../entities/Claude-Cowork.md) 直接关联：本指南包含Claude Cowork的五层安全控制细节，可以合并到该页面
 - 与 [CISA-NSA-Agent-Security](CISA-NSA-Agent-Security.md) 对比：CISA/NSA指南侧重合规要求，本指南提供实际操作框架
-- Agent-to-Agent安全治理与 [Hermes-vs-OpenClaw对比分析](../../syntheses/Hermes-vs-OpenClaw对比分析.md) 中的多Agent安全有关联
+- Agent-to-Agent安全治理与 [Hermes-vs-OpenClaw对比分析](../syntheses/Hermes-vs-OpenClaw对比分析.md) 中的多Agent安全有关联
 - Prompt injection防护可参考 [AI-Agent沙箱方案讨论](AI-Agent沙箱方案讨论.md)
 
 ### 2026-07-22 更新：AI-Native SDLC安全实践

@@ -7,6 +7,8 @@ description: "PrimeIntellect让GPT-5.5和Claude Opus 4.7自主优化nanoGPT训�
 date: "2026-06-04"
 ---
 
+# 自主AI研究：nanoGPT速度跑的Agent实验
+
 > tags: #Autonomous-AI #Codex #Claude-Code #Optimizer #nanoGPT #Agent-Harness
 > source: [Autonomous AI research for nanogpt speedrun](https://www.primeintellect.ai/auto-nanogpt)
 > score: 技术深度9/10 | 实用价值8/10 | 时效性8/10 | 领域匹配8/10 | 综合 8.5/10

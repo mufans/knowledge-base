@@ -386,3 +386,9 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 ## 2026-07-28 社交媒体AI动态采集
 - 来源: HN (15条) | Reddit ❌ | X ❌
 - 文件: raw/inbox/2026-07-28-社交媒体.md
+2026-07-29 | architecture | integrations/hermes-opportunity-os/docs/knowledge-loop-architecture.md | 完成 Phase 0 只读审计，记录真实数据流、根因、风险与未提交改动保护方案
+2026-07-29 | contract | integrations/hermes-opportunity-os/src/opportunity_os/contracts.py | 完成 Phase 1 七类 v1 数据契约、显式迁移与 golden tests；Hermes 同步回放 16 个 review，生成 11 个 dossier、拒绝 5 个且无 raw 写入（362 tests passed）
+2026-07-29 | quality-gate | integrations/hermes-opportunity-os/src/opportunity_os/knowledge_compiler.py | 完成 Phase 2 按页面类型、信息增量、正反证据、引用覆盖率、重复与人工决策的发布门禁；修复 Wiki 51 处坏链和 3 个缺失标题（367 tests passed，broken links 0）
+2026-07-29 | reliability | integrations/hermes-opportunity-os/src/opportunity_os/state_machine.py | 完成 Phase 3 可审计机会状态机、Hermes 脱敏 stdout/stderr、OpenClaw 显式 knowledge-sync 与 cron 收敛；21 个 candidate 迁移为 researched，260 条终态投递失败移入可恢复归档
+2026-07-29 | dashboard | integrations/hermes-opportunity-os/src/opportunity_os/dashboard/ | 完成 Phase 4 只读 Knowledge Control Center 与公共 Wiki 学习发现首页；移除自评分排序和 inline style，增加质量、拒绝、状态、实验、转化、反馈与服务健康指标
+2026-07-29 | acceptance | integrations/hermes-opportunity-os/calibration/blind-review-sample.json | 完成 Phase 5 历史回放与 16 页盲审包；控制中心通过 375/768/1440、会话过期/重新登录、未授权提示和 Dashboard 重启恢复验收；公网 OAuth 重定向与 owner policy 已验证，应用内浏览器完整 OAuth 因本机代理 TLS 故障保留为人工未决项

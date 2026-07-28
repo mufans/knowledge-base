@@ -38,7 +38,7 @@ Trade-off：增加了一个审查环节的延迟，但大幅降低了返工率�
 
 - 与 [Maestro-Agent-Orchestration](../concepts/Maestro-Agent-Orchestration.md) 对比：Maestro是多Agent编排框架，CodeRabbit是"规划-执行"的特定模式
 - 与 [Self-Regulated-Agent-Planning](../concepts/Self-Regulated-Agent-Planning.md) 相关：都强调Agent的规划能力
-- 与 [Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md) 互补：Claude Code是单Agent工具，CodeRabbit是多人协作场景下的Agent编排
+- 与 [Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) 互补：Claude Code是单Agent工具，CodeRabbit是多人协作场景下的Agent编排
 
 ## 可执行建议
 

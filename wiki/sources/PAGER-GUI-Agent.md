@@ -62,9 +62,9 @@ PAGER引入一个**几何推理模块**，在语义理解和坐标执行之间�
 ## 关联分析
 
 - 与 [Agent-Control-Flow](../concepts/Agent-Control-Flow.md) 相关：PAGER的分层定位是Agent控制流在GUI场景的具体应用
-- 与 [browser-use](browser-use.md) 对比：browser-use是Web端自动化，PAPER关注更通用的GUI精准控制
-- 对 [Codex-Mobile](Codex-Mobile.md) 的启示：移动端App的UI自动化需要精确的点击定位，PAGER的思路可直接迁移
-- 与 [trycua-cua](trycua-cua.md) 互补：CUA框架做通用UI交互，PAGER解决精准度问题
+- 与 [browser-use](../entities/browser-use.md) 对比：browser-use是Web端自动化，PAPER关注更通用的GUI精准控制
+- 对 [Codex-Mobile](../entities/Codex-Mobile.md) 的启示：移动端App的UI自动化需要精确的点击定位，PAGER的思路可直接迁移
+- 与 [trycua-cua](../entities/trycua-cua.md) 互补：CUA框架做通用UI交互，PAGER解决精准度问题
 
 ## 可执行建议
 

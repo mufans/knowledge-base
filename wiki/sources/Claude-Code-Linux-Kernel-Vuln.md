@@ -38,7 +38,7 @@ AI代码审计的演进路径：
 
 ## 关联分析
 
-- Coding Agent：[Claude-Code-Source-Analysis](Claude-Code-Source-Analysis.md) 分析了Claude Code的架构
+- Coding Agent：[Claude-Code-Source-Analysis](../entities/Claude-Code-Source-Analysis.md) 分析了Claude Code的架构
 - Agent安全：[CISA-NSA-Agent-Security](../sources/CISA-NSA-Agent-Security.md) 的安全框架
 - Agent行为边界：Claude删除数据库事件（inbox采集）展示了Agent安全的另一面——能力越大责任越大
 

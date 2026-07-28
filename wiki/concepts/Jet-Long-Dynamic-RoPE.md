@@ -79,7 +79,7 @@ Jet-Long 的核心价值在于**极低的部署成本**——不需要全量 fin
 - [Context-Window-Optimization](Context-Window-Optimization.md) — Jet-Long 是 Context Window 优化技术树的新分支
 - [Memory-Management](Memory-Management.md) — Agent 长记忆系统可从 Jet-Long 的长上下文扩展中受益
 - [Self-Evolving-Agent](Self-Evolving-Agent.md) — Agent 需要高效的长上下文能力来管理进化过程中的历史积累
-- [Claude-Fable-5](Claude-Fable-5.md) — Fable 5 的 Adaptive Reasoning 使用自适应推理深度，与 Jet-Long 的可调焦点区域有设计思路上的相似性
+- [Claude-Fable-5](../entities/Claude-Fable-5.md) — Fable 5 的 Adaptive Reasoning 使用自适应推理深度，与 Jet-Long 的可调焦点区域有设计思路上的相似性
 
 ## 可执行建议
 

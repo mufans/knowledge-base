@@ -47,7 +47,7 @@ date: "2026-05-03"
 - Agent安全事故：Claude驱动的AI Agent意外删除公司数据库事件（见inbox采集），印证了安全控制的必要性
 - 沙箱方案：[SmolVM](https://github.com/CelestoAI/SmolVM/) 提供轻量级microVM沙箱
 - 可观测性：[Agent Receipts](https://github.com/realalonw/agent-receipts) 提供Agent操作透明度方案
-- OpenClaw安全模型：[OpenClaw](OpenClaw.md) 的allowlist/deny权限机制部分对齐了指南建议
+- OpenClaw安全模型：[OpenClaw](../entities/OpenClaw.md) 的allowlist/deny权限机制部分对齐了指南建议
 
 ## 可执行建议
 

@@ -29,6 +29,9 @@ metadata:
 9. 重要结论必须注明来源日期、观察日期、可能失效条件和 `review_due_at`。
 10. 只通过 opportunity OS MCP 写私人状态；知识库 MCP 只用于检索。
 11. 非交互周期运行只有在保存当期必需业务产物后，才可以最后调用 `complete_cadence`；必须原样传入 prompt 中的 cadence、period_key 和 run_id，`artifact_refs` 不得引用旧产物。
+12. 机会严格按 `candidate → researched → validated → active → completed/rejected/archived` 前进；每次调用 `transition_opportunity` 都必须记录触发原因、新增证据、反方证据、下一实验、用户决定或自动规则以及 run ID。
+13. 跨来源分析先调用 `save_analysis`，公开候选只调用 `save_wiki_candidate`；后者不会直接发布。证据不足、无信息增量或更适合更新旧页面时必须允许拒绝。
+14. 用户采纳、忽略、否定或修订结果通过 `record_user_outcome` 回流，形成下一轮采集问题和实验依据。
 
 按需读取：
 

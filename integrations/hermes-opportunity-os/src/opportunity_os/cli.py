@@ -17,6 +17,7 @@ from opportunity_os.automation.healthcheck import (
     HealthMarkerError,
     LastHealthProbe,
 )
+from opportunity_os.automation.hermes_sync import HermesKnowledgeBridge
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
@@ -91,6 +92,7 @@ def _dashboard_dependencies(home: str | Path, config: DashboardConfig) -> Dashbo
         event_hub=event_hub,
         event_journal_path=Path(home).expanduser().resolve() / "events.jsonl",
         task_adapter=OpenClawTaskAdapter(),
+        home=Path(home).expanduser().resolve(),
     )
 
 
@@ -214,6 +216,16 @@ def build_parser() -> argparse.ArgumentParser:
     automation_run.add_argument("--cadence", required=True, choices=tuple(sorted(CADENCES)))
     automation_run.add_argument("--period-key", required=True)
     automation_run.add_argument("--format", choices=("text", "json"), default="json")
+
+    knowledge_sync = subparsers.add_parser(
+        "knowledge-sync",
+        help="Validate Hermes artifacts into private Knowledge Compiler dossiers.",
+    )
+    knowledge_sync.add_argument("--home", required=True)
+    knowledge_sync.add_argument("--knowledge-root", required=True)
+    knowledge_sync.add_argument("--days", type=int, default=14)
+    knowledge_sync.add_argument("--run-id")
+    knowledge_sync.add_argument("--format", choices=("text", "json"), default="json")
     return parser
 
 
@@ -282,6 +294,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             record = CadenceRunner(args.home).run(args.cadence, args.period_key)
             _emit(record.to_dict(), args.format)
             return 0 if record.status in {"success", "skipped_duplicate"} else 1
+        elif args.command == "knowledge-sync":
+            record = HermesKnowledgeBridge(args.home, args.knowledge_root).run(
+                days=args.days,
+                run_id=args.run_id,
+            )
+            _emit(record.to_dict(), args.format)
+            return 0 if record.status == "success" else 1
         return 0
     except (
         OpportunityOSError,

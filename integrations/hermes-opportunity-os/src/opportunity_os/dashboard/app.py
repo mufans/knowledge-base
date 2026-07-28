@@ -13,11 +13,12 @@ from typing import Protocol
 from urllib.parse import urlsplit
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from opportunity_os.dashboard.auth import CsrfGuard, Session, SessionInfo, SessionStore
+from opportunity_os.dashboard.repositories import PrivateStateReadRepository
 from opportunity_os.dashboard.config import DashboardConfig
 from opportunity_os.dashboard.events import DashboardEvent, EventHub, EventJournalTailer
 from opportunity_os.dashboard.schemas import DashboardSnapshot
@@ -56,6 +57,7 @@ class DashboardDependencies:
     journal_poll_interval: float = 0.25
     event_tailer: EventJournalTailer | None = None
     task_adapter: DashboardTaskReader | None = None
+    home: Path | None = None
 
 
 class BootstrapExchange(BaseModel):
@@ -169,7 +171,24 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
             if not supplied or not config.origin_credential or not secrets.compare_digest(
                 supplied, config.origin_credential
             ):
-                return Response(status_code=401)
+                if request.url.path == "/":
+                    return HTMLResponse(
+                        """
+                        <!doctype html><html lang="zh-CN"><meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width,initial-scale=1">
+                        <title>需要重新认证</title>
+                        <body><main><h1>无法验证访问身份</h1>
+                        <p>请返回受保护的 Knowledge Control Center 外网地址并重新完成登录。</p>
+                        <p>如果刚刚重启了 tunnel，请等待一分钟后刷新；仍失败时检查 ngrok 状态页。</p>
+                        <button type="button" onclick="location.reload()">重新尝试</button>
+                        </main></body></html>
+                        """,
+                        status_code=401,
+                    )
+                return JSONResponse(
+                    {"detail": "origin_authentication_required", "action": "reopen_protected_url"},
+                    status_code=401,
+                )
             request.state.remote_origin_authenticated = True
         else:
             request.state.remote_origin_authenticated = False
@@ -258,6 +277,80 @@ def create_app(config: DashboardConfig, dependencies: DashboardDependencies) -> 
             return task_reader().runs(job_id)
         except (TaskAdapterError, OSError, ValueError) as error:
             raise HTTPException(status_code=422, detail="invalid_task_query") from error
+
+    def _detail_reader() -> PrivateStateReadRepository | None:
+        if dependencies.home is None:
+            return None
+        return PrivateStateReadRepository(dependencies.home)
+
+    @app.get("/api/v1/opportunities")
+    def list_opportunities(_: Session = Depends(require_session)) -> list[dict]:
+        reader = _detail_reader()
+        if reader is None:
+            raise HTTPException(status_code=503, detail="data_store_unavailable")
+        order = {
+            "active": 0, "validated": 1, "researched": 2, "candidate": 3,
+            "completed": 4, "rejected": 5, "archived": 6,
+        }
+        return sorted(
+            reader._records("opportunities"),
+            key=lambda record: (order.get(str(record.get("status")), 9), str(record.get("id"))),
+        )
+
+    @app.get("/api/v1/reviews")
+    def list_reviews(_: Session = Depends(require_session)) -> list[dict]:
+        reader = _detail_reader()
+        if reader is None:
+            raise HTTPException(status_code=503, detail="data_store_unavailable")
+        reviews = reader._records("reviews")
+        return sorted(reviews, key=lambda r: r.get("created_at", ""), reverse=True)
+
+    @app.get("/api/v1/experiments")
+    def list_experiments(_: Session = Depends(require_session)) -> list[dict]:
+        reader = _detail_reader()
+        if reader is None:
+            raise HTTPException(status_code=503, detail="data_store_unavailable")
+        return sorted(
+            reader._records("experiments"),
+            key=lambda record: str(record.get("id", "")),
+        )
+
+    @app.get("/api/v1/tech-states")
+    def list_tech_states(_: Session = Depends(require_session)) -> list[dict]:
+        reader = _detail_reader()
+        if reader is None:
+            raise HTTPException(status_code=503, detail="data_store_unavailable")
+        return reader._records("tech_states")
+
+    @app.get("/api/v1/event-log")
+    def list_events(
+        _: Session = Depends(require_session),
+    ) -> list[dict]:
+        reader = _detail_reader()
+        if reader is None:
+            raise HTTPException(status_code=503, detail="data_store_unavailable")
+        path = reader.home / "events.jsonl"
+        if not path.is_file():
+            return []
+        lines = path.read_text(encoding="utf-8").strip().splitlines()
+        events_list = []
+        for line in lines:
+            if line.strip():
+                try:
+                    events_list.append(json.loads(line))
+                except json.JSONDecodeError:
+                    pass
+        return list(reversed(events_list[-100:]))
+
+    @app.get("/api/v1/opportunities/{opportunity_id}")
+    def get_opportunity(opportunity_id: str, _: Session = Depends(require_session)) -> dict:
+        reader = _detail_reader()
+        if reader is None:
+            raise HTTPException(status_code=503, detail="data_store_unavailable")
+        path = reader.home / "opportunities" / f"{opportunity_id}.json"
+        if not path.is_file():
+            raise HTTPException(status_code=404, detail="opportunity_not_found")
+        return reader._read_json(path)
 
     @app.get("/api/v1/native-tools")
     def native_tools(_: Session = Depends(require_session)) -> dict[str, object]:

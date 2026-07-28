@@ -56,7 +56,7 @@ class CapturingProcessFactory:
         def complete() -> None:
             if returncode != 0 or not self.complete_on_success or self.home is None:
                 return
-            prompt = argv[-1]
+            prompt = argv[argv.index("-q") + 1]
             match = hermes_runner.RUN_CONTEXT_PATTERN.search(prompt)
             assert match is not None
             cadence, period_key, run_id = match.groups()
@@ -151,7 +151,7 @@ def test_runner_invokes_fixed_profile_and_skill_once_without_scheduler_options(t
     assert len(factory.calls) == 1
     argv, options = factory.calls[0]
     assert argv[:6] == [str(executable.resolve()), "-p", "opportunity-discovery", "chat", "-Q", "-q"]
-    assert argv[6:12] == [
+    assert argv[7:13] == [
         "--source", "tool", "--toolsets", "web,knowledge,opportunity_os",
         "--skills", "opportunity-discovery",
     ]
@@ -162,14 +162,15 @@ def test_runner_invokes_fixed_profile_and_skill_once_without_scheduler_options(t
         "env": {
             "HOME": str(Path.home()),
             "LANG": "C.UTF-8",
-            "PATH": f"{executable.parent.resolve()}:/usr/bin:/bin",
+            "PATH": f"{executable.parent.resolve()}:/opt/homebrew/bin:/usr/bin:/bin",
+            "TZ": "Asia/Shanghai",
         },
         "stdin": subprocess.DEVNULL,
         "stdout": subprocess.DEVNULL,
         "stderr": subprocess.DEVNULL,
         "close_fds": True,
     }
-    prompt = argv[-1]
+    prompt = argv[argv.index("-q") + 1]
     for required in ("广域输入", "反对证据", "意外发现", "不得执行任何外部行动", "改进建议草案"):
         assert required in prompt
     assert "不得修改 Memory 或 Skill" in prompt
@@ -213,11 +214,11 @@ def test_unexpected_provider_error_is_persisted_without_secret_details(tmp_path:
     ).run("daily", "2026-07-19")
 
     assert (record.status, record.error_class) == ("failed", "execution_error")
-    assert "token" not in json.dumps(record.to_dict()).casefold()
+    assert "abcdefghijklmnop" not in json.dumps(record.to_dict()).casefold()
     record_path = home / "dashboard" / "runs" / "daily" / "2026-07-19.json"
     payload = json.loads(record_path.read_text(encoding="utf-8"))
     assert payload["status"] == "failed"
-    assert "token" not in json.dumps(payload).casefold()
+    assert "abcdefghijklmnop" not in json.dumps(payload).casefold()
 
 
 def test_success_record_is_atomic_0600_and_secret_free(tmp_path: Path) -> None:
@@ -229,8 +230,35 @@ def test_success_record_is_atomic_0600_and_secret_free(tmp_path: Path) -> None:
     assert record_path.stat().st_mode & 0o777 == 0o600
     assert payload["status"] == "success"
     assert payload["run_id"] == record.run_id
-    assert "token" not in json.dumps(payload).casefold()
+    assert all(payload[field] is None for field in ("input_tokens", "output_tokens"))
     assert list(record_path.parent.glob("*.tmp")) == []
+
+
+def test_real_process_output_is_retained_and_redacted(tmp_path: Path) -> None:
+    executable = make_hermes_executable(
+        tmp_path,
+        "#!/bin/sh\n"
+        "echo 'analysis completed'\n"
+        "echo 'api_key=abcdefghijklmnop' >&2\n"
+        "exit 7\n",
+    )
+    runner = CadenceRunner(
+        tmp_path / "private",
+        hermes_path=executable,
+        working_directory=tmp_path,
+        now=lambda: NOW,
+    )
+
+    record = runner.run("daily", "2026-07-19")
+
+    assert record.error_class == "nonzero_exit"
+    assert record.stdout_path and record.stderr_path
+    stdout = (runner.home / record.stdout_path).read_text()
+    stderr = (runner.home / record.stderr_path).read_text()
+    assert "analysis completed" in stdout
+    assert "[REDACTED]" in stderr
+    assert "abcdefghijklmnop" not in stderr
+    assert (runner.home / record.stderr_path).stat().st_mode & 0o777 == 0o600
 
 
 def test_concurrent_failure_cannot_downgrade_matching_success(tmp_path: Path) -> None:

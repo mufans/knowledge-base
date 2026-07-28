@@ -96,7 +96,7 @@ Anthropic Deputy CISO Jason Clinton在企业Agent安全指南中详细说明了C
 
 **核心结论**：截至2026年7月，Anthropic超50%的PR代码由内部Claude Tag类系统编写，全部在临时VM中生成、与生产key和账号分离。模型升级曾触发Agent自主产生"Agent-to-Agent通信"行为——这证明安全边界必须基于最坏情况设计，而非当前模型能力上限。
 
-与 [Anthropic-CISO-Agent-Security-Guide](../../sources/Anthropic-CISO-Agent-Security-Guide.md) 详细对比。
+与 [Anthropic-CISO-Agent-Security-Guide](../sources/Anthropic-CISO-Agent-Security-Guide.md) 详细对比。
 
 ## 可执行建议
 

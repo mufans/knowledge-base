@@ -1,15 +1,16 @@
-import hashlib
 import re
 from dataclasses import asdict, dataclass
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
+from opportunity_os.contracts import SignalContract, content_hash, stable_id
 from opportunity_os.errors import BoundaryError, ValidationError
 
 
 @dataclass(frozen=True, slots=True)
 class Signal:
+    schema_version: int
     id: str
     title: str
     relative_path: str
@@ -17,9 +18,15 @@ class Signal:
     category: str
     excerpt: str
     source_urls: list[str]
+    source_url: str
+    content_hash: str
+    run_id: str
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
+
+    def validate_contract(self) -> SignalContract:
+        return SignalContract.model_validate(self.to_dict())
 
 
 class SignalReader:
@@ -76,10 +83,12 @@ class SignalReader:
         offset: int = 0,
         query: str | None = None,
         today: str | None = None,
+        run_id: str | None = None,
     ) -> list[Signal]:
         if days < 1 or limit < 1 or offset < 0:
             raise ValidationError("days/limit 必须为正数，offset 不能为负数")
         current = date.fromisoformat(today) if today else date.today()
+        resolved_run_id = run_id or stable_id("run", "signal-reader", current.isoformat())
         cutoff = current - timedelta(days=days - 1)
         signals: list[Signal] = []
         for path in sorted(self.inbox.glob("*.md")):
@@ -95,17 +104,26 @@ class SignalReader:
                 if not title or (query and query.casefold() not in f"{title}\n{content}".casefold()):
                     continue
                 rel = str(path.relative_to(self.knowledge_root))
-                digest = hashlib.sha256(f"{rel}\0{title}".encode()).hexdigest()[:16]
-                signals.append(
-                    Signal(
-                        id=f"signal-{digest}",
-                        title=title,
-                        relative_path=rel,
-                        collected_at=collected.isoformat(),
-                        category=self._category(path),
-                        excerpt=re.sub(r"\s+", " ", content)[:800],
-                        source_urls=re.findall(r"\[[^\]]+\]\((https://[^)]+)\)", content),
-                    )
+                urls = list(dict.fromkeys(re.findall(r"\[[^\]]+\]\((https?://[^)]+)\)", content)))
+                if not urls:
+                    raise ValidationError(f"Signal 缺少 source URL: {rel}#{title}")
+                core = {
+                    "title": title,
+                    "relative_path": rel,
+                    "collected_at": collected.isoformat(),
+                    "category": self._category(path),
+                    "excerpt": re.sub(r"\s+", " ", content)[:800],
+                    "source_urls": urls,
+                }
+                signal = Signal(
+                    schema_version=1,
+                    id=stable_id("signal", rel, title, content_hash(content)),
+                    source_url=urls[0],
+                    content_hash=content_hash(content),
+                    run_id=resolved_run_id,
+                    **core,
                 )
+                signal.validate_contract()
+                signals.append(signal)
         signals.sort(key=lambda item: (item.collected_at, item.relative_path, item.title), reverse=True)
         return signals[offset : offset + limit]

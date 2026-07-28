@@ -10,7 +10,7 @@ date: "2026-04-27"
 # OpenMobile: 开放移动端 Agent 框架
 
 > tags: #Mobile-Agent #VLM #Task-Synthesis #Trajectory
-> source: [2026-04-26-AI论文](../raw/inbox/2026-04-26-AI论文.md)
+> source: [2026-04-26-AI论文](../../raw/inbox/2026-04-26-AI论文.md)
 > project: [arXiv 2604.15093](https://arxiv.org/abs/2604.15093)
 > score: 技术深度8/10 | 实用价值9/10 | 时效性9/10 | 领域匹配10/10 | 综合 9.0/10
 

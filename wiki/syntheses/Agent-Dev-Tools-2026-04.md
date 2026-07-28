@@ -10,7 +10,7 @@ date: "2026-04-29"
 # AI Agent编排与开发工具生态（2026年4月）
 
 > tags: #AgentOrchestration #OpenAI #Google #Cursor #Symphony #AgentsCLI
-> source: [2026-04-28技术动态](../raw/inbox/2026-04-28-技术动态.md)
+> source: [2026-04-28技术动态](../../raw/inbox/2026-04-28-技术动态.md)
 > score: 技术深度7/10 | 实用价值8/10 | 时效性9/10 | 领域匹配8/10 | 综合 7.8/10
 
 ## 核心概念
