@@ -1,6 +1,6 @@
 // Auto-generated dashboard data
-// Generated: 2026-07-27 22:31:28
-// Total articles: 239
+// Generated: 2026-07-28 22:10:03
+// Total articles: 243
 // Updated files this run: 0
 window.__kb_articles = [
   {
@@ -50,6 +50,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/AI-Memory-Systems"
   },
   {
+    "title": "Agentic Context Management：Agent记忆与成本的系统化工程",
+    "category": "concepts",
+    "tags": [
+      "Context-Management",
+      "Agent-Memory",
+      "Token-Cost",
+      "Lifecycle",
+      "Production-Agent"
+    ],
+    "rating": 9.5,
+    "description": "将Agent的记忆管理从存储-检索问题重新定义为生命周期与架构问题，提出5原语操作模型和token成本经济学分析",
+    "date": "2026-07-28",
+    "url": "wiki/concepts/Agentic-Context-Management"
+  },
+  {
     "title": "Claude Agent Harness设计模式",
     "category": "concepts",
     "tags": [
@@ -78,6 +93,21 @@ window.__kb_articles = [
     "description": "NVIDIA提出的Agent-as-Python-object编程范式，用Python原生对象替代prompt模板+tool schema的Agent开发方法",
     "date": "2026-07-25",
     "url": "wiki/concepts/NVIDIA-OO-Agents"
+  },
+  {
+    "title": "Self-Evolving Agent：自进化智能体范式",
+    "category": "concepts",
+    "tags": [
+      "Self-Evolution",
+      "Agent-Architecture",
+      "Prompt-Optimization",
+      "Skill-Learning",
+      "RL"
+    ],
+    "rating": 9.5,
+    "description": "Agent通过自引用优化循环，自主扩展技能集、优化自身prompt、发现新算法的范式，代表Agent从静态工具到持续进化系统的转变",
+    "date": "2026-06-06",
+    "url": "wiki/concepts/Self-Evolving-Agent"
   },
   {
     "title": "Verification Loops — Agent编码的自动验证闭环",
@@ -420,6 +450,21 @@ window.__kb_articles = [
     "url": "wiki/concepts/Multi-Agent-Systems-Design"
   },
   {
+    "title": "Multi-Head Latent Control：基于LLM隐藏状态的Agent决策路由",
+    "category": "concepts",
+    "tags": [
+      "Agent-Decision",
+      "Latent-Control",
+      "Model-Routing",
+      "Tool-Calling",
+      "LLM-Agent"
+    ],
+    "rating": 9.0,
+    "description": "在冻结LLM上外挂轻量控制头，从隐藏状态轨迹预测能力边界和最优决策路径，无需修改模型即可实现Agent决策路由",
+    "date": "2026-07-28",
+    "url": "wiki/concepts/Multi-Head-Latent-Control"
+  },
+  {
     "title": "OpenForgeRL：Harness原生Agent的端到端RL训练",
     "category": "concepts",
     "tags": [
@@ -433,21 +478,6 @@ window.__kb_articles = [
     "description": "微软开源框架，通过轻量代理+K8s编排将Claude Code/Codex等Agent Harness接入标准RL训练流程，解决复杂harness无法端到端训练的工程难题",
     "date": "2026-07-26",
     "url": "wiki/concepts/OpenForgeRL"
-  },
-  {
-    "title": "Self-Evolving Agent：自进化智能体范式",
-    "category": "concepts",
-    "tags": [
-      "Self-Evolution",
-      "Agent-Architecture",
-      "Prompt-Optimization",
-      "Skill-Learning",
-      "RL"
-    ],
-    "rating": 9.0,
-    "description": "Agent通过自引用优化循环，自主扩展技能集、优化自身prompt、发现新算法的范式，代表Agent从静态工具到持续进化系统的转变",
-    "date": "2026-06-06",
-    "url": "wiki/concepts/Self-Evolving-Agent"
   },
   {
     "title": "Skill Self-Play：LLM技能共进化框架",
@@ -504,6 +534,22 @@ window.__kb_articles = [
     "description": "4B参数模型通过优秀的Agent架构设计，在编码基准测试中达到87%成绩，证明架构创新>暴力参数",
     "date": "2026-05-19",
     "url": "wiki/entities/4B-Coding-Agent"
+  },
+  {
+    "title": "AWS Loom：企业级AI Agent管理平台",
+    "category": "entities",
+    "tags": [
+      "AWS",
+      "Agent-Platform",
+      "Identity-Propagation",
+      "MCP",
+      "A2A",
+      "Enterprise"
+    ],
+    "rating": 9.0,
+    "description": "AWS开源的企业级Agent管理参考平台，内置身份传播、基于标签的治理、Agent注册表集成和人工审核工作流",
+    "date": "2026-07-28",
+    "url": "wiki/entities/AWS-Loom"
   },
   {
     "title": "Android CLI：谷歌让Android工具链适配AI Agent",
@@ -788,6 +834,21 @@ window.__kb_articles = [
     "description": "将Gemini工具调用能力蒸馏到26M参数的微型模型，为端侧AI Agent提供本地工具调用能力",
     "date": "2026-05-15",
     "url": "wiki/entities/Needle"
+  },
+  {
+    "title": "OneCLI：Agent密钥安全网关",
+    "category": "entities",
+    "tags": [
+      "Agent-Security",
+      "Credential-Management",
+      "MCP",
+      "Rust",
+      "Open-Source"
+    ],
+    "rating": 9.0,
+    "description": "用代理模式拦截AI Agent请求并替换占位符为真实凭证的密钥安全网关，Rust编写，防止Agent泄漏敏感凭据",
+    "date": "2026-07-28",
+    "url": "wiki/entities/OneCLI"
   },
   {
     "title": "OpenHands: AI驱动的开发平台",
