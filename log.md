@@ -26,6 +26,18 @@
 
 ---
 
+## 2026-07-28 知识提炼
+2026-07-28 | ingest | raw/inbox/2026-07-28-AI论文.md | 创建concepts/Multi-Head-Latent-Control.md（自评8.20）
+2026-07-28 | ingest | raw/inbox/2026-07-28-AI论文.md | 创建concepts/Agentic-Context-Management.md（自评8.70）
+2026-07-28 | ingest | raw/inbox/2026-07-28-技术动态.md | 创建entities/AWS-Loom.md（自评7.40）
+2026-07-28 | ingest | raw/inbox/2026-07-28-社交媒体.md | 创建entities/OneCLI.md（自评7.15）
+2026-07-28 | update | raw/inbox/2026-07-28-技术动态.md | 更新concepts/Self-Evolving-Agent.md（合并EvoMap GEP自进化Swarm）
+2026-07-28 | skip | raw/inbox/2026-07-28-GitHub项目.md | 空文件（无项目）
+2026-07-28 | skip | raw/inbox/2026-07-28-AI论文.md | Skill-Self-Play/NVIDIA-OO-Agents/OpenForgeRL已有页面覆盖；Data Pyramid/ReferTrack/ClinFusion/Protocol Distillation/Prefix Replay等方向不匹配或评分<7.0
+2026-07-28 | skip | raw/inbox/2026-07-28-技术动态.md | Cursor重造SQLite/GPT-5.6/Loop-Engineering已有覆盖；其余内容评分<7.0（OpenSQZ Glass/RSPack/Dolt/AMD 2nm等方向不匹配或技术细节不足）
+2026-07-28 | skip | raw/inbox/2026-07-28-新闻热点.md | 与AI论文/技术动态/社交媒体内容重叠，无评分≥7.0新条目
+2026-07-28 | skip | raw/inbox/2026-07-28-社交媒体.md | Orchard/SeaTicket/Aidress/WhipDesk/Aitori等评分<7.0（技术细节不足或方向不匹配）；Anthropic开源自研/OneCLI/HN讨论已有处理
+
 ## 2026-07-24 知识提炼
 2026-07-24 | ingest | raw/inbox/2026-07-24-Claude博客.md | 创建concepts/Verification-Loops.md（自评8.60）
 2026-07-24 | update | raw/inbox/2026-07-24-Claude博客.md | 更新entities/Claude-Cowork.md（合并全量桌面三件套上云+企业级部署控制）
@@ -357,3 +369,20 @@
 2026-07-27 | skip | raw/inbox/2026-07-27-社交媒体.md | 15条均为新闻事件/产品公告，无足够技术深度创建wiki页面（AI Agent安全事件为新闻级，Nexa SDK/Polpo/Mobile Observability等产品公告级）
 2026-07-27 | skip | raw/inbox/2026-07-27-新闻热点.md | 与技术动态/Claude Blog内容重叠；Pinecone Nexus产品公告无技术实质；AstrBot仅标题无正文
 
+
+## 2026-07-28 新闻热点
+- 📰 采集10条技术新闻，覆盖AI/大模型、编程工具、移动端、云原生/后端、开源/硬件
+- 🤖 Anthropic发布开源权重立场、Cursor Agent重造SQLite
+- 💻 Rspack 2.0发布、GitHub Issues大改造
+- 📱 GrapheneOS安全更新、Scratch AI编程助手
+- ☁️ 快手Doris迁移实践、Cloudflare屏蔽Google爬虫
+- 🔧 华为内存芯片工厂、英伟达2500亿担保
+
+## 2026-07-28 技术动态
+
+采集了 InfoQ、Solidot、Dev.to 三源技术动态，共23条。OSChina（JS渲染）和Reddit（网络限制）未能采集。
+TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.6 Sol自主攻击事件、Agentic AI基础设施变革。
+
+## 2026-07-28 社交媒体AI动态采集
+- 来源: HN (15条) | Reddit ❌ | X ❌
+- 文件: raw/inbox/2026-07-28-社交媒体.md

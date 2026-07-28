@@ -2,7 +2,7 @@
 title: "Self-Evolving Agent：自进化智能体范式"
 category: "concepts"
 tags: ["Self-Evolution", "Agent-Architecture", "Prompt-Optimization", "Skill-Learning", "RL"]
-rating: 9.0
+rating: 9.5
 description: "Agent通过自引用优化循环，自主扩展技能集、优化自身prompt、发现新算法的范式，代表Agent从静态工具到持续进化系统的转变"
 date: "2026-06-06"
 ---
@@ -43,6 +43,26 @@ Self-Evolving Agent是指Agent不再依赖人工预设的固定行为集，而�
 - 自引用设计：单一prompt agent同时优化自身和task agent的system prompt
 - 开放式进化搜索（open-ended evolutionary search），维护候选prompt档案作为进化跳板
 - 两阶段训练：pre-training → fine-tuning
+
+### 2026-07-28 更新：EvoMap — 基于GEP的自进化Swarm
+
+[EvoMap](https://www.infoq.cn/article/e5SNCwkIFNXylsQOEaQ6) 提出了基于**基因组进化协议（GEP，Genomic Evolution Protocol）**的Agent自进化Swarm架构，与已有自进化方案形成互补：
+
+**核心创新：策略基因（Strategy Gene）**
+- 将Agent的失败教训、专家判断和处理策略**压缩为可调用的策略基因**——包含触发条件、失败原因、处理路径和适用边界
+- 策略基因进入**共享基因池**，新Agent在执行任务前即可继承前人的失败教训
+- 实现"单点踩坑，全员免疫"——Agent团队越用越有经验
+
+**与已有自进化方案的区别**：
+- MLEvolve/EvoDS/SePO关注**单个Agent的能力提升**（算法发现、技能学习、prompt优化）
+- SEED关注**训练阶段的策略蒸馏**
+- EvoMap关注**多Agent群体层面的经验遗传**——将个体失败转化为群体知识
+
+**工程闭环**：报错日志/执行过程/人工修正 → 提取可复用经验 → 验证并编码为策略基因 → 注入基因池 → 新Agent继承
+
+**关键洞察**：张昊阳（EvoMap创始人）基于4590组真实环境实验发现——过程式技能在稳定流程中有效，但在变化环境中容易因工具误选、幻觉和任务中断而失效。系统需要的不只是更多规则，而是让失败经验被**保存、压缩和复用**。
+
+**与知识库实践的关系**：你的wiki提炼流程本质就是"人工GEP"——从原始信息中提取"策略基因"（技术洞察），存入共享知识库，新任务前查阅。EvoMap试图将这个过程自动化。
 
 ## 关联分析
 

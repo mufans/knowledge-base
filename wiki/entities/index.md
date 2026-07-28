@@ -123,3 +123,5 @@
 - [Datadog-Temper](Datadog-Temper.md) (2026-07-22)
 - [Gigatoken](Gigatoken.md) (2026-07-22)
 - [Android-Studio-Quail-2](Android-Studio-Quail-2.md) (2026-07-25)
+- [AWS-Loom](AWS-Loom.md) (2026-07-28)
+- [OneCLI](OneCLI.md) (2026-07-28)

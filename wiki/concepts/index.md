@@ -59,3 +59,5 @@
 - [OpenForgeRL](OpenForgeRL.md) (2026-07-26)
 - [Resource2Skill](Resource2Skill.md) (2026-07-21)
 - [Skill-Self-Play](Skill-Self-Play.md) (2026-07-27)
+- [Multi-Head-Latent-Control](Multi-Head-Latent-Control.md) (2026-07-28)
+- [Agentic-Context-Management](Agentic-Context-Management.md) (2026-07-28)
