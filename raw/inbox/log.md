@@ -135,3 +135,6 @@
    - Hermes复盘 · [首次Weekly机会发现（2026-07-19）](weekly-7c2358f59cc0.md) | 7事实 4推断 4假设 | 5机会 | 有惊喜信号
    - Hermes复盘 · [W30周复盘：Agent安全框架成型 + 代码迁移商业化 + 开源模型冲击 + taste-skill意外发现](weekly-c8daaf77916c.md) | 9事实 5推断 5假设 | 5机会 | 有惊喜信号
 - 2026-07-28 GitHub项目采集完成，API+Active，精选0个项目
+- 2026-07-29 GitHub项目采集完成，API+Active，精选10个项目
+- 2026-07-29 AI论文采集完成，精选10篇
+- 2026-07-29 GitHub项目采集完成，API+Active，精选0个项目

@@ -61,3 +61,4 @@
 - [Claude-Code-Effort-Model-Guide](Claude-Code-Effort-Model-Guide.md) (2026-07-19)
 - [Env-Free-Synthetic-Data-API-Calling](Env-Free-Synthetic-Data-API-Calling.md) (2026-07-21)
 - [Claude-Model-Selection-Guide](Claude-Model-Selection-Guide.md) (2026-07-25)
+- [Verifiable-AI-Inference](Verifiable-AI-Inference.md) (2026-07-29)

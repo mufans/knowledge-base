@@ -78,3 +78,13 @@ while (result.status === "in_progress") {
 | 原创性 | 7.5 | 0.15 | 1.13 |
 | 格式规范 | 8.5 | 0.15 | 1.28 |
 | **加权总分** | | | **7.63** |
+
+### 2026-07-28 更新：3.6 Flash 默认模型、Hooks、预算控制与定时触发
+
+2026年7月28日，Google 发布了 Managed Agents 的又一轮更新，[source](https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/)：
+
+- **Gemini 3.6 Flash 默认模型**：新创建 Managed Agent 默认使用 3.6 Flash，相比之前的 2.5 Flash 推理速度提升约 40%，token 成本降低约 30% (Fact)
+- **环境 Hooks**：允许在 Agent 沙箱中插入自定义拦截逻辑，包括：**阻塞**不合规的 tool call、**Lint** 生成的代码、**审计**所有 I/O 操作。hooks 在 Agent 进程内部执行，保持低延迟 (Fact)
+- **预算控制**：可为每个 Agent 设置最大 token 消耗或执行次数上限，超出后自动终止，防止 runaway agent 导致的成本失控 (Fact)
+- **定时触发**：支持 cron 表达式配置 Agent 定时执行，结合 Background Execution 实现定期巡检、报告生成等自动化场景 (Fact)
+- **Free Tier**：Managed Agents 增加免费额度，降低开发者的试错成本 (Fact)

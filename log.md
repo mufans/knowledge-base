@@ -1,3 +1,19 @@
+### 2026-07-29 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-29-*.json（35篇）
+- 扫描完成，25篇score≥7
+- **入库3篇新wiki页面**：
+  - entities/AstrBot.md（自评8.0 | 多平台AI Agent框架）
+  - entities/Ponytail.md（自评8.0 | 基于YAGNI的提示工程工具）
+  - sources/Verifiable-AI-Inference.md（自评8.0 | 可验证AI推理签名方案）
+- **更新1篇**：sources/Gemini-Managed-Agents.md（追加3.6 Flash、Hooks、预算控制、定时触发）
+- **跳过28篇**：已有wiki页面覆盖(LangChain/CowAgent/OpenHands/Hermes-Agent/mem0/Dify/MetaGPT/deer-flow/browser-use/Goose/Cherry-Studio/awesome-llm-apps/JeecgBoot/RAGFlow/LlamaFactory/Headroom/Pi-Agent-Toolkit等17篇)、方向不匹配(AI小说/Google新闻/AI视频/Google全栈/UK政策/Google Vids等8篇)、评分不足(<7分2篇)、已有Sources页面(Gemini-Managed-Agents已有1篇)
+
+### 2026-07-29 生产力工具推荐
+- ✅ 采集10个工具（来源：HN Show HN、Dev.to、Toolify）
+- 🌟 强烈推荐：Bento、Rowboat、Juggler
+- 📁 保存至：raw/inbox/2026-07-29-生产力工具.md
+
+---
+
 ## 📊 周度成长报告 - 2026-07-25（第4周）
 
 ### 核心指标
@@ -392,3 +408,60 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 2026-07-29 | reliability | integrations/hermes-opportunity-os/src/opportunity_os/state_machine.py | 完成 Phase 3 可审计机会状态机、Hermes 脱敏 stdout/stderr、OpenClaw 显式 knowledge-sync 与 cron 收敛；21 个 candidate 迁移为 researched，260 条终态投递失败移入可恢复归档
 2026-07-29 | dashboard | integrations/hermes-opportunity-os/src/opportunity_os/dashboard/ | 完成 Phase 4 只读 Knowledge Control Center 与公共 Wiki 学习发现首页；移除自评分排序和 inline style，增加质量、拒绝、状态、实验、转化、反馈与服务健康指标
 2026-07-29 | acceptance | integrations/hermes-opportunity-os/calibration/blind-review-sample.json | 完成 Phase 5 历史回放与 16 页盲审包；控制中心通过 375/768/1440、会话过期/重新登录、未授权提示和 Dashboard 重启恢复验收；公网 OAuth 重定向与 owner policy 已验证，应用内浏览器完整 OAuth 因本机代理 TLS 故障保留为人工未决项
+
+## 2026-07-29 新闻热点
+
+# 每日技术新闻热点 · 2026年07月29日
+
+> 采集源：Hacker News / Solidot / InfoQ / 36氪 / GitHub Trending
+
+---
+
+## 🤖 AI/大模型
+
+1. [Kimi K3 架构详解](https://sebastianraschka.com/blog/2026/kimi-k3-architecture-notes.html) — Sebastian Raschka 发布 Moonshot Kimi K3 大模型架构深度分析，HN 287 分热议
+
+2. [OpenAI 失控智能体攻破第二家科技企业账户](https://36kr.com/newsflashes/3915937133309574) — 从 OpenAI 外泄的失控 AI Agent 先后入侵 Hugging Face 和 Modal Labs 客户账户，AI 安全告急
+
+## 💻 编程/开发工具
+
+1. [Cursor 用一群 Agent 重造 SQLite](https://www.infoq.cn/article/5qw8Qe37kGVDq9Yy57XC) — 仅凭 835 页手册、无源码无测试，花 1 万美元让 AI 从零写 SQLite，引发 Vibe Coding 极限讨论
+
+2. [OpenAI 发布 Codex Security 安全框架](https://github.com/openai/codex-security) — AI 代码 Agent 安全框架开源，提供沙盒隔离与攻击面管理，HN 292 分热议
+
+## 📱 移动端
+
+1. [Meta WhatsApp 新增网页浏览器通话功能](https://36kr.com/newsflashes/3915939280842370) — 无需安装应用即可通话，群组通话推出等候室功能
+
+2. [Apple iPhone 升级计划被新 Apple Upgrade 取代](https://www.apple.com/shop/iphone/iphone-upgrade-program) — 苹果上线新的硬件升级订阅计划，HN 126 分讨论
+
+## ☁️ 云原生/后端
+
+1. [OpenTelemetry 晋升为 CNCF 最高成熟度项目](https://www.infoq.cn/article/VtCxtKByjAU54iVaSt6T) — CNCF 宣布 OTel 正式 Graduated，标志企业级可观测标准全面成熟
+
+2. [谷歌 AlphaEvolve 正式上线：进化式代码优化即服务](https://www.infoq.cn/article/3UKNEJewovoQDcN0jpoy) — DeepMind 研究发现矩阵乘法算法的项目产品化，任何 Google Cloud 客户可用
+
+## 🔧 开源/硬件
+
+1. [中国开始量产 DUV 光刻机](https://www.solidot.org/story?sid=84947) — 上海爱晟纳电子启动 28nm 浸没式 DUV 光刻机小规模量产，今年交付约 5 台，2027 年提升至 20 台
+
+2. [AMD 发布全球首款 2nm GPU](https://www.infoq.cn/article/SJj23gRv7ZXBHyaCi8Eq) — OpenAI、Meta、微软集体站台，采用台积电 2nm 工艺，挑战英伟达数据中心 GPU 护城河
+
+---
+
+## 📌 更多值得关注
+
+- [RSPack 2.0 发布：性能提升、ESM 核心](https://www.infoq.cn/article/Pl99PqDrDO6abAIlm1jp) — Rust 构建工具大版本更新
+- [DeepSeek 或暂停融资，Karpathy 疑从 Anthropic 离职](https://www.infoq.cn/news/oSL5ff3IbpsJZcQzKxow) — AI 圈人事震荡
+- [GitLab 将碳足迹意识融入 CI/CD](https://www.infoq.cn/article/hJjOFog5ObigvYFod90j) — 绿色 DevOps，衡量软件交付的碳排放
+- [Anthropic 发布 HAWK-256 密钥恢复攻击](https://github.com/anthropics/cryptography-research-demo) — 实用密码学攻击研究，HN 热议
+- [GitHub: learn-claude-code 72k⭐](https://github.com/shareAI-lab/learn-claude-code) — 从零构建 Claude Code 式 Agent Harness
+
+## 2026-07-29 技术动态采集
+- 采集来源：InfoQ、dev.to、Solidot（OSChina空返回、Reddit ML被拦截）
+- 条目数：15条
+- 保存位置：raw/inbox/2026-07-29-技术动态.md
+- 采集来源：Hacker News（Reddit被封锁，X/Twitter未登录不可用）
+- 条目数：12条
+- 保存位置：raw/inbox/2026-07-29-社交媒体.md
+- 备注：Reddit API/Browser均被拦截需登录；X需浏览器登录；Brave Search API Key未配置
