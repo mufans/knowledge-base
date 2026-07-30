@@ -1,3 +1,11 @@
+### 2026-07-30 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-30-*.json（33篇）
+- 扫描完成，27篇score≥7
+- **新增0篇wiki页面，更新0篇**
+- **跳过27篇**：
+  - 已有wiki页面覆盖：Goose/AstrBot/browser-use/deer-flow/CherryStudio/Ponytail/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent/Pi-Agent-Toolkit/Gemini-Managed-Agents/Verifiable-AI-Inference等22篇
+  - 方向不匹配/无技术深度：vLLM推理后端（摘要过薄）、Google Vids视频编辑、Google产品更新（2篇）、UK政策等5篇
+  - 评分不足(<7分)：5篇（ELIZA/AI小说/Triton/Google Search模式/Full Stack问答）
+
 ### 2026-07-29 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-29-*.json（35篇）
 - 扫描完成，25篇score≥7
 - **入库3篇新wiki页面**：
@@ -465,3 +473,16 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 - 条目数：12条
 - 保存位置：raw/inbox/2026-07-29-社交媒体.md
 - 备注：Reddit API/Browser均被拦截需登录；X需浏览器登录；Brave Search API Key未配置
+
+### 2026-07-30 | 📰 新闻热点推送
+- [2026-07-30-新闻热点.md](raw/inbox/2026-07-30-新闻热点.md)（10条，5类）
+
+## 2026-07-30 技术动态
+
+采集了18条技术动态，覆盖AI大模型、Agent、开源、安全、端侧移动、云计算等方向。
+详情: raw/inbox/2026-07-30-技术动态.md
+
+## 2026-07-30 社交媒体AI动态
+
+采集12条AI动态，覆盖AI Agent安全、端侧LLM推理（TurboFieldfare）、Kimi K3-256k、物理AI评测、Agent委托框架等。
+详情: raw/inbox/2026-07-30-社交媒体.md
