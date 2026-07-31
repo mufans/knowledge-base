@@ -1,3 +1,10 @@
+### 2026-07-31 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-31-*.json（35篇）
+- 扫描完成，24篇score≥7
+- **新增0篇wiki页面，更新0篇**（正常成功结果）
+- **跳过35篇**：
+  - 已有wiki页面覆盖（22篇）：Goose/AstrBot/browser-use/deer-flow/Cherry-Studio/Ponytail/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已覆盖）
+  - 方向不匹配/无技术深度（2篇）：vLLM推理后端（摘要过薄）、Google Vids视频编辑
+  - 评分不足(<7分)（11篇）：ELIZA/AI小说/Triton-Sail/AI监控/AI Mode搜索/Full-Stack问答/视觉搜索25周年/App连接搜索/NYC教育峰会/Prolog-LLM库/Verifiable-AI-Inference(已有页面)
 ### 2026-07-30 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-30-*.json（33篇）
 - 扫描完成，27篇score≥7
 - **新增0篇wiki页面，更新0篇**
@@ -486,3 +493,33 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 
 采集12条AI动态，覆盖AI Agent安全、端侧LLM推理（TurboFieldfare）、Kimi K3-256k、物理AI评测、Agent委托框架等。
 详情: raw/inbox/2026-07-30-社交媒体.md
+
+---
+
+## 📰 新闻热点 · 2026-07-31
+
+| 分类 | 新闻 | 来源 |
+|------|------|------|
+| AI/大模型 | Agent Skill for ASD-STE100 Simplified Technical English | HN 150pt |
+| AI/大模型 | 从GPT-2到Kimi K3：七年扩大2.26万倍 | InfoQ |
+| 编程/工具 | Rune 1.1：加入Python和Emacs编辑器，免费 | HN |
+| 编程/工具 | Uncle Bob vs Hashimoto：读不读AI写的代码 | InfoQ |
+| 移动端 | 苹果CEO评估内存供应，供应链限制加剧 | 36kr |
+| 移动端 | Nongor：离线洪水危机救援App (Kotlin+Gemma4) | GitHub |
+| 云原生/后端 | Making Postgres queues scale | HN 96pt |
+| 云原生/后端 | 谷歌Agent Substrate：K8s之后的下一个十年 | InfoQ |
+| 开源/硬件 | deltafin：单设备运行Kimi K3 | GitHub ⭐477 |
+| 开源/硬件 | NIGHTRUN：裸机启动LLM (Rust+UEFI) | GitHub ⭐51 |
+
+
+## 2026-07-31 技术动态
+- [查看详情](raw/inbox/2026-07-31-技术动态.md) | 16条 | InfoQ/OSCHINA/Dev.to/Solidot
+
+---
+
+## 2026-07-31 13:00 社交媒体AI动态采集
+
+- [Hacker News] 采集13条AI相关热门讨论
+- 头条：OpenAI GPT-5.6大降价(Luna -80%)、Google Gemini Robotics 2全身智能机器人
+- Reddit、X/Twitter因网络限制无法采集
+- 详情: [raw/inbox/2026-07-31-社交媒体.md](raw/inbox/2026-07-31-社交媒体.md)
