@@ -1,3 +1,16 @@
+### 2026-08-01 社交媒体AI动态
+- 📡 采集源：Hacker News (Algolia API)、Reddit (blocked)、X/Twitter (需登录)
+- 🔥 Top 5：Human Layer (354pts)、Agentic LLM in Production (112pts)、MarbleOS Agent GUI (110pts)、Expanse GPU (103pts)、BrowserOS (88pts)
+- 📁 保存至：raw/inbox/2026-08-01-社交媒体.md
+
+### 2026-08-01 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-08-01-*.json（34篇）
+- 扫描完成，27篇score≥7
+- **新增0篇wiki页面，更新0篇**（正常成功结果）
+- **跳过34篇**：
+  - 已有wiki页面覆盖（22篇）：Goose/AstrBot/browser-use/deer-flow/Cherry-Studio/Ponytail/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已于7-28更新覆盖）
+  - 方向不匹配/无技术深度（4篇）：Full-Stack-AI概念科普、Google Search应用连接、vLLM推理后端（摘要过薄）、Triton-Sail硬件移植（早期项目stars=0）
+  - 评分不足(<7分)（8篇）：ELIZA书籍/AI小说/视觉搜索25周年/Google Vids/Galaxy Unpacked/Prolog-LLM库/AI监控/Verifiable-AI-Inference
+
 ### 2026-07-31 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-07-31-*.json（35篇）
 - 扫描完成，24篇score≥7
 - **新增0篇wiki页面，更新0篇**（正常成功结果）
@@ -523,3 +536,56 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 - 头条：OpenAI GPT-5.6大降价(Luna -80%)、Google Gemini Robotics 2全身智能机器人
 - Reddit、X/Twitter因网络限制无法采集
 - 详情: [raw/inbox/2026-07-31-社交媒体.md](raw/inbox/2026-07-31-社交媒体.md)
+
+---
+
+## 📰 新闻热点 · 2026-08-01 08:00
+
+### 🤖 AI/大模型
+- [DeepSeek发布V4 Flash 0731开放权重模型](https://www.infoq.cn) — 开放权重，高性价比推理
+- [图灵奖得主朱迪亚·珀尔：大模型会讲因果但无法通向AGI](https://www.solidot.org/story?sid=84970) — LLM本质是曲线拟合，缺乏因果推理能力
+
+### 💻 编程/开发工具
+- [React Compiler迁移Rust](https://www.infoq.cn/article/xeM23uOSNw0s7Q8xUCTp) — 更快构建，社区关注可维护性
+- [Google为Chrome开发不重启打补丁功能](https://www.solidot.org/story?sid=84977) — 多进程架构实现动态补丁
+
+### 📱 移动端
+- [CrossOver宣布原生Apple Silicon支持](https://www.solidot.org/story?sid=84978) — 摆脱Rosetta 2依赖
+- [TetherKit：macOS免驱动Android网络共享](https://github.com/XiaoMiku01/TetherKit) — 无需内核扩展
+
+### ☁️ 云原生/后端
+- [Google Agent Substrate：K8s之后的下一个十年](https://www.infoq.cn/article/h0WG6p7z3tyTk3hxQIhT) — AI Agent时代控制平面
+- [GitHub AI Agent翻车：一句话窃取私有仓库](https://www.infoq.cn/article/u4rDqep8zVWUJsqVoQ23) — 间接提示注入安全漏洞
+
+### 🔧 开源/硬件
+- [Arch Linux关闭AUR孤儿包认领功能](https://www.solidot.org/story?sid=84979) — 恶意接管攻击植入木马
+- [NVIDIA Vera Rubin正式登场](https://www.infoq.cn/article/3gb6NlxK6c0A9or5Zfbt) — 从芯片卷到电网，最低Token成本
+
+### 2026-08-01 | 📊 周度成长报告（第5周：7/26-8/1）
+- **代码提交(SI)**：0（连续3周零commit ⚠️）
+- **Wiki新增**：231页（基建大爆发，19→250，+1216%）
+- **Inbox采集**：58篇（+57% vs上周37篇）
+- **Cron修复**：3个任务超时修复（healthcheck/token统计/知识库同步）
+- **稳定性**：gateway.err.log告警自愈，gateway.log需配置轮转（351MB）
+- **Top主题**：Agent Memory体系、Self-Evolving Agent、Vibe Coding收敛、Skill工程化、端侧AI
+- **核心洞察**：知识基建完成但代码产出停滞，输入输出严重失衡
+
+---
+
+## 2026-08-01 技术动态
+
+1. DeepSeek发布V4 Flash 0731开放权重模型
+2. YC 开源内部多智能体框架 QM
+3. 从GPT-2到Kimi K3：大模型架构"记忆操作系统"
+4. 图灵奖得主珀尔：大模型无法通向AGI
+5. NVIDIA Vera Rubin 正式登场
+6. Agent 成本失控：上下文、审核与维护成本被低估
+7. Perplexity 远程 MCP 服务器正式上线
+8. GitHub AI Agent 翻车：间接提示注入窃取数据
+9. 自构建智能体：LangChain4j 实验
+10. Stateless MCP for Beginners
+11. 谷歌 Agent Substrate 意在拿下下一个十年
+12. 从3个单体应用到120个微服务
+13. Uncle Bob vs Hashimoto：AI代码争议
+14. React Compiler 迁移 Rust
+15. Google Chrome 不重启打补丁
