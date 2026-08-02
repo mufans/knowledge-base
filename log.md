@@ -589,3 +589,36 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 13. Uncle Bob vs Hashimoto：AI代码争议
 14. React Compiler 迁移 Rust
 15. Google Chrome 不重启打补丁
+
+### 2026-08-02 新闻热点
+- 📡 采集源：Hacker News (Algolia API)、Solidot、InfoQ、36氪、GitHub Trending
+- 🔥 Top 5：中国大模型被美企采用、DeepSeek V4-Flash、Cursor移除成本显示、谷歌Agent Substrate、sqliteai/waste
+- 📁 保存至：raw/inbox/2026-08-02-新闻热点.md
+
+## 2026-08-02 10:00 技术动态
+
+1. [DeepSeek V4-Flash 总成本较 Fable 5 低 105 倍，被称"DeepSeek 2.0 时刻"](https://www.infoq.cn)
+2. [NVIDIA Vera Rubin 正式登场：从芯片卷到电网](https://www.infoq.cn/article/3gb6NlxK6c0A9or5Zfbt)
+3. [Agent 成本失控背后：上下文、人工审核与维护成本正在被低估](https://www.infoq.cn/article/x4PTF8mgDBvtQQYa8B97)
+4. [92% 工程师在用 AI，Uber 开始给 AI "限额"](https://www.infoq.cn/article/Iu2dhFs8JiFqoUGuXJ4m)
+5. [GitHub AI Agent 翻车：攻击者只写一句话就能窃取数据](https://www.infoq.cn/article/u4rDqep8zVWUJsqVoQ23)
+6. [Seedance 2.5：字节跳动发布新一代视频生成模型](https://seed.bytedance.com/en/blog/one-take-creation-flexible-referencing-introducing-seedance-2-5)
+7. [Kubernetes 统治容器时代，Google Agent Substrate 意在拿下下一个十年](https://www.infoq.cn/article/h0WG6p7z3tyTk3hxQIhT)
+8. [编程界新分水岭：Uncle Bob vs Hashimoto，AI 代码该不该读？](https://www.infoq.cn/article/WbtENUlDowovNCHxECMf)
+9. [Remix 3.0 彻底重写：放弃 React，转向 Web 标准全栈框架](https://www.infoq.cn/article/s8IA8KgdrizgCEsQAOXr)
+10. [React Compiler 迁移 Rust 更快了，但开发者担心"没人看得懂代码"](https://www.infoq.cn/article/xeM23uOSNw0s7Q8xUCTp)
+11. [Slopsquatting：武器化 AI 幻觉的供应链攻击](https://dev.to/nazar-boyko/slopsquatting-the-supply-chain-attack-that-weaponizes-ai-hallucinations-2m2)
+12. [Arch Linux 关闭 AUR 孤儿包领养功能：遭遇恶意代码植入](https://www.solidot.org/story?sid=84979)
+13. [Google 为 Chrome 开发不重启打补丁功能](https://www.solidot.org/story?sid=84977)
+14. [Grok Imagine Video 1.5 新增文生视频与原生 1080p](https://www.infoq.cn)
+15. [LlamaIndex 推出文档 OCR 路由器](https://www.infoq.cn)
+16. [硬停止规则：从 3 个单体应用到 120 个微服务](https://www.infoq.cn/article/1GC0U88AkvaWbqO1DNlR)
+
+
+### 2026-08-02 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-08-02-*.json（34篇）
+- 扫描完成，20篇score≥7
+- **新增0篇wiki页面，更新0篇**（正常成功结果）
+- **跳过34篇**：
+  - 已有wiki页面覆盖（20篇）：Goose/AstrBot/browser-use/deer-flow/Cherry-Studio/Ponytail/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已于7-28更新覆盖）+ Verifiable-AI-Inference（已有页面）
+  - 方向不匹配/无技术深度（6篇）：vLLM-Transformers后端（与7-31/8-01重复且摘要过薄，服务端推理与Agent/移动端方向匹配度低）、ELIZA书籍（AI历史）、AI小说研究、Triton-Sail硬件移植（早期项目stars=0）、Full-Stack-AI概念科普、英国AI经济报告
+  - 评分不足(<7分)（8篇）：AI Mode搜索5场景/Google Images 25周年/App连接搜索/Google Vids更新/Prolog-LLM库(stars=0)/Google全栈AI解释
