@@ -1,3 +1,8 @@
+### 2026-08-03 社交媒体AI动态
+- 📡 采集源：Hacker News (Algolia API)、Reddit (blocked)、X/Twitter (blocked)
+- 🔥 Top 8：MarbleOS Agent GUI (134pts)、GitLost安全漏洞 (541pts)、Fedora Agent失控 (552pts)、Agent破产运营商 (1467pts)、Screenpipe YC S26 (88pts)、Tokenless YC S26 (71pts)、Millwright LLM Router (25pts)、Sgai多Agent开发 (36pts)
+- 📁 保存至：raw/inbox/2026-08-03-社交媒体.md
+
 ### 2026-08-01 社交媒体AI动态
 - 📡 采集源：Hacker News (Algolia API)、Reddit (blocked)、X/Twitter (需登录)
 - 🔥 Top 5：Human Layer (354pts)、Agentic LLM in Production (112pts)、MarbleOS Agent GUI (110pts)、Expanse GPU (103pts)、BrowserOS (88pts)
@@ -622,3 +627,83 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
   - 已有wiki页面覆盖（20篇）：Goose/AstrBot/browser-use/deer-flow/Cherry-Studio/Ponytail/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已于7-28更新覆盖）+ Verifiable-AI-Inference（已有页面）
   - 方向不匹配/无技术深度（6篇）：vLLM-Transformers后端（与7-31/8-01重复且摘要过薄，服务端推理与Agent/移动端方向匹配度低）、ELIZA书籍（AI历史）、AI小说研究、Triton-Sail硬件移植（早期项目stars=0）、Full-Stack-AI概念科普、英国AI经济报告
   - 评分不足(<7分)（8篇）：AI Mode搜索5场景/Google Images 25周年/App连接搜索/Google Vids更新/Prolog-LLM库(stars=0)/Google全栈AI解释
+
+# 📰 技术新闻热点 · 2026年08月03日
+
+> 来源：Solidot、InfoQ、36氪、GitHub Trending | HN 无法访问已跳过
+
+---
+
+## 🤖 AI/大模型
+
+1. **[Uber给AI"限额"：92%工程师用AI后开始控成本](https://www.infoq.cn/article/Iu2dhFs8JiFqoUGuXJ4m)**
+   Uber推出"零增长技术栈"策略，在92%工程师已使用AI编码后，开始对AI工具使用设限以控制基础设施与AI成本。
+
+2. **[翁荔重返OpenAI：AI人才争夺战持续升温](https://www.infoq.cn/article/im3GxWtxYPZpkodNRgVQ)**
+   翁荔因身体原因从Thinking Machines Lab离职仅一天后便重返OpenAI，折射AI顶级人才在行业内的激烈争夺。
+
+---
+
+## 💻 编程/开发工具
+
+3. **[Remix 3.0 Beta Preview 放弃React，转向Web标准全栈框架](https://www.infoq.cn/article/s8IA8KgdrizgCEsQAOXr)**
+   Remix 3.0彻底重写，不再依赖React，转向基于Web标准的全栈方案，标志着前端框架生态的重大转折。
+
+4. **[React Compiler 迁移 Rust：更快了，但"没人看得懂代码"？](https://www.infoq.cn/article/xeM23uOSNw0s7Q8xUCTp)**
+   Meta将React Compiler移植至Rust实现更快构建和工具链集成，但社区担忧Rust门槛影响开源贡献。
+
+---
+
+## 📱 移动端
+
+5. **[近五成美国人赞同学校期间完全禁止使用手机](https://www.solidot.org/story?sid=84983)**
+   Pew调查显示48%美国人支持全天手机禁令（去年36%），77%支持课堂禁令，美国已有42个州制定限制政策。
+
+6. **[宝马向车载屏幕推送蜘蛛侠全屏广告，引发广泛争议](https://www.solidot.org/story?sid=84980)**
+   宝马在70+市场向2020年后出厂车型推送《Spider-Man: Brand New Day》全屏广告，启动即播，引发车主强烈不满。
+
+---
+
+## ☁️ 云原生/后端
+
+7. **[Kubernetes之后，谷歌Agent Substrate意在下个十年](https://www.infoq.cn/article/h0WG6p7z3tyTk3hxQIhT)**
+   谷歌推出Agent Substrate，试图在AI智能体时代复制Kubernetes在容器时代的统治地位，打造AI Agent控制平面。
+
+8. **[GitHub AI Agent翻车：一句话就能窃取私有仓库数据](https://www.infoq.cn/article/u4rDqep8zVWUJsqVoQ23)**
+   间接提示注入攻击利用GitHub AI Agent泄露私有仓库数据，Agent安全风险再次敲响警钟。
+
+---
+
+## 🔧 开源/硬件
+
+9. **[kimi-k3-in-c：2.78万亿参数K3在单CPU上推理](https://github.com/FareedKhan-dev/kimi-k3-in-c)**
+   纯C99实现，无需GPU/BLAS/框架，仅8.24GB内存即可运行Kimi K3推理，⭐247 | 极致轻量的大模型部署方案。
+
+10. **[NVIDIA Vera Rubin登场：全栈协同设计压低Token成本](https://www.infoq.cn/article/3gb6NlxK6c0A9or5Zfbt)**
+   新一代Vera Rubin平台从芯片到电网全栈设计，主打每瓦最高性能和最低Token成本，面向AI推理规模化部署。
+
+---
+
+## 📊 来源统计
+| 来源 | 数量 |
+|------|------|
+| InfoQ | 6 |
+| Solidot | 2 |
+| GitHub Trending | 1 |
+| 36氪 | 0（本期多为财经新闻） |
+| HN | 0（无法访问） |
+
+## 2026-08-03 技术动态采集
+
+采集了13条技术动态，涵盖AI大模型、编程前端、工程架构、安全开源四大领域。亮点包括Qwen3.8-Max发布、DeepSeek V4-Flash API上线、GitHub AI Agent安全漏洞、NVIDIA Vera Rubin等。
+
+📄 详情: `raw/inbox/2026-08-03-技术动态.md`
+
+### 2026-08-03 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-08-03-*.json（35篇）
+- 扫描完成，28篇score≥7
+- **新增0篇wiki页面，更新0篇**（正常成功结果）
+- **跳过35篇**：
+  - 已有wiki页面覆盖（22篇）：Goose/browser-use/deer-flow/Cherry-Studio/AstrBot/Ponytail/pi/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已于7-28更新覆盖）+ Verifiable-AI-Inference（已有页面）
+  - 方向不匹配/无技术深度（6篇）：Full-Stack-AI概念科普、Google Vids视频生成、ELIZA书籍（AI历史）、Google 6月新闻汇总、vLLM-Transformers后端（与7-31/8-01/8-02重复，服务端推理方向匹配度低）、Triton-Sail硬件移植（stars=0）
+  - 评分不足(<7分)（7篇）：AI Mode搜索5场景/Google Images 25周年/App连接搜索/Prolog-LLM库(stars=0)/AI小说研究/英国AI经济报告
+- 质量校验：check_quality.py 通过（246页面，0错误，0断链）
