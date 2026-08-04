@@ -1,3 +1,5 @@
+2026-08-04 | ingest | raw/inbox/2026-08-04-Claude博客.md | 采集2篇Claude Blog（评分均≥9.0），已推送钉钉
+
 ### 2026-08-03 社交媒体AI动态
 - 📡 采集源：Hacker News (Algolia API)、Reddit (blocked)、X/Twitter (blocked)
 - 🔥 Top 8：MarbleOS Agent GUI (134pts)、GitLost安全漏洞 (541pts)、Fedora Agent失控 (552pts)、Agent破产运营商 (1467pts)、Screenpipe YC S26 (88pts)、Tokenless YC S26 (71pts)、Millwright LLM Router (25pts)、Sgai多Agent开发 (36pts)
@@ -707,3 +709,13 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
   - 方向不匹配/无技术深度（6篇）：Full-Stack-AI概念科普、Google Vids视频生成、ELIZA书籍（AI历史）、Google 6月新闻汇总、vLLM-Transformers后端（与7-31/8-01/8-02重复，服务端推理方向匹配度低）、Triton-Sail硬件移植（stars=0）
   - 评分不足(<7分)（7篇）：AI Mode搜索5场景/Google Images 25周年/App连接搜索/Prolog-LLM库(stars=0)/AI小说研究/英国AI经济报告
 - 质量校验：check_quality.py 通过（246页面，0错误，0断链）
+- 2026-08-04 新闻热点采集完成，10条（5分类：AI/大模型2条、编程/开发工具2条、移动端2条、云原生/后端2条、开源/硬件2条）。来源：InfoQ、Solidot、36氪、GitHub Trending。HN采集中断。
+
+---
+## 2026-08-04 技术动态
+
+已保存: [raw/inbox/2026-08-04-技术动态.md](raw/inbox/2026-08-04-%E6%8A%80%E6%9C%AF%E5%8A%A8%E6%80%81.md)
+
+共采集14条技术动态，涵盖AI/大模型、云原生、开发工具、AI安全、前端等领域。
+
+2026-08-04 | Claude Blog采集 | raw/inbox/2026-08-04-Claude博客.md | 采集2篇，最高分9.5
