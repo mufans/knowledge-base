@@ -1,3 +1,15 @@
+### 2026-08-05 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-08-05-*.json（35篇）
+- 扫描完成，27篇score≥7
+- **新增0篇wiki页面，更新0篇**（正常成功结果）
+- **跳过35篇**：
+  - 已有wiki页面覆盖（23篇）：Goose/AstrBot/browser-use/deer-flow/Cherry-Studio/Ponytail/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已于7-28更新覆盖）+ Vibe-Coding-Google-Kaggle-Course（353,000人vibe coding课程，已有页面）
+  - 方向不匹配/无技术深度（3篇）：bonsai（OCaml前端库，与AI Agent/移动端无关）、Google Vids视频编辑、ELIZA书籍（AI历史）
+  - 方向边缘+原文不可获取（1篇）：Robust AI Security and Alignment（IEEE论文，AI安全对齐理论，付费墙）
+  - 评分不足(<7分)（8篇）：AI Mode搜索5场景/Full-Stack-AI概念科普/NLP分类x2/视觉搜索25周年/App连接搜索/Google 6月新闻汇总/认知科学家为何讨厌LLM
+- 质量校验：check_quality.py 通过（246页面，0错误，0断链）；dashboard 已更新（246页）
+
+2026-08-05 | ingest | raw/inbox/2026-08-05-生产力工具.md | 采集10个生产力工具（Tool Finder来源），强烈推荐3个，已推送钉钉
+2026-08-05 | ingest | raw/inbox/2026-08-05-技术动态.md | 采集15条技术动态（InfoQ/Solidot/OSChina/dev.to），已推送钉钉Top8
 2026-08-04 | ingest | raw/inbox/2026-08-04-Claude博客.md | 采集2篇Claude Blog（评分均≥9.0），已推送钉钉
 
 ### 2026-08-03 社交媒体AI动态
@@ -719,3 +731,33 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 共采集14条技术动态，涵盖AI/大模型、云原生、开发工具、AI安全、前端等领域。
 
 2026-08-04 | Claude Blog采集 | raw/inbox/2026-08-04-Claude博客.md | 采集2篇，最高分9.5
+## 2026-08-04 社交媒体AI动态
+
+- [LLMs reward expertise](https://www.seangoedecke.com/llms-reward-expertise/) - 647pts HN热议，专家用AI获益远超新手
+- [Run 80B Qwen on Mac & 35B on iPhone](https://github.com/leonickson1/Swiftlet) - Swiftlet端侧AI重大突破
+- [MiniMax H3 ComfyUI 开源](https://blog.comfy.org/p/minimax-h3-day-0-support-in-comfyui) - 开放权重，原生音频+2K视频
+- [Kimi & GLM at scale via Cloudflare](https://blog.cloudflare.com/smaller-faster-safer-models/) - 边缘AI更小更快更安全
+- [Prevent cognitive debt by retyping LLM code](https://ankursethi.com/blog/prevent-cognitive-debt-by-manually-retyping-llm-generated-code/) - 424pts激烈讨论
+- [Devtools must be open source](https://blog.exe.dev/devtools-must-be-open-source) - 545pts，AI时代开发者工具信任危机
+- [OpenAI 数学与理论CS十大进展](https://openai.com/index/ten-advances-in-mathematics/) - 494pts
+
+📁 完整报告: raw/inbox/2026-08-04-社交媒体.md
+2026-08-05 | ingest | raw/inbox/2026-08-05-新闻热点.md | 采集10条：AI/大模型2条、编程/开发工具2条、移动端2条、云原生/后端2条、开源/硬件2条，来源HN/Solidot/InfoQ/36氪/GitHub
+
+---
+
+## 2026-08-05 13:00 | 社交媒体AI技术动态
+
+✅ Hacker News 采集成功 | ❌ Reddit (403) | ❌ X/Twitter (需登录)
+
+### Top 8
+1. [LLMs Reward Expertise](https://www.seangoedecke.com/llms-reward-expertise/) - 1337🔥 | LLM对专家提效远超新手
+2. [The Warp Agent CLI](https://www.warp.dev/blog/introducing-the-warp-agent-cli-coding-agent) - 96pts | 终端原生编程Agent
+3. [Homebench - Benchmark Local LLMs](https://github.com/david-g-3654/homebench) - 59pts | 本地LLM性能基准
+4. [Cloudflare Wallets for Agentic Internet](https://blog.cloudflare.com/wallets/) - 35pts | Agent经济基础设施
+5. [Flowise Shutting Down](https://flowiseai.com/sunset) - 29pts | 开源LLM工作流工具关闭
+6. [White House Excludes Open Models from AI Testing](https://www.axios.com/2026/08/04/trump-ai-framework-open-models) - 17pts
+7. [AI Voice Agent on $50 Arduino](https://projecthub.arduino.cc/neelbuilds/build-a-voice-based-kiosk-for-retail-store-using-moorcheh-edge-and-arduino-uno-q-7f3c7b) - 14pts
+8. [Unsanctioned Agent Behaviour During Cyber Testing](https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing) - 11pts
+
+详情: knowledge/raw/inbox/2026-08-05-社交媒体.md
