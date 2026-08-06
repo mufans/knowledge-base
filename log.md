@@ -761,3 +761,86 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 8. [Unsanctioned Agent Behaviour During Cyber Testing](https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing) - 11pts
 
 详情: knowledge/raw/inbox/2026-08-05-社交媒体.md
+
+---
+
+# 技术新闻热点 · 2026年08月06日
+
+> 数据来源：Hacker News（未获取到）、Solidot、InfoQ、GitHub Trending
+
+---
+
+## 🤖 AI/大模型
+
+1. **[Google DeepMind CEO Demis Hassabis 卸任，Brain创始团队成立 Discovery Loop](https://www.solidot.org/story?sid=85019)**
+   诺贝尔奖得主 Hassabis 转任首席科学家兼董事长，Jeff Dean、Sanjay Ghemawat、Oriol Vinyals 和 Quoc Le 集体离开 Google 创立公益 AI 研究企业 Discovery Loop。此举恰逢 Gemini 新模型发布滞后，引发市场对 Google 落后于 Anthropic/OpenAI 的担忧。
+
+2. **[Meta 发布 Muse Code 终端编码代理与 Muse Spark 1.2](https://www.infoq.cn)**
+   Meta 发布两款重磅 AI 开发工具：Muse Code 终端编码智能体在 Terminal-Bench 得分 82.9%，Muse Spark 1.2 的 AI 指数得分 54 并列第三，Meta 还宣布大幅降价鼓励开源贡献。
+
+---
+
+## 💻 编程/开发工具
+
+1. **[不碰核心代码、把 7-Zip 压缩速度提高 97%：一个"外行"与 AI 的极致优化实验](https://www.infoq.cn/news/Qp04AcNuAM8YqtVQHyu3)**
+   AI 辅助优化的 7-Zip 版本在 Windows/macOS 双平台通过真实业务文件测试，压缩速度提升 97%，已正式开源。
+
+2. **[GitHub 为 Dependabot 版本更新引入默认"冷却期"策略](https://www.infoq.cn/article/mHKwxgo5SqfmtZEESCrN)**
+   一个 npm 恶意包在数小时内毁掉数十亿下载，GitHub 终于给自动升级按下暂停键，为 Dependabot 引入默认冷却期防止恶意包自动传播。
+
+---
+
+## 📱 移动端
+
+1. **[Waymo CEO 解释为什么光靠摄像头难以实现自动驾驶](https://www.solidot.org/story?sid=85016)**
+   Waymo 联席 CEO Dmitri Dolgov 在 YC Startup School 详解：纯摄像头方案上限就是人类水平，而无人驾驶需要更高安全标准。Waymo 采用摄像头+激光雷达+雷达三传感器组合，确保在恶劣天气、黑夜等极端条件下仍能安全行驶。
+
+2. **[Telegram 因用户分享 CSAM 材料被苹果短暂下架](https://www.solidot.org/story?sid=85015)**
+   Telegram 因有用户分享儿童虐待材料被苹果全球下架，开发商迅速删除相关内容后恢复上架。Telegram 表示今年已因此封禁近 33.8 万个群组和频道，英国 Ofcom 也已展开调查。
+
+---
+
+## ☁️ 云原生/后端
+
+1. **[可观测性厂商 AI 大战：Grafana、Datadog、Splunk 全部入场](https://www.infoq.cn/article/0slNEHoKwzuJdxD7D1fJ)**
+   Grafana Assistant 扩展至 30 多个数据源，Datadog 和 Splunk 也纷纷推出 AI 驱动的可观测性方案，AI 根因分析正从模型推理转向上下文工程。
+
+2. **[AWS 发布 GuardDuty Investigation Agent：让 AI 帮安全团队追查攻击线索](https://www.infoq.cn/article/YZEahCZsDt3lZhHYvLPX)**
+   继安全 Copilot 之后，AWS 推出 AI 调查员 Agent，自动追查安全攻击线索，标志着云安全进入 AI 自动化调查时代。
+
+---
+
+## 🔧 开源/硬件
+
+1. **[FFmpeg 9.0 "Lei" 正式释出](https://www.solidot.org/story?sid=85005)**
+   开源多媒体框架迎来重大更新：Vulkan APV 视频解码、Apple ProRes RAW Vulkan 加速、Vulkan v360 视频滤镜、HE-AAC 960 解码、NVIDIA CUDA 转置滤镜、AVX-512 优化等重磅特性。
+
+2. **[agent-vision-toolkit：给纯文本 LLM Agent 装上眼睛](https://github.com/Anionex/agent-vision-toolkit) ⭐300**
+   一套完整的视觉工具箱，支持图片问答、OCR、截图分析、视觉定位，可无缝接入 Codex、Claude Code、OpenCode、Pi 等主流 AI 编码代理。
+
+---
+
+📊 **本日快评**：Google DeepMind 高层大换血是今日最大新闻，Brain 创始团队集体出走创立新公司，加上 Gemini 发布滞后，硅谷 AI 格局正在剧烈重构。Meta 同日发布 Muse 系列工具试图抢占 Agent 开发入口，竞争白热化。
+
+## 2026-08-06 技术动态
+
+1. [谷歌连发三模型，机器人变身"全能打工人"](https://www.infoq.cn/article/Zx9Z9etgapBsdOL9FtW1) - 全身控制+灵巧操作+多机协作
+2. [GPT-5.6价格暴降，最低打两折](https://www.infoq.cn/article/KROGtjyegHRSKCSNS70o) - OpenAI大幅降价回馈用户
+3. [卡帕西亲测Opus 5：两小时写完5500行代码](https://www.infoq.cn/article/YdQ7vD3WwZpib8yuzNfF)
+4. [外行+AI把7-Zip压缩速度提高97%](https://www.infoq.cn/news/Qp04AcNuAM8YqtVQHyu3) - 已开源
+5. [Ming-Flash-Omni全模态统一大模型](https://www.infoq.cn/article/OlBv9DATXabu0bb4kAPt)
+6. [DeepMind CEO Hassabis卸任，Jeff Dean离职](https://www.solidot.org/story?sid=85019)
+7. [微软要求工程师不要最大化Token使用](https://www.solidot.org/story?sid=85018)
+8. [可观测性厂商AI大战：Grafana/Datadog/Splunk入场](https://www.infoq.cn/article/0slNEHoKwzuJdxD7D1fJ)
+9. [AI根因分析从模型推理转向上下文工程](https://www.infoq.cn/article/sJLewGjY5sUZPgpGy071)
+10. [npm恶意包事件后，GitHub给Dependabot加冷却期](https://www.infoq.cn/article/mHKwxgo5SqfmtZEESCrN)
+11. [FFmpeg 9.0释出：Vulkan加速+AVX-512优化](https://www.solidot.org/story?sid=85005)
+12. [美国将豁免中国开放权重模型安全测试](https://www.solidot.org/story?sid=85012)
+13. [Skills vs MCP: Google AI解析AI工具演进](https://dev.to/googleai/skills-vs-mcp-how-ai-tools-have-evolved-3pmk)
+
+2026-08-06 | Claude Blog采集 | raw/inbox/2026-08-06-Claude博客.md | 采集1篇，最高分9.5
+## 📋 2026-08-06 社交媒体AI动态采集
+
+采集了 15 条动态，保存至 raw/inbox/2026-08-06-社交媒体.md
+主要来源：Hacker News、The Verge
+关键话题：Meta Muse Code Agent、DeepSeek涨价、AI Agent安全、AI数据中心建设
