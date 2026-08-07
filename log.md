@@ -844,3 +844,36 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 采集了 15 条动态，保存至 raw/inbox/2026-08-06-社交媒体.md
 主要来源：Hacker News、The Verge
 关键话题：Meta Muse Code Agent、DeepSeek涨价、AI Agent安全、AI数据中心建设
+
+---
+
+## 2026-08-07 08:00 新闻热点采集
+
+- [Google DeepMind CEO Demis Hassabis 卸任，Jeff Dean 等离职创业](https://www.solidot.org/story?sid=85019) — AI/大模型
+- [OpenAI 最早下周发布 Astra 模型](https://www.infoq.cn) — AI/大模型
+- [MCP 迎来最大更新：重回 HTTP 时代](https://www.infoq.cn/article/Lb94jI4ma9w0X9u0Ez6F) — 编程/开发工具
+- [AI 把 7-Zip 压缩速度提高 97%](https://www.infoq.cn/news/Qp04AcNuAM8YqtVQHyu3) — 编程/开发工具
+- [Waymo CEO 解释为什么光靠摄像头难以实现自动驾驶](https://www.solidot.org/story?sid=85016) — 移动端
+- [debroid：Android 无头调试器开源](https://github.com/PatilShreyas/debroid) — 移动端
+- [Cloudflare 推出 Meerkat 全球强一致性协调](https://www.infoq.cn/article/TzPsuyR3J7MlCA6vDwCx) — 云原生/后端
+- [AWS 推出免费沙箱环境](https://www.infoq.cn/article/HtbD9e2YFkS3omFYgIyY) — 云原生/后端
+- [2027 年全年内存产能已全部售罄](https://www.solidot.org/story?sid=85020) — 开源/硬件
+- [RealReplicaBench (⭐1036) 长周期 Agent 基准测试](https://github.com/Accio-org/RealReplicaBench) — 开源/硬件
+
+## 2026-08-07 技术动态
+✅ 已采集 15 条技术动态 → raw/inbox/2026-08-07-技术动态.md
+
+2026-08-07 | Claude Blog采集 | raw/inbox/2026-08-07-Claude博客.md | 采集2篇，最高分9.0
+## 2026-08-07 社交媒体AI动态
+
+- 📄 [完整报告](raw/inbox/2026-08-07-社交媒体.md)
+- 采集源: HN / The Verge（Reddit/X受限）
+- 重点: Meta Muse Code发布 | Agent安全研究 | Prime Agent自改进RLM | 端侧AI Agent | Agent标准协议
+
+### 2026-08-07 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-08-07-*.json（4篇新增）
+扫描完成，4篇评估：score≥7共3篇。入库0篇，跳过4篇：
+- awesome-llm-apps（score 9）：已有wiki页面 entities/awesome-llm-apps.md 覆盖
+- CowAgent（score 9）：已有wiki页面 entities/CowAgent.md 覆盖
+- Google July 2026 AI新闻（score 7）：官方新闻汇总，无实质技术深度，不符合purpose.md排除范围
+- Why Do Cognitive Scientists Hate LLMs（score 6）：低于评分门槛
+质量校验：246页 0错误 0断链。Dashboard已更新。
