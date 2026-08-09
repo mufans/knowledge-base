@@ -925,3 +925,27 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 - the-latest-ai-news-we-announced-in-july-2026（score 7）：与2026-08-07批次重复，官方新闻汇总无实质技术深度，昨天已评估跳过
 - unlocking-britains-next-era-of-productivity（score 6）：低于评分门槛
 - why-do-cognitive-scientists-hate-llms-2023（score 6）：与2026-08-07批次重复，低于评分门槛
+
+## 2026-08-09 新闻热点采集
+
+- [DeepSeek V4 Flash 0731](https://arcprize.org/results/deepseek-v4-flash-0731) — ARC Prize基准测试表现亮眼
+- [MiniMax H3 考虑开源](https://www.infoq.cn/article/9C3eK9tJqDXbabbBy3aj) — 2K模型考虑Apache-2.0开源
+- ["Code was never the hard part"反驳文](https://blog.senko.net/code-was-never-the-hard-part-is-an-insult-to-all-programmers) — HN热文
+- [MCP重回HTTP](https://www.infoq.cn/article/Lb94jI4ma9w0X9u0Ez6F) — MCP协议重大架构变更
+- [蚂蚁开源Avernet](https://www.infoq.cn/article/iNvHOsahsYFYaE9ImZBV) — 多智能体协作基础设施
+- [京东开源JoyAI-Video-Edit](https://github.com/jd-opensource/JoyAI-Video-Edit) — 实时视频编辑
+
+
+## 2026-08-09 技术动态
+
+- 采集13条技术动态，来源：InfoQ、Solidot、Dev.to、OSChina
+- 重点：MCP HTTP回归、蚂蚁Avernet开源、字节10万亿参数模型、Meta Muse Code、Claude Code最佳实践
+- 文件：raw/inbox/2026-08-09-技术动态.md
+
+## 2026-08-09 社交媒体AI动态
+
+- 采集15条动态，来源：Hacker News（Reddit/X采集失败）
+- 重点：Juggler GUI Coding Agent、GLM 5.2本地运行、Rowboat开源桌面客户端、Smart Model Router
+- ⚠️ Reddit被网络策略封禁，X/Twitter browser超时
+- 文件：raw/inbox/2026-08-09-社交媒体.md
+2026-08-09 | fix | wiki/concepts/index.md | 补充 Revision-Prompting 索引缺失项

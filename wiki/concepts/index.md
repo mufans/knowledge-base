@@ -61,3 +61,4 @@
 - [Skill-Self-Play](Skill-Self-Play.md) (2026-07-27)
 - [Multi-Head-Latent-Control](Multi-Head-Latent-Control.md) (2026-07-28)
 - [Agentic-Context-Management](Agentic-Context-Management.md) (2026-07-28)
+- [Revision-Prompting](Revision-Prompting.md) (2026-08-09)
