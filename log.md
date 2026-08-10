@@ -949,3 +949,41 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 - ⚠️ Reddit被网络策略封禁，X/Twitter browser超时
 - 文件：raw/inbox/2026-08-09-社交媒体.md
 2026-08-09 | fix | wiki/concepts/index.md | 补充 Revision-Prompting 索引缺失项
+
+## 📰 2026-08-10 新闻热点
+
+- [新闻热点采集](raw/inbox/2026-08-10-新闻热点.md) - 10条技术新闻，覆盖AI/大模型、编程工具、移动端、云原生、开源硬件
+
+### 2026-08-10 技术动态
+
+- [OpenAI给10亿用户免费换上GPT-5.6](https://www.infoq.cn/news/RXRuR3TN9msNMAUWRtCl)
+- [DeepSeek涨价30倍仍是最便宜的模型](https://www.infoq.cn/article/FEcOI8kYoGuFYq39acEo)
+- [TypeScript 7.0发布，构建速度提升10倍](https://www.infoq.cn/article/ciQHX2larGoSlHspZ9VK)
+- [蚂蚁开源Avernet多智能体操作系统](https://www.infoq.cn/article/iNvHOsahsYFYaE9ImZBV)
+- [MCP迎来最大更新: HTTP传输回归](https://www.infoq.cn/article/Lb94jI4ma9w0X9u0Ez6F)
+- [Meta推出编程智能体Muse Code](https://www.infoq.cn/article/5DEAabOIcvRrEMhAbCyz)
+- [甲骨文对OpenJDK禁止AI生成代码](https://www.solidot.org/story?sid=85041)
+- [DeepMind WeatherNext飓风预测突破](https://www.solidot.org/story?sid=85042)
+
+---
+
+## 2026-08-10 13:00 社交媒体AI动态
+
+### HN Top AI/LLM Posts
+1. [Claude Code 默认启用 Auto Mode](https://claude.com/blog/auto-mode-default-in-claude-code) - 38pts
+2. [如何用LLM学习复杂主题](https://laurentiugabriel.github.io/blog/articles/how-i-use-llms-to-learn/) - 520pts 🔥
+3. [AI时代的公地悲剧](https://www.economist.com/britain/2026/08/06/the-tragedy-of-the-commons-ai-edition) - 94pts
+4. [OpenChamber: Agentic开发环境](https://openchamber.dev/) - 127pts
+5. [AI可穿戴设备隐私监控](https://www.theatlantic.com/technology/2026/05/ai-wearable-surveillance-countermeasures/687203/) - 246pts
+6. [Human vs AI：Diff文本溯源](https://github.com/eighttrigrams/us-vs-them) - 46pts
+7. [ChatGPT风格复制过滤](https://arstechnica.com/ai/2026/07/chatgpt-stops-cloning-famous-writers-voices-but-may-capture-a-similar-feeling/) - 88pts
+8. [语音AI谋杀悬疑游戏](https://www.whodunnitai.com/) - 20pts
+9. [硅谷误读科幻削弱民主](https://techcrunch.com) - 251pts
+10. [黑客的复兴](https://phrack.org/issues/72/19#article) - 107pts
+11. [Ask HN: 你在做什么？(8月版)](https://news.ycombinator.com/item?id=49233423) - 208pts
+12. [The Ambition Project](https://www.betonit.ai/p/the-ambition-project) - 20pts
+
+### 趋势
+Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺盛 | 版权与风格保护成焦点
+
+⚠️ Reddit、X/Twitter 因反爬无法采集
