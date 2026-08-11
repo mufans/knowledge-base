@@ -1,5 +1,27 @@
 ---
 
+## 🐦 社交媒体AI动态 - 2026-08-11
+
+📥 详情：[2026-08-11-社交媒体.md](raw/inbox/2026-08-11-社交媒体.md)
+
+### Top Picks
+1. Meta发布Muse Glimmer：30B开源Agent模型，单GPU本地运行 (HN 1074🔥)
+2. 扎克伯格AI宣言攻击闭源，Meta回归开源路线 (HN 433)
+3. Needle2：14MB Agentic LLM专为手机/穿戴设计 (HN 239) 🗳️ 移动端
+4. LLM输出人性化争议：Humanising LLM Outputs Is Dumb (HN 185)
+5. Claude/GPT知识截止日期与预训练时间线深度分析 (HN 130)
+6. 编程Agent最佳语言选择：Token效率视角 (HN 102)
+7. H3-metal：MiniMax-H3在Apple Silicon原生推理 (HN 123)
+8. LFM2.5 2.6B小模型性能媲美4倍参数 (LiquidAI)
+9. Android AI生成锁屏时钟功能泄露 🗳️ 移动端
+10. ChatGPT接入Yelp/OpenTable，可直接预订餐厅
+11. OpenAI因安全考量暂停Astra模型发布
+12. Vibe Coding实战：The Verge团队用AI建站经验
+
+**关键信号**：端侧Agent模型井喷（Muse Glimmer / Needle2 / LFM2.5），移动端AI加速落地
+
+---
+
 ## 📊 周度成长报告 - 2026-08-08（第6周：8/2-8/8）
 
 ### 核心指标
@@ -926,6 +948,13 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 - unlocking-britains-next-era-of-productivity（score 6）：低于评分门槛
 - why-do-cognitive-scientists-hate-llms-2023（score 6）：与2026-08-07批次重复，低于评分门槛
 
+### 2026-08-11 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-08-09~08-11-*.json（105篇，跨3天补处理）
+扫描完成，105篇评估：score≥7共57篇。入库0篇，跳过105篇：
+- 已有wiki页面覆盖（约30篇/天）：Goose/AstrBot/browser-use/deer-flow/Cherry-Studio/Ponytail/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已于7-28更新覆盖）+ Revision-Prompting（08-09已建页面）+ Vibe-Coding-Google-Kaggle-Course（353,000人vibe coding课程，已有页面）
+- 方向不匹配（Google产品/营销/教育/OCaml前端等）：bonsai（Js_of_ocaml）、connect-more-apps-to-search、evolve-marketing、celebrating-25-years-visual-search、create-edit-google-vids、new-york-educators、ask-ai-expert-full-stack、unlocking-britains等
+- 低于评分门槛或新闻汇总无技术深度：inventing-eliza（score 6）、why-cognitive-scientists-hate-llms（score 6）、categorization-with-nlp（score 6）、the-latest-ai-news-june/july-2026（score 5-6）等
+无新增/更新wiki页面，无需质量校验与dashboard重建。
+
 ## 2026-08-09 新闻热点采集
 
 - [DeepSeek V4 Flash 0731](https://arcprize.org/results/deepseek-v4-flash-0731) — ARC Prize基准测试表现亮眼
@@ -987,3 +1016,75 @@ TOP 亮点：Cursor用Agent重造SQLite、AMD全球首款2nm GPU、OpenAI GPT-5.
 Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺盛 | 版权与风格保护成焦点
 
 ⚠️ Reddit、X/Twitter 因反爬无法采集
+
+---
+
+## 2026-08-11 新闻热点
+
+### 🤖 AI/大模型
+- **Meta Muse Glimmer**：300亿参数开放权重模型，Apache 2.0许可，消费级GPU可运行
+- **OpenAI GPT-5.6**：10亿用户免费升级
+
+### 💻 编程/开发工具
+- **TypeScript 7.0**：原生Go编译器，构建速度提升10倍
+- **MCP大更新**：回归HTTP传输层
+
+### 📱 移动端
+- **苹果测试长鑫内存**：缓解AI热潮导致的内存短缺
+- **top-welcome-screens**：React Native iOS欢迎页参考 ⭐415
+
+### ☁️ 云原生/后端
+- **Agent Framework Harness**：微软Agent框架进入生产运行时
+- **AWS Lambda**：取消账户代码存储配额
+
+### 🔧 开源/硬件
+- **蚂蚁Avernet**：多智能体协作系统开源，任务完成率90%+
+- **codex-bridge**：Claude Code桥接GPT-5 ⭐357
+
+2026-08-11 | Claude Blog采集 | raw/inbox/2026-08-11-Claude博客.md | 采集3篇，最高分9.5
+## 2026-08-11 技术动态
+
+# 技术动态 - 2026-08-11
+
+> 来源：InfoQ、OSChina、Solidot、DEV Community
+
+## AI & 大模型
+
+1. **[OpenAI给10亿用户免费换上GPT-5.6](https://www.infoq.cn/news/RXRuR3TN9msNMAUWRtCl)** - OpenAI将GPT-5.6免费推送给10亿用户，进一步拉低AI使用门槛
+
+2. **[涨价30倍仍是最便宜的模型，DeepSeek可能有这个底气](https://www.infoq.cn/article/FEcOI8kYoGuFYq39acEo)** - DeepSeek大幅涨价后仍是性价比之王，背后是巨大的算力优势
+
+3. **[Meta 推出 300 亿参数的开放权重模型 Muse Glimmer](https://www.solidot.org/story?sid=85054)** - Apache 2.0 许可证，30B参数，专为本地Agent工作流优化，消费级GPU可运行
+
+4. **[LLM 的极限不在算力，在语言本身](https://www.oschina.net/news/492309/llms-cant-jump)** - 论文"LLMs Can't Jump"引发热议：语言是有损编码，大模型的根本限制在于语言而非算力
+
+5. **[字节拟训练超5万亿参数模型，张一鸣：反对蒸馏](https://www.infoq.cn/news/xWWwhH3iPjwRakLOQiXQ)** - 字节跳动AI战略曝光，计划训练超大参数模型，张一鸣明确反对知识蒸馏路线
+
+## Agent & AI 工程化
+
+6. **[微软正式发布 Agent Framework Harness 和 Hosted Agents](https://www.infoq.cn/article/aDEJegvNSKwvue2JZ0yI)** - 微软Agent Framework从SDK进入生产运行时阶段，推出托管Agent服务
+
+7. **[Claude Code 将自动模式设为默认，称人类审批只抓到 13.6% 危险命令](https://www.oschina.net/news/492362/auto-mode-default-in-claude-code)** - CC 8月14日起默认自动模式，数据表明人类审批漏掉了86.4%的危险命令
+
+8. **[Claude Code之父：每半年清空一次claude.md、skills和hooks，模型自己会想办法](https://www.infoq.cn/article/hUTEb0LSzFUTyib1AJ4W)** - CC开发者建议定期清空配置，让模型自己适配，与常规做法截然相反
+
+9. **[开源LangAlpha正式发布：金融领域的Claude Code](https://www.infoq.cn/news/q1f3Na2a1MhhGqSETlUm)** - 用自然语言驱动投研工作流的开源金融Agent，类比CC在金融领域的应用
+
+10. **[Token 预算管理：长对话不崩溃的秘密](https://www.oschina.net/news/492373)** - AI Helper项目的实战经验：ReAct推理循环中如何管理Token预算避免崩溃
+
+## 编程语言 & 工具
+
+11. **[微软发布搭载原生 Go 编译器的 TypeScript 7.0，构建速度提升 10 倍](https://www.infoq.cn/article/ciQHX2larGoSlHspZ9VK)** - TS 7.0首个稳定版，原生Go编译器带来10倍构建速度提升
+
+12. **[MCP 迎来最大更新：重回上古时代HTTP](https://www.infoq.cn/article/Lb94jI4ma9w0X9u0Ez6F)** - MCP协议重大架构变更，回归HTTP传输层，告别WebSocket
+
+## 架构 & 基础设施
+
+13. **[AI推理规模上升后，华为开始重新定义"存储"的位置](https://www.infoq.cn/article/qBHKWa0AabfP0Fs8rGrk)** - AI推理规模化落地，数据中心瓶颈从算力转向存储，华为提出新方案
+
+14. **[AI 辅助编程顶多是一台煎牛排机，当不了厨师](https://www.oschina.net/news/492343)** - 开发者反思：AI编程工具能快速产出代码，但真正的软件工程需要理解力
+
+## 移动端
+
+15. **[一名开发者将 Android 手机换成了 Linux，称"AOSP 已死"](https://www.oschina.net/news/492313/switch-android-to-linux)** - 挪威开发者发博称AOSP已死，转用Linux手机，引发Android生态讨论
+---
