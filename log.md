@@ -1088,3 +1088,37 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
 
 15. **[一名开发者将 Android 手机换成了 Linux，称"AOSP 已死"](https://www.oschina.net/news/492313/switch-android-to-linux)** - 挪威开发者发博称AOSP已死，转用Linux手机，引发Android生态讨论
 ---
+
+## 2026-08-12 新闻热点
+
+- 🤖 [Stealing Reasoning Traces from Proprietary LLM APIs](https://stolen-thoughts.com/) — 从闭源LLM API窃取推理痕迹（HN 466分）
+- 🤖 [Nvidia Nemotron 3.5 Lightning](https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/) — NVIDIA新一代轻量级模型（HN 159分）
+- 💻 [Mojo 1.0 发布](https://www.modular.com/blog/modular-26-5-mojo-1-0-is-here) — AI编程语言达到生产级（HN 259分）
+- 💻 [MCP重回HTTP](https://www.infoq.cn/article/Lb94jI4ma9w0X9u0Ez6F) — MCP协议架构重大重构
+- 📱 [Google Play上架首个替代商店](https://www.solidot.org/story?sid=85062) — Aptoide率先入场
+- 📱 [腾讯WorkBuddy多端同步](https://www.infoq.cn/news/kSqvyjVIwTvXsumYgRtf) — PC/APP/小程序互通
+- ☁️ [微软Agent Framework生产就绪](https://www.infoq.cn/article/aDEJegvNSKwvue2JZ0yI) — 托管Agent上线
+- ☁️ [Vault K8s密钥管理公测](https://www.infoq.cn/article/eXUYjgSomYtprPMpbIPd) — KMS集成Kubernetes
+- 🔧 [ComfyUI-H3-Motion-Context](https://github.com/NikoDemon80/ComfyUI-H3-Motion-Context) — MiniMax H3视频连贯插件（⭐414）
+- 🔧 [Apple Silicon llama.cpp GPU加速](https://github.com/trycua/cua/blob/main/blog/gpu-passthrough-macos-vms.md) — Mac LLM推理大提速（HN 278分）
+
+## 2026-08-12 技术动态
+
+- [MCP 迎来最大更新：重回上古时代HTTP](https://www.infoq.cn/article/Lb94jI4ma9w0X9u0Ez6F)
+- [Meta 推出 300 亿参数开放权重模型 Muse Glimmer](https://www.solidot.org/story?sid=85054)
+- [微软发布搭载原生 Go 编译器的 TypeScript 7.0](https://www.infoq.cn/article/ciQHX2larGoSlHspZ9VK)
+- [Claude Code 将自动模式设为默认](https://www.oschina.net/news/492362/auto-mode-default-in-claude-code)
+- [Redis 之父用 C 写了 MiniMax-H3 推理引擎](https://www.oschina.net/news/493089)
+- [微软正式发布 Agent Framework Harness 和 Hosted Agents](https://www.infoq.cn/article/aDEJegvNSKwvue2JZ0yI)
+- [Claude 生成的文本添加看不见的水印](https://www.solidot.org/story?sid=85063)
+- [智谱 ZCode 发布重大升级](https://www.oschina.net/news/493033)
+- [Google Play Store 美区上架第一个替代应用商店](https://www.solidot.org/story?sid=85062)
+- [动态语言对 AI 编程更友好？实验给出反直觉答案](https://www.oschina.net/news/493223/pl-tokens)
+- [The Mechanical vs. The Semantic: AI Memory 错误分析](https://dev.to/mansio/the-mechanical-vs-the-semantic-what-happens-when-ai-memory-is-wrong-38ko)
+- [腾讯 WorkBuddy 升级多端同步](https://www.infoq.cn/news/kSqvyjVIwTvXsumYgRtf)
+
+## 2026-08-12 13:00 社交媒体AI动态采集
+
+- 📊 采集完成：15+ 条 AI 技术动态 | The Verge + TechCrunch + HN
+- 🔗 详情：[2026-08-12-社交媒体.md](raw/inbox/2026-08-12-社交媒体.md)
+- ⚠️ Reddit/X 反爬限制未采集
