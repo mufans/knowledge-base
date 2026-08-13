@@ -1,4 +1,35 @@
 {
   "_description": "项目聚合索引，同一项目在不同采集文件中出现时自动聚合",
-  "projects": {}
+  "projects": {
+    "codegraph": {
+      "url": "https://github.com/colbymchenry/codegraph",
+      "first_seen": "2026-07-24",
+      "analysis_file": "raw/projects/codegraph-analysis.md",
+      "analysis_date": "2026-07-24",
+      "tags": [
+        "code-intelligence",
+        "knowledge-graph",
+        "static-analysis",
+        "mcp",
+        "ai-agent"
+      ],
+      "status": "analyzed"
+    },
+    "deepseek-harness": {
+      "url": "https://github.com/deepseek-ai/deepseek-harness",
+      "first_seen": "2026-08-13",
+      "analysis_file": "raw/projects/deepseek-harness.md",
+      "analysis_date": "2026-08-14",
+      "tags": [
+        "agent-harness",
+        "plugin-architecture",
+        "cordis",
+        "typescript",
+        "deepseek",
+        "mcp",
+        "monorepo"
+      ],
+      "status": "analyzed"
+    }
+  }
 }

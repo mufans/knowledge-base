@@ -1199,3 +1199,4 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
 2026-08-13 | ingest | wiki/syntheses/2026-W32-周度复盘-Anthropic三连发与端侧Agent工具链.md | Knowledge Compiler 发布 candidate-44ddd78ba924650fa535（fact citation 100%）
 2026-08-13 | ingest | wiki/syntheses/首次Weekly机会发现-2026-07-19.md | Knowledge Compiler 发布 candidate-fe441faf99a10490f6be（fact citation 100%）
 2026-08-13 | ingest | wiki/syntheses/W30周复盘-Agent安全框架成型-代码迁移商业化-开源模型冲击-taste-skill意外发现.md | Knowledge Compiler 发布 candidate-2ae7e992dd21bcd09ddc（fact citation 100%）
+2026-08-14 | analyze | raw/projects/deepseek-harness.md | DeepSeek Harness 深度分析（10维度，opencode+deepseek-v4-pro），更新 .project-index.json
