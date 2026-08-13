@@ -308,3 +308,54 @@ def test_record_experiment_rejects_unknown_opportunity(tmp_path: Path) -> None:
             experiment=sample_opportunity().minimum_experiment,
             evidence=[],
         )
+
+
+def daily_review(review_id: str, created_at: str) -> Review:
+    return Review(
+        id=review_id,
+        period="daily",
+        title="每日机会扫描",
+        summary="发现三项变化。",
+        opportunity_ids=[],
+        surprise_signal="数据库生态出现新变化。",
+        presentation_counts={"strength": 0, "broad": 0, "surprise": 0},
+        proposed_experiment_ids=[],
+        facts=["有官方发布"],
+        inferences=["需求可能增长"],
+        hypotheses=["值得验证"],
+        created_at=created_at,
+    )
+
+
+def test_save_review_idempotently_writes_derived_run_record(tmp_path: Path) -> None:
+    store = PrivateStore(tmp_path / "private")
+    store.initialize()
+
+    store.save_review(daily_review("daily-2026-07-19", "2026-07-19T10:00:00+08:00"))
+    run_path = store.home / "dashboard" / "runs" / "daily" / "2026-07-19.json"
+    assert run_path.is_file()
+    payload = json.loads(run_path.read_text())
+    assert payload["status"] == "derived"
+    assert payload["cadence"] == "daily"
+    assert payload["period_key"] == "2026-07-19"
+
+    run_path.write_text("sentinel", encoding="utf-8")
+    store.save_review(daily_review("daily-2026-07-19", "2026-07-19T10:00:00+08:00"))
+    assert run_path.read_text() == "sentinel"
+
+
+def test_reconcile_run_records_reports_and_backfills_gaps(tmp_path: Path) -> None:
+    store = PrivateStore(tmp_path / "private")
+    store.initialize()
+    store._write_json(
+        store.home / "reviews" / "daily-orphan.json",
+        daily_review("daily-orphan", "2026-07-19T10:00:00+08:00").to_dict(),
+    )
+
+    report = store.reconcile_run_records()
+    assert report["applied"] is False
+    assert any(item["review_id"] == "daily-orphan" for item in report["missing"])
+
+    backfill = store.reconcile_run_records(apply=True)
+    assert backfill["backfilled"] >= 1
+    assert (store.home / "dashboard" / "runs" / "daily" / "2026-07-19.json").is_file()

@@ -25,18 +25,21 @@
         <a href="#monitoring" data-route="monitoring"><span aria-hidden="true">⌁</span>服务健康</a>
       </nav>
       <div class="sidebar-foot">
-        <span class="connection-dot" aria-hidden="true"></span>
-        <span id="connection-label">正在建立安全连接</span>
+        <div class="connection-status">
+          <span class="connection-dot" aria-hidden="true"></span>
+          <span id="connection-label">正在加载数据</span>
+        </div>
+        <small>数据按需拉取，每 60 秒自动刷新一次</small>
       </div>
     </aside>
     <main id="main-content" class="main" tabindex="-1" aria-live="polite" aria-busy="true">
-      <section class="loading-state" data-state="disconnected">
-        <p class="eyebrow">安全控制面</p>
-        <h1>正在连接本机 Broker</h1>
-        <p>页面外壳不包含任何私有数据。身份验证完成后才会读取授权 DTO。</p>
+      <section class="loading-state" data-state="loading">
+        <p class="eyebrow">知识控制面</p>
+        <h1>正在加载数据</h1>
+        <p>本页按需拉取聚合指标，不建立长连接。身份验证完成后才会读取授权数据。</p>
       </section>
     </main>
   </div>
-  <script type="module" src="/static/app.js?v=3"></script>
+  <script type="module" src="/static/app.js?v=4"></script>
 </body>
 </html>

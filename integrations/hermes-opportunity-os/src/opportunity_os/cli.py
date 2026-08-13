@@ -18,6 +18,8 @@ from opportunity_os.automation.healthcheck import (
     LastHealthProbe,
 )
 from opportunity_os.automation.hermes_sync import HermesKnowledgeBridge
+from opportunity_os.automation.knowledge_publish import KnowledgePublishRunner
+from opportunity_os.automation.experiment_runner import ExperimentRunner
 from opportunity_os.dashboard.app import DashboardDependencies, create_app
 from opportunity_os.dashboard.auth import CsrfGuard, SessionStore
 from opportunity_os.dashboard.config import DashboardConfig
@@ -226,6 +228,44 @@ def build_parser() -> argparse.ArgumentParser:
     knowledge_sync.add_argument("--days", type=int, default=14)
     knowledge_sync.add_argument("--run-id")
     knowledge_sync.add_argument("--format", choices=("text", "json"), default="json")
+
+    knowledge_publish = subparsers.add_parser(
+        "knowledge-publish",
+        help="Compile Hermes dossiers into Wiki candidates and publish gate-approved pages.",
+    )
+    knowledge_publish.add_argument("--home", required=True)
+    knowledge_publish.add_argument("--knowledge-root", required=True)
+    knowledge_publish.add_argument("--run-id")
+    knowledge_publish.add_argument("--dry-run", action="store_true")
+    knowledge_publish.add_argument("--format", choices=("text", "json"), default="json")
+
+    dedup = subparsers.add_parser(
+        "dedup",
+        help="Report or merge semantically duplicated opportunity cards.",
+    )
+    dedup.add_argument("--home", required=True)
+    dedup.add_argument("--threshold", type=float, default=0.85)
+    dedup.add_argument("--apply", action="store_true")
+    dedup.add_argument("--run-id", default="run-semantic-merge")
+    dedup.add_argument("--format", choices=("text", "json"), default="json")
+
+    experiment_run = subparsers.add_parser(
+        "experiment-run",
+        help="Plan or execute declared minimum experiments for candidate/researched cards.",
+    )
+    experiment_run.add_argument("--home", required=True)
+    experiment_run.add_argument("--opportunity-id")
+    experiment_run.add_argument("--apply", action="store_true")
+    experiment_run.add_argument("--run-id", default="run-minimum-experiment")
+    experiment_run.add_argument("--format", choices=("text", "json"), default="json")
+
+    run_reconcile = subparsers.add_parser(
+        "run-reconcile",
+        help="Report and optionally backfill missing dashboard run records for saved reviews.",
+    )
+    run_reconcile.add_argument("--home", required=True)
+    run_reconcile.add_argument("--apply", action="store_true")
+    run_reconcile.add_argument("--format", choices=("text", "json"), default="json")
     return parser
 
 
@@ -301,6 +341,37 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             _emit(record.to_dict(), args.format)
             return 0 if record.status == "success" else 1
+        elif args.command == "knowledge-publish":
+            record = KnowledgePublishRunner(args.home, args.knowledge_root).run(
+                run_id=args.run_id,
+                dry_run=args.dry_run,
+            )
+            _emit(record.to_dict(), args.format)
+            return 0 if record.status == "success" else 1
+        elif args.command == "dedup":
+            result = _store(args).merge_duplicates(
+                threshold=args.threshold,
+                apply=args.apply,
+                run_id=args.run_id,
+            )
+            _emit(result, args.format)
+            return 0
+        elif args.command == "experiment-run":
+            runner = ExperimentRunner(args.home)
+            if args.opportunity_id:
+                result = runner.run(
+                    args.opportunity_id,
+                    run_id=args.run_id,
+                    apply=args.apply,
+                )
+            else:
+                result = {"eligible": runner.plan()}
+            _emit(result, args.format)
+            return 0
+        elif args.command == "run-reconcile":
+            result = _store(args).reconcile_run_records(apply=args.apply)
+            _emit(result, args.format)
+            return 0
         return 0
     except (
         OpportunityOSError,

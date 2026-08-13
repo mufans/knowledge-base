@@ -97,6 +97,7 @@ def check_repository(root: Path = ROOT) -> dict[str, object]:
     )
     issues: list[Issue] = []
     fact_total = fact_cited = numeric_total = numeric_cited = 0
+    compiler_pages = legacy_pages = 0
     headings: dict[str, str] = {}
 
     for path in pages:
@@ -104,6 +105,10 @@ def check_repository(root: Path = ROOT) -> dict[str, object]:
         text = path.read_text(encoding="utf-8", errors="replace")
         visible = markdown_without_code(text)
         compiler_page = "> compiler: schema v1" in text
+        if compiler_page:
+            compiler_pages += 1
+        else:
+            legacy_pages += 1
         category = path.parent.name
 
         title_match = re.search(r"^#\s+(.+)$", visible, re.MULTILINE)
@@ -186,15 +191,22 @@ def check_repository(root: Path = ROOT) -> dict[str, object]:
             )
 
     error_count = sum(issue.severity == "error" for issue in issues)
+    fact_citation_coverage = fact_cited / fact_total if fact_total else None
+    numeric_citation_coverage = numeric_cited / numeric_total if numeric_total else None
     return {
         "ok": error_count == 0,
         "page_count": len(pages),
+        "compiler_pages": compiler_pages,
+        "legacy_pages": legacy_pages,
         "errors": error_count,
         "warnings": sum(issue.severity == "warning" for issue in issues),
         "issues": [asdict(issue) for issue in issues],
         "metrics": {
-            "fact_citation_coverage": fact_cited / fact_total if fact_total else 1.0,
-            "numeric_citation_coverage": numeric_cited / numeric_total if numeric_total else 1.0,
+            "fact_citation_coverage": fact_citation_coverage,
+            "numeric_citation_coverage": numeric_citation_coverage,
+            "fact_coverage_status": "needs_migration" if fact_total == 0 else "covered",
+            "fact_claims": fact_total,
+            "numeric_claims": numeric_total,
             "broken_links": sum(issue.code == "broken_local_link" for issue in issues),
             "duplicate_titles": sum(issue.code == "duplicate_title" for issue in issues),
             "synthesis_ratio": (

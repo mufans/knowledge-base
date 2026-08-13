@@ -3,7 +3,7 @@ import math
 import os
 import re
 import tempfile
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -17,11 +17,13 @@ from opportunity_os.contracts import (
 )
 from opportunity_os.models import Direction, Evidence, Experiment, Opportunity, Review
 from opportunity_os.sanitizer import SENSITIVE_FIELDS
+from opportunity_os.semantic_dedup import semantic_similarity
 from opportunity_os.state_machine import normalize_state, validate_transition
 
 
 ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_-]{1,79}$")
 DIRECTION_CAPACITY = {"observe": 5, "validate": 2, "active": 1}
+DEFAULT_DUPLICATE_THRESHOLD = 0.85
 
 
 def _validate_identifier(identifier: str) -> None:
@@ -125,9 +127,31 @@ class PrivateStore:
             raise ValidationError("save_payload 目前只接受 opportunity")
         return self.save_opportunity(Opportunity.from_dict(payload))
 
+    def find_duplicate(self, opportunity: Opportunity, *, threshold: float = DEFAULT_DUPLICATE_THRESHOLD) -> tuple[str, float] | None:
+        """Return the id and similarity of the closest existing card, if above threshold."""
+
+        payload = opportunity.to_dict()
+        best_id: str | None = None
+        best_score = 0.0
+        for existing in self._iter_opportunities():
+            if existing.get("id") == opportunity.id:
+                continue
+            similarity = semantic_similarity(payload, existing)
+            if similarity > best_score:
+                best_score = similarity
+                best_id = str(existing.get("id", ""))
+        if best_id is not None and best_score >= threshold:
+            return best_id, best_score
+        return None
+
     def save_opportunity(self, opportunity: Opportunity) -> dict[str, Any]:
         self._ensure_initialized()
         _validate_identifier(opportunity.id)
+        duplicate = self.find_duplicate(opportunity)
+        if duplicate is not None:
+            raise ValidationError(
+                f"语义重复机会已存在: {duplicate[0]}（相似度 {duplicate[1]:.2f}）"
+            )
         payload = opportunity.to_dict()
         _reject_sensitive_fields(payload)
         self._write_json(self.home / "opportunities" / f"{opportunity.id}.json", payload)
@@ -215,14 +239,97 @@ class PrivateStore:
         )
         return payload
 
+    def _iter_opportunities(self):
+        directory = self.home / "opportunities"
+        if not directory.is_dir():
+            return
+        for path in sorted(directory.glob("*.json")):
+            try:
+                yield self._read_json(path)
+            except (OSError, json.JSONDecodeError):
+                continue
+
     def list_opportunities(self, status: str | None = None) -> list[dict[str, Any]]:
         self._ensure_initialized()
-        result = [self._read_json(path) for path in sorted((self.home / "opportunities").glob("*.json"))]
+        result = list(self._iter_opportunities())
         for item in result:
             item["status"] = normalize_state(str(item.get("status", "candidate")))
         if status:
             result = [item for item in result if item.get("status") == normalize_state(status)]
         return sorted(result, key=lambda item: (-float(item["total_score"]), item["id"]))
+
+    def group_duplicates(self, *, threshold: float = DEFAULT_DUPLICATE_THRESHOLD) -> list[list[dict[str, Any]]]:
+        """Union-find grouping of semantically duplicated opportunity cards."""
+
+        opportunities = self.list_opportunities()
+        parent = list(range(len(opportunities)))
+
+        def find(index: int) -> int:
+            while parent[index] != index:
+                parent[index] = parent[parent[index]]
+                index = parent[index]
+            return index
+
+        def union(left: int, right: int) -> None:
+            root_left, root_right = find(left), find(right)
+            if root_left != root_right:
+                parent[root_right] = root_left
+
+        for left in range(len(opportunities)):
+            for right in range(left + 1, len(opportunities)):
+                if semantic_similarity(opportunities[left], opportunities[right]) >= threshold:
+                    union(left, right)
+        grouped: dict[int, list[dict[str, Any]]] = {}
+        for index in range(len(opportunities)):
+            grouped.setdefault(find(index), []).append(opportunities[index])
+        return [members for members in grouped.values() if len(members) > 1]
+
+    def merge_duplicates(
+        self,
+        *,
+        threshold: float = DEFAULT_DUPLICATE_THRESHOLD,
+        apply: bool = False,
+        run_id: str = "run-semantic-merge",
+    ) -> dict[str, Any]:
+        """Keep the highest-scoring card and archive the rest in each duplicate group."""
+
+        self._ensure_initialized()
+        groups = self.group_duplicates(threshold=threshold)
+        result_groups: list[dict[str, Any]] = []
+        archived: list[str] = []
+        for members in groups:
+            ordered = sorted(
+                members,
+                key=lambda item: (-float(item.get("total_score", 0)), str(item.get("id", ""))),
+            )
+            winner = ordered[0]
+            losers = ordered[1:]
+            result_groups.append(
+                {
+                    "keep": winner["id"],
+                    "archived": [item["id"] for item in losers],
+                    "similarity": max(
+                        semantic_similarity(winner, item) for item in losers
+                    ),
+                }
+            )
+            if apply:
+                for loser in losers:
+                    if normalize_state(str(loser.get("status", "candidate"))) == "archived":
+                        continue
+                    self.transition_opportunity(
+                        opportunity_id=str(loser["id"]),
+                        to_state="archived",
+                        trigger_reason=f"与 {winner['id']} 语义重复，合并归档",
+                        new_evidence_ids=[],
+                        opposing_evidence_ids=[],
+                        next_experiment_id=None,
+                        user_decision=None,
+                        automatic_rule="semantic_duplicate_merge",
+                        run_id=run_id,
+                    )
+                    archived.append(str(loser["id"]))
+        return {"groups": result_groups, "archived": archived, "applied": apply}
 
     def record_experiment(
         self,
@@ -288,8 +395,84 @@ class PrivateStore:
         payload = review.to_dict()
         _reject_sensitive_fields(payload)
         self._write_json(self.home / "reviews" / f"{review.id}.json", payload)
+        self._ensure_run_record(review)
         self._event("save_review", "review", review.id)
         return payload
+
+    @staticmethod
+    def _review_run_key(period: str, created_at: str) -> tuple[str, str] | None:
+        cadence = {"daily": "daily", "weekly": "weekly"}.get(period)
+        if cadence is None:
+            return None
+        day = str(created_at)[:10]
+        try:
+            parsed = date.fromisoformat(day)
+        except ValueError:
+            return None
+        if cadence == "weekly":
+            iso = parsed.isocalendar()
+            return cadence, f"{iso.year}-W{iso.week:02d}"
+        return cadence, day
+
+    def _ensure_run_record(self, review: Review) -> None:
+        """Idempotently guarantee one run record per review so review and run are 1:1."""
+
+        key = self._review_run_key(review.period, review.created_at)
+        if key is None:
+            return
+        cadence, period_key = key
+        path = self.home / "dashboard" / "runs" / cadence / f"{period_key}.json"
+        if path.is_file():
+            return
+        payload = {
+            "run_id": stable_id("run", "review-derived", cadence, period_key),
+            "cadence": cadence,
+            "period_key": period_key,
+            "idempotency_key": f"{cadence}:{period_key}",
+            "status": "derived",
+            "started_at": review.created_at,
+            "ended_at": review.created_at,
+            "duration_seconds": 0.0,
+            "error_class": None,
+            "component": "hermes",
+            "derived_from_review": review.id,
+        }
+        self._write_json(path, payload)
+
+    def reconcile_run_records(self, *, apply: bool = False) -> dict[str, Any]:
+        """Report and optionally backfill run records missing for saved reviews."""
+
+        self._ensure_initialized()
+        missing: list[dict[str, str]] = []
+        directory = self.home / "reviews"
+        if directory.is_dir():
+            for path in sorted(directory.glob("*.json")):
+                try:
+                    payload = self._read_json(path)
+                except (OSError, json.JSONDecodeError):
+                    continue
+                key = self._review_run_key(
+                    str(payload.get("period", "")), str(payload.get("created_at", ""))
+                )
+                if key is None:
+                    continue
+                cadence, period_key = key
+                run_path = self.home / "dashboard" / "runs" / cadence / f"{period_key}.json"
+                if run_path.is_file():
+                    continue
+                missing.append(
+                    {"review_id": str(payload.get("id", path.stem)), "cadence": cadence, "period_key": period_key}
+                )
+                if apply:
+                    try:
+                        self._ensure_run_record(Review.from_dict(payload))
+                    except (ValidationError, TypeError, KeyError, ValueError):
+                        continue
+        return {
+            "missing": missing,
+            "backfilled": len(missing) if apply else 0,
+            "applied": apply,
+        }
 
     def get_review(self, review_id: str | None = None, *, latest: bool = False) -> dict[str, Any]:
         self._ensure_initialized()

@@ -87,6 +87,30 @@ def test_knowledge_sync_command_is_registered() -> None:
     assert args.days == 14
 
 
+def test_knowledge_publish_and_workflow_commands_are_registered() -> None:
+    parser = build_parser()
+
+    publish = parser.parse_args([
+        "knowledge-publish",
+        "--home", "/private/tmp/opportunity-home",
+        "--knowledge-root", "/private/tmp/knowledge",
+        "--dry-run",
+    ])
+    assert publish.command == "knowledge-publish"
+    assert publish.dry_run is True
+
+    dedup = parser.parse_args(["dedup", "--home", "/private/tmp/opportunity-home", "--apply"])
+    assert dedup.command == "dedup"
+    assert dedup.apply is True
+
+    experiment = parser.parse_args(["experiment-run", "--home", "/private/tmp/opportunity-home"])
+    assert experiment.command == "experiment-run"
+    assert experiment.opportunity_id is None
+
+    reconcile = parser.parse_args(["run-reconcile", "--home", "/private/tmp/opportunity-home"])
+    assert reconcile.command == "run-reconcile"
+
+
 def test_status_reports_invariants_without_private_content(tmp_path: Path, capsys) -> None:
     home = tmp_path / "private"
     store = PrivateStore(home)

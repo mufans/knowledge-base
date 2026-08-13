@@ -84,6 +84,27 @@
         "channel": "dingtalk",
         "to": "__OPENCLAW_DINGTALK_OWNER__"
       }
+    },
+    {
+      "name": "opportunity-os-knowledge-publish",
+      "description": "[managed-by:opportunity-os/v1] Compile Hermes dossiers into Wiki candidates, run the quality gate, and publish approved synthesis pages.",
+      "cron": "50 18 * * 1-5",
+      "timezone": "Asia/Shanghai",
+      "message": "Use the exec tool with this exact executable path: /Users/liujun/Nutstore Files/我的坚果云/knowledge/integrations/hermes-opportunity-os/.venv/bin/opportunity-os. Pass these argv separately: knowledge-publish, --home, /Users/liujun/.hermes/profiles/opportunity-discovery/opportunity-os, --knowledge-root, /Users/liujun/Nutstore Files/我的坚果云/knowledge, --format, json. Do not invoke a shell, alter PATH, retry, or modify raw. If the exec exits non-zero, fail the Cron task: do not convert the error into a successful summary and do not swallow it. A successful run with zero publishable candidates is normal.",
+      "enabled": true,
+      "session": "isolated",
+      "timeout_seconds": 600,
+      "delivery": "none",
+      "delivery_channel": "dingtalk",
+      "delivery_to": "__OPENCLAW_DINGTALK_OWNER__",
+      "failure_alert": {
+        "enabled": true,
+        "after": 1,
+        "cooldown": "1h",
+        "exclude_skipped": true,
+        "channel": "dingtalk",
+        "to": "__OPENCLAW_DINGTALK_OWNER__"
+      }
     }
   ]
 }
