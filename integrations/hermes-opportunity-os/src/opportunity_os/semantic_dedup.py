@@ -16,6 +16,7 @@ from typing import Any, Mapping
 
 _TITLE_WEIGHT = 0.7
 _SUMMARY_WEIGHT = 0.3
+DEFAULT_DUPLICATE_THRESHOLD = 0.55
 
 
 def normalize_text(value: str) -> str:
@@ -44,6 +45,6 @@ def is_semantic_duplicate(
     left: Mapping[str, Any],
     right: Mapping[str, Any],
     *,
-    threshold: float = 0.85,
+    threshold: float = DEFAULT_DUPLICATE_THRESHOLD,
 ) -> bool:
     return semantic_similarity(left, right) >= threshold

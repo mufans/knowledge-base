@@ -17,13 +17,12 @@ from opportunity_os.contracts import (
 )
 from opportunity_os.models import Direction, Evidence, Experiment, Opportunity, Review
 from opportunity_os.sanitizer import SENSITIVE_FIELDS
-from opportunity_os.semantic_dedup import semantic_similarity
+from opportunity_os.semantic_dedup import DEFAULT_DUPLICATE_THRESHOLD, semantic_similarity
 from opportunity_os.state_machine import normalize_state, validate_transition
 
 
 ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_-]{1,79}$")
 DIRECTION_CAPACITY = {"observe": 5, "validate": 2, "active": 1}
-DEFAULT_DUPLICATE_THRESHOLD = 0.85
 
 
 def _validate_identifier(identifier: str) -> None:

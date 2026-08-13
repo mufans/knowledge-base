@@ -62,7 +62,9 @@ def test_eligible_filters_researched_cards_with_experiments(tmp_path: Path) -> N
     store = PrivateStore(home)
     store.initialize()
     store.save_opportunity(replace(sample_opportunity(), status="researched"))
-    store.save_opportunity(replace(sample_opportunity("completed-card"), status="completed"))
+    store.save_opportunity(
+        replace(sample_opportunity("completed-card"), status="completed", summary="已完成项目的收尾复盘。")
+    )
 
     runner = ExperimentRunner(home)
     eligible = runner.plan()

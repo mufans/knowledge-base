@@ -5,6 +5,7 @@ import pytest
 
 from opportunity_os.errors import ValidationError
 from opportunity_os.semantic_dedup import (
+    DEFAULT_DUPLICATE_THRESHOLD,
     is_semantic_duplicate,
     normalize_text,
     semantic_similarity,
@@ -20,10 +21,12 @@ def test_normalize_text_strips_noise_and_case() -> None:
 def test_semantic_similarity_high_for_near_duplicate_low_for_distinct() -> None:
     left = sample_opportunity("mobile-agent-service").to_dict()
     near = sample_opportunity("mobile-agent-service-2").to_dict()
-    distinct = sample_opportunity("quant-trading-bot").to_dict()
+    distinct = replace(
+        sample_opportunity("quant-trading-bot"), summary="量化交易策略的市场需求。"
+    ).to_dict()
 
-    assert semantic_similarity(left, near) >= 0.85
-    assert semantic_similarity(left, distinct) < 0.85
+    assert semantic_similarity(left, near) >= DEFAULT_DUPLICATE_THRESHOLD
+    assert semantic_similarity(left, distinct) < DEFAULT_DUPLICATE_THRESHOLD
     assert is_semantic_duplicate(left, near)
 
 
@@ -36,7 +39,7 @@ def test_find_duplicate_returns_closest_card(tmp_path: Path) -> None:
 
     assert duplicate is not None
     assert duplicate[0] == "mobile-agent-service"
-    assert duplicate[1] >= 0.85
+    assert duplicate[1] >= DEFAULT_DUPLICATE_THRESHOLD
 
 
 def test_save_rejects_semantic_duplicate(tmp_path: Path) -> None:

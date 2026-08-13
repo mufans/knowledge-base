@@ -39,7 +39,7 @@ from opportunity_os.errors import OpportunityOSError, ValidationError
 from opportunity_os.proposals import ProposalError, ProposalStore
 from opportunity_os.reports import render_review
 from opportunity_os.signals import SignalReader
-from opportunity_os.store import PrivateStore
+from opportunity_os.store import DEFAULT_DUPLICATE_THRESHOLD, PrivateStore
 
 
 MAX_TYPED_INPUT_BYTES = 8_192
@@ -244,7 +244,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="Report or merge semantically duplicated opportunity cards.",
     )
     dedup.add_argument("--home", required=True)
-    dedup.add_argument("--threshold", type=float, default=0.85)
+    dedup.add_argument("--threshold", type=float, default=DEFAULT_DUPLICATE_THRESHOLD)
     dedup.add_argument("--apply", action="store_true")
     dedup.add_argument("--run-id", default="run-semantic-merge")
     dedup.add_argument("--format", choices=("text", "json"), default="json")
