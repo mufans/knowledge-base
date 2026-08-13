@@ -1122,3 +1122,80 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
 - 📊 采集完成：15+ 条 AI 技术动态 | The Verge + TechCrunch + HN
 - 🔗 详情：[2026-08-12-社交媒体.md](raw/inbox/2026-08-12-社交媒体.md)
 - ⚠️ Reddit/X 反爬限制未采集
+
+## 2026-08-13 新闻热点
+# 每日技术新闻热点 · 2026-08-13
+
+> 采集源：Hacker News / Solidot / InfoQ / GitHub Trending
+
+## AI/大模型
+
+- [DeepSeek V4 Pro 0813](https://openrouter.ai/deepseek/deepseek-v4-pro-0813) — DeepSeek 发布 V4 Pro 0813 版本，登顶 HN 首页（697 分）。
+- [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B) — 阿里开源 2.4T 总参数 MoE 大模型 Qwen3.8，A95B 激活，登上 HN 首页。
+
+## 编程/开发工具
+
+- [Delta](https://zed.dev/blog/introducing-delta) — Zed 编辑器发布 Delta，一款面向 AI 编程的新一代编辑器（HN 348 分）。
+- [Vercel 发布新语言 Zero](https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y) — 一门以图为先、专为智能体编写代码而打造的语言。
+
+## 移动端
+
+- [Google 宣布 Pixel 11 系列](https://www.solidot.org/story?sid=85078) — 全系起售价上涨 100 美元，8 月 20 日发售，Tensor G6 效能提升 20%。
+- [Pixel Watch 5](https://blog.google/products-and-platforms/devices/pixel/pixel-watch-5/) — Google 同步发布新一代 Pixel Watch 5 智能手表。
+
+## 云原生/后端
+
+- [Tailscale 追查数据库损坏到 16 年前的 SQLite WAL-Reset bug](https://tailscale.com/blog/sqlite-wal-reset-bug) — 一个潜伏 16 年的 SQLite WAL 重置缺陷被定位并修复（HN 746 分）。
+- [DoorDash 用 Envoy+Valkey 构建 1.5M RPS 代理缓存](https://www.infoq.cn/article/4pXftxRySRf5FB5hJK9o) — 透明代理缓存平台支持每秒 150 万请求，可用性达 99.99999%。
+
+## 开源/硬件
+
+- [VelaTerm](https://github.com/vlinx-io/VelaTerm) — 专为 AI Coding 打造的终端，TypeScript 实现。
+- [watermarks-remover](https://github.com/guillaumemeyer/watermarks-remover) — 去除多厂商 AI 溯源水印（C2PA/元数据）的开源工具，GitHub 2.2k 星。
+
+## 2026-08-13 技术动态（10:00 定时采集）
+
+来源：InfoQ、Solidot、dev.to ｜ 共 15 条 ｜ 全文见 `raw/inbox/2026-08-13-技术动态.md`
+
+- [Vercel 发布新语言 Zero：代码是写给 AI 的](https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y)
+- [MCP 迎来最大更新：重回 HTTP](https://www.infoq.cn/article/Lb94jI4ma9w0X9u0Ez6F)
+- [Claude Code 之父：每半年清空 claude.md/skills/hooks](https://www.infoq.cn/article/hUTEb0LSzFUTyib1AJ4W)
+- [腾讯云重构 Agent 沙箱](https://www.infoq.cn/article/KwZX2bLcaHRjuLG95vHI)
+- [DeepSeek 涨价 30 倍仍最便宜](https://www.infoq.cn/article/FEcOI8kYoGuFYq39acEo)
+- [MiniMax H3 团队回应开源计划](https://www.infoq.cn/article/9C3eK9tJqDXbabbBy3aj)
+- [面壁智能启动 IPO](https://www.infoq.cn/news/hMG80lZUX1kaJWpr58g1)
+- [Jeff Dean 离职前最后一次对话](https://www.infoq.cn/article/x5sIQ2lED2h6G2Uvyu48)
+- [快手 AI 生产力体系成形](https://www.infoq.cn/article/Gj6j8QtZhgeuqedeUEft)
+- [别再平分 AI 算力](https://www.infoq.cn/article/YBCpst8secs3xWqZwWLe)
+- [Manus 独立公司恢复运营](https://www.solidot.org/story?sid=85072)
+- [DoorDash 1.5M RPS 代理缓存](https://www.infoq.cn/article/4pXftxRySRf5FB5hJK9o)
+- [SkiaSharp 4 GPU 渲染提速](https://www.infoq.cn/article/pKprBfc9MPLZVaNpMQgg)
+- [Google Pixel 11 系列涨 100 美元](https://www.solidot.org/story?sid=85078)
+- [微软八月更新修复 421 个 bug](https://www.solidot.org/story?sid=85071)
+
+2026-08-13 | Claude Blog采集 | raw/inbox/2026-08-13-Claude博客.md | 采集3篇，最高分9.0
+2026-08-13 | 社交媒体AI技术动态采集 | raw/inbox/2026-08-13-社交媒体.md | 采集19条（HN首页+Algolia、TechCrunch AI频道；Reddit被network security拦截、X登录墙+无代理），Top8已推送钉钉
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-07-27-AI-Agent-安全危机加深-工具链原生化双信号.md | Knowledge Compiler 发布 candidate-6281a03d65abafa8fa9b（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-07-20-Agent安全框架化-百万行迁移验证-Kimi-K3-开源登顶.md | Knowledge Compiler 发布 candidate-3f17c2c9e89422f87adc（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/Verification-Loop-Token优化工具崛起-网络安全Agent验证.md | Knowledge Compiler 发布 candidate-ef4082d03e720ac054c7（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/2026-07-23-每日轻扫描-Agent安全事件升级-Kimi-K3改变中美AI格局-Loop-Graph范式转折.md | Knowledge Compiler 发布 candidate-c27f2192a978ce70ecfa（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-07-22-Agent安全事故加速-Anthropic企业产品井喷-欧盟监管转向.md | Knowledge Compiler 发布 candidate-df45a7755f4d2831c223（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/Bun百万行迁移验证-多Agent涌现行为-信号采集管道数据质量缺口.md | Knowledge Compiler 发布 candidate-79fc2512097938ff0d15（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-08-13-Claude-Code-权限模型迁移与增量输出技术.md | Knowledge Compiler 发布 candidate-cbd14cf630a7b66ce44a（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/2026-07-28-每日轻扫描-Agent安全工具链加速成型-端侧AI进入可穿戴时代.md | Knowledge Compiler 发布 candidate-f324b4a6bc021dc0f6bb（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-07-27-Agent安全危机-自动化验证突破-Scriptc-移动Agent沙箱真空.md | Knowledge Compiler 发布 candidate-bdb34e7e944c96cee406（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/企业Agent平台落地-经验价值重塑-list_signals数据质量问题.md | Knowledge Compiler 发布 candidate-d60313aaf08dceeb1d63（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-07-24.md | Knowledge Compiler 发布 candidate-3cdfea821c29aee956da（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/2026-08-03-每日复盘-Agent基础设施标准化加速.md | Knowledge Compiler 发布 candidate-36c4769b14be72242742（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/Daily-Scan-2026-07-29-Agent-成本危机-A2A-自主行为-MCP-采用困境.md | Knowledge Compiler 发布 candidate-4645cd87172fa6beab26（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-07-21-Agent安全事件触发临界点-MCP成为事实标准协议.md | Knowledge Compiler 发布 candidate-0415ebab813675f3d2aa（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/2026-08-04-每日扫描-MCP重大更新-Agent范式转折-设计工具跨界.md | Knowledge Compiler 发布 candidate-448895f7d5f479bdbf5a（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/知识库同步发现-Agent架构深化-ARD标准-Self-Evolving-Agent.md | Knowledge Compiler 发布 candidate-3e344415e2275fca2073（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日轻扫描-2026-07-21.md | Knowledge Compiler 发布 candidate-1ff93a8376ed38d3067e（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/Daily-Scan-2026-07-29-Agent-Platform-War-Small-Model-Revolution-Offline-AI-Stack.md | Knowledge Compiler 发布 candidate-dad99b8ecea06739fb6f（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日扫描-2026-08-10-端侧AI基础设施突破与移动端竞争格局变化.md | Knowledge Compiler 发布 candidate-4daca3bc6888b69ac5f2（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/每日扫描-2026-08-12-Agent基础设施趋同与成本工程成熟.md | Knowledge Compiler 发布 candidate-d9d0f8cde678a968dda8（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/W31复盘-MCP企业化-Loop工程与AST-控制流的跨域融合.md | Knowledge Compiler 发布 candidate-44604cc3ddab2cfb7b59（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/2026-W32-周度复盘-Anthropic三连发与端侧Agent工具链.md | Knowledge Compiler 发布 candidate-44ddd78ba924650fa535（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/首次Weekly机会发现-2026-07-19.md | Knowledge Compiler 发布 candidate-fe441faf99a10490f6be（fact citation 100%）
+2026-08-13 | ingest | wiki/syntheses/W30周复盘-Agent安全框架成型-代码迁移商业化-开源模型冲击-taste-skill意外发现.md | Knowledge Compiler 发布 candidate-2ae7e992dd21bcd09ddc（fact citation 100%）
