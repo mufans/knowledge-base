@@ -1208,3 +1208,16 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
 2026-08-14 | Claude Blog采集 | raw/inbox/2026-08-14-Claude博客.md | 采集2篇，最高分9.5
 2026-08-14 | 社交媒体AI技术动态 | raw/inbox/2026-08-14-社交媒体.md | 采集15条（HN+Reddit LocalLLaMA+artificial），X登录墙跳过，推送钉钉Top8
 2026-08-14 | ingest | wiki/syntheses/每日轻扫描-2026-08-14-Claude-Tag-主动协作与-skill-as-served-content-Agent-工程化补位-Android-数字.md | Knowledge Compiler 发布 candidate-03b7427124daefbeb1d1（fact citation 100%）
+
+### 2026-08-14 | ai-knowledge-base百科同步 | v4/knowledge/articles/2026-08-14-*.json（38篇）
+- 扫描完成，27篇score≥7。**新增0篇wiki页面，更新0篇**（正常成功结果）
+- **跳过38篇**：
+  - 已有wiki页面覆盖（21篇）：Goose/AstrBot/browser-use/deer-flow/Cherry-Studio/Ponytail/Pi-Agent-Toolkit/MetaGPT/Headroom/LlamaFactory/RAGFlow/JeecgBoot/LangChain/LangGraph/Dify/mem0/Hermes-Agent/OpenHands/awesome-llm-apps/CowAgent + Gemini-Managed-Agents（background tasks/remote MCP/3.6 Flash/hooks 已于7-28更新覆盖）
+  - 方向不匹配/无技术深度（8篇）：Google产品更新、营销、教育、AI历史等
+  - 评分不足（3篇）：Categorization with NLP、Celebrating 25 years of visual search innovation、Inventing ELIZA
+- **质量校验**：check_quality.py 通过（272页面，0错误，0断链）；dashboard 已更新
+- **同步部署**：11 files changed, 725 insertions(+), 359 deletions(-)
+  - 创建 7 个 raw/inbox 文件（AI论文/Claude博客/GitHub项目/技术动态/社交媒体/每日扫描）
+  - 创建 1 个 wiki/syntheses 综合分析页面
+  - git push + mkdocs gh-deploy 成功
+- **最终报告**：共38篇新文章，入库0篇，跳过38篇（已覆盖/方向不匹配/评分不足）
