@@ -1200,3 +1200,11 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
 2026-08-13 | ingest | wiki/syntheses/首次Weekly机会发现-2026-07-19.md | Knowledge Compiler 发布 candidate-fe441faf99a10490f6be（fact citation 100%）
 2026-08-13 | ingest | wiki/syntheses/W30周复盘-Agent安全框架成型-代码迁移商业化-开源模型冲击-taste-skill意外发现.md | Knowledge Compiler 发布 candidate-2ae7e992dd21bcd09ddc（fact citation 100%）
 2026-08-14 | analyze | raw/projects/deepseek-harness.md | DeepSeek Harness 深度分析（10维度，opencode+deepseek-v4-pro），更新 .project-index.json
+
+## 2026-08-14 新闻热点
+- 采集10条技术新闻，保存至 raw/inbox/2026-08-14-新闻热点.md（Solidot/InfoQ/GitHub Trending）
+2026-08-14 | ingest | raw/inbox/2026-08-14-技术动态.md | 技术动态采集（InfoQ/DEV/Solidot，20条），推送钉钉Top8
+
+2026-08-14 | Claude Blog采集 | raw/inbox/2026-08-14-Claude博客.md | 采集2篇，最高分9.5
+2026-08-14 | 社交媒体AI技术动态 | raw/inbox/2026-08-14-社交媒体.md | 采集15条（HN+Reddit LocalLLaMA+artificial），X登录墙跳过，推送钉钉Top8
+2026-08-14 | ingest | wiki/syntheses/每日轻扫描-2026-08-14-Claude-Tag-主动协作与-skill-as-served-content-Agent-工程化补位-Android-数字.md | Knowledge Compiler 发布 candidate-03b7427124daefbeb1d1（fact citation 100%）

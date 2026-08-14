@@ -29,3 +29,4 @@
 - [2026-W32 周度复盘：Anthropic三连发与端侧Agent工具链](2026-W32-周度复盘-Anthropic三连发与端侧Agent工具链.md)
 - [首次Weekly机会发现（2026-07-19）](首次Weekly机会发现-2026-07-19.md)
 - [W30周复盘：Agent安全框架成型 + 代码迁移商业化 + 开源模型冲击 + taste-skill意外发现](W30周复盘-Agent安全框架成型-代码迁移商业化-开源模型冲击-taste-skill意外发现.md)
+- [每日轻扫描 2026-08-14：Claude Tag 主动协作与 skill-as-served-content，Agent 工程化补位，Android 数字标牌跨域信号](每日轻扫描-2026-08-14-Claude-Tag-主动协作与-skill-as-served-content-Agent-工程化补位-Android-数字.md)
