@@ -1221,3 +1221,32 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
   - 创建 1 个 wiki/syntheses 综合分析页面
   - git push + mkdocs gh-deploy 成功
 - **最终报告**：共38篇新文章，入库0篇，跳过38篇（已覆盖/方向不匹配/评分不足）
+
+## 2026-08-15 新闻热点采集
+- 采集完成：10 条（AI/大模型、编程/开发工具、移动端、云原生/后端、开源/硬件 各 2 条）
+- 来源：Solidot / InfoQ / GitHub Trending 脚本；HN、36kr 本次反爬失败
+- 已推送钉钉 Top 5
+
+## 2026-08-15 周度成长报告（8/9-8/15）
+- 代码提交(SI) 0（连续5周零commit）；新增知识页面5（4综合+1概念Revision-Prompting）；采集文章34；DeepSeek Harness深析1
+- 核心学习：MCP回归HTTP / CC Auto Mode权限模型迁移 / 端侧Agent爆发(Needle/Muse Glimmer) / 成本工程成熟 / 模型价格战+开源回归
+- 关键问题：采集管道fallback链+代理自包含+pi-embedded fallback+Token统计超时四连修
+- 洞察：输入稳定输出断流延续，但「分析型输出」萌芽；移动端AI Agent定位连续第4周验证
+- 下周方向：打破零产出 + 简历AI向改版 + Revision Prompting实测
+
+## 2026-08-15 技术动态采集
+- 采集来源：InfoQ / OSCHINA / Solidot
+- 采集条数：16 条（AI/大模型/Agent、移动端、开发工具、开源）
+- 详情见 raw/inbox/2026-08-15-技术动态.md
+
+## 2026-08-15 社交媒体AI技术动态采集
+- 采集来源：HN / r/LocalLLaMA / r/artificial（Reddit 用 .rss 绕过 403；X/Twitter 需登录，本轮未采集）
+- 采集条数：16 条（本地LLM/端侧 5、移动端AI/Agent落地 5、LLM能力/研究 3、工程化/成本 3）
+- 热点：Qwen 3.8 27B 发布日（Apple Silicon mlx-dspark 3×加速）、GLM 5.3、Android Remote Control MCP、AI Agent 信任危机（经济学人）
+- 详情见 raw/inbox/2026-08-15-社交媒体.md
+
+## 2026-08-15 ai-knowledge-base百科同步
+- 拉取最新代码：新增4篇2026-08-15文章JSON + digest
+- 已处理跳过3篇：zhayujiecowagent（重复，CowAgent.md已覆盖）、the-latest-ai-news（官方新闻汇总无技术深度）、why-do-cognitive-scientists-hate-llms（score 6 低于门槛）
+- 入库1篇：unslothai/unsloth（score 10）→ 创建 wiki/entities/Unsloth.md（Triton内核加速+Agent工具链集成）
+- 质量校验：check_quality.py 通过

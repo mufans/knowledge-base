@@ -127,3 +127,4 @@
 - [OneCLI](OneCLI.md) (2026-07-28)
 - [AstrBot](AstrBot.md) (2026-07-29)
 - [Ponytail](Ponytail.md) (2026-07-29)
+- [Unsloth](Unsloth.md) (2026-08-15)
