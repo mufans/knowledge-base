@@ -1250,3 +1250,29 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
 - 已处理跳过3篇：zhayujiecowagent（重复，CowAgent.md已覆盖）、the-latest-ai-news（官方新闻汇总无技术深度）、why-do-cognitive-scientists-hate-llms（score 6 低于门槛）
 - 入库1篇：unslothai/unsloth（score 10）→ 创建 wiki/entities/Unsloth.md（Triton内核加速+Agent工具链集成）
 - 质量校验：check_quality.py 通过
+
+## 2026-08-16 新闻热点采集
+- 采集源：Solidot、InfoQ、GitHub Trending（HN连接中断、36氪被火山引擎安全检测拦截）
+- 入库10条（AI/大模型、编程/开发工具、移动端、云原生/后端、开源/硬件 各2条）
+- 保存：raw/inbox/2026-08-16-新闻热点.md
+
+## 2026-08-16 技术动态采集
+- 已采集 15 条技术动态（AI/大模型、Agent/云原生/架构、开源/移动端等）
+- 来源：InfoQ、OSChina、Solidot、Dev.to（Reddit ML 域名被解析拦截，跳过）
+- 详见：raw/inbox/2026-08-16-技术动态.md
+
+## 2026-08-16 社交媒体 AI 技术动态采集
+- 采集源：HN / r/LocalLLaMA / r/MachineLearning（r/artificial 被 rate-limit 返回 Blocked，改用 r/MachineLearning；X/Twitter 返回登录页需登录，本轮未采集）
+- 采集条数：15 条（本地LLM/端侧 7、AI Agent/多智能体 2、LLM能力/研究 4、工程化/趋势 2）
+- 热点：Qwen 3.8 27B 发布日持续发酵（35B-A3B MoE 现身、one-shot 马里奥克隆）、Anthropic 多智能体系统研究、Gemma 4 E4B 量化 +140% 推理
+- 详情见 raw/inbox/2026-08-16-社交媒体.md
+
+## 2026-08-16 ai-knowledge-base百科同步
+- 拉取最新代码：新增4篇2026-08-16文章JSON + digest
+- 入库0篇，跳过4篇：
+  - shubhamsabooawesome-llm-apps（score 9，awesome-llm-apps.md已覆盖，无实质更新）
+  - unslothaiunsloth（score 10，Unsloth.md于2026-08-15刚创建，无新内容）
+  - why-do-cognitive-scientists-hate-llms（score 6，低于门槛7）
+  - zhayujiecowagent（score 10，CowAgent.md已覆盖，无实质更新）
+- 质量校验：check_quality.py 通过（273页，0错误，0断链）
+- Dashboard 已更新（273页 / 28 syntheses）
