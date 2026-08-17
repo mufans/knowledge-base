@@ -1276,3 +1276,33 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
   - zhayujiecowagent（score 10，CowAgent.md已覆盖，无实质更新）
 - 质量校验：check_quality.py 通过（273页，0错误，0断链）
 - Dashboard 已更新（273页 / 28 syntheses）
+
+## 2026-08-17 新闻热点
+- [Claude 官方公开 System Prompts 文档](https://platform.claude.com/docs/en/release-notes/system-prompts)
+- [Stripe 超 70 亿美元收购 AI 公司 OpenRouter](https://www.bloomberg.com/news/articles/2026-08-16/stripe-nears-deal-to-buy-ai-firm-openrouter-for-over-7-billion)
+- [DeepSeek 把 Harness 开源了](https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD)
+- [Protobuf 有了 LSP 支持](https://buf.build/blog/protobuf-lsp)
+- [小米 17 Ultra 相机错将太阳误认为月亮](https://www.solidot.org/story?sid=85097)
+- [Uno Platform 6.6 发布](https://www.infoq.cn/article/s1HsC9y7mPAAXRN4VgYs)
+- [Cloudflare Computer 发布](https://www.infoq.cn/article/RaKIH7E4lA9uQ4Iasltb)
+- [Azure Cosmos DB 严重漏洞曝光](https://www.infoq.cn/article/L9IqUuWzSB4zgP0PBqG2)
+- [长鑫科技市值超越腾讯](https://www.solidot.org/story?sid=85098)
+- [procedural-sounds 程序化界面音效](https://github.com/m1ckc3s/procedural-sounds)
+
+## 2026-08-17 技术动态
+- [DeepSeek 把 Harness 开源](https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD)
+- [GLM-5.3 编程能力提高50%](https://www.infoq.cn/news/xWyWwu4ZNptlhpb15tia)
+- [Gemini 3.7 Flash 突袭](https://www.infoq.cn/article/plZY01etBHv3ETOYG0af)
+- [MCP 走向无状态](https://www.infoq.cn/article/412hbBva0NF0AYP0CjzD)
+- [Cloudflare Computer 发布](https://www.infoq.cn/article/RaKIH7E4lA9uQ4Iasltb)
+- [Rust 给 AI 编程立新规](https://www.infoq.cn/article/4t8SKMGI28buD345I2Ta)
+- [Netflix 内部 LLM 服务平台](https://www.infoq.cn/article/J9Zi9LELcpxFRe23PHdY)
+- [腾讯云重构 Agent 沙箱](https://www.infoq.cn/article/KwZX2bLcaHRjuLG95vHI)
+- [Spotify 用 RAP 打通分析与在线服务](https://www.infoq.cn/article/iRjDa2ayZ9KLUtWylQZl)
+- [Rust 语言宣布 LLM 政策](https://www.solidot.org/story?sid=85022)
+- [北美 Linux 桌面使用率飙升至 22%](https://www.solidot.org/story?sid=85068)
+- [Mozilla 撤销 Firefox 签名密钥](https://www.solidot.org/story?sid=85066)
+- [Edge 即将屏蔽 uBlock Origin](https://www.solidot.org/story?sid=85038)
+2026-08-17 | 采集 | raw/inbox/2026-08-17-社交媒体.md | 社交媒体AI动态采集（Reddit r/artificial、r/LocalLLaMA、HN），共16条，X/Twitter被登录墙拦截
+2026-08-17 | ingest | wiki/syntheses/2026-08-17-每日轻扫描-自托管Agent环境-移动端免ROOT载体与内容真实性审计.md | Knowledge Compiler 发布 candidate-1adf1f89755ccd57d651（fact citation 100%）
+2026-08-17 | ingest | wiki/syntheses/2026-W33-周度复盘-端侧Agent工具链补强-Agent成本工程与物理世界接入.md | Knowledge Compiler 发布 candidate-d825e6c5a89317f171e5（fact citation 100%）
