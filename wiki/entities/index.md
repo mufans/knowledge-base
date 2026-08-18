@@ -128,3 +128,4 @@
 - [AstrBot](AstrBot.md) (2026-07-29)
 - [Ponytail](Ponytail.md) (2026-07-29)
 - [Unsloth](Unsloth.md) (2026-08-15)
+- [CodeWhale](CodeWhale.md) (2026-08-18)

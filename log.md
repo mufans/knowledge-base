@@ -1306,3 +1306,29 @@ Agentic Coding成为主旋律 | AI隐私焦虑升温 | AI学习工具需求旺�
 2026-08-17 | 采集 | raw/inbox/2026-08-17-社交媒体.md | 社交媒体AI动态采集（Reddit r/artificial、r/LocalLLaMA、HN），共16条，X/Twitter被登录墙拦截
 2026-08-17 | ingest | wiki/syntheses/2026-08-17-每日轻扫描-自托管Agent环境-移动端免ROOT载体与内容真实性审计.md | Knowledge Compiler 发布 candidate-1adf1f89755ccd57d651（fact citation 100%）
 2026-08-17 | ingest | wiki/syntheses/2026-W33-周度复盘-端侧Agent工具链补强-Agent成本工程与物理世界接入.md | Knowledge Compiler 发布 candidate-d825e6c5a89317f171e5（fact citation 100%）
+
+## 2026-08-18 新闻热点
+
+- [阿里巴巴开放权重模型下载量过去半年突破 30 亿](https://www.solidot.org/story?sid=85118)
+- [DeepSeek 把 Harness 开源了：模型、工具、Agent Loop 全是插件](https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD)
+- [npm 正式上线分阶段发布功能](https://www.infoq.cn/article/5bfbkX6WIN3iKO6FlJwO)
+- [GPU Offload in Rust: Portable, Safe, and Fast](https://arxiv.org/abs/2608.13759)
+- [Fairphone 6 与 PostmarketOS 实现主摄像头正常工作](https://catcrafts.net/posts/fairphone-6-postmarketos-working-main-camera)
+- [渲染内存降95%、GC卡顿率降90%：KMP 是怎么在鸿蒙上跑起来的](https://www.infoq.cn/article/M7RAkplwuMQrs72dSYfj)
+- [A Preview of DuckDB v2.0](https://duckdb.org/2026/08/17/duckdb-20-highlights)
+- [Netflix 详述其基于 Triton 与 vLLM 的内部 LLM 服务平台](https://www.infoq.cn/article/J9Zi9LELcpxFRe23PHdY)
+- [GIMP 准备推出新的项目文件格式](https://www.solidot.org/story?sid=85114)
+- [cumora：AI Agent 团队协作聊天](https://github.com/yetone/cumora)
+
+## 2026-08-18 技术动态采集
+- 采集源：InfoQ、Solidot、dev.to（OSChina 空返回、Reddit 拦截跳过）
+- 共采集 16 条，涵盖 AI/大模型、AI Coding/Agent、开源工具、移动端/架构
+- 详情见 raw/inbox/2026-08-18-技术动态.md
+
+2026-08-18 | Claude Blog采集 | raw/inbox/2026-08-18-Claude博客.md | 采集3篇，最高分9.5
+## 2026-08-18 社交媒体动态采集
+- 采集源：Hacker News（X/Twitter 需登录、Reddit 被反爬拦截，未能采集）
+- 共采集 15 条，涵盖 AI Agent、LLM/模型推理、AI 生态趋势
+- 详情见 raw/inbox/2026-08-18-社交媒体.md
+2026-08-18 | ingest | wiki/syntheses/2026-08-18-每日轻扫描-DSH-生态爆发与端侧推理信号.md | Knowledge Compiler 发布 candidate-e5aa5ecb8d06e2119b39（fact citation 100%）
+2026-08-18 | ingest | v4/knowledge/articles/2026-08-18 (35篇) | 创建2篇wiki页面：Are-Latent-Reasoning-Models-Interpretable(8.0)、CodeWhale(8.0)；跳过33篇（23篇已有页面无新内容、AMIE医疗领域不匹配、Sheets/AI-Mode等低技术含量产品文）

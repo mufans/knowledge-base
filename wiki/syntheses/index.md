@@ -32,3 +32,4 @@
 - [每日轻扫描 2026-08-14：Claude Tag 主动协作与 skill-as-served-content，Agent 工程化补位，Android 数字标牌跨域信号](每日轻扫描-2026-08-14-Claude-Tag-主动协作与-skill-as-served-content-Agent-工程化补位-Android-数字.md)
 - [2026-08-17 每日轻扫描：自托管Agent环境、移动端免ROOT载体与内容真实性审计](2026-08-17-每日轻扫描-自托管Agent环境-移动端免ROOT载体与内容真实性审计.md)
 - [2026-W33 周度复盘：端侧Agent工具链补强、Agent成本工程与物理世界接入](2026-W33-周度复盘-端侧Agent工具链补强-Agent成本工程与物理世界接入.md)
+- [2026-08-18 每日轻扫描：DSH 生态爆发与端侧推理信号](2026-08-18-每日轻扫描-DSH-生态爆发与端侧推理信号.md)

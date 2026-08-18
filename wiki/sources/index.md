@@ -62,3 +62,4 @@
 - [Env-Free-Synthetic-Data-API-Calling](Env-Free-Synthetic-Data-API-Calling.md) (2026-07-21)
 - [Claude-Model-Selection-Guide](Claude-Model-Selection-Guide.md) (2026-07-25)
 - [Verifiable-AI-Inference](Verifiable-AI-Inference.md) (2026-07-29)
+- [Are-Latent-Reasoning-Models-Interpretable](Are-Latent-Reasoning-Models-Interpretable.md) (2026-08-18)
